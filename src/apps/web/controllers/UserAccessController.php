@@ -3,7 +3,6 @@
 namespace EuroMillions\web\controllers;
 
 use Captcha\Captcha;
-use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\forms\ForgotPasswordForm;
@@ -13,10 +12,8 @@ use EuroMillions\web\forms\SignUpForm;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\GeoService;
 use EuroMillions\web\services\LanguageService;
-use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\vo\Email;
 use EuroMillions\shared\vo\results\ActionResult;
-use Phalcon\Di;
 use Phalcon\Validation\Message;
 
 class UserAccessController extends ControllerBase
@@ -40,10 +37,6 @@ class UserAccessController extends ControllerBase
 
     public function signInAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-
         $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
@@ -84,8 +77,8 @@ class UserAccessController extends ControllerBase
         }
 
         $this->view->pick('sign-in/index');
-        $this->tag->prependTitle($translationAdapter->query('signintag_name'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('signintag_desc'));
+        $this->tag->prependTitle($this->languageService->translate('signintag_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('signintag_desc'));
 
         return $this->view->setVars([
             'which_form' => 'in',
@@ -97,18 +90,16 @@ class UserAccessController extends ControllerBase
             'time_to_remain_draw' => false,
             'last_minute' => false,
             'draw_date' => '',
+            'canonical' => 'canonical_signin',
             'timeout_to_closing_modal' => 30 * 60 * 1000,
             'minutes_to_close' => false,
             'form_errors' => $this->getErrorsArray(),
+            'pageController' => 'signin'
         ]);
     }
 
     public function signUpAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-
         $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
@@ -154,8 +145,8 @@ class UserAccessController extends ControllerBase
         }
 
         $this->view->pick('sign-in/index');
-        $this->tag->prependTitle($translationAdapter->query('signuptag_name'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('signuptag_desc'));
+        $this->tag->prependTitle($this->languageService->translate('signuptag_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('signuptag_desc'));
         return $this->view->setVars([
             'which_form' => 'up',
             'signinform' => $sign_in_form,
@@ -166,9 +157,11 @@ class UserAccessController extends ControllerBase
             'time_to_remain_draw' => false,
             'last_minute' => false,
             'draw_date' => '',
+            'canonical' => 'canonical_signup',
             'timeout_to_closing_modal' => 30 * 60 * 1000,
             'minutes_to_close' => false,
             'form_errors' => $form_errors,
+            'pageController' => 'signup'
         ]);
     }
 
@@ -192,10 +185,6 @@ class UserAccessController extends ControllerBase
 
     public function forgotPasswordAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-
         $errors = [];
         $forgot_password_form = new ForgotPasswordForm();
         $message = '';
@@ -225,8 +214,8 @@ class UserAccessController extends ControllerBase
             }
         }
 
-        $this->tag->prependTitle($translationAdapter->query('forgotpw_name'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('forgotpw_desc'));
+        $this->tag->prependTitle($this->languageService->translate('forgotpw_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('forgotpw_desc'));
 
         $this->view->pick('sign-in/forgot-psw');
         return $this->view->setVars([
@@ -235,6 +224,7 @@ class UserAccessController extends ControllerBase
             'errors' => $errors,
             'currency_list' => [],
             'message' => $message,
+            'pageController' => 'forgotpsw'
         ]);
     }
 

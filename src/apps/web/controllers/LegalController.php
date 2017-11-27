@@ -2,54 +2,35 @@
 
 namespace EuroMillions\web\controllers;
 
-use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
-use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
-use Phalcon\Di;
 
 class LegalController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-
-        $this->tag->prependTitle($translationAdapter->query('terms_name'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('terms_desc'));
+        $this->tag->prependTitle($this->languageService->translate('terms_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('terms_desc'));
+        $this->view->setVar('pageController', 'legalIndex');
     }
 
     public function privacyAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-
-        $this->tag->prependTitle($translationAdapter->query('Privacy Policy'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('privacy_desc'));
-
+        $this->tag->prependTitle($this->languageService->translate('Privacy Policy'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('privacy_desc'));
+        $this->view->setVar('pageController', 'legalPrivacy');
     }
 
     public function aboutAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-
-        $this->tag->prependTitle($translationAdapter->query('About Us'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('aboutus_desc'));
-
+        $this->tag->prependTitle($this->languageService->translate('About Us'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('aboutus_desc'));
+        $this->view->setVar('pageController', 'legalAbout');
     }
 
     public function cookiesAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-
-
-        $this->tag->prependTitle($translationAdapter->query('Cookies'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('cookies_desc'));
-
+        $this->tag->prependTitle($this->languageService->translate('Cookies'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('cookies_desc'));
+        $this->view->setVar('pageController', 'legalCookies');
     }
 }

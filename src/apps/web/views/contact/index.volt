@@ -9,6 +9,8 @@
 
 {% block template_css %}
 
+    <link Rel="Canonical" href="{{ language.translate('canonical_contact') }}" />
+
 {% endblock %}
 
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}

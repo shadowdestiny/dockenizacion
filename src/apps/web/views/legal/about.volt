@@ -1,5 +1,8 @@
 {% extends "main.volt" %}
-{% block template_css %}<link rel="stylesheet" href="/w/css/legal.css">{% endblock %}
+{% block template_css %}
+    <link rel="stylesheet" href="/w/css/legal.css">
+    <link Rel="Canonical" href="{{ language.translate('canonical_legal_about') }}" />
+{% endblock %}
 {% block bodyClass %}about{% endblock %}
 
 {% block header %}

@@ -2,21 +2,17 @@
 
 namespace EuroMillions\web\controllers;
 
-use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\GuestContactForm;
-use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\vo\ContactFormInfo;
 use EuroMillions\web\vo\Email;
-use Phalcon\Di;
 use Phalcon\Forms\Element\Text;
 use Captcha\Captcha;
 use EuroMillions\web\components\ReCaptchaWrapper;
 
 class ContactController extends PublicSiteControllerBase
 {
-
     public function indexAction()
     {
         $errors = [];
@@ -80,12 +76,9 @@ class ContactController extends PublicSiteControllerBase
             }
         }
         $this->view->pick('contact/index');
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
 
-        $this->tag->prependTitle($translationAdapter->query('contact_name'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('contact_desc'));
+        $this->tag->prependTitle($this->languageService->translate('contact_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('contact_desc'));
 
         return $this->view->setVars([
             'form_errors' => $form_errors,
@@ -93,10 +86,10 @@ class ContactController extends PublicSiteControllerBase
             'guestContactForm' => $guestContactForm,
             'message' => $message,
             'class' => $class,
-            'captcha' => $captcha->html()
+            'captcha' => $captcha->html(),
+            'pageController' => 'contact',
         ]);
     }
-
 
     /**
      * @return array

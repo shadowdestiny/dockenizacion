@@ -1,58 +1,64 @@
 /* Initialise variables */
 
 var globalFunctions = {
-  setCurrency: function (value) {
-    $.ajax({
-      url: '/ajax/user-settings/setCurrency/' + value,
-      type: 'GET',
-      dataType: "json",
-      success: function (json) {
-        if (json.result = 'OK') {
-          location.href = location.href.split('#')[0];
-        }
-      },
-      error: function (xhr, status, errorThrown) {
-        alert("Sorry, there was a problem!");
-        console.log("Error: " + errorThrown);
-        console.log("Status: " + status);
-        console.dir(xhr);
-      },
-    });
-  },
-  setLanguage: function (value) {
-    $.ajax({
-      url: '/ajax/user-settings/setLanguage/' + value,
-      type: 'GET',
-      dataType: "json",
-      success: function (json) {
-        if (json.result = 'OK') {
-          location.href = location.href.split('#')[0];
-        }
-      },
-      error: function (xhr, status, errorThrown) {
-        alert("Sorry, there was a problem!");
-        console.log("Error: " + errorThrown);
-        console.log("Status: " + status);
-        console.dir(xhr);
-      },
-    });
-  },
-  playCart: function (params) {
-    $.ajax({
-      url: '/ajax/play-temporarily/temporarilyCart/',
-      data: params,
-      type: 'POST',
-      dataType: "json",
-      success: function (json) {
-        if (json.result = 'OK') {
-          location.href = json.url;
-        }
-      },
-      error: function (xhr, status, errorThrown) {
-        //EMTD manage errrors
-      },
-    });
-  }
+    setCurrency: function (value) {
+        $.ajax({
+            url: '/ajax/user-settings/setCurrency/' + value,
+            type: 'GET',
+            dataType: "json",
+            success: function (json) {
+                if (json.result = 'OK') {
+                    location.href = location.href.split('#')[0];
+                }
+            },
+            error: function (xhr, status, errorThrown) {
+                alert("Sorry, there was a problem!");
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+                console.dir(xhr);
+            },
+        });
+    },
+    setLanguage: function (value) {
+        $.ajax({
+            url: '/ajax/user-settings/setLanguage/' + value,
+            type: 'GET',
+            dataType: "json",
+            success: function (json) {
+                if (json.result = 'OK') {
+                    if (json.url === 0) {
+                        location.href = location.href.split('#')[0];
+                    } else {
+                        location.href = json.url;
+                    }
+
+
+                }
+            },
+            error: function (xhr, status, errorThrown) {
+                alert("Sorry, there was a problem!");
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+                console.dir(xhr);
+            },
+        });
+    },
+    playCart: function (params) {
+        $.ajax({
+            url: '/ajax/play-temporarily/temporarilyCart/',
+            data: params,
+            type: 'POST',
+            dataType: "json",
+            success: function (json) {
+                if (json.result = 'OK') {
+                    location.href = json.url;
+                }
+            },
+            error: function (xhr, status, errorThrown) {
+                //EMTD manage errrors
+            },
+        });
+    }
 };
 
 var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();

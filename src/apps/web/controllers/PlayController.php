@@ -3,21 +3,15 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\DateTimeUtil;
-use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use Money\Currency;
-use Phalcon\Di;
 
 class PlayController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
 
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
         $play_dates = $this->lotteryService->getRecurrentDrawDates('Euromillions');
@@ -38,8 +32,8 @@ class PlayController extends PublicSiteControllerBase
             $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
         }
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
-        $this->tag->prependTitle($translationAdapter->query('play_em_name') . ViewHelper::formatJackpotNoCents($jackpot));
-        MetaDescriptionTag::setDescription($translationAdapter->query('play_em_desc'));
+        $this->tag->prependTitle($this->languageService->translate('play_em_name') . ViewHelper::formatJackpotNoCents($jackpot));
+        MetaDescriptionTag::setDescription($this->languageService->translate('play_em_desc'));
 
         return $this->view->setVars([
             'jackpot_value' => ViewHelper::formatJackpotNoCents($jackpot),
@@ -54,6 +48,7 @@ class PlayController extends PublicSiteControllerBase
             'discount_lines' => json_encode($bundlePriceDTO),
             'draws_number' => $bundlePriceDTO->bundlePlayDTOActive->getDraws(),
             'discount' => $bundlePriceDTO->bundlePlayDTOActive->getDiscount(),
+            'pageController' => 'euroPlay',
         ]);
     }
 }
