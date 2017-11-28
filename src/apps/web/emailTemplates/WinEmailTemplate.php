@@ -27,23 +27,8 @@ class WinEmailTemplate extends EmailTemplateDecorator
         $strategy = $strategy ? $strategy : new JackpotDataEmailTemplateStrategy();
         $data = $strategy->getData();
 
-//        $language=$this->user->getDefaultLanguage();
-//
-//        if ($language="en") {
-//            // Win Email English Version Template ID= 625142
-//            $template_id="625142";
-//        } elseif ($language="ru") {
-//            // Win Email Russian Version Template ID= 4020263
-//            $template_id="4020263";
-//        } else {
-//            $template_id="625142";
-//        }
-
         $vars = [
-//            'template' => $template_id,
             'template' => '4020263',
-//            'template' => '625142', Old design
-
             'subject' => 'Congratulations',
             'vars' =>
                 [
@@ -60,19 +45,19 @@ class WinEmailTemplate extends EmailTemplateDecorator
                         'content' => $this->getStarBalls()
                     ],
                     [
-                        'name'    => 'user_name',
+                        'name' => 'user_name',
                         'content' => $this->user->getName()
                     ],
                     [
-                        'name'    => 'winning',
-                        'content' => number_format((float) $this->result_amount->getAmount() / 100,2,".",",")
+                        'name' => 'winning',
+                        'content' => number_format((float)$this->result_amount->getAmount() / 100, 2, ".", ",")
                     ],
                     [
-                        'name'    => 'url_play',
+                        'name' => 'url_play',
                         'content' => $this->config . '/play'
                     ],
                     [
-                        'name'    => 'url_account',
+                        'name' => 'url_account',
                         'content' => $this->config . '/account/wallet'
                     ],
                     [
@@ -91,7 +76,7 @@ class WinEmailTemplate extends EmailTemplateDecorator
         ];
 
         $data = $this->emailTemplateDataStrategy->getData($strategy);
-        if( $this->user->getUserCurrency()->getName() != 'EUR' ) {
+        if ($this->user->getUserCurrency()->getName() != 'EUR') {
             $vars['vars'][] = [
                 'name' => 'amount_converted',
                 'content' => $data['amount_converted']
