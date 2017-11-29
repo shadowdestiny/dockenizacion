@@ -28,16 +28,8 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
         $jackpot = $data['jackpot_amount'];
         $last_draw_date = $data['last_draw_date'];
 
-        $language = $this->user->getDefaultLanguage();
-
-        if ($language == "ru") {
-            // Results Email Russian Version Template ID= 4000783
-            $template_id = "4000783";
-            $subject = 'Результаты розыгрышей последней лотереи';
-        } else {
-            $template_id = "4021404";
-            $subject = 'Latest results';
-        }
+        $template_id = "4021404";
+        $subject = 'Latest results';
 
         $vars = [
             //'template' => '624601', // Old template email ID
