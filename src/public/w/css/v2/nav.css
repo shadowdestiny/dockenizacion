@@ -1,5 +1,5 @@
 /*
-Error: Undefined variable: "$screen-ipad-v".
+Error: Undefined variable: "$screen-xs".
         on line 12 of /src/compass_web/sass/v2/nav.scss
 
 7:   background: #fff;
@@ -7,12 +7,12 @@ Error: Undefined variable: "$screen-ipad-v".
 9:   padding-top: 31px;
 10:   padding-bottom: 10px;
 11: 
-12:   @media only screen and (min-width: $screen-ipad-v) {
+12:   @media only screen and (min-width: $screen-xs) {
 13:     min-height: 94px;
-14: 
-15:     position: relative;
-16:     background: #fff;
-17:     z-index: 10;
+14:   }
+15: 
+16:   @media only screen and (min-width: $screen-ipad-v) {
+17:     min-height: 94px;
 
 Backtrace:
 /src/compass_web/sass/v2/nav.scss:12
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 12 of /src/compass_web/sass/v2/nav.scss\A \A 7:   background: #fff;\A 8:   z-index: 10;\A 9:   padding-top: 31px;\A 10:   padding-bottom: 10px;\A 11: \A 12:   @media only screen and (min-width: $screen-ipad-v) {\A 13:     min-height: 94px;\A 14: \A 15:     position: relative;\A 16:     background: #fff;\A 17:     z-index: 10;"; }
+  content: "Error: Undefined variable: \"$screen-xs\".\A         on line 12 of /src/compass_web/sass/v2/nav.scss\A \A 7:   background: #fff;\A 8:   z-index: 10;\A 9:   padding-top: 31px;\A 10:   padding-bottom: 10px;\A 11: \A 12:   @media only screen and (min-width: $screen-xs) {\A 13:     min-height: 94px;\A 14:   }\A 15: \A 16:   @media only screen and (min-width: $screen-ipad-v) {\A 17:     min-height: 94px;"; }

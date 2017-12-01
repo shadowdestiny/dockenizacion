@@ -1,13 +1,17 @@
 // Navigation
 
 .top-nav {
-  min-height: 94px;
+  min-height: 73px;
 
   position: relative;
   background: #fff;
   z-index: 10;
   padding-top: 31px;
   padding-bottom: 10px;
+
+  @media only screen and (min-width: $screen-xs) {
+    min-height: 94px;
+  }
 
   @media only screen and (min-width: $screen-ipad-v) {
     min-height: 94px;
@@ -294,7 +298,7 @@
 
 .logo {
   float: left;
-  margin: 7px 0px 0 52px;
+  margin: 3px 0px 0 52px;
   width: 198px;
 
   @media only screen and (min-width: $screen-xs) {

@@ -50,6 +50,10 @@
 }
 
 .menu-ham {
+
+  top: -39px;
+  left: 10px;
+
   .bar {
     margin: -7px 0 0 0px;
 
@@ -119,8 +123,8 @@
     border: 1px solid #fff;
     background-color: transparent;
     //top: 30px;
-    top: -60px;
-    left: 4px;
+    top: -44px;
+    left: 7px;
 
     @media only screen and (min-width: $screen-xs) {
       top: -63px;
