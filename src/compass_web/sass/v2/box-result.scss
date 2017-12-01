@@ -128,14 +128,8 @@
         .view-more-a {
           display: none;
 
-          @media only screen and (min-width: $screen-xs) {
-            display: block;
-            font-size: 11px;
-            margin-right: -5px;
-            margin-bottom: -3px;
-          }
-
           @media only screen and (min-width: $screen-ipad-v) {
+            display: block;
             font-size: 11px;
             margin-right: -5px;
             margin-bottom: -3px;

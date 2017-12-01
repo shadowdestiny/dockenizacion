@@ -54,6 +54,11 @@
   top: -39px;
   left: 10px;
 
+  @media only screen and (min-width: $screen-xs) {
+    top: -60px;
+    left: 10px;
+  }
+
   .bar {
     margin: -7px 0 0 0px;
 
