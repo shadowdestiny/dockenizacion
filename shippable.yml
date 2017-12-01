@@ -27,16 +27,16 @@ build:
     - redis-server &
     - cd src
     - composer install --prefer-source --no-interaction
-#    - cd react
-#    - npm install
-#    - cd ../..
+    - cd react
+    - npm install
+    - cd ../..
     - cd ..
     - mysql -e 'drop database if exists euromillions_test;create database euromillions_test;'
     - mkdir -p shippable/codecoverage
     - mkdir -p shippable/testresults
     - dev-scripts/schema_migration.sh shippable
     - src/vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --configuration src/tests/phpunit.xml --testsuite=unit+integration
-#    - cd src/react;npm test
+    - cd src/react;npm test
 
   on_success:
     - curl --data "environment=staging&version=master" http://62.57.159.66:3000/deploy/
