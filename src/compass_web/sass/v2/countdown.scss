@@ -12,11 +12,15 @@
         //font-family: WorkSans;
         font-family: $ff1;
         color:  #ffffff;
-        font-size: 13px;
+        font-size: 26px;
         //font-weight: 900;
         text-align: left;
         text-transform: uppercase;
         margin-bottom: 7px;
+
+        @media only screen and (min-width: $screen-xs) {
+          font-size: 13px;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           //font-family: WorkSans;
