@@ -13,11 +13,26 @@
   border: 1px solid #fff;
   padding: 0;
   outline: none;
-  width: 39px;
-  height: 38px;
+  width: 30px;
+  height: 30px;
   transition: all .4s ease;
   background: #fff;
   z-index: 10;
+
+  @media only screen and (min-width: $screen-xs) {
+    position: absolute;
+    //top: 33px;
+    top: -60px;
+    left: 10px;
+    border: 1px solid #fff;
+    padding: 0;
+    outline: none;
+    width: 39px;
+    height: 38px;
+    transition: all .4s ease;
+    background: #fff;
+    z-index: 10;
+  }
 
   @media only screen and (min-width: $screen-ipad-v) {
     position: absolute;
@@ -46,11 +61,22 @@
     content: '';
     position: absolute;
     cursor: pointer;
-    height: 8px;
+    height: 7px;
     display: block;
     transition: all 500ms ease-in-out;
     background: #000;
-    width: 37px;
+    width: 30px;
+
+    @media only screen and (min-width: $screen-xs) {
+      content: '';
+      position: absolute;
+      cursor: pointer;
+      height: 8px;
+      display: block;
+      transition: all 500ms ease-in-out;
+      background: #000;
+      width: 37px;
+    }
 
     @media only screen and (min-width: $screen-ipad-v) {
       content: '';
@@ -65,7 +91,11 @@
   }
 
   .bar:before {
-    top: -12px;
+    top: -10px;
+
+    @media only screen and (min-width: $screen-xs) {
+      top: -12px;
+    }
 
     @media only screen and (min-width: $screen-ipad-v) {
       top: -18px;
@@ -73,7 +103,11 @@
   }
 
   .bar:after {
-    bottom: -12px;
+    bottom: -10px;
+
+    @media only screen and (min-width: $screen-xs) {
+      bottom: -12px;
+    }
 
     @media only screen and (min-width: $screen-ipad-v) {
       bottom: -18px;
@@ -85,8 +119,13 @@
     border: 1px solid #fff;
     background-color: transparent;
     //top: 30px;
-    top: -63px;
-    left: 7px;
+    top: -60px;
+    left: 4px;
+
+    @media only screen and (min-width: $screen-xs) {
+      top: -63px;
+      left: 7px;
+    }
 
     @media only screen and (min-width: $screen-ipad-v) {
       transform: rotate(90deg);
