@@ -295,6 +295,14 @@ $(document).ready(function () {
     });
   }
 
+  //Top nav mobile account menu
+  if ($('.top-nav--mobile-account--icon').length) {
+    $('.top-nav--mobile-account--icon, .top-nav--mobile-account--menu--close').click(function () {
+      $('.top-nav--mobile-account--menu').stop().toggle();
+    });
+  }
+
+
 
 });
 
