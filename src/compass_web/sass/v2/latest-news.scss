@@ -2,8 +2,10 @@
 .latest-news {
   margin-top: -19px;
   padding-bottom: 0px;
+  display: none;
 
   @media only screen and (min-width: $screen-ipad-v) {
+    display: block;
     margin-top: -19px;
     padding-bottom: 0px;
   }
@@ -29,9 +31,12 @@
     @media only screen and (min-width: $screen-ipad-v) {
       border-top: 0;
       padding-top: 0;
-      margin-bottom: -16px;
+      //margin-bottom: -16px;
+      margin-bottom: 16px;
 
-      padding-left: 16px;
+      //padding-left: 16px;
+      padding-left: 0px;
+
       font-size: 38px;
     }
 

@@ -1,7 +1,21 @@
 .box-result {
   border: 0;
   margin-bottom: 80px;
-  padding-top: 10px;
+  padding: 0px;
+
+  margin-left: -$screen-xxs-wrapper--padding;
+  margin-right: -$screen-xxs-wrapper--padding;
+  width: 100vw;
+
+  @media only screen and (min-width: $screen-xs) {
+    border: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    margin-bottom: 80px;
+    padding-top: 10px;
+  }
+
 
   @media only screen and (min-width: $screen-ipad-v) {
     padding-top: 0;
@@ -13,14 +27,27 @@
 
   .result--block {
     float: left;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #9b9b9b;
+    //border-style: solid;
+    //border-width: 2px;
+    //border-color: #9b9b9b;
     box-sizing: border-box;
     background-color: #ffffff;
     width: 100%;
-    padding: 17px 19px 12px 15px;
-    border-radius: 0;
+    //padding: 17px 19px 12px 15px;
+    //border-radius: 0;
+
+    @media only screen and (min-width: $screen-xs) {
+      float: left;
+      border-style: solid;
+      border-width: 2px;
+      border-color: #9b9b9b;
+      box-sizing: border-box;
+      background-color: #ffffff;
+      width: 100%;
+      padding: 17px 19px 12px 15px;
+      border-radius: 0;
+      margin: 0;
+    }
 
     @media only screen and (min-width: $screen-ipad-v) {
       float: left;
@@ -48,8 +75,15 @@
       overflow: hidden;
 
       .h2 {
-        margin-bottom: 11px;
-        font-size: 22px;
+        margin-bottom: 4px;
+        font-size: 23px;
+        padding-left: 10px;
+
+        @media only screen and (min-width: $screen-xs) {
+          padding-left: 0;
+          margin-bottom: 11px;
+          font-size: 22px;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           margin-bottom: 11px;
@@ -92,11 +126,10 @@
           position: relative;
         }
         .view-more-a {
-          font-size: 11px;
-          margin-right: -5px;
-          margin-bottom: -3px;
+          display: none;
 
           @media only screen and (min-width: $screen-ipad-v) {
+            display: block;
             font-size: 11px;
             margin-right: -5px;
             margin-bottom: -3px;
@@ -146,12 +179,23 @@
       .result--line{
         overflow: hidden;
         border-top: 1px solid #333333;
-        padding-top: 9px;
-        padding-left: 3px;
+        padding-top: 3px;
+        padding-left: 11px;
         padding-bottom: 0px;
 
         margin-left: 0px;
         margin-right: 0px;
+
+        @media only screen and (min-width: $screen-xs) {
+          border-top: 1px solid #333333;
+          padding-top: 9px;
+          padding-left: 3px;
+          padding-bottom: 0px;
+
+          margin-left: 0px;
+          margin-right: 0px;
+
+        }
 
 
         @media only screen and (min-width: $screen-ipad-v) {
@@ -188,10 +232,21 @@
           color:  #333333;
           text-align: left;
 
-          font-size: 15px;
+          font-size: 11px;
           font-weight: 700;
-          margin-bottom: 16px;
+          margin-bottom: 3px;
           padding-left: 0px;
+
+          @media only screen and (min-width: $screen-xs) {
+            font-family: $ff2;
+            color:  #333333;
+            text-align: left;
+
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            padding-left: 0px;
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             font-family: $ff2;
@@ -222,28 +277,46 @@
         .numbers.small {
           li {
             text-align: center;
-            width: 25px;
-            height: 26px;
-            line-height: 25px;
+            width: 27px;
+            height: 27px;
+            line-height: 27px;
 
             background-image: url('../img/home/result-block/desktop/ellipse.svg');
             background-repeat: no-repeat;
             background-position: 0 0;
             text-shadow: none;
             letter-spacing: 0;
-            -webkit-background-size: 25px;
-            background-size: 25px;
+            -webkit-background-size: 27px;
+            background-size: 27px;
 
             font-family: $ff2;
             color:  #ffffff;
             font-size: 12px;
             font-weight: 700;
             //margin-right: 10px;
-            margin-right: 0;
+            margin-right: 11px;
             margin-left: 0;
             position: relative;
             top: -1px;
 
+            @media only screen and (min-width: $screen-xs) {
+              width: 25px;
+              height: 26px;
+              line-height: 25px;
+
+              -webkit-background-size: 25px;
+              background-size: 25px;
+
+              font-family: $ff2;
+              color:  #ffffff;
+              font-size: 12px;
+              font-weight: 700;
+              //margin-right: 10px;
+              margin-right: 0;
+              margin-left: 0;
+              position: relative;
+              top: -1px;
+            }
 
             @media only screen and (min-width: $screen-ipad-v) {
               text-align: center;
@@ -310,21 +383,35 @@
             background-image: url('../img/home/result-block/desktop/star.svg');
             background-repeat: no-repeat;
             background-position: 0 0;
-            -webkit-background-size: 30px;
-            background-size: 30px;
+            -webkit-background-size: 34px;
+            background-size: 34px;
 
             text-indent: 0;
             color:  #333333;
 
-            width: 30px;
+            width: 34px;
             height: 30px;
-            margin-left: 0px;
+            margin-left: 16px;
             margin-right: 2px;
-            line-height: 25px;
+            line-height: 28px;
 
             position: relative;
             top: 0px;
             padding-top: 4px;
+
+            @media only screen and (min-width: $screen-xs) {
+              -webkit-background-size: 30px;
+              background-size: 30px;
+              width: 30px;
+              height: 30px;
+              margin-left: 0px;
+              margin-right: 2px;
+              line-height: 25px;
+
+              position: relative;
+              top: 0px;
+              padding-top: 4px;
+            }
 
             @media only screen and (min-width: $screen-ipad-v) {
               background-image: url('../img/home/result-block/desktop/star.svg');
@@ -409,8 +496,16 @@
 
         .numbers {
           font-weight: 700;
-          margin-bottom: 8px;
+          margin-bottom: 7px;
           width: 100%;
+          text-align: left;
+
+          @media only screen and (min-width: $screen-xs) {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 8px;
+            width: 100%;
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             font-weight: 700;

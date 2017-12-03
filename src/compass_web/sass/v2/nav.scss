@@ -1,13 +1,17 @@
 // Navigation
 
 .top-nav {
-  min-height: 94px;
+  min-height: 73px;
 
   position: relative;
   background: #fff;
   z-index: 10;
   padding-top: 31px;
   padding-bottom: 10px;
+
+  @media only screen and (min-width: $screen-xs) {
+    min-height: 94px;
+  }
 
   @media only screen and (min-width: $screen-ipad-v) {
     min-height: 94px;
@@ -294,18 +298,33 @@
 
 .logo {
   float: left;
-  margin: 4px 0px 0 44px;
-  width: 70px;
+  margin: 3px 0px 0 52px;
+  width: 198px;
 
+  @media only screen and (min-width: $screen-xs) {
+    margin: 4px 0px 0 44px;
+    width: 70px;
+  }
   @media only screen and (min-width: $screen-ipad-v) {
     margin: 8px 0px 0 85px;
     width: 296px;
   }
 
-  .img--logo-mobile {
+  .img--logo-xxs {
     display: block;
-    width: 58px;
-    //display: none;
+
+    @media only screen and (min-width: $screen-xs) {
+      display: none;
+    }
+  }
+
+  .img--logo-mobile {
+    display: none;
+
+    @media only screen and (min-width: $screen-xs) {
+      display: block;
+      width: 58px;
+    }
   }
 
   .img--logo-tablet {
@@ -357,5 +376,45 @@
     }
   }
 
+
+}
+
+.ul-top-nav.xs--min {
+  display: none;
+
+  @media only screen and (min-width: $screen-xs) {
+    display: block;
+  }
+}
+
+.sign-block.xxs--max {
+  display: block;
+  overflow: hidden;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  @media only screen and (min-width: $screen-xs) {
+    display: none;
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      width: 50%;
+      float: left;
+      padding: 0;
+      margin: 0;
+
+      .btn-theme {
+        width: 144px;
+        height:34px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+    }
+  }
 
 }

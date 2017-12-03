@@ -80,7 +80,8 @@
         //width: 23%;
         //padding-right: 30px;
       }
-      @media only screen and (min-width: $screen-desktop) {}
+      @media only screen and (min-width: $screen-desktop) {
+      }
     }
 
     .col20per:nth-child(odd) {
@@ -88,8 +89,6 @@
     }
   }
 }
-
-
 
 .footer-top {
   background-color: #e1e1e1;
@@ -176,7 +175,6 @@
           max-width: 100%;
         }
 
-
         &.footer-top--eu {
           top: 7px;
           left: 28px;
@@ -210,13 +208,13 @@
           @media only screen and (min-width: $screen-ipad-h) {
             top: 9px;
             left: -9px;
-            width:auto;
+            width: auto;
           }
 
           @media only screen and (min-width: $screen-desktop) {
             top: 9px;
             left: -9px;
-            width:auto;
+            width: auto;
           }
         }
         &.footer-top--18plus {
@@ -260,5 +258,72 @@
       }
     }
   }
+
+}
+
+@media only screen and (max-width: $width-pre-tablet) {
+  footer.main-foot {
+      .box-links {
+        margin-bottom: 20px;
+
+        .col20per {
+          border-bottom: 1px solid #b5b5b5!important;
+          margin-bottom: 0;
+          padding-bottom: 6px;
+
+          strong {
+            color:  #9b9b9b;
+            font-size: 16px;
+            font-weight: 400;
+            text-align: left;
+            position: relative;
+            display: block;
+            padding-top: 8px;
+            padding-bottom: 3px;
+          }
+          strong:before {
+            position: absolute;
+            top: 12px;
+            right: 0px;
+            content: '';
+            display: block;
+            width: 22px;
+            height: 13px;
+            background-image: url('../img/footer/accordion/mobile/accordion-arrow.svg');
+            background-repeat: no-repeat;
+            -webkit-background-size: 22px;
+            background-size: 22px;
+            cursor: pointer;
+          }
+
+          ul {
+            display: none;
+
+            li {
+              border: 0;
+              a {
+                text-decoration: none;
+                color:  #f8ce0d;
+                font-size: 14px;
+                font-weight: 400;
+                text-align: left;
+                border: 0;
+                padding: 0;
+              }
+            }
+          }
+
+          &.expanded {
+            strong:before {
+              -ms-transform: rotate(180deg); /* IE 9 */
+              -webkit-transform: rotate(180deg); /* Safari */
+              transform: rotate(180deg);
+            }
+          }
+
+        }
+
+      }
+    }
 
 }

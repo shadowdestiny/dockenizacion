@@ -1,21 +1,21 @@
 /*
-Error: Undefined variable: "$screen-ipad-v".
-        on line 16 of /src/compass_web/sass/v2/top-banner.scss
+Error: Undefined variable: "$screen-xs".
+        on line 15 of /src/compass_web/sass/v2/top-banner.scss
 
-11:     background-repeat: no-repeat;
-12:     background-position: 50% 50%;
-13:     -webkit-background-size: cover;
-14:     background-size: cover;
-15: 
-16:     @media only screen and (min-width: $screen-ipad-v) {
-17:       height: 150px;
-18:       overflow: hidden;
-19:       padding-top: 64px;
-20:       margin-bottom: 23px;
-21: 
+10:     background-repeat: no-repeat;
+11:     background-position: 50% 50%;
+12:     -webkit-background-size: cover;
+13:     background-size: cover;
+14: 
+15:     @media only screen and (min-width: $screen-xs) {
+16:       margin-bottom: 10px;
+17:     }
+18: 
+19:     @media only screen and (min-width: $screen-ipad-v) {
+20:       height: 150px;
 
 Backtrace:
-/src/compass_web/sass/v2/top-banner.scss:16
+/src/compass_web/sass/v2/top-banner.scss:15
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -81,4 +81,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 16 of /src/compass_web/sass/v2/top-banner.scss\A \A 11:     background-repeat: no-repeat;\A 12:     background-position: 50% 50%;\A 13:     -webkit-background-size: cover;\A 14:     background-size: cover;\A 15: \A 16:     @media only screen and (min-width: $screen-ipad-v) {\A 17:       height: 150px;\A 18:       overflow: hidden;\A 19:       padding-top: 64px;\A 20:       margin-bottom: 23px;\A 21: "; }
+  content: "Error: Undefined variable: \"$screen-xs\".\A         on line 15 of /src/compass_web/sass/v2/top-banner.scss\A \A 10:     background-repeat: no-repeat;\A 11:     background-position: 50% 50%;\A 12:     -webkit-background-size: cover;\A 13:     background-size: cover;\A 14: \A 15:     @media only screen and (min-width: $screen-xs) {\A 16:       margin-bottom: 10px;\A 17:     }\A 18: \A 19:     @media only screen and (min-width: $screen-ipad-v) {\A 20:       height: 150px;"; }

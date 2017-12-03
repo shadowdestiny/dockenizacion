@@ -293,6 +293,20 @@ $(document).ready(function () {
     });
   }
 
+  //Footer box links accordion mobile
+  if ($('.main-foot .box-links').length) {
+    $('.main-foot .box-links').find('strong').click(function () {
+      $(this).parent().toggleClass('expanded');
+      $(this).parent().find('ul').stop().slideToggle();
+    });
+  }
+
+  //Top nav mobile account menu
+  if ($('.top-nav--mobile-account--icon').length) {
+    $('.top-nav--mobile-account--icon, .top-nav--mobile-account--menu--close').click(function () {
+      $('.top-nav--mobile-account--menu').stop().toggle();
+    });
+  }
 
 
 

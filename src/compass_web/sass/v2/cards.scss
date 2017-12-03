@@ -1,5 +1,4 @@
 
-
 .cards-block {
   height: 80px;
   line-height: 38px;
@@ -166,10 +165,12 @@
 
 footer {
 
-  .cards-block {
-    border-width: 1px;
-    border-color: #223652;
-    border-style: solid;
+  @media only screen and (min-width: $screen-ipad-v) {
+    .cards-block {
+      border-width: 1px;
+      border-color: #223652;
+      border-style: solid;
+    }
   }
 
 }

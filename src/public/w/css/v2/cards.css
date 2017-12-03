@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-xs".
-        on line 9 of /src/compass_web/sass/v2/cards.scss
+        on line 8 of /src/compass_web/sass/v2/cards.scss
 
-4:   height: 80px;
-5:   line-height: 38px;
-6:   text-align: center;
-7:   margin-bottom: 17px;
-8: 
-9:   @media only screen and (min-width: $screen-xs) {
-10:     height: 40px;
-11:     line-height: 38px;
-12:     text-align: center;
-13:     margin-bottom: 17px;
-14:   }
+3:   height: 80px;
+4:   line-height: 38px;
+5:   text-align: center;
+6:   margin-bottom: 17px;
+7: 
+8:   @media only screen and (min-width: $screen-xs) {
+9:     height: 40px;
+10:     line-height: 38px;
+11:     text-align: center;
+12:     margin-bottom: 17px;
+13:   }
 
 Backtrace:
-/src/compass_web/sass/v2/cards.scss:9
+/src/compass_web/sass/v2/cards.scss:8
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-xs\".\A         on line 9 of /src/compass_web/sass/v2/cards.scss\A \A 4:   height: 80px;\A 5:   line-height: 38px;\A 6:   text-align: center;\A 7:   margin-bottom: 17px;\A 8: \A 9:   @media only screen and (min-width: $screen-xs) {\A 10:     height: 40px;\A 11:     line-height: 38px;\A 12:     text-align: center;\A 13:     margin-bottom: 17px;\A 14:   }"; }
+  content: "Error: Undefined variable: \"$screen-xs\".\A         on line 8 of /src/compass_web/sass/v2/cards.scss\A \A 3:   height: 80px;\A 4:   line-height: 38px;\A 5:   text-align: center;\A 6:   margin-bottom: 17px;\A 7: \A 8:   @media only screen and (min-width: $screen-xs) {\A 9:     height: 40px;\A 10:     line-height: 38px;\A 11:     text-align: center;\A 12:     margin-bottom: 17px;\A 13:   }"; }
