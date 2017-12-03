@@ -120,7 +120,62 @@
         background-size: 23px;
       }
       .top-nav--mobile-account--menu--list {
+        width: 256px;
+        overflow: hidden;
+        background-color: #f8ce0d;
 
+        li {
+          text-align: left;
+          border-bottom: 1px solid #333333;
+          padding-left: 10px;
+          padding-bottom: 6px;
+          padding-top: 7px;
+
+          h3 {
+            color: #333333;
+            font-size: 16px;
+            padding-bottom: 6px;
+          }
+
+          a {
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #333333;
+            font-size: 14px;
+            font-weight: 900;
+            display: block;
+            padding-bottom: 5px;
+          }
+
+          &.li--lottery {
+
+          }
+          &.li--euromillion {
+            padding-top: 11px;
+
+            a {
+              font-size: 16px;
+              padding-bottom: 6px;
+            }
+          }
+          &.li--help {
+            padding-top: 10px;
+
+            a {
+              font-weight: 400;
+              text-transform: none;
+              font-size: 16px;
+              padding-bottom: 8px;
+              padding-left: 27px;
+
+              background-image: url('../img/account/mobile/ico-account-menu-arrow.svg');
+              background-repeat: no-repeat;
+              -webkit-background-size: 9px;
+              background-size: 9px;
+              background-position: 0 23%;
+            }
+          }
+        }
       }
 
     }
