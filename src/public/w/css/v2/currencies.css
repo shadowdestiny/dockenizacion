@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-ipad-v".
-        on line 7 of /src/compass_web/sass/v2/currencies.scss
+        on line 8 of /src/compass_web/sass/v2/currencies.scss
 
-2: 
-3: .currencies-page {
-4:   margin-top: 30px;
-5:   padding: 0;
-6: 
-7:   @media only screen and (min-width: $screen-ipad-v) {
-8:     margin-top: 30px;
-9:     padding: 0;
-10:   }
-11: 
-12:   @media only screen and (min-width: $screen-ipad-h) {
+3: .currency {
+4:   .currencies-page {
+5:   margin-top: 0px;
+6:   padding: 0;
+7: 
+8:   @media only screen and (min-width: $screen-ipad-v) {
+9:     margin-top: 30px;
+10:     padding: 0;
+11:   }
+12: 
+13:   @media only screen and (min-width: $screen-ipad-h) {
 
 Backtrace:
-/src/compass_web/sass/v2/currencies.scss:7
+/src/compass_web/sass/v2/currencies.scss:8
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -23,6 +23,17 @@ Backtrace:
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `run_interp_no_strip'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:541:in `run_interp'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:509:in `visit_media'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -70,4 +81,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 7 of /src/compass_web/sass/v2/currencies.scss\A \A 2: \A 3: .currencies-page {\A 4:   margin-top: 30px;\A 5:   padding: 0;\A 6: \A 7:   @media only screen and (min-width: $screen-ipad-v) {\A 8:     margin-top: 30px;\A 9:     padding: 0;\A 10:   }\A 11: \A 12:   @media only screen and (min-width: $screen-ipad-h) {"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 8 of /src/compass_web/sass/v2/currencies.scss\A \A 3: .currency {\A 4:   .currencies-page {\A 5:   margin-top: 0px;\A 6:   padding: 0;\A 7: \A 8:   @media only screen and (min-width: $screen-ipad-v) {\A 9:     margin-top: 30px;\A 10:     padding: 0;\A 11:   }\A 12: \A 13:   @media only screen and (min-width: $screen-ipad-h) {"; }

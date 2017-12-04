@@ -52,7 +52,7 @@
     <div class="wrapper">
         <div class="currencies-page">
 
-            {#<h1 class="h2">{{ language.translate("Choose your currency") }}</h1>#}
+            <h1 class="h2">{{ language.translate("Choose your currency") }}</h1>
 
             {#<div class="info-txt">Currencies are just informative, transactions are charged in Euros.</div>#}
 
