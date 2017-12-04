@@ -12,6 +12,14 @@
   .copyright-text {
     background-color: #e1e1e1;
     padding: 10px;
+    margin-left: -$screen-xxs-wrapper--padding;
+    margin-right: -$screen-xxs-wrapper--padding;
+
+    @media only screen and (min-width: $screen-xs) {
+      padding: 10px;
+      margin-left: 0;
+      margin-right: 0;
+    }
 
     @media only screen and (min-width: $screen-ipad-v) {
       padding: 26px 100px 14px 60px;
@@ -36,9 +44,20 @@
   .box-links {
 
     margin-bottom: 60px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+
+    @media only screen and (min-width: $screen-xs) {
+      margin-bottom: 60px;
+      //padding-left: 20px;
+      //padding-right: 20px;
+    }
 
     @media only screen and (min-width: $screen-ipad-v) {
       margin-bottom: 60px;
+      padding-left: 20px;
+      padding-right: 20px;
     }
 
     @media only screen and (min-width: $screen-ipad-h) {
