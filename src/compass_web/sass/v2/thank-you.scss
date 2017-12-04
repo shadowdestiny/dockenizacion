@@ -19,15 +19,27 @@
 
     h1 {
       color:  #333333;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 900;
       text-align: left;
 
       background-color:  #fad425;
-      line-height: 60px;
-      height: 60px;
-      padding-left: 19px;
+      line-height: 38px;
+      height: 38px;
+      padding-left: 13px;
       text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-xs) {
+        font-size: 22px;
+        font-weight: 900;
+        text-align: left;
+
+        background-color:  #fad425;
+        line-height: 60px;
+        height: 60px;
+        padding-left: 19px;
+        text-transform: uppercase;
+      }
 
       @media only screen and (min-width: $screen-ipad-v) {
         color:  #333333;
@@ -58,16 +70,26 @@
     }
 
     h2 {
-      //font-family: WorkSans;
       color: #333;
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 900;
-      line-height: 32px;
+      line-height: 18px;
       text-align: left;
       text-transform: uppercase;
-      padding-left: 16px;
-      padding-top: 15px;
-      margin-bottom: 1px;
+      padding-left: 0px;
+      padding-top: 10px;
+      margin-bottom: 3px;
+
+      @media only screen and (min-width: $screen-xs) {
+        font-size: 20px;
+        font-weight: 900;
+        line-height: 32px;
+        text-align: left;
+        text-transform: uppercase;
+        padding-left: 16px;
+        padding-top: 15px;
+        margin-bottom: 1px;
+      }
 
       @media only screen and (min-width: $screen-ipad-v) {
         color: #333;
@@ -103,11 +125,19 @@
     }
     p {
       color: #333;
-      font-size: 19px;
+      font-size: 16px;
       font-weight: 500;
       text-align: left;
-      padding-left: 16px;
-      margin-bottom: 6px;
+      padding-left: 0px;
+      margin-bottom: 3px;
+
+      @media only screen and (min-width: $screen-xs) {
+        font-size: 19px;
+        font-weight: 500;
+        text-align: left;
+        padding-left: 16px;
+        margin-bottom: 6px;
+      }
 
       @media only screen and (min-width: $screen-ipad-v) {
         color: #333;
@@ -131,11 +161,22 @@
       }
     }
     .count {
-      color:  #333333;
-      font-size: 19px;
+      color:  #fad425;
+      font-size: 14.3px;
       font-weight: 700;
       text-align: left;
-      padding-left: 16px;
+      padding-left: 0px;
+      line-height: 1.3;
+      padding-right: 40px;
+
+      @media only screen and (min-width: $screen-xs) {
+        color:  #333333;
+        font-size: 19px;
+        font-weight: 700;
+        text-align: left;
+        padding-left: 16px;
+        padding-right: 0;
+      }
 
       @media only screen and (min-width: $screen-ipad-v) {
         color:  #333333;
@@ -156,7 +197,11 @@
       }
     }
     .btn-row{
-      padding-top: 23px;
+      padding-top: 10px;
+
+      @media only screen and (min-width: $screen-xs) {
+        padding-top: 23px;
+      }
 
       @media only screen and (min-width: $screen-ipad-v) {
         padding-top: 23px;
@@ -175,10 +220,17 @@
       }
 
       .btn-theme--big {
-        height: 62px;
+        height: 47px;
         width: 100%;
-        font-size: 30px;
-        line-height: 62px;
+        font-size: 17px;
+        line-height: 47px;
+
+        @media only screen and (min-width: $screen-xs) {
+          height: 62px;
+          width: 100%;
+          font-size: 30px;
+          line-height: 62px;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           height: 62px;
@@ -207,13 +259,13 @@
 
   .thank-you-block--jackpot{
 
-    padding-left: 8px;
-    //background-image: url('../img/thank-you/desktop/stars.png');
-    //background-repeat: no-repeat;
-    //background-position: 97% 43%;
-    //-webkit-background-size: 119px;
-    //background-size: 119px;
-    padding-bottom: 46px;
+    padding-left: 0px;
+    padding-bottom: 19px;
+
+    @media only screen and (min-width: $screen-xs) {
+      padding-left: 8px;
+      padding-bottom: 46px;
+    }
 
     @media only screen and (min-width: $screen-ipad-v) {
       padding-left: 16px;
@@ -250,13 +302,26 @@
     p {
 
       color: #fad425;
-      font-size: 14px;
+      font-size: 15.7px;
       font-weight: 900;
-      line-height: 1.2;
+      line-height: 1.3;
       text-align: left;
       text-transform: uppercase;
       padding-top: 10px;
       padding-bottom: 6px;
+      margin-bottom: 0;
+
+      @media only screen and (min-width: $screen-xs) {
+        color: #fad425;
+        font-size: 14px;
+        font-weight: 900;
+        line-height: 1.2;
+        text-align: left;
+        text-transform: uppercase;
+        padding-top: 10px;
+        padding-bottom: 6px;
+        margin-bottom: 1em;
+      }
 
       @media only screen and (min-width: $screen-ipad-v) {
         color: #fad425;
@@ -288,12 +353,21 @@
     }
 
     h2 {
-      color:  #fad425;
-      font-size: 37px;
-      line-height: 1.2;
+      color: #fad425;
+      font-size: 18.8px;
+      line-height: 0.3;
       font-weight: 900;
       text-align: left;
       text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-xs) {
+        color:  #fad425;
+        font-size: 37px;
+        line-height: 1.2;
+        font-weight: 900;
+        text-align: left;
+        text-transform: uppercase;
+      }
 
       @media only screen and (min-width: $screen-ipad-v) {
         color:  #fad425;
@@ -322,8 +396,15 @@
 
   .thank-you-block--rows{
 
-    padding-left: 10px;
+    padding-left: 0px;
     padding-right: 0;
+    margin-left: -$screen-xxs-wrapper--padding;
+    margin-right: -$screen-xxs-wrapper--padding;
+
+    @media only screen and (min-width: $screen-xs) {
+      padding-left: 10px;
+      padding-right: 0;
+    }
 
     @media only screen and (min-width: $screen-ipad-v) {
       padding-left: 40px;
@@ -346,8 +427,18 @@
         padding-top: 9px;
         padding-bottom: 1px;
 
-        padding-left: 0px;
+        padding-left: 10px;
         padding-right: 0px;
+
+        @media only screen and (min-width: $screen-xs) {
+          overflow: hidden;
+          border-top: 1px solid #333333;
+          padding-top: 9px;
+          padding-bottom: 1px;
+
+          padding-left: 0px;
+          padding-right: 0px;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           overflow: hidden;
@@ -401,9 +492,21 @@
 
           font-size: 15px;
           font-weight: 400;
-          margin-bottom: 5px;
+          margin-bottom: 2px;
           padding-left: 6px;
           text-transform: uppercase;
+
+          @media only screen and (min-width: $screen-xs) {
+            font-family: $ff2;
+            color:  #333333;
+            text-align: left;
+
+            font-size: 15px;
+            font-weight: 400;
+            margin-bottom: 5px;
+            padding-left: 6px;
+            text-transform: uppercase;
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             font-family: $ff2;
@@ -463,16 +566,16 @@
 
           li {
             text-align: center;
-            width: 25px;
-            height: 25px;
-            line-height: 25px;
+            width: 27px;
+            height: 27px;
+            line-height: 27px;
             background-image: url('../img/home/result-block/desktop/ellipse.svg');
             background-repeat: no-repeat;
             background-position: 0 0;
             text-shadow: none;
             letter-spacing: 0;
-            -webkit-background-size: 25px;
-            background-size: 25px;
+            -webkit-background-size: 27px;
+            background-size: 27px;
             font-family: "Chivo",sans-serif;
             color: #fff;
             font-size: 12px;
@@ -480,6 +583,27 @@
             margin-right: 10px;
             position: relative;
             top: -1px;
+
+            @media only screen and (min-width: $screen-xs) {
+              text-align: center;
+              width: 25px;
+              height: 25px;
+              line-height: 25px;
+              background-image: url('../img/home/result-block/desktop/ellipse.svg');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              text-shadow: none;
+              letter-spacing: 0;
+              -webkit-background-size: 25px;
+              background-size: 25px;
+              font-family: "Chivo",sans-serif;
+              color: #fff;
+              font-size: 12px;
+              font-weight: 700;
+              margin-right: 10px;
+              position: relative;
+              top: -1px;
+            }
 
             @media only screen and (min-width: $screen-ipad-v) {
               text-align: center;
@@ -544,18 +668,36 @@
             background-image: url('../img/home/result-block/desktop/star.svg');
             background-repeat: no-repeat;
             background-position: 0 0;
-            -webkit-background-size: 30px;
-            background-size: 30px;
+            -webkit-background-size: 37px;
+            background-size: 37px;
             text-indent: 0;
             color: #333;
-            width: 30px;
-            height: 30px;
-            margin-left: 0px;
+            width: 37px;
+            height: 37px;
+            margin-left: 11px;
             margin-right: 2px;
             line-height: 25px;
             position: relative;
             top: 0px;
             padding-top: 4px;
+
+            @media only screen and (min-width: $screen-xs) {
+              background-image: url('../img/home/result-block/desktop/star.svg');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              -webkit-background-size: 30px;
+              background-size: 30px;
+              text-indent: 0;
+              color: #333;
+              width: 30px;
+              height: 30px;
+              margin-left: 0px;
+              margin-right: 2px;
+              line-height: 25px;
+              position: relative;
+              top: 0px;
+              padding-top: 4px;
+            }
 
             @media only screen and (min-width: $screen-ipad-v) {
               background-image: url('../img/home/result-block/desktop/star.svg');
@@ -617,7 +759,12 @@
           }
           li.star + li.star {
             margin-left: 0;
-            margin-right: 22px;
+            margin-right: 0px;
+
+            @media only screen and (min-width: $screen-xs) {
+              margin-left: 0;
+              margin-right: 22px;
+            }
 
             @media only screen and (min-width: $screen-ipad-v) {
               margin-left: 0;
@@ -662,7 +809,11 @@
   }
 
   .thank-you-block--bottom{
-    padding: 22px 39px 26px 19px;
+    padding: 13px 0px 26px 0px;
+
+    @media only screen and (min-width: $screen-xs) {
+      padding: 22px 39px 26px 19px;
+    }
 
     @media only screen and (min-width: $screen-ipad-v) {
       padding: 22px 39px 26px 19px;
@@ -677,12 +828,19 @@
     }
 
     p {
-
       color:  #333333;
       font-size: 14.5px;
       font-weight: 400; 
-      line-height: 1.2;
+      line-height: 1.3;
       text-align: left;
+
+      @media only screen and (min-width: $screen-xs) {
+        color:  #333333;
+        font-size: 14.5px;
+        font-weight: 400;
+        line-height: 1.2;
+        text-align: left;
+      }
 
       @media only screen and (min-width: $screen-ipad-v) {
         color:  #333333;
