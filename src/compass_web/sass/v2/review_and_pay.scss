@@ -26,9 +26,19 @@
       text-align: left;
 
       background-color: #fad425;
-      height: 60px;
-      padding-left: 84px;
+      height: 64px;
+      padding-left: 50px;
       text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-xs) {
+        color: #333333;
+        text-align: left;
+
+        background-color: #fad425;
+        height: 60px;
+        padding-left: 84px;
+        text-transform: uppercase;
+      }
 
       @media only screen and (min-width: $screen-ipad-v) {
         color: #333333;
@@ -51,10 +61,17 @@
       }
 
       h1 {
-        font-size: 22px;
+        font-size: 16px;
         font-weight: 900;
         position: relative;
         line-height: 60px;
+
+        @media only screen and (min-width: $screen-xs) {
+          font-size: 22px;
+          font-weight: 900;
+          position: relative;
+          line-height: 60px;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           font-size: 37px;
@@ -81,6 +98,14 @@
         left: 0;
         top: 0;
 
+        @media only screen and (min-width: $screen-xs) {
+          display: inline-block;
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+
         @media only screen and (min-width: $screen-ipad-v) {
           display: inline-block;
           content: "";
@@ -95,6 +120,13 @@
         font-size: 17px;
         font-weight: 400;
         text-align: left;
+
+        @media only screen and (min-width: $screen-xs) {
+          color:  #333333;
+          font-size: 17px;
+          font-weight: 400;
+          text-align: left;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           color:  #333333;
@@ -122,7 +154,11 @@
 
     &.section--review-and-pay {
 
-      padding-bottom: 20px;
+      padding-bottom: 13px;
+
+      @media only screen and (min-width: $screen-xs) {
+        padding-bottom: 20px;
+      }
 
       @media only screen and (min-width: $screen-ipad-v) {
         padding-bottom: 20px;
@@ -140,7 +176,7 @@
 
         h1{
           line-height: 1;
-          padding-top: 12px;
+          padding-top: 10px;
 
           @media only screen and (min-width: $screen-ipad-v) {
             line-height: 1;
@@ -159,14 +195,26 @@
         p {
 
           color: #333;
-          font-size: 10.4px;
+          font-size: 14px;
           font-weight: 400;
-          line-height: 1.3;
+          line-height: 1;
           text-align: left;
           margin-bottom: 0;
           letter-spacing: 0;
-          //padding-left: 18px;
           text-transform: none;
+          padding-right: 40px;
+
+          @media only screen and (min-width: $screen-xs) {
+            color: #333;
+            font-size: 10.4px;
+            font-weight: 400;
+            line-height: 1.3;
+            text-align: left;
+            margin-bottom: 0;
+            letter-spacing: 0;
+            text-transform: none;
+            padding-right: 0;
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             color: #333;
@@ -178,6 +226,7 @@
             letter-spacing: 0;
             padding-left: 18px;
             text-transform: none;
+            padding-right: 0;
           }
 
           @media only screen and (min-width: $screen-ipad-h) {
@@ -197,12 +246,23 @@
       h1:before {
         background-image: url('../img/review-and-pay/desktop/ico-review.png');
         background-repeat: no-repeat;
-        -webkit-background-size: 44px;
-        background-size: 44px;
-        width: 71px;
+        -webkit-background-size: 30px;
+        background-size: 30px;
+        width: 36px;
         height: 42px;
-        left: -62px;
-        top: 18px;
+        left: -39px;
+        top: 12px;
+
+        @media only screen and (min-width: $screen-xs) {
+          background-image: url('../img/review-and-pay/desktop/ico-review.png');
+          background-repeat: no-repeat;
+          -webkit-background-size: 44px;
+          background-size: 44px;
+          width: 71px;
+          height: 42px;
+          left: -62px;
+          top: 18px;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           background-image: url('../img/review-and-pay/desktop/ico-review.png');
@@ -254,15 +314,29 @@
         }
 
         h3 {
-          float: left;
+          float: none;
           text-transform: uppercase;
-
-          color: #333333;
-          //font-size: 24px;
-          font-size: 10.5px;
+          color: #333;
+          font-size: 17px;
           font-weight: 900;
-          line-height: 36px;
+          line-height: 1;
           text-align: left;
+          padding-top: 12px;
+          padding-bottom: 0;
+
+          @media only screen and (min-width: $screen-xs) {
+            float: left;
+            text-transform: uppercase;
+
+            color: #333333;
+            font-size: 10.5px;
+            font-weight: 900;
+            line-height: 36px;
+            text-align: left;
+
+            padding-top: 0;
+            padding-bottom: 0;
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             float: left;
@@ -295,7 +369,25 @@
         }
 
         h3.right {
-          float: right;
+          float: none;
+          font-size: 15px;
+          color: #fad425;
+          padding-top: 2px;
+          padding-right: 120px;
+          line-height: 1.2;
+
+          @media only screen and (min-width: $screen-xs) {
+            float: right;
+
+            text-transform: uppercase;
+            color: #333;
+            font-size: 17px;
+            font-weight: 900;
+            line-height: 1;
+            text-align: left;
+            padding-top: 12px;
+            padding-bottom: 0;
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             float: right;
@@ -307,12 +399,14 @@
         float: right;
         width: 97px;
         margin-left: -97px;
+        margin-top: -65px;
 
 
         @media only screen and (min-width: $screen-ipad-v) {
           float: right;
           width: 97px;
           margin-left: -97px;
+          margin-top: 0;
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
@@ -443,13 +537,30 @@
         }
       }
 
+      h4:first-of-type {
+        margin-top: 6px;
+
+        @media only screen and (min-width: $screen-xs) {
+          margin-top: 0;
+        }
+      }
+
       h4 {
         text-transform: none;
         color: #333;
-        font-size: 10.7px;
+        font-size: 15.9px;
         font-weight: 700;
         text-align: left;
         padding-top: 0px;
+
+        @media only screen and (min-width: $screen-xs) {
+          text-transform: none;
+          color: #333;
+          font-size: 10.7px;
+          font-weight: 700;
+          text-align: left;
+          padding-top: 0px;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           text-transform: none;
@@ -491,12 +602,22 @@
 
       p {
         color: #333;
-        font-size: 12px;
+        font-size: 15.5px;
         font-weight: 400;
-        line-height: 1.3;
+        line-height: 1.2;
         text-align: left;
         margin-bottom: 0;
         letter-spacing: 0.2px;
+
+        @media only screen and (min-width: $screen-xs) {
+          color: #333;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 1.3;
+          text-align: left;
+          margin-bottom: 0;
+          letter-spacing: 0.2px;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           color: #333;
