@@ -26,7 +26,7 @@
       text-align: left;
 
       background-color: #fad425;
-      height: 64px;
+      height: 50px;
       padding-left: 50px;
       text-transform: uppercase;
 
@@ -64,7 +64,7 @@
         font-size: 16px;
         font-weight: 900;
         position: relative;
-        line-height: 60px;
+        line-height: 50px;
 
         @media only screen and (min-width: $screen-xs) {
           font-size: 22px;
@@ -173,6 +173,14 @@
       }
 
       .top-row {
+
+        height: 64px;
+        padding-left: 50px;
+
+        @media only screen and (min-width: $screen-xs) {
+          height: 60px;
+          padding-left: 84px;
+        }
 
         h1{
           line-height: 1;
@@ -649,7 +657,11 @@
 
     &.section--numbers-played {
 
-      padding-bottom: 20px;
+      margin-bottom: 15px;
+
+      @media only screen and (min-width: $screen-xs) {
+        margin-bottom: 20px;
+      }
 
       @media only screen and (min-width: $screen-ipad-v) {
         padding-bottom: 20px;
@@ -678,12 +690,23 @@
       h1:before {
         background-image: url('../img/review-and-pay/desktop/ico-number.png');
         background-repeat: no-repeat;
-        -webkit-background-size: 36px;
-        background-size: 36px;
-        width: 58px;
-        height: 58px;
-        left: -63px;
-        top: 14px;
+        -webkit-background-size: 30px;
+        background-size: 30px;
+        width: 30px;
+        height: 30px;
+        left: -39px;
+        top: 10px;
+
+        @media only screen and (min-width: $screen-xs) {
+          background-image: url('../img/review-and-pay/desktop/ico-number.png');
+          background-repeat: no-repeat;
+          -webkit-background-size: 36px;
+          background-size: 36px;
+          width: 58px;
+          height: 58px;
+          left: -63px;
+          top: 14px;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           background-image: url('../img/review-and-pay/desktop/ico-number.png');
@@ -721,10 +744,19 @@
         span {
           display: block;
           position: absolute;
-          font-size: 19px;
+          font-size: 16px;
           font-weight: 900;
-          left: 33px;
-          top: 26px;
+          left: 20px;
+          top: 18px;
+
+          @media only screen and (min-width: $screen-xs) {
+            display: block;
+            position: absolute;
+            font-size: 19px;
+            font-weight: 900;
+            left: 33px;
+            top: 26px;
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             display: block;
@@ -1320,6 +1352,7 @@
     }
 
     .numbers--rows {
+      position: relative;
 
       @media only screen and (min-width: $screen-ipad-h) {
         padding-right: 77px;
@@ -1334,8 +1367,16 @@
       .numbers--row {
         overflow: hidden;
         padding-top: 9px;
-        padding-bottom: 1px;
-        padding-left: 5px;
+        padding-bottom: 20px;
+        padding-left: 0px;
+        position: relative;
+
+        @media only screen and (min-width: $screen-xs) {
+          overflow: hidden;
+          padding-top: 9px;
+          padding-bottom: 1px;
+          padding-left: 5px;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           overflow: hidden;
@@ -1418,19 +1459,27 @@
 
         .cost-block {
 
-          float: left;
+          float: none;
           text-align: left;
           font-weight: 900;
           font-size: 14px;
-          padding-top: 7px;
+          padding-top: 0;
           clear: both;
           padding-bottom: 10px;
+          position: absolute;
+          right: 2px;
+          top: 10px;
 
-          //float: right;
-          //text-align: right;
-          //font-weight: 900;
-          //font-size: 22.5px;
-          //padding-top: 17px;
+          @media only screen and (min-width: $screen-xs) {
+            float: left;
+            text-align: left;
+            font-weight: 900;
+            font-size: 14px;
+            padding-top: 7px;
+            clear: both;
+            padding-bottom: 10px;
+            position: static;
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             float: right;
@@ -1477,23 +1526,44 @@
 
           li {
             text-align: center;
-            width: 25px;
-            height: 25px;
+            width: 27px;
+            height: 27px;
             line-height: 25px;
             background-image: url('../img/home/result-block/desktop/ellipse.svg');
             background-repeat: no-repeat;
             background-position: 0 0;
             text-shadow: none;
             letter-spacing: 0;
-            -webkit-background-size: 25px;
-            background-size: 25px;
+            -webkit-background-size: 27px;
+            background-size: 27px;
             font-family: "Chivo", sans-serif;
             color: #fff;
             font-size: 12px;
             font-weight: 700;
             margin-right: 10px;
             position: relative;
-            top: -1px;
+            top: -3px;
+
+            @media only screen and (min-width: $screen-xs) {
+              text-align: center;
+              width: 25px;
+              height: 25px;
+              line-height: 25px;
+              background-image: url('../img/home/result-block/desktop/ellipse.svg');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              text-shadow: none;
+              letter-spacing: 0;
+              -webkit-background-size: 25px;
+              background-size: 25px;
+              font-family: "Chivo", sans-serif;
+              color: #fff;
+              font-size: 12px;
+              font-weight: 700;
+              margin-right: 10px;
+              position: relative;
+              top: -1px;
+            }
 
             @media only screen and (min-width: $screen-ipad-v) {
               text-align: center;
@@ -1564,12 +1634,30 @@
             color: #333;
             width: 30px;
             height: 30px;
-            margin-left: 0px;
+            margin-left: 19px;
             margin-right: 2px;
             line-height: 25px;
             position: relative;
             top: 0px;
             padding-top: 4px;
+
+            @media only screen and (min-width: $screen-xs) {
+              background-image: url('../img/home/result-block/desktop/star.svg');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              -webkit-background-size: 30px;
+              background-size: 30px;
+              text-indent: 0;
+              color: #333;
+              width: 30px;
+              height: 30px;
+              margin-left: 0px;
+              margin-right: 2px;
+              line-height: 25px;
+              position: relative;
+              top: 0px;
+              padding-top: 4px;
+            }
 
             @media only screen and (min-width: $screen-ipad-v) {
               background-image: url('../img/home/result-block/desktop/star.svg');
@@ -1630,8 +1718,12 @@
             }
           }
           li.star + li.star {
-            margin-left: 0;
-            margin-right: 22px;
+            margin-left: 3px;
+            margin-right: 0px;
+
+            @media only screen and (min-width: $screen-xs) {
+              margin-right: 22px;
+            }
 
             @media only screen and (min-width: $screen-ipad-v) {
               margin-left: 0;
@@ -1686,6 +1778,14 @@
 
         @media only screen and (min-width: $screen-desktop) {
           padding-top: 20px;
+        }
+      }
+
+      .numbers--row:last-of-type {
+        padding-bottom: 0;
+
+        @media only screen and (min-width: $screen-xs) {
+          padding-bottom: 1px;
         }
       }
     }
