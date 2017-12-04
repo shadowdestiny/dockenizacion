@@ -3,10 +3,10 @@
   background: #fff;
   text-align: left;
   padding-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 
   @media only screen and (min-width: $screen-ipad-v) {
-    margin-bottom: 120px;
+    //margin-bottom: 120px;
   }
 
   .copyright-text {
@@ -316,7 +316,11 @@
 @media only screen and (max-width: $width-pre-tablet) {
   footer.main-foot {
       .box-links {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+
+        @media only screen and (min-width: $screen-xs) {
+          margin-bottom: 20px;
+        }
 
         .col20per {
           border-bottom: 1px solid #b5b5b5!important;

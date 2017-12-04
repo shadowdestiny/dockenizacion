@@ -2,7 +2,7 @@
 Error: Undefined variable: "$screen-xs".
         on line 8 of /src/compass_web/sass/v2/cards.scss
 
-3:   height: 80px;
+3:   height: 41px;
 4:   line-height: 38px;
 5:   text-align: center;
 6:   margin-bottom: 17px;
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-xs\".\A         on line 8 of /src/compass_web/sass/v2/cards.scss\A \A 3:   height: 80px;\A 4:   line-height: 38px;\A 5:   text-align: center;\A 6:   margin-bottom: 17px;\A 7: \A 8:   @media only screen and (min-width: $screen-xs) {\A 9:     height: 40px;\A 10:     line-height: 38px;\A 11:     text-align: center;\A 12:     margin-bottom: 17px;\A 13:   }"; }
+  content: "Error: Undefined variable: \"$screen-xs\".\A         on line 8 of /src/compass_web/sass/v2/cards.scss\A \A 3:   height: 41px;\A 4:   line-height: 38px;\A 5:   text-align: center;\A 6:   margin-bottom: 17px;\A 7: \A 8:   @media only screen and (min-width: $screen-xs) {\A 9:     height: 40px;\A 10:     line-height: 38px;\A 11:     text-align: center;\A 12:     margin-bottom: 17px;\A 13:   }"; }
