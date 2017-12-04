@@ -47,13 +47,13 @@
     <main id="content">
         <div class="wrapper">
             <div class="box-basic">
-                <h1 class="h1 title">{{ language.translate("Winning Numbers") }}</h1>
+                <h1 class="h1 title">{{ language.translate("resultsdate_title") }}</h1>
                 <div class="wrap">
                     <div class="cols">
                         <div class="col8">
                             <div class="box-results">
                                 <div class="content cl">
-                                    <h2 class="h2"><span class="purple">{{ language.translate("Last Draw") }}</span> {{ last_draw_date }}</h2>
+                                    <h2 class="h2"><span class="purple">{{ language.translate("lastDraw_title") }}</span> {{ last_draw_date }}</h2>
 
                                     <ul class="no-li inline numbers">
                                         {% for index,regular_number in last_result["regular_numbers"] %}
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="bg">
                                     <a href="/{{ language.translate("link_euromillions_play") }}" class="content">
-                                        <h1 class="h3">{{ language.translate("Estimated jackpot") }}</h1>
+                                        <h1 class="h3">{{ language.translate("nextDraw_Estimate") }}</h1>
 
                                         {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                                         {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
@@ -116,7 +116,7 @@
                                                     <span class="txt">sec</span>
                                                 </div>
                                             </div>
-                                            <span class="btn red big right">{{ language.translate("PLAY NOW") }}</span>
+                                            <span class="btn red big right">{{ language.translate("nextDraw_btn") }}</span>
                                         </div>
                                     </a>
                                 </div>
@@ -127,7 +127,7 @@
                     <div class="cols">
                         <div class="col8">
                             <div class="box-current-winners">
-                                <h1 class="h2 purple">{{ language.translate("Prize breakdown") }}</h1>
+                                <h1 class="h2 purple">{{ language.translate("resultsdate_h2") }}</h1>
                                 <table id="current-winners" class="table ui-responsive" data-role="table" data-mode="reflow">
                                     <thead>
                                     <tr>
@@ -162,7 +162,7 @@
                                 </table>
                             </div>
                             <div class="cols bottom">
-                                <a href="/{{ language.translate('link_euromillions_results') }}/" class="btn  green big wide ui-link">Back to Results List</a>
+                                <a href="/{{ language.translate('link_euromillions_results') }}/" class="btn  green big wide ui-link">{{ language.translate("resultsdate_btn") }}</a>
                             </div>
                         </div>
                         <div class="col4">

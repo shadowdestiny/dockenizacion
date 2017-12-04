@@ -12,7 +12,7 @@ var EuroMillionsAddToCart = new React.createClass({
 
         return (
             <a href="javascript:void(0);" onClick={this.props.onBtnAddToCartClick} className={class_name}><span className="value">{this.props.currency_symbol} {this.props.price}</span><span className="gap">
-                <span className="separator"></span></span>Next</a>
+                <span className="separator"></span></span>{this.props.txtNextButton}</a>
         )
     }
 

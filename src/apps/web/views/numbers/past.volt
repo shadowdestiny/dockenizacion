@@ -127,7 +127,7 @@
                                                     <span class="txt">sec</span>
                                                 </div>
                                             </div>
-                                            <span class="btn red big right">{{ language.translate("PLAY NOW") }}</span>
+                                            <span class="btn red big right">{{ language.translate("nextDraw_btn") }}</span>
                                         </div>
                                     </a>
                                 </div>

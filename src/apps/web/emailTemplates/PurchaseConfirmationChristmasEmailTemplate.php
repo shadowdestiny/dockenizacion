@@ -19,22 +19,21 @@ class PurchaseConfirmationChristmasEmailTemplate extends EmailTemplateDecorator
     {
         $data = $this->emailTemplateDataStrategy->getData();
 
-        $language=$this->user->getDefaultLanguage();
-        
-        if ($language="en") {
-            // Purchase Confirmation Christmas Email English Version Template ID= 2896261
-            $template_id="2896261";
-        } elseif ($language="ru") {
+        $language = $this->user->getDefaultLanguage();
+
+        if ($language == "ru") {
             // Purchase Confirmation Christmas Email Russian Version Template ID= 4020941
-            $template_id="4020941";
+            $template_id = "4020941";
+            $subject = 'Поздравляем';
         } else {
-            $template_id="2896261";
+            $template_id = "4020941";
+            $subject = 'Congratulations';
         }
 
         $vars = [
             //'template' => '2896261',
             'template' => $template_id,
-            'subject' => 'Congratulations',
+            'subject' => $subject,
             'vars' =>
                 [
                     [
@@ -42,7 +41,7 @@ class PurchaseConfirmationChristmasEmailTemplate extends EmailTemplateDecorator
                         'content' => $this->getLine(),
                     ],
                     [
-                        'name'    => 'user_name',
+                        'name' => 'user_name',
                         'content' => $this->user->getName()
                     ],
                     [

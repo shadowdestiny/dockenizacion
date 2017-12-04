@@ -162,6 +162,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "module" => "web",
             'controller' => 'index',
             'action' => 'index',
+            'language' => 'en',
         ));
 
         $router->add("/ru", array(
@@ -172,11 +173,19 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'currency' => 'RUB',
         ));
 
+        $router->add("/es", array(
+            "module" => "web",
+            'controller' => 'index',
+            'action' => 'index',
+            'language' => 'es',
+        ));
+
         $router->add("/{lottery:(euromillions)+}/play", array(
             "module" => "web",
             "lottery" => 1,
             'controller' => 'play',
             'action' => 'index',
+            'language' => 'en',
         ));
 
         $router->add("/евромиллионы/играть", array(
@@ -188,11 +197,20 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'currency' => 'RUB',
         ));
 
+        $router->add("/es/euromillions/jugar", array(
+            "module" => "web",
+            "lottery" => 1,
+            'controller' => 'play',
+            'action' => 'index',
+            'language' => 'es',
+        ));
+
         $router->add("/christmas-lottery/play", array(
             "module" => "web",
             "lottery" => 'euromillions',
             'controller' => 'christmas',
             'action' => 'index',
+            'language' => 'en',
         ));
 
         $router->add("/рождественская-лотерея/играть", array(
@@ -202,6 +220,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
             'language' => 'ru',
             'currency' => 'RUB',
+        ));
+
+        $router->add("/es/loteria-navidad/jugar", array(
+            "module" => "web",
+            "lottery" => 'euromillions',
+            'controller' => 'christmas',
+            'action' => 'index',
+            'language' => 'es',
         ));
 
         $router->add("/profile/tickets/games", array(
@@ -242,13 +268,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->add("/sign-in", array(
             "module" => "web",
             'controller' => 'user-access',
-            'action' => 'signIn'
-        ));
-
-        $router->add("/sign-up", array(
-            "module" => "web",
-            'controller' => 'user-access',
-            'action' => 'signUp'
+            'action' => 'signIn',
+            'language' => 'en',
         ));
 
         $router->add("/войти", array(
@@ -259,12 +280,33 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'currency' => 'RUB',
         ));
 
+        $router->add("/es/ingreso", array(
+            "module" => "web",
+            'controller' => 'user-access',
+            'action' => 'signIn',
+            'language' => 'es',
+        ));
+
+        $router->add("/sign-up", array(
+            "module" => "web",
+            'controller' => 'user-access',
+            'action' => 'signUp',
+            'language' => 'en',
+        ));
+
         $router->add("/зарегистрироваться", array(
             "module" => "web",
             'controller' => 'user-access',
             'action' => 'signUp',
             'language' => 'ru',
             'currency' => 'RUB',
+        ));
+
+        $router->add("/es/registro", array(
+            "module" => "web",
+            'controller' => 'user-access',
+            'action' => 'signUp',
+            'language' => 'es',
         ));
 
         $router->add("/logout", array(
@@ -288,7 +330,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->add("/forgotPassword", array(
             "module" => "web",
             'controller' => 'user-access',
-            'action' => 'forgotPassword'
+            'action' => 'forgotPassword',
+            'language' => 'en',
         ));
 
         $router->add("/доступ-пользователей/Забыли-пароль", array(
@@ -299,6 +342,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'currency' => 'RUB',
         ));
 
+        $router->add("/es/recuperar-contrasena", array(
+            "module" => "web",
+            'controller' => 'user-access',
+            'action' => 'forgotPassword',
+            'language' => 'es',
+        ));
 
         $router->add("/{lottery:(euromillions)+}/cart/profile", array(
             "module" => "web",
@@ -392,7 +441,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "module" => "web",
             'lottery' => 1,
             'controller' => 'numbers',
-            'action' => 2
+            'action' => 2,
+            'language' => 'en',
         ));
 
         $router->add("/{lottery:(euromillions)+}/results/draw-history-page/:params", array(
@@ -400,7 +450,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'lottery' => 1,
             'controller' => 'numbers',
             'action' => 'pastResult',
-            'params' => 2
+            'params' => 2,
+            'language' => 'en',
         ));
 
         $router->add("/{lottery:(евромиллионы)+}/результаты/история-розыгрышей/:params", array(
@@ -411,6 +462,15 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'params' => 2,
             'language' => 'ru',
             'currency' => 'RUB',
+        ));
+
+        $router->add("/es/{lottery:(euromillions)+}/resultados/sorteos-anteriores/:params", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'numbers',
+            'action' => 'pastResult',
+            'params' => 2,
+            'language' => 'es',
         ));
 
         $router->add("/{lottery:(euromillions)+}/article/discover_your_odds_of_winning_the_euromillions", array(
@@ -445,7 +505,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index'
         ));
 
-
         $router->add("/юридическая-информация/о-нас", array(
             "module" => "web",
             'lottery' => 1,
@@ -453,6 +512,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'about',
             'language' => 'ru',
             'currency' => 'RUB',
+        ));
+
+        $router->add("/es/quienes-somos", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'legal',
+            'action' => 'about',
+            'language' => 'es',
         ));
 
         $router->add("/условия-использования", array(
@@ -464,6 +531,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'currency' => 'RUB',
         ));
 
+        $router->add("/es/terminos-y-condiciones", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'legal',
+            'action' => 'index',
+            'language' => 'es',
+        ));
+
         $router->add("/юридическая-информация/конфиденциальность", array(
             "module" => "web",
             'lottery' => 1,
@@ -471,6 +546,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'privacy',
             'language' => 'ru',
             'currency' => 'RUB',
+        ));
+
+        $router->add("/es/privacidad", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'legal',
+            'action' => 'privacy',
+            'language' => 'es',
         ));
 
         $router->add("/cookie-файлы", array(
@@ -482,6 +565,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'currency' => 'RUB',
         ));
 
+        $router->add("/es/cookies", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'legal',
+            'action' => 'cookies',
+            'language' => 'es',
+        ));
 
         $router->add("/{lottery:(euromillions)+}/es", array(
             "module" => "web",
@@ -502,7 +592,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "module" => "web",
             'lottery' => 1,
             'controller' => 'numbers',
-            'action' => 'pastList'
+            'action' => 'pastList',
+            'language' => 'en',
         ));
 
         $router->add("/евромиллионы/результаты/история-розыгрышей", array(
@@ -514,6 +605,22 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'currency' => 'RUB',
         ));
 
+        $router->add("/es/euromillions/resultados/sorteos-anteriores", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'numbers',
+            'action' => 'pastList',
+            'language' => 'es',
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/help", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'help',
+            'action' => 'index',
+            'language' => 'en',
+        ));
+
         $router->add("/евромиллионы/помощь", array(
             "module" => "web",
             'lottery' => 1,
@@ -521,6 +628,22 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
             'language' => 'ru',
             'currency' => 'RUB',
+        ));
+
+        $router->add("/es/euromillions/como-se-juega", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'help',
+            'action' => 'index',
+            'language' => 'es',
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/faq", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'faq',
+            'action' => 'index',
+            'language' => 'en',
         ));
 
         $router->add("/вопросы-и-ответы", array(
@@ -532,25 +655,20 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'currency' => 'RUB',
         ));
 
-        $router->add("/{lottery:(euromillions)+}/help", array(
-            "module" => "web",
-            'lottery' => 1,
-            'controller' => 'help',
-            'action' => 'index'
-        ));
-
-        $router->add("/{lottery:(euromillions)+}/faq", array(
+        $router->add("/es/preguntas-frecuentes", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'faq',
-            'action' => 'index'
+            'action' => 'index',
+            'language' => 'es',
         ));
 
         $router->add("/{lottery:(euromillions)+}/results", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'numbers',
-            'action' => 'index'
+            'action' => 'index',
+            'language' => 'en',
         ));
 
         $router->add("/евромиллионы/результаты", array(
@@ -560,6 +678,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
             'language' => 'ru',
             'currency' => 'RUB',
+        ));
+
+        $router->add("/es/euromillions/resultados", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'numbers',
+            'action' => 'index',
+            'language' => 'es',
         ));
 
         $router->add('/ajax/:controller/:action/:params', array(
@@ -573,7 +699,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->add("/currency", array(
             "module" => "web",
             'controller' => 'currency',
-            'action' => 'index'
+            'action' => 'index',
+            'language' => 'en',
         ));
 
         $router->add("/валюта", array(
@@ -582,6 +709,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
             'language' => 'ru',
             'currency' => 'RUB',
+        ));
+
+        $router->add("/es/moneda", array(
+            "module" => "web",
+            'controller' => 'currency',
+            'action' => 'index',
+            'language' => 'es',
         ));
 
         $router->add("/sitemap", array(
@@ -593,7 +727,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->add("/contact", array(
             "module" => "web",
             'controller' => 'contact',
-            'action' => 'index'
+            'action' => 'index',
+            'language' => 'en',
         ));
 
         $router->add("/написать-нам", array(
@@ -602,6 +737,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
             'language' => 'ru',
             'currency' => 'RUB',
+        ));
+
+        $router->add("/es/contacto", array(
+            "module" => "web",
+            'controller' => 'contact',
+            'action' => 'index',
+            'language' => 'es',
         ));
 
 //        $router->setDefaults(array(
