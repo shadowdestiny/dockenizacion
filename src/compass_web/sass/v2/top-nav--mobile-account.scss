@@ -12,6 +12,12 @@
     background-repeat: no-repeat;
     -webkit-background-size: 27px;
     background-size: 27px;
+
+    @media only screen and (min-width: $screen-xs) {}
+    @media only screen and (min-width: $screen-ipad-v) {
+      display: none!important;
+    }
+
   }
 
   .top-nav--mobile-account--menu {
@@ -21,6 +27,11 @@
     top: 0;
     left: 0;
     width: 100%;
+
+    @media only screen and (min-width: $screen-xs) {}
+    @media only screen and (min-width: $screen-ipad-v) {
+      display: none!important;
+    }
 
     .top-nav--mobile-account--menu--inner {
       width: 100%;
