@@ -5,14 +5,14 @@ Error: Undefined variable: "$screen-ipad-v".
 1: // Results page
 2: 
 3: .result-page--content {
-4:   padding-bottom: 60px;
+4:   padding-bottom: 0px;
 5: 
-6:   @media only screen and (min-width: $screen-ipad-v) {}
-7:   @media only screen and (min-width: $screen-ipad-h) {}
-8:   @media only screen and (min-width: $screen-desktop) {}
-9: 
-10:   .banner {
-11:     display: none;
+6:   @media only screen and (min-width: $screen-ipad-v) {
+7:     padding-bottom: 60px;
+8:   }
+9:   @media only screen and (min-width: $screen-ipad-h) {}
+10:   @media only screen and (min-width: $screen-desktop) {}
+11: 
 
 Backtrace:
 /src/compass_web/sass/v2/results.scss:6
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 6 of /src/compass_web/sass/v2/results.scss\A \A 1: // Results page\A 2: \A 3: .result-page--content {\A 4:   padding-bottom: 60px;\A 5: \A 6:   @media only screen and (min-width: $screen-ipad-v) {}\A 7:   @media only screen and (min-width: $screen-ipad-h) {}\A 8:   @media only screen and (min-width: $screen-desktop) {}\A 9: \A 10:   .banner {\A 11:     display: none;"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 6 of /src/compass_web/sass/v2/results.scss\A \A 1: // Results page\A 2: \A 3: .result-page--content {\A 4:   padding-bottom: 0px;\A 5: \A 6:   @media only screen and (min-width: $screen-ipad-v) {\A 7:     padding-bottom: 60px;\A 8:   }\A 9:   @media only screen and (min-width: $screen-ipad-h) {}\A 10:   @media only screen and (min-width: $screen-desktop) {}\A 11: "; }
