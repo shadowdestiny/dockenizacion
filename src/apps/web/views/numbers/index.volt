@@ -1,8 +1,11 @@
 {% extends "main.volt" %}
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/numbers.css">
-    <!--[if IE 9]><style>.laurel {display: none;}</style><![endif]-->
-    <link Rel="Canonical" href="{{ language.translate('canonical_euromillions_results') }}" />
+    <!--[if IE 9]>
+    <style>.laurel {
+        display: none;
+    }</style><![endif]-->
+    <link Rel="Canonical" href="{{ language.translate('canonical_euromillions_results') }}"/>
 {% endblock %}
 {% block bodyClass %}
     numbers
@@ -53,8 +56,24 @@
             <div class="wrapper">
                 {#<h1 class="h1 title">{{ language.translate("results_tittle") }}</h1>#}
 
-                <div class="title-block">
+                <h2 class="h2 mobile--only">
+                    {#TODO : Add real variables here#}
 
+                    {#<span class="purple">#}
+                    {#{{ language.translate("lastDraw_title") }}#}
+                    {#</span> #}
+                    {{ last_draw_date }}
+                    {#Tuesday 28#}
+
+                </h2>
+
+                <h3 class="mobile--only">
+                    {#TODO : Add real variables here#}
+                    February 2017
+                </h3>
+
+
+                <div class="title-block">
 
                     <ul class="no-li inline numbers">
                         {% for index,regular_number in last_result["regular_numbers"] %}
@@ -76,7 +95,7 @@
                         {% endfor %}
                     </ul>
 
-                    <h2 class="h2">
+                    <h2 class="h2 desktop--only">
                         {#TODO : Add real variables here#}
 
                         {#<span class="purple">#}
@@ -87,7 +106,7 @@
 
                     </h2>
 
-                    <h3>
+                    <h3 class="desktop--only">
                         {#TODO : Add real variables here#}
                         February 2017
                     </h3>
@@ -213,7 +232,15 @@
                                 </tbody>
                             </table>
 
-                            <div class="previous-results">
+                            <div class="previous-results mobile--only">
+                                <div class="btn-line">
+                                    <a href="#" class="btn-theme--big">
+                                        Previous results
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="previous-results desktop--only">
                                 <div class="previous-results--title">
                                     Previous results
                                 </div>
