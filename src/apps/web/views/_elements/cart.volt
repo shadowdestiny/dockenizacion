@@ -34,23 +34,29 @@
                     <h3>
                         Euro Millions
                     </h3>
-                    <h4>
-                        4 Lines
-                    </h4>
-                    <p>
-                        Draw at 29 April 2017, Tuesday at 20:00
-                    </p>
-                    <p>
-                        Last draw date 05 May 2017, Friday at 20:00
-                    </p>
+                    <div class="td--content--accordion">
+                        <h4>
+                            4 Lines
+                        </h4>
+                        <p>
+                            Draw at 29 April 2017, Tuesday at 20:00
+                        </p>
+                        <p>
+                            Last draw date 05 May 2017, Friday at 20:00
+                        </p>
+                    </div>
                 </td>
                 <td class="td--price">
                     €12.00
                 </td>
                 <td class="td--action">
-                    <a href="#" class="action--remove"></a>
-                    <a href="#" class="action--edit"></a>
-                    <a href="#" class="action--view"></a>
+                    <a href="#" class="action--arrow--mobile"></a>
+                    <div class="td--content--accordion">
+                        <a href="#" class="action--remove"></a>
+                        <a href="#" class="action--edit"></a>
+                        <a href="#" class="action--view"></a>
+                        <a href="#" class="action--remove--mobile"></a>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -61,23 +67,29 @@
                     <h3>
                         Powerball
                     </h3>
-                    <h4>
-                        4 Lines
-                    </h4>
-                    <p>
-                        Draw at 29 April 2017, Tuesday at 20:00
-                    </p>
-                    <p>
-                        Last draw date 05 May 2017, Friday at 20:00
-                    </p>
+                    <div class="td--content--accordion">
+                        <h4>
+                            4 Lines
+                        </h4>
+                        <p>
+                            Draw at 29 April 2017, Tuesday at 20:00
+                        </p>
+                        <p>
+                            Last draw date 05 May 2017, Friday at 20:00
+                        </p>
+                    </div>
                 </td>
                 <td class="td--price">
                     €12.00
                 </td>
                 <td class="td--action">
-                    <a href="#" class="action--remove"></a>
-                    <a href="#" class="action--edit"></a>
-                    <a href="#" class="action--view"></a>
+                    <a href="#" class="action--arrow--mobile"></a>
+                    <div class="td--content--accordion">
+                        <a href="#" class="action--remove"></a>
+                        <a href="#" class="action--edit"></a>
+                        <a href="#" class="action--view"></a>
+                        <a href="#" class="action--remove--mobile"></a>
+                    </div>
                 </td>
             </tr>
         </table>
