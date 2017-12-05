@@ -492,7 +492,7 @@
                                     <span id="totalPriceValue">0.00</span>
                                 </span>
                                     {#<span class="gap"><span class="separator"></span></span>#}
-                                    <span class="next">Next</span>
+                                <span>{{ language.translate('next_btn') }}</span>
                                 </a>
                             </div>
 

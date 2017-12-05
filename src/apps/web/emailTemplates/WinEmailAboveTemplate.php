@@ -25,23 +25,20 @@ class WinEmailAboveTemplate extends EmailTemplateDecorator
     {
 
         $data = $this->emailTemplateDataStrategy->getData();
-        
+        $language = $this->user->getDefaultLanguage();
 
-        $language=$this->user->getDefaultLanguage();
-        
-        if ($language="en") {
-            // Win Email English Version Template ID= 4021621
-            $template_id="4021621";
-        } elseif ($language="ru") {
+        if ($language == "ru") {
             // Win Email Russian Version Template ID= 4020263
-            $template_id="4020263";
+            $template_id = "4020262";
+            $subject = 'Поздравляем';
         } else {
-            $template_id="4021621";
+            $template_id = "4021621";
+            $subject = 'Congratulations';
         }
 
         $vars = [
-            'template' => '625167', // Old template email ID
-            'subject' => 'Congratulations',
+            'template' => $template_id, // Old template email ID
+            'subject' => $subject,
             'vars' =>
                 [
                     [
@@ -57,17 +54,17 @@ class WinEmailAboveTemplate extends EmailTemplateDecorator
                         'content' => $this->getStarBalls()
                     ],
                     [
-                        'name'    => 'user_name',
+                        'name' => 'user_name',
                         'content' => $this->user->getName()
                     ],
                     [
-                        'name'    => 'winning',
-                        'content' => number_format((float) $this->result_amount->getAmount() / 100,2,".",",")
+                        'name' => 'winning',
+                        'content' => number_format((float)$this->result_amount->getAmount() / 100, 2, ".", ",")
                     ],
                 ]
         ];
 
-        if( $this->user->getUserCurrency()->getName() != 'EUR' ) {
+        if ($this->user->getUserCurrency()->getName() != 'EUR') {
             $vars['vars'][] = [
                 'name' => 'amount_converted',
                 'content' => $data['amount_converted']

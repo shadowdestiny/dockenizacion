@@ -1,6 +1,6 @@
 <li class="li-christmas{% if activeNav.myClass == 'christmas' %} active{% endif %}">
     <a href="/{{ language.translate('link_christmas_play') }}">
-        <span class="link desktop">{{ language.translate("Christmas Lottery") }}</span>
+        <span class="link desktop">{{ language.translate("playchris_sub") }}</span>
         <br class="br">
         {% if mobile == 1 %}
             <span class="txt">Play Christmas Lottery</span>
@@ -34,7 +34,7 @@
     {% if user_logged %}
         {% set link="/account" %}
     {% else %}
-        {% set link="/sign-up" %}
+        {% set link="/"~language.translate('link_signup') %}
     {% endif %}
 
     <a class="your-account" href="{{ link }}" rel="nofollow">

@@ -22,7 +22,7 @@ class LegalController extends PublicSiteControllerBase
 
     public function aboutAction()
     {
-        $this->tag->prependTitle($this->languageService->translate('About Us'));
+        $this->tag->prependTitle($this->languageService->translate('aboutus_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('aboutus_desc'));
         $this->view->setVar('pageController', 'legalAbout');
     }

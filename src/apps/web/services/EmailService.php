@@ -40,6 +40,7 @@ class EmailService
     {
         $emailTemplate = new EmailTemplate();
         $emailTemplate = new LowBalanceEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
+        $emailTemplate->setUser($user);
         $this->sendTransactionalEmail($user,$emailTemplate);
     }
 

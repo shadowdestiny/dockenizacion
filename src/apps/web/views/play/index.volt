@@ -42,6 +42,7 @@
     var txtMultTotalPrice = '{{ language.translate('mult_total1') }}';
     var txtMultLines = '{{ language.translate('mult_total2') }}';
     var txtMultDraws = '{{ language.translate('mult_total3') }}';
+	var txtNextButton = '{{ language.translate('next_btn') }}';
 
 
     {#añadir aqui el translate#}

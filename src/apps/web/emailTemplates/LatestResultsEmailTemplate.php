@@ -9,12 +9,16 @@ use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailT
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use Money\Currency;
 use Money\Money;
+use EuroMillions\web\entities\User;
 
 
 class LatestResultsEmailTemplate extends EmailTemplateDecorator
 {
 
     protected $break_down_list;
+
+    /** @var  User $user */
+    protected $user;
 
     public function loadVars(IEmailTemplateDataStrategy $strategy = null)
     {
@@ -24,42 +28,33 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
         $jackpot = $data['jackpot_amount'];
         $last_draw_date = $data['last_draw_date'];
 
-        $language=$this->user->getDefaultLanguage();
-        
-        if ($language="en") {
-            // Results Email English Version Template ID= 4021404
-            $template_id="4021404";
-        } elseif ($language="ru") {
-            // Results Email Russian Version Template ID= 4000783
-            $template_id="4000783";
-        } else {
-            $template_id="624601";
-        }
+        $template_id = "4021404";
+        $subject = 'Latest results';
 
         $vars = [
             //'template' => '624601', // Old template email ID
             'template' => $template_id,
-            'subject' => 'Latest results',
+            'subject' => $subject,
             'vars' =>
                 [
                     [
-                        'name'    => 'breakdown',
+                        'name' => 'breakdown',
                         'content' => $this->getBreakDownList()
                     ],
                     [
-                        'name'    => 'jackpot_amount',
+                        'name' => 'jackpot_amount',
                         'content' => $jackpot
                     ],
                     [
-                        'name'    => 'draw_date',
+                        'name' => 'draw_date',
                         'content' => $last_draw_date->format('j F Y')
                     ],
                     [
-                        'name'    => 'regular_numbers',
+                        'name' => 'regular_numbers',
                         'content' => $this->mapNumbers($draw_result['regular_numbers'])
                     ],
                     [
-                        'name'    => 'lucky_numbers',
+                        'name' => 'lucky_numbers',
                         'content' => $this->mapNumbers($draw_result['lucky_numbers'])
                     ],
                     [
@@ -122,16 +117,16 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
     {
         $numbersToEmail = [];
 
-        foreach($numbers as $number) {
-            $numbersToEmail[]['number'] = (int) $number;
+        foreach ($numbers as $number) {
+            $numbersToEmail[]['number'] = (int)$number;
         }
         return $numbersToEmail;
     }
 
-    private function currencyConversionAndFormatted( $amount)
+    private function currencyConversionAndFormatted($amount)
     {
         $moneyFormatter = new MoneyFormatter();
-        return $moneyFormatter->toStringByLocale('en_US', new Money((int) $amount, new Currency('EUR')));
+        return $moneyFormatter->toStringByLocale('en_US', new Money((int)$amount, new Currency('EUR')));
     }
 
     /**

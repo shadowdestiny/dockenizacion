@@ -3,31 +3,32 @@
 
 namespace EuroMillions\web\emailTemplates;
 
+use EuroMillions\web\entities\User;
+
 class WelcomeEmailTemplate extends EmailTemplateDecorator
 {
-
+    /** @var  User $user */
     protected $user;
 
     public function loadVars()
     {
         $data = $this->emailTemplateDataStrategy->getData();
+        $language = $this->user->getDefaultLanguage();
 
-        $language=$this->user->getDefaultLanguage();
-        
-        if ($language="en") {
-            // Welcome Email English Version Template ID= 4021147
-            $template_id="4021147";
-        } elseif ($language="ru") {
+        if ($language == "ru") {
             // Welcome Email Russian Version Template ID= 3997341
-            $template_id="3997341";
+            $template_id = "3997341";
+            $subject = 'Добро пожаловать на EuroMillions.com';
         } else {
-            $template_id="4021147";
+            // Welcome Email English Version Template ID= 4021147
+            $template_id = "4021147";
+            $subject = 'Welcome to Euromillions.com';
         }
 
         $vars = [
             //'template' => '623001', // Old template email ID
             'template' => $template_id,
-            'subject' => 'Welcome to Euromillions.com',
+            'subject' => $subject,
             'vars' => [
                 [
                     'name' => 'user_name',
