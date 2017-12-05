@@ -308,6 +308,15 @@ $(document).ready(function () {
     });
   }
 
+  //Shopping cart accordion
+  if ($('.action--arrow--mobile').length) {
+    $('.action--arrow--mobile').click(function () {
+      $(this).toggleClass('expanded').closest('tr').find('.td--content--accordion').each(function(){
+        $(this).stop().toggle();
+      });
+    });
+  }
+
 
 
 });
