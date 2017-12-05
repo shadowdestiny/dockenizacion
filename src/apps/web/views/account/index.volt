@@ -24,7 +24,7 @@
                 {% set activeSubnav='{"myClass": "account"}'|json_decode %}
                 {% include "account/_nav.volt" %}
             </div>
-            <div class="content">
+            <div class="content content-main-account">
                 <div class="my-account--section my-account" {% if which_form == 'index' %} style="display: block" {% else %} style="display: none" {% endif %}>
 
                     {#<h1 class="h1 title yellow">{{ language.translate("account_head") }}</h1>#}
