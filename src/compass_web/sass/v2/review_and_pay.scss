@@ -1158,6 +1158,12 @@
           label {
             text-transform: uppercase;
 
+            display: none;
+
+            @media only screen and (min-width: $screen-xs) {
+              display: block;
+            }
+
             &::after {
               content: "";
               display: inline-block;
