@@ -155,7 +155,7 @@
                 </header>
 
                 {# TODO : html version start #}
-                {% include "_elements/gameplay--section.volt" %}
+{#                {% include "_elements/gameplay--section.volt" %}#}
                 {# TODO : html version end #}
 
 
