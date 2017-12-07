@@ -16,18 +16,18 @@
 
         <div class="left">
             <div class="txt">
-                Balance: €0.00
+                {{ language.translate('balance') }}: {{ user_balance }}
             </div>
-            <a href="#">
-                Add Balance
+            <a href="/account/wallet">
+                {{ language.translate('addBalance') }}
             </a>
         </div>
         <div class="right">
             <div class="txt">
-                L.Demir
+                {{ user_name }}
             </div>
-            <a href="#">
-                My account
+            <a href="/account">
+                {{ language.translate('myAccount') }}
             </a>
         </div>
 
