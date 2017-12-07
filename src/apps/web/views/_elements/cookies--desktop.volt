@@ -37,4 +37,6 @@
             </div>
         </div>
     </div>
+
+    {% include "_elements/cookies.volt" %}
 </div>

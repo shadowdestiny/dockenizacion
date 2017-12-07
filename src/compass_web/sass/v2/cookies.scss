@@ -1,17 +1,17 @@
 .cookies-block--mobile {
-  display: block;
-
-  @media only screen and (min-width: $screen-ipad-v) {
-    display: none;
-  }
+  //display: block;
+  //
+  //@media only screen and (min-width: $screen-ipad-v) {
+  //  display: none;
+  //}
 }
 
 .cookies-block--desktop {
-  display: none;
-
-  @media only screen and (min-width: $screen-ipad-v) {
-    display: block;
-  }
+  //display: none;
+  //
+  //@media only screen and (min-width: $screen-ipad-v) {
+  //  display: block;
+  //}
 }
 
 //This styles for the desktop version only
