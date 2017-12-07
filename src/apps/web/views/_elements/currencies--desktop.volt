@@ -51,16 +51,6 @@
     </div>
 </li>
 
-{% if user_balance_raw > 0 %}
-    {% set class_balance="" %}
-{% else %}
-    {% set class_balance="hidden" %}
-{% endif %}
-
-<li class="balance {{ class_balance }}">
-    <a class="link" href="/account/wallet/">{{ language.translate('balance') }}: {{ user_balance }}</a>
-</li>
-
 {# EMTD - CART link functionality incompleted and hidden for first release
 
 <li class="li-cart">

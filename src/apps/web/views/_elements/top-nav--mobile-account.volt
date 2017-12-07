@@ -1,6 +1,9 @@
 <div class="top-nav--mobile-account">
 
-    <div class="top-nav--mobile-account--icon"></div>
+    {% if user_logged is not empty %}
+        {{user_name}}
+        <div class="top-nav--mobile-account--icon"></div>
+    {% endif %}
 
     <div class="top-nav--mobile-account--menu">
         <div class="top-nav--mobile-account--menu--inner">

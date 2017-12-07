@@ -8,12 +8,6 @@
         {#<a class="btn-theme btn-primary" href="/{{ language.translate("link_signin") }}">Login</a>#}
     </li>
 {% else %}
-    <li>
-        <a class="link" href="/logout">{{ language.translate('LogOut') }}</a>
-    </li>
-    <li class="">
-        <a class="link" href="/account/wallet">{{ language.translate('deposit') }}</a>
-    </li>
 
     {% include "_elements/top-loggedin-menu.volt" %}
 
