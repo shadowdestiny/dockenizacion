@@ -63,14 +63,6 @@
             </div>
         </div>
 
-
-        {#TODO: we shoul to use this block in correct place#}
-
-        <div class="wrapper">
-            {% include "_elements/thank-you.volt" %}
-        </div>
-
-
         {#TODO: we shoul to use this block in correct place#}
         <div class="wrapper">
             {% include "_elements/review_and_pay.volt" %}
