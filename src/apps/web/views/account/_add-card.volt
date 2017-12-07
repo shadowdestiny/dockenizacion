@@ -6,8 +6,10 @@
     };
 </script>
 
+{#<section class="section--card--details">#}
+
 {% if component.where == 'cart' %}
-    <hr class="hr yellow">
+    {#<hr class="hr yellow">#}
 {% endif %}
 
 
@@ -52,9 +54,11 @@
     <div class="">
         <div class="">
             {% endif %}
-            <h2 class="h2">
-                {{ language.translate("card_subhead") }}
-            </h2>
+            {#<h2 class="h2">#}
+                {#{{ language.translate("card_subhead") }}#}
+            {#</h2>#}
+
+            {#<div class="section--content">#}
 
             {% if component.where == 'cart' %}
             {% if msg %}
@@ -118,12 +122,16 @@
                 </div>
                 <input type="hidden" name="paywallet" id="paywallet" value=""/>
                 <input type="hidden" name="funds" id="funds" value=""/>
-                <div class="cl col6">
+                <div class="">
+
                     <input id="new-card" type="submit" class="hidden2">
                     <label class="btn submit big green right" for="new-card">
                         {{ language.translate("Pay {total_value}") }}
                     </label>
+
+                    {% include "_elements/cards-block.volt" %}
                 </div>
+            {#</div>#}
             </div>
         </div>
 
@@ -158,30 +166,11 @@
 </div>
 {% endif %}
 <input id="id_payment" name="id_payment" value="{#{{ payment_method.id_payment }}#}" type="hidden"/>
+
 </div>
 
 
-<p>
-<div class="images-payment box-partner">
-    <ul class="no-li inline">
-        <li class="li-visa">
-            <a href="http://www.visaeurope.com/">
-                {#<svg class="v-visa vector"><use xlink:href="/w/svg/icon.svg#visa"/></svg>#}
-                <img src="/w/img/account/desktop/visa.png"/>
-            </a>
-        </li>
-        <li class="li-mastercard">
-            <a href="http://www.mastercard.com/eur/">
-                {#<svg class="v-mastercard vector"><use xlink:href="/w/svg/icon.svg#mastercard"/></svg>#}
-                <img src="/w/img/account/desktop/mastercard.png"/>
-            </a>
-        </li>
-        <li class="li-comodo">
-            <a href="https://ssl.comodo.com/">
-                {#<img src="/w/svg/comodo.png"/>#}
-                <img src="/w/img/account/desktop/comodo.png"/>
-            </a>
-        </li>
-    </ul>
-</div>
-</p>
+    {#</div>#}
+
+
+{#</section>#}

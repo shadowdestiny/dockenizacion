@@ -69,9 +69,9 @@
         </div>
 
         {#TODO: we shoul to use this block in correct place#}
-        <div class="wrapper">
-            {% include "_elements/cart.volt" %}
-        </div>
+        {#<div class="wrapper">#}
+            {#{% include "_elements/cart.volt" %}#}
+        {#</div>#}
 
 
 

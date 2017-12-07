@@ -1,5 +1,8 @@
 {% extends "main.volt" %}
-{% block template_css %}<link rel="stylesheet" href="/w/css/cart.css">{% endblock %}
+{% block template_css %}
+    <link rel="stylesheet" href="/w/css/cart.css">
+    <link rel="stylesheet" href="/w/css/main.css">
+{% endblock %}
 {% block template_scripts_code %}
     {# //vars to cart.jsx #}
     var config = '<?php echo $config; ?>';
@@ -51,8 +54,8 @@
     $(function(){
     $('.buy').on('click',function(){
     if ($(this).text() == txt_buy_btn) {
-        $(this).text('Please wait...');
-        $(this).css('pointer-events', 'none');
+    $(this).text('Please wait...');
+    $(this).css('pointer-events', 'none');
     }
     var value = $(this).data('btn');
     if(value == 'no-wallet') {
@@ -84,31 +87,31 @@
     });
 
     $('.box-add-card').on('submit',function(){
-        var disabled = $('label.submit').hasClass('gray');
-        var cardNumber = $('#card-number');
-        if(disabled) {
-            return false;
-        }
-        $('label.submit').removeClass('green').addClass('gray');
-        $('label.submit').text('Please wait...');
-        cardNumber.val(cardNumber.val().replace(/ /g, ''));
-        $('#paywallet').val($('#pay-wallet').is(':checked') ? true : false);
-        $('#funds').val($('#charge').val());
-        $.cookie('csid', $('#csid').val());
-        $.cookie('url_gcp', window.location.protocol+'//'+window.location.host+'/euromillions/gcp');
+    var disabled = $('label.submit').hasClass('gray');
+    var cardNumber = $('#card-number');
+    if(disabled) {
+    return false;
+    }
+    $('label.submit').removeClass('green').addClass('gray');
+    $('label.submit').text('Please wait...');
+    cardNumber.val(cardNumber.val().replace(/ /g, ''));
+    $('#paywallet').val($('#pay-wallet').is(':checked') ? true : false);
+    $('#funds').val($('#charge').val());
+    $.cookie('csid', $('#csid').val());
+    $.cookie('url_gcp', window.location.protocol+'//'+window.location.host+'/euromillions/gcp');
     });
 
     $('#expiry-date-month').on('keyup',function(e){
-	var charCount = $(this).val().length;
-	if (charCount==2){
-		$('#expiry-date-year').focus();
-	}	
+    var charCount = $(this).val().length;
+    if (charCount==2){
+    $('#expiry-date-year').focus();
+    }
     });
 
     $('#expiry-date-year').on('keyup',function(e){
     var charCount = $(this).val().length;
     if (charCount==2){
-        $('#card-cvv').focus();
+    $('#card-cvv').focus();
     }
     });
 
@@ -132,7 +135,7 @@
     <script src="/w/js/react/cart.js"></script>
     <script src="/w/js/react/tooltip.js"></script>
     <script type="text/javascript" src="/w/js/csid.js" charset="UTF-8"></script>
-    {%  if ga_code is defined %}
+    {% if ga_code is defined %}
         <!--start PROD imports
         <script src="/w/js/dist/GASignUpOrder.min.js"></script>
         end PROD imports-->
@@ -151,12 +154,15 @@
         <span class="type">5 {{ language.app("numbers") }} + 3 {{ language.app("stars") }}</span>
     #}
 
-    <main id="content">
+    <main id="content" class="">
         <div class="wrapper">
-            <div class="box-basic medium">
-                <h1 class="h1 title yellow res">{{ language.translate("checkout_head") }}</h1>
-                <div class="terms">{{ language.translate("terms") }}</a></div>
-
+            <div class="review_and_pay-section">
+                <section class="section--review-and-pay">
+                    <div class="top-row">
+                        <h1 class="">{{ language.translate("checkout_head") }}</h1>
+                        <p class="">{{ language.translate("terms") }}</a></p>
+                    </div>
+                </section>
                 {#<div class="box-top cl">#}
                 {#&#123;&#35;<div class="balance">&#35;&#125;#}
                 {#&#123;&#35;<span class="txt">{{ language.app("Your current account balance:") }}</span>&#35;&#125;#}
@@ -165,26 +171,36 @@
 
                 {#<h2 class="h4 sub-txt">{{ language.app("Order Summary") }}</h2>#}
                 {#</div>#}
+                <section class="section--numbers-played">
 
-                <div id="cart-order"></div>
+                    <div id="cart-order"></div>
+                </section>
+
+
                 <div class="payment hidden">
-                    <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}" method="post" action="/euromillions/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
-                        {% set component='{"where": "cart"}'|json_decode %}
-                        {% include "account/_add-card.volt" %}
-                        <input type="hidden" id="csid" name="csid"/>
-                    </form>
-                </div>
-                <p>
-                <div class="images-payment-center col4 box-partner">
-                    <ul class="no-li inline"  style="float:right">
-                        <li><a href="http://www.visaeurope.com/"><svg class="v-visa vector"><use xlink:href="/w/svg/icon.svg#visa"/></svg></a></li>
-                        <li><a href="http://www.mastercard.com/eur/"><svg class="v-mastercard vector"><use xlink:href="/w/svg/icon.svg#mastercard"/></svg></a></li>
-                        <li><a href="https://ssl.comodo.com/"><img src="/w/svg/comodo.png"/> </a></li>
-                    </ul>
+
+                    <section class="section--card--details">
+
+                            <div class="top-row">
+                                <h1 class="h2">
+                                    {{ language.translate("card_subhead") }}
+                                </h1>
+                            </div>
+                        <div class="section--content">
+                            <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}"
+                                  method="post"
+                                  action="/euromillions/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
+                                {% set component='{"where": "cart"}'|json_decode %}
+                                {% include "account/_add-card.volt" %}
+                                <input type="hidden" id="csid" name="csid"/>
+                            </form>
+                        </div>
+                    </section>
                 </div>
 
             </div>
+
         </div>
     </main>
-{% include "_elements/minimal-footer.volt" %}
+    {% include "_elements/minimal-footer.volt" %}
 {% endblock %}

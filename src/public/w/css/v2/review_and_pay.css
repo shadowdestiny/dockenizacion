@@ -9,10 +9,10 @@ Error: Undefined variable: "$screen-ipad-v".
 6: 
 7:   @media only screen and (min-width: $screen-ipad-v) {
 8:     padding: 0;
-9:   }
-10: 
-11:   @media only screen and (min-width: $screen-ipad-h) {
-12:     background-color: #f5f5f5;
+9:     margin-top: 50px;
+10:   }
+11: 
+12:   @media only screen and (min-width: $screen-ipad-h) {
 
 Backtrace:
 /src/compass_web/sass/v2/review_and_pay.scss:7
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 7 of /src/compass_web/sass/v2/review_and_pay.scss\A \A 2: \A 3: .review_and_pay-section {\A 4: \A 5:   padding: 0;\A 6: \A 7:   @media only screen and (min-width: $screen-ipad-v) {\A 8:     padding: 0;\A 9:   }\A 10: \A 11:   @media only screen and (min-width: $screen-ipad-h) {\A 12:     background-color: #f5f5f5;"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 7 of /src/compass_web/sass/v2/review_and_pay.scss\A \A 2: \A 3: .review_and_pay-section {\A 4: \A 5:   padding: 0;\A 6: \A 7:   @media only screen and (min-width: $screen-ipad-v) {\A 8:     padding: 0;\A 9:     margin-top: 50px;\A 10:   }\A 11: \A 12:   @media only screen and (min-width: $screen-ipad-h) {"; }
