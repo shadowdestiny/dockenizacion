@@ -96,15 +96,18 @@
 
       .combo {
         position: relative;
-        margin: -16px 0 0 57px;
+        //margin: -16px 0 0 57px;
+        margin: -16px 0 0 61px;
         width: 60px;
 
         @media only screen and (min-width: $screen-ipad-h) {
-          margin: -16px 0 0 57px;
+          //margin: -16px 0 0 57px;
+          margin: -16px 0 0 61px;
           width: 60px;
         }
         @media only screen and (min-width: $screen-desktop) {
-          margin: -16px 0 0 57px;
+          //margin: -16px 0 0 57px;
+          margin: -16px 0 0 61px;
           width: 60px;
         }
       }
@@ -830,5 +833,9 @@
   .line .v-checkmark {
     color: #d0e1e9;
     opacity: 1;
+  }
+
+  .gameplay .h4.blue {
+    color: #2d2d2d;
   }
 }
