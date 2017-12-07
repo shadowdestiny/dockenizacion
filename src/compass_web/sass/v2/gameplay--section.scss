@@ -150,7 +150,6 @@
         -webkit-background-size: 27px;
         background-size: 27px;
 
-
         @media only screen and (min-width: $screen-ipad-h) {
           width: 55px;
           height: 30px;
@@ -175,7 +174,8 @@
         border-width: 1px;
         border-color: #519fe9;
         border-style: solid;
-        background-color: #ffffff;
+        //background-color: #ffffff;
+        background-color: transparent;
         width: 28px;
         height: 27px;
 
@@ -258,7 +258,6 @@
           background-size: 12px;
           background-position: 60px 9px;
         }
-
 
         span {
           color: #0099e6;
@@ -575,7 +574,7 @@
         clear: none;
         margin-right: 1px;
 
-        background-color:  #eae8e8;
+        background-color: #eae8e8;
         width: 103px;
         height: 105px;
 
@@ -590,7 +589,6 @@
           height: 105px;
         }
 
-
         a {
           display: block;
           height: 100%;
@@ -603,7 +601,7 @@
 
             //font-family: RobotoCondensed;
             font-family: $ff3;
-            color:  #2d2d2d;
+            color: #2d2d2d;
             font-weight: 700;
             font-size: 18px;
             line-height: 17.5px;
@@ -648,7 +646,7 @@
             position: relative;
 
             //font-family: WorkSans;
-            color:  #2d2d2d;
+            color: #2d2d2d;
             font-weight: 500;
             font-size: 16px;
             line-height: 17.5px;
@@ -666,7 +664,6 @@
             }
           }
         }
-
 
         &.text-green {
           a {
@@ -827,4 +824,11 @@
 
   }
 
+}
+
+.play--page {
+  .line .v-checkmark {
+    color: #d0e1e9;
+    opacity: 1;
+  }
 }
