@@ -681,15 +681,15 @@
         padding-bottom: 0px;
       }
 
-
       .section--content {
+        padding: 10px 20px 10px 20px;
 
         @media only screen and (min-width: $screen-ipad-h) {
-          padding: 40px 0px 40px 70px;
+          padding: 40px 70px 40px 70px;
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          padding: 40px 0px 40px 70px;
+          padding: 40px 70px 40px 70px;
         }
       }
 
@@ -793,64 +793,67 @@
         }
       }
 
-
+      .box-total {
+        border: 0;
+      }
       .box-total-upper {
+        border:0;
 
         .total,
         .box-top h1 {
 
-        float: none;
-        text-transform: uppercase;
-        color: #333;
-        font-size: 17px;
-        font-weight: 900;
-        line-height: 1;
-        text-align: left;
-        padding-top: 12px;
-        padding-bottom: 0;
-
-        @media only screen and (min-width: $screen-xs) {
-          float: left;
+          float: none;
           text-transform: uppercase;
-
-          color: #333333;
-          font-size: 10.5px;
+          color: #333;
+          font-size: 17px;
           font-weight: 900;
-          line-height: 36px;
+          line-height: 1;
           text-align: left;
-
-          padding-top: 0;
+          padding-top: 12px;
           padding-bottom: 0;
-        }
 
-        @media only screen and (min-width: $screen-ipad-v) {
-          float: left;
-          text-transform: uppercase;
+          @media only screen and (min-width: $screen-xs) {
+            float: left;
+            text-transform: uppercase;
 
-          color: #333333;
-          //font-size: 24px;
-          font-size: 18.5px;
-          font-weight: 900;
-          line-height: 36px;
-          text-align: left;
-        }
+            color: #333333;
+            font-size: 10.5px;
+            font-weight: 900;
+            line-height: 36px;
+            text-align: left;
 
-        @media only screen and (min-width: $screen-ipad-h) {
-          color: #333333;
-          //font-size: 24px;
-          font-size: 18.5px;
-          font-weight: 900;
-          line-height: 36px;
-          text-align: left;
-        }
+            padding-top: 0;
+            padding-bottom: 0;
+          }
 
-        @media only screen and (min-width: $screen-desktop) {
-          color: #333333;
-          font-size: 24px;
-          font-weight: 900;
-          line-height: 36px;
-          text-align: left;
-        }
+          @media only screen and (min-width: $screen-ipad-v) {
+            float: left;
+            text-transform: uppercase;
+
+            color: #333333;
+            //font-size: 24px;
+            font-size: 18.5px;
+            font-weight: 900;
+            line-height: 36px;
+            text-align: left;
+          }
+
+          @media only screen and (min-width: $screen-ipad-h) {
+            color: #333333;
+            //font-size: 24px;
+            font-size: 18.5px;
+            font-weight: 900;
+            line-height: 36px;
+            text-align: left;
+          }
+
+          @media only screen and (min-width: $screen-desktop) {
+            color: #333333;
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 36px;
+            text-align: left;
+          }
         }
 
         .total {
@@ -880,7 +883,7 @@
           }
         }
 
-    }
+      }
 
       .txt-black-upper {
         span {
@@ -940,7 +943,448 @@
         }
       }
 
+      .box-order {
+
+        .row {
+
+          border:0;
+          overflow: hidden;
+          padding-top: 9px;
+          padding-bottom: 20px;
+          padding-left: 0px;
+          position: relative;
+
+          @media only screen and (min-width: $screen-xs) {
+            overflow: hidden;
+            padding-top: 9px;
+            padding-bottom: 1px;
+            padding-left: 5px;
+          }
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            overflow: hidden;
+            padding-top: 9px;
+            padding-bottom: 1px;
+            padding-left: 5px;
+          }
+
+          @media only screen and (min-width: $screen-ipad-h) {
+            padding-top: 20px;
+            padding-left: 0px;
+            padding-bottom: 0px;
+
+            margin-left: 0px;
+            margin-right: 0px;
+          }
+
+          @media only screen and (min-width: $screen-desktop) {
+            padding-top: 20px;
+            padding-left: 0px;
+            padding-bottom: 0px;
+
+            margin-left: 0px;
+            margin-right: 0px;
+          }
+
+          .txt-fee,
+          .desc {
+
+            font-family: $ff2;
+            color: #a8a8a8;
+            text-align: left;
+
+            font-size: 15px;
+            //font-weight: 400;
+            font-weight: 900;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+
+            display: block;
+            width: 100%;
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              font-family: $ff2;
+              color: #a8a8a8;
+              text-align: left;
+
+              font-size: 18px;
+              //font-weight: 400;
+              font-weight: 900;
+              margin-bottom: 7px;
+              text-transform: uppercase;
+            }
+
+            @media only screen and (min-width: $screen-ipad-h) {
+              font-size: 24px;
+              //font-weight: 400;
+              font-weight: 900;
+              margin-bottom: 16px;
+              padding-left: 0;
+            }
+
+            @media only screen and (min-width: $screen-desktop) {
+              font-size: 24px;
+              //font-weight: 400;
+              font-weight: 900;
+              margin-bottom: 16px;
+              padding-left: 0;
+            }
+          }
+
+          .detail {
+            .numbers,
+            .numbers.small {
+
+              float: left;
+              margin-bottom: 0;
+
+              @media only screen and (min-width: $screen-ipad-v) {
+                float: left;
+                margin-bottom: 0;
+              }
+
+              @media only screen and (min-width: $screen-ipad-h) {
+                float: left;
+                margin-left: 0px;
+                margin-bottom: 17px;
+              }
+
+              @media only screen and (min-width: $screen-desktop) {
+                float: left;
+                margin-left: 0px;
+                margin-bottom: 17px;
+              }
+
+              li {
+                text-align: center;
+                width: 27px;
+                height: 27px;
+                line-height: 25px;
+                background-image: url('../img/home/result-block/desktop/ellipse.svg');
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                text-shadow: none;
+                letter-spacing: 0;
+                -webkit-background-size: 27px;
+                background-size: 27px;
+                font-family: "Chivo", sans-serif;
+                color: #fff;
+                font-size: 12px;
+                font-weight: 700;
+                margin-right: 10px;
+                position: relative;
+                top: -3px;
+
+                @media only screen and (min-width: $screen-xs) {
+                  text-align: center;
+                  width: 25px;
+                  height: 25px;
+                  line-height: 25px;
+                  background-image: url('../img/home/result-block/desktop/ellipse.svg');
+                  background-repeat: no-repeat;
+                  background-position: 0 0;
+                  text-shadow: none;
+                  letter-spacing: 0;
+                  -webkit-background-size: 25px;
+                  background-size: 25px;
+                  font-family: "Chivo", sans-serif;
+                  color: #fff;
+                  font-size: 12px;
+                  font-weight: 700;
+                  margin-right: 10px;
+                  position: relative;
+                  top: -1px;
+                }
+
+                @media only screen and (min-width: $screen-ipad-v) {
+                  text-align: center;
+                  width: 52px;
+                  height: 53px;
+                  line-height: 50px;
+                  background-image: url('../img/home/result-block/desktop/ellipse.svg');
+                  background-repeat: no-repeat;
+                  background-position: 0 0;
+                  text-shadow: none;
+                  letter-spacing: 0;
+                  -webkit-background-size: 52px;
+                  background-size: 52px;
+                  font-family: "Chivo", sans-serif;
+                  color: #fff;
+                  font-size: 23px;
+                  font-weight: 700;
+                  margin-right: 18px;
+                  position: relative;
+                  top: -4px;
+                }
+
+                @media only screen and (min-width: $screen-ipad-h) {
+                  font-size: 18px;
+                  font-weight: 700;
+                  margin-right: 15px;
+                  width: 40px;
+                  height: 44px;
+                  line-height: 40px;
+
+                  position: static;
+
+                  background-image: url('../img/home/result-block/desktop/ellipse.svg');
+                  background-repeat: no-repeat;
+                  background-position: 0 0;
+                  text-shadow: none;
+                  letter-spacing: 0;
+                  -webkit-background-size: 40px;
+                  background-size: 40px;
+                }
+
+                @media only screen and (min-width: $screen-desktop) {
+                  font-size: 18px;
+                  font-weight: 700;
+                  margin-right: 15px;
+                  width: 40px;
+                  height: 44px;
+                  line-height: 40px;
+
+                  position: static;
+
+                  background-image: url('../img/home/result-block/desktop/ellipse.svg');
+                  background-repeat: no-repeat;
+                  background-position: 0 0;
+                  text-shadow: none;
+                  letter-spacing: 0;
+                  -webkit-background-size: 40px;
+                  background-size: 40px;
+                }
+              }
+              li.star {
+                background-image: url('../img/home/result-block/desktop/star.svg');
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                -webkit-background-size: 30px;
+                background-size: 30px;
+                text-indent: 0;
+                color: #333;
+                width: 30px;
+                height: 30px;
+                margin-left: 19px;
+                margin-right: 2px;
+                line-height: 25px;
+                position: relative;
+                top: 0px;
+                padding-top: 4px;
+
+                @media only screen and (min-width: $screen-xs) {
+                  background-image: url('../img/home/result-block/desktop/star.svg');
+                  background-repeat: no-repeat;
+                  background-position: 0 0;
+                  -webkit-background-size: 30px;
+                  background-size: 30px;
+                  text-indent: 0;
+                  color: #333;
+                  width: 30px;
+                  height: 30px;
+                  margin-left: 0px;
+                  margin-right: 2px;
+                  line-height: 25px;
+                  position: relative;
+                  top: 0px;
+                  padding-top: 4px;
+                }
+
+                @media only screen and (min-width: $screen-ipad-v) {
+                  background-image: url('../img/home/result-block/desktop/star.svg');
+                  background-repeat: no-repeat;
+                  background-position: 0 0;
+                  -webkit-background-size: 60px;
+                  background-size: 60px;
+                  text-indent: 0;
+                  color: #333;
+                  width: 60px;
+                  height: 56px;
+                  margin-left: 27px;
+                  margin-right: 10px;
+                  line-height: 50px;
+                  position: relative;
+                  top: -2px;
+                  padding-top: 7px;
+                }
+
+                @media only screen and (min-width: $screen-ipad-h) {
+                  background-image: url('../img/home/result-block/desktop/star.svg');
+                  background-repeat: no-repeat;
+                  background-position: 0 0;
+                  -webkit-background-size: 47px;
+                  background-size: 47px;
+
+                  text-indent: 0;
+                  color: #333333;
+
+                  position: static;
+                  padding-top: 0;
+
+                  width: 47px;
+                  height: 44px;
+                  margin-left: 19px;
+                  margin-right: 6px;
+                  line-height: 47px;
+                }
+
+                @media only screen and (min-width: $screen-desktop) {
+                  background-image: url('../img/home/result-block/desktop/star.svg');
+                  background-repeat: no-repeat;
+                  background-position: 0 0;
+                  -webkit-background-size: 47px;
+                  background-size: 47px;
+
+                  text-indent: 0;
+                  color: #333333;
+
+                  position: static;
+                  padding-top: 0;
+
+                  width: 47px;
+                  height: 44px;
+                  margin-left: 19px;
+                  margin-right: 6px;
+                  line-height: 47px;
+                }
+              }
+              li.star + li.star {
+                margin-left: 3px;
+                margin-right: 0px;
+
+                @media only screen and (min-width: $screen-xs) {
+                  margin-right: 22px;
+                }
+
+                @media only screen and (min-width: $screen-ipad-v) {
+                  margin-left: 0;
+                  margin-right: 22px;
+                }
+
+                @media only screen and (min-width: $screen-ipad-h) {
+                  margin-left: 0;
+                  margin-right: 0;
+                }
+
+                @media only screen and (min-width: $screen-desktop) {
+                  margin-left: 0;
+                  margin-right: 0;
+                }
+
+              }
+            }
+
+            .numbers {
+              font-weight: 700;
+              margin-bottom: 8px;
+
+              @media only screen and (min-width: $screen-ipad-v) {
+                font-weight: 700;
+                margin-bottom: 8px;
+              }
+
+              @media only screen and (min-width: $screen-ipad-h) {
+                font-weight: 700;
+                margin-bottom: 12px;
+              }
+
+              @media only screen and (min-width: $screen-desktop) {
+                font-weight: 700;
+                margin-bottom: 12px;
+              }
+
+            }
+          }
+
+          .summary.val {
+            float: none;
+            text-align: left;
+            font-weight: 900;
+            font-size: 14px;
+            padding-top: 0;
+            clear: both;
+            padding-bottom: 10px;
+            position: absolute;
+            right: 2px;
+            top: 10px;
+
+            @media only screen and (min-width: $screen-xs) {
+              float: left;
+              text-align: left;
+              font-weight: 900;
+              font-size: 14px;
+              //padding-top: 7px;
+              clear: both;
+              padding-bottom: 10px;
+              position: static;
+            }
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              float: right;
+              text-align: right;
+              font-weight: 900;
+              font-size: 22.5px;
+              //padding-top: 17px;
+              padding-bottom: 0;
+              clear: none;
+            }
+
+            @media only screen and (min-width: $screen-ipad-h) {
+              font-size: 24px;
+              //padding-top: 12px;
+            }
+
+            @media only screen and (min-width: $screen-desktop) {
+              font-size: 24px;
+              //padding-top: 12px;
+            }
+          }
+
+          .txt-fee{
+            max-width: 500px;
+            //margin-bottom: 0;
+          }
+
+          &:last-of-type {
+            //border-bottom: 1px solid #333333;
+
+            @media only screen and (min-width: $screen-ipad-h) {
+              border-bottom: 0;
+            }
+
+            @media only screen and (min-width: $screen-desktop) {
+              border-bottom: 0;
+            }
+          }
+        }
+
+        .row + .row {
+          padding-top: 2px;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            padding-top: 2px;
+          }
+
+          @media only screen and (min-width: $screen-ipad-h) {
+            padding-top: 20px;
+          }
+
+          @media only screen and (min-width: $screen-desktop) {
+            padding-top: 20px;
+          }
+        }
+
+        .row:last-of-type {
+          padding-bottom: 0;
+
+          @media only screen and (min-width: $screen-xs) {
+            padding-bottom: 1px;
+          }
+        }
+
+      }
     }
+
 
     &.section--card--details {
 

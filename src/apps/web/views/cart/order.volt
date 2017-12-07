@@ -172,8 +172,9 @@
                 {#<h2 class="h4 sub-txt">{{ language.app("Order Summary") }}</h2>#}
                 {#</div>#}
                 <section class="section--numbers-played">
-
-                    <div id="cart-order"></div>
+                    <div class="section--content">
+                        <div id="cart-order"></div>
+                    </div>
                 </section>
 
 
