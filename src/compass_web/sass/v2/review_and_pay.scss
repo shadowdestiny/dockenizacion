@@ -794,12 +794,151 @@
       }
 
 
-  .box-total-upper {
-      .box-top {
+      .box-total-upper {
 
+        .total,
+        .box-top h1 {
+
+        float: none;
+        text-transform: uppercase;
+        color: #333;
+        font-size: 17px;
+        font-weight: 900;
+        line-height: 1;
+        text-align: left;
+        padding-top: 12px;
+        padding-bottom: 0;
+
+        @media only screen and (min-width: $screen-xs) {
+          float: left;
+          text-transform: uppercase;
+
+          color: #333333;
+          font-size: 10.5px;
+          font-weight: 900;
+          line-height: 36px;
+          text-align: left;
+
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          float: left;
+          text-transform: uppercase;
+
+          color: #333333;
+          //font-size: 24px;
+          font-size: 18.5px;
+          font-weight: 900;
+          line-height: 36px;
+          text-align: left;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          color: #333333;
+          //font-size: 24px;
+          font-size: 18.5px;
+          font-weight: 900;
+          line-height: 36px;
+          text-align: left;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          color: #333333;
+          font-size: 24px;
+          font-weight: 900;
+          line-height: 36px;
+          text-align: left;
+        }
+        }
+
+        .total {
+
+          float: none;
+          font-size: 15px;
+          color: #fad425;
+          padding-top: 2px;
+          padding-right: 120px;
+          line-height: 1.2;
+
+          @media only screen and (min-width: $screen-xs) {
+            float: right;
+
+            text-transform: uppercase;
+            color: #333;
+            font-size: 17px;
+            font-weight: 900;
+            line-height: 1;
+            text-align: left;
+            padding-top: 12px;
+            padding-bottom: 0;
+          }
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            float: right;
+          }
+        }
+
+    }
+
+      .txt-black-upper {
+        span {
+
+          text-transform: none;
+          color: #333;
+          font-size: 15.9px;
+          font-weight: 700;
+          text-align: left;
+          padding-top: 0px;
+
+          @media only screen and (min-width: $screen-xs) {
+            text-transform: none;
+            color: #333;
+            font-size: 10.7px;
+            font-weight: 700;
+            text-align: left;
+            padding-top: 0px;
+          }
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            text-transform: none;
+            color: #333;
+            font-size: 18.7px;
+            font-weight: 700;
+            text-align: left;
+            padding-top: 3px;
+          }
+
+          @media only screen and (min-width: $screen-ipad-h) {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: left;
+            padding-top: 9px;
+
+            &:first-of-type {
+              padding-top: 5px;
+            }
+            &:last-of-type {
+              margin-bottom: 10px;
+            }
+          }
+
+          @media only screen and (min-width: $screen-desktop) {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: left;
+            padding-top: 9px;
+
+            &:first-of-type {
+              padding-top: 5px;
+            }
+            &:last-of-type {
+              margin-bottom: 10px;
+            }
+          }
+        }
       }
-  }
-
 
     }
 
