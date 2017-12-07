@@ -1,6 +1,7 @@
 // Thank you page
 
 .thank-you-block{
+  padding-top: 50px;
 
   .thank-you-block--top {
     padding: 0;
@@ -198,6 +199,7 @@
     }
     .btn-row{
       padding-top: 10px;
+      text-align: left;
 
       @media only screen and (min-width: $screen-xs) {
         padding-top: 23px;

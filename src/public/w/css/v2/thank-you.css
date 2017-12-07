@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-ipad-v".
-        on line 8 of /src/compass_web/sass/v2/thank-you.scss
+        on line 9 of /src/compass_web/sass/v2/thank-you.scss
 
-3: .thank-you-block{
-4: 
-5:   .thank-you-block--top {
-6:     padding: 0;
-7: 
-8:     @media only screen and (min-width: $screen-ipad-v) {
-9:       padding: 0;
-10:     }
-11: 
-12:     @media only screen and (min-width: $screen-ipad-h) {
-13:       background-color: #f5f5f5;
+4:   padding-top: 50px;
+5: 
+6:   .thank-you-block--top {
+7:     padding: 0;
+8: 
+9:     @media only screen and (min-width: $screen-ipad-v) {
+10:       padding: 0;
+11:     }
+12: 
+13:     @media only screen and (min-width: $screen-ipad-h) {
+14:       background-color: #f5f5f5;
 
 Backtrace:
-/src/compass_web/sass/v2/thank-you.scss:8
+/src/compass_web/sass/v2/thank-you.scss:9
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -81,4 +81,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 8 of /src/compass_web/sass/v2/thank-you.scss\A \A 3: .thank-you-block{\A 4: \A 5:   .thank-you-block--top {\A 6:     padding: 0;\A 7: \A 8:     @media only screen and (min-width: $screen-ipad-v) {\A 9:       padding: 0;\A 10:     }\A 11: \A 12:     @media only screen and (min-width: $screen-ipad-h) {\A 13:       background-color: #f5f5f5;"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 9 of /src/compass_web/sass/v2/thank-you.scss\A \A 4:   padding-top: 50px;\A 5: \A 6:   .thank-you-block--top {\A 7:     padding: 0;\A 8: \A 9:     @media only screen and (min-width: $screen-ipad-v) {\A 10:       padding: 0;\A 11:     }\A 12: \A 13:     @media only screen and (min-width: $screen-ipad-h) {\A 14:       background-color: #f5f5f5;"; }
