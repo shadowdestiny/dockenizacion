@@ -1,21 +1,19 @@
 /*
 Error: Undefined variable: "$screen-ipad-v".
-        on line 17 of /src/compass_web/sass/v2/cookies.scss
+        on line 4 of /src/compass_web/sass/v2/cookies.scss
 
-12: .box-cookies--desktop {
-13:   overflow: hidden;
-14:   padding-top: 20px;
-15:   padding-bottom: 2px;
-16: 
-17:   @media only screen and (min-width: $screen-ipad-v) {
-18:     overflow: hidden;
-19:     padding-top: 20px;
-20:     padding-bottom: 2px;
-21:   }
-22: 
+1: .cookies-block--mobile {
+2:   display: block;
+3: 
+4:   @media only screen and (min-width: $screen-ipad-v) {
+5:     display: none;
+6:   }
+7: }
+8: 
+9: .cookies-block--desktop {
 
 Backtrace:
-/src/compass_web/sass/v2/cookies.scss:17
+/src/compass_web/sass/v2/cookies.scss:4
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -70,4 +68,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 17 of /src/compass_web/sass/v2/cookies.scss\A \A 12: .box-cookies--desktop {\A 13:   overflow: hidden;\A 14:   padding-top: 20px;\A 15:   padding-bottom: 2px;\A 16: \A 17:   @media only screen and (min-width: $screen-ipad-v) {\A 18:     overflow: hidden;\A 19:     padding-top: 20px;\A 20:     padding-bottom: 2px;\A 21:   }\A 22: "; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 4 of /src/compass_web/sass/v2/cookies.scss\A \A 1: .cookies-block--mobile {\A 2:   display: block;\A 3: \A 4:   @media only screen and (min-width: $screen-ipad-v) {\A 5:     display: none;\A 6:   }\A 7: }\A 8: \A 9: .cookies-block--desktop {"; }
