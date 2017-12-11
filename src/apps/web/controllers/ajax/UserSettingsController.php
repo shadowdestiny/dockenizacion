@@ -114,6 +114,24 @@ class UserSettingsController extends AjaxControllerBase
                 'legalIndex' => '/условия-использования',
                 'legalPrivacy' => '/юридическая-информация/конфиденциальность',
             ],
+            'es' => [
+                'index' => '/es',
+                'christmasPlay' => '/es/loteria-navidad/jugar',
+                'signin' => '/es/ingreso',
+                'signup' => '/es/registro',
+                'forgotpsw' => '/es/recuperar-contrasena',
+                'contact' => '/es/contacto',
+                'currency' => '/es/moneda',
+                'euroPlay' => '/es/euromillions/jugar',
+                'euroFaq' => '/es/preguntas-frecuentes',
+                'euroHelp' => '/es/euromillions/como-se-juega',
+                'euroPastResult' => '/es/euromillions/resultados/sorteos-anteriores',
+                'euroResult' => '/es/euromillions/resultados',
+                'legalAbout' => '/es/quienes-somos',
+                'legalCookies' => '/es/cookies  ',
+                'legalIndex' => '/es/terminos-y-condiciones',
+                'legalPrivacy' => '/es/privacidad',
+            ],
         ];
     }
 
