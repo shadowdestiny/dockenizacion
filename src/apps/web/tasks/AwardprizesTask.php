@@ -37,15 +37,12 @@ class AwardprizesTask extends TaskBase
             $today = new \DateTime();
         }
         $drawDate = $this->lotteryService->getLastDrawDate('EuroMillions', $today);
-        var_dump($drawDate);
         $lottery_name = 'EuroMillions';
         $play_configs_result_awarded = $this->PrizeCheckoutService->playConfigsWithBetsAwarded($drawDate);
-        var_dump($play_configs_result_awarded);
         //get breakdown
         $result_breakdown = $this->lotteryService->getLastDrawWithBreakDownByDate($lottery_name, $drawDate);
-        var_dump($result_breakdown);
+
         if ($result_breakdown->success() && $play_configs_result_awarded->success()) {
-            die('hola');
             /** @var EuroMillionsDrawBreakDown $euromillions_breakDown */
             $euromillions_breakDown = $result_breakdown->getValues()->getBreakDown();
             $play_configs_awarded = $play_configs_result_awarded->getValues();
