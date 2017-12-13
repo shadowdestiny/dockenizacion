@@ -440,7 +440,7 @@
 
       .td-ticket-buttons--row {
         overflow: hidden;
-        background-color: #333333;
+        //background-color: #333333;
         height: 22px;
 
         @media only screen and (min-width: $screen-ipad-v) {
@@ -463,8 +463,8 @@
           line-height: 22px;
           padding-left: 7px;
 
-          color: #ffffff;
-          font-size: 10px;
+          color: #333333;
+          font-size: 16px;
           font-weight: 700;
 
           @media only screen and (min-width: $screen-ipad-v) {
@@ -500,7 +500,7 @@
           float: right;
           text-align: right;
           line-height: 0.5;
-          color: #ffffff;
+          color: #333333;
           font-size: 20px;
           font-weight: 700;
           padding-right: 14px;
@@ -541,21 +541,31 @@
           input[type="button"]:focus,
           input[type="button"] {
 
-            color: #fff;
+            //color: #fff;
             font-size: 24px;
             font-weight: 700;
-            line-height: 0.5;
-            text-align: left;
+            //line-height: 0.5;
+            //text-align: left;
             padding: 0;
             margin: 0;
             border: 0;
-            background: rgba(0, 0, 0, 0);
-            height: 22px;
+            //background: rgba(0, 0, 0, 0);
+            //height: 22px;
             display: inline-block;
-            width: 14px;
+            //width: 14px;
 
             outline: none;
             cursor: pointer;
+
+            color: #f8ce0d;
+            background-color: #6c6c6c;
+            position: relative;
+            top: 2px;
+            width: 23px;
+            height: 22px;
+            line-height: 0px;
+            border-radius: 5px;
+            text-align: center;
 
             @media only screen and (min-width: $screen-ipad-v) {
               color: #fff;
@@ -573,6 +583,8 @@
 
               outline: none;
               cursor: pointer;
+
+              position: static;
             }
 
             @media only screen and (min-width: $screen-ipad-h) {
