@@ -147,7 +147,10 @@
 {% endblock %}
 
 {% block bodyClass %}cart order minimal{% endblock %}
-{% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
+{% block header %}
+    {% set activeNav='{"myClass": "order"}'|json_decode %}
+    {% include "_elements/header.volt" %}
+{% endblock %}
 
 {% block body %}
     {#  Hide this content until we have multiple numbers
@@ -203,5 +206,5 @@
 
         </div>
     </main>
-    {% include "_elements/minimal-footer.volt" %}
+    {% include "_elements/footer.volt" %}
 {% endblock %}
