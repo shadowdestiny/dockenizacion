@@ -1,15 +1,19 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/cart.css">{% endblock %}
 {% block bodyClass %}cart fail minimal{% endblock %}
-{% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
-{% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
+{% block header %}
+    {% set activeNav='{"myClass": "failure"}'|json_decode %}
+    {% include "_elements/header.volt" %}
+{% endblock %}
+
+{% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>if(window!=top){top.location.href=location.href;}</script>{% endblock %}
 
 
 {% block body %}
 <main id="content">
     <div class="wrapper">
-        <div class="box-basic medium">
+        <div class="thank-you-block">
             <div class="cols">
                 <div class="col9">
                     <h1 class="h1 title red">{{ language.translate("Payment Unsuccessful") }}</h1>
