@@ -1,0 +1,53 @@
+.christmas-lottery-banner-block {
+
+  height: 95px;
+  background-image: url('../img/home/banner/mobile/christmas-banner--mobile.png');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  -webkit-background-size: cover;
+  background-size: cover;
+
+  margin-top: 20px;
+  overflow: hidden;
+  margin-bottom: 25px;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    display: none;
+  }
+
+
+  .title {
+    text-align: right;
+    color: #fff;
+    font-size: 16px;
+    font-family:$ff1;
+    font-weight: 500;
+    padding-right: 18px;
+    padding-top: 5px;
+  }
+
+  .content {
+    text-align: right;
+    color: #fff;
+    font-size: 25px;
+    font-family:$ff1;
+    font-weight: 700;
+    padding-right: 23px;
+    padding-top: 3px;
+    padding-bottom: 8px;
+  }
+
+  .btn-row {
+    text-align: right;
+
+    .btn-theme--big {
+      font-size: 14px;
+      padding: 0 24px;
+      line-height: 24px;
+      height: 24px;
+      float: right;
+      margin-right: 29px;
+    }
+
+  }
+}
