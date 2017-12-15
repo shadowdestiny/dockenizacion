@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-xs".
-        on line 16 of /src/compass_web/sass/v2/top-nav--mobile-account.scss
+        on line 23 of /src/compass_web/sass/v2/top-nav--mobile-account.scss
 
-11:     background-image: url('../img/account/mobile/ico-account.png');
-12:     background-repeat: no-repeat;
-13:     -webkit-background-size: 27px;
-14:     background-size: 27px;
-15: 
-16:     @media only screen and (min-width: $screen-xs) {}
-17:     @media only screen and (min-width: $screen-ipad-v) {
-18:       display: none!important;
-19:     }
-20: 
-21:   }
+18:     background-image: url('../img/account/mobile/ico-account.png');
+19:     background-repeat: no-repeat;
+20:     -webkit-background-size: 27px;
+21:     background-size: 27px;
+22: 
+23:     @media only screen and (min-width: $screen-xs) {}
+24:     @media only screen and (min-width: $screen-ipad-v) {
+25:       display: none!important;
+26:     }
+27: 
+28:     & + span {
 
 Backtrace:
-/src/compass_web/sass/v2/top-nav--mobile-account.scss:16
+/src/compass_web/sass/v2/top-nav--mobile-account.scss:23
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -81,4 +81,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-xs\".\A         on line 16 of /src/compass_web/sass/v2/top-nav--mobile-account.scss\A \A 11:     background-image: url('../img/account/mobile/ico-account.png');\A 12:     background-repeat: no-repeat;\A 13:     -webkit-background-size: 27px;\A 14:     background-size: 27px;\A 15: \A 16:     @media only screen and (min-width: $screen-xs) {}\A 17:     @media only screen and (min-width: $screen-ipad-v) {\A 18:       display: none!important;\A 19:     }\A 20: \A 21:   }"; }
+  content: "Error: Undefined variable: \"$screen-xs\".\A         on line 23 of /src/compass_web/sass/v2/top-nav--mobile-account.scss\A \A 18:     background-image: url('../img/account/mobile/ico-account.png');\A 19:     background-repeat: no-repeat;\A 20:     -webkit-background-size: 27px;\A 21:     background-size: 27px;\A 22: \A 23:     @media only screen and (min-width: $screen-xs) {}\A 24:     @media only screen and (min-width: $screen-ipad-v) {\A 25:       display: none!important;\A 26:     }\A 27: \A 28:     & + span {"; }
