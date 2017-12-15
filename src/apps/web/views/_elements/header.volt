@@ -26,7 +26,11 @@
     </div>
     <nav class="nav mobile">
         <div class="nav-mobile--inner wrapper">
-        <button class="menu-ham"><span class="bar"></span></button>
+            <div class="menu-account-block">
+                {% include "_elements/top-nav--mobile-account.volt" %}
+            </div>
+
+            <button class="menu-ham"><span class="bar"></span></button>
 
             <ul>
                 <div class="wrapper">
@@ -35,5 +39,6 @@
                 </div>
             </ul>
         </div>
+
     </nav>
 </header>
