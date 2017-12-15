@@ -1,8 +1,8 @@
 <div class="top-nav--mobile-account">
 
     {% if user_logged is not empty %}
-        {{user_name}}
         <div class="top-nav--mobile-account--icon"></div>
+        <span>{{user_name}}</span>
     {% endif %}
 
     <div class="top-nav--mobile-account--menu">
