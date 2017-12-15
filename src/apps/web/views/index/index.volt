@@ -76,19 +76,13 @@
 
         {% include "_elements/banner.volt" %}
 
+
         {#Banner section v.2 end#}
 
         <div class="wrapper">
-            <div class="sign-block xxs--max">
-                <ul class="ul-top-nav">
-                    {% include "_elements/top-nav--mobile.volt" %}
-                </ul>
-            </div>
-        </div>
+            {% include "_elements/top-nav--mobile.volt" %}
 
-
-        <div class="wrapper">
-
+            {% include "_elements/christmas-lottery-banner-block.volt" %}
 
             {#TODO : remove this comments#}
             {#<div class="box-extra">#}
