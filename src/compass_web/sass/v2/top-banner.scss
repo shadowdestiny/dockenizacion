@@ -411,6 +411,7 @@
         font-size: 17px;
         width: 180px;
         text-align: center;
+        margin-right: 14px;
 
         //height: 86px;
         //line-height: 91px;
@@ -422,6 +423,7 @@
           line-height: 91px;
           font-size: 42px;
           width: 400px;
+          margin-right: 0;
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
