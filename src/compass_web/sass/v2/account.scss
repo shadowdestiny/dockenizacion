@@ -90,11 +90,15 @@
   .box-balance {
 
     .box-balance--row {
-      border: 1px solid #333333;
-      padding-left: 30px;
-      height: $balanceRowHeightMobile;
-      border-bottom: 0;
+      //border: 1px solid #333333;
+
+      //padding-left: 30px;
+      //height: $balanceRowHeightMobile;
+      //border-bottom: 0;
+      border-bottom: 1px solid #bbbbbb;
       box-sizing: content-box;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         border: 1px solid #333333;
@@ -102,6 +106,8 @@
         height: $balanceRowHeightMobile;
         border-bottom: 0;
         box-sizing: content-box;
+        margin-bottom: 0;
+        padding-bottom: 0;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
@@ -115,16 +121,20 @@
       }
 
       &:last-of-type {
-        border-bottom: 1px solid #333333;
+
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          border-bottom: 1px solid #333333;
+        }
       }
 
       .txt {
         //font-family: WorkSans;
         color: #333333;
         font-weight: 400;
-        line-height: $balanceRowLineHeightMobile;
-        font-size: 18px;
-        float: left;
+        //line-height: $balanceRowLineHeightMobile;
+        font-size: 16px;
+        //float: left;
         text-align: left;
         clear: both;
         margin: 0;
@@ -157,23 +167,30 @@
 
           //font-family: WorkSans;
           color: #333333;
-          font-size: 19px;
-          padding-left: 33px;
+          font-size: 24px;
+          //padding-left: 33px;
           font-weight: 700;
           text-align: left;
-          display: inline-block;
+          //display: inline-block;
           vertical-align: top;
+          display: block;
 
-          background-image: url('../img/account/desktop/arrow-balance.png');
-          background-repeat: no-repeat;
-          background-position: 6px 19px;
-          -webkit-background-size: 6px;
-          background-size: 6px;
+          margin: 0;
+          padding-top: 6px;
+          padding-bottom: 8px;
+
+          //background-image: url('../img/account/desktop/arrow-balance.png');
+          //background-repeat: no-repeat;
+          //background-position: 6px 19px;
+          //-webkit-background-size: 6px;
+          //background-size: 6px;
 
           @media only screen and (min-width: $screen-ipad-v) {
             //font-family: WorkSans;
             color: #333333;
             font-size: 19px;
+            padding-top: 0;
+            padding-bottom: 0;
             padding-left: 33px;
             font-weight: 700;
             text-align: left;
@@ -207,18 +224,22 @@
       }
 
       .box-btn {
-        float: right;
+        @media only screen and (min-width: $screen-ipad-v) {
+          float: right;
+        }
       }
 
       .btn {
-        height: $balanceRowHeightMobile;
+        //height: $balanceRowHeightMobile;
+        height: 46px;
         line-height: $balanceRowLineHeightMobileBtn;
-        width: 180px;
+        width: 100%;
         border: 0;
-        border-radius: 0;
+        border-radius: 4px;
         text-transform: uppercase;
-        float: right;
+        float: none;
         margin: 0;
+        margin-bottom: 5px;
 
         //font-family: WorkSans;
         color: #ffffff;
@@ -272,6 +293,12 @@
 
         &.withdraw {
           background-color: #e2dfdf;
+          color: #333333;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            background-color: #e2dfdf;
+            color: #fff;
+          }
         }
       }
 
