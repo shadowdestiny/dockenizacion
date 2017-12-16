@@ -28,7 +28,8 @@
   }
 
   @media only screen and (min-width: $screen-desktop) {
-    min-height: 110px;
+    //min-height: 110px;
+    min-height: 92px;
   }
 
   .link {
@@ -366,7 +367,7 @@
     margin: 5px 0 0;
     //width: 200px;
     width: 140px;
-    margin-top: 15px;
+    margin-top: 5px;
 
     .img--logo-mobile {
       display: none;
