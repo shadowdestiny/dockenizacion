@@ -132,10 +132,13 @@ $screen-small-wrapper 		: 748px; 	// ipad vertical
 //$screen-small-plus-wrapper 	: 769px;
 
 $screen-medium 				: 992px;
-$screen-medium-wrapper 		: 952px;
+//$screen-medium-wrapper 		: 952px;
+$screen-medium-wrapper 		: 960px;
 
-$screen-full 				: 1300px;
-$screen-full-wrapper 		: 1280px;
+//$screen-full 				: 1300px;
+$screen-full 				: 992px;
+//$screen-full-wrapper 		: 1280px;
+$screen-full-wrapper 		: 960px;
 
 // Devices start
 $screen-ipad-v 					: $screen-small;
