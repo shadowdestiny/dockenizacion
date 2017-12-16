@@ -9,7 +9,7 @@
   @media only screen and (min-width: $screen-desktop) {
     position: relative;
     z-index: 9;
-    height: 79px;
+    height: 59px;
   }
 
   //background-color: $v2-desktop-menu-bg;
@@ -31,7 +31,7 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      height: 79px;
+      height: 59px;
     }
   }
 
@@ -46,7 +46,7 @@
     @media only screen and (min-width: $screen-desktop) {
       display: inline-block;
       margin: 0 -3px;
-      height: 79px;
+      height: 59px;
     }
   }
 
@@ -92,15 +92,15 @@
 
     @media only screen and (min-width: $screen-ipad-h) {
       font-size: 22px;
-      line-height: 81px;
+      line-height: 60px;
       height: 79px;
       padding: 0 30px;
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      font-size: 24px;
-      line-height: 81px;
-      height: 79px;
+      font-size: 17px;
+      line-height: 60px;
+      height: 59px;
       padding: 0 38px;
     }
   }
