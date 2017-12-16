@@ -18,9 +18,15 @@
 }
 
 #li-currency--desktop {
-  margin-right: 26px;
+  //margin-right: 26px;
+  //position: relative;
+  //top: 8px;
+
+  margin-right: 23px;
   position: relative;
-  top: 8px;
+  top: 3px;
+
+  margin-left: -6px;
 
   .li-currency--main-link {
     position: relative;
