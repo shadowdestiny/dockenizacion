@@ -42,7 +42,7 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      padding: 0 30px 60px 30px;
+      padding: 0 22px 45px 22px;
     }
 
     .h1 {
@@ -63,6 +63,11 @@
 
         margin-bottom: 20px;
       }
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin-bottom: 14px;
+        font-size: 14px;
+      }
     }
 
     .h2 {
@@ -81,6 +86,11 @@
 
         margin-bottom: 20px;
       }
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin-bottom: 14px;
+        font-size: 14px;
+      }
     }
 
     .h3 {
@@ -97,6 +107,11 @@
         color: #a8a9a8;
 
         margin-bottom: 20px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin-bottom: 14px;
+        font-size: 14px;
       }
     }
 
@@ -115,6 +130,10 @@
         margin-bottom: 25px;
         line-height: 1.25em;
       }
+      @media only screen and (min-width: $screen-desktop) {
+        margin-bottom: 14px;
+        font-size: 14px;
+      }
     }
 
     ul.list {
@@ -132,6 +151,11 @@
           font-size: 17px;
           margin-bottom: 25px;
           line-height: 1.25em;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          margin-bottom: 14px;
+          font-size: 14px;
         }
       }
     }
