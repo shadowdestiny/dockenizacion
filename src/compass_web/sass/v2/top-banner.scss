@@ -206,7 +206,8 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      height: 271px;
+      height: 203px;
+      font-size: 23px;
     }
 
 
@@ -222,6 +223,7 @@
       }
       @media only screen and (min-width: $screen-desktop) {
         text-align: left;
+        margin-bottom: 0;
       }
       
       div {
@@ -244,7 +246,7 @@
 
         @media only screen and (min-width: $screen-desktop) {
           display: inline-block;
-          font-size: 24px;
+          font-size: 20px;
         }
       }
 
@@ -260,7 +262,7 @@
         }
         @media only screen and (min-width: $screen-desktop) {
           text-align: left;
-          font-size: 24px;
+          font-size: 20px;
         }
       }
 
@@ -280,6 +282,7 @@
       @media only screen and (min-width: $screen-desktop) {
         font-size: 24px;
         text-align: left;
+        margin-bottom: -7px;
       }
     }
 
@@ -321,7 +324,8 @@
         background-size: 2px;
 
         width: 2px;
-        height: 238px;
+        //height: 238px;
+        height: 165px;
       }
 
       position: absolute;
@@ -357,10 +361,12 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        width: 480px;
+        //width: 480px;
+        width: 362px;
         display: inline-block;
         position: relative;
-        left: -19px;
+        //left: -19px;
+        left: -5px;
       }
 
       .desktop-row--01 {
@@ -373,7 +379,8 @@
           left: 0px;
         }
         @media only screen and (min-width: $screen-desktop) {
-          font-size: 190px;
+          //font-size: 190px;
+          font-size: 140px;
           position: relative;
           top: -15px;
           text-align: center;
@@ -392,12 +399,15 @@
           left: 10px;
         }
         @media only screen and (min-width: $screen-desktop) {
-          font-size: 78px;
+          //font-size: 78px;
+          font-size: 58px;
           text-align: center;
           text-transform: uppercase;
           position: relative;
-          top: -42px;
-          left: 2px;
+          //top: -42px;
+          //left: 2px;
+          top: -33px;
+          left: 7px;
         }
       }
 
@@ -454,13 +464,21 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          height: 97px;
-          line-height: 97px;
-          font-size: 42.01px;
+          //height: 97px;
+          //line-height: 97px;
+          //font-size: 42.01px;
+          //font-weight: 700;
+          //padding: 0 40px;
+          //display: inline-block;
+          //width:auto;
+
+          border-radius: 3px;
+          height: 73px;
+          line-height: 71px;
+          color: #fff;
+          font-size: 32px;
           font-weight: 700;
           padding: 0 40px;
-          display: inline-block;
-          width:auto;
         }
       }
       
@@ -587,27 +605,27 @@
       @media only screen and (min-width: $screen-desktop) {
         display: block;
 
-        width: 400px;
+        width: 277px;
         vertical-align: top;
 
         text-align: center;
         padding-right: 0;
         text-transform: uppercase;
         position: relative;
-        padding-top: 79px;
+        padding-top: 56px;
         line-height: 1.2;
 
-        height: 200px;
-        padding-left: 190px;
+        height: 170px;
+        padding-left: 160px;
         margin-right: 0;
         float: left;
 
 
         background-image: url('../img/home/banner/desktop/stars.png');
         background-repeat: no-repeat;
-        background-position: 0 46px;
-        -webkit-background-size: 179px;
-        background-size: 179px;
+        background-position: 0 29px;
+        -webkit-background-size: 135px;
+        background-size: 135px;
       }
 
     }
@@ -631,11 +649,13 @@
 
       @media only screen and (min-width: $screen-desktop) {
         display: inline-block;
-        width: 360px;
+        //width: 360px;
+        width: 270px;
         vertical-align: top;
         float: right;
         text-align: center;
-        padding-top: 44px;
+        //padding-top: 44px;
+        padding-top: 24px;
 
         //@include desktop--dib();
 
@@ -646,7 +666,19 @@
         .btn-row {
           .btn-theme--big {
             width: 100%;
+
+            @media only screen and (min-width: $screen-desktop) {
+
+              border-radius: 3px;
+              height: 73px;
+              line-height: 71px;
+              color: #fff;
+              font-size: 32px;
+              font-weight: 700;
+              padding: 0 40px;
+            }
           }
+
         }
       }
 
