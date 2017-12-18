@@ -139,9 +139,9 @@
   }
 
   @media only screen and (min-width: $screen-desktop) {
-    height: 84px;
-    line-height: 84px;
-    margin-bottom: 35px;
+    height: 62px;
+    line-height: 62px;
+    margin-bottom: 20px;
   }
 
   ul {
@@ -164,7 +164,7 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      height: 84px;
+      height: 62px;
     }
 
     li {
@@ -226,8 +226,9 @@
           }
 
           @media only screen and (min-width: $screen-desktop) {
-            top: 12px;
-            left: 6px;
+            top: 8px;
+            left: 7px;
+            width: 42px;
           }
         }
         &.footer-top--gerald {
@@ -254,9 +255,9 @@
           }
 
           @media only screen and (min-width: $screen-desktop) {
-            top: 9px;
-            left: -9px;
-            width: auto;
+            top: 6px;
+            left: -6px;
+            width: 30px;
           }
         }
         &.footer-top--18plus {
@@ -279,8 +280,9 @@
           }
 
           @media only screen and (min-width: $screen-desktop) {
-            top: 11px;
-            left: -26px;
+            top: 7px;
+            left: -20px;
+            width: 42px;
           }
         }
         &.footer-top--wheel {
@@ -303,8 +305,9 @@
           }
 
           @media only screen and (min-width: $screen-desktop) {
-            top: 14px;
-            left: -54px;
+            top: 9px;
+            left: -42px;
+            width: 41px;
           }
         }
       }
