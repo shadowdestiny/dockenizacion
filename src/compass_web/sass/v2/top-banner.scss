@@ -44,9 +44,11 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      height: 398px;
+      //height: 398px;
+      height: 298px;
       overflow: hidden;
-      padding-top: 64px;
+      //padding-top: 64px;
+      padding-top: 48px;
       margin-bottom: 0px;
 
       background-image: url('../img/home/banner/desktop/banner.png');
@@ -95,7 +97,12 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-
+        color:  #333333;
+        font-size: 33px;
+        font-weight: 900;
+        line-height: 34px;
+        text-align: left;
+        text-transform: uppercase;
       }
 
     }
@@ -124,7 +131,13 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-
+        color:  #333333;
+        font-size: 18px;
+        font-weight: 700;
+        text-align: left;
+        line-height: 1;
+        padding-top: 3px;
+        padding-bottom: 7px;
       }
     }
     .top-banner--cost-per-lines{
@@ -148,7 +161,11 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-
+        color:  #333333;
+        font-size: 27px;
+        font-weight: 700;
+        text-align: left;
+        text-transform: uppercase;
       }
     }
   }
