@@ -19,8 +19,8 @@
   }
 
   @media only screen and (min-width: $screen-desktop) {
-    padding-top: 65px;
-    padding-bottom: 78px;
+    padding-top: 50px;
+    padding-bottom: 59px;
   }
 
 
@@ -42,8 +42,10 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      font-size: 52px;
-      margin-bottom: 41px;
+      //font-size: 52px;
+      font-size: 39px;
+      //margin-bottom: 41px;
+      margin-bottom: 30px;
       padding-left: 0;
     }
   }
@@ -102,13 +104,17 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        width: 300px;
-        height: 281px;
-        margin-right: 26px;
-        padding-top: 26px;
-        padding-bottom: 12px;
-        padding-left: 10px;
-        padding-right: 10px;
+        //width: 300px;
+        //height: 281px;
+        //margin-right: 26px;
+        //padding-top: 26px;
+        //padding-bottom: 12px;
+        //padding-left: 10px;
+        //padding-right: 10px;
+        width: 225px;
+        margin-right: 20px;
+        padding-top: 16px;
+        padding-bottom: 10px;
       }
 
       &:last-of-type {
@@ -144,8 +150,10 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          font-size: 56px;
-          padding-left: 23px;
+          //font-size: 56px;
+          //padding-left: 23px;
+          font-size: 40px;
+          padding-left: 16px;
         }
       }
       .hiw-block--center {
@@ -188,9 +196,10 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          font-size: 20px;
+          //font-size: 20px;
+          font-size: 14px;
           line-height: 1.2;
-          min-height: 50px;
+          min-height: 35px;
           padding-left: 14px;
         }
       }
@@ -221,9 +230,9 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          background-position: 93px 45px;
-          -webkit-background-size: 90px;
-          background-size: 90px;
+          background-position: 70px 34px;
+          -webkit-background-size: 67px;
+          background-size: 67px;
         }
 
         .hiw-block--corner {
@@ -260,9 +269,9 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          background-position: 75px 69px;
-          -webkit-background-size: 143px;
-          background-size: 143px;
+          background-position: 56px 51px;
+          -webkit-background-size: 106px;
+          background-size: 106px;
         }
       }
       &.hiw-block--03 {
@@ -289,9 +298,9 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          background-position: 105px 90px;
-          -webkit-background-size: 93px;
-          background-size: 93px;
+          background-position: 78px 67px;
+          -webkit-background-size: 71px;
+          background-size: 71px;
         }
       }
       &.hiw-block--04 {
@@ -312,9 +321,9 @@
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
-          background-position: 65px 64px;
-          -webkit-background-size: 98px;
-          background-size: 98px;
+          background-position: 55px 62px;
+          -webkit-background-size: 110px;
+          background-size: 110px;
         }
 
         @media only screen and (min-width: $screen-desktop) {
