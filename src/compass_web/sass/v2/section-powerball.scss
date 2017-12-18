@@ -23,6 +23,18 @@
       //height: 415px;
       margin-bottom: 21px;
 
+      @media only screen and (min-width: $screen-desktop) {
+        padding: 20px 16px;
+        border-width: 1px;
+        border-color: #000000;
+        border-style: solid;
+        background-color: #ffffff;
+        width: 270px;
+        //height: 415px;
+        margin-bottom: 15px;
+        padding-bottom: 25px;
+      }
+
       .corner {
         position: relative;
       }
@@ -36,6 +48,15 @@
         border-top: 30px solid #4698e5;
         right: -22px;
         top: -30px;
+
+        @media only screen and (min-width: $screen-desktop) {
+
+          border: 21px solid transparent;
+          border-right: 21px solid #4698e5;
+          border-top: 21px solid #4698e5;
+          right: -14px;
+          top: -18px;
+        }
       }
 
       .title {
@@ -46,6 +67,11 @@
         text-align: center;
         text-transform: uppercase;
         margin-bottom: 50px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 27px;
+          margin-bottom: 34px;
+        }
       }
 
       .price {
@@ -58,6 +84,11 @@
         position: relative;
         left: -8px;
         margin-bottom: 44px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 73.65px;
+          margin-bottom: 26px;
+        }
       }
 
       .measure {
@@ -67,10 +98,19 @@
         font-weight: 900;
         text-align: center;
         margin-bottom: 37px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 28px;
+          margin-bottom: 26px;
+        }
       }
 
       .timer {
         margin-bottom: 40px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          margin-bottom: 29px;
+        }
 
         .countdown {
           border-width: 1px;
@@ -80,12 +120,25 @@
           height: 46px;
           text-align: center;
 
+          @media only screen and (min-width: $screen-desktop) {
+            width: 235px;
+            height: 35px;
+          }
+
           div, span {
             color: #333333;
             font-size: 24px;
             font-weight: 600;
             text-align: center;
             line-height: 44px;
+
+            @media only screen and (min-width: $screen-desktop) {
+              color: #333;
+              font-size: 18px;
+              font-weight: 600;
+              text-align: center;
+              line-height: 32px;
+            }
           }
         }
       }
@@ -96,6 +149,12 @@
           height: 75px;
           font-size: 34px;
           line-height: 75px;
+
+          @media only screen and (min-width: $screen-desktop) {
+            height: 55px;
+            font-size: 25px;
+            line-height: 55px;
+          }
         }
       }
 
@@ -106,6 +165,11 @@
         .corner:after {
           border-right: 30px solid #ff0000;
           border-top: 30px solid #ff0000;
+
+          @media only screen and (min-width: $screen-desktop) {
+            border-right: 21px solid #ff0000;
+            border-top: 21px solid #ff0000;
+          }
         }
 
       }
