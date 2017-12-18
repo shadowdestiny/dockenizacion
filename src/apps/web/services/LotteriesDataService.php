@@ -43,6 +43,9 @@ class LotteriesDataService
             $result_api = $this->apisFactory->resultApi($lottery);
             $last_draw_date = $lottery->getLastDrawDate($now);
             $result = $result_api->getRaffleForDate($lotteryName, $last_draw_date->format('Y-m-d'));
+            if (empty($result)) {
+                $result = $result_api->getRaffleForDateSecond($lotteryName, $last_draw_date->format('Y-m-d')); //ok
+            }
         } catch (\Exception $e) {
             throw new \Exception('Error getting results');
         }
@@ -53,13 +56,15 @@ class LotteriesDataService
         if (!$now) {
             $now = new \DateTime();
         }
-
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         $next_draw_date = $lottery->getNextDrawDate($now);
         try {
             $jackpot_api = $this->apisFactory->jackpotApi($lottery);
             $jackpot = $jackpot_api->getJackpotForDate($lotteryName, $next_draw_date->format("Y-m-d"));
+            if (empty($jackpot)) {
+                $jackpot = $jackpot_api->getJackpotForDateSecond($lotteryName, $next_draw_date->format("Y-m-d")); //ok
+            }
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
             if (!$draw) {
@@ -96,6 +101,9 @@ class LotteriesDataService
             $result_api = $this->apisFactory->resultApi($lottery);
             $last_draw_date = $lottery->getLastDrawDate($now);
             $result = $result_api->getResultForDate($lotteryName, $last_draw_date->format('Y-m-d'));
+            if (empty($result)) {
+                $result = $result_api->getResultForDateSecond($lotteryName, $last_draw_date->format('Y-m-d')); //ok
+            }
             try {
                 /** @var EuroMillionsDraw $draw */
                 $draw = $this->lotteryDrawRepository->getLastDraw($lottery);
@@ -128,6 +136,9 @@ class LotteriesDataService
             $result_api = $this->apisFactory->resultApi($lottery);
             $last_draw_date = $lottery->getLastDrawDate($now);
             $result = $result_api->getResultBreakDownForDate($lotteryName, $last_draw_date->format('Y-m-d'));
+            if (empty($result)) {
+                $result = $result_api->getResultBreakDownForDateSecond($lotteryName, $last_draw_date->format('Y-m-d')); //ok
+            }
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
             $draw->createBreakDown($result);
