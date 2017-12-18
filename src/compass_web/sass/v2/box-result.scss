@@ -121,7 +121,7 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          bottom: 29px;
+          bottom: 20px;
           right: 11px;
         }
 
@@ -145,7 +145,7 @@
           }
 
           @media only screen and (min-width: $screen-desktop) {
-            font-size: 16px;
+            font-size: 12px;
             margin-right: 0;
             margin-bottom: 0;
           }
@@ -169,9 +169,9 @@
           }
 
           @media only screen and (min-width: $screen-desktop) {
-            @include css-triangle($v2-yellow, 5px);
+            @include css-triangle($v2-yellow, 4px);
             right: -10px;
-            bottom: -21px;
+            bottom: -19px;
           }
 
         }
