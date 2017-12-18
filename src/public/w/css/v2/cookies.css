@@ -9,10 +9,10 @@ Error: Undefined variable: "$screen-ipad-v".
 36: 
 37:   @media only screen and (min-width: $screen-ipad-v) {
 38:     overflow: hidden;
-39:     padding-top: 20px;
+39:     padding-top: 12px;
 40:     padding-bottom: 2px;
 41:   }
-42: 
+42:   @media only screen and (min-width: $screen-desktop) {
 
 Backtrace:
 /src/compass_web/sass/v2/cookies.scss:37
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 37 of /src/compass_web/sass/v2/cookies.scss\A \A 32: .box-cookies--desktop {\A 33:   overflow: hidden;\A 34:   padding-top: 20px;\A 35:   padding-bottom: 2px;\A 36: \A 37:   @media only screen and (min-width: $screen-ipad-v) {\A 38:     overflow: hidden;\A 39:     padding-top: 20px;\A 40:     padding-bottom: 2px;\A 41:   }\A 42: "; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 37 of /src/compass_web/sass/v2/cookies.scss\A \A 32: .box-cookies--desktop {\A 33:   overflow: hidden;\A 34:   padding-top: 20px;\A 35:   padding-bottom: 2px;\A 36: \A 37:   @media only screen and (min-width: $screen-ipad-v) {\A 38:     overflow: hidden;\A 39:     padding-top: 12px;\A 40:     padding-bottom: 2px;\A 41:   }\A 42:   @media only screen and (min-width: $screen-desktop) {"; }
