@@ -558,7 +558,7 @@
       width: 100%;
     }
     @media only screen and (min-width: $screen-desktop) {
-      padding-left: 543px;
+      padding-left: 406px;
       width: 100%;
     }
 
@@ -568,7 +568,8 @@
         height: 217px;
       }
       @media only screen and (min-width: $screen-desktop) {
-        height: 387px;
+        //height: 387px;
+        height: 283px;
       }
 
       img {
@@ -586,7 +587,8 @@
         font-size: 42px;
       }
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 52px;
+        font-size: 39px;
+        margin-bottom: 1px;
       }
     }
 
@@ -601,7 +603,8 @@
         font-size: 24px;
       }
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 30px;
+        font-size: 22.6px;
+        margin-bottom: 9px;
       }
     }
 
@@ -614,7 +617,11 @@
       padding-bottom: 35px;
 
       @media only screen and (min-width: $screen-ipad-h) {}
-      @media only screen and (min-width: $screen-desktop) {}
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 13px;
+        line-height: 16px;
+        padding-bottom: 25px;
+      }
     }
 
     .number-generator--block--button {
@@ -622,7 +629,13 @@
       padding-left: 50px;
 
       @media only screen and (min-width: $screen-ipad-h) {}
-      @media only screen and (min-width: $screen-desktop) {}
+      @media only screen and (min-width: $screen-desktop) {
+        width: 343px;
+        height: 76px;
+        font-size: 28px;
+        line-height: 76px;
+        min-width: 0;
+      }
     }
 
   }
