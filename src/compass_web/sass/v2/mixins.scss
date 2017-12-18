@@ -336,6 +336,12 @@
     margin-bottom: 30px;
   }
 
+  @media only screen and (min-width: $screen-desktop) {
+    font-size: 13px;
+    margin-top: 10px;
+    padding: 17px 22px;
+  }
+
   background-color: transparent;
   outline: none;
   -webkit-box-shadow: none;
