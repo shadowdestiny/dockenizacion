@@ -22,7 +22,7 @@
     @media only screen and (min-width: $screen-desktop) {
 
       display: block;
-      height: 399px;
+      height: 300px;
       background-image: url('../img/home/banner/desktop/banner.png');
       background-repeat: no-repeat;
       background-position: 50% 50%;
@@ -88,8 +88,8 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      margin-top: -283px;
-      height: 110px;
+      margin-top: -213px;
+      height: 83px;
     }
 
     .left {
@@ -130,24 +130,24 @@
       @media only screen and (min-width: $screen-desktop) {
         display: block;
         float: left;
-        padding-top: 15px;
-        padding-left: 27px;
+        padding-top: 11px;
+        padding-left: 19px;
 
         .top {
           //font-family: WorkSans;
           color: #fff;
-          font-size: 31.5px;
+          font-size: 23.6px;
           font-weight: 900;
           line-height: 17.5px;
           text-align: left;
           text-transform: uppercase;
-          padding-bottom: 27px;
+          padding-bottom: 15px;
         }
 
         .bottom {
           //font-family: WorkSans;
           color: #ffffff;
-          font-size: 81px;
+          font-size: 61px;
           font-weight: 900;
           line-height: 17.5px;
           text-align: left;
@@ -201,25 +201,25 @@
           //font-family: Roboto;
           font-family: $ff3;
           color: #fff;
-          font-size: 45.4px;
+          font-size: 34.4px;
           font-weight: 900;
           line-height: 1;
           text-align: right;
           text-transform: uppercase;
-          padding-top: 12px;
-          padding-right: 30px;
+          padding-top: 9px;
+          padding-right: 24px;
         }
 
         .bottom {
           //font-family: Roboto;
           font-family: $ff3;
           color: #fff;
-          font-size: 31.8px;
+          font-size: 24.1px;
           font-weight: 900;
-          line-height: 24px;
+          line-height: 20px;
           text-align: right;
           text-transform: uppercase;
-          padding-right: 30px;
+          padding-right: 22px;
         }
       }
     }
@@ -267,12 +267,12 @@
         //font-family: Roboto;
         font-family: $ff3;
         color: #fff;
-        font-size: 99.5px;
+        font-size: 74.8px;
         font-weight: 900;
         text-align: left;
         text-transform: uppercase;
-        padding-top: 24px;
-        padding-left: 47px;
+        padding-top: 11px;
+        padding-left: 33px;
         display: inline-block;
       }
 
