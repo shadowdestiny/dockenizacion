@@ -528,12 +528,12 @@
           }
 
           @media only screen and (min-width: $screen-desktop) {
-            line-height: 38px;
-            font-size: 36px;
+            line-height: 24px;
+            font-size: 22px;
             font-weight: 700;
 
             padding-right: 14px;
-            top: 0px;
+            top: -2px;
           }
 
           input[type="button"]:active,
@@ -614,6 +614,8 @@
               height: 29px;
               display: inline-block;
               width: 15px;
+              position: relative;
+              top: 2px;
             }
           }
         }
