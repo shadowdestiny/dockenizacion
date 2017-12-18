@@ -19,6 +19,10 @@
     margin-bottom: 60px;
   }
 
+  @media only screen and (min-width: $screen-desktop) {
+
+  }
+
   li {
     margin: 0 4px;
     //min-width: 30px;
@@ -38,7 +42,7 @@
       margin: 0 20px;
     }
     @media only screen and (min-width: $screen-desktop) {
-      margin: 0 30px;
+      margin: 12px 17px;
     }
 
     a {
@@ -68,9 +72,9 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          width: 81px;
-          top: 7px;
-          left: -2px;
+          width: 61px;
+          top: -4px;
+          left: -17px;
         }
 
       }
@@ -98,9 +102,9 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          width: 71px;
-          top: 14px;
-          left: -9px;
+          width: 55px;
+          top: 1px;
+          left: -13px;
         }
       }
 
@@ -127,9 +131,9 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          width: 202px;
-          top: 10px;
-          left: -15px;
+          width: 152px;
+          top: -1px;
+          left: -110px;
         }
       }
 
@@ -156,9 +160,9 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          width: 175px;
-          top: 8px;
-          left: -20px;
+          width: 135px;
+          top: -4px;
+          left: -5px;
         }
       }
 
@@ -185,9 +189,9 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          width: 96px;
-          top: 19px;
-          left: -25px;
+          width: 72px;
+          top: 4px;
+          left: -2px;
         }
       }
 
@@ -209,5 +213,12 @@ footer {
       border-style: solid;
     }
   }
-
+  @media only screen and (min-width: $screen-desktop) {
+    .cards-block {
+      height: 75px;
+      line-height: 68px;
+      text-align: center;
+      margin-bottom: 45px;
+    }
+  }
 }
