@@ -56,17 +56,18 @@
   @media only screen and (min-width: $screen-desktop) {
     padding: 0;
     border-bottom: 1px solid #303030;
-    padding-bottom: 85px;
+    padding-bottom: 64px;
 
     background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
     background-repeat: no-repeat;
-    background-position: 42px 100%;
+    background-position: 31px 100%;
 
-    -webkit-background-size: 395px;
-    background-size: 395px;
+    -webkit-background-size: 297px;
+    background-size: 297px;
 
-    margin-left: -27px;
-    margin-right: -28px;
+    margin-left: -19px;
+    margin-right: 0;
+    width: 960px;
 
   }
 
@@ -77,6 +78,9 @@
     @media only screen and (min-width: $screen-ipad-v) {
       padding-top: 18px;
       padding-bottom: 29px;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      padding-bottom: 19px;
     }
 
     img {
@@ -105,9 +109,9 @@
 
     @media only screen and (min-width: $screen-desktop) {
       margin: auto;
-      max-width: 820px;
-      margin-bottom: 48px;
-      padding-top: 4px;
+      max-width: 620px;
+      margin-bottom: 34px;
+      padding-top: 2px;
     }
 
     h3 {
@@ -135,8 +139,8 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 30px;
-        padding-bottom: 12px;
+        font-size: 22px;
+        padding-bottom: 6px;
       }
     }
 
@@ -161,8 +165,8 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 24px;
-        line-height: 40px;
+        font-size: 18px;
+        line-height: 30px;
       }
     }
   }
@@ -184,8 +188,8 @@
 
     @media only screen and (min-width: $screen-desktop) {
       float: right;
-      max-width: 790px;
-      padding-right: 57px;
+      max-width: 600px;
+      padding-right: 45px;
     }
 
     h3 {
@@ -212,8 +216,8 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 30px;
-        padding-bottom: 13px;
+        font-size: 22px;
+        padding-bottom: 6px;
       }
     }
 
@@ -240,8 +244,8 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 24px;
-        line-height: 40px;
+        font-size: 18px;
+        line-height: 30px;
       }
     }
   }
