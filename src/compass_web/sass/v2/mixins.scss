@@ -173,6 +173,12 @@
       margin-bottom: 20px;
     }
 
+    @media only screen and (min-width: $screen-desktop) {
+      height: 36px;
+      padding-left: 22px;
+      font-size: 13px;
+    }
+
     @include input-placeholder {
       color: $v2-placeholder-color;
     }
@@ -214,7 +220,12 @@
       top: 20px;
     }
     @media only screen and (min-width: $screen-desktop) {
-      top: 20px;
+      top: 13px;
+      -webkit-background-size: 12px;
+      background-size: 12px;
+      right: 21px;
+      width: 12px;
+      height: 8px;
     }
   }
 }
