@@ -20,7 +20,7 @@
       height: 399px;
     }
     @media only screen and (min-width: $screen-desktop) {
-      height: 399px;
+      height: 299px;
     }
   }
 
@@ -42,9 +42,9 @@
       margin-bottom: -132px;
     }
     @media only screen and (min-width: $screen-desktop) {
-      height: 125px;
-      top: -125px;
-      margin-bottom: -132px;
+      height: 93px;
+      top: -93px;
+      margin-bottom: -106px;
     }
 
     h1 {
@@ -70,9 +70,9 @@
         padding-left: 29px;
       }
       @media only screen and (min-width: $screen-desktop) {
-        line-height: 116px;
-        font-size: 60px;
-        padding-left: 29px;
+        line-height: 84px;
+        font-size: 45px;
+        padding-left: 22px;
       }
     }
   }
@@ -101,7 +101,7 @@
       padding-right: 380px;
     }
     @media only screen and (min-width: $screen-desktop) {
-      padding-right: 380px;
+      padding-right: 287px;
     }
 
 
@@ -115,7 +115,7 @@
         margin-bottom: 25px;
       }
       @media only screen and (min-width: $screen-desktop) {
-        margin-bottom: 25px;
+        margin-bottom: 21px;
       }
 
       h2 {
@@ -151,10 +151,10 @@
           margin-bottom: 0;
         }
         @media only screen and (min-width: $screen-desktop) {
-          height: 61px;
-          line-height: 55px;
-          padding-left: 31px;
-          font-size: 24px;
+          height: 45px;
+          line-height: 44px;
+          padding-left: 22px;
+          font-size: 18px;
           padding-right: 40px;
           margin-bottom: 0;
         }
@@ -182,7 +182,14 @@
           background-size: 15px;
         }
         @media only screen and (min-width: $screen-ipad-h) {}
-        @media only screen and (min-width: $screen-desktop) {}
+        @media only screen and (min-width: $screen-desktop) {
+          top: 19px;
+          right: 17px;
+          width: 12px;
+          height: 7px;
+          -webkit-background-size: 12px;
+          background-size: 12px;
+        }
       }
 
       .accordion-block-outer--contet {
@@ -227,7 +234,7 @@
         padding-right: 65px;
       }
       @media only screen and (min-width: $screen-desktop) {
-        padding-left: 30px;
+        padding-left: 24px;
         padding-right: 65px;
       }
 
@@ -253,8 +260,8 @@
           line-height: 24px;
         }
         @media only screen and (min-width: $screen-desktop) {
-          font-size: 18px;
-          line-height: 24px;
+          font-size: 15px;
+          line-height: 17px;
         }
       }
 
@@ -278,9 +285,9 @@
           padding-left: 18px;
         }
         @media only screen and (min-width: $screen-desktop) {
-          line-height: 24px;
-          font-size: 18px;
-          padding-left: 18px;
+          line-height: 18px;
+          font-size: 14px;
+          padding-left: 14px;
         }
       }
 
