@@ -177,6 +177,7 @@
       height: 36px;
       padding-left: 22px;
       font-size: 13px;
+      margin-bottom: 14px;
     }
 
     @include input-placeholder {
@@ -283,6 +284,15 @@
     padding-right: 30px;
 
     margin-bottom: 18px;
+  }
+
+  @media only screen and (min-width: $screen-desktop) {
+    height: 36px;
+    line-height: 36px;
+    padding-left: 22px;
+    font-size: 13px;
+    padding-bottom: 4px;
+    margin-bottom: 12px;
   }
 
   @include input-placeholder {
