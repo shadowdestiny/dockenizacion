@@ -25,6 +25,11 @@
       padding: 26px 100px 14px 60px;
     }
 
+    @media only screen and (min-width: $screen-desktop) {
+      padding: 20px 80px 10px 45px;
+      margin-bottom: 100px;
+    }
+
     p {
       font-family: $ff1;
       color: #9e9d96;
@@ -38,6 +43,10 @@
         line-height: 1em;
       }
 
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 13px;
+        line-height: 1.1em;
+      }
     }
   }
 
