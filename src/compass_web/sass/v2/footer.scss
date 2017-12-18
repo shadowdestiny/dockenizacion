@@ -65,14 +65,14 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      padding-left: 85px;
+      padding-left: 100px;
     }
 
     strong,
     ul a {
       font-family: $ff1;
       color: #9b9b9b;
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 700;
       text-align: left;
       text-transform: capitalize;
@@ -100,6 +100,7 @@
         //padding-right: 30px;
       }
       @media only screen and (min-width: $screen-desktop) {
+        line-height: 1;
       }
     }
 
