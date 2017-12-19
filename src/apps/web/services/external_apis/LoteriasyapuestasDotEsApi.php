@@ -49,14 +49,15 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
         $response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/botes/.formatoRSS');
         $xml = new \SimpleXMLElement($response->body);
         foreach ($xml->channel->item as $item) {
-            preg_match('/próximo ([0123][0-9]) de ([a-z]+) de ([0-9]{4}) pone/', $item->description, $matches);
-            $day = $matches[1];
-            $month = $this->translateMonth($matches[2]);
-            $year = $matches[3];
-            $item_date = "$year-$month-$day";
-            if ($item_date == $date) {
-                preg_match('/([0-9\.]+)€/', $item->title, $jackpot_matches);
-                return new Money(str_replace('.', '', $jackpot_matches[1])*100, new Currency('EUR'));
+            if (preg_match('/próximo ([0123][0-9]) de ([a-z]+) de ([0-9]{4}) pone/', $item->description, $matches)) {
+                    $day = $matches[1];
+                    $month = $this->translateMonth($matches[2]);
+                    $year = $matches[3];
+                    $item_date = "$year-$month-$day";
+                    if ($item_date == $date) {
+                        preg_match('/([0-9\.]+)€/', $item->title, $jackpot_matches);
+                        return new Money(str_replace('.', '', $jackpot_matches[1])*100, new Currency('EUR'));
+                    }
             }
         }
         throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the LoteriasyapuestasDotEsApi');
@@ -106,8 +107,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                 }
             }
         }
-        //throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the LoteriasyapuestasDotEsApi');
-        return NULL;
+        throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the LoteriasyapuestasDotEsApi');
     }
 
     /**
@@ -151,8 +151,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                 return $result;
             }
         }
-        //throw new ValidDateRangeException('The date requested (' . $date . ') is not valid for the LoteriasyapuestasDotEsApi');
-        return NULL;
+        throw new ValidDateRangeException('The date requested (' . $date . ') is not valid for the LoteriasyapuestasDotEsApi');
     }
 
     public function getRaffleForDateSecond($lotteryName, $date)
@@ -162,7 +161,6 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
         $result = [];
         $result['raffle_numbers'] = $json["RaffleNumber"];
         return $result;
-
     }
 
     /**
@@ -176,30 +174,39 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
             if ($this->result_response == null) {
                 $this->result_response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/resultados/.formatoRSS');
             }
+
             $s = preg_replace('~//<!\[CDATA\[\s*|\s*//\]\]>~', '', $this->result_response->body);
             if(empty($xml)) {
                 $xml = simplexml_load_string($s, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
             }
             foreach ($xml->channel->item as $item) {
-                if (preg_match('/Euromillones: resultados del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
-                    $day = $matches[1];
-                    $month = $this->translateMonth($matches[2]);
-                    $year = $matches[3];
-                    $item_date = "$year-$month-$day";
-                    if ($item_date == $date) {
-                        preg_match_all('/<td[^>]*>(.*?)<\/td>/', $xml->channel->item->description, $matches);
-                        if (empty($matches)) {
-                            //throw new \Exception();
-                            return NULL;
+                try {
+                    if (preg_match('/Euromillones: resultados del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
+                        $day = $matches[1];
+                        $month = $this->translateMonth($matches[2]);
+                        $year = $matches[3];
+                        $item_date = "$year-$month-$day";
+                        if ($item_date == $date) {
+                            preg_match_all('/<td[^>]*>(.*?)<\/td>/', $xml->channel->item->description, $matches);
+                            if (empty($matches)) {
+                                throw new \Exception();
+                            }
+                            return $this->sanetizeArrayResults(array_chunk($matches[1], 4));
                         }
-                        return $this->sanetizeArrayResults(array_chunk($matches[1], 4));
+                    } else {
+                        throw new Exception();
                     }
+                } catch (\Exception $e) {
+                    throw $e;
                 }
             }
-        } catch (\Exception $e) {
-            //throw $e;
-            return NULL;
-        }
+
+            } catch (\Exception $e) {
+                throw $e;
+            }
+
+
+
     }
 
     /**
