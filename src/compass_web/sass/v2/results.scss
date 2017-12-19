@@ -8,7 +8,7 @@
   }
   @media only screen and (min-width: $screen-ipad-h) {}
   @media only screen and (min-width: $screen-desktop) {
-
+    padding-bottom: 46px;
   }
 
   .banner {
@@ -535,7 +535,10 @@
         display: block;
       }
       @media only screen and (min-width: $screen-ipad-h) {}
-      @media only screen and (min-width: $screen-desktop) {}
+      @media only screen and (min-width: $screen-desktop) {
+        padding-top: 22px;
+        padding-left: 1px;
+      }
 
       .previous-results--title {
         //font-family: WorkSans;
@@ -547,7 +550,10 @@
 
         @media only screen and (min-width: $screen-ipad-v) {}
         @media only screen and (min-width: $screen-ipad-h) {}
-        @media only screen and (min-width: $screen-desktop) {}
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 14px;
+          padding-bottom: 14px;
+        }
       }
 
       .previous-results--selectboxes {
@@ -557,6 +563,10 @@
           display: inline-block;
           margin-right: 6px;
 
+          @media only screen and (min-width: $screen-desktop) {
+            margin-right: 3px;
+          }
+
           &::after {
             background-image: url('../img/results/desktop/arrow.png');
             top: 13px;
@@ -564,7 +574,10 @@
 
             @media only screen and (min-width: $screen-ipad-v) {}
             @media only screen and (min-width: $screen-ipad-h) {}
-            @media only screen and (min-width: $screen-desktop) {}
+            @media only screen and (min-width: $screen-desktop) {
+              top: 10px;
+              right: 13px;
+            }
           }
 
           select {
@@ -583,7 +596,13 @@
 
             @media only screen and (min-width: $screen-ipad-v) {}
             @media only screen and (min-width: $screen-ipad-h) {}
-            @media only screen and (min-width: $screen-desktop) {}
+            @media only screen and (min-width: $screen-desktop) {
+              height: 25px;
+              padding-left: 11px;
+              padding-right: 44px;
+              font-size: 13px;
+              line-height: 24px;
+            }
           }
         }
       }
