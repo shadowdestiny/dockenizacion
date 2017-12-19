@@ -73,6 +73,14 @@
     right: -14px;
     padding-top: 43px;
 
+    @media only screen and (min-width: $screen-desktop) {
+      width: 355px;
+      border: 0;
+      border-radius: 0;
+      right: -9px;
+      padding-top: 29px;
+    }
+
     .div-currency--shade {
       //position: relative;
       //z-index: 1;
@@ -101,6 +109,12 @@
           display: block;
           background-color: transparent;
 
+          @media only screen and (min-width: $screen-desktop) {
+            height: 65px;
+            line-height: 63px;
+            padding: 0 0 0 14px;
+          }
+
           .currency--li--code {
             //font-family: WorkSans;
             color: #9b9b9b;
@@ -108,12 +122,21 @@
             font-weight: 500;
             text-transform: uppercase;
             padding-right: 90px;
+
+            @media only screen and (min-width: $screen-desktop) {
+              font-size: 21px;
+              padding-right: 68px;
+            }
           }
           .currency--li--name {
             //font-family: WorkSans;
             color: #333333;
             font-size: 28px;
             font-weight: 400;
+
+            @media only screen and (min-width: $screen-desktop) {
+              font-size: 21px;
+            }
           }
         }
 
@@ -149,6 +172,10 @@
             text-transform: uppercase;
             position: relative;
 
+            @media only screen and (min-width: $screen-desktop) {
+              font-size: 18px;
+            }
+
             &::after {
               display: block;
               content: "";
@@ -161,6 +188,17 @@
               background-repeat: no-repeat;
               -webkit-background-size: 38px;
               background-size: 38px;
+
+              @media only screen and (min-width: $screen-desktop) {
+                top: 26px;
+                right: 23px;
+                width: 28px;
+                height: 18px;
+                background-image: url('../img/currencies/desktop/arrow.png');
+                background-repeat: no-repeat;
+                -webkit-background-size: 28px;
+                background-size: 28px;
+              }
 
             }
 
