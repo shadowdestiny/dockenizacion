@@ -7,7 +7,9 @@
     padding-bottom: 60px;
   }
   @media only screen and (min-width: $screen-ipad-h) {}
-  @media only screen and (min-width: $screen-desktop) {}
+  @media only screen and (min-width: $screen-desktop) {
+
+  }
 
   .banner {
     display: none;
@@ -23,7 +25,9 @@
       background-size: cover;
     }
     @media only screen and (min-width: $screen-ipad-h) {}
-    @media only screen and (min-width: $screen-desktop) {}
+    @media only screen and (min-width: $screen-desktop) {
+      height: 300px;
+    }
   }
 
   h2.mobile--only {
@@ -85,9 +89,14 @@
       margin-bottom: -149px;
     }
     @media only screen and (min-width: $screen-desktop) {
-      height: 171px;
-      top: -171px;
-      margin-bottom: -149px;
+      //height: 171px;
+      //top: -171px;
+      //margin-bottom: -149px;
+
+      height: 127px;
+      top: -127px;
+      margin-bottom: -111px;
+      padding: 23px 34px 0 21px;
     }
 
     h2.desktop--only {
@@ -110,8 +119,8 @@
         margin-bottom: 10px;
       }
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 46px;
-        margin-bottom: 10px;
+        font-size: 35px;
+        margin-bottom: 4px;
       }
     }
 
@@ -132,7 +141,7 @@
         font-size: 32px;
       }
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 36px;
+        font-size: 27px;
       }
     }
 
@@ -178,6 +187,7 @@
           font-size: 24px;
           margin-left: 5px;
           float: none;
+          vertical-align: top;
         }
         @media only screen and (min-width: $screen-ipad-h) {
           -webkit-background-size: 70px;
@@ -189,13 +199,13 @@
           margin-left: 5px;
         }
         @media only screen and (min-width: $screen-desktop) {
-          -webkit-background-size: 100px;
-          background-size: 100px;
-          width: 100px;
-          height: 100px;
-          line-height: 100px;
-          font-size: 47px;
-          margin-left: 5px;
+          -webkit-background-size: 76px;
+          background-size: 76px;
+          width: 76px;
+          height: 76px;
+          line-height: 78px;
+          font-size: 35px;
+          margin-left: 1px;
         }
       }
 
@@ -231,11 +241,11 @@
           margin-left: 17px;
         }
         @media only screen and (min-width: $screen-desktop) {
-          -webkit-background-size: 97px;
-          background-size: 97px;
-          width: 101px;
-          line-height: 101px;
-          margin-left: 37px;
+          -webkit-background-size: 72px;
+          background-size: 72px;
+          width: 72px;
+          line-height: 72px;
+          margin-left: 26px;
         }
 
         &:last-of-type {
@@ -296,7 +306,7 @@
       padding-right: 380px;
     }
     @media only screen and (min-width: $screen-desktop) {
-      padding-right: 380px;
+      padding-right: 290px;
     }
 
     .box-current-winners--new {
@@ -318,7 +328,9 @@
         padding: 25px 25px 5px 25px;
       }
       @media only screen and (min-width: $screen-ipad-h) {}
-      @media only screen and (min-width: $screen-desktop) {}
+      @media only screen and (min-width: $screen-desktop) {
+        padding: 17px 10px 5px 20px;
+      }
 
       h1 {
         color: #454545;
@@ -337,7 +349,10 @@
           margin-bottom: 53px;
         }
         @media only screen and (min-width: $screen-ipad-h) {}
-        @media only screen and (min-width: $screen-desktop) {}
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 18px;
+          margin-bottom: 39px;
+        }
       }
 
       .table {
@@ -363,7 +378,9 @@
             display: table-cell;
           }
           @media only screen and (min-width: $screen-ipad-h) {}
-          @media only screen and (min-width: $screen-desktop) {}
+          @media only screen and (min-width: $screen-desktop) {
+            padding-bottom: 15px;
+          }
         }
       }
 
@@ -399,6 +416,7 @@
           }
           @media only screen and (min-width: $screen-desktop) {
             width: 33.33%;
+            padding-top: 1px;
           }
         }
 
@@ -433,8 +451,9 @@
             width: 20%;
           }
           @media only screen and (min-width: $screen-desktop) {
-            padding-left: 153px;
+            padding-left: 114px;
             width: 33.33%;
+            padding-top: 0;
           }
         }
 
@@ -452,6 +471,10 @@
           @media only screen and (min-width: $screen-ipad-v) {
             text-align: right;
             border-bottom: 0;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            padding-top: 0;
+            padding-right: 32px;
           }
 
           span {
@@ -476,7 +499,7 @@
             font-size: 18px;
           }
           @media only screen and (min-width: $screen-desktop) {
-            font-size: 22px;
+            font-size: 16px;
           }
         }
       }
