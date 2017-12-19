@@ -98,7 +98,6 @@ class LotteriesDataService
 
         $last_draw_result = $this->getLastDrawResult($lotteryName, $now);
         if ($last_draw_result==NULL) {
-
             try {
                 /** @var Lottery $lottery */
                 $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
