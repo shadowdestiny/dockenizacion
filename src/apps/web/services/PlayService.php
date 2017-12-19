@@ -151,7 +151,7 @@ class PlayService
                     /** @var Order $order */
                     $order = $result_order->getValues();
                     if (is_null($credit_card) && $withAccountBalance ) {
-                        if ($order->getTotal()->getAmount() > $user->getBalance()->getAmount()) {
+                        if ($order->totalOriginal()->getAmount() > $user->getBalance()->getAmount()) {
                             return new ActionResult(false);
                         }
                     }
