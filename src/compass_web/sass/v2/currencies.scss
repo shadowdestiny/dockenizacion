@@ -18,7 +18,8 @@
   }
 
   @media only screen and (min-width: $screen-desktop) {
-    padding: 32px 35px;
+    margin-top: 24px;
+    padding: 24px 26px;
     background-color: #f6f4f4;
     background-image: -webkit-linear-gradient(top, #f6f4f4 0%, #f8f6f6 50%,  #ffffff 100%);
     background-image: linear-gradient(to bottom, #f6f4f4 0%, #f8f6f6 50%, #ffffff 100%);
@@ -65,10 +66,22 @@
 
       @media only screen and (min-width: $screen-desktop) {
         float: left;
-        width: 31%;
+        //width: 31%;
         //margin: 0 2% 2em 0;
-        margin: 0 2% 1em 0;
+        //margin: 0 2% 1em 0;
+
+        width: 166px;
+        margin: 0 19px 21px 0;
+
+        &:nth-child(5n) {
+          margin-right: 0;
+        }
+        &:nth-child(5n + 1) {
+          clear: both;
+        }
       }
+
+
 
       a{
         border-radius: 0px;
@@ -86,6 +99,10 @@
           background-color:  #eae8e8;
           border: 0;
           padding: 10px 20px 11px 19px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          padding: 6px 13px 9px 13px;
         }
 
         .symbol {
@@ -133,6 +150,11 @@
             width: 100%;
           }
 
+          @media only screen and (min-width: $screen-desktop) {
+            font-size: 14px;
+            margin-bottom: 3px;
+          }
+
           .symbol {
 
             position: absolute;
@@ -158,9 +180,15 @@
             }
 
             @media only screen and (min-width: $screen-desktop) {
-              position: static;
-              font-size: 18px;
-              font-weight: 700;
+              //position: static;
+              //font-size: 18px;
+              //font-weight: 700;
+
+              position: absolute;
+              font-size: 22px;
+              font-weight: 400;
+              top: 3px;
+              right: 0px;
             }
           }
 
@@ -183,6 +211,10 @@
             line-height: 1;
             text-align: left;
             display: block;
+          }
+
+          @media only screen and (min-width: $screen-desktop) {
+            font-size: 13px;
           }
         }
       }
