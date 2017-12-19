@@ -24,7 +24,7 @@
     @media only screen and (min-width: $screen-desktop) {
 
       display: block;
-      height: 399px;
+      height: 300px;
 
       background-image: url('../img/home/banner/desktop/banner.png');
       background-repeat: no-repeat;
@@ -89,8 +89,8 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      margin-top: -283px;
-      height: 110px;
+      margin-top: -213px;
+      height: 83px;
     }
 
     .left {
@@ -111,7 +111,7 @@
 
       @media only screen and (min-width: $screen-desktop) {
         padding-top: 10px;
-        padding-left: 40px;
+        padding-left: 30px;
       }
 
       .top {
@@ -138,8 +138,8 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          font-size: 24px;
-          line-height: 32px;
+          font-size: 18px;
+          line-height: 20px;
         }
       }
 
@@ -167,8 +167,8 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          font-size: 34px;
-          line-height: 25px;
+          font-size: 25px;
+          line-height: 24px;
         }
       }
 
@@ -195,8 +195,8 @@
       @media only screen and (min-width: $screen-desktop) {
         float: left;
         padding-right: 0;
-        padding-top: 31px;
-        padding-left: 26px;
+        padding-top: 22px;
+        padding-left: 21px;
       }
 
       .top {
@@ -220,7 +220,7 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          font-size: 68.5px;
+          font-size: 52px;
         }
 
       }
@@ -248,8 +248,8 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          font-size: 18px;
-          padding-top: 24px;
+          font-size: 13px;
+          padding-top: 13px;
         }
       }
     }
@@ -275,9 +275,9 @@
         display: block;
         float: right;
         position: relative;
-        width: 550px;
-        margin-top: 8px;
-        height: 90px;
+        width: 416px;
+        margin-top: 3px;
+        height: 80px;
         padding-top: 5px;
       }
 
@@ -304,8 +304,8 @@
           padding-top: 6px;
         }
         @media only screen and (min-width: $screen-desktop) {
-          font-size: 18px;
-          padding-bottom: 10px;
+          font-size: 13px;
+          padding-bottom: 4px;
           padding-top: 0;
         }
       }
@@ -381,8 +381,8 @@
           @media only screen and (min-width: $screen-desktop) {
             text-transform: uppercase;
             display: inline-block;
-            height: 48px;
-            line-height: 48px;
+            height: 37px;
+            line-height: 37px;
             background-color: #469eef;
             border-radius: 4px;
             text-shadow: none;
@@ -390,7 +390,7 @@
             color: #fff;
 
             //font-family: WorkSans;
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 700;
             text-align: center;
             padding: 0px;
@@ -407,7 +407,7 @@
               width: auto;
             }
             @media only screen and (min-width: $screen-desktop) {
-              width: 187px;
+              width: 137px;
             }
           }
           &.a-results {
@@ -421,7 +421,7 @@
               width: auto;
             }
             @media only screen and (min-width: $screen-desktop) {
-              width: 148px;
+              width: 110px;
             }
           }
           &.a-faq {
@@ -435,7 +435,7 @@
               width: auto;
             }
             @media only screen and (min-width: $screen-desktop) {
-              width: 137px;
+              width: 107px;
             }
           }
         }
@@ -490,9 +490,9 @@
           content: "";
           position: absolute;
           left: 0;
-          top: 0;
+          top: 10px;
           width: 2px;
-          height: 90px;
+          height: 60px;
           background-image: url('../img/play/desktop/help-separator.png');
           -webkit-background-size: 2px;
           background-size: 2px;
