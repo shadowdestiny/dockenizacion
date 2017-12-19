@@ -23,9 +23,9 @@
       right: 0;
     }
     @media only screen and (min-width: $screen-desktop-play) {
-      padding-top: 27px;
+      padding-top: 17px;
       padding-left: 21px;
-      padding-right: 21px;
+      padding-right: 5px;
       right: 0;
     }
 
@@ -40,19 +40,29 @@
         border-right: 5px solid transparent;
       }
       @media only screen and (min-width: $screen-desktop) {
-        width: 212px;
-        margin-right: 17px;
-        border-right: 12px solid transparent;
+        //width: 212px;
+        //margin-right: 17px;
+        //border-right: 12px solid transparent;
 
+        width: 194px;
+        margin-right: 14px;
+        border-right: 12px solid transparent;
         &:nth-child(4n){
           margin-right: 0;
         }
       }
 
       @media only screen and (min-width: $screen-desktop-play) {
-        width: 194px;
-        margin-right: 14px;
+        width: 148px;
+        margin-right: 8px;
         border-right: 12px solid transparent;
+
+        &:nth-child(4n){
+          margin-right: 8px;
+        }
+        &:nth-child(6n){
+          margin-right: 0px;
+        }
       }
     }
 
@@ -94,9 +104,9 @@
       }
 
       @media only screen and (min-width: $screen-desktop-play) {
-        font-size: 16px;
+        font-size: 12px;
         line-height: 17.5px;
-        margin-bottom: 21px;
+        margin-bottom: 16px!important;
       }
     }
 
@@ -139,7 +149,7 @@
         }
 
         @media only screen and (min-width: $screen-desktop-play) {
-          margin: -16px 0 0 61px;
+          margin: -12px 0 0 36px;
           width: 60px;
         }
       }
@@ -158,8 +168,12 @@
         }
 
         @media only screen and (min-width: $screen-desktop-play) {
-          padding: 8px 6px 0;
+          padding: 6px 6px 0;
           margin-right: -4px;
+
+          li {
+            border-right: 3px solid transparent;
+          }
         }
 
         .cols {
@@ -173,7 +187,7 @@
           }
 
           @media only screen and (min-width: $screen-desktop-play) {
-
+            margin: 0 0 3px;
           }
         }
       }
@@ -208,10 +222,12 @@
         }
 
         @media only screen and (min-width: $screen-desktop-play) {
-          width: 55px;
-          height: 30px;
+          width: 44px;
+          height: 19px;
           -webkit-background-size: 27px;
-          background-size: 27px;
+          background-size: 18px;
+          padding: 0;
+          min-height: 25px;
         }
 
         svg {
@@ -251,10 +267,10 @@
         }
 
         @media only screen and (min-width: $screen-desktop-play) {
-          width: 28px;
-          height: 27px;
-          font-size: 18px;
-          line-height: 17.5px;
+          width: 22px;
+          height: 20px;
+          font-size: 14px;
+          line-height: 12.5px;
         }
 
       }
@@ -318,7 +334,16 @@
         }
 
         @media only screen and (min-width: $screen-desktop-play) {
-
+          width: 68px;
+          height: 24px;
+          margin: -9px auto 0;
+          padding: 0px 0px;
+          padding-left: 11px;
+          text-align: left;
+          bottom: -14px;
+          -webkit-background-size: 9px;
+          background-size: 9px;
+          background-position: 47px 7px;
         }
 
         span {
@@ -338,7 +363,8 @@
           }
 
           @media only screen and (min-width: $screen-desktop-play) {
-
+            font-size: 12px;
+            line-height: 12px;
           }
         }
 
@@ -362,7 +388,7 @@
         }
 
         @media only screen and (min-width: $screen-desktop-play) {
-
+          margin: 6px 2px 3px 7px;
         }
 
         .ico {
@@ -389,7 +415,10 @@
           }
 
           @media only screen and (min-width: $screen-desktop-play) {
-
+            -webkit-background-size: 28px;
+            background-size: 28px;
+            height: 28px;
+            width: 28px;
           }
 
           .txt {
@@ -410,8 +439,8 @@
             }
 
             @media only screen and (min-width: $screen-desktop-play) {
-              font-size: 18px;
-              line-height: 17.5px;
+              font-size: 14px;
+              line-height: 13px;
             }
           }
         }
@@ -440,7 +469,7 @@
         padding: 10px 0 3px 12px;
       }
       @media only screen and (min-width: $screen-desktop) {
-        margin: 8px 30px 0 15px;
+        margin: 2px 30px 0 15px;
         //padding: 10px 0 3px 12px;
         padding: 6px 0 3px 12px;
       }
