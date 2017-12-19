@@ -32,6 +32,11 @@ form {
     width: 10px;
     height: 10px;
 
+    @media only screen and (min-width: $screen-desktop) {
+      position: relative;
+      top: 1px;
+    }
+
   }
   input[type="checkbox"]:checked + .checkbox-after {
     background-color: #fbd93a;
@@ -53,7 +58,7 @@ form {
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      padding-left: 67px;
+      padding-left: 50px;
     }
 
     &::before {
@@ -99,12 +104,12 @@ form {
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        top: 4px;
+        top: 2px;
         left: 0;
-        width: 32px;
-        height: 32px;
-        -webkit-background-size: 18px;
-        background-size: 18px;
+        width: 25px;
+        height: 25px;
+        -webkit-background-size: 14px;
+        background-size: 14px;
       }
     }
   }
@@ -124,7 +129,7 @@ form {
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      padding-left: 67px;
+      padding-left: 50px;
     }
 
     &::before {
@@ -170,12 +175,12 @@ form {
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        top: 3px;
+        top: 0px;
         left: 0;
-        width: 32px;
-        height: 32px;
-        -webkit-background-size: 14px;
-        background-size: 14px;
+        width: 25px;
+        height: 25px;
+        -webkit-background-size: 10px;
+        background-size: 10px;
       }
     }
   }
