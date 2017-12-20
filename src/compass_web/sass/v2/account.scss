@@ -856,6 +856,12 @@
         padding-left: 0;
       }
 
+      @media only screen and (min-width: $screen-desktop) {
+        line-height: 70px;
+        margin-bottom: 38px;
+        font-size: 14px;
+      }
+
     }
 
     &.my-account {
@@ -866,6 +872,13 @@
           background-image: url('../img/account/desktop/personal.png');
           -webkit-background-size: 40px;
           background-size: 40px;
+        }
+        @media only screen and (min-width: $screen-desktop) {
+          background-image: url('../img/account/desktop/personal.png');
+          -webkit-background-size: 30px;
+          background-size: 30px;
+
+          border-bottom: 1px solid #333333;
         }
       }
     }
@@ -880,6 +893,13 @@
           -webkit-background-size: 59px;
           background-size: 59px;
         }
+        @media only screen and (min-width: $screen-desktop) {
+          background-image: url('../img/account/desktop/email.png');
+          -webkit-background-size: 44px;
+          background-size: 44px;
+
+          border-bottom: 1px solid #333333;
+        }
       }
     }
 
@@ -892,6 +912,11 @@
           background-image: url('../img/account/desktop/password.png');
           -webkit-background-size: 40px;
           background-size: 40px;
+        }
+        @media only screen and (min-width: $screen-desktop) {
+          background-image: url('../img/account/desktop/password.png');
+          -webkit-background-size: 30px;
+          background-size: 30px;
         }
       }
     }
@@ -954,7 +979,7 @@
             }
 
             @media only screen and (min-width: $screen-desktop) {
-              padding-right: 110px;
+              padding-right: 80px;
             }
           }
 
@@ -968,6 +993,9 @@
             @media only screen and (min-width: $screen-ipad-v) {
               font-size: 18px;
               text-align: right;
+            }
+            @media only screen and (min-width: $screen-desktop) {
+              font-size: 14px;
             }
 
             .asterisk {
@@ -985,6 +1013,10 @@
 
           @media only screen and (min-width: $screen-ipad-v) {
             display: table-cell;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            width: 70%;
+            padding-right: 0;
           }
 
           p {
@@ -1016,6 +1048,9 @@
               padding-bottom: 2px;
               margin-bottom: 9px;
             }
+            @media only screen and (min-width: $screen-desktop) {
+              height: 40px;
+            }
 
           }
           .selectbox:after {
@@ -1027,6 +1062,11 @@
               top: 23px;
               -webkit-background-size: 22px;
               background-size: 22px;
+            }
+            @media only screen and (min-width: $screen-desktop) {
+              top: 17px;
+              -webkit-background-size: 12px;
+              background-size: 12px;
             }
           }
         }
@@ -1092,6 +1132,11 @@
         font-size: 20px;
 
         max-width: none;
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 15px;
+        height: 45px;
+        line-height: 44px;
       }
     }
 
