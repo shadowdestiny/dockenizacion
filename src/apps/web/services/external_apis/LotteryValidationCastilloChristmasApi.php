@@ -37,7 +37,8 @@ class LotteryValidationCastilloChristmasApi
                                 CastilloCypherKey $castilloKey = null,
                                 CastilloTicketId $castilloTicketId = null,
                                 \DateTime $date_next_draw,
-                                EuroMillionsLine $line)
+                                EuroMillionsLine $line,
+                                $userId = null)
     {
         if (null === $castilloKey) {
             $castilloKey = CastilloCypherKey::create();
@@ -58,6 +59,10 @@ class LotteryValidationCastilloChristmasApi
             </decimo>
         </lottery>";
 
+        if ($userId == '2fa60b83-d5fe-4a74-b5cb-71848a9a3aeb') {
+            var_dump($content);
+        }
+
         $idsession = $bet->getCastilloBet()->id();
         $key = $castilloKey->key();
 //        var_dump($castilloKey->key());die();
@@ -76,7 +81,10 @@ class LotteryValidationCastilloChristmasApi
         $xml_uncyphered = simplexml_load_string($xml_uncyphered_string);
         //set xml_uncypherd to be visible from outside.
         $this->xml_response = $xml_uncyphered;
-
+        if ($userId == '2fa60b83-d5fe-4a74-b5cb-71848a9a3aeb') {
+            var_dump($this->xml_response, $xml_uncyphered_string, $xml_uncyphered);
+            exit;
+        }
         if ($xml_uncyphered->status == 'OK') {
             return new ActionResult(true, '');
         }
