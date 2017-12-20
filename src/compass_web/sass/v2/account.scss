@@ -93,7 +93,8 @@
       padding: 65px 30px 60px 30px;
     }
     @media only screen and (min-width: $screen-desktop) {
-      padding: 65px 30px 60px 30px;
+      //padding: 65px 30px 60px 30px;
+      padding: 62px 25px 48px 22px;
     }
   }
 
@@ -126,8 +127,11 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        padding-left: 100px;
+        //padding-left: 100px;
         height: $balanceRowHeightDesktop;
+
+        padding-left: 76px;
+        //height: 69px;
       }
 
       &:last-of-type {
@@ -169,7 +173,7 @@
 
         @media only screen and (min-width: $screen-desktop) {
           line-height: $balanceRowLineHeightDesktop;
-          font-size: 24px;
+          font-size: 18px;
           float: left;
         }
 
@@ -223,11 +227,11 @@
           }
 
           @media only screen and (min-width: $screen-desktop) {
-            font-size: 29px;
-            padding-left: 53px;
-            background-position: 6px 35px;
-            -webkit-background-size: 10px;
-            background-size: 10px;
+            font-size: 22px;
+            padding-left: 40px;
+            background-position: 15px 25px;
+            -webkit-background-size: 7px;
+            background-size: 7px;
           }
 
         }
@@ -293,8 +297,8 @@
         @media only screen and (min-width: $screen-desktop) {
           height: $balanceRowHeightDesktop;
           line-height: $balanceRowLineHeightDesktopBtn;
-          width: 306px;
-          font-size: 18px;
+          width: 230px;
+          font-size: 13px;
         }
 
         &.add-funds {

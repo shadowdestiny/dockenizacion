@@ -151,9 +151,14 @@ $screen-ipad-h-wrapper 			: $screen-medium-wrapper;
 $screen-desktop-wrapper 		: $screen-full-wrapper;
 // Devices end
 
-$balanceRowHeightDesktop 		: 93px;
-$balanceRowLineHeightDesktop 	: 90px;
-$balanceRowLineHeightDesktopBtn : 92px;
+//$balanceRowHeightDesktop 		: 93px;
+//$balanceRowLineHeightDesktop 	: 90px;
+//$balanceRowLineHeightDesktopBtn : 92px;
+
+$balanceRowHeightDesktop 		: 69px;
+$balanceRowLineHeightDesktop 	: 60px;
+$balanceRowLineHeightDesktopBtn : 69px;
+
 $balanceRowHeightMobile 		: 50px;
 $balanceRowLineHeightMobile 	: 46px;
 $balanceRowLineHeightMobileBtn 	: 48px;
