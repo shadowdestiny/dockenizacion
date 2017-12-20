@@ -57,10 +57,13 @@ $(function(){
 {% block template_scripts_after %}<script src="/w/js/react/tooltip.js"></script>{% endblock %}
 {% block bodyClass %}cart profile minimal sign-in{% endblock %}
 
-{% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
+{% block header %}
+    {% set activeNav='{"myClass": "profile"}'|json_decode %}
+    {% include "_elements/header.volt" %}
+{% endblock %}
 
 {#TODO: uncomment this block if it needed#}
-{#{% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}#}
+{% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
 {% set signIn='{"myClass": "cart"}'|json_decode %}
