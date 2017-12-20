@@ -16,6 +16,9 @@
     @media only screen and (min-width: $screen-ipad-h) {
       padding-left: 70px;
     }
+    @media only screen and (min-width: $screen-desktop) {
+      padding-left: 110px;
+    }
 
     li {
       list-style: none;
@@ -38,8 +41,6 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        //-webkit-background-size: 14px;
-        //background-size: 14px;
         -webkit-background-size: 10px;
         background-size: 10px;
 
@@ -47,6 +48,15 @@
         margin-right: 10px;
         font-size: 18px;
         line-height: 100px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        -webkit-background-size: 7px;
+        background-size: 7px;
+        padding-right: 16px;
+        margin-right: 10px;
+        font-size: 13.6px;
+        line-height: 70px;
       }
 
       a {
