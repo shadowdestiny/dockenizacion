@@ -127,7 +127,7 @@
                         {% for my_christmas_active in my_christmas_actives %}
                             <tr>
                                 <td align="center">
-                                    {{ my_christmas_active['start_draw_date'] }}
+                                    2017-12-22
                                 </td>
                                 <td align="center">
                                     <strong>Christmas</strong>
