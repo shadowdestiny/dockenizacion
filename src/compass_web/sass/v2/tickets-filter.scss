@@ -82,13 +82,15 @@
     //  padding-left: 16px;
     //}
     //
-    //@media only screen and (min-width: $screen-desktop) {
+    @media only screen and (min-width: $screen-desktop) {
     //
     //  font-size: 18px;
     //  height: 44px;
     //  line-height: 39px;
     //  padding-left: 16px;
-    //}
+
+      font-size: 14px;
+    }
 
   }
 
@@ -149,11 +151,13 @@
         //  height: 56px;
         //}
         //
-        //@media only screen and (min-width: $screen-desktop) {
+        @media only screen and (min-width: $screen-desktop) {
         //  font-size: 18px;
         //  padding-left: 16px;
         //  height: 56px;
-        //}
+
+          font-size: 13px;
+        }
       }
     }
 
@@ -257,14 +261,16 @@
       //  height: 56px;
       //}
       //
-      //@media only screen and (min-width: $screen-desktop) {
+      @media only screen and (min-width: $screen-desktop) {
       //
       //  font-size: 30px;
       //  line-height: 56px;
       //
       //  min-width: 302px;
       //  height: 56px;
-      //}
+
+        font-size: 18px;
+      }
     }
   }
 

@@ -42,19 +42,21 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        border-bottom: 1px solid #333;
-        margin-bottom: 10px;
-        font-size: 30px;
-        line-height: 47px;
-        padding-left: 10px;
+        //border-bottom: 1px solid #333;
+        //margin-bottom: 10px;
+        //font-size: 30px;
+        //line-height: 47px;
+        //padding-left: 10px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
         border-bottom: 1px solid #333;
-        margin-bottom: 10px;
-        font-size: 30px;
-        line-height: 47px;
-        padding-left: 10px;
+        //margin-bottom: 10px;
+        //font-size: 30px;
+        //line-height: 47px;
+        //padding-left: 10px;
+
+        line-height: 35px;
       }
     }
   }
