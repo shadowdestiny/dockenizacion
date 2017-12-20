@@ -1,4 +1,4 @@
-<li class="li-christmas{% if activeNav.myClass == 'christmas' %} active{% endif %}">
+<!-- li class="li-christmas{% if activeNav.myClass == 'christmas' %} active{% endif %}">
     <a href="/{{ language.translate('link_christmas_play') }}">
         <span class="link desktop">{{ language.translate("playchris_sub") }}</span>
         <br class="br">
@@ -8,7 +8,7 @@
             <span class="txt">{{ language.translate("Play") }}</span>
         {% endif %}
     </a>
-</li>
+</li -->
 <li class="li-play{% if activeNav.myClass == 'play' %} active{% endif %}">
     <a href="/{{ language.translate("link_euromillions_play") }}">
         <span class="link desktop">{{ language.translate("play_sub") }}</span>
