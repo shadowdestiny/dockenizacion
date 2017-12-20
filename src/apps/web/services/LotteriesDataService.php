@@ -51,8 +51,6 @@ class LotteriesDataService
 
     public function updateNextDrawJackpot($lotteryName, \DateTime $now = null)
     {
-        $logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
-
         if (!$now) {
             $now = new \DateTime();
         }
@@ -63,10 +61,8 @@ class LotteriesDataService
             $jackpot_api = $this->apisFactory->jackpotApi($lottery);
             try {
                 $jackpot = $jackpot_api->getJackpotForDate($lotteryName, $next_draw_date->format("Y-m-d"));
-                $logger->error($e->getMessage());
             } catch ( ValidDateRangeException $e ) {
                 $jackpot = $jackpot_api->getJackpotForDateSecond($lotteryName, $next_draw_date->format("Y-m-d"));
-                $logger->error($e->getMessage());
             }
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
