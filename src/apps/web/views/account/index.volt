@@ -47,7 +47,7 @@
                             <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                         </div>
                     {% endif %}
-                    <div class="wrap">
+                    {#<div class="wrap">#}
                         <table class="">
                             {#<div class="">#}
                             {#{% include "account/_user-detail.volt" %}#}
@@ -185,7 +185,7 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
+                    {#</div>#}
                     {{ endform() }}
 
                     {# DO NOT DELETE - Facebook revoke access
