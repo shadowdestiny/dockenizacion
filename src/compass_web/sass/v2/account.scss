@@ -329,6 +329,11 @@
       font-weight: 900;
       text-align: left;
       margin-bottom: 52px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 18px;
+        margin-bottom: 40px;
+      }
     }
 
     label {
@@ -339,6 +344,11 @@
       text-align: left;
       display: block;
       margin-bottom: 18px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
 
       .asterisk {
         color: inherit;
@@ -374,7 +384,11 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        max-width: 640px;
+        //max-width: 640px;
+
+        max-width: 480px;
+        height: 37px;
+        margin-bottom: 12px;
       }
 
 
@@ -387,6 +401,11 @@
         padding-right: 0;
         text-align: center;
         margin-right: 15px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 62px !important;
+          margin-right: 10px;
+        }
       }
 
     }
@@ -445,6 +464,10 @@
 
       #card-cvv {
         width: 182px !important;
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 142px !important;
+        }
       }
     }
 
@@ -453,6 +476,14 @@
     .btn {
       @include btn-account();
       float: none;
+
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 17px;
+        //width: 100%;
+        padding: 0 57px;
+        height: 47px;
+        line-height: 47px;
+      }
     }
 
   }
@@ -1114,7 +1145,7 @@
               @media only screen and (min-width: $screen-xs) {
                 padding-left: 132px;
               }
-              
+
               @media only screen and (min-width: $screen-desktop) {
                 padding-left: 100px;
               }
