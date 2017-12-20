@@ -116,7 +116,7 @@ class BetService
                 $castillo_key = CastilloCypherKey::create();
                 $castillo_ticket = CastilloTicketId::create();
                 $bet->setCastilloBet($castillo_ticket);
-                $result_validation = $lotteryValidation->validateBet($bet, $cypher, $castillo_key, $castillo_ticket, $dateNextDraw, $bet->getPlayConfig()->getLine(), $user->getId());
+                $result_validation = $lotteryValidation->validateBet($bet, $cypher, $castillo_key, $castillo_ticket, $dateNextDraw, $bet->getPlayConfig()->getLine());
 
                 $log_api_reponse = new LogValidationApi();
                 $log_api_reponse->initialize([
