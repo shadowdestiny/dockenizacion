@@ -222,10 +222,9 @@ end PROD imports-->
 		<div class="box-extra">
 			<div class="cols">
 				<div class="col6">
-					<!-- a href="/{{ language.translate('link_christmas_play') }}">
+					<a href="/{{ language.translate('link_christmas_play') }}">
 						<img src="/w/img/home/{{ language.translate('home_christmas_image_billions') }}" border=0 />
-					</a -->
-					<img src="/w/img/home/{{ language.translate('home_christmas_image_billions') }}" border=0 />
+					</a>
 					{#<div class="box-basic box-quick-play ball">
 						<div class="content">
 							<h1 class="h2">{{ language.translate("cta1_head") }}</h1>
