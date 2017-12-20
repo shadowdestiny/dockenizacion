@@ -1100,6 +1100,11 @@
                 border: 1px solid #333;
               }
 
+              @media only screen and (min-width: $screen-desktop) {
+                height: 38px;
+                width: 75px;
+              }
+
             }
             input {
               border-top-left-radius: 0;
@@ -1108,6 +1113,10 @@
 
               @media only screen and (min-width: $screen-xs) {
                 padding-left: 132px;
+              }
+              
+              @media only screen and (min-width: $screen-desktop) {
+                padding-left: 100px;
               }
             }
           }
