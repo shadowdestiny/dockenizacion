@@ -37,6 +37,7 @@ class SitemapController extends ControllerBase
 
     public function indexAction()
     {
+        header("Content-type: text/xml");
         echo file_get_contents('w/xml/sitemap.xml');
         exit;
         $response = new Response();
