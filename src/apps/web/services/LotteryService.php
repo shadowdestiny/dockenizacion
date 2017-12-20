@@ -302,7 +302,11 @@ class LotteryService
                                 'discount' => $playConfig->getDiscount(),
                             ];
                             $this->walletService->purchaseTransactionGrouped($playConfig->getUser(), TransactionType::AUTOMATIC_PURCHASE, $dataTransaction);
-                            $this->sendEmailPurchase($playConfig->getUser(), $playConfig);
+                            try {
+                                $this->sendEmailPurchase($playConfig->getUser(), $playConfig);
+                            } catch (\Exception $e) {
+                                echo $e->getMessage();
+                            }
                         }
                     } else {
                         try {
@@ -312,7 +316,7 @@ class LotteryService
                                 $this->emailService->sendLowBalanceEmail($playConfig->getUser());
                             }
                         } catch (\Exception $e) {
-                            //Continue cron
+                            echo $e->getMessage();
                         }
                     }
                 }
