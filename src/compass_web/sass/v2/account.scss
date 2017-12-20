@@ -421,7 +421,8 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        max-width: 640px;
+        //max-width: 640px;
+        max-width: 480px;
       }
     }
 
