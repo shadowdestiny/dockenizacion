@@ -75,20 +75,20 @@
       padding-left: 10px;
     }
 
-    @media only screen and (min-width: $screen-ipad-h) {
-      font-size: 18px;
-      height: 44px;
-      line-height: 39px;
-      padding-left: 16px;
-    }
-
-    @media only screen and (min-width: $screen-desktop) {
-
-      font-size: 18px;
-      height: 44px;
-      line-height: 39px;
-      padding-left: 16px;
-    }
+    //@media only screen and (min-width: $screen-ipad-h) {
+    //  font-size: 18px;
+    //  height: 44px;
+    //  line-height: 39px;
+    //  padding-left: 16px;
+    //}
+    //
+    //@media only screen and (min-width: $screen-desktop) {
+    //
+    //  font-size: 18px;
+    //  height: 44px;
+    //  line-height: 39px;
+    //  padding-left: 16px;
+    //}
 
   }
 
@@ -100,13 +100,13 @@
       margin-right: 23px;
     }
 
-    @media only screen and (min-width: $screen-ipad-h) {
-      margin-right: 37px;
-    }
-
-    @media only screen and (min-width: $screen-desktop) {
-      margin-right: 37px;
-    }
+    //@media only screen and (min-width: $screen-ipad-h) {
+    //  margin-right: 37px;
+    //}
+    //
+    //@media only screen and (min-width: $screen-desktop) {
+    //  margin-right: 37px;
+    //}
 
     .selectbox {
       min-width: 124px;
@@ -116,11 +116,12 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        min-width: 180px;
+        //min-width: 180px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        min-width: 200px;
+        //min-width: 200px;
+        min-width: 150px;
       }
 
       select {
@@ -142,17 +143,17 @@
           border-radius: 0;
         }
 
-        @media only screen and (min-width: $screen-ipad-h) {
-          font-size: 16px;
-          padding-left: 16px;
-          height: 56px;
-        }
-
-        @media only screen and (min-width: $screen-desktop) {
-          font-size: 18px;
-          padding-left: 16px;
-          height: 56px;
-        }
+        //@media only screen and (min-width: $screen-ipad-h) {
+        //  font-size: 16px;
+        //  padding-left: 16px;
+        //  height: 56px;
+        //}
+        //
+        //@media only screen and (min-width: $screen-desktop) {
+        //  font-size: 18px;
+        //  padding-left: 16px;
+        //  height: 56px;
+        //}
       }
     }
 
@@ -189,26 +190,26 @@
         border-left: 1px solid #333;
       }
 
-      @media only screen and (min-width: $screen-ipad-h) {
-        width: 49px;
-        height: 56px;
-        background-image: url('../img/tickets/desktop/arrow-select.png');
-        -webkit-background-size: 26px;
-        background-size: 26px;
-        background-repeat: no-repeat;
-        background-position: 11px 22px;
-      }
-
-      @media only screen and (min-width: $screen-desktop) {
-        width: 49px;
-        height: 56px;
-        background-image: url('../img/tickets/desktop/arrow-select.png');
-        -webkit-background-size: 26px;
-        background-size: 26px;
-        background-repeat: no-repeat;
-        background-position: 11px 22px;
-
-      }
+      //@media only screen and (min-width: $screen-ipad-h) {
+      //  width: 49px;
+      //  height: 56px;
+      //  background-image: url('../img/tickets/desktop/arrow-select.png');
+      //  -webkit-background-size: 26px;
+      //  background-size: 26px;
+      //  background-repeat: no-repeat;
+      //  background-position: 11px 22px;
+      //}
+      //
+      //@media only screen and (min-width: $screen-desktop) {
+      //  width: 49px;
+      //  height: 56px;
+      //  background-image: url('../img/tickets/desktop/arrow-select.png');
+      //  -webkit-background-size: 26px;
+      //  background-size: 26px;
+      //  background-repeat: no-repeat;
+      //  background-position: 11px 22px;
+      //
+      //}
     }
   }
 
@@ -249,21 +250,21 @@
         cursor: pointer;
       }
 
-      @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 24px;
-        line-height: 56px;
-        min-width: 210px;
-        height: 56px;
-      }
-
-      @media only screen and (min-width: $screen-desktop) {
-
-        font-size: 30px;
-        line-height: 56px;
-
-        min-width: 302px;
-        height: 56px;
-      }
+      //@media only screen and (min-width: $screen-ipad-h) {
+      //  font-size: 24px;
+      //  line-height: 56px;
+      //  min-width: 210px;
+      //  height: 56px;
+      //}
+      //
+      //@media only screen and (min-width: $screen-desktop) {
+      //
+      //  font-size: 30px;
+      //  line-height: 56px;
+      //
+      //  min-width: 302px;
+      //  height: 56px;
+      //}
     }
   }
 
