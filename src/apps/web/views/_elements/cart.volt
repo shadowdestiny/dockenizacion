@@ -100,9 +100,9 @@
 
         <div class="btn-row">
 
-            <div class="btn-theme--big">
+            <a href="#" class="btn-theme--big">
                 proceed to pay
-            </div>
+            </a>
         </div>
     </form>
 
