@@ -73,7 +73,7 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          height: 59px;
+          height: 40px;
           width:auto;
         }
 
@@ -102,13 +102,12 @@
           }
 
           @media only screen and (min-width: $screen-desktop) {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 700;
-            height: 55px;
-            line-height: 55px;
-
-            padding: 0 42px;
-            min-width: 220px;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 22px;
+            min-width: 170px;
           }
         }
       }
@@ -205,14 +204,15 @@
 
       @media only screen and (min-width: $screen-desktop) {
         background-image: url('../img/cart/desktop/cart.png');
-        -webkit-background-size: 38px;
-        background-size: 38px;
+        -webkit-background-size: 30px;
+        background-size: 30px;
         border-bottom: 0;
-        padding-left: 75px;
-        font-size: 24px;
-        line-height: 43px;
+        padding-left: 57px;
+        font-size: 18px;
+        line-height: 28px;
         float: left;
         margin-top: 6px;
+        background-position: 0 1px;
       }
     }
 
