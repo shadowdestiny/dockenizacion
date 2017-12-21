@@ -55,18 +55,18 @@
         text-transform: uppercase;
       }
 
-      @media only screen and (min-width: $screen-ipad-h) {
-        height: 125px;
-        padding-left: 72px;
-        font-size: 40px;
-        line-height: 125px;
-      }
-
+      //@media only screen and (min-width: $screen-ipad-h) {
+      //  height: 125px;
+      //  padding-left: 72px;
+      //  font-size: 40px;
+      //  line-height: 125px;
+      //}
+      //
       @media only screen and (min-width: $screen-desktop) {
-        height: 125px;
-        padding-left: 72px;
-        font-size: 60px;
-        line-height: 125px;
+        height: 95px;
+        padding-left: 54px;
+        font-size: 45px;
+        line-height: 95px;
       }
     }
 
@@ -104,22 +104,21 @@
         margin-bottom: 1px;
       }
 
-      @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 32px;
-
-        line-height: 57px;
-        text-align: left;
-        padding-left: 70px;
-        padding-top: 15px;
-        margin-bottom: 6px;
-      }
-
+      //@media only screen and (min-width: $screen-ipad-h) {
+      //  font-size: 32px;
+      //
+      //  line-height: 57px;
+      //  text-align: left;
+      //  padding-left: 70px;
+      //  padding-top: 15px;
+      //  margin-bottom: 6px;
+      //}
+      //
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 32px;
-
-        line-height: 57px;
+        font-size: 24px;
+        line-height: 35px;
         text-align: left;
-        padding-left: 70px;
+        padding-left: 53px;
         padding-top: 15px;
         margin-bottom: 6px;
       }
@@ -149,16 +148,16 @@
         margin-bottom: 6px;
       }
 
-      @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 24px;
-        padding-left: 68px;
-        margin-bottom: 18px;
-      }
-
+      //@media only screen and (min-width: $screen-ipad-h) {
+      //  font-size: 24px;
+      //  padding-left: 68px;
+      //  margin-bottom: 18px;
+      //}
+      //
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 24px;
-        padding-left: 68px;
-        margin-bottom: 18px;
+        font-size: 18px;
+        padding-left: 53px;
+        margin-bottom: 6px;
       }
     }
     .count {
@@ -187,14 +186,14 @@
         padding-left: 16px;
       }
 
-      @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 24px;
-        padding-left: 68px;
-      }
-
+      //@media only screen and (min-width: $screen-ipad-h) {
+      //  font-size: 24px;
+      //  padding-left: 68px;
+      //}
+      //
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 24px;
-        padding-left: 68px;
+        font-size: 18px;
+        padding-left: 53px;
       }
     }
     .btn-row{
@@ -209,16 +208,16 @@
         padding-top: 23px;
       }
 
-      @media only screen and (min-width: $screen-ipad-h) {
-        padding-top: 29px;
-        padding-left: 72px;
-        padding-bottom: 30px;
-      }
-
+      //@media only screen and (min-width: $screen-ipad-h) {
+      //  padding-top: 29px;
+      //  padding-left: 72px;
+      //  padding-bottom: 30px;
+      //}
+      //
       @media only screen and (min-width: $screen-desktop) {
-        padding-top: 29px;
-        padding-left: 72px;
-        padding-bottom: 30px;
+        padding-top: 19px;
+        padding-left: 56px;
+        padding-bottom: 21px;
       }
 
       .btn-theme--big {
@@ -241,18 +240,23 @@
           line-height: 62px;
         }
 
-        @media only screen and (min-width: $screen-ipad-h) {
-          width: 346px;
-          height: 85px;
-          font-size: 36px;
-          line-height: 84px;
-        }
-
+        //@media only screen and (min-width: $screen-ipad-h) {
+        //  width: 346px;
+        //  height: 85px;
+        //  font-size: 36px;
+        //  line-height: 84px;
+        //}
+        //
         @media only screen and (min-width: $screen-desktop) {
-          width: 346px;
-          height: 85px;
-          font-size: 36px;
-          line-height: 84px;
+          //width: 346px;
+          //height: 85px;
+          //font-size: 36px;
+          //line-height: 84px;
+
+          width: 260px;
+          height: 64px;
+          font-size: 27px;
+          line-height: 63px;
         }
       }
     }
