@@ -17,6 +17,7 @@
   @media only screen and (min-width: $screen-desktop) {
     background-color: #f5f5f5;
     margin-bottom: 60px;
+    margin-top: 26px;
   }
 
   section {
@@ -57,8 +58,8 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        height: 125px;
-        padding-left: 181px;
+        height: 94px;
+        padding-left: 134px;
       }
 
       h1 {
@@ -184,8 +185,9 @@
         }
 
         @media only screen and (min-width: $screen-ipad-v) {
-          height: 125px;
-          padding-left: 181px;
+          height: 94px;
+          padding-left: 136px;
+          margin-top: 26px;
         }
 
         h1{
@@ -203,6 +205,8 @@
 
           @media only screen and (min-width: $screen-desktop) {
             padding-top: 22px;
+            font-size: 44px;
+            padding-top: 17px;
           }
         }
 
@@ -251,7 +255,7 @@
 
           @media only screen and (min-width: $screen-desktop) {
             line-height: 1.1;
-            font-size: 17px;
+            font-size: 14px;
             padding-left: 0;
           }
         }
@@ -299,12 +303,12 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          -webkit-background-size: 71px;
-          background-size: 71px;
+          -webkit-background-size: 54px;
+          background-size: 54px;
           width: 71px;
           height: 42px;
-          left: -103px;
-          top: 33px;
+          left: -79px;
+          top: 25px;
         }
       }
 
@@ -689,7 +693,7 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          padding: 40px 70px 40px 70px;
+          padding: 18px 48px 40px 41px;
         }
       }
 
@@ -849,7 +853,7 @@
 
           @media only screen and (min-width: $screen-desktop) {
             color: #333333;
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 900;
             line-height: 36px;
             text-align: left;
@@ -928,7 +932,7 @@
           }
 
           @media only screen and (min-width: $screen-desktop) {
-            font-size: 24px;
+            font-size: 19px;
             font-weight: 700;
             text-align: left;
             padding-top: 9px;
@@ -979,7 +983,7 @@
 
           @media only screen and (min-width: $screen-desktop) {
             padding-top: 20px;
-            padding-left: 0px;
+            padding-left: 10px;
             padding-bottom: 0px;
 
             margin-left: 0px;
@@ -1023,10 +1027,10 @@
             }
 
             @media only screen and (min-width: $screen-desktop) {
-              font-size: 24px;
+              font-size: 19px;
               //font-weight: 400;
               font-weight: 900;
-              margin-bottom: 16px;
+              margin-bottom: 8px;
               padding-left: 0;
             }
           }
@@ -1052,7 +1056,7 @@
               @media only screen and (min-width: $screen-desktop) {
                 float: left;
                 margin-left: 0px;
-                margin-bottom: 17px;
+                margin-bottom: 7px;
               }
 
               li {
@@ -1137,12 +1141,12 @@
                 }
 
                 @media only screen and (min-width: $screen-desktop) {
-                  font-size: 18px;
+                  font-size: 14px;
                   font-weight: 700;
                   margin-right: 15px;
-                  width: 40px;
-                  height: 44px;
-                  line-height: 40px;
+                  width: 30px;
+                  height: 30px;
+                  line-height: 30px;
 
                   position: static;
 
@@ -1151,8 +1155,8 @@
                   background-position: 0 0;
                   text-shadow: none;
                   letter-spacing: 0;
-                  -webkit-background-size: 40px;
-                  background-size: 40px;
+                  -webkit-background-size: 30px;
+                  background-size: 30px;
                 }
               }
               li.star {
@@ -1232,20 +1236,17 @@
                   background-image: url('../img/home/result-block/desktop/star.svg');
                   background-repeat: no-repeat;
                   background-position: 0 0;
-                  -webkit-background-size: 47px;
-                  background-size: 47px;
-
+                  -webkit-background-size: 37px;
+                  background-size: 37px;
                   text-indent: 0;
-                  color: #333333;
-
+                  color: #333;
                   position: static;
                   padding-top: 0;
-
-                  width: 47px;
-                  height: 44px;
-                  margin-left: 19px;
+                  width: 37px;
+                  height: 34px;
+                  margin-left: 13px;
                   margin-right: 6px;
-                  line-height: 47px;
+                  line-height: 37px;
                 }
               }
               li.star + li.star {
@@ -1335,8 +1336,9 @@
             }
 
             @media only screen and (min-width: $screen-desktop) {
-              font-size: 24px;
+              font-size: 18px;
               //padding-top: 12px;
+              padding-top: 7px;
             }
           }
 
