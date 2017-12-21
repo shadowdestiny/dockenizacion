@@ -116,7 +116,7 @@ class LotteryDrawRepository extends EntityRepository
                 . ' FROM ' . $this->getEntityName() . ' ld JOIN ld.lottery l'
                 . ' WHERE l.name = :lottery_name AND ld.draw_date = :date')
             ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $date->format('Y-m-d')])
-            ->useResultCache(false)
+            ->useResultCache(true)
             ->getResult();
 
         return (!empty($result)) ? $result[0] : [];
