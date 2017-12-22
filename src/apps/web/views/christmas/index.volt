@@ -26,7 +26,7 @@
                 <span class="h1 jackpot">
                     {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                     {% include "_elements/christmasJackpot-value" with ['extraClass': extraClass] %}
-                    - 22nd December 2017
+                    - 22nd December 2018
 			    </span>
             </header>
             <div class="gameplay border-top-yellow">
