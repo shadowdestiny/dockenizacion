@@ -39,39 +39,39 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td class="td-ball">
+                                                <td>
                                                     <span>{{ language.translate("mainprizes_row1") }}</span>
                                                 </td>
-                                                <td class="td-ball">
+                                                <td>
                                                     <span>71198</span>
                                                 </td>
-                                                <td class="td-star-ball">
+                                                <td>
                                                     <span>1</span>
                                                 </td>
-                                                <td class="td-winners">
+                                                <td>
                                                     <span>&nbsp; 4.000.000 &nbsp;&nbsp;</span>
                                                 </td>
-                                                <td class="td-prize">
-                                                    <span>&nbsp; 20.000 per euro &nbsp;&nbsp;</span>
+                                                <td>
+                                                    <span>20.000 per € &nbsp;&nbsp;</span>
                                                 </td>
                                         </tr>
                                     </tbody>
                                     <tbody>
                                     <tr>
-                                        <td class="td-ball">
+                                        <td>
                                             <span>{{ language.translate("mainprizes_row2") }}</span>
                                         </td>
-                                        <td class="td-ball">
+                                        <td>
                                             <span>51244</span>
                                         </td>
-                                        <td class="td-star-ball">
+                                        <td>
                                             <span>1</span>
                                         </td>
-                                        <td class="td-winners">
-                                            <span>&nbsp; .250.000 &nbsp;&nbsp;/span>
+                                        <td>
+                                            <span>&nbsp; 1.250.000 &nbsp;&nbsp;</span>
                                         </td>
-                                        <td class="td-prize">
-                                            <span>&nbsp; 6250 per euro &nbsp;&nbsp;</span>
+                                        <td>
+                                            <span>6250 per € &nbsp;&nbsp;</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -90,7 +90,7 @@
                                             <span>&nbsp; 500.000 &nbsp;&nbsp;</span>
                                         </td>
                                         <td class="td-prize">
-                                            <span>&nbsp; 2.500 per euro &nbsp;&nbsp;</span>
+                                            <span>2.500 per € &nbsp;&nbsp;</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -109,7 +109,7 @@
                                             <span>&nbsp; 200.000 &nbsp;&nbsp;</span>
                                         </td>
                                         <td class="td-prize">
-                                            <span>&nbsp; 1.000 per euro &nbsp;&nbsp;</span>
+                                            <span>1.000 per € &nbsp;&nbsp;</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -128,7 +128,7 @@
                                             <span>&nbsp; 60.000 &nbsp;&nbsp;</span>
                                         </td>
                                         <td class="td-prize">
-                                            <span>&nbsp; 300 per euro &nbsp;&nbsp;</span>
+                                            <span>300 per € &nbsp;&nbsp;</span>
                                         </td>
                                     </tr>
                                     </tbody>
