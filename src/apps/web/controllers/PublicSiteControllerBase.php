@@ -161,6 +161,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->view->setVar('jackpot', $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')));
         $date_time_util = new DateTimeUtil();
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
+        $this->view->setVar('nextDrawDateEuromillions', $date_next_draw->format('Y-m-d'));
         $this->view->setVar('countdown_next_draw', $date_time_util->getCountDownNextDraw($date_next_draw));
         //EMTD create a method helper to set this vars
         $this->view->setVar('countdown_finish_bet', []/*ViewHelper::setCountDownFinishBet(30, 10, 5, $date_next_draw)*/);

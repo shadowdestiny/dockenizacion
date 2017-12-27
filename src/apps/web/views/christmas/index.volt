@@ -26,10 +26,11 @@
                 <span class="h1 jackpot">
                     {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                     {% include "_elements/christmasJackpot-value" with ['extraClass': extraClass] %}
-                    - 22nd December 2017
+                    - 22nd December 2018
 			    </span>
             </header>
             <div class="gameplay border-top-yellow">
+                {#
                 <form action="/christmas/order" method="post" id="christmasForm">
                     {% if christmasTickets is defined %}
                         <table style="margin-top: 15px; margin-bottom: 15px;">
@@ -95,7 +96,7 @@
                         <input type="hidden" id="singleBetPrice"
                                value="{{ singleBetPrice | number_format (2,'.','') }}"/>
                     </div>
-
+                    #}
                     <div class="box-bottom">
                         <p align="justify">
                         <h1 style="font-weight: bold; font-size: 26px;">{{ language.translate("playchris_txt_tit") }}</h1>

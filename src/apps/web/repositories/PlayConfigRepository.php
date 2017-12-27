@@ -169,6 +169,34 @@ class PlayConfigRepository extends RepositoryBase
                 , $rsm)->getResult();
     }
 
+    public function getInactiveChristmasByUser($userId)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('start_draw_date', 'start_draw_date');
+        $rsm->addScalarResult('last_draw_date', 'last_draw_date');
+        $rsm->addScalarResult('line_regular_number_one', 'line_regular_number_one');
+        $rsm->addScalarResult('line_regular_number_two', 'line_regular_number_two');
+        $rsm->addScalarResult('line_regular_number_three', 'line_regular_number_three');
+        $rsm->addScalarResult('line_regular_number_four', 'line_regular_number_four');
+        $rsm->addScalarResult('line_regular_number_five', 'line_regular_number_five');
+        $rsm->addScalarResult('line_lucky_number_one', 'line_lucky_number_one');
+        $rsm->addScalarResult('line_lucky_number_two', 'line_lucky_number_two');
+
+        return $this->getEntityManager()
+            ->createNativeQuery(
+                'SELECT p.start_draw_date, p.last_draw_date, p.line_regular_number_one,
+                            p.line_regular_number_two,
+                            p.line_regular_number_three,
+                            p.line_regular_number_four,
+                            p.line_regular_number_five,
+                            p.line_lucky_number_one,
+                            p.line_lucky_number_two'
+                . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
+                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 0 AND p.frequency = 1 and p.lottery_id = 2'
+                . ' ORDER BY p.start_draw_date ASC, p.last_draw_date ASC '
+                , $rsm)->getResult();
+    }
+
     public function getUsersWithPlayConfigsActive()
     {
         $result = $this->getEntityManager()
