@@ -24,7 +24,7 @@
 
                     </div>
                     <div class="cols">
-                        <div class="col8">
+                        <div>
                             <div class="box-current-winners">
                                 <table id="current-winners" class="table ui-responsive" data-role="table"
                                        data-mode="reflow">
@@ -49,10 +49,10 @@
                                                     <span>1</span>
                                                 </td>
                                                 <td>
-                                                    <span>&nbsp; 4.000.000 &nbsp;&nbsp;</span>
+                                                    <span>4.000.000 &nbsp;&nbsp;</span>
                                                 </td>
                                                 <td>
-                                                    <span>20.000 per € &nbsp;&nbsp;</span>
+                                                    <span>20.000 per euro &nbsp;&nbsp;</span>
                                                 </td>
                                         </tr>
                                     </tbody>
@@ -68,10 +68,10 @@
                                             <span>1</span>
                                         </td>
                                         <td>
-                                            <span>&nbsp; 1.250.000 &nbsp;&nbsp;</span>
+                                            <span>1.250.000 &nbsp;&nbsp;</span>
                                         </td>
                                         <td>
-                                            <span>6250 per € &nbsp;&nbsp;</span>
+                                            <span>6250 per euro &nbsp;&nbsp;</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -87,10 +87,10 @@
                                             <span>1</span>
                                         </td>
                                         <td class="td-winners">
-                                            <span>&nbsp; 500.000 &nbsp;&nbsp;</span>
+                                            <span>500.000 &nbsp;&nbsp;</span>
                                         </td>
                                         <td class="td-prize">
-                                            <span>2.500 per € &nbsp;&nbsp;</span>
+                                            <span>2.500 per euro &nbsp;&nbsp;</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -106,10 +106,10 @@
                                             <span>2</span>
                                         </td>
                                         <td class="td-winners">
-                                            <span>&nbsp; 200.000 &nbsp;&nbsp;</span>
+                                            <span>200.000 &nbsp;&nbsp;</span>
                                         </td>
                                         <td class="td-prize">
-                                            <span>1.000 per € &nbsp;&nbsp;</span>
+                                            <span>1.000 per euro &nbsp;&nbsp;</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -125,10 +125,10 @@
                                             <span>8</span>
                                         </td>
                                         <td class="td-winners">
-                                            <span>&nbsp; 60.000 &nbsp;&nbsp;</span>
+                                            <span>60.000 &nbsp;&nbsp;</span>
                                         </td>
                                         <td class="td-prize">
-                                            <span>300 per € &nbsp;&nbsp;</span>
+                                            <span>300 per euro &nbsp;&nbsp;</span>
                                         </td>
                                     </tr>
                                     </tbody>
