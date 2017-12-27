@@ -54,6 +54,7 @@ class TicketsController extends AccountController
             'my_subscription_actives' => $this->userService->getMyActiveSubscriptions($user->getId(), $this->lotteryService->getNextDateDrawByLottery('Euromillions')),
             'my_subscription_inactives' => $paginatorSubsInactives->getPaginate()->items,
             'my_christmas_actives' => $this->userService->getMyActiveChristmas($user->getId()),
+            'my_christmas_inactives' => $this->userService->getMyInactiveChristmas($user->getId()),
             'jackpot_value' => $jackpot,
             'paginator_view' => $paginator_view,
             'paginator_view_subs_inactives' => $paginatorViewSubsInactive,
