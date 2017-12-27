@@ -41,7 +41,7 @@
     </a>
 </li>
 <li class="li-numbers{% if activeNav.myClass == 'christmasNumbers' %} active{% endif %}">
-    <a href="/{{ language.translate('link_christmas_results	') }}">
+    <a href="/{{ language.translate('link_christmas_results') }}">
         <span class="link desktop">{{ language.translate("results_christmas") }}</span>
         <br class="br">
         <span class="txt">
