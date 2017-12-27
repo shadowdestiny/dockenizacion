@@ -40,6 +40,16 @@
 		</span>
     </a>
 </li>
+<li class="li-numbers{% if activeNav.myClass == 'christmasNumbers' %} active{% endif %}">
+    <a href="/{{ language.translate('link_christmas_results	') }}">
+        <span class="link desktop">{{ language.translate("results_christmas") }}</span>
+        <br class="br">
+        <span class="txt">
+			<span class="desktop">{{ language.translate("results_sub") }}</span>
+			<span class="mobile">{{ language.translate("mobile_resultsem") }}</span>
+		</span>
+    </a>
+</li>
 <li class="li-your-account{% if activeNav.myClass == 'account' %} active{% endif %}">
     {% if user_logged %}
         {% set link="/account" %}
