@@ -18,14 +18,10 @@
                 <h1 class="h1 title">{{ language.translate("h1_christmasresults") }}</h1>
                 <div class="wrap">
                     <div class="cols">
-                        <div class="col8">
-                                <div class="content cl">
-                                    <h2 class="h2"><span class="purple">{{ language.translate("h2_mainprizes") }}</span>
-                                    </h2>
-                                    <p>{{ language.translate("text_mainprizes") }}</p>
+                                <h2 class="h2"><span class="purple">{{ language.translate("h2_mainprizes") }}</span>
+                                </h2>
+                                <p>{{ language.translate("text_mainprizes") }}</p>
 
-                                </div>
-                        </div>
                     </div>
                     <div class="cols">
                         <div class="col8">
@@ -139,10 +135,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col4">
-                            <div class="box-history">
-                            </div>
-                        </div>
+
                     </div>
                     {#<div class="cols">#}
                         {#<div class="col8">#}
