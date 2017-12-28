@@ -137,6 +137,15 @@
                         </div>
 
                     </div>
+                    <div class="cols">
+                        <h2 class="h2"><span
+                                    class="purple">{{ language.translate("check_number") }}</span>
+                        </h2>
+                        <form class="box-add-card form-currency" method="post" action="/christmas-lottery/search">
+                            <label for="ticketnumber">{{ language.translate("insert_number") }}&nbsp;</label><input type="text" id="ticket_number" name="ticket_number"/>
+                            <input type="submit" class="btn btn-primary" value="Check" />
+                        </form>
+                    </div>
                     {#<div class="cols">#}
                         {#<div class="col8">#}
                             {#<div class="content cl">#}

@@ -690,7 +690,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->add("/christmas-lottery/results", array(
             "module" => "web",
-            'lottery' => 1,
+            'lottery' => 2,
             'controller' => 'christmas-numbers',
             'action' => 'index',
             'language' => 'en',
@@ -698,7 +698,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->add("/ru/рождественская-лотерея/результаты", array(
             "module" => "web",
-            'lottery' => 1,
+            'lottery' => 2,
             'controller' => 'christmas-numbers',
             'action' => 'index',
             'language' => 'ru',
@@ -707,9 +707,34 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->add("/es/loteria-navidad/resultados", array(
             "module" => "web",
-            'lottery' => 1,
+            'lottery' => 2,
             'controller' => 'christmas-numbers',
             'action' => 'index',
+            'language' => 'es',
+        ));
+
+        $router->add("/christmas-lottery/search", array(
+            "module" => "web",
+            'lottery' => 2,
+            'controller' => 'christmas-numbers',
+            'action' => 'search',
+            'language' => 'en',
+        ));
+
+        $router->add("/ru/рождественская-лотерея/поиск", array(
+            "module" => "web",
+            'lottery' => 2,
+            'controller' => 'christmas-numbers',
+            'action' => 'search',
+            'language' => 'ru',
+            'currency' => 'RUB',
+        ));
+
+        $router->add("/es/loteria-navidad/buscar", array(
+            "module" => "web",
+            'lottery' => 2,
+            'controller' => 'christmas-numbers',
+            'action' => 'search',
             'language' => 'es',
         ));
 

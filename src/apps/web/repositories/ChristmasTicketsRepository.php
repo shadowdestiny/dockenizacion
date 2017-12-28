@@ -26,4 +26,18 @@ class ChristmasTicketsRepository extends RepositoryBase
             INSERT INTO christmas_tickets VALUES (NULL, '" . $ticket[0] . "', '1', " . $ticket[1] . ", " . $ticket[1] . ", 10, 1, 10)
             ");
     }
+
+    public function getTicketAwardedPrize($ticketNumber)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('number', 'number');
+        $rsm->addScalarResult('prize', 'prize');
+
+        return $this->getEntityManager()
+            ->createNativeQuery(
+                'SELECT id, number, prize
+                    FROM christmas_awards
+                    WHERE number = '.$ticketNumber, $rsm)->getResult();
+    }
 }
