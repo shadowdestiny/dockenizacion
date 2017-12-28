@@ -66,4 +66,9 @@ class ChristmasService
             }
         }
     }
+
+    public function getchristmasTicketAwardByNumber($ticketNumber)
+    {
+        return $this->christmasTicketsRepository->getTicketAwardedPrize($ticketNumber);
+    }
 }
