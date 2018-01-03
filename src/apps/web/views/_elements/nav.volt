@@ -46,7 +46,7 @@
         <br class="br">
         <span class="txt">
 			<span class="desktop">{{ language.translate("results_sub") }}</span>
-			<span class="mobile">{{ language.translate("mobile_resultsem") }}</span>
+			<span class="mobile">{{ language.translate("mobile_resultschristmas") }}</span>
 		</span>
     </a>
 </li>
