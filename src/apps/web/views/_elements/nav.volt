@@ -2,11 +2,15 @@
     <a itemprop="url" href="/{{ language.translate('link_christmas_play') }}" class="ui-link">
         <span class="link desktop">{{ language.translate("playchris_sub") }}</span>
         <br class="br">
-        {% if mobile == 1 %}
-            <span class="txt">{{ language.translate("mobile_playchris") }}</span>
-        {% else %}
-            <span class="txt">{{ language.translate("Play") }}</span>
-        {% endif %}
+        <span class="txt">
+			<span class="desktop">{{ language.translate("Play") }}</span>
+			<span class="mobile">{{ language.translate("mobile_playchris") }}</span>
+		</span>
+        {#{% if mobile == 1 %}#}
+            {#<span class="txt">{{ language.translate("mobile_playchris") }}</span>#}
+        {#{% else %}#}
+            {#<span class="txt">{{ language.translate("Play") }}</span>#}
+        {#{% endif %}#}
     </a>
     <meta itemprop="name" content="{{ language.translate('markup_playchris_name') }}">
     <meta itemprop="startDate" content="2018-12-22">
@@ -18,11 +22,15 @@
     <a itemprop="url" href="/{{ language.translate("link_euromillions_play") }}" class="ui-link">
         <span class="link desktop">{{ language.translate("play_sub") }}</span>
         <br class="br">
-        {% if mobile == 1 %}
-            <span class="txt">{{ language.translate("mobile_playem") }}</span>
-        {% else %}
-            <span class="txt">{{ language.translate("play") }}</span>
-        {% endif %}
+        <span class="txt">
+			<span class="desktop">{{ language.translate("play") }}</span>
+			<span class="mobile">{{ language.translate("mobile_playem") }}</span>
+		</span>
+        {#{% if mobile == 1 %}#}
+            {#<span class="txt">{{ language.translate("mobile_playem") }}</span>#}
+        {#{% else %}#}
+            {#<span class="txt">{{ language.translate("play") }}</span>#}
+        {#{% endif %}#}
     </a>
     <meta itemprop="name" content="{{ language.translate('markup_playem_name') }}">
     <meta itemprop="startDate" content="{{ nextDrawDateEuromillions }}">
