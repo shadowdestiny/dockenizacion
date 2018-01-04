@@ -14,9 +14,10 @@
     </a>
     <meta itemprop="name" content="{{ language.translate('markup_playchris_name') }}">
     <meta itemprop="startDate" content="2018-12-22">
-    <span itemprop="location" itemscope itemtype="http://schema.org/Place"></span>
-    <meta itemprop="name" content="{{ language.translate('markup_playchris_place') }}">
-    <meta itemprop="address" content="Teatro Real">
+    <span itemprop="location" itemscope itemtype="http://schema.org/Place">
+        <meta itemprop="name" content="{{ language.translate('markup_playchris_place') }}">
+        <meta itemprop="address" content="Teatro Real">
+    </span>
 </li>
 <li itemscope itemtype="http://schema.org/Event" class="li-play{% if activeNav.myClass == 'play' %} active{% endif %}">
     <a itemprop="url" href="/{{ language.translate("link_euromillions_play") }}" class="ui-link">
@@ -34,9 +35,10 @@
     </a>
     <meta itemprop="name" content="{{ language.translate('markup_playem_name') }}">
     <meta itemprop="startDate" content="{{ nextDrawDateEuromillions }}">
-    <span itemprop="location" itemscope itemtype="http://schema.org/Place"></span>
-    <meta itemprop="name" content="{{ language.translate('markup_playem_place') }}">
-    <meta itemprop="address" content="{{ language.translate('markup_playem_address') }}">
+    <span itemprop="location" itemscope itemtype="http://schema.org/Place">
+        <meta itemprop="name" content="{{ language.translate('markup_playem_place') }}">
+        <meta itemprop="address" content="{{ language.translate('markup_playem_address') }}">
+    </span>
 </li>
 <li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">
     <a href="/{{ language.translate('link_euromillions_results') }}">
