@@ -49,7 +49,7 @@
                                                 <span>1</span>
                                             </td>
                                             <td>
-                                                <span>4.000.000 &nbsp;&nbsp;</span>
+                                                <span>4.000.000  €&nbsp;&nbsp;</span>
                                             </td>
                                             <td>
                                                 <span>20.000 / 1€ &nbsp;&nbsp;</span>
@@ -68,7 +68,7 @@
                                             <span>1</span>
                                         </td>
                                         <td>
-                                            <span>1.250.000 &nbsp;&nbsp;</span>
+                                            <span>1.250.000  €&nbsp;&nbsp;</span>
                                         </td>
                                         <td>
                                             <span>6250 / 1€ &nbsp;&nbsp;</span>
@@ -87,7 +87,7 @@
                                             <span>1</span>
                                         </td>
                                         <td class="td-winners">
-                                            <span>500.000 &nbsp;&nbsp;</span>
+                                            <span>500.000 € &nbsp;&nbsp;</span>
                                         </td>
                                         <td class="td-prize">
                                             <span>2.500 / 1€ &nbsp;&nbsp;</span>
@@ -106,7 +106,7 @@
                                             <span>2</span>
                                         </td>
                                         <td class="td-winners">
-                                            <span>200.000 &nbsp;&nbsp;</span>
+                                            <span>200.000  €&nbsp;&nbsp;</span>
                                         </td>
                                         <td class="td-prize">
                                             <span>1.000 / 1€ &nbsp;&nbsp;</span>
@@ -125,7 +125,7 @@
                                             <span>8</span>
                                         </td>
                                         <td class="td-winners">
-                                            <span>60.000 &nbsp;&nbsp;</span>
+                                            <span>60.000  €&nbsp;&nbsp;</span>
                                         </td>
                                         <td class="td-prize">
                                             <span>300 / 1€ &nbsp;&nbsp;</span>
@@ -190,7 +190,7 @@
                                             <span>2</span>
                                         </td>
                                         <td class="td-star-ball">
-                                            <span>20.000</span>
+                                            <span>20.000 €</span>
                                         </td>
                                         <td class="td-winners">
                                             <span>100€ / 1€</span>
@@ -204,7 +204,7 @@
                                             <span>2</span>
                                         </td>
                                         <td class="td-star-ball">
-                                            <span>12.500</span>
+                                            <span>12.500 €</span>
                                         </td>
                                         <td class="td-winners">
                                             <span>62,5€ / 1€</span>
@@ -218,7 +218,7 @@
                                             <span>2</span>
                                         </td>
                                         <td class="td-star-ball">
-                                            <span>9.600</span>
+                                            <span>9.600 €</span>
                                         </td>
                                         <td class="td-winners">
                                             <span>48€ / 1€</span>
@@ -232,7 +232,7 @@
                                             <span>99</span>
                                         </td>
                                         <td class="td-star-ball">
-                                            <span>1.000</span>
+                                            <span>1.000 €</span>
                                         </td>
                                         <td class="td-winners">
                                             <span>5€ / 1€</span>
@@ -246,7 +246,7 @@
                                             <span>99</span>
                                         </td>
                                         <td class="td-star-ball">
-                                            <span>1.000</span>
+                                            <span>1.000 €</span>
                                         </td>
                                         <td class="td-winners">
                                             <span>5€ / 1€</span>
@@ -260,7 +260,7 @@
                                             <span>99</span>
                                         </td>
                                         <td class="td-star-ball">
-                                            <span>1.000</span>
+                                            <span>1.000 €</span>
                                         </td>
                                         <td class="td-winners">
                                             <span>5€ / 1€</span>
@@ -274,7 +274,7 @@
                                             <span>198</span>
                                         </td>
                                         <td class="td-star-ball">
-                                            <span>1.000</span>
+                                            <span>1.000 €</span>
                                         </td>
                                         <td class="td-winners">
                                             <span>5€ / 1€</span>
@@ -285,13 +285,13 @@
                                             <span>{{ language.translate("otherprizes_row9") }}</span>
                                         </td>
                                         <td class="td-ball">
-                                            <span>{{ language.translate("mainprizes_row1") }}</span>
+                                            <span>999</span>
                                         </td>
                                         <td class="td-star-ball">
-                                            <span>{{ language.translate("mainprizes_row1") }}</span>
+                                            <span>1.000 €</span>
                                         </td>
                                         <td class="td-winners">
-                                            <span>{{ language.translate("mainprizes_row1") }}</span>
+                                            <span>6€ / 1€</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -302,10 +302,10 @@
                                             <span>999</span>
                                         </td>
                                         <td class="td-star-ball">
-                                            <span>1.000</span>
+                                            <span>1.000 €</span>
                                         </td>
                                         <td class="td-winners">
-                                            <span>6€ / 1€</span>
+                                            <span>5€ / 1€</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -316,7 +316,7 @@
                                             <span>999</span>
                                         </td>
                                         <td class="td-star-ball">
-                                            <span>1.000</span>
+                                            <span>1.000 €</span>
                                         </td>
                                         <td class="td-winners">
                                             <span>5€ / 1€</span>
@@ -327,13 +327,13 @@
                                             <span>{{ language.translate("otherprizes_row12") }}</span>
                                         </td>
                                         <td class="td-ball">
-                                            <span>999</span>
+                                            <span>9.999</span>
                                         </td>
                                         <td class="td-star-ball">
-                                            <span>1.000</span>
+                                            <span>200 €</span>
                                         </td>
                                         <td class="td-winners">
-                                            <span>5€ / 1€</span>
+                                            <span>1€ / 1€</span>
                                         </td>
                                     </tr>
                                     </tbody>
