@@ -65,6 +65,11 @@ end PROD imports-->
 {% endblock %}
 
 {% block body %}
+<span itemprop="location" itemscope itemtype="http://schema.org/Place">
+	<meta itemprop="url" content="{{ language.translate('markup_org_url') }}">
+	<meta itemprop="contactType" content="{{ language.translate('markup_org_contact') }}">
+	<meta itemprop="availableLanguage" content="{{ language.translate('markup_org_lang') }}">
+</span>
 <main id="content">
 	<div class="large wrapper">
 		<div class="banner">
@@ -84,7 +89,7 @@ end PROD imports-->
 							</filter>
 						</defs>
 						{% set jackpot_val =  jackpot_value  %}
- 						<g class="normal"> 
+ 						<g class="normal">
 							<text filter="url(#shadow)">
 								<tspan class="mycur" y="90"></tspan>
 								<tspan class="mytxt" dx="10px" y="90">{{ jackpot_val }}</tspan>
