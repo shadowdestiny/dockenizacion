@@ -63,7 +63,6 @@ end PROD imports-->
 		count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
     });
 {% endblock %}
-
 {% block body %}
 <main id="content">
 	<div class="large wrapper">
@@ -84,7 +83,7 @@ end PROD imports-->
 							</filter>
 						</defs>
 						{% set jackpot_val =  jackpot_value  %}
- 						<g class="normal"> 
+ 						<g class="normal">
 							<text filter="url(#shadow)">
 								<tspan class="mycur" y="90"></tspan>
 								<tspan class="mytxt" dx="10px" y="90">{{ jackpot_val }}</tspan>
@@ -327,4 +326,24 @@ end PROD imports-->
 
 	</div>
 </main>
+	<script type="application/ld+json">
+{
+"@context": "http://schema.org/",
+"@type": "Organization",
+"name": "EuroMillions.com",
+"url": "{{ language.translate('markup_org_url') }}",
+"logo": "https://euromillions.com/w/img/logo/favicon.png",
+"contactPoint": [
+{ "@type": "ContactPoint",
+"email": "support@euromillions.com",
+"contactType": "{{ language.translate('markup_org_contact') }}",
+"availableLanguage" : [{{ language.translate('markup_org_lang') }}]
+}],
+"sameAs" : [ "https://www.facebook.com/Euromillionscom-204411286236724/",
+"https://twitter.com/_lotteries",
+"https://plus.google.com/+Euromillionscom",
+"https://www.instagram.com/euromillions.com_/",
+"https://www.linkedin.com/company/euromillions-com"
+]}
+</script>
 {% endblock %}

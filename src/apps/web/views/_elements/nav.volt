@@ -2,33 +2,43 @@
     <a itemprop="url" href="/{{ language.translate('link_christmas_play') }}" class="ui-link">
         <span class="link desktop">{{ language.translate("playchris_sub") }}</span>
         <br class="br">
-        {% if mobile == 1 %}
-            <span class="txt">{{ language.translate("mobile_playchris") }}</span>
-        {% else %}
-            <span class="txt">{{ language.translate("Play") }}</span>
-        {% endif %}
+        <span class="txt">
+			<span class="desktop">{{ language.translate("Play") }}</span>
+			<span class="mobile">{{ language.translate("mobile_playchris") }}</span>
+		</span>
+        {#{% if mobile == 1 %}#}
+            {#<span class="txt">{{ language.translate("mobile_playchris") }}</span>#}
+        {#{% else %}#}
+            {#<span class="txt">{{ language.translate("Play") }}</span>#}
+        {#{% endif %}#}
     </a>
     <meta itemprop="name" content="{{ language.translate('markup_playchris_name') }}">
     <meta itemprop="startDate" content="2018-12-22">
-    <span itemprop="location" itemscope itemtype="http://schema.org/Place"></span>
-    <meta itemprop="name" content="{{ language.translate('markup_playchris_place') }}">
-    <meta itemprop="address" content="Teatro Real">
+    <span itemprop="location" itemscope itemtype="http://schema.org/Place">
+        <meta itemprop="name" content="{{ language.translate('markup_playchris_place') }}">
+        <meta itemprop="address" content="Teatro Real">
+    </span>
 </li>
 <li itemscope itemtype="http://schema.org/Event" class="li-play{% if activeNav.myClass == 'play' %} active{% endif %}">
     <a itemprop="url" href="/{{ language.translate("link_euromillions_play") }}" class="ui-link">
         <span class="link desktop">{{ language.translate("play_sub") }}</span>
         <br class="br">
-        {% if mobile == 1 %}
-            <span class="txt">{{ language.translate("mobile_playem") }}</span>
-        {% else %}
-            <span class="txt">{{ language.translate("play") }}</span>
-        {% endif %}
+        <span class="txt">
+			<span class="desktop">{{ language.translate("play") }}</span>
+			<span class="mobile">{{ language.translate("mobile_playem") }}</span>
+		</span>
+        {#{% if mobile == 1 %}#}
+            {#<span class="txt">{{ language.translate("mobile_playem") }}</span>#}
+        {#{% else %}#}
+            {#<span class="txt">{{ language.translate("play") }}</span>#}
+        {#{% endif %}#}
     </a>
     <meta itemprop="name" content="{{ language.translate('markup_playem_name') }}">
     <meta itemprop="startDate" content="{{ nextDrawDateEuromillions }}">
-    <span itemprop="location" itemscope itemtype="http://schema.org/Place"></span>
-    <meta itemprop="name" content="{{ language.translate('markup_playem_place') }}">
-    <meta itemprop="address" content="{{ language.translate('markup_playem_address') }}">
+    <span itemprop="location" itemscope itemtype="http://schema.org/Place">
+        <meta itemprop="name" content="{{ language.translate('markup_playem_place') }}">
+        <meta itemprop="address" content="{{ language.translate('markup_playem_address') }}">
+    </span>
 </li>
 <li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">
     <a href="/{{ language.translate('link_euromillions_results') }}">
@@ -46,7 +56,7 @@
         <br class="br">
         <span class="txt">
 			<span class="desktop">{{ language.translate("results_sub") }}</span>
-			<span class="mobile">{{ language.translate("mobile_resultsem") }}</span>
+			<span class="mobile">{{ language.translate("mobile_resultschristmas") }}</span>
 		</span>
     </a>
 </li>
