@@ -107,17 +107,14 @@ class LotteriesDataService
             } catch (DataMissingException $e) {
                 $draw = $this->createDraw($last_draw_date, null, $lottery);
             }
-            $this->createLog($result);
+            $this->createLog("Results from loteriasyapuestas.es");
+            $this->createLogResults($result);
             $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
             return $draw->getResult();
         } catch (\Exception $e) {
-            //$logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
-            $logger = new FileAdapter(__DIR__ ."logs/log.log", array(
-                'mode' => 'w'
-            ));
-            $logger->error($e->getMessage());
+            $this->createLog("[updateLastDrawResult] " . $e->getMessage());
             $result = $result_api->getResultForDateSecond($lotteryName, $last_draw_date->format('Y-m-d'));
             try {
                 /** @var EuroMillionsDraw $draw */
@@ -125,7 +122,8 @@ class LotteriesDataService
             } catch (DataMissingException $e) {
                 $draw = $this->createDraw($last_draw_date, null, $lottery);
             }
-            $this->createLog($result);
+            $this->createLog("Results from euromillions.p.mashape.com");
+            $this->createLogResults($result);
             $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
@@ -151,20 +149,18 @@ class LotteriesDataService
             $result_api = $this->apisFactory->resultApi($lottery);
             $last_draw_date = $lottery->getLastDrawDate($now);
             $result = $result_api->getResultBreakDownForDate($lotteryName, $last_draw_date->format('Y-m-d'));
-            $this->createLog($result);
+            $this->createLog("Results from loteriasyapuestas.es");
+            $this->createLogResults($result);
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
             $draw->createBreakDown($result);
             $this->entityManager->flush();
             return $draw;
         } catch (\Exception $e) {
-            //$logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
-            $logger = new FileAdapter("logs/log.log", array(
-                'mode' => 'w'
-            ));
-            $logger->error("[updateLastBreakDown] " . $e->getMessage());
+            $this->createLog("[updateLastBreakDown] " . $e->getMessage());
             $result = $result_api->getResultBreakDownForDateSecond($lotteryName, $last_draw_date->format('Y-m-d'));
-            $this->createLog($result);
+            $this->createLog("Results from euromillions.p.mashape.com");
+            $this->createLogResults($result);
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
             $draw->createBreakDown($result);
@@ -206,12 +202,19 @@ class LotteriesDataService
         return $draw;
     }
 
-    protected function createLog($result)
+
+    protected function createLog($message)
     {
-        //$logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
-        $logger = new FileAdapter("logs/log.log", array(
-            'mode' => 'w'
-        ));
+        $file_logs_path = \Phalcon\Di::getDefault()->get('config')['log']['file_logs_path'];
+        $logger = new FileAdapter($file_logs_path."log.log");
+        $logger->error($message);
+    }
+
+    protected function createLogResults($result)
+    {
+        $file_logs_path = \Phalcon\Di::getDefault()->get('config')['log']['file_logs_path'];
+        $logger = new FileAdapter($file_logs_path."log.log");
+        //$logger = new FileAdapter($file_logs_path."log.log", array('mode' => 'w'));
 
         if (array_key_exists("regular_numbers", $result)) {
             $logger->info("[updateLastDrawResult] Numbers: {0} | {1} | {2} | {3} | {4} || Starts: {5} | {6} ", array(
@@ -245,6 +248,5 @@ class LotteriesDataService
             );
         }
     }
-
 
 }
