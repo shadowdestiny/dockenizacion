@@ -22,20 +22,24 @@ class ChristmasNumbersController extends PublicSiteControllerBase
         $this->tag->prependTitle($this->languageService->translate('results_ch_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('results_ch_desc'));
         $this->view->pick('/christmasNumbers/index');
+        return $this->view->setVars([
+            'pageController' => 'christmasNumbersIndex',
+        ]);
     }
 
     public function searchAction()
     {
-        $ticketNumber = $this->request->getPost('ticket_number');
-        if ( is_numeric($ticketNumber) )
-        {
-            $ticket = $this->christmasService->getchristmasTicketAwardByNumber($ticketNumber);
+        if (is_numeric($this->request->getPost('ticket_number'))) {
             $this->view->pick('/christmasNumbers/checkNumber');
             return $this->view->setVars([
-                'ticket_number' => $ticket,
+                'ticket_number' => $this->christmasService->getchristmasTicketAwardByNumber($this->request->getPost('ticket_number')),
+                'pageController' => 'christmasNumbersSearch',
             ]);
-        } else {
-            $this->view->pick('/christmasNumbers/index');
         }
+
+        $this->view->pick('/christmasNumbers/index');
+        return $this->view->setVars([
+            'pageController' => 'christmasNumbersIndex',
+        ]);
     }
 }

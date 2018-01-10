@@ -95,6 +95,8 @@ class UserSettingsController extends AjaxControllerBase
                 'legalCookies' => '/legal/cookies',
                 'legalIndex' => '/legal/index',
                 'legalPrivacy' => '/legal/privacy',
+                'christmasNumbersIndex' => '/christmas-lottery/results',
+                'christmasNumbersSearch' => '/christmas-lottery/search',
             ],
             'ru' => [
                 'index' => '/ru',
@@ -113,6 +115,8 @@ class UserSettingsController extends AjaxControllerBase
                 'legalCookies' => '/cookie-файлы',
                 'legalIndex' => '/условия-использования',
                 'legalPrivacy' => '/юридическая-информация/конфиденциальность',
+                'christmasNumbersIndex' => '/ru/рождественская-лотерея/результаты',
+                'christmasNumbersSearch' => '/ru/рождественская-лотерея/поиск',
             ],
             'es' => [
                 'index' => '/es',
@@ -131,6 +135,8 @@ class UserSettingsController extends AjaxControllerBase
                 'legalCookies' => '/es/cookies  ',
                 'legalIndex' => '/es/terminos-y-condiciones',
                 'legalPrivacy' => '/es/privacidad',
+                'christmasNumbersIndex' => '/es/loteria-navidad/resultados',
+                'christmasNumbersSearch' => '/es/loteria-navidad/buscar',
             ],
         ];
     }
