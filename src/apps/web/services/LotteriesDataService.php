@@ -14,6 +14,7 @@ use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsJackpot;
 use Money\Currency;
 use Money\Money;
+use Phalcon\Logger\Adapter\File as FileAdapter;
 
 class LotteriesDataService
 {
@@ -113,7 +114,10 @@ class LotteriesDataService
             return $draw->getResult();
         } catch (\Exception $e) {
             //$logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
-            //$logger->error($e->getMessage());
+            $logger = new FileAdapter("logs/log.log", array(
+                'mode' => 'w'
+            ));
+            $logger->error($e->getMessage());
             $result = $result_api->getResultForDateSecond($lotteryName, $last_draw_date->format('Y-m-d'));
             try {
                 /** @var EuroMillionsDraw $draw */
@@ -154,7 +158,10 @@ class LotteriesDataService
             $this->entityManager->flush();
             return $draw;
         } catch (\Exception $e) {
-            $logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
+            //$logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
+            $logger = new FileAdapter("logs/log.log", array(
+                'mode' => 'w'
+            ));
             $logger->error("[updateLastBreakDown] " . $e->getMessage());
             $result = $result_api->getResultBreakDownForDateSecond($lotteryName, $last_draw_date->format('Y-m-d'));
             $this->createLog($result);
@@ -201,7 +208,10 @@ class LotteriesDataService
 
     protected function createLog($result)
     {
-        $logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
+        //$logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
+        $logger = new FileAdapter("logs/log.log", array(
+            'mode' => 'w'
+        ));
 
         if (array_key_exists("regular_numbers", $result)) {
             $logger->info("[updateLastDrawResult] Numbers: {0} | {1} | {2} | {3} | {4} || Starts: {5} | {6} ", array(
