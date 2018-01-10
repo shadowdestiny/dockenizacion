@@ -114,7 +114,7 @@ class LotteriesDataService
             return $draw->getResult();
         } catch (\Exception $e) {
             //$logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
-            $logger = new FileAdapter("logs/log.log", array(
+            $logger = new FileAdapter(__DIR__ ."logs/log.log", array(
                 'mode' => 'w'
             ));
             $logger->error($e->getMessage());
