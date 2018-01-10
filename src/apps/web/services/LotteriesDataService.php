@@ -112,8 +112,8 @@ class LotteriesDataService
             $this->entityManager->flush();
             return $draw->getResult();
         } catch (\Exception $e) {
-            $logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
-            $logger->error($e->getMessage());
+            //$logger = new \Phalcon\Logger\Adapter\File('logs/log.log');
+            //$logger->error($e->getMessage());
             $result = $result_api->getResultForDateSecond($lotteryName, $last_draw_date->format('Y-m-d'));
             try {
                 /** @var EuroMillionsDraw $draw */
