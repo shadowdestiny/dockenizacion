@@ -49,8 +49,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
         $response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/botes/.formatoRSS');
         $xml = new \SimpleXMLElement($response->body);
         foreach ($xml->channel->item as $item) {
-            //if (preg_match('/próximo ([0123][0-9]) de ([a-z]+) de ([0-9]{4}) pone/', $item->description, $matches)) {
-            if (preg_match('/próximox ([0123][0-9]) de ([a-z]+) de ([0-9]{4}) pone/', $item->description, $matches)) {
+            if (preg_match('/próximo ([0123][0-9]) de ([a-z]+) de ([0-9]{4}) pone/', $item->description, $matches)) {
                 $day = $matches[1];
                 $month = $this->translateMonth($matches[2]);
                 $year = $matches[3];
@@ -91,8 +90,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
         }
         $xml = new \SimpleXMLElement($this->result_response->body);
         foreach ($xml->channel->item as $item) {
-            //if(preg_match('/Euromillones: resultados del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title ,$matches)) {
-            if(preg_match('/Euromillonesx: resultados del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title ,$matches)) {
+            if(preg_match('/Euromillones: resultados del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title ,$matches)) {
                 $day = $matches[1];
                 $month = $this->translateMonth($matches[2]);
                 $year = $matches[3];
@@ -142,8 +140,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
         $xml = new \SimpleXMLElement($this->result_response->body);
         //TODO:Coger solo los valores cuando sea viernes.
         foreach ($xml->channel->item as $item) {
-            //if (preg_match('/Euromillones: premios y ganadores del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
-            if (preg_match('/Euromillonesx: premios y ganadores del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
+            if (preg_match('/Euromillones: premios y ganadores del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
                 $day = $matches[1];
                 $month = $this->translateMonth($matches[2]);
                 $year = $matches[3];
@@ -182,8 +179,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                 $xml = simplexml_load_string($s, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
             }
             foreach ($xml->channel->item as $item) {
-                //if (preg_match('/Euromillones: resultados del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
-                if (preg_match('/Euromillones: resultadosx del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
+                if (preg_match('/Euromillones: resultados del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
                     $day = $matches[1];
                     $month = $this->translateMonth($matches[2]);
                     $year = $matches[3];
