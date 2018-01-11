@@ -968,24 +968,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'lottery' => 2,
             'controller' => 'christmas-numbers',
             'action' => 'search',
-            'language' => 'en',
-        ));
-
-        $router->add("/ru/рождественская-лотерея/поиск", array(
-            "module" => "web",
-            'lottery' => 2,
-            'controller' => 'christmas-numbers',
-            'action' => 'search',
-            'language' => 'ru',
-            'currency' => 'RUB',
-        ));
-
-        $router->add("/es/loteria-navidad/buscar", array(
-            "module" => "web",
-            'lottery' => 2,
-            'controller' => 'christmas-numbers',
-            'action' => 'search',
-            'language' => 'es',
         ));
 
         $router->add('/ajax/:controller/:action/:params', array(
