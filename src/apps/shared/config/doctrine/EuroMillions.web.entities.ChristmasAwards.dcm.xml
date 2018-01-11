@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+    <entity name="EuroMillions\web\entities\ChristmasAwards" table="christmas_awards"
+            repository-class="EuroMillions\web\repositories\ChristmasAwardsRepository">
+        <id name="id" column="id" type="integer">
+            <generator strategy="IDENTITY"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+        <field name="number" column="number" type="string" length="5" unique="true"/>
+        <field name="christmasTicketId" column="christmas_ticket_id" type="integer"/>
+        <field name="prize" column="prize" type="integer"/>
+    </entity>
+</doctrine-mapping>
