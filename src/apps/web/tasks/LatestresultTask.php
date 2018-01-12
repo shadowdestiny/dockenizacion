@@ -57,7 +57,11 @@ class LatestresultTask extends TaskBase
         if (null != $result) {
             $this->lotteryService->sendResultLotteryToUsersWithBets($result,$emailTemplate);
         }
-        $users = $this->userService->getAllUsers();
-        $this->lotteryService->sendResultLotteryToUsers($users,$emailTemplate);
+        $regularNumbers = $draw->getValues()->getResult()->getRegularNumbersArray();
+        $luckyNumbers = $draw->getValues()->getResult()->getLuckyNumbersArray();
+        if((count(array_filter($regularNumbers))!=0) && (count(array_filter($luckyNumbers))!=0)) {
+            $users = $this->userService->getAllUsers();
+            $this->lotteryService->sendResultLotteryToUsers($users,$emailTemplate);
+        }
     }
 }
