@@ -179,7 +179,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                 $xml = simplexml_load_string($s, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
             }
             foreach ($xml->channel->item as $item) {
-                if (preg_match('/Euromillones: resultados del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
+                if (preg_match('/Euromillones: premios y ganadores del ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
                     $day = $matches[1];
                     $month = $this->translateMonth($matches[2]);
                     $year = $matches[3];
