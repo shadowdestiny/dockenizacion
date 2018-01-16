@@ -118,14 +118,16 @@ export default class MobilePlayApp extends Component {
           <div className="buttons">
             {discountLines.map(item => {
               const isChecked = this.state.drawsNumber == item.draws
+              console.log(item, item.singleBetPrice > item.singleBetPriceWithDiscount);
               return (
-                <div
-                  key={item.draws}
-                  className={`button-draw-list ${isChecked ? "pwp-active" : ''}`}
-                  onClick={() => this.selectBundle(item.draws)}
-                >
-                  {item.draws}
-                  {item.singleBetPrice > item.singleBetPriceWithDiscount ? '*' : ''}
+                <div key={item.draws} className={`bundle-btn ${isChecked ? "active" : ''}`}>
+                  <div
+                    className="btn"
+                    onClick={() => this.selectBundle(item.draws)}
+                  >
+                    {item.draws}
+                    {item.singleBetPrice > item.singleBetPriceWithDiscount ? '*' : ''}
+                  </div>
                 </div>
               )
             })}
@@ -207,7 +209,7 @@ export default class MobilePlayApp extends Component {
     const stars = getRandomNumbers(TICKET_MAX_STAR_NUMBER, BET_STARS_COUNT)
     const bets = [...this.state.bets]
     bets.push({ numbers, stars })
-    this.setState({ bets })
+    this.saveBets(bets)
   }
 
   showTicket (i = -1) {
@@ -225,12 +227,18 @@ export default class MobilePlayApp extends Component {
     } else {
       bets.splice(i, 1, { numbers, stars })
     }
-    this.setState({ bets, showTicket : null })
+    this.setState({ showTicket : null })
+    this.saveBets(bets)
   }
 
   dropLine (i) {
     const bets = [...this.state.bets]
     bets.splice(i, 1)
+    this.saveBets(bets)
+  }
+
+  saveBets (bets) {
+    localStorage.setItem('bet_line', JSON.stringify(bets))
     this.setState({ bets })
   }
 
@@ -248,5 +256,16 @@ export default class MobilePlayApp extends Component {
     if (this.props.onSubmit) {
       this.props.onSubmit({ drawsNumber, bets })
     }
+
+    let postData = ''
+    bets.forEach((bet, i) => {
+      if (bet.numbers.length == BET_NUMBERS_COUNT && bet.stars.length == BET_STARS_COUNT) {
+        postData += `bet[${i}]=${bet.numbers},${bet.stars}&`
+      }
+    })
+    // TODO: sort out deprecated and unused params
+    postData += `draw_days=1&frequency=${drawsNumber}&draw_day_play=2`
+    ajaxFunctions.playCart(postData)
   }
+
 }

@@ -62,30 +62,32 @@ export default class Ticket extends Component {
           </button>
         </div>
 
-        <div className="numbers-section regular">
-          {regNumbers.map(number =>
-            <TicketNumber
-              key={number}
-              number={number}
-              type={TICKET_NUMBER_TYPE_REGULAR}
-              selected={numbers.indexOf(number) != -1}
-              onClick={this.toggleRegNumber}
-            />
-          )}
-        </div>
+        <div className="numbers">
+          <div className="numbers-section regular">
+            {regNumbers.map(number =>
+              <TicketNumber
+                key={number}
+                number={number}
+                type={TICKET_NUMBER_TYPE_REGULAR}
+                selected={numbers.indexOf(number) != -1}
+                onClick={this.toggleRegNumber}
+              />
+            )}
+          </div>
 
-        <div className="numbers-section stars">
-          {starNumbers.map(number =>
-            <TicketNumber
-              key={number}
-              number={number}
-              type={TICKET_NUMBER_TYPE_STAR}
-              selected={stars.indexOf(number) != -1}
-              onClick={this.toggleStarNumber}
-            />
-          )}
+          <div className="numbers-section stars">
+            {starNumbers.map(number =>
+              <TicketNumber
+                key={number}
+                number={number}
+                type={TICKET_NUMBER_TYPE_STAR}
+                selected={stars.indexOf(number) != -1}
+                onClick={this.toggleStarNumber}
+              />
+            )}
+          </div>
         </div>
-
+        
         <button
           className={`btn ${!canSubmit ? 'btn-disabled' : ''}`}
           onClick={this.onSubmit}
