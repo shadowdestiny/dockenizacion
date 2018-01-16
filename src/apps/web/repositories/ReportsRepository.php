@@ -705,7 +705,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('line_regular_number_five', 'line_regular_number_five');
         $rsm->addScalarResult('line_lucky_number_one', 'line_lucky_number_one');
         $rsm->addScalarResult('line_lucky_number_two', 'line_lucky_number_two');
-
+var_dump($betId);die();
         return $this->entityManager
             ->createNativeQuery('SELECT line_regular_number_one, line_regular_number_two, line_regular_number_three, line_regular_number_four, line_regular_number_five, line_lucky_number_one, line_lucky_number_two
                 FROM play_configs
