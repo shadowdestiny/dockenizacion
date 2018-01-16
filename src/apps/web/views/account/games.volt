@@ -186,7 +186,7 @@
                         {% for my_christmas_active in my_christmas_actives %}
                             <tr>
                                 <td align="center">
-                                    {{ my_christmas_active['start_draw_date'] }}
+                                    2017-12-22
                                 </td>
                                 <td align="center">
                                     <strong>Christmas</strong>
@@ -362,6 +362,50 @@
                     {{ paginator_view_subs_inactives }}
                 {% endif %}
 
+                {% if my_christmas_inactives is not empty %}
+                    <h2 class="h3">{{ language.translate("My Past Christmas Tickets") }}</h2>
+                    <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
+                        <thead>
+                        <th width="215px">
+                            {{ language.translate("Draw date") }}
+                        </th>
+                        <th class="date">
+                            {{ language.translate("Lottery") }}
+                        </th>
+                        <th class="numbers">
+                            {{ language.translate("Number <span class='desktop'>played</span>") }}
+                        </th>
+                        </thead>
+                        <tbody>
+                        {% for my_christmas_inactive in my_christmas_inactives %}
+                            <tr>
+                                <td align="center">
+                                    2017-12-22
+                                </td>
+                                <td align="center">
+                                    <strong>Christmas</strong>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td class="numbers" style="border-bottom: 0px;">
+                                                <span class="num">{{ my_christmas_inactive['line_regular_number_one'] }}</span>
+                                                <span class="num">{{ my_christmas_inactive['line_regular_number_two'] }}</span>
+                                                <span class="num">{{ my_christmas_inactive['line_regular_number_three'] }}</span>
+                                                <span class="num">{{ my_christmas_inactive['line_regular_number_four'] }}</span>
+                                                <span class="num">{{ my_christmas_inactive['line_regular_number_five'] }}</span>
+                                                <!-- span class="num yellow">{{ my_christmas_inactive['line_lucky_number_one'] }}</span>
+                                                <span class="num yellow">{{ my_christmas_inactive['line_lucky_number_two'] }}</span -->
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+                
                 {% if my_games_inactives is empty %}
 
                 {% else %}

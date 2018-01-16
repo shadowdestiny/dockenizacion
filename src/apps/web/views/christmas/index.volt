@@ -500,7 +500,7 @@
                             <input type="hidden" id="singleBetPrice"
                                    value="{{ singleBetPrice | number_format (2,'.','') }}"/>
                         </div>
-
+                    #}
                         {#TODO : Add real variables here#}
                         {% include "_elements/play-bottom-block.volt" %}
 

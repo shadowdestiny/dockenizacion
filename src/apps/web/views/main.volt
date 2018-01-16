@@ -2,6 +2,7 @@
 <html>
 <head>
     {% include "_elements/meta.volt" %} {# META tags #}
+    <link rel="icon" type="image/png" href="/w/img/logo/favicon.png" />
 
     {# CSS Compress this css in a single file #}
     <link rel="stylesheet" href="/w/css/main.css">

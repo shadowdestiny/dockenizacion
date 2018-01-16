@@ -22,20 +22,24 @@ class SitemapController extends ControllerBase
     /** @var  ArticleRepository */
     private $articleRespository;
 
-    public function initialize()
-    {
-        //for big files, to be on the safe side
-        set_time_limit(0);
-        $this->lottery = 'euromillions';
-        $di = \Phalcon\Di::getDefault();
-        /** @var EntityManager entityManager */
-        $entityManager = $di->get('entityManager');
-        $this->lotteryDrawRepository = $entityManager->getRepository(Namespaces::ENTITIES_NS . 'EuroMillionsDraw');
-        $this->articleRespository = $entityManager->getRepository(Namespaces::ENTITIES_NS . 'Article');
-    }
+//    Old Initialitze
+//    public function initialize()
+//    {
+//        //for big files, to be on the safe side
+//        set_time_limit(0);
+//        $this->lottery = 'euromillions';
+//        $di = \Phalcon\Di::getDefault();
+//        /** @var EntityManager entityManager */
+//        $entityManager = $di->get('entityManager');
+//        $this->lotteryDrawRepository = $entityManager->getRepository(Namespaces::ENTITIES_NS . 'EuroMillionsDraw');
+//        $this->articleRespository = $entityManager->getRepository(Namespaces::ENTITIES_NS . 'Article');
+//    }
 
     public function indexAction()
     {
+        header("Content-type: text/xml");
+        echo file_get_contents('w/xml/sitemap.xml');
+        exit;
         $response = new Response();
         $expireDate = new \DateTime();
         $expireDate->modify('+1 day');

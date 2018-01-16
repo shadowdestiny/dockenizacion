@@ -26,12 +26,11 @@ class PurchaseConfirmationChristmasEmailTemplate extends EmailTemplateDecorator
             $template_id = "4020941";
             $subject = 'Поздравляем';
         } else {
-            $template_id = "4020941";
-            $subject = 'Congratulations';
+            $template_id = "4250783";
+            $subject = 'Christmas Lottery purchase confirmation';
         }
 
         $vars = [
-            //'template' => '2896261',
             'template' => $template_id,
             'subject' => $subject,
             'vars' =>

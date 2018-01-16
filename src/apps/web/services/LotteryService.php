@@ -302,13 +302,21 @@ class LotteryService
                                 'discount' => $playConfig->getDiscount(),
                             ];
                             $this->walletService->purchaseTransactionGrouped($playConfig->getUser(), TransactionType::AUTOMATIC_PURCHASE, $dataTransaction);
-                            $this->sendEmailPurchase($playConfig->getUser(), $playConfig);
+                            try {
+                                $this->sendEmailPurchase($playConfig->getUser(), $playConfig);
+                            } catch (\Exception $e) {
+                                echo $e->getMessage();
+                            }
                         }
                     } else {
-                        $userNotificationAutoPlayNoFunds = new UserNotificationAutoPlayNoFunds($this->userService);
-                        $hasNotification = $this->userNotificationsService->hasNotificationActive($userNotificationAutoPlayNoFunds, $playConfig->getUser());
-                        if ($hasNotification) {
-                            $this->emailService->sendLowBalanceEmail($playConfig->getUser());
+                        try {
+                            $userNotificationAutoPlayNoFunds = new UserNotificationAutoPlayNoFunds($this->userService);
+                            $hasNotification = $this->userNotificationsService->hasNotificationActive($userNotificationAutoPlayNoFunds, $playConfig->getUser());
+                            if ($hasNotification) {
+                                $this->emailService->sendLowBalanceEmail($playConfig->getUser());
+                            }
+                        } catch (\Exception $e) {
+                            echo $e->getMessage();
                         }
                     }
                 }

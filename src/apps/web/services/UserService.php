@@ -207,6 +207,15 @@ class UserService
         return [];
     }
 
+    public function getMyInactiveChristmas($userId)
+    {
+        if(!empty($userId)){
+            return  $this->playRepository->getInactiveChristmasByUser($userId);
+        }
+
+        return [];
+    }
+
     /**
      * @param $userId
      *
