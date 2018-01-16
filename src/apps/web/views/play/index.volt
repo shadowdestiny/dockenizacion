@@ -26,6 +26,8 @@
     }
     };
     {% set dates_draw = play_dates|json_encode %}
+    
+    {#  the vars below should be treated as deprecated in sake of the __initialState below #}
     var draw_dates = <?php echo $dates_draw ?>;
     var next_draw_format = '<?php echo $next_draw_format ?>';
     var price_bet = {{ single_bet_price }};
@@ -49,7 +51,26 @@
     var discount_lines = '<?php echo $discount_lines; ?>';
     var draws_number = '<?php echo $draws_number; ?>';
     var discount = '<?php echo $discount; ?>';
+    {# end of block with deprecated vars #}
 
+    var __initialState = {
+        nextDrawFormat  : '<?php echo $next_draw_format ?>',
+        priceBet        : {{ single_bet_price }},
+        currencySymbol  : '<?php echo $currency_symbol ?>',
+        discountLines   : <?php echo $discount_lines; ?>,
+        translations    : {
+            discountLinesTitle : '{{ language.translate('tittle_multiple') }}',
+            addLinesBtn        : '{{ language.translate('addLines_btn') }}',
+            randomizeAllLines  : '{{ language.translate('randomizeAll_btn') }}',
+            clearAllLines      : '{{ language.translate('clearAll_btn') }}',
+            buyForDraw         : '{{ language.translate('buyForDraw') }}',
+            txtLine            : '{{ language.translate('line') }}',
+            txtMultTotalPrice  : '{{ language.translate('mult_total1') }}',
+            txtMultLines       : '{{ language.translate('mult_total2') }}',
+            txtMultDraws       : '{{ language.translate('mult_total3') }}',
+            txtNextButton      : '{{ language.translate('next_btn') }}',
+        }
+    };
 
     if(openTicket){
     showModalTicketClose();

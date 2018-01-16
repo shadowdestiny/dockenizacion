@@ -6,6 +6,7 @@ var EuroMillionsBoxBottomAction = require('../components/EmBoxBottomAction.jsx')
 var EmConfigPlayBlock = require('../components/EmConfigPlayBlock.jsx');
 var EmDiscountLines = require('../components/EmDiscountLines.jsx');
 
+import { MobilePlayApp } from './mobile-play-app'
 
 var PlayPage = React.createClass({
 
@@ -36,7 +37,8 @@ var PlayPage = React.createClass({
             draw_duration : this.props.draw_duration,
             storage : JSON.parse(localStorage.getItem('bet_line')) || [],
             draws_number: this.props.draws_number,
-            discount: this.props.discount
+            discount: this.props.discount,
+            mobileView : window.innerWidth < 768,
         }
     },
 
@@ -69,6 +71,7 @@ var PlayPage = React.createClass({
         if( nextState.show_clear_all != this.state.show_clear_all) return true;
         if( nextState.draws_number != this.state.draws_number) return true;
         if( nextState.discount != this.state.discount) return true;
+        if( nextState.mobileView != this.state.mobileView) return true;
         return nextState.price != this.state.price;
     },
 
@@ -181,6 +184,7 @@ var PlayPage = React.createClass({
         if(varSize < 4 && (count_lines < default_lines)) {
             this.setState({ count_lines : count_lines +1 });
         }
+        this.setState({ mobileView : window.innerWidth < 768})
     },
 
     handlerAddLines : function()
@@ -401,6 +405,11 @@ var PlayPage = React.createClass({
 
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1" txtLine={this.props.txtLine} />);
         elem.push(<EuroMillionsBoxAction clearAllLines={this.props.clearAllLines} randomizeAllLines={this.props.randomizeAllLines} addLinesBtn={this.props.addLinesBtn} next_draw_format={this.props.next_draw_format} show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>);
+
+        if (this.state.mobileView) {
+          return <MobilePlayApp {...__initialState} onSubmit={(data) => console.log(data)} />
+        }
+
         return (
             <div className="gameplay--section">
                 {elem}
