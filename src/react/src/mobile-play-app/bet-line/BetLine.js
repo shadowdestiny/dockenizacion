@@ -10,10 +10,20 @@ import {
   BET_STARS_COUNT,
 } from '../constants'
 
+/**
+ * The components reflects a particular bet, which consists of
+ * set of selected numbers (regular and stars)
+ */
 export default class BetLine extends Component {
 
   static propTypes = {
+    /**    
+     * list of regular numbers selected
+     */
     numbers : PropTypes.arrayOf(PropTypes.number).isRequired,
+    /**
+     * list of star numbers selected
+     */
     stars   : PropTypes.arrayOf(PropTypes.number).isRequired,
   }
 

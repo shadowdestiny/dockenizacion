@@ -15,12 +15,29 @@ import {
   TICKET_MAX_STAR_NUMBER,
 } from '../constants'
 
+/**
+ * Component which is responsible for rendering of ticket editing mode, where
+ * user can select/unselect ticket numbers.
+ * It is used for new lines and for existing lines (edit mode)
+ */
 export default class Ticket extends Component {
 
   static propTypes = {
+    /**    
+     * list of regular numbers selected
+     */
     numbers  : PropTypes.arrayOf(PropTypes.number).isRequired,
+    /**
+     * list of star numbers selected
+     */
     stars    : PropTypes.arrayOf(PropTypes.number).isRequired,
+    /**
+     * submission handler
+     */
     onSubmit : PropTypes.func,
+    /**
+     * cancel handler (used for exiting from ticket editing mode)
+     */
     onCancel : PropTypes.func,
   }
 
@@ -87,7 +104,7 @@ export default class Ticket extends Component {
             )}
           </div>
         </div>
-        
+
         <button
           className={`btn ${!canSubmit ? 'btn-disabled' : ''}`}
           onClick={this.onSubmit}
@@ -98,6 +115,15 @@ export default class Ticket extends Component {
     )
   }
 
+  /**
+   * toggleNumber - modifies list of selected numbers by removing the specified number
+   * if it is present in the list or adding it to the list otherwise.
+   *
+   * @param  {Array<Number>} selected list of selected numbers
+   * @param  {Number} number          number to toggle
+   * @param  {Number} maxCount        maximum count of selected numbers in order to prevent overflowing
+   * @return {Array<Number>}          modified list of selected numbers
+   */
   toggleNumber (selected, number, maxCount) {
     selected = [...selected]
     const idx = selected.indexOf(number)
@@ -112,24 +138,52 @@ export default class Ticket extends Component {
     return selected
   }
 
+  /**
+   * toggleRegNumber - toggles specified number in the list of regular numbers
+   *
+   * @param  {SytheticEvent} e   click event
+   * @param  {Number} number     number to toggle
+   * @return {void}
+   */
   toggleRegNumber = (e, number) => {
     this.setState({
       numbers : this.toggleNumber(this.state.numbers, number, BET_NUMBERS_COUNT)
     })
   }
 
+  /**
+   * toggleStarNumber - toggles specified number in the list of star numbers
+   *
+   * @param  {SytheticEvent} e   click event
+   * @param  {Number} number     number to toggle
+   * @return {void}
+   */
   toggleStarNumber = (e, number) => {
     this.setState({
       stars : this.toggleNumber(this.state.stars, number, BET_STARS_COUNT)
     })
   }
 
+  /**
+   * onCancel - click handler for the Cancel button
+   *
+   * @param  {SytheticEvent} e   click event
+   * @return {void}
+   */
   onCancel = (e) => {
     if (this.props.onCancel) {
       this.props.onCancel(e)
     }
   }
 
+  /**
+   * onSubmit - click handler for the `Done` button.
+   * Note that the props.onSubmit callback is called only if appropriate amount of
+   * numbers was selected
+   *
+   * @param  {SytheticEvent} e   click event
+   * @return {void}
+   */
   onSubmit = (e) => {
     const { stars, numbers } = this.state
 
@@ -142,6 +196,12 @@ export default class Ticket extends Component {
     }
   }
 
+  /**
+   * clear - cleares selection of the current ticket
+   *
+   * @param  {SytheticEvent} e   click event
+   * @return {void}
+   */
   clear = () => {
     this.setState({
       numbers : [],
@@ -149,6 +209,11 @@ export default class Ticket extends Component {
     })
   }
 
+  /**
+   * randomize - shuffles numbers selection within the ticket
+   *
+   * @return {void}
+   */
   randomize = () => {
     const numbers = getRandomNumbers(TICKET_MAX_NUMBER, BET_NUMBERS_COUNT)
     const stars = getRandomNumbers(TICKET_MAX_STAR_NUMBER, BET_STARS_COUNT)
