@@ -119,10 +119,11 @@
         //font-family: WorkSans;
         color: #ffffff;
         font-weight: 700;
-        font-size: 26px;
+        font-size: 24px;
         line-height: 32px;
         text-align: left;
         text-transform: uppercase;
+        display: inline-block;
 
         @media only screen and (min-width: $screen-ipad-v) {
           color: #ffffff;
@@ -131,6 +132,7 @@
           line-height: 32px;
           text-align: left;
           text-transform: uppercase;
+          display: block;
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
@@ -148,10 +150,11 @@
         //font-family: WorkSans;
         color: #ffffff;
         font-weight: 700;
-        font-size: 38px;
+        font-size: 24px;
         line-height: 32px;
         text-align: left;
         text-transform: uppercase;
+        display: inline-block;
 
         @media only screen and (min-width: $screen-ipad-v) {
           color: #ffffff;
@@ -160,6 +163,7 @@
           line-height: 32px;
           text-align: left;
           text-transform: uppercase;
+          display: block;
         }
 
         @media only screen and (min-width: $screen-ipad-h) {

@@ -13,7 +13,7 @@
     "react-tooltip": "^1.0.3"
   },
   "scripts": {
-    "watch": "WEBPACK_ENV=dev ./node_modules/.bin/webpack --watch --inline",
+    "watch": "./node_modules/.bin/webpack --watch --inline",
     "build": "WEBPACK_ENV=build ./node_modules/.bin/webpack",
     "test": "karma start"
   },
