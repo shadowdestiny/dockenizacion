@@ -100,11 +100,11 @@ export default class MobilePlayApp extends Component {
 
         <div className="bets-section">
           {bets.map(this.renderBetRow)}
-          <button className="btn" onClick={this.addRandomLine}>
-            Add random line
-          </button>
-          <button className="btn" onClick={() => this.showTicket()}>
+          <button className="btn btn--pick" onClick={() => this.showTicket()}>
             Pick your numbers
+          </button>
+          <button className="btn btn--random" onClick={this.addRandomLine}>
+            Add random line
           </button>
         </div>
 
@@ -144,10 +144,10 @@ export default class MobilePlayApp extends Component {
             </div>
           : null}
         <div className="actions-section">
-          <div className={`btn ${!canSubmit ? 'btn-disabled' : ''}`} onClick={this.onSubmit}>
+          <div className={`btn btn--total ${!canSubmit ? 'btn-disabled' : ''}`} onClick={this.onSubmit}>
             {currencySymbol} {this.getTotal().toFixed(2)}
           </div>
-          <div className={`btn ${!canSubmit ? 'btn-disabled' : ''}`} onClick={this.onSubmit}>
+          <div className={`btn btn--next ${!canSubmit ? 'btn-disabled' : ''}`} onClick={this.onSubmit}>
             {translations.txtNextButton}
           </div>
         </div>
@@ -160,10 +160,10 @@ export default class MobilePlayApp extends Component {
     return (
       <div className="row" key={i}>
         <BetLine numbers={numbers} stars={stars} />
-        <button className="btn" onClick={() => this.showTicket(i)}>
+        <button className="btn btn--edit" onClick={() => this.showTicket(i)}>
           <SvgIcon iconName="v-pencil" />
         </button>
-        <button className="btn" onClick={() => this.dropLine(i)}>
+        <button className="btn btn--del" onClick={() => this.dropLine(i)}>
           <SvgIcon iconName="v-cross" />
         </button>
       </div>
