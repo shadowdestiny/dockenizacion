@@ -59,16 +59,23 @@
         currencySymbol  : '<?php echo $currency_symbol ?>',
         discountLines   : <?php echo $discount_lines; ?>,
         translations    : {
-            discountLinesTitle : '{{ language.translate('tittle_multiple') }}',
-            addLinesBtn        : '{{ language.translate('addLines_btn') }}',
-            randomizeAllLines  : '{{ language.translate('randomizeAll_btn') }}',
-            clearAllLines      : '{{ language.translate('clearAll_btn') }}',
-            buyForDraw         : '{{ language.translate('buyForDraw') }}',
-            txtLine            : '{{ language.translate('line') }}',
-            txtMultTotalPrice  : '{{ language.translate('mult_total1') }}',
-            txtMultLines       : '{{ language.translate('mult_total2') }}',
-            txtMultDraws       : '{{ language.translate('mult_total3') }}',
-            txtNextButton      : '{{ language.translate('next_btn') }}',
+            discountLinesTitle    : '{{ language.translate('tittle_multiple') }}',
+            addLinesBtn           : '{{ language.translate('addLines_btn') }}',
+            randomizeAllLines     : '{{ language.translate('randomizeAll_btn') }}',
+            clearAllLines         : '{{ language.translate('clearAll_btn') }}',
+            buyForDraw            : '{{ language.translate('buyForDraw') }}',
+            txtLine               : '{{ language.translate('line') }}',
+            txtMultTotalPrice     : '{{ language.translate('mult_total1') }}',
+            txtMultLines          : '{{ language.translate('mult_total2') }}',
+            txtMultDraws          : '{{ language.translate('mult_total3') }}',
+            txtNextButton         : '{{ language.translate('next_btn') }}',
+            addRandomLineBtn      : 'Add random line',
+            pickYourNumbersBtn    : 'Pick your numbers',
+            drawsSectionTitle     : 'How many draw would you like to play?',
+            drawsSectionSubtitle  : '*Subscribe for more draws and get a discount per lines',
+            mobTicketRandomizeBtn : 'Randomize',
+            mobTicketClearBtn     : 'Clear',
+            mobTicketSubmitBtn    : 'Done'
         }
     };
 

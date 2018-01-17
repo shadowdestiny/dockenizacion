@@ -119,19 +119,19 @@ export default class MobilePlayApp extends Component {
         <div className="bets-section">
           {bets.map(this.renderBetRow)}
           <button className="btn" onClick={this.addRandomLine}>
-            Add random line
+            {translations.addRandomLineBtn}
           </button>
           <button className="btn" onClick={() => this.showTicket()}>
-            Pick your numbers
+            {translations.pickYourNumbersBtn}
           </button>
         </div>
 
         <div className="draws-section">
           <div className="section-title">
-            How many draw would you like to play?
+            {translations.drawsSectionTitle}
           </div>
           <div className="section-sub-title">
-            *Subscribe for more draws and get a discount per lines
+            {translations.drawsSectionSubtitle}
           </div>
           <div className="buttons">
             {discountLines.map(item => {
@@ -199,9 +199,10 @@ export default class MobilePlayApp extends Component {
    * @return {ReactElement}  marckup
    */
   renderTicket () {
-    const { showTicket, bets } = this.state
+    const { showTicket, bets, drawsNumber } = this.state
     const bet = bets[showTicket] || {numbers : [], stars : []}
     const {numbers, stars} = bet
+    const { translations, nextDrawFormat } = this.props
 
     return (
       <div className="ticket-layout">
@@ -210,6 +211,8 @@ export default class MobilePlayApp extends Component {
           stars={stars}
           onCancel={this.hideTicket}
           onSubmit={(numbers, stars) => this.editLine(showTicket, numbers, stars)}
+          translations={translations}
+          nextDrawFormat={drawsNumber == 1 ? nextDrawFormat : null}
         />
       </div>
     )

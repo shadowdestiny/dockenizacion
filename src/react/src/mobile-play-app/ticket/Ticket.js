@@ -23,7 +23,7 @@ import {
 export default class Ticket extends Component {
 
   static propTypes = {
-    /**    
+    /**
      * list of regular numbers selected
      */
     numbers  : PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -39,6 +39,14 @@ export default class Ticket extends Component {
      * cancel handler (used for exiting from ticket editing mode)
      */
     onCancel : PropTypes.func,
+    /**
+     * List of translation variables
+     */
+    translations : PropTypes.object,
+    /**
+     * formatted Date/time of next draw. The corresponding block will be hidden if no value passed
+     */
+    nextDrawFormat : PropTypes.string,
   }
 
   constructor (props) {
@@ -51,6 +59,8 @@ export default class Ticket extends Component {
   }
 
   render () {
+    const { translations, nextDrawFormat } = this.props
+
     const {
       numbers,
       stars,
@@ -71,11 +81,12 @@ export default class Ticket extends Component {
 
         <div className="ticket-actions">
           <button className="btn" onClick={this.randomize}>
-            Randomize
+            <SvgIcon iconName="v-shuffle" />
+            {translations.mobTicketRandomizeBtn}
           </button>
           <button className="btn" onClick={this.clear}>
             <SvgIcon iconName="v-cross" />
-            Clear
+            {translations.mobTicketClearBtn}
           </button>
         </div>
 
@@ -105,11 +116,18 @@ export default class Ticket extends Component {
           </div>
         </div>
 
+        {nextDrawFormat
+          ? <div className="buy-for-date">
+              {translations.buyForDraw} {nextDrawFormat}
+            </div>
+          : null
+        }
+
         <button
           className={`btn ${!canSubmit ? 'btn-disabled' : ''}`}
           onClick={this.onSubmit}
         >
-          Done
+          {translations.mobTicketSubmitBtn}
         </button>
       </div>
     )
