@@ -80,7 +80,7 @@
         .bundle-btn {
           //flex-grow: 1;
           display: inline-block;
-          margin-right: 7px;
+          margin-right: 6px;
 
           &:last-of-type {
             margin-right: 0;
@@ -201,11 +201,6 @@
     .btn--random {
 
       border: 1px solid #6c6c6c;
-      //background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
-      //background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
-      //background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
-      //background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
-      //background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
       max-width: 259px;
       width: 100%;
       height: 46px;
@@ -226,6 +221,77 @@
       padding-left: 78px;
 
       margin-bottom: 13px;
+    }
+    .btn--random-second{
+      border: 1px solid #6c6c6c;
+      max-width: 146px;
+      width: 100%;
+      height: 46px;
+
+      background-color: #f6f6f6;
+
+      background-image: url('../img/play/mobile/btn--random.svg');
+      background-repeat: no-repeat;
+      -webkit-background-size: 29px;
+      background-size: 29px;
+      background-position: 39px 50%;
+
+      color:  #333333;
+      font-size: 14px;
+      font-weight: 400;
+      text-align: left;
+      padding: 0;
+      padding-left: 50px;
+
+      margin-bottom: 16px;
+      float: left;
+    }
+    .btn--clear-small{
+      border: 1px solid #6c6c6c;
+      max-width: 146px;
+      width: 100%;
+      height: 46px;
+
+      background-color: #f6f6f6;
+
+      background-image: url('../img/play/mobile/btn--clear.svg');
+      background-repeat: no-repeat;
+      -webkit-background-size: 29px;
+      background-size: 29px;
+      background-position: 12px 50%;
+
+      color:  #333333;
+      font-size: 14px;
+      font-weight: 400;
+      text-align: left;
+      padding: 0;
+      padding-left: 50px;
+
+      margin-bottom: 16px;
+      float: left;
+    }
+    .btn--clear-big{
+      border: 1px solid #6c6c6c;
+      width: 50px;
+      height: 50px;
+
+      background-color: #f6f6f6;
+
+      background-image: url('../img/play/mobile/btn--clear-big.svg');
+      background-repeat: no-repeat;
+      -webkit-background-size: 29px;
+      background-size: 29px;
+      background-position: 50% 50%;
+
+      color:  #333333;
+      font-size: 14px;
+      font-weight: 400;
+      text-align: left;
+      padding: 0;
+      padding-left: 66px;
+
+      margin-bottom: 14px;
+      float: right;
     }
 
     .btn--total {

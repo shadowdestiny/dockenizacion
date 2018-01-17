@@ -11,7 +11,7 @@
 
     @media only screen and (min-width: $screen-ipad-h) {
       display: block;
-      height: 399px; 
+      height: 399px;
 
       background-image: url('../img/home/banner/desktop/banner.png');
       background-repeat: no-repeat;
@@ -41,7 +41,7 @@
     margin-bottom: 60px;
     border-top: 0;
 
-    margin-top: 66px;
+    margin-top: 0px;
 
     background-color: transparent;
 
@@ -100,7 +100,7 @@
     .left {
       float: left;
       padding-top: 5px;
-      padding-left: 19px;
+      padding-left: 10px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         float: left;
@@ -185,7 +185,7 @@
       padding-right: 0;
       float: none;
       padding-top: 50px;
-      padding-left: 20px;
+      padding-left: 10px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         float: right;
@@ -212,7 +212,7 @@
         //font-family: WorkSans;
         color: #ffffff;
         font-weight: 900;
-        font-size: 42px;
+        font-size: 40px;
         text-align: left;
         text-transform: uppercase;
 
