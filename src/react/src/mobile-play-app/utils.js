@@ -14,3 +14,13 @@ export function getRandomNumbers (maxNumber, count) {
     .slice(0, count)
     .sort((a, b) => a - b)
 }
+
+/**
+ * easeOutQuart - easing function
+ *
+ * @param  {Number} t
+ * @return {Number} 
+ */
+export function easeOutQuart (t) {
+  return 1-(--t)*t*t*t
+}

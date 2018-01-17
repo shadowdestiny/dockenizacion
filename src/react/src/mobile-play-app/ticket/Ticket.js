@@ -4,7 +4,7 @@ import range from 'lodash/range'
 
 import { TicketNumber } from '../ticket-number'
 import { SvgIcon } from '../svg-icon'
-import { getRandomNumbers } from '../utils'
+import { getRandomNumbers, easeOutQuart } from '../utils'
 
 import {
   TICKET_NUMBER_TYPE_REGULAR,
@@ -80,7 +80,7 @@ export default class Ticket extends Component {
         </div>
 
         <div className="ticket-actions">
-          <button className="btn" onClick={this.randomize}>
+          <button className="btn" onClick={this.randomizeAnimated}>
             <SvgIcon iconName="v-shuffle" />
             {translations.mobTicketRandomizeBtn}
           </button>
@@ -236,5 +236,36 @@ export default class Ticket extends Component {
     const numbers = getRandomNumbers(TICKET_MAX_NUMBER, BET_NUMBERS_COUNT)
     const stars = getRandomNumbers(TICKET_MAX_STAR_NUMBER, BET_STARS_COUNT)
     this.setState({ numbers, stars })
+  }
+
+  /**
+   * randomizeAnimated - fires animation of numbers shuffling
+   *
+   * @return {void}
+   */
+  randomizeAnimated = () => {
+    const iterations = 10
+    const duration = 180
+    this.animationStep = 0
+
+    const clearAnimation = () => {
+      if (this.animationTimer) {
+        clearTimeout(this.animationTimer)
+        this.animationStep = 0
+        this.animationTimer = null
+      }
+    }
+    const playAnimation = () => {
+      if (this.animationStep >= iterations) {
+        clearAnimation()
+      } else {
+        const time = easeOutQuart(this.animationStep / iterations) * duration
+        this.animationTimer = setTimeout(playAnimation, time)
+        this.animationStep ++
+      }
+      this.randomize()
+    }
+    clearAnimation()
+    playAnimation()
   }
 }
