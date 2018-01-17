@@ -15,6 +15,7 @@
       width: 100%;
       margin-bottom: 5px;
     }
+
     .ticket-number {
       width: 30px;
       height: 30px;
@@ -32,10 +33,16 @@
       color:  #333333;
       font-weight: 700;
 
+      margin-right: 3px;
+
     }
     .ticket-number.star {
       border-color: #f8ce0d;
       color: #f8ce0d;
+
+      &:first-of-type {
+        margin-left: 6px;
+      }
     }
     .ticket .numbers {
       display: flex;
@@ -73,7 +80,11 @@
         .bundle-btn {
           //flex-grow: 1;
           display: inline-block;
-          margin-right: 8px;
+          margin-right: 7px;
+
+          &:last-of-type {
+            margin-right: 0;
+          }
         }
       }
 
@@ -133,6 +144,8 @@
       background-size: 22px;
       background-position: 50% 50%;
 
+      height: 30px;
+
       svg {
         display: none;
       }
@@ -148,6 +161,8 @@
       background-size: 15px;
       background-position: 50% 50%;
 
+      height: 30px;
+
       svg {
         display: none;
       }
@@ -160,7 +175,8 @@
       //background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
       //background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
       //background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
-      width: 259px;
+      max-width: 259px;
+      width: 100%;
       height: 46px;
 
       background-color: #f6f6f6;
@@ -190,7 +206,8 @@
       //background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
       //background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
       //background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
-      width: 259px;
+      max-width: 259px;
+      width: 100%;
       height: 46px;
 
       background-color: #f6f6f6;
@@ -218,7 +235,8 @@
       border-style: solid;
 
       background: transparent;
-      width: 299px;
+      max-width: 299px;
+      width: 100%;
       height: 46px;
 
       line-height: 36px;
@@ -231,7 +249,8 @@
     }
 
     .btn--next {
-      width: 301px;
+      max-width: 301px;
+      width: 100%;
       height: 48px;
       border-radius: 3px;
 
