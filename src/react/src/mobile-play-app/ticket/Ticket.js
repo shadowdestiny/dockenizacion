@@ -73,18 +73,18 @@ export default class Ticket extends Component {
 
     return (
       <div className="ticket">
-        <div>
-          <button className="btn" onClick={this.onCancel}>
+        <div className="clear-button-big-block">
+          <button className="btn btn--clear-big" onClick={this.onCancel}>
             <SvgIcon iconName="v-cross" />
           </button>
         </div>
 
         <div className="ticket-actions">
-          <button className="btn" onClick={this.randomizeAnimated}>
+          <button className="btn btn--random-second" onClick={this.randomizeAnimated}>
             <SvgIcon iconName="v-shuffle" />
             {translations.mobTicketRandomizeBtn}
           </button>
-          <button className="btn" onClick={this.clear}>
+          <button className="btn btn--clear-small" onClick={this.clear}>
             <SvgIcon iconName="v-cross" />
             {translations.mobTicketClearBtn}
           </button>
@@ -124,7 +124,7 @@ export default class Ticket extends Component {
         }
 
         <button
-          className={`btn ${!canSubmit ? 'btn-disabled' : ''}`}
+          className={`btn btn--next ${!canSubmit ? 'btn-disabled' : ''}`}
           onClick={this.onSubmit}
         >
           {translations.mobTicketSubmitBtn}

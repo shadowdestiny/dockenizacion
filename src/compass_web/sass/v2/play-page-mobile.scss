@@ -1,0 +1,429 @@
+// Play page - mobile version
+
+@media only screen and (max-width: $width-pre-tablet) {
+
+  .play-page-mobile {
+
+    .bets-section .row {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+    .bets-section .row .bet-line {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+
+    .ticket-number {
+      width: 30px;
+      height: 30px;
+      //padding: 10px;
+      line-height: 30px;
+      border: 1px solid #6c6c6c;
+      border-radius: 50%;
+      display: flex;
+      background-color:  #f6f6f6;
+      justify-content: center;
+      vertical-align: middle;
+      box-sizing: border-box;
+
+      font-size: 16px;
+      color:  #333333;
+      font-weight: 700;
+
+      margin: 0;
+      margin-right: 3px;
+      margin-bottom: 5px;
+
+    }
+    .ticket-number.star {
+      border-color: #f8ce0d;
+      color: #f8ce0d;
+
+      //&:first-of-type {
+      //  margin-left: 6px;
+      //}
+      //
+      //&:nth-child(odd) {
+      //  margin-left: 6px;
+      //}
+    }
+
+    .ticket-number.regular + .ticket-number.star {
+      margin-left: 6px;
+    }
+
+    .ticket .numbers {
+      display: flex;
+      flex-direction: row;
+    }
+    .ticket .numbers .numbers-section {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .ticket .numbers .numbers-section.regular {
+      width: calc(100% / 7 * 5);
+    }
+    .ticket .numbers .numbers-section.stars {
+      width: calc(100% / 7 * 2);
+    }
+    .ticket .numbers .numbers-section .ticket-number.star.selected {
+      //color: #fff;
+      color: #2d2d2d;
+      background: #fa0;
+    }
+    .ticket .numbers .numbers-section .ticket-number.regular.selected {
+      //color: #fff;
+      color: #2d2d2d;
+      background: #519fe9;
+    }
+
+    .draws-section {
+      .buttons {
+        //display: flex;
+        //flex-direction: row;
+        width: 100%;
+        margin-bottom: 14px;
+        overflow: hidden;
+        text-align: center;
+
+        .bundle-btn {
+          //flex-grow: 1;
+          display: inline-block;
+          margin-right: 6px;
+
+          &:last-of-type {
+            margin-right: 0;
+          }
+        }
+      }
+
+      .section-title{
+        color:  #333333;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: left;
+      }
+
+      .section-sub-title{
+        color:  #333333;
+        font-size: 16px;
+        font-weight: 400;
+        text-align: left;
+        font-style: italic;
+        margin-bottom: 28px;
+      }
+    }
+
+    .price-per-line{
+      background-color:  #9b9c9b;
+      width: 100%;
+      height: 40px;
+
+      color:  #f8ce0d;
+      font-size: 21.24px;
+      font-weight: 700;
+      line-height: 40px;
+      text-align: left;
+      padding-left: 18px;
+      text-transform: uppercase;
+
+      margin-bottom: 9px;
+    }
+
+    .buy-for-date {
+      color:  #333333;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: left;
+      margin-bottom: 9px;
+    }
+
+    .btn {
+      cursor: pointer;
+      text-shadow: none;
+    }
+
+    .btn--edit {
+      background-color: transparent;
+      border: 0;
+
+      background-image: url('../img/play/mobile/btn--edit.svg');
+      background-repeat: no-repeat;
+      -webkit-background-size: 22px;
+      background-size: 22px;
+      background-position: 50% 50%;
+
+      height: 30px;
+
+      svg {
+        display: none;
+      }
+    }
+
+    .btn--del {
+      background-color: transparent;
+      border: 0;
+
+      background-image: url('../img/play/mobile/btn--del.svg');
+      background-repeat: no-repeat;
+      -webkit-background-size: 15px;
+      background-size: 15px;
+      background-position: 50% 50%;
+
+      height: 30px;
+
+      svg {
+        display: none;
+      }
+    }
+
+    .btn--pick{
+      border: 1px solid #6c6c6c;
+      //background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+      //background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+      //background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+      //background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+      //background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
+      max-width: 259px;
+      width: 100%;
+      height: 46px;
+
+      background-color: #f6f6f6;
+
+      background-image: url('../img/play/mobile/btn--pick.svg');
+      background-repeat: no-repeat;
+      -webkit-background-size: 25px;
+      background-size: 25px;
+      background-position: 39px 50%;
+
+      color:  #333333;
+      font-size: 16px;
+      font-weight: 400;
+      text-align: left;
+      padding: 0;
+      padding-left: 78px;
+
+      margin-top: 14px;
+      margin-bottom: 8px;
+    }
+
+    .btn--random {
+
+      border: 1px solid #6c6c6c;
+      max-width: 259px;
+      width: 100%;
+      height: 46px;
+
+      background-color: #f6f6f6;
+
+      background-image: url('../img/play/mobile/btn--random.svg');
+      background-repeat: no-repeat;
+      -webkit-background-size: 29px;
+      background-size: 29px;
+      background-position: 39px 50%;
+
+      color:  #333333;
+      font-size: 16px;
+      font-weight: 400;
+      text-align: left;
+      padding: 0;
+      padding-left: 78px;
+
+      margin-bottom: 13px;
+    }
+    .btn--random-second{
+      border: 1px solid #6c6c6c;
+      max-width: 136px;
+      width: 100%;
+      height: 46px;
+
+      background-color: #f6f6f6;
+
+      background-image: url('../img/play/mobile/btn--random.svg');
+      background-repeat: no-repeat;
+      -webkit-background-size: 29px;
+      background-size: 29px;
+      background-position: 12px 50%;
+ 
+      color:  #333333;
+      font-size: 14px;
+      font-weight: 400;
+      text-align: left;
+      padding: 0;
+      padding-left: 50px;
+
+      margin-bottom: 16px;
+      float: left;
+
+      svg {
+        display: none;
+      }
+    }
+    .btn--clear-small{
+      border: 1px solid #6c6c6c;
+      max-width: 136px;
+      width: 100%;
+      height: 46px;
+
+      background-color: #f6f6f6;
+
+      background-image: url('../img/play/mobile/btn--clear.svg');
+      background-repeat: no-repeat;
+      -webkit-background-size: 22px;
+      background-size: 22px;
+      background-position: 12px 50%;
+
+      color:  #333333;
+      font-size: 14px;
+      font-weight: 400;
+      text-align: left;
+      padding: 0;
+      padding-left: 50px;
+
+      margin-bottom: 16px;
+      float: right;
+
+      svg {
+        display: none;
+      }
+    }
+    .btn--clear-big{
+      border: 1px solid #6c6c6c;
+      width: 50px;
+      height: 50px;
+
+      background-color: #f6f6f6;
+
+      background-image: url('../img/play/mobile/btn--clear-big.svg');
+      background-repeat: no-repeat;
+      -webkit-background-size: 29px;
+      background-size: 29px;
+      background-position: 50% 50%;
+
+      color:  #333333;
+      font-size: 14px;
+      font-weight: 400;
+      text-align: left;
+      padding: 0;
+      padding-left: 66px;
+
+      margin-bottom: 0px;
+      float: right;
+      padding: 0;
+
+      svg {
+        display: none;
+      }
+    }
+
+    .btn--total {
+      border-radius: 3px;
+      border-width: 1px;
+      border-color:  #bbbbbb;
+      border-style: solid;
+
+      background: transparent;
+      max-width: 299px;
+      width: 100%;
+      height: 46px;
+
+      line-height: 36px;
+
+      color:  #bbbbbb;
+      font-size: 18px;
+      font-weight: 700;
+
+      margin-bottom: 9px;
+    }
+
+    .btn--next {
+      max-width: 301px;
+      width: 100%;
+      height: 48px;
+      border-radius: 3px;
+
+      background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+      background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+      background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+      background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+      background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
+
+      color:  #f2f2f2;
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 38px;
+      //margin-bottom: 30px;
+
+      border: 0;
+
+    }
+
+
+    .bundle-btn {
+      .btn {
+        border-radius: 4px;
+        border-width: 1px;
+        border-color:  #6c6c6c;
+        border-style: solid;
+        background:  #f6f6f6;
+        width: 51px;
+        height: 51px;
+
+        padding: 0;
+
+        color:  #333333;
+        font-size: 16px;
+        font-weight: 700;
+
+        text-align: center;
+        line-height: 50px;
+      }
+
+      &.active {
+        .btn {
+          background-color:  #9b9c9b;
+          color:  #f8ce0d;
+        }
+      }
+    }
+
+
+    .ticket-layout{
+
+      .clear-button-big-block {
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 14px;
+      }
+      .ticket-actions {
+        overflow: hidden;
+      }
+
+      .numbers-section.stars {
+        display: block;
+
+        .ticket-number.star {
+          display: block;
+          float: left;
+          margin: 0;
+          margin-right: 5px;
+          margin-bottom: 5px;
+          margin-left: 2px;
+
+          &:nth-child(odd) {
+            margin-left: 8px;
+          }
+        }
+      }
+
+    }
+
+
+  }
+
+}

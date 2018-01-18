@@ -230,65 +230,7 @@
     </main>
 {#   temporary styling for mobile app     #}
     <style>
-        .play-page-mobile {
 
-        }
 
-        .play-page-mobile .bets-section .row {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-        }
-        .play-page-mobile .bets-section .row .bet-line {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            margin-bottom: 5px;
-        }
-        .ticket-number {
-            width: 40px;
-            height: 40px;
-            padding: 10px;
-            border: 2px solid #00f;
-            border-radius: 20px;
-            display: flex;
-            justify-content: center;
-            vertical-align: middle;
-            box-sizing: border-box;
-        }
-        .ticket-number.star {
-            border-color: #fa0;
-        }
-        .ticket .numbers {
-            display: flex;
-            flex-direction: row;
-        }
-        .ticket .numbers .numbers-section {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
-        .ticket .numbers .numbers-section.regular {
-            width: calc(100% / 7 * 5);
-        }
-        .ticket .numbers .numbers-section.stars {
-            width: calc(100% / 7 * 2);
-        }
-        .ticket .numbers .numbers-section .ticket-number.star.selected {
-            color: #fff;
-            background: #fa0;
-        }
-        .ticket .numbers .numbers-section .ticket-number.regular.selected {
-            color: #fff;
-            background: #00f;
-        }
-        .draws-section .buttons {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-        }
-        .draws-section .buttons .bundle-btn {
-            flex-grow: 1;
-        }
     </style>
 {% endblock %}
