@@ -33,17 +33,28 @@
       color:  #333333;
       font-weight: 700;
 
+      margin: 0;
       margin-right: 3px;
+      margin-bottom: 5px;
 
     }
     .ticket-number.star {
       border-color: #f8ce0d;
       color: #f8ce0d;
 
-      &:first-of-type {
-        margin-left: 6px;
-      }
+      //&:first-of-type {
+      //  margin-left: 6px;
+      //}
+      //
+      //&:nth-child(odd) {
+      //  margin-left: 6px;
+      //}
     }
+
+    .ticket-number.regular + .ticket-number.star {
+      margin-left: 6px;
+    }
+
     .ticket .numbers {
       display: flex;
       flex-direction: row;
@@ -60,12 +71,14 @@
       width: calc(100% / 7 * 2);
     }
     .ticket .numbers .numbers-section .ticket-number.star.selected {
-      color: #fff;
+      //color: #fff;
+      color: #2d2d2d;
       background: #fa0;
     }
     .ticket .numbers .numbers-section .ticket-number.regular.selected {
-      color: #fff;
-      background: #00f;
+      //color: #fff;
+      color: #2d2d2d;
+      background: #519fe9;
     }
 
     .draws-section {
@@ -224,37 +237,13 @@
     }
     .btn--random-second{
       border: 1px solid #6c6c6c;
-      max-width: 146px;
+      max-width: 136px;
       width: 100%;
       height: 46px;
 
       background-color: #f6f6f6;
 
       background-image: url('../img/play/mobile/btn--random.svg');
-      background-repeat: no-repeat;
-      -webkit-background-size: 29px;
-      background-size: 29px;
-      background-position: 39px 50%;
-
-      color:  #333333;
-      font-size: 14px;
-      font-weight: 400;
-      text-align: left;
-      padding: 0;
-      padding-left: 50px;
-
-      margin-bottom: 16px;
-      float: left;
-    }
-    .btn--clear-small{
-      border: 1px solid #6c6c6c;
-      max-width: 146px;
-      width: 100%;
-      height: 46px;
-
-      background-color: #f6f6f6;
-
-      background-image: url('../img/play/mobile/btn--clear.svg');
       background-repeat: no-repeat;
       -webkit-background-size: 29px;
       background-size: 29px;
@@ -269,6 +258,34 @@
 
       margin-bottom: 16px;
       float: left;
+    }
+    .btn--clear-small{
+      border: 1px solid #6c6c6c;
+      max-width: 136px;
+      width: 100%;
+      height: 46px;
+
+      background-color: #f6f6f6;
+
+      background-image: url('../img/play/mobile/btn--clear.svg');
+      background-repeat: no-repeat;
+      -webkit-background-size: 22px;
+      background-size: 22px;
+      background-position: 12px 50%;
+
+      color:  #333333;
+      font-size: 14px;
+      font-weight: 400;
+      text-align: left;
+      padding: 0;
+      padding-left: 50px;
+
+      margin-bottom: 16px;
+      float: right;
+
+      svg {
+        display: none;
+      }
     }
     .btn--clear-big{
       border: 1px solid #6c6c6c;
@@ -290,8 +307,13 @@
       padding: 0;
       padding-left: 66px;
 
-      margin-bottom: 14px;
+      margin-bottom: 0px;
       float: right;
+      padding: 0;
+
+      svg {
+        display: none;
+      }
     }
 
     .btn--total {
@@ -333,6 +355,8 @@
       line-height: 38px;
       //margin-bottom: 30px;
 
+      border: 0;
+
     }
 
 
@@ -355,14 +379,47 @@
         text-align: center;
         line-height: 50px;
       }
-    }
 
-    &.active {
-      .btn {
-        background-color:  #9b9c9b;
-        color:  #f8ce0d;
+      &.active {
+        .btn {
+          background-color:  #9b9c9b;
+          color:  #f8ce0d;
+        }
       }
     }
+
+
+    .ticket-layout{
+
+      .clear-button-big-block {
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 14px;
+      }
+      .ticket-actions {
+        overflow: hidden;
+      }
+
+      .numbers-section.stars {
+        display: block;
+
+        .ticket-number.star {
+          display: block;
+          float: left;
+          margin: 0;
+          margin-right: 5px;
+          margin-bottom: 5px;
+          margin-left: 2px;
+
+          &:nth-child(odd) {
+            margin-left: 8px;
+          }
+        }
+      }
+
+    }
+
+
   }
 
 }

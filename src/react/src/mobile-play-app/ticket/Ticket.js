@@ -46,7 +46,7 @@ export default class Ticket extends Component {
 
     return (
       <div className="ticket">
-        <div>
+        <div className="clear-button-big-block">
           <button className="btn btn--clear-big" onClick={this.onCancel}>
             <SvgIcon iconName="v-cross" />
           </button>
