@@ -248,7 +248,7 @@
       -webkit-background-size: 29px;
       background-size: 29px;
       background-position: 12px 50%;
-
+ 
       color:  #333333;
       font-size: 14px;
       font-weight: 400;
@@ -258,6 +258,10 @@
 
       margin-bottom: 16px;
       float: left;
+
+      svg {
+        display: none;
+      }
     }
     .btn--clear-small{
       border: 1px solid #6c6c6c;
