@@ -27,6 +27,6 @@ class ChristmasAwards extends AbstractMigration
      */
     public function change()
     {
-        //$this->execute('CREATE TABLE christmas_awards (id INT UNSIGNED AUTO_INCREMENT NOT NULL, number VARCHAR(5) NOT NULL, christmas_ticket_id INT NOT NULL, prize INT NOT NULL, UNIQUE INDEX UNIQ_E2A6793896901F54 (number), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
+//        $this->execute('CREATE TABLE christmas_awards (id INT UNSIGNED AUTO_INCREMENT NOT NULL, number VARCHAR(5) NOT NULL, christmas_ticket_id INT NOT NULL, prize INT NOT NULL, UNIQUE INDEX UNIQ_E2A6793896901F54 (number), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
     }
 }

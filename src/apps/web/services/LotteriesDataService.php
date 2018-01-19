@@ -14,7 +14,6 @@ use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsJackpot;
 use Money\Currency;
 use Money\Money;
-use Phalcon\Logger\Adapter\File as FileAdapter;
 
 class LotteriesDataService
 {
@@ -58,15 +57,12 @@ class LotteriesDataService
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         $next_draw_date = $lottery->getNextDrawDate($now);
-        $this->createLog("[updateNextDrawJackpot] [lottery: " . $lottery->getName() . "] [next_draw_date: " . $next_draw_date->format('Y-m-d H:i:s') . "]", \Phalcon\Logger::INFO);
         try {
             $jackpot_api = $this->apisFactory->jackpotApi($lottery);
             try {
                 $jackpot = $jackpot_api->getJackpotForDate($lotteryName, $next_draw_date->format("Y-m-d"));
-                $this->createLog("[updateNextDrawJackpot] [loteriasyapuestas.es]: " . $jackpot->getAmount(), \Phalcon\Logger::INFO);
             } catch ( ValidDateRangeException $e ) {
                 $jackpot = $jackpot_api->getJackpotForDateSecond($lotteryName, $next_draw_date->format("Y-m-d"));
-                $this->createLog("[updateNextDrawJackpot] [euromillions.p.mashape.com]: " . $jackpot->getAmount(), \Phalcon\Logger::INFO);
             }
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
