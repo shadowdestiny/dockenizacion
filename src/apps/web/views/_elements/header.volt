@@ -3,9 +3,9 @@
     {#{% include "_elements/cookies.volt" %}#}
     {#{% include "_elements/cookies--desktop.volt" %}#}
 {#</div>#}
-<div class="cookies-block--desktop">
-    {% include "_elements/cookies--desktop.volt" %}
-</div>
+{#<div class="cookies-block--desktop">#}
+    {#{% include "_elements/cookies--desktop.volt" %}#}
+{#</div>#}
 <header data-role="header" class="header">
     <div class="top-bar--desktop">
         {% include "_elements/top-bar--desktop.volt" %}
