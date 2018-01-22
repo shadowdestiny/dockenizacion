@@ -81,7 +81,7 @@ class NumbersController extends PublicSiteControllerBase
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
-        $this->tag->prependTitle($this->languageService->translate('resultsdate_em_name') . $date->format('l, d/m/Y'));
+        $this->tag->prependTitle($this->languageService->translate('resultsdate_em_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));
         MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_em_desc'));
 
         $this->view->pick('/numbers/past-draw');
