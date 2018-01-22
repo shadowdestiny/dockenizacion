@@ -294,7 +294,7 @@
         </div>
 
 
-        {% include "_elements/latest-news.volt" %}
+        {#{% include "_elements/latest-news.volt" %}#}
 
     </main>
 	<script type="application/ld+json">
