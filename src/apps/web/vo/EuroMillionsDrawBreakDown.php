@@ -254,10 +254,14 @@ class EuroMillionsDrawBreakDown
         $this->category_thirteen = $category_thirteen;
     }
 
+    /**
+     * @param $cnt_number
+     * @param $cnt_lucky
+     * @return mixed
+     */
     public function getAwardFromCategory($cnt_number, $cnt_lucky)
     {
         return $this->mappingAward($cnt_number, $cnt_lucky);
-
     }
 
     private function loadBreakDownData()
@@ -266,6 +270,7 @@ class EuroMillionsDrawBreakDown
 
         foreach ($collection as $key => $breakDown) {
             $nameMethod = 'set' . str_replace("_", "", ucwords($key, '_'));
+            //$nameMethod = 'set' . str_replace(" ", "", ucwords(str_replace("_", " ", $key))); //works local enviroment
             try {
                 if (is_array($breakDown)) {
                     if (($breakDown[1] instanceof Money)) {

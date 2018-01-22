@@ -106,6 +106,8 @@
                     <li><a href="https://euromillions.com">{{ language.translate('langcolumn_en') }}</a></li>
                     <li><a href="https://euromillions.com/ru">{{ language.translate('langcolumn_ru') }}</a></li>
                     <li><a href="https://euromillions.com/es">{{ language.translate('langcolumn_es') }}</a></li>
+                    <li><a href="https://euromillions.com/it">{{ language.translate('langcolumn_it') }}</a></li>
+                    <li><a href="https://euromillions.com/nl">{{ language.translate('langcolumn_nl') }}</a></li>
                 </ul>
             </div>
         </div>

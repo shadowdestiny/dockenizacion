@@ -7,43 +7,41 @@
     <script src="/w/js/mobileFix.min.js"></script>
 {% endblock %}
 {% block template_scripts_code %}
-    var ajaxFunctions = {
-    playCart : function (params){
-    $.ajax({
-    url:'/ajax/play-temporarily/temporarilyCart/',
-    data:params,
-    type:'POST',
-    dataType:"json",
-    success:function(json){
-    if(json.result = 'OK'){
-    location.href = json.url;
-    }
-    },
-    error:function (xhr, status, errorThrown){
-    {# //EMTD manage errors #}
-    },
-    });
-    }
-    };
-    {% set dates_draw = play_dates|json_encode %}
-    
-    {#  the vars below should be treated as deprecated in sake of the __initialState below #}
-    var draw_dates = <?php echo $dates_draw ?>;
-    var next_draw_format = '<?php echo $next_draw_format ?>';
-    var price_bet = {{ single_bet_price }};
-    var next_draw = <?php echo $next_draw; ?>;
-    var openTicket = <?php echo $openTicket; ?>;
-    var currency_symbol = '<?php echo $currency_symbol ?>';
-    var automatic_random = '<?php echo $automatic_random; ?>';
-    var discount_lines_title = '{{ language.translate('tittle_multiple') }}';
-    var addLinesBtn = '{{ language.translate('addLines_btn') }}';
-    var randomizeAllLines = '{{ language.translate('randomizeAll_btn') }}';
-    var clearAllLines = '{{ language.translate('clearAll_btn') }}';
-    var buyForDraw = '{{ language.translate('buyForDraw') }}';
-    var txtLine = '{{ language.translate('line') }}';
-    var txtMultTotalPrice = '{{ language.translate('mult_total1') }}';
-    var txtMultLines = '{{ language.translate('mult_total2') }}';
-    var txtMultDraws = '{{ language.translate('mult_total3') }}';
+	var ajaxFunctions = {
+		playCart : function (params){
+			$.ajax({
+				url:'/ajax/play-temporarily/temporarilyCart/',
+				data:params,
+				type:'POST',
+				dataType:"json",
+				success:function(json){
+					if(json.result = 'OK'){
+						location.href = json.url;
+					}
+				},
+				error:function (xhr, status, errorThrown){
+					{# //EMTD manage errors #}
+				},
+			});
+		}
+	};
+	{% set dates_draw = play_dates|json_encode %}
+	var draw_dates = <?php echo $dates_draw ?>;
+	var next_draw_format = '<?php echo $next_draw_format ?>';
+	var price_bet = {{ single_bet_price }};
+	var next_draw = <?php echo $next_draw; ?>;
+	var openTicket = <?php echo $openTicket; ?>;
+	var currency_symbol = '<?php echo $currency_symbol ?>';
+	var automatic_random = '<?php echo $automatic_random; ?>';
+	var discount_lines_title = '{{ language.translate('tittle_multiple') }}';
+	var addLinesBtn = '{{ language.translate('addLines_btn') }}';
+	var randomizeAllLines = '{{ language.translate('randomizeAll_btn') }}';
+	var clearAllLines = '{{ language.translate('clearAll_btn') }}';
+	var buyForDraw = "{{ language.translate('buyForDraw') }}";
+	var txtLine = '{{ language.translate('line') }}';
+	var txtMultTotalPrice = '{{ language.translate('mult_total1') }}';
+	var txtMultLines = '{{ language.translate('mult_total2') }}';
+	var txtMultDraws = '{{ language.translate('mult_total3') }}';
 	var txtNextButton = '{{ language.translate('next_btn') }}';
 
 

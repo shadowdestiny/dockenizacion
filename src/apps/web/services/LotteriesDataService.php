@@ -44,6 +44,7 @@ class LotteriesDataService
             $last_draw_date = $lottery->getLastDrawDate($now);
             $result = $result_api->getRaffleForDate($lotteryName, $last_draw_date->format('Y-m-d'));
         } catch (\Exception $e) {
+            $result = $result_api->getRaffleForDateSecond($lotteryName, $last_draw_date->format('Y-m-d'));
             throw new \Exception('Error getting results');
         }
     }
@@ -53,13 +54,16 @@ class LotteriesDataService
         if (!$now) {
             $now = new \DateTime();
         }
-
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         $next_draw_date = $lottery->getNextDrawDate($now);
         try {
             $jackpot_api = $this->apisFactory->jackpotApi($lottery);
-            $jackpot = $jackpot_api->getJackpotForDate($lotteryName, $next_draw_date->format("Y-m-d"));
+            try {
+                $jackpot = $jackpot_api->getJackpotForDate($lotteryName, $next_draw_date->format("Y-m-d"));
+            } catch ( ValidDateRangeException $e ) {
+                $jackpot = $jackpot_api->getJackpotForDateSecond($lotteryName, $next_draw_date->format("Y-m-d"));
+            }
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
             if (!$draw) {
@@ -95,6 +99,7 @@ class LotteriesDataService
             $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
             $result_api = $this->apisFactory->resultApi($lottery);
             $last_draw_date = $lottery->getLastDrawDate($now);
+
             $result = $result_api->getResultForDate($lotteryName, $last_draw_date->format('Y-m-d'));
             try {
                 /** @var EuroMillionsDraw $draw */
@@ -107,7 +112,18 @@ class LotteriesDataService
             $this->entityManager->flush();
             return $draw->getResult();
         } catch (\Exception $e) {
-            throw new \Exception('Error updating results');
+            $result = $result_api->getResultForDateSecond($lotteryName, $last_draw_date->format('Y-m-d'));
+            try {
+                /** @var EuroMillionsDraw $draw */
+                $draw = $this->lotteryDrawRepository->getLastDraw($lottery);
+            } catch (DataMissingException $e) {
+                $draw = $this->createDraw($last_draw_date, null, $lottery);
+            }
+            $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
+            $this->entityManager->persist($draw);
+            $this->entityManager->flush();
+            return $draw->getResult();
+            //throw new \Exception('Error updating results');
         }
     }
 
@@ -134,7 +150,13 @@ class LotteriesDataService
             $this->entityManager->flush();
             return $draw;
         } catch (\Exception $e) {
-            throw new \Exception('Error updating results');
+            $result = $result_api->getResultBreakDownForDateSecond($lotteryName, $last_draw_date->format('Y-m-d'));
+            /** @var EuroMillionsDraw $draw */
+            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
+            $draw->createBreakDown($result);
+            $this->entityManager->flush();
+            return $draw;
+            //throw new \Exception('Error updating results');
         }
     }
 
@@ -169,5 +191,4 @@ class LotteriesDataService
         ]);
         return $draw;
     }
-
 }

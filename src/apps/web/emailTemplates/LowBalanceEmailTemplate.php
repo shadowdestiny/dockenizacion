@@ -22,7 +22,8 @@ class LowBalanceEmailTemplate extends EmailTemplateDecorator
         $draw_day_format_one = $data['draw_day_format_one'];
         $draw_day_format_two = $data['draw_day_format_two'];
 
-        $language = $this->user->getDefaultLanguage();
+        //$language = $this->user->getDefaultLanguage();
+        $language = "en";
 
         if ($language == "ru") {
             // Low Balance Email Russian Version Template ID= 4011798
