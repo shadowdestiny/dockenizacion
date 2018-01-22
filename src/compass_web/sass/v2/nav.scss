@@ -421,3 +421,14 @@
   }
 
 }
+
+.top-bar--desktop {
+  .logo {
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin: 8px 0px 0 0px;
+      width: 350px;
+      text-align: left;
+    }
+  }
+}
