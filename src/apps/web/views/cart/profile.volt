@@ -70,7 +70,7 @@ $(function(){
 <main id="content">
     <div class="wrapper">
         <div class="what-user">
-            <div class="cols">
+            <div class="cols cart-sign-cols">
                 {#<div class="col4">#}
                     <div class="signin-form log-in">
                         <div class="info">

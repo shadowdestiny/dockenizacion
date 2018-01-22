@@ -530,3 +530,16 @@
   margin: auto;
   overflow: hidden;
 }
+
+
+.profile {
+  .cart-sign-cols {
+    .signin-form {
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        float: left;
+        margin: 30px 10px;
+      }
+    }
+  }
+}
