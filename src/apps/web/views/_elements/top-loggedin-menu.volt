@@ -23,13 +23,31 @@
             </a>
         </div>
         <div class="right">
-            <div class="txt">
+            <div class="txt account-menu-desktop--link">
                 {{ user_name }}
             </div>
+            <ul class="account-menu-desktop--menu">
+                <li><a href="/account">
+                        <span>My Account</span>
+                    </a></li>
+                <li><a href="/account/wallet">
+                        <span>Balance</span>
+                    </a></li>
+                <li><a href="/profile/tickets">
+                        <span>My Tickets</span>
+                    </a></li>
+                <li>
+                    <a href="/profile/transactions">
+                        <span>My Transactions</span>
+                    </a></li>
+                <li><a href="/profile/logout">
+                        <span>Logout</span>
+                    </a></li>
+            </ul>
             <a href="/account">
                 {{ language.translate('myAccount') }}
             </a>
-        </div>
 
+        </div>
     </div>
 </li>
