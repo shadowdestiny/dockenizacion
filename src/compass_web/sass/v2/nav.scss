@@ -299,17 +299,22 @@
 
 
 .logo {
-  float: left;
-  margin: 3px 0px 0 52px;
+  //float: left;
+  float: none;
+  display: block;
+  //margin: 3px 0 0 52px;
+  margin: 3px auto 0 auto;
   width: 198px;
 
   @media only screen and (min-width: $screen-xs) {
-    margin: 4px 0px 0 44px;
+    //margin: 4px 0px 0 44px;
+    margin: 4px auto 0 auto;
     width: 70px;
   }
   @media only screen and (min-width: $screen-ipad-v) {
     margin: 8px 0px 0 85px;
     width: 296px;
+    float: left;
   }
 
   .img--logo-xxs {
