@@ -131,6 +131,20 @@ class LotteryService
         return $result;
     }
 
+    public function getLastSixResults($lotteryName)
+    {
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
+        /** @var EuroMillionsLine $lottery_result */
+        $lottery_result = $this->lotteryDrawRepository->getLastSixResults($lottery);
+
+        var_dump($lottery_result);
+        exit;
+        $result['regular_numbers'] = explode(',', $lottery_result->getRegularNumbers());
+        $result['lucky_numbers'] = explode(',', $lottery_result->getLuckyNumbers());
+        return $result;
+    }
+
     public function getTimeToNextDraw($lotteryName, \DateTime $now = null)
     {
         list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);

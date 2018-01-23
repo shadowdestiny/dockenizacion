@@ -191,9 +191,7 @@
                     <div class="result--block--content">
                         <div class="result--line">
                             <p>
-                                {#{{ language.translate("results_text") }}#}
                                 {{ last_draw_date }}
-
                             </p>
                             <ul class="no-li inline numbers small">
                                 {% for regular_number in euromillions_results["regular_numbers"] %}

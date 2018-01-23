@@ -98,6 +98,25 @@ class LotteryDrawRepository extends EntityRepository
         return $result[0]->getResult();
     }
 
+    public function getLastSixResults(Lottery $lottery)
+    {
+        /** @var EuroMillionsDraw[] $result */
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT ld'
+                . ' FROM ' . $this->getEntityName() . ' ld JOIN ld.lottery l'
+                . ' WHERE l.name = :lottery_name'
+                . ' ORDER BY id ASC')
+            ->setMaxResults(6)
+            ->setParameters(['lottery_name' => $lottery->getName()])
+            ->useResultCache(true)
+            ->getResult();
+        if (!count($result)) {
+            throw new DataMissingException('Couldn\'t find the last result in the database');
+        }
+        return $result[0]->getResult();
+    }
+
     /**
      * @param Lottery $lottery
      * @param \DateTime|null $date
