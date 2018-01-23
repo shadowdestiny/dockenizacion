@@ -30,21 +30,21 @@
             <ul class="top-nav--mobile-account--menu--list">
                 <li class="li--lottery">
                     <h3>Lotteries</h3>
-                    <a href="#">euromillions</a>
-                    <a href="#">Spanish christmass Lottery</a>
-                    <a href="#">euromillions result</a>
+                    <a href="/{{ language.translate("link_euromillions_play") }}">euromillions</a>
+                    <a href="/{{ language.translate('link_christmas_play') }}">Spanish christmass Lottery</a>
+                    <a href="/{{ language.translate('link_euromillions_results') }}">euromillions result</a>
                 </li>
                 <li class="li--euromillion">
                     <h3>My EuroMillions</h3>
-                    <a href="#">Balance</a>
-                    <a href="#">tickets</a>
-                    <a href="#">transactions</a>
-                    <a href="#">my account</a>
+                    <a href="/account/wallet">Balance</a>
+                    <a href="/profile/tickets/games">tickets</a>
+                    <a href="/profile/transactions">transactions</a>
+                    <a href="/account">my account</a>
                 </li>
                 <li class="li--help">
-                    <a href="#">How to play</a>
+                    <a href="/{{ language.translate("link_euromillions_help") }}">How to play</a>
                     <a href="#">Languages</a>
-                    <a href="#">Currencies</a>
+                    <a href="/{{ language.translate("link_currency") }}">Currencies</a>
                 </li>
             </ul>
 
