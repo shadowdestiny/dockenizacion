@@ -516,14 +516,14 @@
   .gameplay {
     border: 0;
 
-    @media only screen and (max-width: $width-pre-tablet) {
+    @media only screen and (max-width: $screen-full) {
       background-image: none;
       background-color: transparent;
       padding-left: 10px;
       padding-right: 10px;
     }
 
-    @media only screen and (min-width: $screen-ipad-v) {
+    @media only screen and (min-width: $screen-ipad-h) {
       border: 0;
     }
   }
