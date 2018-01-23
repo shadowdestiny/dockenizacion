@@ -30,8 +30,8 @@
             </div>
 
             <div class="top-banner--center desktop--only">
-                <div class="desktop-row--01">
-                    €48
+                <div class="desktop-row--01{% if jackpot_value|length > 4  %}-sm{% endif %}">
+                    {{ jackpot_value }}
                 </div>
                 <div class="desktop-row--02">
                     millions

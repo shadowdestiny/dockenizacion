@@ -388,6 +388,26 @@
         }
       }
 
+      .desktop-row--01-sm {
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          font-size: 70px;
+          position: relative;
+          top: 5px;
+          text-align: center;
+          left: 0px;
+        }
+        @media only screen and (min-width: $screen-desktop) {
+          //font-size: 190px;
+          margin-top: 40px;
+          font-size: 70px;
+          position: relative;
+          top: -15px;
+          text-align: center;
+          left: -4px;
+        }
+      }
+
       .desktop-row--02 {
 
         @media only screen and (min-width: $screen-ipad-h) {

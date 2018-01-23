@@ -59,6 +59,22 @@ class UserPreferencesService
         }
     }
 
+    /**
+     * @param IJackpot $jackpot
+     * @param string $locale
+     * @return string
+     */
+    public function getJackpotInMyCurrencyAndMillions(IJackpot $jackpot, $locale = 'en_US')
+    {
+        if ($jackpot->isValid()) {
+            $amount = $this->currencyConversionService->convert(new Money((int)$jackpot->getAmount() / 1000000, new Currency($jackpot->getCurrency())), $this->storageStrategy->getCurrency());
+            $moneyFormatter = new MoneyFormatter();
+            return $moneyFormatter->toStringByLocale($locale, $amount);
+        } else {
+            return $jackpot->getAmount();
+        }
+    }
+
     public function getMyCurrencyNameAndSymbol()
     {
         $currency = $this->getCurrency();
