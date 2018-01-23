@@ -61,6 +61,7 @@
           background-color:  #f8ce0d;
           width: 38px;
           height: 38px;
+          padding: 0;
           position: relative;
           float: left;
           top: 6px;
@@ -143,13 +144,17 @@
         margin-right: 20px;
         cursor: pointer;
 
+        position: absolute;
+        right: 0px;
+
         background-image: url('../img/account/mobile/ico-account-close.svg');
         background-repeat: no-repeat;
         -webkit-background-size: 23px;
         background-size: 23px;
       }
       .top-nav--mobile-account--menu--list {
-        width: 256px;
+        //width: 256px;
+        width: 100%;
         overflow: hidden;
         background-color: #f8ce0d;
         display: block;
@@ -177,6 +182,8 @@
             padding: 0;
             border-bottom: 0;
             padding-bottom: 5px;
+
+            background-color: transparent!important;
           }
 
           &.li--lottery {
