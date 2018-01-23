@@ -52,7 +52,9 @@
       border-top: 0;
       margin-top: 66px;
 
-      background-color: #fffeec;
+      //background-color: #fffeec;
+
+      background-color: transparent;
     }
 
     @media only screen and (min-width: $screen-ipad-h) {
@@ -60,6 +62,8 @@
       margin-right: 0;
       margin-bottom: 60px;
       border-top: 0;
+
+      background-color: #fffeec;
     }
 
     @media only screen and (min-width: $screen-desktop) {
