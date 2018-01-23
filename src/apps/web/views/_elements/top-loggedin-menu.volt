@@ -33,14 +33,14 @@
                 <li><a href="/account/wallet">
                         <span>Balance</span>
                     </a></li>
-                <li><a href="/profile/tickets">
+                <li><a href="/profile/tickets/games">
                         <span>My Tickets</span>
                     </a></li>
                 <li>
                     <a href="/profile/transactions">
                         <span>My Transactions</span>
                     </a></li>
-                <li><a href="/profile/logout">
+                <li><a href="/logout">
                         <span>Logout</span>
                     </a></li>
             </ul>
