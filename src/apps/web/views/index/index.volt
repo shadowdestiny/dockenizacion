@@ -189,76 +189,29 @@
                         </div>
                     </div>
                     <div class="result--block--content">
-                        <div class="result--line">
-                            <p>
-                                {{ last_draw_date }}
-                            </p>
-                            <ul class="no-li inline numbers small">
-                                {% for regular_number in euromillions_results["regular_numbers"] %}
-                                <li>{{ regular_number }}</li>
-                                {% endfor %}
-                                {% for lucky_number in euromillions_results["lucky_numbers"] %}
-                                <li class="star">{{ lucky_number }}</li>
-                                {% endfor %}
+                        {% if euromillions_results is defined %}
+                            {% for euromillions_result in euromillions_results %}
+                                <div class="result--line">
+                                    <p>
+                                        {% set dateFormat = language.translate('dateformat') %}
+                                        <?php
+                                            $day = $euromillions_result["draw_date"]->format('l');
+                                            $date = $euromillions_result["draw_date"]->format($dateFormat);
+                                        ?>
+                                        {{ language.translate(day) }}, {{ date }}
+                                    </p>
+                                    <ul class="no-li inline numbers small">
+                                        {% for regular_number in euromillions_result["regular_numbers"] %}
+                                            <li>{{ regular_number }}</li>
+                                        {% endfor %}
+                                        {% for lucky_number in euromillions_result["lucky_numbers"] %}
+                                            <li class="star">{{ lucky_number }}</li>
+                                        {% endfor %}
 
-                            </ul>
-                        </div>
-                        <div class="result--line">
-                            <p>
-                                Friday, 20.01.2017
-                            </p>
-                            <ul class="no-li inline numbers small">
-                                <li>9</li>
-                                <li>12</li>
-                                <li>29</li>
-                                <li>39</li>
-                                <li>45</li>
-                                <li class="star">5</li>
-                                <li class="star">12</li>
-                            </ul>
-                        </div>
-                        <div class="result--line">
-                            <p>
-                                Tuesday, 17.01.2017
-                            </p>
-                            <ul class="no-li inline numbers small">
-                                <li>9</li>
-                                <li>12</li>
-                                <li>29</li>
-                                <li>39</li>
-                                <li>45</li>
-                                <li class="star">5</li>
-                                <li class="star">12</li>
-                            </ul>
-                        </div>
-                        <div class="result--line">
-                            <p>
-                                Friday, 14.01.2017
-                            </p>
-                            <ul class="no-li inline numbers small">
-                                <li>9</li>
-                                <li>12</li>
-                                <li>29</li>
-                                <li>39</li>
-                                <li>45</li>
-                                <li class="star">5</li>
-                                <li class="star">12</li>
-                            </ul>
-                        </div>
-                        <div class="result--line">
-                            <p>
-                                Tuesday, 11.01.2017
-                            </p>
-                            <ul class="no-li inline numbers small">
-                                <li>9</li>
-                                <li>12</li>
-                                <li>29</li>
-                                <li>39</li>
-                                <li>45</li>
-                                <li class="star">5</li>
-                                <li class="star">12</li>
-                            </ul>
-                        </div>
+                                    </ul>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
 

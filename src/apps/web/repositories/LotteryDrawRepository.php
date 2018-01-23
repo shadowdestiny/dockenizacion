@@ -106,7 +106,7 @@ class LotteryDrawRepository extends EntityRepository
                 'SELECT ld'
                 . ' FROM ' . $this->getEntityName() . ' ld JOIN ld.lottery l'
                 . ' WHERE l.name = :lottery_name'
-                . ' ORDER BY id ASC')
+                . ' ORDER BY ld.draw_date DESC')
             ->setMaxResults(6)
             ->setParameters(['lottery_name' => $lottery->getName()])
             ->useResultCache(true)
@@ -114,7 +114,8 @@ class LotteryDrawRepository extends EntityRepository
         if (!count($result)) {
             throw new DataMissingException('Couldn\'t find the last result in the database');
         }
-        return $result[0]->getResult();
+
+        return $result;
     }
 
     /**

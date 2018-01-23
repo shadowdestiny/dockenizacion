@@ -131,17 +131,24 @@ class LotteryService
         return $result;
     }
 
-    public function getLastSixResults($lotteryName)
+    public function getLastFiveResults($lotteryName)
     {
-        /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
-        /** @var EuroMillionsLine $lottery_result */
-        $lottery_result = $this->lotteryDrawRepository->getLastSixResults($lottery);
+        $lottery_results = $this->lotteryDrawRepository->getLastSixResults(
+            $this->lotteryRepository->getLotteryByName($lotteryName)
+        );
 
-        var_dump($lottery_result);
-        exit;
-        $result['regular_numbers'] = explode(',', $lottery_result->getRegularNumbers());
-        $result['lucky_numbers'] = explode(',', $lottery_result->getLuckyNumbers());
+        $result = [];
+        $cont = 0;
+        /** @var EuroMillionsDraw $lottery_result */
+        foreach ($lottery_results as $lottery_result) {
+            if ($cont != 0) {
+                $result[$cont-1]['regular_numbers'] = explode(',', $lottery_result->getResult()->getRegularNumbers());
+                $result[$cont-1]['lucky_numbers'] = explode(',', $lottery_result->getResult()->getLuckyNumbers());
+                $result[$cont-1]['draw_date'] =  $lottery_result->getDrawDate();
+            }
+            $cont++;
+        }
+
         return $result;
     }
 
