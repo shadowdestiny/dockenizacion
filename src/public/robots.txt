@@ -1,4 +1,4 @@
-﻿﻿User-Agent: *
+﻿User-Agent: *
 Allow: /it/euromillions/estrazioni/archivio
 Allow: /euromillions/results/draw-history-page
 Allow: /евромиллионы/результаты/история-розыгрышей
