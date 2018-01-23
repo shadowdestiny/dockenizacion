@@ -87,8 +87,9 @@
                                                 <div class="td-ticket-buttons">
                                                     <input type="button" id="remove_{{ ticket['id'] }}" class="removeTicket"
                                                            value="-"/>
-                                                    {{ singleBetPrice }}
-                                                    {{ currencySymbol }}
+                                                    <span id="showNumTickets_{{ ticket['id'] }}">0</span>
+                                                    {#{{ singleBetPrice }}#}
+                                                    {#{{ currencySymbol }}#}
                                                     <input type="hidden" id="maxTickets_{{ ticket['id'] }}"
                                                            value="{{ ticket['n_fractions'] }}"/>
                                                     <input type="hidden" id="numTickets_{{ ticket['id'] }}"
@@ -99,10 +100,6 @@
                                                 <div class="tickets-available">
                                                     {{ ticket['n_fractions'] }} {{ language.translate("playchris_tck_av") }}
                                                 </div>
-                                                {#<div>
-                                                    {{ language.translate("playchris_tck_buy") }}
-                                                    <span id="showNumTickets_{{ ticket['id'] }}">0</span>
-                                                </div>#}
                                             </div>
                                         </div>
                                     </td>
