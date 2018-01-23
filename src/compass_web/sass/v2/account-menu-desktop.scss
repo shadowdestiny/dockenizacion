@@ -1,0 +1,76 @@
+.top-loggedin-menu--inner {
+  position: relative;
+  overflow: visible;
+}
+
+.account-menu-desktop--link {
+  //position: relative;
+  cursor: pointer;
+}
+
+.account-menu-desktop--menu {
+  display: none;
+
+  position: absolute;
+
+  width: 355px;
+  border: 0;
+  border-radius: 0;
+  top:15px;
+  right: 0px;
+  //padding-top: 29px;
+
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.4);
+
+
+  li {
+    border: 0;
+    background-color: #f6f6f6;
+
+    a:hover,
+    a {
+      height: 87px;
+      line-height: 84px;
+      padding: 0 0 0 21px;
+      display: block;
+      background-color: transparent;
+
+      @media only screen and (min-width: $screen-desktop) {
+        height: 65px;
+        line-height: 63px;
+        padding: 0 0 0 14px;
+      }
+      span {
+        //font-family: WorkSans;
+        color: #333333;
+        font-size: 28px;
+        font-weight: 400;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 21px;
+        }
+      }
+    }
+
+    &:hover,
+    &.currency--li--current {
+      background-color: #6c6c6c;
+
+      a:hover,
+      a {
+        background-color: transparent;
+
+        span {
+          color: #f9d118;
+        }
+      }
+    }
+
+  }
+
+}
+
+.account-menu-desktop--menu:hover,
+.account-menu-desktop--link:hover + .account-menu-desktop--menu {
+  display: block;
+}

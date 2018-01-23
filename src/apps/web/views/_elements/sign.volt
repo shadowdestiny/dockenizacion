@@ -1,6 +1,6 @@
 {% if user_logged is empty %}
     <li class="li-sign">
-        <a class="btn-theme btn-secondary" href="/{{ language.translate("signUp") }}">{{ language.translate('signUp') }}</a>
+        <a class="btn-theme btn-secondary" href="/{{ language.translate("link_signup") }}">{{ language.translate('signUp') }}</a>
     </li>
     <li class="li-sign">
         {#TODO : paste real text here#}

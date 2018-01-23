@@ -1,8 +1,10 @@
 <div class="top-nav--mobile-account">
 
     {% if user_logged is not empty %}
-        <div class="top-nav--mobile-account--icon"></div>
+        <a href="/account/wallet" class="top-nav--mobile-account--icon"></a>
         <span>{{user_name}}</span>
+    {% else %}
+        <a href="/sign-in" class="top-nav--mobile-account--icon"></a>
     {% endif %}
 
     <div class="top-nav--mobile-account--menu">

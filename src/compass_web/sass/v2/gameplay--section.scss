@@ -780,6 +780,17 @@
               padding-right: 10px;
             }
           }
+
+          &.pwp-active {
+            //background-color: #545454;
+            background-color: #b3b2b2;
+            //color: #fff;
+
+            //.top,
+            //.bottom{
+            //  color: #fff;
+            //}
+          }
         }
 
         &.text-green {

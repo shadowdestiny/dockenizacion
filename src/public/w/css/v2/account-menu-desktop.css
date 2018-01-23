@@ -1,21 +1,21 @@
 /*
-Error: Undefined variable: "$screen-xs".
-        on line 25 of /src/compass_web/sass/v2/top-nav--mobile-account.scss
+Error: Undefined variable: "$screen-desktop".
+        on line 38 of /src/compass_web/sass/v2/account-menu-desktop.scss
 
-20:     background-image: url('../img/account/mobile/ico-account.png');
-21:     background-repeat: no-repeat;
-22:     -webkit-background-size: 27px;
-23:     background-size: 27px;
-24: 
-25:     @media only screen and (min-width: $screen-xs) {}
-26:     @media only screen and (min-width: $screen-ipad-v) {
-27:       display: none!important;
-28:     }
-29: 
-30:     & + span {
+33:       line-height: 84px;
+34:       padding: 0 0 0 21px;
+35:       display: block;
+36:       background-color: transparent;
+37: 
+38:       @media only screen and (min-width: $screen-desktop) {
+39:         height: 65px;
+40:         line-height: 63px;
+41:         padding: 0 0 0 14px;
+42:       }
+43:       span {
 
 Backtrace:
-/src/compass_web/sass/v2/top-nav--mobile-account.scss:25
+/src/compass_web/sass/v2/account-menu-desktop.scss:38
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -23,6 +23,17 @@ Backtrace:
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `run_interp_no_strip'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:541:in `run_interp'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:509:in `visit_media'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -81,4 +92,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-xs\".\A         on line 25 of /src/compass_web/sass/v2/top-nav--mobile-account.scss\A \A 20:     background-image: url('../img/account/mobile/ico-account.png');\A 21:     background-repeat: no-repeat;\A 22:     -webkit-background-size: 27px;\A 23:     background-size: 27px;\A 24: \A 25:     @media only screen and (min-width: $screen-xs) {}\A 26:     @media only screen and (min-width: $screen-ipad-v) {\A 27:       display: none!important;\A 28:     }\A 29: \A 30:     & + span {"; }
+  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 38 of /src/compass_web/sass/v2/account-menu-desktop.scss\A \A 33:       line-height: 84px;\A 34:       padding: 0 0 0 21px;\A 35:       display: block;\A 36:       background-color: transparent;\A 37: \A 38:       @media only screen and (min-width: $screen-desktop) {\A 39:         height: 65px;\A 40:         line-height: 63px;\A 41:         padding: 0 0 0 14px;\A 42:       }\A 43:       span {"; }

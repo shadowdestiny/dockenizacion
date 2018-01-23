@@ -8,6 +8,8 @@ var EmDiscountLines = require('../components/EmDiscountLines.jsx');
 
 import { MobilePlayApp } from './mobile-play-app'
 
+const MAX_MOBILE_WIDTH = 1020
+
 var PlayPage = React.createClass({
 
     getInitialState : function ()
@@ -38,7 +40,7 @@ var PlayPage = React.createClass({
             storage : JSON.parse(localStorage.getItem('bet_line')) || [],
             draws_number: this.props.draws_number,
             discount: this.props.discount,
-            mobileView : window.innerWidth < 768,
+            mobileView : window.innerWidth < MAX_MOBILE_WIDTH,
         }
     },
 
@@ -184,7 +186,7 @@ var PlayPage = React.createClass({
         if(varSize < 4 && (count_lines < default_lines)) {
             this.setState({ count_lines : count_lines +1 });
         }
-        this.setState({ mobileView : window.innerWidth < 768})
+        this.setState({ mobileView : window.innerWidth < MAX_MOBILE_WIDTH})
     },
 
     handlerAddLines : function()
