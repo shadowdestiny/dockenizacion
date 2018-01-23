@@ -11,8 +11,8 @@ Error: Undefined variable: "$screen-xs".
 26:     @media only screen and (min-width: $screen-ipad-v) {
 27:       display: none!important;
 28:     }
-29: 
-30:     & + span {
+29:     @media only screen and (min-width: $screen-full) {
+30:       //display: none!important;
 
 Backtrace:
 c:/OpenServer7/domains/euromillions.open/src/compass_web/sass/v2/top-nav--mobile-account.scss:25
@@ -79,4 +79,4 @@ C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.4.25/vendor/listen/lib/listen/adap
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-xs\".\A         on line 25 of c:/OpenServer7/domains/euromillions.open/src/compass_web/sass/v2/top-nav--mobile-account.scss\A \A 20:     background-image: url('../img/account/mobile/ico-account.png');\A 21:     background-repeat: no-repeat;\A 22:     -webkit-background-size: 27px;\A 23:     background-size: 27px;\A 24: \A 25:     @media only screen and (min-width: $screen-xs) {}\A 26:     @media only screen and (min-width: $screen-ipad-v) {\A 27:       display: none!important;\A 28:     }\A 29: \A 30:     & + span {"; }
+  content: "Error: Undefined variable: \"$screen-xs\".\A         on line 25 of c:/OpenServer7/domains/euromillions.open/src/compass_web/sass/v2/top-nav--mobile-account.scss\A \A 20:     background-image: url('../img/account/mobile/ico-account.png');\A 21:     background-repeat: no-repeat;\A 22:     -webkit-background-size: 27px;\A 23:     background-size: 27px;\A 24: \A 25:     @media only screen and (min-width: $screen-xs) {}\A 26:     @media only screen and (min-width: $screen-ipad-v) {\A 27:       display: none!important;\A 28:     }\A 29:     @media only screen and (min-width: $screen-full) {\A 30:       //display: none!important;"; }
