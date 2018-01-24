@@ -161,7 +161,7 @@
 
 
                     <div class="right">
-                        <div class="top">
+                        <div class="top{% if jackpot_value|length > 4  %}-small{% endif %}">
                             {{ jackpot_value }} Million
                         </div>
                         <div class="bottom">
