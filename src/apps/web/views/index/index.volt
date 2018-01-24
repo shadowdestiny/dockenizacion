@@ -217,7 +217,7 @@
 
                 <div class="number-generator--block">
                     <div class="number-generator--block--img">
-                        <img src="/w/img/home/result-block/desktop/number-generator.png" alt="Latest News">
+                        <img src="/w/img/home/result-block/desktop/number-generator.jpg" alt="Latest News">
                     </div>
                     <h2 class="number-generator--block--title h2">
                         {#TODO : paste real text here#}
