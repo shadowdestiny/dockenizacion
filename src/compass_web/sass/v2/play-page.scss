@@ -52,7 +52,9 @@
       border-top: 0;
       margin-top: 66px;
 
-      background-color: #fffeec;
+      //background-color: #fffeec;
+
+      background-color: transparent;
     }
 
     @media only screen and (min-width: $screen-ipad-h) {
@@ -60,6 +62,8 @@
       margin-right: 0;
       margin-bottom: 60px;
       border-top: 0;
+
+      background-color: #fffeec;
     }
 
     @media only screen and (min-width: $screen-desktop) {
@@ -516,14 +520,14 @@
   .gameplay {
     border: 0;
 
-    @media only screen and (max-width: $width-pre-tablet) {
+    @media only screen and (max-width: $screen-full) {
       background-image: none;
       background-color: transparent;
       padding-left: 10px;
       padding-right: 10px;
     }
 
-    @media only screen and (min-width: $screen-ipad-v) {
+    @media only screen and (min-width: $screen-ipad-h) {
       border: 0;
     }
   }

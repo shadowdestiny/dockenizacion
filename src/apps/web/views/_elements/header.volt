@@ -35,7 +35,7 @@
             <ul>
                 <div class="wrapper">
                 {#{% include "_elements/top-nav--mobile.volt" %}#}
-                {% include "_elements/nav--mobile.volt" %}
+                {#{% include "_elements/nav--mobile.volt" %}#}
                 </div>
             </ul>
         </div>

@@ -1,15 +1,15 @@
 /*
-Error: Undefined variable: "$width-pre-tablet".
+Error: Undefined variable: "$screen-full".
         on line 3 of c:/OpenServer7/domains/euromillions.open/src/compass_web/sass/v2/play-page-mobile.scss
 
 1: // Play page - mobile version
 2: 
-3: @media only screen and (max-width: $width-pre-tablet) {
+3: @media only screen and (max-width: $screen-full) {
 4: 
 5:   .play-page-mobile {
-6: 
-7:     .bets-section .row {
-8:       display: flex;
+6:     padding-top: 10px;
+7: 
+8:     .bets-section .row {
 
 Backtrace:
 c:/OpenServer7/domains/euromillions.open/src/compass_web/sass/v2/play-page-mobile.scss:3
@@ -54,4 +54,4 @@ C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.4.25/vendor/listen/lib/listen/adap
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$width-pre-tablet\".\A         on line 3 of c:/OpenServer7/domains/euromillions.open/src/compass_web/sass/v2/play-page-mobile.scss\A \A 1: // Play page - mobile version\A 2: \A 3: @media only screen and (max-width: $width-pre-tablet) {\A 4: \A 5:   .play-page-mobile {\A 6: \A 7:     .bets-section .row {\A 8:       display: flex;"; }
+  content: "Error: Undefined variable: \"$screen-full\".\A         on line 3 of c:/OpenServer7/domains/euromillions.open/src/compass_web/sass/v2/play-page-mobile.scss\A \A 1: // Play page - mobile version\A 2: \A 3: @media only screen and (max-width: $screen-full) {\A 4: \A 5:   .play-page-mobile {\A 6:     padding-top: 10px;\A 7: \A 8:     .bets-section .row {"; }

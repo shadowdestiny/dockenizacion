@@ -85,7 +85,7 @@
     }
   }
 
-  .fb, .gp, .tw {
+  .fb, .gp, .tw, .instagram {
     background-color: #f8cf05;
     border-radius: 0;
 
@@ -268,6 +268,19 @@
 
       font-size: 15px;
       left: -3px;
+      top: -1px;
+    }
+  }
+
+  .instagram {
+    span,
+    .ico {
+      //font-size: 20px;
+      //left: 0;
+      //top: 5px;
+
+      font-size: 15px;
+      left: -4px;
       top: -1px;
     }
   }

@@ -30,7 +30,8 @@
     }
 
     .myCol {
-      width: 194px;
+      //width: 194px;
+      width: 207px;
       margin-right: 14px;
 
       @media only screen and (min-width: $screen-ipad-h) {
@@ -44,9 +45,10 @@
         //margin-right: 17px;
         //border-right: 12px solid transparent;
 
-        width: 194px;
+        //width: 194px;
+        width: 212px;
         margin-right: 14px;
-        border-right: 12px solid transparent;
+        border-right: 1px solid transparent;
         &:nth-child(4n){
           margin-right: 0;
         }
@@ -647,11 +649,18 @@
     }
 
     .draws-section {
-      float: left;
-      width: 50%;
-      margin: 0;
+      //float: left;
+      //width: 50%;
+      //margin: 0;
+
+      float: none;
+      width: 100%;
+      overflow: hidden;
+      margin-top: 50px;
 
       @media only screen and (min-width: $screen-ipad-h) {
+        float: left;
+        margin: 0;
         width: 50%;
       }
       @media only screen and (min-width: $screen-desktop) {
@@ -683,17 +692,47 @@
       }
 
       .button-draw-list {
-        overflow: hidden;
-        float: left;
-        clear: none;
-        margin-right: 1px;
+        //overflow: hidden;
+        //float: left;
+        //clear: none;
+        //margin-right: 1px;
+        //
+        //background-color: #eae8e8;
+        //width: 103px;
+        //height: 105px;
 
-        background-color: #eae8e8;
+        display: inline-block;
+        //margin-right: 6px;
+        margin-right: 10px;
+        border-radius: 4px;
+        border-width: 1px;
+        border-color: #6c6c6c;
+        border-style: solid;
+        background: #f6f6f6;
+        //width: 51px;
+        //height: 51px;
+
         width: 103px;
         height: 105px;
 
+        padding: 0;
+        color: #333;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        line-height: 50px;
+
         @media only screen and (min-width: $screen-ipad-h) {
+
+          overflow: hidden;
+          float: left;
+          clear: none;
           margin-right: 1px;
+
+          border: 0;
+          border-radius: 0;
+
+          background-color: #eae8e8;
           width: 103px;
           height: 105px;
         }
@@ -786,6 +825,15 @@
             background-color: #b3b2b2;
             //color: #fff;
 
+            span{
+
+              color: #f8ce0d;
+
+              @media only screen and (min-width: $screen-ipad-h) {
+                color: #2d2d2d;
+              }
+            }
+
             //.top,
             //.bottom{
             //  color: #fff;
@@ -814,10 +862,22 @@
 
     .buttons-section {
 
-      clear: none;
-      float: right;
-      width: 50%;
-      margin: 0;
+      //clear: none;
+      //float: right;
+      //width: 50%;
+      //margin: 0;
+
+      float: none;
+      width: 100%;
+      margin:auto;
+      margin-top: 50px;
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        clear: none;
+        float: right;
+        width: 50%;
+        margin: 0;
+      }
 
       .total-price-description {
         display: none;
@@ -833,6 +893,7 @@
 
         @media only screen and (min-width: $screen-ipad-h) {
           margin-bottom: 10px;
+          height: 15px;
         }
         @media only screen and (min-width: $screen-desktop) {
           margin-bottom: 7px;

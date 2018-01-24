@@ -342,9 +342,14 @@
   }
 
   @media only screen and (min-width: $screen-ipad-v) {
-    float: left;
-    margin: 8px 0px 0 85px;
+    //float: left;
+    //margin: 8px 0px 0 85px;
+    //width: 296px;
+
+    margin: 8px auto 0 auto;
     width: 296px;
+    float: none;
+    display: block;
 
     .img--logo-mobile {
       display: none; 

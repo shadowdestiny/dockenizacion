@@ -199,8 +199,17 @@ $(function () {
   }
 
   $(".menu-ham").click(function () {
-    $(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
+    //$(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
+    $(this).toggleClass('expanded');
+    $('.top-nav--mobile-account--menu').stop().toggle();
   });
+
+
+  $('.top-nav--mobile-account--menu--close').click(function () {
+    $(".menu-ham").toggleClass('expanded');
+    $('.top-nav--mobile-account--menu').stop().toggle();
+  });
+
 
   var first_page = (new Date().valueOf() - $.cookie('lastSeen') > 0);
   if ($.cookie('EM-law') && first_page) { //First time visitor, load cookies
@@ -302,11 +311,11 @@ $(document).ready(function () {
   }
 
   //Top nav mobile account menu
-  if ($('.top-nav--mobile-account--icon').length) {
-    $('.top-nav--mobile-account--icon, .top-nav--mobile-account--menu--close').click(function () {
-      $('.top-nav--mobile-account--menu').stop().toggle();
-    });
-  }
+  //if ($('.top-nav--mobile-account--icon').length) {
+  //  $('.top-nav--mobile-account--icon, .top-nav--mobile-account--menu--close').click(function () {
+  //    $('.top-nav--mobile-account--menu').stop().toggle();
+  //  });
+  //}
 
   //Shopping cart accordion
   if ($('.action--arrow--mobile').length) {

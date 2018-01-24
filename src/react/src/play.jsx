@@ -8,7 +8,10 @@ var EmDiscountLines = require('../components/EmDiscountLines.jsx');
 
 import { MobilePlayApp } from './mobile-play-app'
 
-const MAX_MOBILE_WIDTH = 1020
+const MAX_MOBILE_WIDTH = 768
+
+const TABLET_PORTRAIT_WIDTH = 992
+const TABLET_LANDSCAPE_WIDTH = 1024
 
 var PlayPage = React.createClass({
 
@@ -80,38 +83,7 @@ var PlayPage = React.createClass({
 
     componentWillMount : function ()
     {
-        if(varSize >= 4) {
-            this.state.lines_default = 2;
-        }
-        var storage = this.state.storage;
-        var lines = this.state.lines;
-        var default_lines = this.state.lines_default;
-
-
-        if( storage != null ) {
-            if(lines.length == 0) {
-                for(let i=0; i< default_lines;i++) {
-                    lines.push(0);
-                }
-            }
-            for(let i=0;i<storage.length;i++) {
-                if(storage[i].numbers.length > 0 || storage[i].stars.length > 0) {
-                    if(i > lines.length-1 ) {
-                        for(let j=0; j< default_lines;j++) {
-                            lines.push(0);
-                        }
-                    }
-                    lines[i] = 1;
-                } else {
-                    storage[i].numbers = [];
-                    storage[i].stars = [];
-                    localStorage.setItem('bet_line', JSON.stringify(storage));
-                    this.state.show_tooltip_lines = true;
-                }
-            }
-        }
-        var show_tooltip_lines = (this.checkBetsConfirmed() || lines.length <= default_lines) ? false : true;
-        this.setState( { show_tooltip_lines : show_tooltip_lines, lines_default : default_lines, lines: lines, count_lines : lines.length -1 });
+        this.handleResize();
         this.updatePrice();
     },
 
@@ -175,34 +147,92 @@ var PlayPage = React.createClass({
 
     handleResize : function ()
     {
-        var varSize = checkSize();
-        if(varSize >= 4) {
-            this.state.lines_default = 2;
-        }else {
-            this.state.lines_default = 6;
-        }
-        var default_lines = this.state.lines_default -1;
-        var count_lines = this.state.count_lines;
-        if(varSize < 4 && (count_lines < default_lines)) {
-            this.setState({ count_lines : count_lines +1 });
-        }
-        this.setState({ mobileView : window.innerWidth < MAX_MOBILE_WIDTH})
+      const ticketsInRow  = this.getTicketsInRow()
+      const ticketsToShow = this.getTicketsToShow()
+      const lines = this.getLines(ticketsToShow)
+
+      this.setState({
+        lines_default : ticketsInRow,
+        count_lines   : ticketsToShow,
+        mobileView    : this.getWindowWidth() < MAX_MOBILE_WIDTH,
+        lines,
+      })
     },
 
     handlerAddLines : function()
     {
-        var show_tooltip = this.state.show_tooltip_lines;
-        var current_lines = this.state.lines;
-        var default_lines = this.state.lines_default;
-        var firstClick = (current_lines.length == default_lines );
-        var allLinesFilled = this.checkBetsConfirmed();
-        if(allLinesFilled || firstClick) {
-            for(let i=0; i< default_lines;i++) {
-                current_lines.push(0);
-            }
-            show_tooltip = true;
-        }
-        this.setState( { show_tooltip_lines: show_tooltip,  count_lines : current_lines.length -1 , lines : current_lines} );
+      let ticketsShown = this.state.lines.length
+      const ticketsInRow = this.getTicketsInRow()
+      const isFirstClick = ticketsShown / ticketsInRow == 1
+      const allLinesFilled = this.checkBetsConfirmed()
+
+      if (isFirstClick || allLinesFilled) {
+        ticketsShown += ticketsInRow
+        const lines = this.getLines(ticketsShown)
+        this.setState({
+          show_tooltip_lines : true,
+          count_lines : ticketsShown,
+          lines,
+        })
+      }
+    },
+
+    getWindowWidth : function () {
+      return window.innerWidth
+    },
+
+    /**
+     * getTicketsInRow - defines tickets number per row depending on screen width
+     *
+     * @return {Number}  tickets per row
+     */
+    getTicketsInRow : function () {
+      const winWidth = this.getWindowWidth()
+      let ticketsInRow
+      if (winWidth <= TABLET_PORTRAIT_WIDTH) {
+        ticketsInRow = 3
+      } else if (winWidth <= TABLET_LANDSCAPE_WIDTH) {
+        ticketsInRow = 4
+      } else {
+        ticketsInRow = 6
+      }
+      return ticketsInRow
+    },
+
+    /**
+     * getTicketsToShow - defines tickets number to show depending on stored lines selected
+     *                    and number of tickets per row (to populate rows to the full)
+     *
+     * @return {Number}  total quantity of ticket shown on the page
+     */
+    getTicketsToShow : function () {
+      const { storage }  = this.state
+      const ticketsInRow = this.getTicketsInRow()
+      if (storage && storage.length) {
+        return Math.ceil(storage.length / ticketsInRow) * ticketsInRow
+      }
+      return ticketsInRow
+    },
+
+    /**
+     * getLines - Returns array of flags (0 or 1) corresponding to the list
+     *            of tickets shown. Where 0 means that no numbers/stars
+     *            was chosen in the ticket and 1 if opposit
+     *
+     *            Have no idea why the property is ever needed
+     *
+     * @param  {Number} ticketsToShow tickets number to show
+     * @return {Array}                list of 0 or 1 to store in state param `lines`
+     */
+    getLines : function (ticketsToShow) {
+      const lines = []
+      for (let i = 0; i < ticketsToShow; i ++) {
+        const storedLine = this.state.storage[i]
+        const isFilledLine = storedLine && (storedLine.numbers.length || storedLine.stars.length)
+        lines.push(isFilledLine ? 1 : 0)
+      }
+
+      return lines
     },
 
     mouseOverBtnAddLines : function ()
