@@ -45,7 +45,7 @@
                 <div class="star--03"></div>
 
                 <div class="mobile-row">
-                    €48millions
+                    {{ jackpot_value }}millions
                 </div>
                 <div class="top-banner--for-only">
                     {% include "_elements/for-only.volt" %}
