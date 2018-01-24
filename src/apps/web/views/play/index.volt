@@ -162,7 +162,7 @@
 
                     <div class="right">
                         <div class="top">
-                            €149 Million
+                            {{ jackpot_value }} Million
                         </div>
                         <div class="bottom">
                             Pick 5 numbers and 2 stars per line
