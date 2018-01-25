@@ -62,17 +62,17 @@
         Already have an account? <a href="/{{ language.translate("link_signin") }}">Sign in Now!</a>
     </div>
 
-    <div class="cl txt--accept">
+    {#<div class="cl txt--accept">#}
 
         {#TODO : Add real variables here#}
-        <label class="label left" for="accept">
-            <input type="checkbox" id="accept" name="accept" value="yes" class="checkbox" data-role="none">
-            <span class="checkbox-after"></span>
-            <span class="txt">
-                I accept the Terms & Conditions and Privacy Policy.
-            </span>
-        </label>
-    </div>
+        {#<label class="label left" for="accept">#}
+            {#<input type="checkbox" id="accept" name="accept" value="yes" class="checkbox" data-role="none">#}
+            {#<span class="checkbox-after"></span>#}
+            {#<span class="txt">#}
+                {#I accept the Terms & Conditions and Privacy Policy.#}
+            {#</span>#}
+        {#</label>#}
+    {#</div>#}
 
     <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span
                 class="txt">{{ language.translate("signup_accountQuestion") }}</span> <a class="btn gwy"
