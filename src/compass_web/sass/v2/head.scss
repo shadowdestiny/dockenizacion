@@ -94,7 +94,7 @@
         display: block;
         margin: 0!important;
 
-        height: 57px;
+        height: 58px;
 
         border-top: 1px solid #f9d027;
         border-bottom: 1px solid #e6b912;
@@ -148,29 +148,16 @@
             background-position: 0 0;
           }
 
-          &:hover {
+          &:hover,
+          &:active,
+          &:focus {
             color: #000;
             position: relative;
 
             &:before {
               content: "";
               display: block;
-              //position: absolute;
-              //width: 12px;
-              //height: 18px;
-              //left: -20px;
-              //top: 50%;
-              //margin-top: -9px;
-              //
-              //background-image: url('../img/home/top-menu-arrow--desktop.svg');
-              //background-repeat: no-repeat;
-              //-webkit-background-size: 12px;
-              //background-size: 12px;
-              //cursor: pointer;
-              //background-position: 0 0;
             }
-
-
           }
         }
       }
