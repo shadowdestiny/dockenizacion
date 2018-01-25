@@ -91,6 +91,23 @@
         }
       }
 
+      .price-sm {
+        //font-family: WorkSans;
+        color: #333333;
+        font-size: 60px;
+        font-weight: 900;
+        text-transform: uppercase;
+        text-align: center;
+        position: relative;
+        left: -8px;
+        margin-bottom: 44px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 50px;
+          margin-bottom: 26px;
+        }
+      }
+
       .measure {
         //font-family: WorkSans;
         color: #333333;
