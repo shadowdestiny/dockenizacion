@@ -5,8 +5,8 @@
             <div class="title">
                 Euro Millions
             </div>
-            <div class="price">
-                €148
+            <div class="price{% if jackpot_value|length > 4 %}-sm{% endif %}">
+                {{ jackpot_value }}
             </div>
             <div class="measure">
                 millions
