@@ -39,6 +39,7 @@ class NumbersController extends PublicSiteControllerBase
             'last_draw_date' => $euroMillionsDraw->getDrawDate()->format('D, d M Y'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
+            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
             'pageController' => 'euroResult',
         ]);
     }

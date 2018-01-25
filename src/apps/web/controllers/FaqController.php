@@ -22,6 +22,7 @@ class FaqController extends PublicSiteControllerBase
             'jackpot_value' => ViewHelper::formatJackpotNoCents($this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'))),
             'draw_time' => (!empty($lottery)) ? $lottery->getDrawTime() : '',
             'email_support' => $config->email_support['email'],
+            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
             'pageController' => 'euroFaq',
         ]);
     }
