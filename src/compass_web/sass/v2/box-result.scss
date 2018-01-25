@@ -566,10 +566,12 @@
 
       @media only screen and (min-width: $screen-ipad-h) {
         height: 217px;
+        margin-bottom: 35px;
       }
       @media only screen and (min-width: $screen-desktop) {
         //height: 387px;
         height: 283px;
+        margin-bottom: 35px;
       }
 
       img {
