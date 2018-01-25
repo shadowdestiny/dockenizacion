@@ -53,8 +53,10 @@
 
     .submenu {
       position: absolute;
-      //display: none;
-      display: block;
+      display: none;
+      //display: block;
+
+      width: 100%;
 
       overflow: hidden;
       height: auto;
@@ -72,7 +74,7 @@
 
     ul {
       position: relative;
-      margin-top: 19px;
+      margin-top: 15px;
       height:auto;
       //overflow: hidden;
 
@@ -83,8 +85,8 @@
         position: absolute;
         border: 12px solid transparent;
         border-bottom: 12px solid #f3be05;
-        left: 40px;
-        top: -22px;
+        left: 27px;
+        top: -23px;
 
       }
 
@@ -92,12 +94,28 @@
         display: block;
         margin: 0!important;
 
+        height: 57px;
+
+        border-top: 1px solid #f9d027;
+        border-bottom: 1px solid #e6b912;
+
+
+        &:first-of-type {
+          border-top: 0;
+        }
+        &:last-of-type {
+          border-bottom: 0;
+        }
+
         a {
           color: #333333;
-          padding-left: 64px;
+          padding-left: 47px;
           text-align: left;
           padding-right: 0;
           position: relative;
+          font-size: 18px;
+          height: 57px;
+          line-height: 55px;
 
           //background: -webkit-linear-gradient(-86deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
           //background: -moz-linear-gradient(-86deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
@@ -113,18 +131,19 @@
 
           &:before {
             content: "";
-            display: block;
+            //display: block;
+            display: none;
             position: absolute;
             width: 12px;
             height: 18px;
-            left: -20px;
+            left: 31px;
             top: 50%;
-            margin-top: -9px;
+            margin-top: -8px;
 
             background-image: url('../img/home/top-menu-arrow--desktop.svg');
             background-repeat: no-repeat;
-            -webkit-background-size: 12px;
-            background-size: 12px;
+            -webkit-background-size: 9px;
+            background-size: 9px;
             cursor: pointer;
             background-position: 0 0;
           }
