@@ -334,6 +334,27 @@ $(document).ready(function () {
     });
   }
 
+  //Mobile dashboard menu
+  if ($('.dashboard-menu--balance--link').length) {
+    $('.dashboard-menu--balance--link').click(function () {
+        $('.dashboard-menu--mobile').stop().hide();
+        $('.dashboard-menu--mobile--account').stop().hide();
+        $('.dashboard-menu--mobile--logout').stop().hide();
+        $('.dashboard-menu--mobile--back ').stop().show();
+        $('.dashboard-menu--mobile--back').stop().show();
+        $('.dashboard-menu--mobile--content').stop().show();
+    });
+
+    $('.dashboard-menu--mobile--back.dashboard-menu--mobile--back--balance').click(function () {
+        $('.dashboard-menu--mobile--back ').stop().hide();
+        $('.dashboard-menu--mobile--back').stop().hide();
+        $('.dashboard-menu--mobile--content').stop().hide();
+        $('.dashboard-menu--mobile').stop().show();
+        $('.dashboard-menu--mobile--account').stop().show();
+        $('.dashboard-menu--mobile--logout').stop().show();
+    });
+  }
+
 
 
 
