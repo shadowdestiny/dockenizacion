@@ -41,12 +41,130 @@
       display: inline-block;
       margin: 0 -3px;
       height: 79px;
+
+      position: relative;
     }
 
     @media only screen and (min-width: $screen-desktop) {
       display: inline-block;
       margin: 0 -3px;
       height: 59px;
+    }
+
+    .submenu {
+      position: absolute;
+      display: none;
+      //display: block;
+
+      width: 100%;
+
+      overflow: hidden;
+      height: auto;
+
+      padding: 0;
+      margin: 0;
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        top: 59px;
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        top: 59px;
+      }
+    }
+
+    ul {
+      position: relative;
+      margin-top: 15px;
+      height:auto;
+      //overflow: hidden;
+
+      &:before {
+        display: block;
+        content: "";
+
+        position: absolute;
+        border: 12px solid transparent;
+        border-bottom: 12px solid #f3be05;
+        left: 27px;
+        top: -23px;
+
+      }
+
+      li {
+        display: block;
+        margin: 0!important;
+
+        height: 58px;
+
+        border-top: 1px solid #f9d027;
+        border-bottom: 1px solid #e6b912;
+
+
+        &:first-of-type {
+          border-top: 0;
+        }
+        &:last-of-type {
+          border-bottom: 0;
+        }
+
+        a {
+          color: #333333;
+          padding-left: 47px;
+          text-align: left;
+          padding-right: 0;
+          position: relative;
+          font-size: 18px;
+          height: 57px;
+          line-height: 55px;
+
+          //background: -webkit-linear-gradient(-86deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
+          //background: -moz-linear-gradient(-86deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
+          //background: -o-linear-gradient(-86deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
+          //background: -ms-linear-gradient(-86deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
+          //background: linear-gradient(176deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
+
+          background: -webkit-linear-gradient(90deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
+          background: -moz-linear-gradient(90deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
+          background: -o-linear-gradient(90deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
+          background: -ms-linear-gradient(90deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
+          background: linear-gradient(90deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
+
+          &:before {
+            content: "";
+            //display: block;
+            display: none;
+            position: absolute;
+            width: 12px;
+            height: 18px;
+            left: 31px;
+            top: 50%;
+            margin-top: -8px;
+
+            background-image: url('../img/home/top-menu-arrow--desktop.svg');
+            background-repeat: no-repeat;
+            -webkit-background-size: 9px;
+            background-size: 9px;
+            cursor: pointer;
+            background-position: 0 0;
+          }
+
+          &:hover,
+          &:active,
+          &:focus {
+            color: #000;
+            position: relative;
+
+            &:before {
+              content: "";
+              display: block;
+            }
+          }
+        }
+      }
+    }
+
+    &:hover .submenu {
+      display: block;
     }
   }
 
@@ -156,7 +274,8 @@
   //.main-nav a:hover, .li-your-account:hover > a {
   li.active a,
   a:hover {
-    background: #f8ce0d;
+    //background: #f8ce0d;
+    background: #f3be05;
 
     .txt {
       color: #333333;

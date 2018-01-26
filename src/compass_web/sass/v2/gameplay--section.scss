@@ -841,7 +841,8 @@
           }
         }
 
-        &.text-green {
+        &:nth-child(5),
+        &:nth-child(6)  {
           a {
             .bottom {
               color: #21d167;

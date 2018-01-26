@@ -7,6 +7,22 @@
     <a href="/{{ language.translate('link_euromillions_results') }}">
         <span class="txt">Euro millions results</span>
     </a>
+
+    <div class="submenu">
+        <ul>
+            <li>
+                <a href="#">
+                    euro millions results
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    power ball results
+                </a>
+            </li>
+        </ul>
+    </div>
+
 </li>
 
 <li class="li-help{% if activeNav.myClass == 'help' %} active{% endif %}">
