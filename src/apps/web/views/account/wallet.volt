@@ -162,7 +162,42 @@
             {% include "account/_breadcrumbs.volt" %}
             <div class="nav">
                 {% set activeSubnav='{"myClass": "wallet"}'|json_decode %}
-                {% include "account/_nav.volt" %}
+
+
+
+                <div class="dashboard-menu--desktop">
+                    {% include "account/_nav.volt" %}
+                </div>
+
+                <div class="dashboard-menu--mobile--account">
+                    <div class="block--img">
+                        <div class="img">
+
+                        </div>
+                    </div>
+                    <div class="block--name">
+                        {{user_name}}
+                    </div>
+                    <div class="block--balance">
+                        {{ language.translate('balance') }}: {{ user_balance }}
+                    </div>
+                </div>
+
+                <div class="dashboard-menu--mobile dashboard-menu--balance">
+                    {% include "account/_nav_mob.volt" %}
+                </div>
+
+                <div class="dashboard-menu--mobile--logout">
+                    LOGOUT
+                </div>
+
+                <div class="dashboard-menu--mobile--back  dashboard-menu--mobile--back--balance">
+                    <a href="#">
+                        {{ language.translate("myAccount_balance", ['balance' :   user_balance ]) }}
+                    </a>
+                </div>
+
+
             </div>
 
             <div class="content">
