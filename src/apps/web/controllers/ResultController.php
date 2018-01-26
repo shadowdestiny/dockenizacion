@@ -4,6 +4,7 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\dto\OrderDTO;
@@ -22,11 +23,14 @@ class ResultController extends PublicSiteControllerBase
         $order_dto = new OrderDTO($result_order->getValues());
         $this->view->pick('/cart/success');
 	    $this->tag->prependTitle('Purchase Confirmation');
+        $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
+        $date_time_util = new DateTimeUtil();
         return $this->view->setVars([
             'order' => $order_dto,
             'jackpot_value' => ViewHelper::formatJackpotNoCents($jackpot),
             'user' => new UserDTO($user),
-            'start_draw_date_format' => date('D j M Y',$order_dto->getStartDrawDate()->getTimestamp())
+            'start_draw_date_format' => date('D j M Y',$order_dto->getStartDrawDate()->getTimestamp()),
+            'countdown_next_draw' => $date_time_util->getCountDownNextDraw($date_next_draw),
         ]);
     }
 

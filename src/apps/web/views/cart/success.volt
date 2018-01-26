@@ -60,7 +60,7 @@ function numCharLine($line){
 
             <div class="thank-you-block--jackpot">
                 <p>
-                    your lines played for this friday’s draw 28 may 2017
+                    your lines played for this {{ start_draw_date_format }}
                 </p>
                 <h2>
                     jackpot {{ jackpot_value }} milliones
