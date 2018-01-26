@@ -44,8 +44,13 @@ function numCharLine($line){
                 <p>
                     You just completed your payment
                 </p>
+                {#<div class="countdown">#}
+                    {##}
+                {#</div>#}
                 <div class="count">
-                    Countdown to next draw is 7 hours and 11 minutes
+                    <span class="h4">{{ language.translate("countdown") }}</span>
+                    <span class="purple">{{ countdown_next_draw }}</span>
+                    {#Countdown to next draw is 7 hours and 11 minutes#}
                 </div>
                 <div class="btn-row">
                     <a href="#" class="btn-theme--big">Play more</a>
