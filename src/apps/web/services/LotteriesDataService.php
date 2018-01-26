@@ -38,8 +38,8 @@ class LotteriesDataService
         $this->lotteryDrawRepository = $this->entityManager->getRepository('EuroMillions\web\entities\EuroMillionsDraw');
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->apisFactory = $apisFactory;
-        $serviceFactory = new ServiceFactory($this->getDI());
-        $this->emailService = $serviceFactory->getEmailService();
+//        $serviceFactory = new ServiceFactory($this->getDI());
+//        $this->emailService = $serviceFactory->getEmailService();
     }
 
     public function getRaffle($lotteryName, \DateTime $now = null)
@@ -167,7 +167,7 @@ class LotteriesDataService
             if ($draw->getBreakDown()->getCategoryOne()->getName()) {
                 $draw->createBreakDown($result);
                 $this->entityManager->flush();
-                $this->sendEmailResultsOrigin('Loterias y Apuestas');
+//                $this->sendEmailResultsOrigin('Loterias y Apuestas');
 
                 return $draw;
 
@@ -177,7 +177,7 @@ class LotteriesDataService
                 $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
                 $draw->createBreakDown($result);
                 $this->entityManager->flush();
-                $this->sendEmailResultsOrigin('Mashape');
+//                $this->sendEmailResultsOrigin('Mashape');
 
                 return $draw;
             }
