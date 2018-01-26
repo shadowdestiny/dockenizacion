@@ -3,14 +3,20 @@
 namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\web\emailTemplates\CheckResultsOrigin;
+use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\exceptions\ValidDateRangeException;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
+use EuroMillions\web\services\factories\ServiceFactory;
+use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDownData;
 use EuroMillions\web\vo\EuroMillionsJackpot;
@@ -32,6 +38,8 @@ class LotteriesDataService
         $this->lotteryDrawRepository = $this->entityManager->getRepository('EuroMillions\web\entities\EuroMillionsDraw');
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->apisFactory = $apisFactory;
+        $serviceFactory = new ServiceFactory($this->getDI());
+        $this->emailService = $serviceFactory->getEmailService();
     }
 
     public function getRaffle($lotteryName, \DateTime $now = null)
@@ -159,6 +167,7 @@ class LotteriesDataService
             if ($draw->getBreakDown()->getCategoryOne()->getName()) {
                 $draw->createBreakDown($result);
                 $this->entityManager->flush();
+                $this->sendEmailResultsOrigin('Loterias y Apuestas');
 
                 return $draw;
 
@@ -168,6 +177,7 @@ class LotteriesDataService
                 $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
                 $draw->createBreakDown($result);
                 $this->entityManager->flush();
+                $this->sendEmailResultsOrigin('Mashape');
 
                 return $draw;
             }
@@ -175,6 +185,17 @@ class LotteriesDataService
         } catch (\Exception $e) {
             throw new \Exception('Error updating results');
         }
+    }
+
+    public function sendEmailResultsOrigin($resultsOrigin)
+    {
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new CheckResultsOrigin($emailBaseTemplate, new JackpotDataEmailTemplateStrategy());
+        $emailTemplate->setUsersPlayed($resultsOrigin);
+
+        $user = new User();
+        $user->setEmail(new Email('alerts@panamedia.net'));
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
 
