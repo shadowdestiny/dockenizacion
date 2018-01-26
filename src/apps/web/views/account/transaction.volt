@@ -97,7 +97,9 @@
             {% include "account/_breadcrumbs.volt" %}
             <div class="nav">
                 {% set activeSubnav='{"myClass": "transaction"}'|json_decode %}
-                {% include "account/_nav.volt" %}
+                <div class="dashboard-menu--desktop">
+                    {% include "account/_nav.volt" %}
+                </div>
             </div>
 
             <div class="content">
