@@ -17,7 +17,11 @@
 	.hr{margin:1em 0 1.5em;}
 */
 
-#main-page, .ui-content, #content{height:100%;}
+#main-page, .ui-content, #content{
+	@media only screen and (min-width: $screen-ipad-h) {
+		height: 100%;
+	}
+}
 #content{padding-top:0!important; transform-style:preserve-3d;} /* Preserve is used because of translateY*/
 .sign-in .terms{text-align:center;}
 .sign-in .wrapper, .forgot-psw .wrapper, .recovery .wrapper{max-width:1000px; position:relative; top:30%; transform:translateY(-30%);}
