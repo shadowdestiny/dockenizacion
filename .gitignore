@@ -56,3 +56,6 @@ ansible/roles/external/*
 /src/public/a/js/angular-admin/app/services/auth.service.js.map
 /src/public/a/js/angular-admin/app/services/language.service.js.map
 /src/public/a/js/angular-admin/app/services/translation.service.js.map
+src/compass_web/.sass-cache/
+src/public/w/css/v2/head.css
+src/public/w/css/v2/

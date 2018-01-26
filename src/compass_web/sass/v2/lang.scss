@@ -86,14 +86,35 @@
           display: block;
           background-color: transparent;
 
+          color: #333333;
+          font-size: 28px;
+          font-weight: 400;
+
+          text-transform: uppercase;
+
           @media only screen and (min-width: $screen-desktop) {
             height: 65px;
             line-height: 63px;
             padding: 0 0 0 14px;
           }
 
+          @media only screen and (min-width: $screen-desktop) {
+            font-size: 21px;
+          }
+
           svg {
             display: none;
+          }
+        }
+
+        &:hover,
+        &.language--li--current {
+          background-color: #6c6c6c;
+
+          a:hover,
+          a {
+            background-color: transparent;
+            color: #f9d118;
           }
         }
 
