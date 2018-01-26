@@ -1,6 +1,6 @@
 <ul class="no-li">
 
-    <li><a {% if activeSubnav.myClass == "wallet" %}class="active"{% endif %} href="#">
+    <li><a {% if activeSubnav.myClass == "wallet" %}class="active"{% endif %} href="/account/wallet">
             {{ language.translate("myAccount_balance", ['balance' :   user_balance ]) }}
         </a></li>
 
