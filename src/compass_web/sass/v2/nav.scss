@@ -405,7 +405,7 @@
   display: none;
 
   @media only screen and (min-width: $screen-xs) {
-    display: block;
+    //display: block;
   }
 }
 
@@ -416,6 +416,9 @@
   padding-bottom: 20px;
 
   @media only screen and (min-width: $screen-xs) {
+    //display: none;
+  }
+  @media only screen and (min-width: $screen-ipad-h) {
     display: none;
   }
 
@@ -435,12 +438,39 @@
         font-weight: 700;
         text-decoration: none;
         text-transform: uppercase;
+
+        color: #fff !important;
+        text-transform: uppercase;
+
+
+        @media only screen and (min-width: $screen-ipad-v) {
+            width: 234px;
+            height: 48px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #fff !important;
+            text-transform: uppercase;
+            margin: auto;
+        }
+
       }
     }
   }
 
 }
 
+
+.ul-top-nav.xs--min {
+  .sign-block.xxs--max {
+    .ul-top-nav{
+      @media only screen and (min-width: $screen-xs) {
+        display: none;
+      }
+    }
+  }
+}
 .top-bar--desktop {
   .logo {
 
