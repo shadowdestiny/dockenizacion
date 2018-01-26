@@ -43,7 +43,28 @@
                 </li>
                 <li class="li--help">
                     <a href="/{{ language.translate("link_euromillions_help") }}">How to play</a>
+                </li>
+                <li class="li--lang">
                     <a href="#">Languages</a>
+
+                    <div class="li--lang--languages">
+                        <ul class="no-li">
+                            <li class="language--li--current">
+                                <a class="link myLang li-language--main-link" href="javascript:void(0);">{{ language.translate(user_language) }}</a>
+                            </li>
+                            {% for active_language in active_languages %}
+                                {% if active_language != user_language %}
+                                    <li>
+                                        <a href="javascript:globalFunctions.setLanguage('{{ active_language }}');">{{ language.translate(active_language) }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+
+                </li>
+                <li class="li--cur">
                     <a href="/{{ language.translate("link_currency") }}">Currencies</a>
                 </li>
             </ul>
