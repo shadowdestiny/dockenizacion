@@ -3,6 +3,10 @@
   top: -42px;
   right: 10px;
   z-index: 11;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    top: -55px;
+  }
 }
 
 .top-nav--mobile-account {
@@ -24,10 +28,10 @@
 
     @media only screen and (min-width: $screen-xs) {}
     @media only screen and (min-width: $screen-ipad-v) {
-      display: none!important;
+      //display: none!important;
     }
     @media only screen and (min-width: $screen-full) {
-      //display: none!important;
+      display: none!important;
     }
 
     & + span {
