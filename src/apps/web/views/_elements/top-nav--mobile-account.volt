@@ -40,6 +40,7 @@
                     <a href="/profile/tickets/games">tickets</a>
                     <a href="/profile/transactions">transactions</a>
                     <a href="/account">my account</a>
+                    <a class="link" href="/logout">{{ language.translate('LogOut') }}</a>
                 </li>
                 <li class="li--help">
                     <a href="/{{ language.translate("link_euromillions_help") }}">How to play</a>
