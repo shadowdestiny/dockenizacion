@@ -187,11 +187,11 @@
                     {% include "account/_nav_mob.volt" %}
                 </div>
 
-                <div class="dashboard-menu--mobile--logout">
-                    LOGOUT
-                </div>
 
-                <div class="dashboard-menu--mobile--back  dashboard-menu--mobile--back--balance">
+                <a class="dashboard-menu--mobile--logout" href="/logout">{{ language.translate('LogOut') }}</a>
+
+
+                <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--balance">
                     <a href="#">
                         {{ language.translate("myAccount_balance", ['balance' :   user_balance ]) }}
                     </a>
@@ -200,7 +200,7 @@
 
             </div>
 
-            <div class="content">
+            <div class="content dashboard-menu--mobile--content">
                 <div class="{% if show_box_basic == true %}hidden{% endif %} right back cl">
                     <a class="btn" href="javascript:void(0);">{{ language.translate("balance_back_btn") }}</a>
                 </div>
