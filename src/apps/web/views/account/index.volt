@@ -25,6 +25,12 @@
                 <div class="dashboard-menu--desktop">
                     {% include "account/_nav.volt" %}
                 </div>
+
+                <div class="dashboard-menu--mobile--back">
+                    <a href="/account/wallet">
+                        {{ language.translate("myAccount_account") }}
+                    </a>
+                </div>
             </div>
             <div class="content content-main-account">
                 <div class="my-account--section my-account" {% if which_form == 'index' %} style="display: block" {% else %} style="display: none" {% endif %}>
