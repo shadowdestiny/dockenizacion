@@ -21,7 +21,7 @@
 
     @media only screen and (min-width: $screen-desktop) {
       //padding-top: 6px;
-      padding-top: 26px;
+      padding-top: 55px;
       padding-bottom: 0;
     }
 
@@ -142,11 +142,17 @@
 
 #content.account-page {
 
-  .dashboard-menu--mobile--logout,
-  .dashboard-menu--mobile--back,
-  .dashboard-menu--mobile--account,
-  .dashboard-menu--mobile {
-    display: none;
+  @media only screen and (min-width: $screen-small) {
+    .dashboard-menu--mobile--logout,
+    .dashboard-menu--mobile--back,
+    .dashboard-menu--mobile--account,
+    .dashboard-menu--mobile {
+      display: none!important;
+    }
+
+    .dashboard-menu--mobile--content {
+      display: block!important;
+    }
   }
 
   @media only screen and (max-width: $width-pre-tablet) {
@@ -274,7 +280,7 @@
         width: 301px;
         margin:auto;
         //margin-top: 30px;
-        margin-top: 55px;
+        margin-top: 25px;
         margin-bottom: 30px;
 
         //background-color: #4dec8c;
@@ -288,6 +294,7 @@
 
       .dashboard-menu--mobile--back {
         display: block;
+        margin-top: 10px;
 
         &.dashboard-menu--mobile--back--balance {
           display: none;
