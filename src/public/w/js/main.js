@@ -327,6 +327,15 @@ $(document).ready(function () {
   }
 
 
+  //Mobile menu language accordion
+  if ($('.top-nav--mobile-account--menu--list .li--lang').length) {
+    $('.top-nav--mobile-account--menu--list').click(function () {
+        $('.li--lang--languages').stop().slideToggle();
+    });
+  }
+
+
+
 
 });
 
