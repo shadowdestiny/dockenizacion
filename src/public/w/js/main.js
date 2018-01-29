@@ -357,9 +357,27 @@ $(document).ready(function () {
 
   // Tickets tables mobile
   if($('.tickets-table').length){
+
     $(this).find('.date-from').click(function(){
       $(this).parent().toggleClass('opened');
     });
+
+
+    // Tickets tables transitions
+    $('.dashboard-menu--my-subscriptions').click(function(){
+      var table = $(this).attr('data-role');
+      $('.nav--tickets--mobile').addClass('hidden');
+      $('.dashboard-menu--mobile--back--tickets').hide();
+      $('.'+table+'').show();
+    });
+
+    $('.dashboard-menu--mobile--back--submenu').click(function(){
+      $(this).closest('.tickets-blocker').hide();
+      $('.dashboard-menu--mobile--back--tickets').show();
+      $('.nav--tickets--mobile').removeClass('hidden');
+    });
+
+
   }
 
 
