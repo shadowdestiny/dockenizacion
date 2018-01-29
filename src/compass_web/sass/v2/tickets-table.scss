@@ -9,16 +9,8 @@
       margin-bottom: 22px;
     }
 
-    //@media only screen and (min-width: $screen-ipad-h) {
-    //  margin-bottom: 28px;
-    //}
-    //
-    //@media only screen and (min-width: $screen-desktop) {
-    //  margin-bottom: 28px;
-    //}
-
     tr {
-      border: 1px solid #333;
+      border-bottom: 1px solid #bbbbbb;
 
       @media only screen and (min-width: $screen-ipad-v) {
         border: 1px solid #333;
@@ -37,7 +29,6 @@
         color: #333;
         font-weight: 700;
         font-size: 11px;
-        /* line-height: 58px; */
         text-align: left;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -54,86 +45,90 @@
           padding-left: 18px;
         }
 
-        //@media only screen and (min-width: $screen-ipad-h) {
-        //  font-size: 18px;
-        //  line-height: 36px;
-        //
-        //  padding-left: 35px;
-        //  padding-bottom: 32px;
-        //}
-        //
         @media only screen and (min-width: $screen-desktop) {
-        //  font-size: 18px;
-        //  line-height: 36px;
-        //
-        //  padding-left: 35px;
-        //  padding-bottom: 32px;
-
           font-size: 14px;
         }
 
         &.lottery {
-          display: none;
-          width: 100px;
+          @media only screen and (max-width: $width-pre-tablet) {
+            //display: none;
+            width: 50%;
+            color: #6c6c6c;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: left;
+            float: left;
+            padding: 0;
+            padding-top: 15px;
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             display: none;
             width: 100px;
           }
 
-          //@media only screen and (min-width: $screen-ipad-h) {
-          //  display: table-cell;
-          //  width: 240px;
-          //}
-          //
-          //@media only screen and (min-width: $screen-desktop) {
-          //  display: table-cell;
-          //  width: 250px;
-          //}
         }
         
         &.date-from {
-          //width: 143px;
-          width: 100%;
-          display: block;
+          @media only screen and (max-width: $width-pre-tablet) {
+            width: 50%;
+            float: right;
+            display: block;
+            text-align: right;
+            color:  #6c6c6c;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 0;
+            padding-top: 15px;
+            padding-right: 30px;
+            position: relative;
+
+            &:before {
+              position: absolute;
+              top: 18px;
+              right: 0px;
+              content: '';
+              display: block;
+              width: 22px;
+              height: 13px;
+              background-image: url('../img/footer/accordion/mobile/accordion-arrow.svg');
+              background-repeat: no-repeat;
+              -webkit-background-size: 22px;
+              background-size: 22px;
+              cursor: pointer;
+              transform: rotate(-90deg);
+            }
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             width: 143px;
             display: table-cell;
           }
-
-          //@media only screen and (min-width: $screen-ipad-h) {
-          //  width: 180px;
-          //}
-          //
-          //@media only screen and (min-width: $screen-desktop) {
-          //  width: 230px;
-          //}
         }
         
         &.date-to {
-          //width: 140px;
-          width: 100%;
-          display: block;
+
+          @media only screen and (max-width: $width-pre-tablet) {
+            width: 100%;
+            clear: both;
+            float: right;
+            display: block;
+            text-align: right;
+            color:  #6c6c6c;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 0;
+            padding-right: 30px;
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             width: 140px;
             display: table-cell;
           }
 
-          //@media only screen and (min-width: $screen-ipad-h) {
-          //  width: 180px;
-          //}
-          //
-          //@media only screen and (min-width: $screen-desktop) {
-          //  width: 200px;
-          //}
         }
         
         &.numbers {
-          //width: auto;
-          //text-align: right;
-          //padding-right: 23px;
 
           width: 100%;
           display: block;
@@ -145,12 +140,6 @@
             display: table-cell;
           }
 
-          //@media only screen and (min-width: $screen-ipad-h) {
-          //  padding-right: 29px;
-          //  font-size: 19px;
-          //  padding-left: 0;
-          //}
-          //
           @media only screen and (min-width: $screen-desktop) {
             //width: 100px;
             //padding-right: 29px;
