@@ -50,34 +50,58 @@
 
             <div class="content">
 
+                <div class="nav">
+                    <div class="dashboard-menu--mobile">
+                        {% include "account/_nav_mob_tickets.volt" %}
+                    </div>
+                </div>
+
 
                 {#Clear html start#}
                 <form action="" class="tickets-form">
 
-                    <div class="mobile-filter-block">
+                    {#<div class="mobile-filter-block">#}
+                        {#{% include "_elements/tickets-filter.volt" %}#}
+                    {#</div>#}
+
+
+                    <div class="tickets-blocker">
+                        <h3>
+                            My Subscriptions
+                        </h3>
+
                         {% include "_elements/tickets-filter.volt" %}
+                        {% include "_elements/tickets-table.volt" %}
+
                     </div>
 
-                    <h3>
-                        My Subscriptions
-                    </h3>
+                    <div class="tickets-blocker">
+                        <h3>
+                            My Tickets
+                        </h3>
 
-                    {% include "_elements/tickets-filter.volt" %}
-                    {% include "_elements/tickets-table.volt" %}
+                        {% include "_elements/tickets-filter.volt" %}
+                        {% include "_elements/tickets-table.volt" %}
 
-                    <h3>
-                        My Tickets
-                    </h3>
+                    </div>
 
-                    {% include "_elements/tickets-filter.volt" %}
-                    {% include "_elements/tickets-table.volt" %}
+                    <div class="tickets-blocker">
+                        <h3>
+                            Past Subscriptions
+                        </h3>
 
-                    <h3>
-                        Past Subscriptions
-                    </h3>
+                        {% include "_elements/tickets-filter.volt" %}
+                        {% include "_elements/tickets-table.volt" %}
+                    </div>
 
-                    {% include "_elements/tickets-filter.volt" %}
-                    {% include "_elements/tickets-table.volt" %}
+                    <div class="tickets-blocker">
+                        <h3>
+                            Past Tickets
+                        </h3>
+
+                        {% include "_elements/tickets-filter.volt" %}
+                        {% include "_elements/tickets-table.volt" %}
+                    </div>
 
                 </form>
                 {#Clear html end#}
