@@ -32,14 +32,17 @@ class LotteriesDataService
     protected $apisFactory;
     protected $entityManager;
 
+    /** @var  EmailService $emailService */
+    protected $emailService;
+
     public function __construct(EntityManager $entityManager, LotteryApisFactory $apisFactory)
     {
         $this->entityManager = $entityManager;
         $this->lotteryDrawRepository = $this->entityManager->getRepository('EuroMillions\web\entities\EuroMillionsDraw');
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->apisFactory = $apisFactory;
-//        $serviceFactory = new ServiceFactory($this->getDI());
-//        $this->emailService = $serviceFactory->getEmailService();
+
+        $this->emailService = \Phalcon\Di::getDefault()->get('domainServiceFactory')->getServiceFactory()->getEmailService();
     }
 
     public function getRaffle($lotteryName, \DateTime $now = null)
@@ -121,7 +124,7 @@ class LotteriesDataService
             if ($draw->getResult()->getRegularNumbers()) {
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();
-
+                $this->sendEmailResultsOrigin('Loterias y Apuestas Results');
                 return $draw->getResult();
 
             } else {
@@ -135,7 +138,7 @@ class LotteriesDataService
                 $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();
-
+                $this->sendEmailResultsOrigin('Mashape Results');
                 return $draw->getResult();
             }
 
@@ -167,8 +170,7 @@ class LotteriesDataService
             if ($draw->getBreakDown()->getCategoryOne()->getName()) {
                 $draw->createBreakDown($result);
                 $this->entityManager->flush();
-//                $this->sendEmailResultsOrigin('Loterias y Apuestas');
-
+                $this->sendEmailResultsOrigin('Loterias y Apuestas Breakdown');
                 return $draw;
 
             } else {
@@ -177,7 +179,7 @@ class LotteriesDataService
                 $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
                 $draw->createBreakDown($result);
                 $this->entityManager->flush();
-//                $this->sendEmailResultsOrigin('Mashape');
+                $this->sendEmailResultsOrigin('Mashape Breakdown');
 
                 return $draw;
             }

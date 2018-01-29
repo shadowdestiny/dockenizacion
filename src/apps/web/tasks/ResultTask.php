@@ -63,22 +63,22 @@ class ResultTask extends TaskBase
     public function updateAction(\DateTime $today = null)
     {
         $results = $this->lotteryService->getLastDrawWithBreakDownByDate('EuroMillions', $this->lotteryService->getLastDrawDate('Euromillions'));
-        $resultNumbers = $results->returnValues()->getResult()->getRegularNumbers();
-        $breakdown = $results->returnValues()->getBreakDown()->getCategoryOne();
-        if (!$resultNumbers || $resultNumbers == ',,,,' || !$breakdown) {
-            try {
+        $result = $this->lotteryService->getLastResult('EuroMillions');
+        $breakdown = $this->lotteryService->getLastBreakdown('Euromillions');
+        try {
+            if (!$result['regular_numbers'][0]) {
                 $this->lotteriesDataService->updateLastDrawResult('EuroMillions');
-                $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
-            } catch (\Exception $e) {
-                $name = 'Breakdown is Empty';
-                $type = '';
-                $message = 'Breakdown is not saved correctly, is empty or have failed.';
-                $time = $now = new \DateTime('NOW');
-                $this->emailService->sendLog($name, $type, $message, $time);
             }
-        } else {
-            echo 'ya hay resultados';
-        }
+            if (!$breakdown->getCategoryOne()->getName()) {
+                $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
+            }
 
+        } catch (\Exception $e) {
+            $name = 'Breakdown is Empty';
+            $type = '';
+            $message = 'Breakdown is not saved correctly, is empty or have failed.';
+            $time = $now = new \DateTime('NOW');
+            $this->emailService->sendLog($name, $type, $message, $time);
+        }
     }
 }
