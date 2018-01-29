@@ -119,6 +119,7 @@
             font-weight: 400;
             padding: 0;
             padding-right: 30px;
+            padding-bottom: 20px;
           }
 
           @media only screen and (min-width: $screen-ipad-v) {
@@ -132,6 +133,12 @@
 
           width: 100%;
           display: block;
+
+          @media only screen and (max-width: $width-pre-tablet) {
+            padding-left: 0;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          }
 
           @media only screen and (min-width: $screen-ipad-v) {
             width: auto;
@@ -148,8 +155,27 @@
           }
 
           span {
-            color:  #333333;
-            margin-left: 3px;
+
+            @media only screen and (max-width: $width-pre-tablet) {
+              color: #333333;
+              margin-right: 4px;
+
+              font-size: 17px;
+              font-weight: 700;
+              text-align: center;
+              display: inline-block;
+
+              border-radius: 50%;
+              border-width: 1px;
+              border-color:  #6c6c6c;
+              border-style: solid;
+              background-color:  #f6f6f6;
+              width: 34px;
+              height: 34px;
+
+              line-height: 31px;
+
+            }
 
             @media only screen and (min-width: $screen-ipad-v) {
               color:  #333333;
@@ -160,12 +186,18 @@
 
             }
 
-            @media only screen and (min-width: $screen-desktop) {
-
-            }
-
           }
           span.star {
+
+            @media only screen and (max-width: $width-pre-tablet) {
+              color: #f8ce0d;
+              border-color: #f8ce0d;
+              margin-left: 15px;
+
+              & + span.star {
+                margin-left: 0px;
+              }
+            }
             color:  #f9d11b;
           }
 
