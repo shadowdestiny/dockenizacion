@@ -10,8 +10,10 @@
 		<div class="minute unit">
 			<span class="val">%-M MIN</span>
 		</div>
-		{#<div class="dots">:</div>#}
-		{#<div class="seconds unit">#}
-			{#<span class="val">%-S s</span>#}
-		{#</div>#}
+        {% if show_s_days == '0' %}
+		<div class="dots">:</div>
+		<div class="seconds unit">
+			<span class="val">%-S SECS</span>
+		</div>
+		{% endif %}
 	</div>
