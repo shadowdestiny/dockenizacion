@@ -64,10 +64,19 @@
 
   // Mobile design
   .tickets-blocker {
-    @media only screen and (min-width: $width-pre-tablet) {
 
+    .dashboard-menu--mobile--back--submenu {
+      display: none;
+    }
+    @media only screen and (max-width: $width-pre-tablet) {
 
+      .dashboard-menu--mobile--back--submenu {
+        display: block;
+      }
 
+      h3 {
+        display: none;
+      }
 
     }
   }
@@ -77,6 +86,12 @@
       display: block;
     }
   }
+
+  .dashboard-menu--mobile--back--tickets {
+
+  }
+
+
 
   @media only screen and (max-width: $width-pre-tablet) {
     .nav ul li {
