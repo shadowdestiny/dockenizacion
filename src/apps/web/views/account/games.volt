@@ -50,8 +50,8 @@
 
             <div class="content">
 
-                <div class="nav">
-                    <div class="dashboard-menu--mobile">
+                <div class="nav nav--tickets--mobile">
+                    <div class="dashboard-menu--mobile dashboard-menu--mobile--tickets-menu">
                         {% include "account/_nav_mob_tickets.volt" %}
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                     {#</div>#}
 
 
-                    <div class="tickets-blocker">
+                    <div class="tickets-blocker tickets-blocker--table-01">
 
                         <div class="nav">
                         <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
@@ -84,7 +84,7 @@
 
                     </div>
 
-                    <div class="tickets-blocker">
+                    <div class="tickets-blocker tickets-blocker--table-02">
 
                         <div class="nav">
                         <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
@@ -103,7 +103,7 @@
 
                     </div>
 
-                    <div class="tickets-blocker">
+                    <div class="tickets-blocker tickets-blocker--table-03">
 
                         <div class="nav">
                         <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
@@ -121,7 +121,7 @@
                         {% include "_elements/tickets-table.volt" %}
                     </div>
 
-                    <div class="tickets-blocker">
+                    <div class="tickets-blocker tickets-blocker--table-04">
 
                         <div class="nav">
                         <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
