@@ -97,7 +97,15 @@
             {% include "account/_breadcrumbs.volt" %}
             <div class="nav">
                 {% set activeSubnav='{"myClass": "transaction"}'|json_decode %}
-                {% include "account/_nav.volt" %}
+                <div class="dashboard-menu--desktop">
+                    {% include "account/_nav.volt" %}
+                </div>
+
+                <div class="dashboard-menu--mobile--back">
+                    <a href="/account/wallet">
+                        {{ language.translate("myAccount_transactions") }}
+                    </a>
+                </div>
             </div>
 
             <div class="content">

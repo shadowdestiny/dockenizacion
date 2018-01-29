@@ -327,6 +327,36 @@ $(document).ready(function () {
   }
 
 
+  //Mobile menu language accordion
+  if ($('.top-nav--mobile-account--menu--list .li--lang').length) {
+    $('.top-nav--mobile-account--menu--list .li--lang').click(function () {
+        $('.li--lang--languages').stop().slideToggle();
+    });
+  }
+
+  //Mobile dashboard menu
+  if ($('.dashboard-menu--balance--link').length) {
+    $('.dashboard-menu--balance--link').click(function () {
+        $('.dashboard-menu--mobile').stop().hide();
+        $('.dashboard-menu--mobile--account').stop().hide();
+        $('.dashboard-menu--mobile--logout').stop().hide();
+        $('.dashboard-menu--mobile--back ').stop().show();
+        $('.dashboard-menu--mobile--back').stop().show();
+        $('.dashboard-menu--mobile--content').stop().show();
+    });
+
+    $('.dashboard-menu--mobile--back.dashboard-menu--mobile--back--balance').click(function () {
+        $('.dashboard-menu--mobile--back ').stop().hide();
+        $('.dashboard-menu--mobile--back').stop().hide();
+        $('.dashboard-menu--mobile--content').stop().hide();
+        $('.dashboard-menu--mobile').stop().show();
+        $('.dashboard-menu--mobile--account').stop().show();
+        $('.dashboard-menu--mobile--logout').stop().show();
+    });
+  }
+
+
+
 
 });
 

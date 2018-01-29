@@ -816,6 +816,8 @@
           padding-top: 12px;
           padding-bottom: 0;
 
+          padding-right: 0;
+
           @media only screen and (min-width: $screen-xs) {
             float: left;
             text-transform: uppercase;
@@ -840,6 +842,8 @@
             font-weight: 900;
             line-height: 36px;
             text-align: left;
+
+            padding-right: 0;
           }
 
           @media only screen and (min-width: $screen-ipad-h) {
@@ -2672,5 +2676,30 @@
 }
 
 .order .box-order .total a {
+  display: none;
+}
+
+.order .box-order {
+  .edit-btn-container {
+    float: right;
+
+    a{
+      padding-right: 50px;
+      margin-top: 0;
+    }
+  }
+}
+
+.review_and_pay-section section.section--numbers-played .box-total-upper .total {
+  //@media only screen and (min-width: $screen-ipad-v) {
+  //  padding-right: 35px;
+  //  position: relative;
+  //  top: -5px;
+  //}
+  //
+  //@media only screen and (min-width: $screen-ipad-v) {
+  //  top: 5px;
+  //}
+
   display: none;
 }

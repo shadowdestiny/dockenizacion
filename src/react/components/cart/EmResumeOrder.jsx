@@ -35,23 +35,27 @@ var EmResumeOrder = new React.createClass({
         return (
             <div className="box-order">
                 <div className="box-total-upper cl">
+
+                    <div className="edit-btn-container">
+                        <a href="/euromillions/play" className="btn purple small ui-link">
+                            Edit
+                        </a>
+                    </div>
+
                     <div className="txt-black-upper">
                         <h1>{this.props.txt_summary}</h1>
                         <span className="txt-bold">{this.props.txt_draws} x{config['frequency']}</span><br />
                         <span className="txt-bold">{text_weeks}</span><br />
                         <span className="txt-bold" style={{ display: jackpot}}>Jackpot: </span><span style={{display: jackpot}}>{config['draw_days']}</span>
                     </div>
+
                     <div className="total">
                         <div className="txt">{this.props.txt_total}</div>
                         <div className="val">{this.props.total_price}</div>
                         <EmBtnPayment href={this.props.href} databtn={this.props.databtn} price={this.props.total_price}
                                       classBtn={this.props.classBtn} text={this.props.text}/>
                     </div>
-                    <div className="edit-btn-container">
-                      <a href="/euromillions/play" className="btn purple small ui-link">
-                        Edit
-                      </a>
-                    </div>
+
                 </div>
             </div>
         )

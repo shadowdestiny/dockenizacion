@@ -57,6 +57,10 @@
   @media only screen and (min-width: $screen-xs) {
     top: -60px;
     left: 10px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      top: -70px;
+    }
   }
 
   .bar {
