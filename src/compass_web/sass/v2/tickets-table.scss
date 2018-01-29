@@ -137,7 +137,13 @@
           @media only screen and (max-width: $width-pre-tablet) {
             padding-left: 0;
             padding-top: 10px;
-            padding-bottom: 10px;
+            //padding-bottom: 10px;
+
+            .numbers--row {
+              margin-bottom: 10px;
+              overflow: hidden;
+              clear: both;
+            }
           }
 
           @media only screen and (min-width: $screen-ipad-v) {
