@@ -355,6 +355,13 @@ $(document).ready(function () {
     });
   }
 
+  // Tickets tables mobile
+  if($('.tickets-table').length){
+    $(this).find('.date-from').click(function(){
+      $(this).parent().toggleClass('opened');
+    });
+  }
+
 
 
 

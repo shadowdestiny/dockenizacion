@@ -139,6 +139,8 @@
             padding-top: 10px;
             //padding-bottom: 10px;
 
+            display: none;
+
             .numbers--row {
               margin-bottom: 10px;
               overflow: hidden;
@@ -150,7 +152,7 @@
             width: auto;
             text-align: right;
             padding-right: 23px;
-            display: table-cell;
+            display: table-cell!important;
           }
 
           @media only screen and (min-width: $screen-desktop) {
@@ -210,6 +212,13 @@
           span:first-of-type {
             margin-left: 0;
           }
+        }
+      }
+    }
+    tr.opened {
+      td.numbers {
+        @media only screen and (max-width: $width-pre-tablet) {
+          display: block;
         }
       }
     }
