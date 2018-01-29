@@ -65,10 +65,13 @@
   // Mobile design
   .tickets-blocker {
 
+
     .dashboard-menu--mobile--back--submenu {
       display: none;
     }
     @media only screen and (max-width: $width-pre-tablet) {
+
+      display: none;
 
       .dashboard-menu--mobile--back--submenu {
         display: block;
@@ -80,6 +83,22 @@
 
     }
   }
+
+  .nav--tickets--mobile {
+    display: none!important;
+    @media only screen and (max-width: $width-pre-tablet) {
+      display: block!important;
+    }
+  }
+  .dashboard-menu--mobile--tickets-menu {
+    display: none;
+    @media only screen and (max-width: $width-pre-tablet) {
+      display: block;
+      padding-top: 20px;
+      padding-bottom: 50px;
+    }
+  }
+
   .dashboard-menu--mobile {
     display: none;
     @media only screen and (max-width: $width-pre-tablet) {
