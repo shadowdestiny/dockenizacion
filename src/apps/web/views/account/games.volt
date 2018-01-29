@@ -38,7 +38,7 @@
                     {% include "account/_nav.volt" %}
                 </div>
 
-                <div class="dashboard-menu--mobile--back">
+                <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--tickets">
                     <a href="/account/wallet">
                         {{ language.translate("myAccount_tickets") }}
                     </a>
@@ -66,6 +66,15 @@
 
 
                     <div class="tickets-blocker">
+
+                        <div class="nav">
+                        <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
+                            <a href="#">
+                                Tickets - Active Subscriptions
+                            </a>
+                        </div>
+                        </div>
+
                         <h3>
                             My Subscriptions
                         </h3>
@@ -76,6 +85,15 @@
                     </div>
 
                     <div class="tickets-blocker">
+
+                        <div class="nav">
+                        <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
+                            <a href="#">
+                                Tickets - Active Tickets
+                            </a>
+                        </div>
+                        </div>
+
                         <h3>
                             My Tickets
                         </h3>
@@ -86,6 +104,15 @@
                     </div>
 
                     <div class="tickets-blocker">
+
+                        <div class="nav">
+                        <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
+                            <a href="#">
+                                Tickets - Past Subscriptions
+                            </a>
+                        </div>
+                        </div>
+
                         <h3>
                             Past Subscriptions
                         </h3>
@@ -95,6 +122,15 @@
                     </div>
 
                     <div class="tickets-blocker">
+
+                        <div class="nav">
+                        <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
+                            <a href="#">
+                                Tickets - Past Tickets
+                            </a>
+                        </div>
+                        </div>
+
                         <h3>
                             Past Tickets
                         </h3>
