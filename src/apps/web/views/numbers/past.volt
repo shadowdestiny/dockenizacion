@@ -46,7 +46,7 @@
 {% block body %}
     <main id="content">
 
-        <div class="result-page--content">
+        <div class="result-page--content--previous-result">
             <div class="banner"></div>
             <div class="wrapper">
 
@@ -55,13 +55,29 @@
             <div class="content">
 
                 {% include "_elements/section-powerball.volt" %}
+
                 <div class="left-section result-section">
+
+                    <div class="jackpot--mobile">
+                        <div class="jackpot--row">
+                            Jackpot €73,000,000
+                        </div>
+                        <div class="next--row">
+                            Next draw \ 21hr : 12min : 33sec
+                        </div>
+                        <div class="btn--row">
+                            <a href="/{{ language.translate("link_euromillions_play") }}" class="btn-theme--big">
+                                Play now
+                            </a>
+                        </div>
+                    </div>
+
                     <h1 class="h1 title">{{ language.translate("resultshist_title") }}</h1>
                     {#<div class="wrap">#}
                     {#<div class="cols">#}
                         {#<div class="col8">#}
 
-                            <div class="box-basic">
+                            <div class="history-numbers-block">
                                 <div class="pad">
                                     <h1 class="h2 purple">{{ language.translate("historyNumbers_title") }}</h1>
                                 </div>
@@ -147,7 +163,7 @@
                         {#</div>#}
                     {#</div>#}
                 {#</div>#}
-                    
+
                 </div>
             </div>
         </div>
