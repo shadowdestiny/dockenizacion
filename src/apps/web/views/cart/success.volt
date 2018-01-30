@@ -75,8 +75,7 @@ function numCharLine($line){
                 {#</div>#}
                 <div class="count">
                     <span class="h4">{{ language.translate("countdown") }}</span>
-                    <span class="purple">{{ date_draw }}</span>
-                    <div class="countdown">
+                    <span class="purple"><div class="countdown">
                         <div class="day unit">
                             <span class="val">%-d {% if show_s_days == '1' %}DAY{% else %}DAYS{% endif %}</span>
                         </div>
@@ -88,14 +87,14 @@ function numCharLine($line){
                         <div class="minute unit">
                             <span class="val">%-M MIN</span>
                         </div>
-                        {% if show_s_days == '0' %}
-                            <div class="dots">:</div>
-                            <div class="seconds unit">
+                            {% if show_s_days == '0' %}
+                                <div class="dots">:</div>
+                                <div class="seconds unit">
                                 <span class="val">%-S SECS</span>
                             </div>
-                        {% endif %}
-                    </div>
-                    {#Countdown to next draw is 7 hours and 11 minutes#}
+                            {% endif %}
+                    </div></span>
+
                 </div>
                 <div class="btn-row">
                     <a href="#" class="btn-theme--big">Play more</a>
