@@ -145,7 +145,7 @@ function numCharLine($line){
                     In case of winning
                 </h3>
                 <p>
-                    We will contact you at <a href="mailto:joseluis@panamedia.net">joseluis@panamedia.net</a> be sure to add our
+                    We will contact you at <a href="mailto:{{ user.email }}">{{ user.email }}</a> be sure to add our
                     <br>
                     email <a href="mailto:support@euromillions.com">support@euromillions.com</a> to your adress book to avoid spam
                     filters.
