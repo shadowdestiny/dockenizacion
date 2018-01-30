@@ -163,13 +163,18 @@
       .top-nav--mobile-account--menu--list {
         //width: 256px;
         width: 100%;
-        overflow: hidden;
-        background-color: #f8ce0d;
+        //background-color: #f8ce0d;
         display: block;
+
+        //overflow: hidden;
+        overflow: scroll;
+        max-height: 100vh;
+        padding-bottom: 60px;
 
         li {
           text-align: left;
           border-bottom: 1px solid #333333;
+          background-color: #f8ce0d;
           padding-left: 10px;
           padding-bottom: 6px;
           padding-top: 7px;
