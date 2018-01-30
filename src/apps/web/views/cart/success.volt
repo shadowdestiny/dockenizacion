@@ -11,8 +11,33 @@ cart success minimal
     {% include "_elements/header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
-{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>if (window!=top){top.location.href=location.href;}localStorage.removeItem('bet_line')</script>{% endblock %}
+{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>if (window!=top){top.location.href=location.href;}localStorage.removeItem('bet_line')</script>
 
+    $(function(){
+    var html_formatted_offset = [];
+    $('.countdown .dots').eq(2).hide();
+    $('.countdown .seconds').hide();
+    var element = $('.countdown');
+    var html_formatted = element.html();
+    $('.countdown .dots').eq(2).show();
+    $('.countdown .seconds').show();
+    $('.countdown .day').remove();
+    $('.countdown .dots').eq(0).remove();
+    html_formatted_offset[0] = $('.countdown').html();
+    $('.countdown .hour').remove();
+    $('.countdown .dots').eq(0).remove();
+    html_formatted_offset[1] = $('.countdown').html();
+    $('.countdown .minute').remove();
+    $('.countdown .dots').eq(0).remove();
+    html_formatted_offset[2] = $('.countdown').html();
+    var finish_action = function(){
+    $('.box-next-draw .btn.red').remove();
+    }
+    var date = '{{ date_draw }}'; {# To test "2015/11/17 10:49:00"  #}
+    var finish_text = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
+    count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
+    });
+{% endblock %}
 {% block body %}
 
 {%  set lines = order.lines|json_decode %}
@@ -49,7 +74,26 @@ function numCharLine($line){
                 {#</div>#}
                 <div class="count">
                     <span class="h4">{{ language.translate("countdown") }}</span>
-                    <span class="purple">{{ countdown_next_draw }}</span>
+                    <span class="purple">{{ date_draw }}</span>
+                    <div class="countdown">
+                        <div class="day unit">
+                            <span class="val">%-d {% if show_s_days == '1' %}DAY{% else %}DAYS{% endif %}</span>
+                        </div>
+                        <div class="dots"></div>
+                        <div class="hour unit">
+                            <span class="val">%-H HRS</span>
+                        </div>
+                        <div class="dots">:</div>
+                        <div class="minute unit">
+                            <span class="val">%-M MIN</span>
+                        </div>
+                        {% if show_s_days == '0' %}
+                            <div class="dots">:</div>
+                            <div class="seconds unit">
+                                <span class="val">%-S SECS</span>
+                            </div>
+                        {% endif %}
+                    </div>
                     {#Countdown to next draw is 7 hours and 11 minutes#}
                 </div>
                 <div class="btn-row">
