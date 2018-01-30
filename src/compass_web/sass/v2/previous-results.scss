@@ -346,9 +346,56 @@
 
     .history-numbers-block {
       @media only screen and (max-width: $width-pre-tablet) {
+
+        margin-left: -10px;
+        margin-right: -10px;
+
         h1 {
           display: none;
         }
+
+        .table, .table2 {
+          display: block;
+
+          tbody {
+            display: block;
+          }
+          tr {
+            border: 0;
+            text-align: left;
+            display: block;
+            padding: 14px 11px;
+
+            td {
+              background-color: #fff;
+              border: 0;
+              padding: 0;
+              line-height: 1;
+            }
+            .td-date {
+              color:  #bbbbbb;
+              font-size: 16px;
+              font-weight: 700;
+              text-align: left;
+              margin-bottom: 7px;
+            }
+
+            .td-star-numbers,
+            .td-ball-numbers {
+              display: inline-block;
+              font-size: 18px;
+              font-weight: 700;
+            }
+          }
+          tr:nth-child(odd) {
+            background: #e8e8e8;
+            
+            td {
+              background: #e8e8e8;
+            }
+          }
+        }
+
       }
     }
 
