@@ -269,8 +269,9 @@ class EuroMillionsDrawBreakDown
         $collection = (empty($this->breakdown[0])) ? $this->breakdown : $this->breakdown[0];
 
         foreach ($collection as $key => $breakDown) {
-            $nameMethod = 'set' . str_replace("_", "", ucwords($key, '_'));
-            //$nameMethod = 'set' . str_replace(" ", "", ucwords(str_replace("_", " ", $key))); //works local enviroment
+//            $nameMethod = 'set' . str_replace("_", "", ucwords($key, '_'));
+            //Change to work in Local
+            $nameMethod = 'set' . str_replace(" ", "", ucwords(str_replace("_", " ", $key)));
             try {
                 if (is_array($breakDown)) {
                     if (($breakDown[1] instanceof Money)) {
