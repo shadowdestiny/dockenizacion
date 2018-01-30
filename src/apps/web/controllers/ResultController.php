@@ -32,6 +32,7 @@ class ResultController extends PublicSiteControllerBase
             'start_draw_date_format' => date('D j M Y',$order_dto->getStartDrawDate()->getTimestamp()),
             'countdown_next_draw' => $date_time_util->getCountDownNextDraw($date_next_draw),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
+            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
         ]);
     }
 
