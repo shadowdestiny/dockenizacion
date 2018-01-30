@@ -16,21 +16,21 @@ cart success minimal
 {% block template_scripts_code %}
     $(function(){
     var html_formatted_offset = [];
-    $('.countdown .dots').eq(2).hide();
-    $('.countdown .seconds').hide();
-    var element = $('.countdown');
+    $('.countdown-black .dots').eq(2).hide();
+    $('.countdown-black .seconds').hide();
+    var element = $('.countdown-black');
     var html_formatted = element.html();
-    $('.countdown .dots').eq(2).show();
-    $('.countdown .seconds').show();
-    $('.countdown .day').remove();
-    $('.countdown .dots').eq(0).remove();
-    html_formatted_offset[0] = $('.countdown').html();
-    $('.countdown .hour').remove();
-    $('.countdown .dots').eq(0).remove();
-    html_formatted_offset[1] = $('.countdown').html();
-    $('.countdown .minute').remove();
-    $('.countdown .dots').eq(0).remove();
-    html_formatted_offset[2] = $('.countdown').html();
+    $('.countdown-black .dots').eq(2).show();
+    $('.countdown-black .seconds').show();
+    $('.countdown-black .day').remove();
+    $('.countdown-black .dots').eq(0).remove();
+    html_formatted_offset[0] = $('.countdown-black').html();
+    $('.countdown-black .hour').remove();
+    $('.countdown-black .dots').eq(0).remove();
+    html_formatted_offset[1] = $('.countdown-black').html();
+    $('.countdown-black .minute').remove();
+    $('.countdown-black .dots').eq(0).remove();
+    html_formatted_offset[2] = $('.countdown-black').html();
     var finish_action = function(){
     $('.box-next-draw .btn.red').remove();
     }
