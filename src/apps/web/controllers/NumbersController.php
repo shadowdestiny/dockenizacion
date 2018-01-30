@@ -75,8 +75,14 @@ class NumbersController extends PublicSiteControllerBase
         }
         $date = $params[0];
         $lotteryName = 'EuroMillions';
+        $actualDate = new \DateTime();
         $date = empty($date) ? new \DateTime() : new \DateTime($date);
         $draw_result = $this->lotteryService->getDrawWithBreakDownByDate($lotteryName, $date);
+        if (!$draw_result->success()) {
+            return $this->dispatcher->forward([
+                'action' => 'pastList'
+            ]);
+        }
         /** @var EuroMillionsDraw $euroMillionsDraw */
         $euroMillionsDraw = $draw_result->getValues();
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
@@ -90,11 +96,13 @@ class NumbersController extends PublicSiteControllerBase
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $euroMillionsDraw->getId(),
             'last_result' => ['regular_numbers' => $euroMillionsDraw->getResult()->getRegularNumbersArray(), 'lucky_numbers' => $euroMillionsDraw->getResult()->getLuckyNumbersArray()],
-            'jackpot_value' => $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')),
+            'jackpot_value' => ViewHelper::formatJackpotNoCents($this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'))),
             'last_draw_date' => $euroMillionsDraw->getDrawDate()->format('D, d M Y'),
             'date_canonical' => $euroMillionsDraw->getDrawDate()->format('Y-m-d'),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
+            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
+            'actual_year' => $actualDate->format('Y'),
             'pageController' => 'euroPastResult',
         ]);
     }

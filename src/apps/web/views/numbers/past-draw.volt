@@ -18,7 +18,37 @@
     <script src="/w/js/mobileFix.min.js"></script>
 {% endblock %}
 {% block template_scripts_code %}
+    function recalculateDrawDates() {
+        $.ajax({
+            type: "POST",
+            url: '/ajax/date-results/getDrawDaysByDate/',
+            data: {
+                month: $('#month option:selected').val(),
+                year: $('#year option:selected').val()
+            },
+            dataType:"json",
+            success: function (response) {
+                var $selectDay = $('#day');
+                $('#day option').remove();
+                response.forEach(function(element){
+                    $selectDay.append('<option value="/' + element["url"] + '">' + element["day"] + ' ' + element["name"] + '</option>');
+                });
+            }
+        });
+    }
+
     $(function(){
+
+    recalculateDrawDates();
+
+    $('#year,#month').change(function(){
+        recalculateDrawDates();
+    });
+
+    $('#show-results').click(function(){
+        location.href = $('#day').val();
+    });
+
     var html_formatted_offset = [];
     $('.countdown .dots').eq(2).hide();
     $('.countdown .seconds').hide();
@@ -45,130 +75,116 @@
 {% endblock %}
 {% block body %}
     <main id="content">
-        <div class="wrapper">
-            <div class="box-basic">
-                <h1 class="h1 title">{{ language.translate("resultsdate_title") }}</h1>
-                <div class="wrap">
-                    <div class="cols">
-                        <div class="col8">
-                            <div class="box-results">
-                                <div class="content cl">
-                                    <h2 class="h2"><span class="purple">{{ language.translate("lastDraw_title") }}</span> {{ last_draw_date }}</h2>
 
-                                    <ul class="no-li inline numbers">
-                                        {% for index,regular_number in last_result["regular_numbers"] %}
-                                            {% if index == '0'%}
-                                                <li>
-                                                    <div class="crown">
-                                                        <svg class="vector"><use xlink:href="/w/svg/number.svg#crown"></use></svg>
-                                                    </div>
-                                                    <span class="num">{{ regular_number }}</span></li>
-                                            {% else %}
-                                                <li><span class="num">{{ regular_number }}</span></li>
-                                            {% endif %}
-                                        {% endfor %}
-                                        {% for lucky_number in last_result["lucky_numbers"] %}
-                                            <li class="star"><span class="num">{{ lucky_number }}</span><span class="txt">{{ language.translate("Star ball") }}</span></li>
-                                        {% endfor %}
-                                    </ul>
-                                    <span class="grey left">{{ language.translate("Draw") }} {{ id_draw }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col4">
-                            <div class="box-estimated">
-                                <div class="laurel first">
-                                    <svg class="vector"><use xlink:href="/w/svg/icon.svg#laurel"></use></svg>
-                                </div>
-                                <div class="laurel last">
-                                    <svg class="vector"><use xlink:href="/w/svg/icon.svg#laurel"></use></svg>
-                                </div>
-                                <div class="bg">
-                                    <a href="/{{ language.translate("link_euromillions_play") }}" class="content">
-                                        <h1 class="h3">{{ language.translate("nextDraw_Estimate") }}</h1>
+        <div class="result-page--content">
 
-                                        {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
-                                        {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
+            <div class="banner"></div>
+            <div class="wrapper">
+                <h2 class="h2 mobile--only">
+                    {{ last_draw_date }}
+                </h2>
 
-                                        <div class="box-next-draw cl">
-                                            <div class="countdown">
-                                                <span class="next-draw">
-                                                    <span class="txt-one">{{ language.translate("Next") }}</span>
-                                                    <br class="br">{{ language.translate("Draw") }}
+                <h3 class="mobile--only">
+                    February 2017
+                </h3>
+
+
+                <div class="title-block">
+
+                    <ul class="no-li inline numbers">
+                        {% for index,regular_number in last_result["regular_numbers"] %}
+                            {% if index == '0' %}
+                                <li>
+                                    <span class="num">{{ regular_number }}</span>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <span class="num">{{ regular_number }}</span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% for lucky_number in last_result["lucky_numbers"] %}
+                            <li class="star">
+                                <span class="num">{{ lucky_number }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <h2 class="h2 desktop--only">
+                        {{ last_draw_date }}
+                    </h2>
+
+                    <h3 class="desktop--only">
+                        {#TODO : Add real variables here#}
+                        February 2017
+                    </h3>
+                </div>
+
+                <div class="content">
+
+                    {% include "_elements/section-powerball.volt" %}
+
+                    <div class="left-section result-section">
+
+                        <div class="box-current-winners--new">
+                            <h1 class="h2">
+                                {#TODO : Add real variables here#}
+                                {{ language.translate("prizePool_title") }}
+                                {#Euromillions Results & price breakdown for Tuesday 02 November 2016#}
+                            </h1>
+                            <table id="current-winners" class="table ui-responsive" data-role="table"
+                                   data-mode="reflow">
+                                <thead>
+                                <tr>
+                                    <th class="td-ball">{{ language.translate("prizePool_ball") }}</th>
+                                    <th class="td-star-ball">{{ language.translate("prizePool_star") }}</th>
+                                    <th class="td-winners">{{ language.translate("prizePool_winners") }}</th>
+                                    <th class="td-prize">{{ language.translate("prizePool_prize") }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for name,categories in break_downs %}
+                                    <tr>
+                                        {% if break_downs[name] is defined %}
+                                            <td class="td-ball">
+                                                <span>
+                                                {#TODO : Add real variables here#}
+                                                    5 Numbers + 2 Starts
                                                 </span>
-                                                <div class="day unit">
-                                                    <span class="val">%-d</span>
-                                                    <span class="txt">day%!d</span>
-                                                </div>
-                                                <div class="dots">:</div>
-                                                <div class="hour unit">
-                                                    <span class="val">%-H</span>
-                                                    <span class="txt">hr</span>
-                                                </div>
-                                                <div class="dots">:</div>
-                                                <div class="minute unit">
-                                                    <span class="val">%-M</span>
-                                                    <span class="txt">min</span>
-                                                </div>
-                                                <div class="dots">:</div>
-                                                <div class="seconds unit">
-                                                    <span class="val">%-S</span>
-                                                    <span class="txt">sec</span>
-                                                </div>
-                                            </div>
-                                            <span class="btn red big right">{{ language.translate("nextDraw_btn") }}</span>
-                                        </div>
+                                            </td>
+                                            <td class="td-star-ball">
+                                                {% if break_downs[name]['stars_corrected'] > 0 %}
+                                                    {% for corrected_stars in 1..break_downs[name]['stars_corrected'] %}
+                                                        <span class="star-ball"></span>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </td>
+                                            <td class="td-winners">
+                                                <span>
+                                                {{ break_downs[name]['winners'] }}x
+                                                </span>
+                                            </td>
+                                            <td class="td-prize">
+                                                <span>
+                                                {{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}
+                                                </span>
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <div class="previous-results mobile--only">
+                                <div class="btn-line">
+                                    <a href="#" class="btn-theme--big">
+                                        Previous results
                                     </a>
                                 </div>
                             </div>
 
-                        </div>
-                    </div>
-                    <div class="cols">
-                        <div class="col8">
-                            <div class="box-current-winners">
-                                <h1 class="h2 purple">{{ language.translate("resultsdate_h2") }}</h1>
-                                <table id="current-winners" class="table ui-responsive" data-role="table" data-mode="reflow">
-                                    <thead>
-                                    <tr>
-                                        <th class="td-ball">{{ language.translate("Numbers") }}</th>
-                                        <th class="td-star-ball">{{ language.translate("Lucky Stars") }}</th>
-                                        <th class="td-winners">{{ language.translate("Winners") }}</th>
-                                        <th class="td-prize">{{ language.translate("Prize") }}</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for name,categories in break_downs %}
-                                        <tr>
-                                            {% if break_downs[name] is defined %}
-                                                <td class="td-ball">
-                                                    {%  for corrected_numbers in 1..break_downs[name]['numbers_corrected'] %}
-                                                        <span class="ball"></span>
-                                                    {% endfor %}
-                                                </td>
-                                                <td class="td-star-ball">
-                                                    {% if break_downs[name]['stars_corrected'] > 0 %}
-                                                        {%  for corrected_stars in 1..break_downs[name]['stars_corrected'] %}
-                                                            <span class="star-ball"></span>
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                </td>
-                                                <td class="td-winners">{{ break_downs[name]['winners'] }}</td>
-                                                <td class="td-prize">{{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}</td>
-                                            {% endif %}
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="cols bottom">
-                                <a href="/{{ language.translate('link_euromillions_results') }}/" class="btn  green big wide ui-link">{{ language.translate("resultsdate_btn") }}</a>
-                            </div>
-                        </div>
-                        <div class="col4">
-                            <div class="box-history">
+                            {% include "_elements/previous-results-euromillions.volt" %}
 
-                            </div>
                         </div>
                     </div>
                 </div>
