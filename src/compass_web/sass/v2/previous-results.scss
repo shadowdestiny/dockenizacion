@@ -1,0 +1,668 @@
+// Previous results page
+
+.result-page--content--previous-result {
+  padding-bottom: 0px;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    padding-bottom: 60px;
+  }
+  @media only screen and (min-width: $screen-ipad-h) {}
+  @media only screen and (min-width: $screen-desktop) {
+    padding-bottom: 46px;
+  }
+
+  .banner {
+    display: none;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      display: block;
+
+      height: 398px;
+      background-image: url("../img/home/banner/desktop/banner.png");
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      -webkit-background-size: cover;
+      background-size: cover;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {}
+    @media only screen and (min-width: $screen-desktop) {
+      height: 300px;
+    }
+  }
+
+  //h2.mobile--only {
+  //  color:  #f8ce0d;
+  //  font-size: 24px;
+  //  font-weight: 900;
+  //  text-align: left;
+  //  margin-top: -6px;
+  //  margin-bottom: 0;
+  //
+  //  @media only screen and (min-width: $screen-ipad-v) {
+  //    display: none;
+  //  }
+  //}
+
+  //h3.mobile--only {
+  //  color:  #f8ce0d;
+  //  font-size: 18px;
+  //  font-weight: 400;
+  //  text-align: left;
+  //  margin-bottom: 10px;
+  //
+  //  @media only screen and (min-width: $screen-ipad-v) {
+  //    display: none;
+  //  }
+  //}
+
+
+  //.title-block {
+  //
+  //  background: -webkit-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+  //  background: -moz-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+  //  background: -o-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+  //  background: -ms-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+  //  background: linear-gradient(90deg, #51a0e9 0%, #1678d3 100%);
+  //
+  //
+  //  position: relative;
+  //  height: 64px;
+  //  margin-bottom: 0px;
+  //  z-index: 1;
+  //  overflow: hidden;
+  //
+  //  padding: 13px 12px 0 8px;
+  //
+  //  @media only screen and (max-width: $width-pre-tablet) {
+  //    margin-left: -$screen-xxs-wrapper--padding;
+  //    margin-right: -$screen-xxs-wrapper--padding;
+  //  }
+  //
+  //  @media only screen and (min-width: $screen-ipad-v) {
+  //    height: 130px;
+  //    top: -130px;
+  //    margin-bottom: -119px;
+  //    padding: 34px 42px 0 28px;
+  //  }
+  //  @media only screen and (min-width: $screen-ipad-h) {
+  //    height: 157px;
+  //    top: -157px;
+  //    margin-bottom: -149px;
+  //  }
+  //  @media only screen and (min-width: $screen-desktop) {
+  //    //height: 171px;
+  //    //top: -171px;
+  //    //margin-bottom: -149px;
+  //
+  //    height: 127px;
+  //    top: -127px;
+  //    margin-bottom: -111px;
+  //    padding: 23px 34px 0 21px;
+  //  }
+  //
+  //  h2.desktop--only {
+  //    //font-family: WorkSans;
+  //    color: #ffffff;
+  //    font-weight: 900;
+  //    text-align: center;
+  //    font-size: 28px;
+  //    margin-bottom: 0px;
+  //    display: none;
+  //
+  //    @media only screen and (min-width: $screen-ipad-v) {
+  //      font-size: 28px;
+  //      margin-bottom: 0px;
+  //      text-align: left;
+  //      display: block;
+  //    }
+  //    @media only screen and (min-width: $screen-ipad-h) {
+  //      font-size: 42px;
+  //      margin-bottom: 10px;
+  //    }
+  //    @media only screen and (min-width: $screen-desktop) {
+  //      font-size: 35px;
+  //      margin-bottom: 4px;
+  //    }
+  //  }
+  //
+  //  h3.desktop--only {
+  //    //font-family: WorkSans;
+  //    color: #ffffff;
+  //    font-size: 16px;
+  //    font-weight: 400;
+  //    text-align: center;
+  //    display: none;
+  //
+  //    @media only screen and (min-width: $screen-ipad-v) {
+  //      font-size: 22px;
+  //      text-align: left;
+  //      display: block;
+  //    }
+  //    @media only screen and (min-width: $screen-ipad-h) {
+  //      font-size: 32px;
+  //    }
+  //    @media only screen and (min-width: $screen-desktop) {
+  //      font-size: 27px;
+  //    }
+  //  }
+  //
+  //  ul {
+  //    float: none;
+  //
+  //    @media only screen and (min-width: $screen-ipad-v) {
+  //      float: right;
+  //    }
+  //    @media only screen and (min-width: $screen-ipad-h) {
+  //      margin-top: 9px;
+  //
+  //    }
+  //    @media only screen and (min-width: $screen-desktop) {
+  //      margin-top: 0;
+  //    }
+  //
+  //    li {
+  //      background-image: url('../img/results/desktop/ellipce.png');
+  //      background-repeat: no-repeat;
+  //      background-position: 50% 50%;
+  //      text-align: center;
+  //      -webkit-background-size: 38px;
+  //      background-size: 38px;
+  //      width: 38px;
+  //      height: 38px;
+  //      line-height: 38px;
+  //
+  //      //font-family: RobotoCondensed;
+  //      font-family: $ff4;
+  //      color: #333333;
+  //      font-weight: 700;
+  //      font-size: 18px;
+  //      margin-left: 4px;
+  //      float: left;
+  //
+  //      @media only screen and (min-width: $screen-ipad-v) {
+  //        -webkit-background-size: 50px;
+  //        background-size: 50px;
+  //        width: 50px;
+  //        height: 50px;
+  //        line-height: 50px;
+  //        font-size: 24px;
+  //        margin-left: 5px;
+  //        float: none;
+  //        vertical-align: top;
+  //      }
+  //      @media only screen and (min-width: $screen-ipad-h) {
+  //        -webkit-background-size: 70px;
+  //        background-size: 70px;
+  //        width: 70px;
+  //        height: 70px;
+  //        line-height: 70px;
+  //        font-size: 33px;
+  //        margin-left: 5px;
+  //      }
+  //      @media only screen and (min-width: $screen-desktop) {
+  //        -webkit-background-size: 76px;
+  //        background-size: 76px;
+  //        width: 76px;
+  //        height: 76px;
+  //        line-height: 78px;
+  //        font-size: 35px;
+  //        margin-left: 1px;
+  //      }
+  //    }
+  //
+  //    li.star {
+  //
+  //      background-image: url('../img/results/desktop/star.png');
+  //      background-repeat: no-repeat;
+  //      background-position: 50% 50%;
+  //      text-align: center;
+  //      //height: 106px;
+  //      -webkit-background-size: 35px;
+  //      background-size: 35px;
+  //      width: 38px;
+  //      line-height: 38px;
+  //      margin-left: 7px;
+  //
+  //      position: relative;
+  //      top: -1px;
+  //
+  //      @media only screen and (min-width: $screen-ipad-v) {
+  //        -webkit-background-size: 47px;
+  //        background-size: 47px;
+  //        width: 50px;
+  //        line-height: 50px;
+  //        margin-left: 20px;
+  //        top: 0px;
+  //      }
+  //      @media only screen and (min-width: $screen-ipad-h) {
+  //        -webkit-background-size: 66px;
+  //        background-size: 66px;
+  //        width: 70px;
+  //        line-height: 70px;
+  //        margin-left: 17px;
+  //      }
+  //      @media only screen and (min-width: $screen-desktop) {
+  //        -webkit-background-size: 72px;
+  //        background-size: 72px;
+  //        width: 72px;
+  //        line-height: 72px;
+  //        margin-left: 26px;
+  //      }
+  //
+  //      &:last-of-type {
+  //        //margin-left: 12px;
+  //
+  //        @media only screen and (min-width: $screen-ipad-v) {
+  //          margin-left: 12px;
+  //        }
+  //        @media only screen and (min-width: $screen-ipad-h) {}
+  //        @media only screen and (min-width: $screen-desktop) {}
+  //      }
+  //
+  //      span {
+  //        position: relative;
+  //        top: 2px;
+  //
+  //        @media only screen and (min-width: $screen-ipad-v) {
+  //          top: 2px;
+  //        }
+  //        @media only screen and (min-width: $screen-ipad-h) {
+  //          top: 5px;
+  //        }
+  //        @media only screen and (min-width: $screen-desktop) {
+  //          top: 5px;
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
+
+  .content {
+    padding: 0;
+  }
+
+  .right-section {
+    display: none;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      display: none;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      display: block;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      display: block;
+    }
+  }
+
+  .result-section {
+
+    .jackpot--mobile {
+      display: none;
+
+      @media only screen and (max-width: $width-pre-tablet) {
+        display: block;
+
+        .jackpot--row {
+          text-align: center;
+          color:  #333333;
+          font-size: 25px;
+          font-weight: 900;
+          line-height: 31.124px;
+          text-transform: uppercase;
+        }
+        .next--row {
+          text-align: center;
+          color:  #fadc5c;
+          font-size: 16px;
+          font-weight: 900;
+          line-height: 31.124px;
+          text-transform: uppercase;
+        }
+        .btn--row {
+          .btn-theme--big{
+            height: 48px;
+            font-size: 18px;
+            line-height: 48px;
+            color:  #f2f2f2;
+            width: 300px;
+
+            margin-bottom: 29px;
+          }
+        }
+
+      }
+    }
+
+    h1 {
+      @media only screen and (max-width: $width-pre-tablet) {
+        color: #f8ce0d;
+        font-size: 24px;
+        font-weight: 900;
+        text-align: left;
+        text-transform: uppercase;
+      }
+    }
+
+    .history-numbers-block {
+      @media only screen and (max-width: $width-pre-tablet) {
+        h1 {
+          display: none;
+        }
+      }
+    }
+
+    .ui-responsive .ui-table-cell-label {
+      display: none;
+    }
+
+    @media only screen and (min-width: $screen-ipad-v) {}
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      padding-right: 380px;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      padding-right: 290px;
+    }
+
+    .box-current-winners--new {
+      background: -webkit-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
+      background: -moz-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
+      background: -o-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
+      background: -ms-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
+      background: linear-gradient(0deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
+      //width: 896px;
+      //height: 855px;
+      padding: 16px 10px 5px 10px;
+
+      @media only screen and (max-width: $width-pre-tablet) {
+        margin-left: -$screen-xxs-wrapper--padding;
+        margin-right: -$screen-xxs-wrapper--padding;
+      }
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        padding: 25px 25px 5px 25px;
+      }
+      @media only screen and (min-width: $screen-ipad-h) {}
+      @media only screen and (min-width: $screen-desktop) {
+        padding: 17px 10px 5px 20px;
+      }
+
+      h1 {
+        color: #454545;
+        font-size: 18px;
+        font-weight: 700;
+        text-align: left;
+        text-transform: none;
+        margin-bottom: 5px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          color: #454545;
+          font-size: 23px;
+          font-weight: 700;
+          text-align: left;
+          text-transform: none;
+          margin-bottom: 53px;
+        }
+        @media only screen and (min-width: $screen-ipad-h) {}
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 18px;
+          margin-bottom: 39px;
+        }
+      }
+
+      .table {
+        background-color: transparent;
+        border:0;
+
+        tr {
+          text-align: left;
+        }
+        td {
+          background-color: transparent;
+          border: 0;
+          width: 100%;
+          display: block;
+          padding: 3px 0 3px 3px;
+          padding-left: 0;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            background-color: transparent;
+            border: 0;
+            width: 33%;
+            padding: 3px 0 24px 3px;
+            display: table-cell;
+          }
+          @media only screen and (min-width: $screen-ipad-h) {}
+          @media only screen and (min-width: $screen-desktop) {
+            padding-bottom: 15px;
+          }
+        }
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody {
+
+
+        .td-ball {
+
+          padding-top: 12px;
+
+          @media only screen and (max-width: $width-pre-tablet) {
+            width: 70%;
+            display: inline-block;
+          }
+
+          span {
+            @media only screen and (max-width: $width-pre-tablet) {
+              font-size: 18px;
+              font-weight: 400;
+            }
+          }
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            padding-top: 3px;
+            width: 40%;
+          }
+          @media only screen and (min-width: $screen-ipad-h) {
+            width: 40%;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            width: 33.33%;
+            padding-top: 1px;
+          }
+        }
+
+        .td-star-ball {
+          display: none;
+        }
+
+        .td-winners {
+          //padding-left: 153px;
+
+          float: right;
+          width: auto;
+
+          @media only screen and (max-width: $width-pre-tablet) {
+            padding-top: 13px;
+          }
+
+          span {
+            @media only screen and (max-width: $width-pre-tablet) {
+              font-size: 18px;
+              font-weight: 700;
+              text-transform: uppercase;
+            }
+          }
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            padding-left: 0px;
+            float: none;
+          }
+          @media only screen and (min-width: $screen-ipad-h) {
+            padding-left: 50px;
+            width: 20%;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            padding-left: 114px;
+            width: 33.33%;
+            padding-top: 0;
+          }
+        }
+
+        .td-prize{
+          //padding-left: 106px;
+          text-align: left;
+
+          @media only screen and (max-width: $width-pre-tablet) {
+            padding-top: 0;
+            padding-bottom: 0;
+            padding-left: 0;
+          }
+          //border-bottom: 1px solid #efc048;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            text-align: right;
+            border-bottom: 0;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            padding-top: 0;
+            padding-right: 32px;
+          }
+
+          span {
+            @media only screen and (max-width: $width-pre-tablet) {
+              font-size: 18px;
+              font-weight: 700;
+            }
+          }
+        }
+
+        span {
+          //font-family: WorkSans;
+          color: #333333;
+          font-size: 16px;
+          font-weight: 400;
+          text-align: left;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            font-size: 18px;
+          }
+          @media only screen and (min-width: $screen-ipad-h) {
+            font-size: 18px;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    .previous-results.mobile--only {
+      display: block;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        display: none;
+      }
+
+      .btn-line {
+        text-align: center;
+        padding-top: 25px;
+        padding-bottom: 25px;
+
+        .btn-theme--big {
+          height: 48px;
+          line-height: 48px;
+          color:  #f2f2f2;
+          font-size: 18px;
+          font-weight: 700;
+          width: 100%;
+        }
+      }
+    }
+    .previous-results.desktop--only {
+      display: none;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        overflow: hidden;
+        padding: 30px 3px 0 3px;
+        display: block;
+      }
+      @media only screen and (min-width: $screen-ipad-h) {}
+      @media only screen and (min-width: $screen-desktop) {
+        padding-top: 22px;
+        padding-left: 1px;
+      }
+
+      .previous-results--title {
+        //font-family: WorkSans;
+        color:  #333333;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: left;
+        padding-bottom: 22px;
+
+        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-h) {}
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 14px;
+          padding-bottom: 14px;
+        }
+      }
+
+      .previous-results--selectboxes {
+        text-align: left;
+
+        .selectbox {
+          display: inline-block;
+          margin-right: 6px;
+
+          @media only screen and (min-width: $screen-desktop) {
+            margin-right: 3px;
+          }
+
+          &::after {
+            background-image: url('../img/results/desktop/arrow.png');
+            top: 13px;
+            right: 16px;
+
+            @media only screen and (min-width: $screen-ipad-v) {}
+            @media only screen and (min-width: $screen-ipad-h) {}
+            @media only screen and (min-width: $screen-desktop) {
+              top: 10px;
+              right: 13px;
+            }
+          }
+
+          select {
+            height: 33px;
+            padding-left: 14px;
+            padding-right: 55px;
+            border-radius: 4px;
+            border-width: 1px;
+            border-color:  #000000;
+
+            //font-family: WorkSans;
+            color:  #333333;
+            font-size: 18px;
+            font-weight: 400;
+            text-align: left;
+
+            @media only screen and (min-width: $screen-ipad-v) {}
+            @media only screen and (min-width: $screen-ipad-h) {}
+            @media only screen and (min-width: $screen-desktop) {
+              height: 25px;
+              padding-left: 11px;
+              padding-right: 44px;
+              font-size: 13px;
+              line-height: 24px;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
