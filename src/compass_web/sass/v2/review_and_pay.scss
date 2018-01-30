@@ -1586,6 +1586,10 @@
           margin-bottom: 10px;
           padding-bottom: 0px;
 
+          @include input-placeholder {
+            color: $v2-placeholder-color;
+          }
+
           @media only screen and (min-width: $screen-xs) {
             border-radius: 4px;
             border-width: 1px;
@@ -1606,6 +1610,10 @@
             height: 62px;
             margin-bottom: 20px;
             padding-bottom: 2px;
+
+            @include input-placeholder {
+              color: transparent!important;
+            }
           }
 
           @media only screen and (min-width: $screen-ipad-h) {
