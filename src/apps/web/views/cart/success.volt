@@ -76,7 +76,7 @@ function numCharLine($line){
                 <div class="count">
                     <span class="h4">{{ language.translate("countdown") }}
                         <span class="timer">
-                            <div class="countdown">
+                            <div class="countdown-black">
                                 <div class="day unit">
                                     <span class="val">%-d {% if show_s_days == '1' %}DAY{% else %}DAYS{% endif %}</span>
                                 </div>
