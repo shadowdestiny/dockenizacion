@@ -26,7 +26,8 @@ class CreditCardForm extends Form
         $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
 
         $card_number = new Text('card-number', array(
-            'placeholder' => $translationAdapter->query('card_number_placeholder'),
+//            'placeholder' => $translationAdapter->query('card_number_placeholder'),
+            'placeholder' => '',
             'autocomplete' => 'off',
             'maxlength' => 16
 
@@ -50,10 +51,10 @@ class CreditCardForm extends Form
         $this->add($card_number);
 
         $card_holder = new Text('card-holder', array(
-            'placeholder' => $translationAdapter->query('card_holder_placeholder'),
+//            'placeholder' => $translationAdapter->query('card_holder_placeholder'),
+            'placeholder' => '',
             'autocomplete' => 'off',
-//            'value' => $options['Name'] . ' ' . $options['Surname']
-            'value' => $options['Name'] . '' . $options['Surname']
+            'value' => $options['Name'] . ' ' . $options['Surname']
         ));
         $card_holder->addValidators(array(
             new PresenceOf(array(
@@ -67,7 +68,7 @@ class CreditCardForm extends Form
         $this->add($card_holder);
 
         $card_cvv = new Text('card-cvv', array(
-            'placeholder' => 'CVV',
+            'placeholder' => '',
             'autocomplete' => 'off'
         ));
 
