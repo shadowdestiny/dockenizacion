@@ -40,6 +40,7 @@ class NumbersController extends PublicSiteControllerBase
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
+            'actual_year' => (new \DateTime())->format('Y'),
             'pageController' => 'euroResult',
         ]);
     }
