@@ -52,7 +52,8 @@ class CreditCardForm extends Form
         $card_holder = new Text('card-holder', array(
             'placeholder' => $translationAdapter->query('card_holder_placeholder'),
             'autocomplete' => 'off',
-            'value' => $options['Name'] . ' ' . $options['Surname']
+//            'value' => $options['Name'] . ' ' . $options['Surname']
+            'value' => $options['Name'] . '' . $options['Surname']
         ));
         $card_holder->addValidators(array(
             new PresenceOf(array(
@@ -66,7 +67,7 @@ class CreditCardForm extends Form
         $this->add($card_holder);
 
         $card_cvv = new Text('card-cvv', array(
-            'placeholder' => '',
+            'placeholder' => 'CVV',
             'autocomplete' => 'off'
         ));
 
