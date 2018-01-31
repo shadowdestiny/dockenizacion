@@ -38,7 +38,7 @@
                     {% include "account/_nav.volt" %}
                 </div>
 
-                <div class="dashboard-menu--mobile--back">
+                <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--tickets">
                     <a href="/account/wallet">
                         {{ language.translate("myAccount_tickets") }}
                     </a>
@@ -50,34 +50,94 @@
 
             <div class="content">
 
+                <div class="nav nav--tickets--mobile">
+                    <div class="dashboard-menu--mobile dashboard-menu--mobile--tickets-menu">
+                        {% include "account/_nav_mob_tickets.volt" %}
+                    </div>
+                </div>
+
 
                 {#Clear html start#}
                 <form action="" class="tickets-form">
 
-                    <div class="mobile-filter-block">
+                    {#<div class="mobile-filter-block">#}
+                        {#{% include "_elements/tickets-filter.volt" %}#}
+                    {#</div>#}
+
+
+                    <div class="tickets-blocker tickets-blocker--table-01">
+
+                        <div class="nav">
+                        <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
+                            <a href="#">
+                                Tickets - Active Subscriptions
+                            </a>
+                        </div>
+                        </div>
+
+                        <h3>
+                            My Subscriptions
+                        </h3>
+
                         {% include "_elements/tickets-filter.volt" %}
+                        {% include "_elements/tickets-table.volt" %}
+
                     </div>
 
-                    <h3>
-                        My Subscriptions
-                    </h3>
+                    <div class="tickets-blocker tickets-blocker--table-02">
 
-                    {% include "_elements/tickets-filter.volt" %}
-                    {% include "_elements/tickets-table.volt" %}
+                        <div class="nav">
+                        <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
+                            <a href="#">
+                                Tickets - Active Tickets
+                            </a>
+                        </div>
+                        </div>
 
-                    <h3>
-                        My Tickets
-                    </h3>
+                        <h3>
+                            My Tickets
+                        </h3>
 
-                    {% include "_elements/tickets-filter.volt" %}
-                    {% include "_elements/tickets-table.volt" %}
+                        {% include "_elements/tickets-filter.volt" %}
+                        {% include "_elements/tickets-table.volt" %}
 
-                    <h3>
-                        Past Subscriptions
-                    </h3>
+                    </div>
 
-                    {% include "_elements/tickets-filter.volt" %}
-                    {% include "_elements/tickets-table.volt" %}
+                    <div class="tickets-blocker tickets-blocker--table-03">
+
+                        <div class="nav">
+                        <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
+                            <a href="#">
+                                Tickets - Past Subscriptions
+                            </a>
+                        </div>
+                        </div>
+
+                        <h3>
+                            Past Subscriptions
+                        </h3>
+
+                        {% include "_elements/tickets-filter.volt" %}
+                        {% include "_elements/tickets-table.volt" %}
+                    </div>
+
+                    <div class="tickets-blocker tickets-blocker--table-04">
+
+                        <div class="nav">
+                        <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
+                            <a href="#">
+                                Tickets - Past Tickets
+                            </a>
+                        </div>
+                        </div>
+
+                        <h3>
+                            Past Tickets
+                        </h3>
+
+                        {% include "_elements/tickets-filter.volt" %}
+                        {% include "_elements/tickets-table.volt" %}
+                    </div>
 
                 </form>
                 {#Clear html end#}

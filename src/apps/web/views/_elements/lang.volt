@@ -5,7 +5,7 @@
         <div class="div-language--content">
         <ul class="no-li">
             <li class="language--li--current">
-                <a class="link myLang li-language--main-link" href="javascript:void(0);">{{ language.translate(user_language) }}</a>
+                <a class="link myLang" href="javascript:void(0);">{{ language.translate(user_language) }}</a>
             </li>
             {% for active_language in active_languages %}
                 {% if active_language != user_language %}

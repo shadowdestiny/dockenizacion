@@ -45,14 +45,39 @@
 {% endblock %}
 {% block body %}
     <main id="content">
-        <div class="wrapper">
-            <div class="box-basic">
-                <h1 class="h1 title">{{ language.translate("resultshist_title") }}</h1>
-                <div class="wrap">
-                    <div class="cols">
-                        <div class="col8">
 
-                            <div class="box-basic">
+        <div class="result-page--content--previous-result">
+            <div class="banner"></div>
+            <div class="wrapper">
+
+                <br>
+
+            <div class="content">
+
+                {% include "_elements/section-powerball.volt" %}
+
+                <div class="left-section result-section">
+
+                    <div class="jackpot--mobile">
+                        <div class="jackpot--row">
+                            Jackpot €73,000,000
+                        </div>
+                        <div class="next--row">
+                            Next draw \ 21hr : 12min : 33sec
+                        </div>
+                        <div class="btn--row">
+                            <a href="/{{ language.translate("link_euromillions_play") }}" class="btn-theme--big">
+                                Play now
+                            </a>
+                        </div>
+                    </div>
+
+                    <h1 class="h1 title">{{ language.translate("resultshist_title") }}</h1>
+                    {#<div class="wrap">#}
+                    {#<div class="cols">#}
+                        {#<div class="col8">#}
+
+                            <div class="history-numbers-block">
                                 <div class="pad">
                                     <h1 class="h2 purple">{{ language.translate("historyNumbers_title") }}</h1>
                                 </div>
@@ -81,62 +106,67 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="col4">
-                            <div class="box-estimated">
-                                <div class="laurel first">
-                                    <svg class="vector">
-                                        <use xlink:href="/w/svg/icon.svg#laurel"></use>
-                                    </svg>
-                                </div>
-                                <div class="laurel last">
-                                    <svg class="vector">
-                                        <use xlink:href="/w/svg/icon.svg#laurel"></use>
-                                    </svg>
-                                </div>
-                                <div class="bg">
-                                    <a href="/{{ language.translate("link_euromillions_play") }}" class="content">
-                                        <h1 class="h3">{{ language.translate("nextDraw_Estimate") }}</h1>
+                        {#</div>#}
 
-                                        {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
-                                        {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
+                        {#TODO : This is the old block #}
+                        {#<div class="col4">#}
+                            {#<div class="box-estimated">#}
+                                {#<div class="laurel first">#}
+                                    {#<svg class="vector">#}
+                                        {#<use xlink:href="/w/svg/icon.svg#laurel"></use>#}
+                                    {#</svg>#}
+                                {#</div>#}
+                                {#<div class="laurel last">#}
+                                    {#<svg class="vector">#}
+                                        {#<use xlink:href="/w/svg/icon.svg#laurel"></use>#}
+                                    {#</svg>#}
+                                {#</div>#}
+                                {#<div class="bg">#}
+                                    {#<a href="/{{ language.translate("link_euromillions_play") }}" class="content">#}
+                                        {#<h1 class="h3">{{ language.translate("nextDraw_Estimate") }}</h1>#}
 
-                                        <div class="box-next-draw cl">
-                                            <div class="countdown">
-                                                <span class="next-draw">
-                                                    <span class="txt-one">{{ language.translate("Next") }}</span>
-                                                    <br class="br">{{ language.translate("Draw") }}
-                                                </span>
-                                                <div class="day unit">
-                                                    <span class="val">%-d</span>
-                                                    <span class="txt">day%!d</span>
-                                                </div>
-                                                <div class="dots">:</div>
-                                                <div class="hour unit">
-                                                    <span class="val">%-H</span>
-                                                    <span class="txt">hr</span>
-                                                </div>
-                                                <div class="dots">:</div>
-                                                <div class="minute unit">
-                                                    <span class="val">%-M</span>
-                                                    <span class="txt">min</span>
-                                                </div>
-                                                <div class="dots">:</div>
-                                                <div class="seconds unit">
-                                                    <span class="val">%-S</span>
-                                                    <span class="txt">sec</span>
-                                                </div>
-                                            </div>
-                                            <span class="btn red big right">{{ language.translate("nextDraw_btn") }}</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+                                        {#{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}#}
+                                        {#{% include "_elements/jackpot-value" with ['extraClass': extraClass] %}#}
 
-                        </div>
-                    </div>
+                                        {#<div class="box-next-draw cl">#}
+                                            {#<div class="countdown">#}
+                                                {#<span class="next-draw">#}
+                                                    {#<span class="txt-one">{{ language.translate("Next") }}</span>#}
+                                                    {#<br class="br">{{ language.translate("Draw") }}#}
+                                                {#</span>#}
+                                                {#<div class="day unit">#}
+                                                    {#<span class="val">%-d</span>#}
+                                                    {#<span class="txt">day%!d</span>#}
+                                                {#</div>#}
+                                                {#<div class="dots">:</div>#}
+                                                {#<div class="hour unit">#}
+                                                    {#<span class="val">%-H</span>#}
+                                                    {#<span class="txt">hr</span>#}
+                                                {#</div>#}
+                                                {#<div class="dots">:</div>#}
+                                                {#<div class="minute unit">#}
+                                                    {#<span class="val">%-M</span>#}
+                                                    {#<span class="txt">min</span>#}
+                                                {#</div>#}
+                                                {#<div class="dots">:</div>#}
+                                                {#<div class="seconds unit">#}
+                                                    {#<span class="val">%-S</span>#}
+                                                    {#<span class="txt">sec</span>#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                            {#<span class="btn red big right">{{ language.translate("nextDraw_btn") }}</span>#}
+                                        {#</div>#}
+                                    {#</a>#}
+                                {#</div>#}
+                            {#</div>#}
+
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+
                 </div>
             </div>
+        </div>
         </div>
     </main>
 {% endblock %}

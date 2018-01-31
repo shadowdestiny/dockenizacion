@@ -12,13 +12,27 @@
                 03/01/2017
             </td>
             <td class="numbers">
-                <span>02</span>
-                <span>09</span>
-                <span>12</span>
-                <span>32</span>
-                <span>34</span>
-                <span class="star">05</span>
-                <span class="star">09</span>
+
+                <div class="numbers--row">
+                    <span>02</span>
+                    <span>09</span>
+                    <span>12</span>
+                    <span>32</span>
+                    <span>34</span>
+                    <span class="star">05</span>
+                    <span class="star">09</span>
+                </div>
+
+                <div class="numbers--row">
+                    <span>02</span>
+                    <span>09</span>
+                    <span>12</span>
+                    <span>32</span>
+                    <span>34</span>
+                    <span class="star">05</span>
+                    <span class="star">09</span>
+                </div>
+
             </td>
         </tr>
         <tr>
@@ -32,13 +46,25 @@
                 09/01/2017
             </td>
             <td class="numbers">
-                <span>02</span>
-                <span>09</span>
-                <span>12</span>
-                <span>32</span>
-                <span>34</span>
-                <span class="star">05</span>
-                <span class="star">09</span>
+                <div class="numbers--row">
+                    <span>02</span>
+                    <span>09</span>
+                    <span>12</span>
+                    <span>32</span>
+                    <span>34</span>
+                    <span class="star">05</span>
+                    <span class="star">09</span>
+                </div>
+
+                <div class="numbers--row">
+                    <span>02</span>
+                    <span>09</span>
+                    <span>12</span>
+                    <span>32</span>
+                    <span>34</span>
+                    <span class="star">05</span>
+                    <span class="star">09</span>
+                </div>
             </td>
         </tr>
         <tr>
@@ -52,13 +78,25 @@
                 12/01/2017
             </td>
             <td class="numbers">
-                <span>02</span>
-                <span>09</span>
-                <span>12</span>
-                <span>32</span>
-                <span>34</span>
-                <span class="star">05</span>
-                <span class="star">09</span>
+                <div class="numbers--row">
+                    <span>02</span>
+                    <span>09</span>
+                    <span>12</span>
+                    <span>32</span>
+                    <span>34</span>
+                    <span class="star">05</span>
+                    <span class="star">09</span>
+                </div>
+
+                <div class="numbers--row">
+                    <span>02</span>
+                    <span>09</span>
+                    <span>12</span>
+                    <span>32</span>
+                    <span>34</span>
+                    <span class="star">05</span>
+                    <span class="star">09</span>
+                </div>
             </td>
         </tr>
     </table>

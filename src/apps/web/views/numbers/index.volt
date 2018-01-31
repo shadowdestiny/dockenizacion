@@ -233,7 +233,7 @@
 
                             <div class="previous-results mobile--only">
                                 <div class="btn-line">
-                                    <a href="#" class="btn-theme--big">
+                                    <a href="/euromillions/results/draw-history-page" class="btn-theme--big">
                                         Previous results
                                     </a>
                                 </div>

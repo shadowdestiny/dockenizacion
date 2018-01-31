@@ -61,4 +61,250 @@
     }
   }
 
+
+  // Mobile design
+  .tickets-blocker {
+
+
+    .dashboard-menu--mobile--back--submenu {
+      display: none;
+    }
+    @media only screen and (max-width: $width-pre-tablet) {
+
+      display: none;
+
+      .dashboard-menu--mobile--back--submenu {
+        display: block;
+        margin-top: 5px!important;
+      }
+
+      h3 {
+        display: none;
+      }
+
+    }
+  }
+
+  .nav--tickets--mobile {
+    display: none!important;
+    @media only screen and (max-width: $width-pre-tablet) {
+      display: block!important;
+
+      &.hidden {
+        display: none!important;
+      }
+    }
+  }
+  .dashboard-menu--mobile--tickets-menu {
+    display: none;
+    @media only screen and (max-width: $width-pre-tablet) {
+      display: block;
+      padding-top: 20px;
+      padding-bottom: 50px;
+    }
+  }
+
+  .dashboard-menu--mobile {
+    display: none;
+    @media only screen and (max-width: $width-pre-tablet) {
+      display: block;
+    }
+  }
+
+  .dashboard-menu--mobile--back--tickets {
+
+  }
+
+
+
+  @media only screen and (max-width: $width-pre-tablet) {
+    .nav ul li {
+      //margin-bottom: 0;
+      background-color: transparent;
+      border-bottom: 1px solid #a8a9a8;
+      margin-bottom: 5px;
+      position: relative;
+
+      &:before {
+        position: absolute;
+        top: 5px;
+        right: 0px;
+        content: '';
+        display: block;
+        width: 22px;
+        height: 13px;
+        background-image: url('../img/footer/accordion/mobile/accordion-arrow.svg');
+        background-repeat: no-repeat;
+        -webkit-background-size: 22px;
+        background-size: 22px;
+        cursor: pointer;
+
+        transform: rotate(-90deg);
+      }
+
+      a,
+      a.active {
+        border: 0;
+        padding: 0;
+        height: 28px;
+        line-height: 29px;
+        color: #a8a9a8;
+        font-size: 15px;
+        font-weight: 500;
+
+        background-color: transparent!important;
+        text-align: left;
+        text-transform: none;
+
+        text-shadow: none;
+
+      }
+    }
+
+
+    // Dashboard mobile menu
+
+    .dashboard-menu--mobile--content {
+      display: none;
+    }
+    .nav {
+      padding-top: 0;
+
+      .dashboard-menu--desktop {
+        display: none;
+      }
+
+      .dashboard-menu--mobile {
+        display: block;
+      }
+
+      &.dashboard-menu--balance {
+        display: block;
+      }
+
+      .dashboard-menu--mobile--account {
+        display: block;
+        text-align: center;
+        margin:auto;
+        overflow: hidden;
+        margin-bottom: 40px;
+
+        .block--img {
+
+          .img {
+            width: 21px;
+            height: 21px;
+            display: block;
+            margin:auto;
+
+            background-image: url('../img/dashboard/mobile/balance--ico.jpg');
+            background-repeat: no-repeat;
+            -webkit-background-size: 21px;
+            background-size: 21px;
+          }
+        }
+
+        .block--name {
+          color:  #9b9b9b;
+          font-size: 18px;
+          font-weight: 700;
+          text-align: center;
+          padding-top: 13px;
+          padding-bottom: 10px;
+        }
+
+        .block--balance {
+          color:  #9b9b9b;
+          font-size: 16px;
+          font-weight: 400;
+          text-align: center;
+        }
+
+      }
+      .dashboard-menu--mobile--logout {
+        height: 46px;
+        line-height: 48px;
+        //width: 100%;
+        display: block;
+        border: 0;
+        border-radius: 4px;
+        text-transform: uppercase;
+        float: none;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 700;
+        text-align: center;
+        cursor: pointer;
+        background-image: none;
+        text-shadow: none;
+        padding: 0;
+
+        width: 301px;
+        margin:auto;
+        //margin-top: 30px;
+        margin-top: 25px;
+        margin-bottom: 30px;
+
+        //background-color: #4dec8c;
+
+        background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
+      }
+
+      .dashboard-menu--mobile--back {
+        display: block;
+        margin-top: 10px;
+
+        &.dashboard-menu--mobile--back--balance {
+          display: none;
+        }
+
+        a {
+          background-color: transparent;
+
+          margin-bottom: 5px;
+          position: relative;
+          display: block;
+
+          border: 0;
+          border-top: 1px solid #a8a9a8;
+          border-bottom: 1px solid #a8a9a8;
+          padding: 0;
+          height: 38px;
+          line-height: 39px;
+          font-size: 15px;
+          font-weight: 500;
+
+          text-align: left;
+          text-transform: none;
+
+          text-shadow: none;
+
+          color:  #f8ce0d;
+          padding-left: 20px;
+
+          &:before {
+            position: absolute;
+            top: 8px;
+            left: 0px;
+            content: '';
+            display: block;
+            width: 13px;
+            height: 22px;
+            background-image: url('../img/footer/accordion/mobile/accordion-arrow--back.svg');
+            background-repeat: no-repeat;
+            -webkit-background-size: 13px;
+            background-size: 13px;
+            cursor: pointer;
+
+            //transform: rotate(-90deg);
+          }
+        }
+      }
+    }
+  }
+
 }
