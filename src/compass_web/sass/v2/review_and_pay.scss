@@ -1535,13 +1535,14 @@
         label {
           //font-family: WorkSans;
           color: #333333;
-          font-size: 24px;
+          //font-size: 24px;
+          font-size: 16px;
           font-weight: 400;
           text-align: left;
           display: block;
           margin-bottom: 11px;
 
-          display: none;
+          //display: none;
 
           @media only screen and (min-width: $screen-xs) {
             color: #333333;
@@ -1639,6 +1640,7 @@
             padding-right: 0;
             text-align: center;
             margin-right: 0px;
+            float: left;
 
             @media only screen and (min-width: $screen-xs) {
               width: 124px!important;
@@ -1656,6 +1658,7 @@
               padding-right: 0;
               text-align: center;
               margin-right: 15px;
+              float: none;
             }
 
             @media only screen and (min-width: $screen-ipad-h) {
@@ -1708,14 +1711,15 @@
 
           label {
             display: block;
-            padding-left: 10px;
+            //padding-left: 10px;
+            padding-left: 0px;
             float: left;
             padding-top: 8px;
             margin-right: 49px;
             font-size: 16px;
 
             &.card-cvv {
-              display: none;
+              //display: none;
             }
 
             @media only screen and (min-width: $screen-xs) {
@@ -1753,13 +1757,17 @@
           }
         }
 
+
+        // CVV Div
         .cvv {
           float: none;
-          width: 298px !important;
+          //width: 298px !important;
+          width: 100% !important;
           //margin-bottom: 0;
 
           @media only screen and (min-width: $screen-xs) {
-            width: 280px !important;
+            //width: 280px !important;
+            width: 100% !important;
             //margin-bottom: 10px;
           }
 
@@ -1785,56 +1793,31 @@
           label {
             text-transform: uppercase;
 
-            display: none;
+            //display: none;
 
             @media only screen and (min-width: $screen-xs) {
               display: block;
             }
-
-            //&::after {
-            //  content: "";
-            //  display: inline-block;
-            //  width: 19px;
-            //  height: 19px;
-            //  position: relative;
-            //  background-image: url('../img/account/desktop/cvv.png');
-            //  background-repeat: no-repeat;
-            //  background-position: 0 0;
-            //  -webkit-background-size: 19px;
-            //  background-size: 19px;
-            //  top: 1px;
-            //
-            //  @media only screen and (min-width: $screen-ipad-v) {
-            //    content: "";
-            //    display: inline-block;
-            //    width: 19px;
-            //    height: 19px;
-            //    position: relative;
-            //    background-image: url('../img/account/desktop/cvv.png');
-            //    background-repeat: no-repeat;
-            //    background-position: 0 0;
-            //    -webkit-background-size: 19px;
-            //    background-size: 19px;
-            //    top: 1px;
-            //  }
-            //}
           }
 
+          // CVV input
           #card-cvv {
-            width: 298px !important;
+            //width: 298px !important;
+            width: 100%!important;
             text-align: left;
             float: left;
             margin-bottom: 0;
 
             @media only screen and (min-width: $screen-xs) {
-              width: 269px !important;
+              //width: 269px!important;
+              width: 100%!important;
               text-align: left;
               float: left;
               margin-bottom: 10px;
             }
 
             @media only screen and (min-width: $screen-ipad-v) {
-              width: 312px !important;
+              width: 312px!important;
               float: none;
             }
 
