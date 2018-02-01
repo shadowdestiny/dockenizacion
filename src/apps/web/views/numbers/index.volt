@@ -21,7 +21,43 @@
     <script src="/w/js/mobileFix.js"></script>
 {% endblock %}
 {% block template_scripts_code %}
+    function recalculateDrawDates() {
+        $.ajax({
+            type: "POST",
+            url: '/ajax/date-results/getDrawDaysByDate/',
+            data: {
+                month: $('#month option:selected').val(),
+                year: $('#year option:selected').val()
+            },
+            dataType:"json",
+            success: function (response) {
+                var $selectDay = $('#day');
+                $('#day option').remove();
+                response.forEach(function(element){
+                    $selectDay.append('<option value="/' + element["url"] + '">' + element["day"] + ' ' + element["name"] + '</option>');
+                });
+            }
+        });
+    }
+
     $(function(){
+
+    recalculateDrawDates();
+
+    $('#year,#month').change(function(){
+        recalculateDrawDates();
+    });
+
+    $('#show-results').click(function(){
+        var date = new Date($('#day').val().substr(-10,10));
+        var actualDate = new Date();
+        if (actualDate < date) {
+            alert ("We don't have results for this date");
+        } else {
+            location.href = $('#day').val();
+        }
+    });
+
     var html_formatted_offset = [];
     $('.countdown .dots').eq(2).hide();
     $('.countdown .seconds').hide();
@@ -239,32 +275,7 @@
                                 </div>
                             </div>
 
-                            <div class="previous-results desktop--only">
-                                <div class="previous-results--title">
-                                    Previous results
-                                </div>
-                                <form action="" class="previous-results--selectboxes">
-                                    <div class="selectbox">
-
-                                        {#TODO : Add real variables here#}
-                                        <select name="day" id="day">
-                                            <option value="Tuesday 28">Tuesday 28</option>
-                                            <option value="Tuesday 28">Tuesday 28</option>
-                                            <option value="Tuesday 28">Tuesday 28</option>
-                                            <option value="Tuesday 28">Tuesday 28</option>
-                                            <option value="Tuesday 28">Tuesday 28</option>
-                                        </select>
-                                    </div>
-                                    <div class="selectbox">
-                                        {#TODO : Add real variables here#}
-                                        <select name="year" id="year">
-                                            <option value="2017">2017</option>
-                                            <option value="2016">2016</option>
-                                            <option value="2015">2015</option>
-                                        </select>
-                                    </div>
-                                </form>
-                            </div>
+                            {% include "_elements/previous-results-euromillions.volt" %}
 
                         </div>
 

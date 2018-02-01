@@ -46,7 +46,13 @@
     });
 
     $('#show-results').click(function(){
-        location.href = $('#day').val();
+        var date = new Date($('#day').val().substr(-10,10));
+        var actualDate = new Date();
+        if (actualDate < date) {
+            alert ("We don't have results for this date");
+        } else {
+            location.href = $('#day').val();
+        }
     });
 
     var html_formatted_offset = [];
