@@ -2,15 +2,7 @@
 
 namespace EuroMillions\web\controllers;
 
-use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
-use EuroMillions\web\components\ViewHelper;
-use EuroMillions\web\entities\EuroMillionsDraw;
-use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
-use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
-use Money\Currency;
-use Money\Money;
-use Phalcon\Di;
 
 /**
  * @property void ChristmasService
