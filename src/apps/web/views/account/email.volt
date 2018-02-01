@@ -63,7 +63,7 @@
                         <span class="txt">{% for error in error_form %}{{ error }}<br>{% endfor %}</span>
                     </div>
                 {% endif %}
-testtttttttttttttttttttttttttttttt
+
                 <form action="/account/editEmail" name="form_notifications" id="form-email-settings" method="post" class="form-currency">
                     <div class="cl">
                         <div class="email-me">{{ language.translate("email_emailme") }}</div>
