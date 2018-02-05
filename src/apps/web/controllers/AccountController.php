@@ -86,6 +86,19 @@ class AccountController extends PublicSiteControllerBase
                 }
             }
         }
+        $userId = $this->authService->getCurrentUser();
+        $result = $this->obtainActiveNotifications($userId);
+        $list_notifications = [];
+
+        if ($result->success()) {
+            $error_msg = '';
+            $notifications_collection = $result->getValues();
+            foreach ($notifications_collection as $notifications) {
+                $list_notifications[] = new UserNotificationsDTO($notifications);
+            }
+        } else {
+            $error_msg = 'An error occurred';
+        }
         $this->view->pick('account/index');
         $this->tag->prependTitle('Account Details');
         return $this->view->setVars([
@@ -96,7 +109,8 @@ class AccountController extends PublicSiteControllerBase
             'myaccount' => $myaccount_form,
             'password_change' => $myaccount_passwordchange_form,
             'error_form' => [],
-            'message' => ''
+            'message' => '',
+            'list_notifications' => $list_notifications,
         ]);
     }
 
