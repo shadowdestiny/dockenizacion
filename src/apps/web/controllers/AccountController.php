@@ -94,7 +94,9 @@ class AccountController extends PublicSiteControllerBase
             'errors' => $errors,
             'msg' => $msg,
             'myaccount' => $myaccount_form,
-            'password_change' => $myaccount_passwordchange_form
+            'password_change' => $myaccount_passwordchange_form,
+            'error_form' => [],
+            'message' => ''
         ]);
     }
 
