@@ -1,53 +1,4 @@
-{% extends "main.volt" %}
-{% block template_css %}
-    <link rel="stylesheet" href="/w/css/account.css">
-    <link rel="stylesheet" href="/w/css/_elements/threshold.scss">
-{% endblock %}
-{% block bodyClass %}email{% endblock %}
 
-{% block header %}
-    {% set activeNav='{"myClass": "account"}'|json_decode %}
-    {% include "_elements/header.volt" %}
-{% endblock %}
-
-{% block template_scripts %}
-    <script src="/w/js/mobileFix.min.js"></script>
-{% endblock %}
-{% block template_scripts_code %}
-        $('#form-email-settings').on('submit',function(){
-            var value = $('#amount-threshold').val().replace(/^0+/, '');
-            $('#amount-threshold').val(value);
-            return true;
-        });
-        $('#amount-threshold').on('keypress',function(e) {
-            var evt = e || window.event;
-            var code = evt.keyCode || evt.which;
-            var chr = String.fromCharCode(code);
-            var pattern = /^[0-9]/;
-            if( code == 8 || code == 83 || code == 37 || code == 38 || code == 39 || code == 40) {
-            } else {
-                if(!pattern.test(chr)) {
-                    evt.preventDefault();
-                }
-            }
-        });
-        $('#amount-threshold').on('focus', function(e) {
-           if($(this).hasClass('error')) {
-               $(this).removeClass('error');
-           }
-        });
-{% endblock %}
-{% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
-
-{% block body %}
-<main id="content" class="account-page">
-    <div class="wrapper">
-        {% include "account/_breadcrumbs.volt" %}
-        <div class="nav">
-           {% set activeSubnav='{"myClass": "email"}'|json_decode %}
-           {% include "account/_nav.volt" %}
-        </div>
-        <div class="content">
             <div class="my-account--section my-email">
                 <h2 class="">{{ language.translate("email_head") }}</h2>
 
@@ -103,7 +54,3 @@
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
-</main>
-{% endblock %}
