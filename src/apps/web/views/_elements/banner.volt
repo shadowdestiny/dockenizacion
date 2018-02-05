@@ -48,7 +48,7 @@
                     {{ jackpot_value }}millions
                 </div>
                 <div class="top-banner--for-only">
-                    {% include "_elements/for-only.volt" %}
+                    {% include "_elements/countdown.volt" %}
                 </div>
 
                 <div class="btn-row">
@@ -63,7 +63,7 @@
             <div class="top-banner--right desktop--only">
 
                 <div class="top-banner--for-only">
-                    {% include "_elements/for-only.volt" %}
+                    {% include "_elements/countdown.volt" %}
                 </div>
 
                 <div class="btn-row">
