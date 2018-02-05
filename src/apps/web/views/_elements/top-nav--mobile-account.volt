@@ -15,15 +15,15 @@
                     <a class="home-block--ico ico-block" href="/" class="" title="Go to Homepage"></a>
                     <a class="home-block--link" href="/" class="" title="Go to Homepage">Home</a>
                 </div>
-                <div class="cart-block">
-                    <div class="cart-block--ico ico-block"></div>
-                    <div class="cart-block--total">
-                        €24.00
-                    </div>
-                    <a href="#" class="cart-block--link">
-                        Shopping Chart
-                    </a>
-                </div>
+                {#<div class="cart-block">#}
+                    {#<div class="cart-block--ico ico-block"></div>#}
+                    {#<div class="cart-block--total">#}
+                        {#€24.00#}
+                    {#</div>#}
+                    {#<a href="#" class="cart-block--link">#}
+                        {#Shopping Chart#}
+                    {#</a>#}
+                {#</div>#}
             </div>
             <div class="top-nav--mobile-account--menu--close">
             </div>
