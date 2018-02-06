@@ -74,7 +74,7 @@
                         <a href="/{{ language.translate("link_euromillions_faq") }}">{{ language.translate('column4_second') }}</a>
                     </li>
                     <li>
-                        <a href="/{{ language.translate("link_contact") }}/">{{ language.translate('column4_third') }}</a>
+                        <a href="/{{ language.translate("link_contact") }}">{{ language.translate('column4_third') }}</a>
                     </li>
                 </ul>
             </div>

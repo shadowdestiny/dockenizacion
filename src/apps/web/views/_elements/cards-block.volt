@@ -8,17 +8,17 @@
                 </a>
             </li>
             <li class="master-li">
-                <a href="http://www.mastercard.com/eur/" class="master-a" title="Mastercard">
+                <a href="http://www.mastercard.com/" class="master-a" title="Mastercard">
                     <img src="/w/img/footer/cards/desktop/mastercard.png"/>
                 </a>
             </li>
             <li class="comodo-li">
-                <a href="http://www.mastercard.com/eur/" class="comodo-a" title="Comodo">
+                <a href="https://www.comodo.com/" class="comodo-a" title="Comodo">
                     <img src="/w/img/footer/cards/desktop/comodo.png"/>
                 </a>
             </li>
             <li class="pcidss-li">
-                <a href="http://www.mastercard.com/eur/" class="pcidss-a" title="PCI DSS Compliant">
+                <a href="#" class="pcidss-a" title="PCI DSS Compliant">
                     <img src="/w/img/footer/cards/desktop/pci-dss-compliant.png"/>
                 </a>
             </li>
