@@ -1,5 +1,5 @@
 <li class="li-currency" id="li-currency--desktop">
-    <a class="link myCur li-currency--main-link" href="javascript:void(0);">
+    <a rel="nofollow" class="link myCur li-currency--main-link" href="javascript:void(0);">
         <span class="currency--symbol">{{ user_currency['symbol'] }}</span>
         &nbsp {% if user_currency['symbol'] != user_currency_code %}{{ user_currency_code }}{% endif %}
         {#<svg class="ico v-triangle-down">#}
@@ -13,7 +13,7 @@
                 {% for currency in currencies %}
                     {% if currency.code != user_currency_code %}
                         <li class="currency--li">
-                            <a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">
+                            <a rel="nofollow" href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">
                             <span class="currency--li--code">
                                 {{ language.translate(currency.code ~ "_code") }}
                             </span>
@@ -24,7 +24,7 @@
                         </li>
                     {% else %}
                         <li class="currency--li--current">
-                            <a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">
+                            <a rel="nofollow" href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">
                             <span class="currency--li--code">
                                 {{ language.translate(currency.code ~ "_code") }}
                             </span>
@@ -36,7 +36,7 @@
                     {% endif %}
                 {% endfor %}
                 <li class="currency--li--show-all">
-                    <a href="/{{ language.translate("link_currency") }}">
+                    <a rel="nofollow" href="/{{ language.translate("link_currency") }}">
 
                         {{ language.translate('currencies') }}
                         {#show All currencies#}

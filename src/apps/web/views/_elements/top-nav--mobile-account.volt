@@ -4,7 +4,7 @@
         <a href="/account/wallet" class="top-nav--mobile-account--icon"></a>
         <span>{{user_name}}</span>
     {% else %}
-        <a href="/sign-in" class="top-nav--mobile-account--icon"></a>
+        <a rel="nofollow" href="/{{ language.translate("link_signin") }}" class="top-nav--mobile-account--icon"></a>
     {% endif %}
 
     <div class="top-nav--mobile-account--menu">
@@ -29,13 +29,13 @@
             </div>
             <ul class="top-nav--mobile-account--menu--list">
                 <li class="li--lottery">
-                    <h3>Lotteries</h3>
+                    Lotteries<br />
                     <a href="/{{ language.translate("link_euromillions_play") }}">euromillions</a>
                     <a href="/{{ language.translate('link_christmas_play') }}">Spanish christmass Lottery</a>
                     <a href="/{{ language.translate('link_euromillions_results') }}">euromillions result</a>
                 </li>
                 <li class="li--euromillion">
-                    <h3>My EuroMillions</h3>
+                    My EuroMillions<br />
                     <a href="/account/wallet">Balance</a>
                     <a href="/profile/tickets/games">tickets</a>
                     <a href="/profile/transactions">transactions</a>
@@ -66,7 +66,7 @@
 
                 </li>
                 <li class="li--cur">
-                    <a href="/{{ language.translate("link_currency") }}">Currencies</a>
+                    <a rel="nofollow" href="/{{ language.translate("link_currency") }}">Currencies</a>
                 </li>
             </ul>
 
