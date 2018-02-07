@@ -3,17 +3,17 @@
 
         <ul class="no-li inline">
             <li class="visa-li">
-                <a href="http://www.visaeurope.com/" class="visa-a" title="Visa Europe">
+                <a href="http://www.visaeurope.com/" class="visa-a" title="Visa Europe" rel="nofollow">
                     <img src="/w/img/footer/cards/desktop/visa.png"/>
                 </a>
             </li>
             <li class="master-li">
-                <a href="http://www.mastercard.com/" class="master-a" title="Mastercard">
+                <a href="http://www.mastercard.com/" class="master-a" title="Mastercard" rel="nofollow">
                     <img src="/w/img/footer/cards/desktop/mastercard.png"/>
                 </a>
             </li>
             <li class="comodo-li">
-                <a href="https://www.comodo.com/" class="comodo-a" title="Comodo">
+                <a href="https://www.comodo.com/" class="comodo-a" title="Comodo" rel="nofollow">
                     <img src="/w/img/footer/cards/desktop/comodo.png"/>
                 </a>
             </li>
