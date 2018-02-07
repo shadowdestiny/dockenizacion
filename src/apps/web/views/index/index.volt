@@ -253,7 +253,7 @@
 		"@type": "Organization",
 		"name": "EuroMillions.com",
 		"url": "{{ language.translate('markup_org_url') }}",
-		"logo": "https://euromillions.com/w/img/logo/favicon.png",
+		"logo": "https://euromillions.com/w/img/logo/v2/logo-desktop.png",
 		"contactPoint": [
 			{ "@type": "ContactPoint",
 			"email": "support@euromillions.com",
