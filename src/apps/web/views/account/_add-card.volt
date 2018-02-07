@@ -116,20 +116,22 @@
                             </object>
                             </p>
                         {% endif %}
-                    </div>
 
+                    </div>
+                    <div class="left">
+                        <input id="new-card" type="submit" class="hidden2">
+                        <label class="left btn submit big green" for="new-card">
+                            {{ language.translate("Pay {total_value}") }}
+                        </label>
+                    </div>
+                    <br />
                     {% if component.where == 'cart' %}
                 </div>
                 <input type="hidden" name="paywallet" id="paywallet" value=""/>
                 <input type="hidden" name="funds" id="funds" value=""/>
-                <div class="">
+                <div class="cards-margin">
 
-                    <input id="new-card" type="submit" class="hidden2">
-                    <label class="btn submit big green right" for="new-card">
-                        {{ language.translate("Pay {total_value}") }}
-                    </label>
-
-                    {% include "_elements/cards-block.volt" %}
+                    {% include "_elements/cards-block-payment.volt" %}
                 </div>
             {#</div>#}
             </div>
