@@ -41,7 +41,7 @@
                     {{ jackpot_value }}{{ language.translate("million") }}
                 </div>
                 <div class="top-banner--for-only">
-                    {% include "_elements/countdown.volt" %}
+                    {% include "_elements/countdown--home.volt" %}
                 </div>
 
                 <div class="btn-row">

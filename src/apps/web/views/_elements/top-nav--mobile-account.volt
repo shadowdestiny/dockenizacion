@@ -30,9 +30,10 @@
             <ul class="top-nav--mobile-account--menu--list">
                 <li class="li--lottery">
                     Lotteries<br />
-                    <a href="/{{ language.translate("link_euromillions_play") }}">euromillions</a>
-                    <a href="/{{ language.translate('link_christmas_play') }}">Spanish christmass Lottery</a>
-                    <a href="/{{ language.translate('link_euromillions_results') }}">euromillions result</a>
+                    <a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate("playeuromillions") }}</a>
+                    <a href="/{{ language.translate('link_christmas_play') }}">{{ language.translate("playchris_sub") }}</a>
+                    <a href="/{{ language.translate('link_euromillions_results') }}">{{ language.translate("results_dropdown") }}</a>
+                    <a href="/{{ language.translate('link_euromillions_help') }}">{{ language.translate("howto_em_sub") }}</a>
                 </li>
                 <li class="li--euromillion">
                     My EuroMillions<br />
