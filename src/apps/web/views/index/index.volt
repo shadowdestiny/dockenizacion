@@ -161,9 +161,9 @@
                     <h2 class="number-generator--block--title h2">
                         {{ language.translate("cta1_head") }}
                     </h2>
-                    <h2 class="number-generator--block--subtitle">
+                    <h3 class="number-generator--block--subtitle">
                         {{ language.translate("cta1_subhead") }}
-                    </h2>
+                    </h3>
                     <div class="number-generator--block--body">
                         {{ language.translate("cta1_text") }}
                     </div>
