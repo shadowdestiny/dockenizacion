@@ -121,7 +121,7 @@
                     {% endif %}
 
                     {% if my_subscription_inactives is not empty %}
-                        <div class="tickets-blocker tickets-blocker--table-01">
+                        <div class="tickets-blocker tickets-blocker--table-04">
 
                             <div class="nav">
                                 <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
@@ -142,7 +142,7 @@
                     {% endif %}
 
                     {% if my_christmas_inactives is not empty %}
-                        <div class="tickets-blocker tickets-blocker--table-02">
+                        <div class="tickets-blocker tickets-blocker--table-05">
 
                             <div class="nav">
                                 <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
@@ -163,7 +163,7 @@
                     {% endif %}
 
                     {% if my_games_inactives is not empty %}
-                        <div class="tickets-blocker tickets-blocker--table-03">
+                        <div class="tickets-blocker tickets-blocker--table-06">
 
                             <div class="nav">
                                 <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
