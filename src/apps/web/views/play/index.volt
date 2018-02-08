@@ -69,10 +69,10 @@
             txtNextButton         : '{{ language.translate('next_btn') }}',
             addRandomLineBtn      : 'Add random line',
             pickYourNumbersBtn    : 'Pick your numbers',
-            drawsSectionTitle     : 'How many draw would you like to play?',
-            drawsSectionSubtitle  : '*Subscribe for more draws and get a discount per lines',
+            drawsSectionTitle     : '{{ language.translate('tittle_multiple') }}',
+            drawsSectionSubtitle  : '{{ language.translate('multiple_discount') }}',
             mobTicketRandomizeBtn : 'Randomize',
-            mobTicketClearBtn     : 'Clear',
+            mobTicketClearBtn     : '{{ language.translate('clear_btn') }}',
             mobTicketSubmitBtn    : 'Done'
         }
     };
@@ -134,27 +134,27 @@
 
                     <div class="left">
                         <div class="top">
-                            TUESDAY’S
+                            {{ language.translate('tuesday') }}
                         </div>
                         <div class="bottom">
-                            jackpot
+                            Jackpot
                         </div>
                     </div>
 
 
                     <div class="help-block">
                         <div class="top">
-                            About the Euromillions Lottery
+                            {{ language.translate('aboutLottery') }}
                         </div>
                         <div class="bottom">
                             <a href="#" class="a-hiw">
-                                how it works
+                                {{ language.translate('play_howbtn') }}
                             </a>
                             <a href="#" class="a-results">
-                                results
+                                {{ language.translate('play_resultsbtn') }}
                             </a>
                             <a href="#" class="a-faq">
-                                FAQ
+                                {{ language.translate('play_faqbtn') }}
                             </a>
                         </div>
                     </div>
@@ -165,7 +165,7 @@
                             {{ jackpot_value }} Million
                         </div>
                         <div class="bottom">
-                            Pick 5 numbers and 2 stars per line
+                            {{ language.translate('shortInstruction') }}
                         </div>
                     </div>
 
