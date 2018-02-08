@@ -30,7 +30,7 @@
                                                 <span class="txt">{{ language.translate(notification.notification.description) }}</span>
                                             </label>
                                             {% if notification.notification.notification_type == 4 %}
-                                                <select class="select" id="config_value" name="config_value_{{ notification.name }}">
+                                                <select class="select-email" id="config_value" name="config_value_{{ notification.name }}">
                                                     <option value="0" {% if notification.config_value == 0 %}selected{% endif %}>{{ language.translate("email_played_dropdown") }}</option>
                                                     <option value="1" {% if notification.config_value == 1 %}selected{% endif %}>{{ language.translate("email_always_dropdown") }}</option>
                                                 </select>
@@ -46,6 +46,7 @@
                             {% endif %}
                         </ul>
                     </div>
+                    <br />
                     <div class="cl">
                         <label class="btn submit blue right" for="new-card">
                             {{ language.translate("email_save_btn") }}
