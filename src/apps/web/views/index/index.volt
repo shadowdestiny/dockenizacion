@@ -67,68 +67,16 @@
 {% block body %}
     <main id="content">
 
-
-        {#{% include "_elements/banner-old.volt" %}#}
-
-        {#Banner section v.2 start#}
-
         {% include "_elements/banner.volt" %}
-
-
-        {#Banner section v.2 end#}
 
         <div class="wrapper">
             {% include "_elements/top-nav--mobile.volt" %}
 
             {% include "_elements/christmas-lottery-banner-block.volt" %}
 
-            {#TODO : remove this comments#}
-            {#<div class="box-extra">#}
-            {#<div class="cols">#}
-            {#<div class="col6">#}
-            {#<a href="/{{ language.translate('link_christmas_play') }}">#}
-            {#<img src="/w/img/home/{{ language.translate('home_christmas_image_billions') }}" border=0/>#}
-            {#</a>#}
-            {#<div class="box-basic box-quick-play ball">#}
-            {#<div class="content">#}
-            {#<h1 class="h2">{{ language.translate("cta1_head") }}</h1>#}
-            {#<p>{{ language.translate("cta1_text") }}</p>#}
-            {#<a href="/{{ language.translate("link_euromillions_play") }}?random" class="btn blue big wide">{{ language.translate("cta1_btn") }}</a>#}
-            {#</div>#}
-            {#</div>#}
-            {#</div>#}
-            {#<div class="col6">#}
-            {#<div class="box-basic box-result">#}
-            {#<div class="cols">#}
-            {#<div class="col8 content">#}
-            {#<h1 class="h2">{{ language.translate("results_head") }}</h1>#}
-            {#<p>{{ language.translate("results_text") }} {{ last_draw_date }} </p>#}
-            {#<ul class="no-li inline numbers small">#}
-            {#{% for regular_number in euromillions_results["regular_numbers"] %}#}
-            {#<li>{{ regular_number }}</li>#}
-            {#{% endfor %}#}
-            {#{% for lucky_number in euromillions_results["lucky_numbers"] %}#}
-            {#<li class="star">{{ lucky_number }}</li>#}
-            {#{% endfor %}#}
-            {#</ul>#}
-            {#<a href="/{{ language.translate('link_euromillions_results') }}"#}
-            {#class="lnk animate infi"><span#}
-            {#class="txt">{{ language.translate("results_link") }}</span>#}
-            {#<svg class="ico v-arrow-right3">#}
-            {#<use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use>#}
-            {#</svg>#}
-            {#</a>#}
-            {#</div>#}
-            {#<div class="col4 woman">&nbsp;</div>#}
-            {#</div>#}
-            {#</div>#}
-            {#</div>#}
-            {#</div>#}
-            {#</div>#}
-
             <div class="hiw-block--section">
                 <h2 class="h2">
-                    How it works?
+                    {{ language.translate("banner2_head") }}
                 </h2>
 
                 <div class="hiw-block--inner">
@@ -136,35 +84,28 @@
                         <div class="hiw-block--corner">1</div>
                         <div class="hiw-block--center"></div>
                         <div class="hiw-block--description">
-                            Choose your lottery <br>
-                            & select your numbers
+                            {{ language.translate("banner2_text1") }}
                         </div>
                     </div>
                     <div class="hiw-block hiw-block--02">
                         <div class="hiw-block--corner">2</div>
                         <div class="hiw-block--center"></div>
                         <div class="hiw-block--description">
-                            Buy your ticket
-							<span class="val">%-d day</span>
-						<span class="dots"></span>
-							<span class="val">%-H hrs</span>
-						<span class="dots"></span>
-							<span class="val">%-M min</span>
-						<span class="dots"></span>
+                            {{ language.translate("banner2_text2") }}
                         </div>
                     </div>
                     <div class="hiw-block hiw-block--03">
                         <div class="hiw-block--corner">3</div>
                         <div class="hiw-block--center"></div>
                         <div class="hiw-block--description">
-                            Check the results
+                            {{ language.translate("banner2_text3") }}
                         </div>
                     </div>
                     <div class="hiw-block hiw-block--04">
                         <div class="hiw-block--corner">4</div>
                         <div class="hiw-block--center"></div>
                         <div class="hiw-block--description">
-                            Big Win
+                            {{ language.translate("banner2_text4") }}
                         </div>
                     </div>
                 </div>
@@ -175,14 +116,13 @@
                 <div class="result--block">
                     <div class="result--block--header">
 
-                        <h1 class="h2">{{ language.translate("results_head") }}</h1>
+                        <h2 class="h2">{{ language.translate("results_head") }}</h2>
 
                         <div class="view-more-block">
                             <div class="view-more-block--inner">
                                 <a href="/{{ language.translate('link_euromillions_results') }}"
                                    class="view-more-a">
-                                    {#TODO : paste real text here#}
-                                    View more
+                                    {{ language.translate("results_link") }}
                                 </a>
                             </div>
                         </div>
@@ -219,30 +159,50 @@
                         <img src="/w/img/home/result-block/desktop/number-generator.jpg" alt="Latest News">
                     </div>
                     <h2 class="number-generator--block--title h2">
-                        {#TODO : paste real text here#}
-                        Number Generator
+                        {{ language.translate("cta1_head") }}
                     </h2>
                     <h2 class="number-generator--block--subtitle">
-                        {#TODO : paste real text here#}
-                        Don’t know what to play ?
+                        {{ language.translate("cta1_subhead") }}
                     </h2>
                     <div class="number-generator--block--body">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        {{ language.translate("cta1_text") }}
                     </div>
 
                     <a href="{{ language.translate("link_euromillions_play") }}"
                        class="number-generator--block--button btn-theme--big">
-                        {{ language.translate("cta2_btn") }}
-                        {#play lucky dip#}
+                        {{ language.translate("cta1_btn") }}
                     </a>
                 </div>
 
             </div>
         </div>
 
+        <div class="latest-news">
+            <div class="wrapper">
+                <div class="news-block">
+                    <div class="news-block--content">
+                        <h3 class="news-block--title">
+                            {{ language.translate("cta2_sub1") }}
+                        </h3>
+                        <div class="news-block--body">
+                            {{ language.translate("cta2_text1") }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-block">
+                    <div class="news-block--content">
+                        <h3 class="news-block--title">
+                            {{ language.translate("cta2_sub2") }}
+                        </h3>
+                        <div class="news-block--body">
+                            {{ language.translate("cta2_text2") }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
         {#{% include "_elements/latest-news.volt" %}#}
 
