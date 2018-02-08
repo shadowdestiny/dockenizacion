@@ -1,7 +1,7 @@
 <li class="li-currency" id="li-currency--desktop">
     <a rel="nofollow" class="link myCur li-currency--main-link" href="javascript:void(0);">
-        <span class="currency--symbol">{{ user_currency['symbol'] }}</span>
-        &nbsp {% if user_currency['symbol'] != user_currency_code %}{{ user_currency_code }}{% endif %}
+        <span class="currency--symbol">{% if user_currency['symbol'] != user_currency_code %}{{ user_currency['symbol'] }}{% endif %}</span>
+        &nbsp {{ user_currency_code }}
         {#<svg class="ico v-triangle-down">#}
         {#<use xlink:href="/w/svg/icon.svg#v-triangle-down"></use>#}
         {#</svg>#}
