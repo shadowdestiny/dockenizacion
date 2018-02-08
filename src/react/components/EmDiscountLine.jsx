@@ -11,7 +11,7 @@ var EuroMillionsDiscountLine = React.createClass({
                 <a className={classBtn} href="javascript:void(0);" onClick={this.props.sendLineSelected.bind(null, this.props.draws, this.props.discount)}>
                     <span className="top">{this.props.desc}</span>
                     <span className="bottom">
-                        {this.props.price_desc}
+                        {this.props.price / 100}{this.props.price_desc}
                     </span>
                 </a>
             </div>
