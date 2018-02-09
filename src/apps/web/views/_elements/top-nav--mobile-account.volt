@@ -33,6 +33,8 @@
                     <a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate("playeuromillions") }}</a>
                     <a href="/{{ language.translate('link_christmas_play') }}">{{ language.translate("playchris_sub") }}</a>
                     <a href="/{{ language.translate('link_euromillions_results') }}">{{ language.translate("results_dropdown") }}</a>
+                    <a href="/{{ language.translate('link_euromillions_draw_history') }}">{{ language.translate("results_emhistory") }}</a>
+                    <a href="/{{ language.translate('link_christmas_results') }}">{{ language.translate("results_chris_sub") }}</a>
                     <a href="/{{ language.translate('link_euromillions_help') }}">{{ language.translate("howto_em_sub") }}</a>
                 </li>
                 <li class="li--euromillion">
