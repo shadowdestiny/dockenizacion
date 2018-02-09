@@ -72,7 +72,7 @@
         <div class="wrapper">
             {% include "_elements/top-nav--mobile.volt" %}
 
-            {% include "_elements/christmas-lottery-banner-block.volt" %}
+            {#{% include "_elements/christmas-lottery-banner-block.volt" %}#}
 
             <div class="hiw-block--section">
                 <h2 class="h2">

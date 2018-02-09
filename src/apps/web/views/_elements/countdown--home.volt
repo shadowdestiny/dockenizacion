@@ -1,5 +1,5 @@
 	<div class="countdown">
-		{{ language.translate("Next draw in") }}
+		{{ language.translate("nextDraw_lbl") }}
 		<div class="day unit">
 			<span class="val">%-d {% if show_s_days == '1' %}{{ language.translate("nextDraw_oneday") }}{% else %}{{ language.translate("nextDraw_day") }}{% endif %}</span>
 		</div>
