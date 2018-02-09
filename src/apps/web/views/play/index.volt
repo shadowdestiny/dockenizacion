@@ -122,7 +122,6 @@
 
 {% block body %}
     <main id="content">
-
         <div class="play--page">
 
             <div class="banner"></div>
