@@ -21,27 +21,28 @@
 
     <div class="wrapper">
         <div class="cols box-links">
-            {#<div class="col20per">#}
-                {#<strong>{{ language.translate('column1_head') }}</strong>#}
-                {#<ul>#}
-                    {#<li>#}
-                        {#<a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate('column1_first') }}</a>#}
-                    {#</li>#}
-                    {# Future links#}
-                                        {#<li><a href="javascript:void(0);">EuroJackpot</a></li>#}
-                                        {#<li><a href="javascript:void(0);">MegaMillions</a></li>#}
-                                        {#<li><a href="javascript:void(0);">PowerBall</a></li>#}
-                    {##}
-                {#</ul>#}
-            {#</div>#}
-            <div class="col20per">
+            <div class="col16per">
+                <strong>{{ language.translate('column1_head') }}</strong>
+                <ul>
+                    <li>
+                        <a href="/{{ language.translate('link_euromillions_play') }}">{{ language.translate('column1_second') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate('link_christmas_play') }}">{{ language.translate('column1_third') }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col16per">
                 <strong>{{ language.translate('column2_head') }}</strong>
                 <ul>
                     <li>
-                        <a href="/{{ language.translate('link_euromillions_results') }}">{{ language.translate('column2_first') }}</a>
+                        <a href="/{{ language.translate('link_euromillions_results') }}">{{ language.translate('column2_second') }}</a>
                     </li>
                     <li>
-                        <a href="/{{ language.translate('link_euromillions_draw_history') }}">{{ language.translate('column2_second') }}</a>
+                        <a href="/{{ language.translate('link_euromillions_draw_history') }}">{{ language.translate('column2_third') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate('link_christmas_results') }}">{{ language.translate('column2_fourth') }}</a>
                     </li>
                 </ul>
             </div>
@@ -50,7 +51,7 @@
                 <ul>
                     {% if user_logged %}
                         <li><a href="/profile/tickets/games">{{ language.translate('column3Log_first') }}</a></li>
-                        <li><a href="/account/wallet">{{ language.translate('column3Log_second') }}</a></li>
+                        <li><a href="/profile/transactions">{{ language.translate('column3Log_second') }}</a></li>
                         <li><a href="/account/wallet">{{ language.translate('column3Log_third') }}</a></li>
                         <li><a href="/account/wallet">{{ language.translate('column3Log_fourth') }}</a></li>
                         <li><a href="/logout">{{ language.translate("column3Log_fifth") }}</a></li>
@@ -64,12 +65,9 @@
                     {% endif %}
                 </ul>
             </div>
-            <div class="col20per">
+            <div class="col16per">
                 <strong>{{ language.translate('column4_head') }}</strong>
                 <ul>
-                    <li>
-                        <a href="/{{ language.translate("link_euromillions_help") }}">{{ language.translate('column4_first') }}</a>
-                    </li>
                     <li>
                         <a href="/{{ language.translate("link_euromillions_faq") }}">{{ language.translate('column4_second') }}</a>
                     </li>
@@ -78,7 +76,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col20per">
+            <div class="col16per">
                 <strong>{{ language.translate('column5_head') }}</strong>
                 <ul>
                     <li>
@@ -100,7 +98,7 @@
                     #}
                 </ul>
             </div>
-            <div class="col20per">
+            <div class="col16per">
                 <strong>{{ language.translate('langcolumn_head') }}</strong>
                 <ul>
                     <li><a href="https://euromillions.com">{{ language.translate('langcolumn_en') }}</a></li>
