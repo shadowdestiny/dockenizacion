@@ -19,7 +19,7 @@ class LotteryRepository extends EntityRepository
                 .' WHERE l.name = :name')
             ->setMaxResults(1)
             ->setParameters(['name' => $lotteryName])
-            ->useResultCache(true)
+            ->useResultCache(true, 3600)
             ->getResult();
         return !empty($result) ? $result[0] : null;
     }
