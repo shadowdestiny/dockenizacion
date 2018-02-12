@@ -11,7 +11,9 @@
             <div class="measure">
                 millions
             </div>
-
+            <div class="title">
+                {{ language.translate("nextDraw_lbl") }}
+            </div>
             <div class="timer">
                 {% include "_elements/countdown.volt" %}
             </div>

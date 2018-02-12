@@ -13,7 +13,7 @@
             <div class="top-nav--mobile-account--menu--top">
                 <div class="home-block">
                     <a class="home-block--ico ico-block" href="/" class="" title="Go to Homepage"></a>
-                    <a class="home-block--link" href="/" class="" title="Go to Homepage">Home</a>
+                    <a class="home-block--link" href="/" class="" title="Go to Homepage">{{ language.translate("home_breadcrumb") }}</a>
                 </div>
                 {#<div class="cart-block">#}
                     {#<div class="cart-block--ico ico-block"></div>#}

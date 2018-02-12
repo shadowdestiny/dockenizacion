@@ -156,9 +156,6 @@
                             <h3 style="font-weight: bold; font-size: 20px;">{{ language.translate("playchris_txt_howto_tit") }}</h3>
                             <br/>
                             {{ language.translate("playchris_txt_howto_1") }}<br/>
-                            <ol style="margin-left: 30px;">
-                                {{ language.translate("playchris_top_right") }}
-                            </ol>
                             <br/>
                             <h3 style="font-weight: bold; font-size: 20px;"> {{ language.translate("playchris_txt_what_tit") }}</h3>
                             <br/>
