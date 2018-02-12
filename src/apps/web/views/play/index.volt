@@ -43,6 +43,9 @@
 	var txtMultLines = '{{ language.translate('mult_total2') }}';
 	var txtMultDraws = '{{ language.translate('mult_total3') }}';
 	var txtNextButton = '{{ language.translate('next_btn') }}';
+    var tuesday = '{{ language.translate('tuesday') }}';
+    var friday = '{{ language.translate('friday') }}';
+    var next_draw_date_format = '{{ next_draw_date_format }}';
 
 
     {#añadir aqui el translate#}
@@ -61,7 +64,7 @@
             addLinesBtn           : '{{ language.translate('addLines_btn') }}',
             randomizeAllLines     : '{{ language.translate('randomizeAll_btn') }}',
             clearAllLines         : '{{ language.translate('clearAll_btn') }}',
-            buyForDraw            : '{{ language.translate('buyForDraw') }}',
+            buyForDraw            : "{{ language.translate('buyForDraw') }}",
             txtLine               : '{{ language.translate('line') }}',
             txtMultTotalPrice     : '{{ language.translate('mult_total1') }}',
             txtMultLines          : '{{ language.translate('mult_total2') }}',
@@ -73,7 +76,8 @@
             drawsSectionSubtitle  : '{{ language.translate('multiple_discount') }}',
             mobTicketRandomizeBtn : 'Randomize',
             mobTicketClearBtn     : '{{ language.translate('clear_btn') }}',
-            mobTicketSubmitBtn    : 'Done'
+            mobTicketSubmitBtn    : 'Done',
+
         }
     };
 
@@ -122,9 +126,22 @@
 
 {% block body %}
     <main id="content">
+
         <div class="play--page">
 
-            <div class="banner"></div>
+            <div class="banner">
+                <div class="top-banner--section">
+                <div class="top-banner--banner">
+                    <div class="wrapper">
+
+                        <h1 class="top-banner-play">
+                            {{ language.translate("play_h1") }}
+                        </h1>
+
+                        </div>
+                </div>
+                </div>
+            </div>
 
             <div class="wrapper">
                 <header>
@@ -132,11 +149,11 @@
                     {#TODO : Add real variables here#}
 
                     <div class="left">
-                        <div class="top">
-                            {{ language.translate('tuesday') }}
-                        </div>
                         <div class="bottom">
                             Jackpot
+                        </div>
+                        <div class="top">
+                            {% if next_draw == 5  %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
                         </div>
                     </div>
 
@@ -146,13 +163,13 @@
                             {{ language.translate('aboutLottery') }}
                         </div>
                         <div class="bottom">
-                            <a href="#" class="a-hiw">
+                            <a href="{{ language.translate('link_euromillions_help') }}" class="a-hiw">
                                 {{ language.translate('play_howbtn') }}
                             </a>
-                            <a href="#" class="a-results">
+                            <a href="{{ language.translate('link_euromillions_results') }}" class="a-results">
                                 {{ language.translate('play_resultsbtn') }}
                             </a>
-                            <a href="#" class="a-faq">
+                            <a href="{{ language.translate('link_euromillions_faq') }}" class="a-faq">
                                 {{ language.translate('play_faqbtn') }}
                             </a>
                         </div>

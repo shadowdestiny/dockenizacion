@@ -106,6 +106,39 @@
       }
 
     }
+    .top-banner-play{
+      //font-family: WorkSans;
+      color:  #333333;
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 46px;
+      text-align: center;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        color:  #333333;
+        font-size: 44px;
+        font-weight: 900;
+        line-height: 46px;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        color:  #333333;
+        font-size: 33px;
+        font-weight: 900;
+        line-height: 34px;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+    }
+
     .top-banner--subline {
       //font-family: WorkSans;
       color:  #333333;
