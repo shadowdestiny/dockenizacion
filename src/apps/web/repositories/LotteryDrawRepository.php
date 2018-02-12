@@ -138,7 +138,7 @@ class LotteryDrawRepository extends EntityRepository
                 . ' FROM ' . $this->getEntityName() . ' ld JOIN ld.lottery l'
                 . ' WHERE l.name = :lottery_name AND ld.draw_date = :date')
             ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $date->format('Y-m-d')])
-            ->useResultCache(true)
+            ->useResultCache(true, 3600)
             ->getResult();
 
         return (!empty($result)) ? $result[0] : [];
@@ -175,7 +175,7 @@ class LotteryDrawRepository extends EntityRepository
             ->setMaxResults($limit)
 
             ->setParameters(['lottery_name' => $lottery->getName()])
-            ->useResultCache(true)
+            ->useResultCache(true, 3600)
             ->getResult();
         if (!count($result)) {
             throw new DataMissingException('Couldn\'t find the results in the database');
