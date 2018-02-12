@@ -3,7 +3,7 @@ var React = require('react');
 var EuroMillionsDiscountLine = React.createClass({
 
     render: function () {
-        var price = this.props.price * this.props.multi_price / 100;
+        var price = this.props.price / 100;
 
         var classBtn = (this.props.checked) ? 'ui-link pwp-active' : 'ui-link';
         return (
