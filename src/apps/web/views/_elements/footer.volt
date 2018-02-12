@@ -111,68 +111,6 @@
         </div>
     </div>
 
-    {#TODO : remove this comments#}
-    {#<aside class="logo-social cl">#}
-        {#<div class="wrapper">#}
-            {#<div class="social">#}
-                {#<ul>#}
-                    {#<li class="fb"><a href="https://www.facebook.com/Euromillionscom-204411286236724/">#}
-                            {#<svg class="ico v-facebook">#}
-                                {#<use xlink:href="/w/svg/icon.svg#v-facebook"></use>#}
-                            {#</svg>#}
-                            {#<span class="txt">{{ language.translate('Facebook') }}</span></a></li>#}
-                    {#<li class="gp"><a href="https://plus.google.com/+Euromillionscom">#}
-                            {#<svg class="ico v-google-plus">#}
-                                {#<use xlink:href="/w/svg/icon.svg#v-google-plus"></use>#}
-                            {#</svg>#}
-                            {#<span class="txt">{{ language.translate('Google +') }}</span></a></li>#}
-                    {#<li class="tw"><a href="https://twitter.com/_lotteries">#}
-                            {#<svg class="ico v-twitter">#}
-                                {#<use xlink:href="/w/svg/icon.svg#v-twitter"></use>#}
-                            {#</svg>#}
-                            {#<span class="txt">{{ language.translate('Twitter') }}</span></a></li>#}
-                {#</ul>#}
-            {#</div>#}
-            {#{% include "_elements/logo.volt" %}#}
-        {#</div>#}
-    {#</aside>#}
-
-    {#TODO : remove this comments#}
-    {#<div class="info cl">#}
-        {#<div class="wrapper">#}
-            {#<div class="cols">#}
-                {#<div class="col5 txt">#}
-                    {#{{ language.translate('license') }}#}
-                    {#<br><br>#}
-                    {#{{ language.translate('copyright') }}#}
-                {#</div>#}
-                {#<div class="col8 box-partner">#}
-                    {#<ul class="no-li inline">#}
-                        {#<li><a href="http://www.visaeurope.com/">#}
-                                {#<svg class="v-visa vector">#}
-                                    {#<use xlink:href="/w/svg/icon.svg#visa"/>#}
-                                {#</svg>#}
-                            {#</a></li>#}
-                        {#<li><a href="http://www.mastercard.com/eur/">#}
-                                {#<svg class="v-mastercard vector">#}
-                                    {#<use xlink:href="/w/svg/icon.svg#mastercard"/>#}
-                                {#</svg>#}
-                            {#</a></li>#}
-                        {#<li><a href="http://www.gambleaware.co.uk/">#}
-                                {#<svg class="v-gambleaware vector">#}
-                                    {#<use xlink:href="/w/svg/icon.svg#gambleaware"/>#}
-                                {#</svg>#}
-                            {#</a></li>#}
-                        {#<li>#}
-                            {#<a href="https://ssl.comodo.com/"><img src="/w/svg/comodo.png"/> </a>#}
-                        {#</li>#}
-                    {#</ul>#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
-
-
     <div class="wrapper">
         {% include "_elements/cards-block.volt" %}
     </div>
@@ -180,25 +118,6 @@
 
     <div class="wrapper">
         <div class="copyright-text">
-
-            {#TODO : remove this text#}
-            {#<p>#}
-                {#This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of#}
-                {#Curaçao. This site is operated by#}
-                {#Panamedia B.V., Emancipatie Boulevard 29, Willemstad, Curaçao and payment processing services are#}
-                {#provided by Panamedia International#}
-                {#Limited, 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU).#}
-            {#</p>#}
-            {#<p>#}
-                {#All transactions are charged in Euros. Prices displayed in other currencies are for informative purposes#}
-                {#only and are convertedaccording to#}
-                {#actual exchange rates.#}
-
-            {#</p>#}
-            {#<p>#}
-                {#Copyright © 2011-2016 by EuroMillions.com. <br>#}
-                {#All rights reserved.#}
-            {#</p>#}
 
             <p>
                 {{ language.translate('license') }}

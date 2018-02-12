@@ -37,25 +37,27 @@
                     <a href="/{{ language.translate('link_christmas_results') }}">{{ language.translate("results_chris_sub") }}</a>
                     <a href="/{{ language.translate('link_euromillions_help') }}">{{ language.translate("howto_em_sub") }}</a>
                 </li>
+                {% if user_logged is not empty %}
                 <li class="li--euromillion">
                     My EuroMillions<br />
-                    <a href="/account/wallet">Balance</a>
-                    <a href="/profile/tickets/games">tickets</a>
-                    <a href="/profile/transactions">transactions</a>
-                    <a href="/account">my account</a>
-                    <a class="link" href="/logout">{{ language.translate('LogOut') }}</a>
+                    <a href="/account/wallet">{{ language.translate("myAccount_balance") }}</a>
+                    <a href="/profile/tickets/games">{{ language.translate("myAccount_tickets") }}</a>
+                    <a href="/profile/transactions">{{ language.translate("myAccount_transactions") }}</a>
+                    <a href="/account">{{ language.translate("myAccount") }}</a>
+                    <a class="link" href="/logout">{{ language.translate("LogOut") }}</a>
                 </li>
+                {% endif %}
                 <li class="li--help">
-                    <a href="/{{ language.translate("link_euromillions_help") }}">How to play</a>
+                    <a href="/{{ language.translate("link_euromillions_help") }}">{{ language.translate("howto_em_sub") }}</a>
                 </li>
                 <li class="li--lang">
-                    <a href="#">Languages</a>
+                    <a href="#">{{ language.translate(user_language) }}</a>
 
                     <div class="li--lang--languages">
                         <ul class="no-li">
-                            <li class="language--li--current">
-                                <a class="link myLang li-language--main-link" href="javascript:void(0);">{{ language.translate(user_language) }}</a>
-                            </li>
+                            {#<li class="language--li--current">#}
+                                {#<a class="link myLang li-language--main-link" href="javascript:void(0);"></a>#}
+                            {#</li>#}
                             {% for active_language in active_languages %}
                                 {% if active_language != user_language %}
                                     <li>
@@ -69,7 +71,7 @@
 
                 </li>
                 <li class="li--cur">
-                    <a rel="nofollow" href="/{{ language.translate("link_currency") }}">Currencies</a>
+                    <a rel="nofollow" href="/{{ language.translate("link_currency") }}">{{ language.translate("currencies") }}</a>
                 </li>
             </ul>
 
