@@ -24,47 +24,47 @@
 
         <div class="christmas--page">
 
-            <div class="banner"></div>
+            <div class="banner">
+                <div class="top-banner--section">
+
+                    <div class="top-banner--banner">
+                        <div class="wrapper">
+                            <h1 class="top-banner--head">
+                                {{ language.translate("playchris_h1") }}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="wrapper">
 
-                <div class="title-block">
-                    <h1>
-                        Spanish christmas lottery
-                    </h1>
-                </div>
-
+                <div class="title-block"></div>
 
                 <header>
                     <div class="left">
                         <div class="top">
-                            spanish christmas
+                            {{ language.translate("playchris_top_left") }}
                         </div>
                         <div class="bottom">
-                            lottery
+                            {{ language.translate("playchris_top_left2") }}
                         </div>
                     </div>
                     <div class="right">
-                        {#TODO : Add real variables here#}
-                        {#{{ language.translate("playchris_top_right") }}#}
                         <div class="top">
-                            in price
+                            {{ language.translate("playchris_top_right") }}
                         </div>
                         <div class="bottom">
-                            22 dec 2017
+
                         </div>
                     </div>
                     <div class="jackpot">
 
-                        {#TODO : Add real variables here#}
-                        {#{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}#}
-                        {#{% include "_elements/christmasJackpot-value" with ['extraClass': extraClass] %}#}
+                        {{ currencySymbol }}{{ awardBillionChristmas }} {{ language.translate("playchris_top_middle") }}
 
-                        €2.3 billion
-
-                        <span class="mobile">
-                            in price, 22 Dec 2017
-                        </span>
+                        {#<span class="mobile">#}
+                            {#{{ currencySymbol }}{{ awardBillionChristmas }} {{ language.translate("playchris_top_middle") }}#}
+                        {#</span>#}
 
                     </div>
                 </header>
@@ -121,24 +121,14 @@
 
                         <div class="box-bottom under-table-row">
                             <div class="left">
-                                Buy Spanish Christmass Lottery <br class="br-desktop">
-                                <span>
-                                2.3 Billion in Price, 22 December
-                                    </span>
+                                {{ language.translate("playchris_total") }}
                             </div>
                             <div class="right">
                                 <span class="total-price-description">
-
-                                    {#TODO : Add real variables here#}
-                                    {#{{ language.translate("playchris_total") }}#}
-                                    Total price
+                                    {#Total price#}
                                 </span>
-                                <span class="description-before-price"><span
-                                            id="showTotalTickets">0</span>
-                                    {#TODO : Add real variables here#}
-                                    {#{{ language.translate("playchris_total_tck") }}#}
-                                    tickets
-                                    x {{ singleBetPrice | number_format (2,'.','') }} {{ currencySymbol }}
+                                <span class="description-before-price">
+                                    <span id="showTotalTickets">0</span>
                                 </span>
 
                                 <a href="javascript:void(0);" id="nextButton" class="btn add-cart">
@@ -155,23 +145,17 @@
                             <input type="hidden" id="singleBetPrice"
                                    value="{{ singleBetPrice | number_format (2,'.','') }}"/>
                         </div>
-
-                        {#TODO : Add real variables here#}
-                        {% include "_elements/play-bottom-block.volt" %}
-
+                        {#{% include "_elements/play-bottom-block.volt" %}#}
 
                         <div class="box-bottom">
                             <p align="justify">
-                            <h1 style="font-weight: bold; font-size: 26px;">{{ language.translate("playchris_txt_tit") }}</h1>
+                            <h2 style="font-weight: bold; font-size: 26px;">{{ language.translate("playchris_txt_tit") }}</h2>
                             <br/>
                             {{ language.translate("playchris_txt_1") }}<br/>
                             <br/>
                             <h3 style="font-weight: bold; font-size: 20px;">{{ language.translate("playchris_txt_howto_tit") }}</h3>
                             <br/>
                             {{ language.translate("playchris_txt_howto_1") }}<br/>
-                            <ol style="margin-left: 30px;">
-                                {{ language.translate("playchris_top_right") }}
-                            </ol>
                             <br/>
                             <h3 style="font-weight: bold; font-size: 20px;"> {{ language.translate("playchris_txt_what_tit") }}</h3>
                             <br/>
@@ -181,8 +165,7 @@
                             <br/>
                             <h3 style="font-weight: bold; font-size: 20px;">{{ language.translate("playchris_txt_howmany_tit") }}</h3>
                             <br/>
-                            {{ language.translate("playchris_txt_howmany_1") }}<br/>
-                            <br/></strong>
+                            {{ language.translate("playchris_txt_howmany_1") }}
                             </p>
                         </div>
                     </form>

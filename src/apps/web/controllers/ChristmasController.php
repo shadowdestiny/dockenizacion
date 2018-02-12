@@ -39,6 +39,7 @@ class ChristmasController extends PublicSiteControllerBase
             'currencySymbol' => $currency_symbol,
             'singleBetPrice' => $single_bet_price_currency->getAmount() / 100,
             'christmasTickets' => $this->christmasService->getAvailableTickets(),
+            'awardBillionChristmas' => $this->currencyConversionService->convert(new Money(23, new Currency('EUR')), $user_currency)->getAmount() / 10,
             'device' => $this->detectDevice(),
             'pageController' => 'christmasPlay',
         ]);
