@@ -38,7 +38,7 @@
 	var randomizeAllLines = '{{ language.translate('randomizeAll_btn') }}';
 	var clearAllLines = '{{ language.translate('clearAll_btn') }}';
 	var buyForDraw = "{{ language.translate('buyForDraw') }}";
-	var txtLine = '{{ language.translate('line') }}';
+	var txtLine = '{{ language.translate('line_x') }}';
 	var txtMultTotalPrice = '{{ language.translate('mult_total1') }}';
 	var txtMultLines = '{{ language.translate('mult_total2') }}';
 	var txtMultDraws = '{{ language.translate('mult_total3') }}';
@@ -46,6 +46,7 @@
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';
     var next_draw_date_format = '{{ next_draw_date_format }}';
+    var clear_btn = '{{ language.translate('clear_btn') }}';
 
 
     {#añadir aqui el translate#}
@@ -65,7 +66,7 @@
             randomizeAllLines     : '{{ language.translate('randomizeAll_btn') }}',
             clearAllLines         : '{{ language.translate('clearAll_btn') }}',
             buyForDraw            : "{{ language.translate('buyForDraw') }}",
-            txtLine               : '{{ language.translate('line') }}',
+            txtLine               : '{{ language.translate('line_x') }}',
             txtMultTotalPrice     : '{{ language.translate('mult_total1') }}',
             txtMultLines          : '{{ language.translate('mult_total2') }}',
             txtMultDraws          : '{{ language.translate('mult_total3') }}',
@@ -150,7 +151,7 @@
 
                     <div class="left">
                         <div class="bottom">
-                            Jackpot
+                            {{ language.translate('tittle') }}
                         </div>
                         <div class="top">
                             {% if next_draw == 5  %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
@@ -163,13 +164,13 @@
                             {{ language.translate('aboutLottery') }}
                         </div>
                         <div class="bottom">
-                            <a href="{{ language.translate('link_euromillions_help') }}" class="a-hiw">
+                            <a href="/{{ language.translate('link_euromillions_help') }}" class="a-hiw">
                                 {{ language.translate('play_howbtn') }}
                             </a>
-                            <a href="{{ language.translate('link_euromillions_results') }}" class="a-results">
+                            <a href="/{{ language.translate('link_euromillions_results') }}" class="a-results">
                                 {{ language.translate('play_resultsbtn') }}
                             </a>
-                            <a href="{{ language.translate('link_euromillions_faq') }}" class="a-faq">
+                            <a href="/{{ language.translate('link_euromillions_faq') }}" class="a-faq">
                                 {{ language.translate('play_faqbtn') }}
                             </a>
                         </div>
