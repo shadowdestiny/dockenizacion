@@ -9,7 +9,7 @@
                 {{ jackpot_value }}
             </div>
             <div class="measure">
-                millions
+                {{ language.translate("million") }}
             </div>
             <div class="title">
                 {{ language.translate("nextDraw_lbl") }}
@@ -21,7 +21,7 @@
             <div class="btn-row">
                 <a href="/{{ language.translate("link_euromillions_play") }}"
                    class="btn-theme--big">
-                    Play now
+                    {{ language.translate("nextDraw_btn") }}
                 </a>
             </div>
         </section>
