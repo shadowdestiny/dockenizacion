@@ -12,8 +12,8 @@
 
             <div class="top-nav--mobile-account--menu--top">
                 <div class="home-block">
-                    <a class="home-block--ico ico-block" href="/" class="" title="Go to Homepage"></a>
-                    <a class="home-block--link" href="/" class="" title="Go to Homepage">{{ language.translate("home_breadcrumb") }}</a>
+                    <a class="home-block--ico ico-block" href="/{{ language.translate("link_home") }}" class="" title="Go to Homepage"></a>
+                    <a class="home-block--link" href="/{{ language.translate("link_home") }}" class="" title="Go to Homepage">{{ language.translate("home_breadcrumb") }}</a>
                 </div>
                 {#<div class="cart-block">#}
                     {#<div class="cart-block--ico ico-block"></div>#}
@@ -29,27 +29,34 @@
             </div>
             <ul class="top-nav--mobile-account--menu--list">
                 <li class="li--lottery">
-                    Lotteries<br />
+                    {{ language.translate("play_dropdown") }}<br />
                     <a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate("playeuromillions") }}</a>
                     <a href="/{{ language.translate('link_christmas_play') }}">{{ language.translate("playchris_sub") }}</a>
-                    <a href="/{{ language.translate('link_euromillions_results') }}">{{ language.translate("results_dropdown") }}</a>
+                </li>
+                <li>
+                    {{ language.translate("results_dropdown") }}<br />
+                    <a href="/{{ language.translate('link_euromillions_results') }}">{{ language.translate("results_em_sub") }}</a>
                     <a href="/{{ language.translate('link_euromillions_draw_history') }}">{{ language.translate("results_emhistory") }}</a>
                     <a href="/{{ language.translate('link_christmas_results') }}">{{ language.translate("results_chris_sub") }}</a>
+                </li>
+                <li>
                     <a href="/{{ language.translate('link_euromillions_help') }}">{{ language.translate("howto_em_sub") }}</a>
                 </li>
                 {% if user_logged is not empty %}
                 <li class="li--euromillion">
-                    My EuroMillions<br />
+                    {{ language.translate("myAccount_account") }}<br />
                     <a href="/account/wallet">{{ language.translate("myAccount_balance") }}</a>
                     <a href="/profile/tickets/games">{{ language.translate("myAccount_tickets") }}</a>
                     <a href="/profile/transactions">{{ language.translate("myAccount_transactions") }}</a>
                     <a href="/account">{{ language.translate("myAccount") }}</a>
                     <a class="link" href="/logout">{{ language.translate("LogOut") }}</a>
                 </li>
+                {% else %}
+                    <li>
+                        <a rel="nofollow" href="/{{ language.translate("link_signin") }}">{{ language.translate('signIn') }}</a>
+                        <a rel="nofollow" href="/{{ language.translate("link_signup") }}">{{ language.translate('signUp') }}</a>
+                    </li>
                 {% endif %}
-                <li class="li--help">
-                    <a href="/{{ language.translate("link_euromillions_help") }}">{{ language.translate("howto_em_sub") }}</a>
-                </li>
                 <li class="li--lang">
                     <a href="#">{{ language.translate(user_language) }}</a>
 
@@ -71,7 +78,23 @@
 
                 </li>
                 <li class="li--cur">
-                    <a rel="nofollow" href="/{{ language.translate("link_currency") }}">{{ language.translate("currencies") }}</a>
+                    <a href="#">{{ user_currency['symbol'] }} {{ user_currency_code }}</a>
+                    <div class="li--cur--currencies">
+                        <ul class="no-li">
+                            {% for currency in currencies %}
+                                {% if currency.code != user_currency_code %}
+                                    <li>
+                                        <a rel="nofollow" href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">
+                                            {{ language.translate(currency.code ~ "_code") }} {{ language.translate(currency.code ~ "_name") }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            <li>
+                                <a rel="nofollow" href="/{{ language.translate("link_currency") }}">{{ language.translate("currencies") }}</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
 
