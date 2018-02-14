@@ -28,6 +28,7 @@ class ChristmasController extends PublicSiteControllerBase
             $current_user_id = $this->authService->getCurrentUser()->getId();
             /** @var User $user */
             $user = $this->userService->getUser($current_user_id);
+            $user_currency = $user->getUserCurrency();
             $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
         }
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
