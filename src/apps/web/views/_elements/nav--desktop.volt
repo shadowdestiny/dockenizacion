@@ -17,7 +17,7 @@
         <ul>
             <li>
                 <a href="/{{ language.translate('link_euromillions_results') }}">
-                    {{ language.translate("link_euromillions_results") }}
+                    {{ language.translate("results_em_sub") }}
                 </a>
             </li>
             <li>
