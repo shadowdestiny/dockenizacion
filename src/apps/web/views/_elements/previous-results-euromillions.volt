@@ -28,7 +28,7 @@
         </div>
 
         <div class="previous-results--button">
-            <input type="button" value="SHOW" id="show-results" class="btn-theme btn-secondary ui-link" />
+            <input type="button" value="{{ language.translate("PastResults_btn") }}" id="show-results" class="btn-theme btn-secondary ui-link" />
         </div>
 
     </form>

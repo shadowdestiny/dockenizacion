@@ -124,6 +124,31 @@
       }
     }
 
+    span.desktop--only {
+      //font-family: WorkSans;
+      color: #ffffff;
+      font-weight: 900;
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 14px;
+      display: none;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 28px;
+        margin-bottom: 14px;
+        text-align: left;
+        display: block;
+      }
+      @media only screen and (min-width: $screen-ipad-h) {
+        font-size: 42px;
+        margin-bottom: 14px;
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 35px;
+        margin-bottom: 14px;
+      }
+    }
+
     h3.desktop--only {
       //font-family: WorkSans;
       color: #ffffff;
@@ -415,7 +440,7 @@
             width: 40%;
           }
           @media only screen and (min-width: $screen-desktop) {
-            width: 33.33%;
+            width: 34.33%;
             padding-top: 1px;
           }
         }

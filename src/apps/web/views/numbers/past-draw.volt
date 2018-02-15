@@ -81,11 +81,25 @@
 {% endblock %}
 {% block body %}
     <main id="content">
-
         <div class="result-page--content">
 
-            <div class="banner"></div>
+            <div class="banner">
+                <div class="top-banner--section">
+                    <div class="top-banner--banner">
+                        <div class="wrapper">
+
+                            <h1 class="top-banner-play">
+                                {{ language.translate("resultsdate_title") }}
+                            </h1>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="wrapper">
+                <h1 class="top-banner-play">
+                    {{ language.translate("resultsdate_title") }}
+                </h1>
                 <h2 class="h2 mobile--only">
                     {{ last_draw_date }}
                 </h2>
@@ -116,13 +130,14 @@
                         {% endfor %}
                     </ul>
 
-                    <h2 class="h2 desktop--only">
-                        {{ last_draw_date }}
-                    </h2>
+                    <span class="desktop--only">
+                        {{ language.translate("draw") }}
+                    </span>
 
                     <h3 class="desktop--only">
                         {#TODO : Add real variables here#}
-                        February 2017
+                        {% if next_draw == 5  %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
+                        {{ next_draw_date_format }}
                     </h3>
                 </div>
 
@@ -133,29 +148,29 @@
                     <div class="left-section result-section">
 
                         <div class="box-current-winners--new">
-                            <h1 class="h2">
+                            <h2 class="h2">
                                 {#TODO : Add real variables here#}
-                                {{ language.translate("prizePool_title") }}
+                                {{ language.translate("resultsdate_h2") }}
                                 {#Euromillions Results & price breakdown for Tuesday 02 November 2016#}
-                            </h1>
+                            </h2>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
                                    data-mode="reflow">
                                 <thead>
-                                <tr>
-                                    <th class="td-ball">{{ language.translate("prizePool_ball") }}</th>
-                                    <th class="td-star-ball">{{ language.translate("prizePool_star") }}</th>
-                                    <th class="td-winners">{{ language.translate("prizePool_winners") }}</th>
-                                    <th class="td-prize">{{ language.translate("prizePool_prize") }}</th>
-                                </tr>
+                                    <th></th>
                                 </thead>
                                 <tbody>
+                                <tr>
+                                    <td class="td-ball" style="font-weight: bold; font-size: 15px;">{{ language.translate("prizePool_matches") }}</td>
+                                    <td class="td-winners" style="font-weight: bold; font-size: 15px;">{{ language.translate("prizePool_winners") }}</td>
+                                    <td class="td-prize" style="font-weight: bold; font-size: 15px;">{{ language.translate("prizePool_prize") }}</td>
+                                </tr>
                                 {% for name,categories in break_downs %}
                                     <tr>
                                         {% if break_downs[name] is defined %}
                                             <td class="td-ball">
                                                 <span>
                                                 {#TODO : Add real variables here#}
-                                                    5 Numbers + 2 Starts
+                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("prizePool_ball") }} + {{ break_downs[name]['stars_corrected'] }} {{ language.translate("prizePool_star") }}
                                                 </span>
                                             </td>
                                             <td class="td-star-ball">
@@ -183,8 +198,8 @@
 
                             <div class="previous-results mobile--only">
                                 <div class="btn-line">
-                                    <a href="#" class="btn-theme--big">
-                                        Previous results
+                                    <a href="{{ language.translate('link_euromillions_results') }}" class="btn-theme--big">
+                                        {{ language.translate("resultsdate_btn") }}
                                     </a>
                                 </div>
                             </div>
