@@ -144,7 +144,7 @@ class UserAccessController extends ControllerBase
             }
         }
 
-        $this->view->pick('sign-in/index');
+        $this->view->pick('sign-in/sign-up');
         $this->tag->prependTitle($this->languageService->translate('signuptag_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('signuptag_desc'));
         return $this->view->setVars([

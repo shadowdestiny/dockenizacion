@@ -8,14 +8,12 @@
 {% endif %}
 <form action="{{ url_signup }}" name="form_notifications" id="sign-up-form" method="post">
 
-
     <a class="signin--btn" href="/{{ language.translate("link_signin") }}">Sign In</a>
 
     <div class="close--btn">
         <div class="close--btn--inner"></div>
     </div>
 
-    <h1 class="title">Sign up to create your euromillions.com account.</h1>
     {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
     {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}
 
@@ -74,9 +72,9 @@
         </label>
     </div>
 
-    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span
-                class="txt">{{ language.translate("signup_accountQuestion") }}</span> <a class="btn gwy"
-                                                                                         href="javascript:void(0)">{{ language.translate("signup_LogIn_btn") }}</a>
+    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}">
+        <span class="txt">{{ language.translate("signup_accountQuestion") }}</span>
+        <a class="btn gwy" href="/{{ language.translate("link_signin") }}">{{ language.translate("signup_LogIn_btn") }}</a>
     </div>
 </form>
 
