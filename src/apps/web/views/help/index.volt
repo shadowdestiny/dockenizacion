@@ -64,41 +64,6 @@
 
                     <div class="left-section faq-section">
 
-                        <div class="questions" style="display: none;">
-                            <h2 class="h3">{{ language.translate("help_subhead") }}</h2>
-                            <ul class="no-li">
-                                <li><a href="#n01">{{ language.translate("step1_subhead") }}</a></li>
-                                <li><a href="#n02">{{ language.translate("step2_subhead") }}</a></li>
-                                <li><a href="#n03">{{ language.translate("step3_subhead") }}</a></li>
-                                <li><a href="#n04">{{ language.translate("step4_subhead") }}</a></li>
-                                <li><a href="#n05">{{ language.translate("step5_subhead") }}</a></li>
-                            </ul>
-
-                            <h2 class="h3">{{ language.translate("help_secondH2") }}</h2>
-                            <ul class="no-li">
-                                <li><a href="#n06">{{ language.translate("eurom_no1_q") }}</a></li>
-                                <li><a href="#n07">{{ language.translate("eurom_no15_q") }}</a></li>
-                                <li><a href="#n08">{{ language.translate("eurom_no25_q") }}</a></li>
-                                <li><a href="#n09">{{ language.translate("eurom_no9_q") }}</a></li>
-                                <li><a href="#n10">{{ language.translate("eurom_no14_q") }}</a></li>
-                            </ul>
-
-                            <h2 class="h3">{{ language.translate("help_thirdH2") }}</h2>
-                            <ul class="no-li">
-                                <li><a href="#n18">{{ language.translate("eurom_no4_q") }}</a></li>
-                                <li><a href="#n19">{{ language.translate("eurom_no17_q") }}</a></li>
-                                <li><a href="#n20">{{ language.translate("eurom_no6_q") }}</a></li>
-                            </ul>
-
-                            <h2 class="h3">{{ language.translate("help_fourthH2") }}</h2>
-                            <ul class="no-li">
-                                <li><a href="#n23">{{ language.translate("eurom_no5_q") }}</a></li>
-                                <li><a href="#n24">{{ language.translate("eurom_no7_q") }}</a></li>
-                                <li><a href="#n26">{{ language.translate("eurom_no8_q") }}</a></li>
-                                <li><a href="#n26">{{ language.translate("eurom_no18_q") }}</a></li>
-                            </ul>
-                        </div>
-
                         <div class="answer">
 
                             <div class="accordion-block-outer">
