@@ -132,14 +132,14 @@
                         {% endfor %}
                     </ul>
 
-                    <h2 class="h2 desktop--only">
+                    <span class="h2 desktop--only">
                         {{ language.translate("lastDraw_title") }}
                         {{ language.translate(draw_day) }}
-                    </h2>
+                    </span>
 
-                    <h3 class="desktop--only">
+                    <span class="desktop--only">
                         {{ last_draw_date }}
-                    </h3>
+                    </span>
                 </div>
 
                 <div class="content">

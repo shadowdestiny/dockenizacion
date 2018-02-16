@@ -3,7 +3,7 @@
         <section class="section-01">
             <div class="corner"></div>
             <div class="title">
-                Euro Millions
+                {{ language.translate("nextDraw_Estimate") }}
             </div>
             <div class="price{% if jackpot_value|length > 4 %}-sm{% endif %}">
                 {{ jackpot_value }}
