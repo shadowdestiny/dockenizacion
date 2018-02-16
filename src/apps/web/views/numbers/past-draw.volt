@@ -100,12 +100,13 @@
                 <h1 class="top-banner-play">
                     {{ language.translate("resultsdate_title") }}
                 </h1>
-                <h2 class="h2 mobile--only">
+                <span class="h2 mobile--only">
                     {{ last_draw_date }}
-                </h2>
+                </span>
 
                 <h3 class="mobile--only">
-                    February 2017
+                    {% if next_draw == 5  %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
+                    {{ next_draw_date_format }}
                 </h3>
 
 
@@ -198,7 +199,14 @@
 
                             <div class="previous-results mobile--only">
                                 <div class="btn-line">
-                                    <a href="{{ language.translate('link_euromillions_results') }}" class="btn-theme--big">
+                                    <a href="/{{ language.translate('link_euromillions_results') }}" class="btn-theme--big">
+                                        {{ language.translate("resultsdate_btn") }}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="previous-results desktop--only">
+                                <div class="btn-line">
+                                    <a href="/{{ language.translate('link_euromillions_results') }}" class="btn-theme--big">
                                         {{ language.translate("resultsdate_btn") }}
                                     </a>
                                 </div>

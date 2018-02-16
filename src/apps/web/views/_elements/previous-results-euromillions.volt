@@ -1,6 +1,6 @@
 <div class="previous-results desktop--only">
     <div class="previous-results--title">
-        Previous results
+        {{ language.translate("pastNumbers_title") }}
     </div>
     <form action="" class="previous-results--selectboxes">
         <div class="selectbox">

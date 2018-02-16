@@ -59,7 +59,6 @@
     }
 
     .wrapper {
-      display: none;
 
       @media only screen and (min-width: $screen-ipad-v) {
         display: none;
@@ -77,9 +76,9 @@
     .top-banner--head{
       //font-family: WorkSans;
       color:  #333333;
-      font-size: 44px;
+      font-size: 30px;
       font-weight: 900;
-      line-height: 46px;
+      line-height: 58px;
       text-align: left;
       text-transform: uppercase;
 
@@ -93,7 +92,12 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-
+        color:  #333333;
+        font-size: 44px;
+        font-weight: 900;
+        line-height: 46px;
+        text-align: left;
+        text-transform: uppercase;
       }
 
       @media only screen and (min-width: $screen-desktop) {
@@ -109,17 +113,17 @@
     .top-banner-play{
       //font-family: WorkSans;
       color:  #333333;
-      font-size: 44px;
+      font-size: 30px;
       font-weight: 900;
-      line-height: 46px;
+      line-height: 58px;
       text-align: center;
       text-transform: uppercase;
 
       @media only screen and (min-width: $screen-ipad-v) {
         color:  #333333;
-        font-size: 44px;
+        font-size: 30px;
         font-weight: 900;
-        line-height: 46px;
+        line-height: 58px;
         text-align: center;
         text-transform: uppercase;
       }
@@ -141,15 +145,17 @@
 
     .top-banner--subline {
       //font-family: WorkSans;
-      color:  #333333;
-      font-size: 24px;
-      font-weight: 700;
-      text-align: left;
-      line-height: 1;
-      padding-top: 3px;
-      padding-bottom: 13px;
+      //color:  #333333;
+      //font-size: 24px;
+      //font-weight: 700;
+      //text-align: left;
+      //line-height: 1;
+      //padding-top: 3px;
+      //padding-bottom: 13px;
+      display: none;
 
       @media only screen and (min-width: $screen-ipad-v) {
+        display: block;
         color:  #333333;
         font-size: 24px;
         font-weight: 700;
@@ -160,10 +166,18 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-
+        display: block;
+        color:  #333333;
+        font-size: 24px;
+        font-weight: 700;
+        text-align: left;
+        line-height: 1;
+        padding-top: 3px;
+        padding-bottom: 13px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
+        display: block;
         color:  #333333;
         font-size: 18px;
         font-weight: 700;
@@ -175,13 +189,15 @@
     }
     .top-banner--cost-per-lines{
       //font-family: WorkSans;
-      color:  #333333;
-      font-size: 36px;
-      font-weight: 700;
-      text-align: left;
-      text-transform: uppercase;
+      //color:  #333333;
+      //font-size: 36px;
+      //font-weight: 700;
+      //text-align: left;
+      //text-transform: uppercase;
+      display: none;
 
       @media only screen and (min-width: $screen-ipad-v) {
+        display: block;
         color:  #333333;
         font-size: 36px;
         font-weight: 700;
@@ -190,10 +206,11 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-
+        display: block;
       }
 
       @media only screen and (min-width: $screen-desktop) {
+        display: block;
         color:  #333333;
         font-size: 27px;
         font-weight: 700;
