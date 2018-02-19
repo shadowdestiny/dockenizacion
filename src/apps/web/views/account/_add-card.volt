@@ -129,11 +129,13 @@
                 </div>
                 <input type="hidden" name="paywallet" id="paywallet" value=""/>
                 <input type="hidden" name="funds" id="funds" value=""/>
-                <div class="cards-margin">
-
+                <div class="cards-margin-desktop desktop">
                     {% include "_elements/cards-block-payment.volt" %}
                 </div>
             {#</div>#}
+            </div>
+            <div class="cards-margin-mobile mobile">
+                {% include "_elements/cards-block-payment.volt" %}
             </div>
         </div>
 

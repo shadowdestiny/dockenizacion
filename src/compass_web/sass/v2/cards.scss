@@ -1,5 +1,41 @@
-.cards-margin {
-  margin-top: 20px;
+.cards-margin-mobile {
+  margin-top: 59px;
+  .div {
+    .mobile {
+      @media only screen and (min-width: $screen-xs) {
+        margin-top: 59px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        margin-top: 59px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin-top: 20px;
+        display: none;
+      }
+    }
+  }
+}
+.cards-margin-desktop {
+  margin-top: 10px;
+  .div {
+    .desktop {
+      @media only screen and (min-width: $screen-xs) {
+        margin-top: 10px;
+        display: none;
+      }
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        margin-top: 10px;
+        display: none;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin-top: 10px;
+      }
+    }
+  }
 }
 .cards-block-payment {
   height: 41px;
