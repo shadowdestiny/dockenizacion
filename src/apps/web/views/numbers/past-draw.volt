@@ -97,14 +97,9 @@
                 </div>
             </div>
             <div class="wrapper">
-                <h1 class="top-banner-play">
-                    {{ language.translate("resultsdate_title") }}
-                </h1>
-                <span class="h2 mobile--only">
-                    {{ last_draw_date }}
-                </span>
-
                 <h3 class="mobile--only">
+                    <br />
+                    {{ language.translate("draw") }}
                     {% if next_draw == 5  %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
                     {{ next_draw_date_format }}
                 </h3>
