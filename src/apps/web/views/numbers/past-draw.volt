@@ -89,7 +89,11 @@
                         <div class="wrapper">
 
                             <h1 class="top-banner-play">
-                                {{ language.translate("resultsdate_title") }}
+                                {% if mobile == 1 %}
+                                    {{ language.translate("resultsdate_mobile_h1") }}
+                                {% else %}
+                                    {{ language.translate("resultsdate_title") }}
+                                {% endif %}
                             </h1>
 
                         </div>

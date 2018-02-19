@@ -94,7 +94,11 @@
                     <div class="top-banner--banner">
                         <div class="wrapper">
                             <h1 class="top-banner--head">
-                                {{ language.translate("results_tittle") }}
+                                {% if mobile == 1 %}
+                                    {{ language.translate("results_mobile_h1") }}
+                                {% else %}
+                                    {{ language.translate("results_tittle") }}
+                                {% endif %}
                             </h1>
                         </div>
                     </div>
