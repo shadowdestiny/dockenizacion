@@ -94,17 +94,21 @@
                     <div class="top-banner--banner">
                         <div class="wrapper">
                             <h1 class="top-banner--head">
-                                {{ language.translate("results_tittle") }}
+                                {% if mobile == 1 %}
+                                    {{ language.translate("results_mobile_h1") }}
+                                {% else %}
+                                    {{ language.translate("results_tittle") }}
+                                {% endif %}
                             </h1>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="wrapper">
-                <h2 class="h2 mobile--only">
+                <h3 class="h2 mobile--only">
                     {{ language.translate("lastDraw_title") }}
                     {{ language.translate(draw_day) }}
-                </h2>
+                </h3>
 
                 <h3 class="mobile--only">
                     {{ last_draw_date }}
@@ -132,14 +136,14 @@
                         {% endfor %}
                     </ul>
 
-                    <span class="h2 desktop--only">
+                    <h3 class="h2 desktop--only">
                         {{ language.translate("lastDraw_title") }}
                         {{ language.translate(draw_day) }}
-                    </span>
+                    </h3>
 
-                    <span class="desktop--only">
+                    <h3 class="desktop--only">
                         {{ last_draw_date }}
-                    </span>
+                    </h3>
                 </div>
 
                 <div class="content">

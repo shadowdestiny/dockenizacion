@@ -72,7 +72,13 @@
                         {#</div>#}
                     {#</div>#}
 
-                    <h1 class="h1 title">{{ language.translate("resultshist_title") }}</h1>
+                    <h1 class="h1 title">
+                        {% if mobile == 1 %}
+                            {{ language.translate("resultshist_mobile_h1") }}
+                        {% else %}
+                            {{ language.translate("resultshist_title") }}
+                        {% endif %}
+                    </h1>
                         <div class="history-numbers-block">
                             <div class="pad">
                                 <h2 class="h2 purple">{{ language.translate("historyNumbers_title") }}</h2>

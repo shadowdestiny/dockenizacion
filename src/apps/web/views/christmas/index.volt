@@ -30,7 +30,11 @@
                     <div class="top-banner--banner">
                         <div class="wrapper">
                             <h1 class="top-banner--head">
-                                {{ language.translate("playchris_h1") }}
+                                {% if mobile == 1 %}
+                                    {{ language.translate("playchris_mobile_h1") }}
+                                {% else %}
+                                    {{ language.translate("playchris_h1") }}
+                                {% endif %}
                             </h1>
                         </div>
                     </div>

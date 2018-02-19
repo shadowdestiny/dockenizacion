@@ -15,7 +15,13 @@
     <main id="content">
         <div class="wrapper">
             <div class="box-basic">
-                <h1 class="h1 title">{{ language.translate("h1_christmasresults") }}</h1>
+                <h1 class="h1 title">
+                    {% if mobile == 1 %}
+                        {{ language.translate("h1_resultsch_mobile") }}
+                    {% else %}
+                        {{ language.translate("h1_christmasresults") }}
+                    {% endif %}
+                </h1>
                 <div class="wrap">
                     <div class="cols">
                                 <h2 class="h2"><span class="purple">{{ language.translate("h2_mainprizes") }}</span>
