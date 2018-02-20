@@ -120,7 +120,7 @@
                         </th>
                         <th class="lottery">
                             <p>
-                                Lottery
+                                {{ language.translate("tickets_past_lotto") }}
                             </p>
 
                         </th>
@@ -132,7 +132,7 @@
                         </th>
                         <th class="amount">
                             <p>
-                                Amount
+                                {{ language.translate("mainprizes_column3") }}
                             </p>
 
                         </th>

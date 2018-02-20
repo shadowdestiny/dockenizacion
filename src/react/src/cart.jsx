@@ -236,7 +236,8 @@ var CartPage = new React.createClass({
                                pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}
                                pricetopay={this.state.total} funds={Funds.funds_value}
                                total_price={this.state.total} txt_summary={this.props.txt_summary}
-                               txt_draws={this.props.txt_draws} txt_on={this.props.txt_on} txt_total={this.props.txt_total} />
+                               txt_draws={this.props.txt_draws} txt_on={this.props.txt_on} txt_total={this.props.txt_total}
+                               txt_edit={this.props.txt_edit} txt_link_play={this.props.txt_link_play} />
                 <div className="box-order">
                     {_euroMillionsLine}
                     <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList}
@@ -420,7 +421,7 @@ ReactDOM.render(<CartPage total={total_price}
                           discount={discount} txt_summary={txt_summary} txt_draws={txt_draws} txt_on={txt_on}
                           txt_currencyAlert={txt_currencyAlert} txt_total={txt_total}
                           txt_payWithBalanceOption={txt_payWithBalanceOption} txt_gotopay_btn={txt_gotopay_btn}
-                          txt_buy_btn={txt_buy_btn} txt_checkout_fee={txt_checkout_fee}
+                          txt_buy_btn={txt_buy_btn} txt_checkout_fee={txt_checkout_fee} txt_edit={txt_edit} txt_link_play={txt_link_play}
                 />, document.getElementById('cart-order'));
 
 
