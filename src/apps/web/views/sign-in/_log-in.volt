@@ -28,7 +28,7 @@
             </label>
         {% elseif signIn.myClass == 'cart' %}
             <label for="go" class="submit btn-theme--big">
-                {{ language.translate("Login &amp; Play") }}
+                {{ language.translate("signin_LogIn_btn") }}
                 {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
             </label>
         {% endif %}

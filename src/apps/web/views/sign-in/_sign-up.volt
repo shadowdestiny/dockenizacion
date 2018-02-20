@@ -47,27 +47,21 @@
             </label>
         {% elseif signIn.myClass == 'cart' %}
             <label for="goSignUp" class="submit btn-theme--big">
-                {#TODO : Add real variables here#}
-                sign up
-                {#{{ language.translate("Create account &amp; Play") }}#}
-                {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
+                {{ language.translate("signup_createAccount_btn") }}
             </label>
         {% endif %}
     </div>
 
     <div class="cl txt--already-have-account">
-        {#TODO : Add real variables here#}
-        Already have an account? <a href="/{{ language.translate("link_signin") }}">Sign in Now!</a>
+        {{ language.translate("signup_accountQuestion") }} <a href="/{{ language.translate("link_signin") }}">{{ language.translate("signup_LogIn_btn") }}</a>
     </div>
 
     <div class="cl txt--accept">
-
-        {#TODO : Add real variables here#}
         <label class="label left" for="accept">
             {#<input type="checkbox" id="accept" name="accept" value="yes" class="checkbox" data-role="none">#}
             {#<span class="checkbox-after"></span>#}
             <span class="txt">
-                I accept the Terms & Conditions and Privacy Policy.
+                {{ language.translate("signup_signInTC") }}
             </span>
         </label>
     </div>
