@@ -147,18 +147,18 @@
     </div>
     <div class="add-funds-block second" style="margin-top: -65px;">
         <h2 class="h3 yellow margin">{{ language.translate("deposit_subhead") }}</h2>
-        <div class="div-balance"><strong class="purple">{{ language.translate("Current Account balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
+        <div class="div-balance"><strong class="purple">{{ language.translate("deposit_balance") }}:</strong> <span class="value">{{ user_balance }}</span></div>
         <span class="currency">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
 
 
         <div class="notes cl">
             <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-            <span class="txt" data-txt='{{ language.translate("Minimum Deposit is ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Minimum Deposit is ") }} {{ site_config.feeLimit }}</span>
-            <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros.")}}</span>
-	<span class="txt">{{ language.translate("This transaction will appear as EuroMillions.com on your bank account statement.")}}</span>
+            <span class="txt" data-txt='{{ language.translate("deposit_minimum") }} {{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Minimum Deposit is ") }} {{ site_config.feeLimit }}</span>
+            <span class="txt">{{ language.translate("deposit_ccyWarning")}}</span>
+	<span class="txt">{{ language.translate("deposit_statement")}}</span>
         </div>
         <br>
-        <div class="div-balance"><strong class="purple charge" >{{ language.translate("Total Charge:") }}</strong> <span class="value charge"></span><span class="value convert"></span></div>
+        <div class="div-balance"><strong class="purple charge" >{{ language.translate("deposit_total") }}</strong> <span class="value charge"></span><span class="value convert"></span></div>
         <div class="box-wallet overview">
 
             <label class="label submit btn gray" style="cursor:default">
