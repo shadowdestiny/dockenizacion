@@ -110,7 +110,7 @@ class CreditCardForm extends Form
 
         $expiry_date_year->addValidators(array(
             new PresenceOf([
-                'message' => 'Insert an expiry date valid.'
+                'message' => $translationAdapter->query('card_date_error')
             ]),
             new CreditCardExpiryDateValidator([
                 'what'=>'year',
