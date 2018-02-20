@@ -118,13 +118,15 @@
                         {% endif %}
 
                     </div>
-                    <div class="left">
-                        <input id="new-card" type="submit" class="hidden2">
-                        <label class="left btn submit big green" for="new-card">
-                            {{ language.translate("Pay {total_value}") }}
-                        </label>
-                    </div>
-                    <br />
+                    {% if component.where != 'account' %}
+                        <div class="left">
+                            <input id="new-card" type="submit" class="hidden2">
+                            <label class="left btn submit big green" for="new-card">
+                                {{ language.translate("Pay {total_value}") }}
+                            </label>
+                        </div>
+                        <br />
+                    {% endif %}
                     {% if component.where == 'cart' %}
                 </div>
                 <input type="hidden" name="paywallet" id="paywallet" value=""/>
@@ -143,7 +145,7 @@
 
         {% if component.where == 'account' %}
     </div>
-    <div class="add-funds-block second">
+    <div class="add-funds-block second" style="margin-top: -65px;">
         <h2 class="h3 yellow margin">{{ language.translate("deposit_subhead") }}</h2>
         <div class="div-balance"><strong class="purple">{{ language.translate("Current Account balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
         <span class="currency">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
