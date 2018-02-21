@@ -333,6 +333,12 @@ $(document).ready(function () {
         $('.li--lang--languages').stop().slideToggle();
     });
   }
+  //Mobile menu language accordion
+  if ($('.top-nav--mobile-account--menu--list .li--cur').length) {
+    $('.top-nav--mobile-account--menu--list .li--cur').click(function () {
+        $('.li--cur--currencies').stop().slideToggle();
+    });
+  }
 
   //Mobile dashboard menu
   if ($('.dashboard-menu--balance--link').length) {
