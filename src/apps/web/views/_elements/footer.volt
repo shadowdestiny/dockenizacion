@@ -21,7 +21,7 @@
 
     <div class="wrapper">
         <div class="cols box-links">
-            <div class="col16per">
+            <div class="col col16per">
                 <strong>{{ language.translate('column1_head') }}</strong>
                 <ul>
                     <li>
@@ -32,7 +32,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col16per">
+            <div class="col col16per">
                 <strong>{{ language.translate('column2_head') }}</strong>
                 <ul>
                     <li>
@@ -46,7 +46,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col20per">
+            <div class="col col20per">
                 <strong>{{ language.translate('column3_head') }}</strong>
                 <ul>
                     {% if user_logged %}
@@ -65,7 +65,7 @@
                     {% endif %}
                 </ul>
             </div>
-            <div class="col16per">
+            <div class="col col16per">
                 <strong>{{ language.translate('column4_head') }}</strong>
                 <ul>
                     <li>
@@ -76,7 +76,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col16per">
+            <div class="col col16per">
                 <strong>{{ language.translate('column5_head') }}</strong>
                 <ul>
                     <li>
@@ -98,7 +98,7 @@
                     #}
                 </ul>
             </div>
-            <div class="col16per">
+            <div class="col col16per">
                 <strong>{{ language.translate('langcolumn_head') }}</strong>
                 <ul>
                     <li><a href="https://euromillions.com">{{ language.translate('langcolumn_en') }}</a></li>
