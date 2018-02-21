@@ -25,11 +25,15 @@ class ResultController extends PublicSiteControllerBase
 	    $this->tag->prependTitle('Purchase Confirmation');
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $date_time_util = new DateTimeUtil();
+        /** @var \DateTime $actualDate */
+        $actualDate = $order_dto->getStartDrawDate();
+
         return $this->view->setVars([
             'order' => $order_dto,
             'jackpot_value' => ViewHelper::formatJackpotNoCents($jackpot),
             'user' => new UserDTO($user),
-            'start_draw_date_format' => date('D j M Y',$order_dto->getStartDrawDate()->getTimestamp()),
+            'start_draw_date_format' => $actualDate->format($this->languageService->translate('dateformat')),
+            'draw_day' => $actualDate->format('l'),
             'countdown_next_draw' => $date_time_util->getCountDownNextDraw($date_next_draw),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
