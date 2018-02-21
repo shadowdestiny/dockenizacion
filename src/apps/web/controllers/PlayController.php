@@ -54,6 +54,7 @@ class PlayController extends PublicSiteControllerBase
             'discount' => $bundlePriceDTO->bundlePlayDTOActive->getDiscount(),
             'pageController' => 'euroPlay',
             'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
+            'draw_day' => $this->languageService->translate($draw->format('l')),
         ]);
     }
 }
