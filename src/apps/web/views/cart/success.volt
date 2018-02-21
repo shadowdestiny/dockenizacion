@@ -65,10 +65,10 @@ function numCharLine($line){
                 <h1>Thank you!</h1>
 
                 <h2>
-                    thanks for your order and good luck!
+                    {{ language.translate("confirmation_head") }}
                 </h2>
                 <p>
-                    You just completed your payment
+                    {{ language.translate("confirmation_subhead") }}
                 </p>
                 {#<div class="countdown">#}
                     {##}
@@ -78,20 +78,20 @@ function numCharLine($line){
                         <span class="timer">
                             <div class="countdown-black">
                                 <div class="day unit">
-                                    <span class="val">%-d {% if show_s_days == '1' %}DAY{% else %}DAYS{% endif %}</span>
+                                    <span class="val">%-d {% if show_s_days == '1' %}{{ language.translate("nextDraw_oneday") }}{% else %}{{ language.translate("nextDraw_day") }}{% endif %}</span>
                                 </div>
                                 <div class="dots"></div>
                                 <div class="hour unit">
-                                    <span class="val">%-H HRS</span>
+                                    <span class="val">%-H {{ language.translate("nextDraw_hr") }}</span>
                                 </div>
                                 <div class="dots">:</div>
                                 <div class="minute unit">
-                                    <span class="val">%-M MIN</span>
+                                    <span class="val">%-M {{ language.translate("nextDraw_min") }}</span>
                                 </div>
                                 {% if show_s_days == '0' %}
                                     <div class="dots">:</div>
                                     <div class="seconds unit">
-                                    <span class="val">%-S SECS</span>
+                                    <span class="val">%-S {{ language.translate("nextDraw_sec") }}</span>
                                 </div>
                                 {% endif %}
                             </div>
@@ -100,17 +100,17 @@ function numCharLine($line){
 
                 </div>
                 <div class="btn-row">
-                    <a href="#" class="btn-theme--big">Play more</a>
+                    <a href="/{{ language.translate("link_euromillions_play") }}" class="btn-theme--big">Play more</a>
                 </div>
             </div>
 
 
             <div class="thank-you-block--jackpot">
                 <p>
-                    your lines played for this {{ start_draw_date_format }}
+                    {{ language.translate("confirmation_lines") }} {{ start_draw_date_format }}
                 </p>
                 <h2>
-                    jackpot {{ jackpot_value }} milliones
+                    {{ language.translate("tittle") }} {{ jackpot_value }} {{ language.translate("million") }}
                 </h2>
             </div>
 
@@ -138,17 +138,14 @@ function numCharLine($line){
 
             <div class="thank-you-block--bottom">
                 <p>
-                    We have sent you an email with details of the line you played. <br>
-                    You can also see the lines you have played on our <a href="#">tickets page</a>
+                    {{ language.translate("paragraph1") }}
                 </p>
                 <h3>
-                    In case of winning
+                    {{ language.translate("win_subhead") }}
                 </h3>
                 <p>
-                    We will contact you at <a href="mailto:{{ user.email }}">{{ user.email }}</a> be sure to add our
-                    <br>
-                    email <a href="mailto:support@euromillions.com">support@euromillions.com</a> to your adress book to avoid spam
-                    filters.
+                    {{ language.translate("win_text",['user_email':user.email]) }}
+                    {#{{ language.translate("win_text") }}#}
                 </p>
             </div>
         </div>
