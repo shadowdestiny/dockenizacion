@@ -294,7 +294,7 @@
         border-color: #0099e6;
         border-style: solid;
         background-color: #ffffff;
-        width: 90px;
+        //width: 90px;
         height: 32px;
         //padding: 2px 0px;
         margin: -12px auto 0;
@@ -308,10 +308,15 @@
         background-repeat: no-repeat;
         -webkit-background-size: 12px;
         background-size: 12px;
-        background-position: 60px 9px;
+        //background-position: 60px 9px;
+        background-position: 90% 9px;
+
+        width:auto;
+        display: inline-block;
+        padding-right: 20px;
 
         @media only screen and (min-width: $screen-ipad-h) {
-          width: 90px;
+          //width: 90px;
           height: 32px;
           margin: -12px auto 0;
           padding: 1px 0px;
@@ -320,10 +325,12 @@
           bottom: -18px;
           -webkit-background-size: 12px;
           background-size: 12px;
-          background-position: 60px 9px;
+          //background-position: 60px 9px;
+          background-position: 90% 9px;
+          padding-right: 20px;
         }
         @media only screen and (min-width: $screen-desktop) {
-          width: 90px;
+          //width: 90px;
           height: 32px;
           margin: -12px auto 0;
           padding: 1px 0px;
@@ -332,11 +339,13 @@
           bottom: -18px;
           -webkit-background-size: 12px;
           background-size: 12px;
-          background-position: 60px 9px;
+          //background-position: 60px 9px;
+          background-position: 90% 9px;
+          padding-right: 20px;
         }
 
         @media only screen and (min-width: $screen-desktop-play) {
-          width: 68px;
+          //width: 68px;
           height: 24px;
           margin: -9px auto 0;
           padding: 0px 0px;
@@ -345,7 +354,9 @@
           bottom: -14px;
           -webkit-background-size: 9px;
           background-size: 9px;
-          background-position: 47px 7px;
+          //background-position: 47px 7px;
+          background-position: 90% 7px;
+          padding-right: 20px;
         }
 
         span {
