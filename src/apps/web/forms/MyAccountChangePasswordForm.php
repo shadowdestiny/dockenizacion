@@ -27,7 +27,7 @@ class MyAccountChangePasswordForm extends Form
             'placeholder' => $translationAdapter->query("password_old")
         ));
         $old_password->addValidator(new PresenceOf(array(
-            'message' => $translationAdapter->query("password_error_msg_oldpass")
+            'message' => $translationAdapter->query("password_error_msg_oldIncorrect")
         )));
         $this->add($old_password);
 

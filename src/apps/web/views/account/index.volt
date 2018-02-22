@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="content content-main-account">
-                <div class="my-account--section my-account" {% if which_form == 'index' %} style="display: block" {% else %} style="display: none" {% endif %}>
+                <div class="my-account--section my-account" style="display: block" >
 
                     {#<h1 class="h1 title yellow">{{ language.translate("account_head") }}</h1>#}
                     <h2 class="">{{ language.translate("account_subhead") }}</h2>
