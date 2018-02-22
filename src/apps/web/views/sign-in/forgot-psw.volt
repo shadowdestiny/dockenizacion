@@ -1,9 +1,16 @@
 {% extends "main.volt" %}
 {% block bodyClass %}forgot-psw no-nav{% endblock %}
 {% block template_css %}
-    <link rel="stylesheet" href="/w/css/sign-in.css">
+    {#<link rel="stylesheet" href="/w/css/sign-in.css">#}
     <link Rel="Canonical" href="{{ language.translate('canonical_forgotpw') }}" />
+    <link rel="stylesheet" href="/w/css/account.css">
+    <link rel="stylesheet" href="/w/css/_elements/threshold.scss">
 {% endblock %}
+{% block header %}
+    {% set activeNav='{"myClass": ""}'|json_decode %}
+    {% include "_elements/header.volt" %}
+{% endblock %}
+{% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block mobileNav %}{% endblock %} {# Remove mobile navigation #}
 
 {% block body %}
