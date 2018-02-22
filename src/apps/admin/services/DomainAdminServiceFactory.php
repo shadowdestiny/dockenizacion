@@ -3,6 +3,7 @@ namespace EuroMillions\admin\services;
 
 use EuroMillions\shared\components\PhalconSessionWrapper;
 use EuroMillions\web\repositories\ReportsRepository;
+use EuroMillions\web\services\BlogService;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\GeoService;
 use Phalcon\DiInterface;
@@ -70,5 +71,10 @@ class DomainAdminServiceFactory
     public function getUserAdminService()
     {
         return new UserAdminService($this->entityManager);
+    }
+
+    public function getBlogService()
+    {
+        return new BlogService($this->entityManager);
     }
 }
