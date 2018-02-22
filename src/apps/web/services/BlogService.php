@@ -1,8 +1,6 @@
 <?php
 
-
 namespace EuroMillions\web\services;
-
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\repositories\BlogRepository;
@@ -10,7 +8,6 @@ use EuroMillions\web\repositories\BlogRepository;
 
 class BlogService
 {
-
     private $entityManager;
 
     /** @var BlogRepository $blogRepository */
@@ -21,6 +18,5 @@ class BlogService
         $this->entityManager = $entityManager;
         $this->blogRepository = $entityManager->getRepository('EuroMillions\web\entities\Blog');
     }
-
 
 }
