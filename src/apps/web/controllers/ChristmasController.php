@@ -28,6 +28,7 @@ class ChristmasController extends PublicSiteControllerBase
             $current_user_id = $this->authService->getCurrentUser()->getId();
             /** @var User $user */
             $user = $this->userService->getUser($current_user_id);
+            $user_currency = $user->getUserCurrency();
             $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
         }
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
@@ -39,6 +40,7 @@ class ChristmasController extends PublicSiteControllerBase
             'currencySymbol' => $currency_symbol,
             'singleBetPrice' => $single_bet_price_currency->getAmount() / 100,
             'christmasTickets' => $this->christmasService->getAvailableTickets(),
+            'awardBillionChristmas' => $this->currencyConversionService->convert(new Money(23, new Currency('EUR')), $user_currency)->getAmount() / 10,
             'device' => $this->detectDevice(),
             'pageController' => 'christmasPlay',
         ]);

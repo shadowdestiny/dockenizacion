@@ -42,7 +42,8 @@
 
   .div-language {
     background-color: transparent;
-    width: 475px;
+    //width: 475px;
+    width:auto;
     border: 0;
     border-radius: 0;
 
@@ -50,7 +51,7 @@
     padding-top: 43px;
 
     @media only screen and (min-width: $screen-desktop) {
-      width: 355px;
+      //width: 355px;
       border: 0;
       border-radius: 0;
       right: -9px;
@@ -83,8 +84,13 @@
           height: 87px;
           line-height: 84px;
           padding: 0 0 0 21px;
+          padding-right: 21px;
           display: block;
           background-color: transparent;
+
+          width: auto;
+          word-wrap: normal;
+          white-space: nowrap;
 
           color: #333333;
           font-size: 28px;
@@ -96,6 +102,7 @@
             height: 65px;
             line-height: 63px;
             padding: 0 0 0 14px;
+            padding-right: 14px;
           }
 
           @media only screen and (min-width: $screen-desktop) {

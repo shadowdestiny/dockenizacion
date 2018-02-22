@@ -86,6 +86,19 @@ class AccountController extends PublicSiteControllerBase
                 }
             }
         }
+        $userId = $this->authService->getCurrentUser();
+        $result = $this->obtainActiveNotifications($userId);
+        $list_notifications = [];
+
+        if ($result->success()) {
+            $error_msg = '';
+            $notifications_collection = $result->getValues();
+            foreach ($notifications_collection as $notifications) {
+                $list_notifications[] = new UserNotificationsDTO($notifications);
+            }
+        } else {
+            $error_msg = 'An error occurred';
+        }
         $this->view->pick('account/index');
         $this->tag->prependTitle('Account Details');
         return $this->view->setVars([
@@ -94,7 +107,10 @@ class AccountController extends PublicSiteControllerBase
             'errors' => $errors,
             'msg' => $msg,
             'myaccount' => $myaccount_form,
-            'password_change' => $myaccount_passwordchange_form
+            'password_change' => $myaccount_passwordchange_form,
+            'error_form' => [],
+            'message' => '',
+            'list_notifications' => $list_notifications,
         ]);
     }
 
@@ -207,7 +223,8 @@ class AccountController extends PublicSiteControllerBase
         $config_value_threshold = $this->request->getPost('config_value_jackpot_reach');
         $config_value_results = $this->request->getPost('config_value_results');
         $emailMarketing = ($this->request->getPost('email_marketing') === 'on');
-
+        $myaccount_form = $this->getMyACcountForm($user->getId());
+        $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
         $message = null;
 
         $list_notifications = [];
@@ -251,12 +268,17 @@ class AccountController extends PublicSiteControllerBase
             $errors = $this->validationEmailSettings();
         }
 
-        $this->view->pick('account/email');
+        $this->view->pick('account/index');
         return $this->view->setVars([
             'error_form' => (is_object($errors) && $errors->count() > 0) ? $errors : [],
             'message' => (is_object($errors) && $errors->count() > 0) ? '' : $message,
             // 'errors' => $error,
             'list_notifications' => $list_notifications,
+            'which_form' => 'index',
+            'msg' => '',
+            'errors' => $errors,
+            'myaccount' => $myaccount_form,
+            'password_change' => $myaccount_passwordchange_form,
         ]);
 
     }

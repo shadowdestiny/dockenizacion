@@ -1,5 +1,43 @@
+.cards-margin-mobile {
+  margin-top: 59px;
+  .div {
+    .mobile {
+      @media only screen and (min-width: $screen-xs) {
+        margin-top: 59px;
+      }
 
-.cards-block {
+      @media only screen and (min-width: $screen-ipad-v) {
+        margin-top: 59px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin-top: 20px;
+        display: none;
+      }
+    }
+  }
+}
+.cards-margin-desktop {
+  margin-top: 10px;
+  .div {
+    .desktop {
+      @media only screen and (min-width: $screen-xs) {
+        margin-top: 10px;
+        display: none;
+      }
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        margin-top: 10px;
+        display: none;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+.cards-block-payment {
   height: 41px;
   line-height: 38px;
   text-align: center;
@@ -105,6 +143,340 @@
           width: 55px;
           top: 1px;
           left: -13px;
+        }
+      }
+
+      &.comodo-a {
+        width: 27px;
+        top: 1px;
+        left: 7px;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 27px;
+          top: 2px;
+          left: -3px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 35px;
+          top: 5px;
+          left: -9px;
+        }
+        @media only screen and (min-width: $screen-ipad-h) {
+          width: 71px;
+          top: 14px;
+          left: -9px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 55px;
+          top: 1px;
+          left: -13px;
+        }
+      }
+
+      &.pcidss-a {
+        width: 27px;
+        top: 1px;
+        left: 7px;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 27px;
+          top: 2px;
+          left: -3px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 35px;
+          top: 5px;
+          left: -9px;
+        }
+        @media only screen and (min-width: $screen-ipad-h) {
+          width: 71px;
+          top: 14px;
+          left: -9px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 55px;
+          top: 1px;
+          left: -13px;
+        }
+      }
+
+      &.paysafe-a {
+        width: 82px;
+        top: 0px;
+        left: 10px;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 82px;
+          top: 2px;
+          left: -8px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 100px;
+          top: 5px;
+          left: -15px;
+        }
+        @media only screen and (min-width: $screen-ipad-h) {
+          width: 202px;
+          top: 10px;
+          left: -15px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 152px;
+          top: -1px;
+          left: -10px;
+        }
+      }
+
+      &.neteller-a {
+        width: 70px;
+        top: 0px;
+        left: 12px;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 70px;
+          top: 1px;
+          left: -9px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 86px;
+          top: 3px;
+          left: -20px;
+        }
+        @media only screen and (min-width: $screen-ipad-h) {
+          width: 175px;
+          top: 8px;
+          left: -20px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 135px;
+          top: -4px;
+          left: -5px;
+        }
+      }
+
+      &.skrill-a {
+        width: 37px;
+        top: 3px;
+        left: 16px;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 40px;
+          top: 6px;
+          left: -11px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 48px;
+          top: 7px;
+          left: -25px;
+        }
+        @media only screen and (min-width: $screen-ipad-h) {
+          width: 96px;
+          top: 19px;
+          left: -25px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 72px;
+          top: 4px;
+          left: -2px;
+        }
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+    }
+  }
+
+}
+.cards-block {
+  height: 41px;
+  line-height: 38px;
+  text-align: center;
+  margin-bottom: 17px;
+
+  @media only screen and (min-width: $screen-xs) {
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    margin-bottom: 17px;
+  }
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    height: 100px;
+    line-height: 98px;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  @media only screen and (min-width: $screen-desktop) {
+
+  }
+
+  li {
+    margin: 0 4px;
+    //min-width: 30px;
+    float: left;
+
+    @media only screen and (min-width: $screen-xs) {
+      float: none;
+      margin: 0 10px;
+      min-width: 30px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin: 0 30px;
+      min-width: 0;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      margin: 0 20px;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      //margin: 12px 17px;
+      margin: 7px 17px;
+    }
+
+    a {
+      position: relative;
+      display: block;
+
+      &.visa-a {
+        width: 32px;
+        top: 0px;
+        left: -4px;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 32px;
+          top: 0px;
+          left: -2px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 40px;
+          top: 1px;
+          left: -2px;
+        }
+        @media only screen and (min-width: $screen-ipad-h) {
+          width: 81px;
+          top: 7px;
+          left: -2px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 61px;
+          top: -4px;
+          left: -17px;
+        }
+
+      }
+
+      &.master-a {
+        width: 27px;
+        top: 1px;
+        left: 7px;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 27px;
+          top: 2px;
+          left: -3px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 35px;
+          top: 5px;
+          left: -9px;
+        }
+        @media only screen and (min-width: $screen-ipad-h) {
+          width: 71px;
+          top: 14px;
+          left: -9px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 55px;
+          top: 1px;
+          left: -13px;
+        }
+      }
+
+      &.comodo-a {
+        width: 27px;
+        top: 1px;
+        left: 7px;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 27px;
+          top: 2px;
+          left: -3px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 35px;
+          top: 5px;
+          left: -9px;
+        }
+        @media only screen and (min-width: $screen-ipad-h) {
+          width: 71px;
+          top: 14px;
+          left: -9px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 55px;
+          //top: 1px;
+          top: 5px;
+          left: -13px;
+
+          img {
+            max-width: none;
+            width: 85px;
+          }
+        }
+      }
+
+      &.pcidss-a {
+        width: 27px;
+        top: 1px;
+        left: 7px;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 27px;
+          top: 2px;
+          left: -3px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 35px;
+          top: 5px;
+          left: -9px;
+        }
+        @media only screen and (min-width: $screen-ipad-h) {
+          width: 71px;
+          top: 14px;
+          left: -9px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 55px;
+          //top: 1px;
+          top: 4px;
+          //left: -13px;
+          left: 0px; 
+
+          img {
+            max-width: none;
+            width: 85px;
+          }
         }
       }
 

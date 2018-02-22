@@ -210,7 +210,7 @@ var EuroMillionsLine = React.createClass({
         var class_name = "myCol num"+this.props.lineNumber;
         return (
             <div onLoad={this.count} className={class_name}>
-                <h1 className="h4 blue center">{this.props.txtLine} {  num_char_line }</h1>
+                <span className="h4 blue center">{this.props.txtLine} {  num_char_line }</span>
                 <div className="line center">
                     <EuroMillionsCheckMark numbers_length={numbers_length} stars_length={stars_length}/>
                     <div className="combo cols not">
@@ -224,7 +224,7 @@ var EuroMillionsLine = React.createClass({
                             {star_rows}
                         </div>
                     </div>
-                    <EuroMillionsClearLine showed={this.state.show_btn_clear} onClearClick={this.handleClickOnClear}/>
+                    <EuroMillionsClearLine clear_btn={clear_btn} showed={this.state.show_btn_clear} onClearClick={this.handleClickOnClear}/>
                 </div>
             </div>
         );

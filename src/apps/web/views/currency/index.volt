@@ -52,9 +52,9 @@
     <div class="wrapper">
         <div class="currencies-page">
 
-            <h1 class="h2">{{ language.translate("Choose your currency") }}</h1>
+            <h1>{{ language.translate("choose") }}</h1>
 
-            {#<div class="info-txt">Currencies are just informative, transactions are charged in Euros.</div>#}
+            <div class="info-txt">{{ language.translate("choose_info") }}</div>
 
             <ul class="no-li list cl">
             {% for currency in currency_list %}

@@ -12,7 +12,7 @@ class PlayController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
-
+        $current_currency = $this->userPreferencesService->getCurrency();
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
         $play_dates = $this->lotteryService->getRecurrentDrawDates('Euromillions');
         $draw = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
@@ -34,6 +34,9 @@ class PlayController extends PublicSiteControllerBase
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $this->tag->prependTitle($this->languageService->translate('play_em_name') . ViewHelper::formatJackpotNoCents($jackpot));
         MetaDescriptionTag::setDescription($this->languageService->translate('play_em_desc'));
+        $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
+        $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
+        $bet_value = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
 
         return $this->view->setVars([
             'jackpot_value' => ViewHelper::formatJackpotNoCents($jackpot),
@@ -43,12 +46,14 @@ class PlayController extends PublicSiteControllerBase
             'currency_symbol' => $currency_symbol,
             'openTicket' => ($checkOpenTicket) ? '1' : '0',
             'single_bet_price' => $single_bet_price_currency->getAmount() / 100,
+            'bet_price' => $bet_value,
             'automatic_random' => isset($automatic_random) ? true : false,
             'discount_lines_title' => 'Choose your bundle',
             'discount_lines' => json_encode($bundlePriceDTO),
             'draws_number' => $bundlePriceDTO->bundlePlayDTOActive->getDraws(),
             'discount' => $bundlePriceDTO->bundlePlayDTOActive->getDiscount(),
             'pageController' => 'euroPlay',
+            'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
         ]);
     }
 }

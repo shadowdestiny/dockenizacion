@@ -2291,8 +2291,8 @@
         </div>
         <div class="box-bottom" data-reactid=".0.1">
             <div class="wrap" data-reactid=".0.1.0">
-                <div class="draws-section" data-reactid=".0.1.0.0"><h1 class="purple" style="display:block;" data-reactid=".0.1.0.0.0">Choose
-                        your bundle</h1>
+                <div class="draws-section" data-reactid=".0.1.0.0"><h2 class="purple" style="display:block;" data-reactid=".0.1.0.0.0">Choose
+                        your bundle</h2>
 
 
                     {#TODO: clear html start#}

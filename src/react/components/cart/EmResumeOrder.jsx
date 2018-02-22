@@ -17,6 +17,7 @@ var EmResumeOrder = new React.createClass({
 
         var date_since = config.startDrawDate;
         var text_weeks = '';
+        var txt_link_play = "/" + this.props.txt_link_play;
 
         var date = new Date(date_since);
         var day = '';
@@ -37,8 +38,8 @@ var EmResumeOrder = new React.createClass({
                 <div className="box-total-upper cl">
 
                     <div className="edit-btn-container">
-                        <a href="/euromillions/play" className="btn purple small ui-link">
-                            Edit
+                        <a href={txt_link_play} className="btn purple small ui-link">
+                            {this.props.txt_edit}
                         </a>
                     </div>
 

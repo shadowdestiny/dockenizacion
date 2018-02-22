@@ -17,10 +17,10 @@
 
         <div class="left">
             <div class="txt">
-                {{ language.translate('balance') }}: {{ user_balance }}
+                {{ language.translate("balance") }}: {{ user_balance }}
             </div>
             <a href="/account/wallet">
-                {{ language.translate('addBalance') }}
+                {{ language.translate("deposit") }}
             </a>
         </div>
         <div class="right">
@@ -29,20 +29,20 @@
             </div>
             <ul class="account-menu-desktop--menu">
                 <li><a href="/account">
-                        <span>My Account</span>
+                        <span>{{ language.translate("myAccount") }}</span>
                     </a></li>
                 <li><a href="/account/wallet">
-                        <span>Balance</span>
+                        <span>{{ language.translate("myAccount_balance") }}</span>
                     </a></li>
                 <li><a href="/profile/tickets/games">
-                        <span>My Tickets</span>
+                        <span>{{ language.translate("myAccount_tickets") }}</span>
                     </a></li>
                 <li>
                     <a href="/profile/transactions">
-                        <span>My Transactions</span>
+                        <span>{{ language.translate("myAccount_transactions") }}</span>
                     </a></li>
                 <li><a href="/logout">
-                        <span>Logout</span>
+                        <span>{{ language.translate("LogOut") }}</span>
                     </a></li>
             </ul>
             <a href="/account">

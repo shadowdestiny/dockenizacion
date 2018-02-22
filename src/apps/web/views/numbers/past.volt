@@ -58,112 +58,56 @@
 
                 <div class="left-section result-section">
 
-                    <div class="jackpot--mobile">
-                        <div class="jackpot--row">
-                            Jackpot €73,000,000
-                        </div>
-                        <div class="next--row">
-                            Next draw \ 21hr : 12min : 33sec
-                        </div>
-                        <div class="btn--row">
-                            <a href="/{{ language.translate("link_euromillions_play") }}" class="btn-theme--big">
-                                Play now
-                            </a>
-                        </div>
-                    </div>
-
-                    <h1 class="h1 title">{{ language.translate("resultshist_title") }}</h1>
-                    {#<div class="wrap">#}
-                    {#<div class="cols">#}
-                        {#<div class="col8">#}
-
-                            <div class="history-numbers-block">
-                                <div class="pad">
-                                    <h1 class="h2 purple">{{ language.translate("historyNumbers_title") }}</h1>
-                                </div>
-                                <table id="history-numbers" class="ui-responsive table2" data-role="table"
-                                       data-mode="reflow">
-                                    <thead>
-                                    <tr>
-                                        <th class="td-date">{{ language.translate("pastNumbers_date") }}</th>
-                                        <th class="td-ball-numbers">{{ language.translate("pastNumbers_ball") }} <span
-                                                    class="ball"></span></th>
-                                        <th class="td-star-numbers">
-                                            {{ language.translate("pastNumbers_star") }}
-                                            <span class="star-ball"></span>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for i,draw in list_draws %}
-                                        <tr style="cursor: pointer"
-                                            onclick="document.location='/{{ language.translate('link_euromillions_draw_history') }}/{{ draw.drawDateParam }}'">
-                                            <td class="td-date">{{ draw.drawDate }}</td>
-                                            <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
-                                            <td class="td-star-numbers">{{ draw.luckyNumbers }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
+                    {#<div class="jackpot--mobile">#}
+                        {#<div class="jackpot--row">#}
+                            {#Jackpot €73,000,000#}
                         {#</div>#}
-
-                        {#TODO : This is the old block #}
-                        {#<div class="col4">#}
-                            {#<div class="box-estimated">#}
-                                {#<div class="laurel first">#}
-                                    {#<svg class="vector">#}
-                                        {#<use xlink:href="/w/svg/icon.svg#laurel"></use>#}
-                                    {#</svg>#}
-                                {#</div>#}
-                                {#<div class="laurel last">#}
-                                    {#<svg class="vector">#}
-                                        {#<use xlink:href="/w/svg/icon.svg#laurel"></use>#}
-                                    {#</svg>#}
-                                {#</div>#}
-                                {#<div class="bg">#}
-                                    {#<a href="/{{ language.translate("link_euromillions_play") }}" class="content">#}
-                                        {#<h1 class="h3">{{ language.translate("nextDraw_Estimate") }}</h1>#}
-
-                                        {#{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}#}
-                                        {#{% include "_elements/jackpot-value" with ['extraClass': extraClass] %}#}
-
-                                        {#<div class="box-next-draw cl">#}
-                                            {#<div class="countdown">#}
-                                                {#<span class="next-draw">#}
-                                                    {#<span class="txt-one">{{ language.translate("Next") }}</span>#}
-                                                    {#<br class="br">{{ language.translate("Draw") }}#}
-                                                {#</span>#}
-                                                {#<div class="day unit">#}
-                                                    {#<span class="val">%-d</span>#}
-                                                    {#<span class="txt">day%!d</span>#}
-                                                {#</div>#}
-                                                {#<div class="dots">:</div>#}
-                                                {#<div class="hour unit">#}
-                                                    {#<span class="val">%-H</span>#}
-                                                    {#<span class="txt">hr</span>#}
-                                                {#</div>#}
-                                                {#<div class="dots">:</div>#}
-                                                {#<div class="minute unit">#}
-                                                    {#<span class="val">%-M</span>#}
-                                                    {#<span class="txt">min</span>#}
-                                                {#</div>#}
-                                                {#<div class="dots">:</div>#}
-                                                {#<div class="seconds unit">#}
-                                                    {#<span class="val">%-S</span>#}
-                                                    {#<span class="txt">sec</span>#}
-                                                {#</div>#}
-                                            {#</div>#}
-                                            {#<span class="btn red big right">{{ language.translate("nextDraw_btn") }}</span>#}
-                                        {#</div>#}
-                                    {#</a>#}
-                                {#</div>#}
-                            {#</div>#}
-
+                        {#<div class="next--row">#}
+                            {#Next draw \ 21hr : 12min : 33sec#}
+                        {#</div>#}
+                        {#<div class="btn--row">#}
+                            {#<a href="/{{ language.translate("link_euromillions_play") }}" class="btn-theme--big">#}
+                                {#Play now#}
+                            {#</a>#}
                         {#</div>#}
                     {#</div>#}
-                {#</div>#}
 
+                    <h1 class="h1 title">
+                        {% if mobile == 1 %}
+                            {{ language.translate("resultshist_mobile_h1") }}
+                        {% else %}
+                            {{ language.translate("resultshist_title") }}
+                        {% endif %}
+                    </h1>
+                        <div class="history-numbers-block">
+                            <div class="pad">
+                                <h2 class="h2 purple">{{ language.translate("historyNumbers_title") }}</h2>
+                            </div>
+                            <table id="history-numbers" class="ui-responsive table2" data-role="table"
+                                   data-mode="reflow">
+                                <thead>
+                                <tr>
+                                    <th class="td-date">{{ language.translate("pastNumbers_date") }}</th>
+                                    <th class="td-ball-numbers">{{ language.translate("pastNumbers_ball") }} <span
+                                                class="ball"></span></th>
+                                    <th class="td-star-numbers">
+                                        {{ language.translate("pastNumbers_star") }}
+                                        <span class="star-ball"></span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for i,draw in list_draws %}
+                                    <tr style="cursor: pointer"
+                                        onclick="document.location='/{{ language.translate('link_euromillions_draw_history') }}/{{ draw.drawDateParam }}'">
+                                        <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
+                                        <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
+                                        <td class="td-star-numbers">{{ draw.luckyNumbers }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                 </div>
             </div>
         </div>

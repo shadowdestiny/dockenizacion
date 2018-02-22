@@ -31,6 +31,7 @@ class TransactionDTO extends DTOBase implements IDto
     public $pendingBalance;
     public $pendingBalanceMovement;
     public $ticketPrice;
+    public $lotteryId;
 
     public function __construct(Transaction $transaction)
     {
@@ -58,6 +59,9 @@ class TransactionDTO extends DTOBase implements IDto
             $this->ticketPrice = $this->movement->add($this->pendingBalanceMovement);
         } else {
             $this->ticketPrice = new Money(0, new Currency('EUR'));
+        }
+        if (method_exists($this->transaction,'getLotteryId')){
+            $this->lotteryId = $this->transaction->getLotteryId();
         }
     }
 

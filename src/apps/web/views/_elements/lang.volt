@@ -10,7 +10,7 @@
             {% for active_language in active_languages %}
                 {% if active_language != user_language %}
                     <li>
-                        <a href="javascript:globalFunctions.setLanguage('{{ active_language }}');">{{ language.translate(active_language) }}</a>
+                        <a href="javascript:globalFunctions.setLanguage('{{ active_language }},{% if pageController is defined %}{{ pageController }}{% endif %}');">{{ language.translate(active_language) }}</a>
                     </li>
                 {% endif %}
             {% endfor %}

@@ -24,15 +24,18 @@
         {% if signIn.myClass == 'sign-in' %}
             <label for="go" class="submit  btn-theme--big">
                 {{ language.translate("signin_LogIn_btn") }}
-                {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use>#}
-                </svg></label>
+                {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
+            </label>
         {% elseif signIn.myClass == 'cart' %}
             <label for="go" class="submit btn-theme--big">
-                {{ language.translate("Login &amp; Play") }}
+                {{ language.translate("signin_LogIn_btn") }}
                 {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
             </label>
         {% endif %}
     </div>
     
-    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span class="txt">{{ language.translate("signin_accountQuestion") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("signin_signup_btn") }}</a></div>
+    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}">
+        <span class="txt">{{ language.translate("signin_accountQuestion") }}</span>
+        <a class="btn gwy" href="/{{ language.translate("link_signup") }}">{{ language.translate("signin_signup_btn") }}</a>
+    </div>
 </form>

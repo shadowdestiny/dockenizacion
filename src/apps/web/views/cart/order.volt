@@ -32,6 +32,8 @@
     var txt_buy_btn = "{{ language.translate("buy_btn") }}";
     var txt_depositBuy_btn = "{{ language.translate("depositBuy_btn") }}";
     var txt_checkout_fee = "{{ language.translate("checkout_fee") }}";
+    var txt_edit = "{{ language.translate("edit_btn") }}";
+    var txt_link_play = "{{ language.translate("link_euromillions_play") }}";
 
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {
     var total_text = '';

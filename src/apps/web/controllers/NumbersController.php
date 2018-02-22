@@ -2,6 +2,7 @@
 
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\EuroMillionsDraw;
@@ -36,10 +37,12 @@ class NumbersController extends PublicSiteControllerBase
             'jackpot_value' => ViewHelper::formatJackpotNoCents($this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'))),
             'last_result' => ['regular_numbers' => $euroMillionsDraw->getResult()->getRegularNumbersArray(), 'lucky_numbers' => $euroMillionsDraw->getResult()->getLuckyNumbersArray()],
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
-            'last_draw_date' => $euroMillionsDraw->getDrawDate()->format('D, d M Y'),
+            'last_draw_date' => $euroMillionsDraw->getDrawDate()->format($this->languageService->translate('dateformat')),
+            'draw_day' => $euroMillionsDraw->getDrawDate()->format('l'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
+            'actual_year' => (new \DateTime())->format('Y'),
             'pageController' => 'euroResult',
         ]);
     }
@@ -59,8 +62,9 @@ class NumbersController extends PublicSiteControllerBase
 
         $this->view->pick('/numbers/past');
         return $this->view->setVars([
-            'jackpot_value' => $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')),
+            'jackpot_value' => ViewHelper::formatJackpotNoCents($this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'))),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
+            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
             'pageController' => 'euroPastResult',
@@ -78,11 +82,9 @@ class NumbersController extends PublicSiteControllerBase
         $actualDate = new \DateTime();
         $date = empty($date) ? new \DateTime() : new \DateTime($date);
         $draw_result = $this->lotteryService->getDrawWithBreakDownByDate($lotteryName, $date);
-        if (!$draw_result->success()) {
-            return $this->dispatcher->forward([
-                'action' => 'pastList'
-            ]);
-        }
+        $draw = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
+        $date_time_util = new DateTimeUtil();
+        $dayOfWeek = $date_time_util->getDayOfWeek($draw);
         /** @var EuroMillionsDraw $euroMillionsDraw */
         $euroMillionsDraw = $draw_result->getValues();
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
@@ -104,6 +106,8 @@ class NumbersController extends PublicSiteControllerBase
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
             'actual_year' => $actualDate->format('Y'),
             'pageController' => 'euroPastResult',
+            'next_draw' => $dayOfWeek,
+            'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
         ]);
     }
 

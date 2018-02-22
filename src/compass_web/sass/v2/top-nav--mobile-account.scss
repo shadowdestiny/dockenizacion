@@ -279,6 +279,51 @@
               }
             }
           }
+
+          &.li--cur {
+
+            .li--cur--currencies {
+              display: none;
+            }
+
+            .li--cur--currencies {
+              margin: 0;
+              padding: 0;
+              margin-left: -10px;
+
+              ul {
+                border: 0;
+                margin: 0;
+                padding: 0;
+                //margin-left: -10px;
+                display: block;
+
+                //position: relative;
+                //left: -10px;
+
+                li {
+                  padding-left: 10px;
+                  border: 0;
+
+                  a{
+                    background-image: none;
+                  }
+
+                  &.currency--li--current {
+                    color: #f8ce0d;
+                    background-color: #333333;
+
+                    a {
+                      color: #f8ce0d;
+                      padding-bottom: 0;
+                    }
+                  }
+                }
+
+              }
+            }
+          }
+
         }
       }
 

@@ -80,7 +80,10 @@
                             {{ language.translate("contact_btn") }}
                         </label>
                         <input id="submitBtn" type="submit" class="hidden">
+                        <span>{{ language.translate("supportOpen") }}</span>
+                        <br /><br />
                     </div>
+
                     {{ endform() }}
                 </div>
             </div>

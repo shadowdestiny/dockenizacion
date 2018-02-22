@@ -17,7 +17,7 @@
     </div>
 </li>
 <li class="li-currency">
-    <a class="link myCur" href="javascript:void(0);">{{ user_currency['symbol'] }} &nbsp; {{ language.translate(user_currency_code ~ "_name") }}
+    <a class="link myCur" href="javascript:void(0);" rel="nofollow">{{ user_currency['symbol'] }} &nbsp; {{ language.translate(user_currency_code ~ "_name") }}
         <svg class="ico v-triangle-down">
             <use xlink:href="/w/svg/icon.svg#v-triangle-down"></use>
         </svg>
@@ -57,10 +57,10 @@
 
 {% if user_logged is empty %}
     <li class="li-sign">
-        <a class="btn-theme btn-secondary" href="/{{ language.translate("signUp") }}">{{ language.translate('signUp') }}</a>
+        <a class="btn-theme btn-secondary" rel="nofollow" href="/{{ language.translate("link_signup") }}">{{ language.translate('signUp') }}</a>
     </li>
     <li class="li-sign">
-        <a class="btn-theme btn-primary" href="/{{ language.translate("link_signin") }}" rel="nofollow">{{ language.translate('signIn') }}</a>
+        <a class="btn-theme btn-primary" rel="nofollow" href="/{{ language.translate("link_signin") }}">{{ language.translate('signIn') }}</a>
     </li>
 {% else %}
     <li>

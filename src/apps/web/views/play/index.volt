@@ -38,11 +38,15 @@
 	var randomizeAllLines = '{{ language.translate('randomizeAll_btn') }}';
 	var clearAllLines = '{{ language.translate('clearAll_btn') }}';
 	var buyForDraw = "{{ language.translate('buyForDraw') }}";
-	var txtLine = '{{ language.translate('line') }}';
+	var txtLine = '{{ language.translate('line_x') }}';
 	var txtMultTotalPrice = '{{ language.translate('mult_total1') }}';
 	var txtMultLines = '{{ language.translate('mult_total2') }}';
 	var txtMultDraws = '{{ language.translate('mult_total3') }}';
 	var txtNextButton = '{{ language.translate('next_btn') }}';
+    var tuesday = '{{ language.translate('tuesday') }}';
+    var friday = '{{ language.translate('friday') }}';
+    var next_draw_date_format = '{{ next_draw_date_format }}';
+    var clear_btn = '{{ language.translate('clear_btn') }}';
 
 
     {#añadir aqui el translate#}
@@ -61,19 +65,20 @@
             addLinesBtn           : '{{ language.translate('addLines_btn') }}',
             randomizeAllLines     : '{{ language.translate('randomizeAll_btn') }}',
             clearAllLines         : '{{ language.translate('clearAll_btn') }}',
-            buyForDraw            : '{{ language.translate('buyForDraw') }}',
-            txtLine               : '{{ language.translate('line') }}',
+            buyForDraw            : "{{ language.translate('buyForDraw') }}",
+            txtLine               : '{{ language.translate('line_x') }}',
             txtMultTotalPrice     : '{{ language.translate('mult_total1') }}',
             txtMultLines          : '{{ language.translate('mult_total2') }}',
             txtMultDraws          : '{{ language.translate('mult_total3') }}',
             txtNextButton         : '{{ language.translate('next_btn') }}',
             addRandomLineBtn      : 'Add random line',
             pickYourNumbersBtn    : 'Pick your numbers',
-            drawsSectionTitle     : 'How many draw would you like to play?',
-            drawsSectionSubtitle  : '*Subscribe for more draws and get a discount per lines',
+            drawsSectionTitle     : '{{ language.translate('tittle_multiple') }}',
+            drawsSectionSubtitle  : '{{ language.translate('multiple_discount') }}',
             mobTicketRandomizeBtn : 'Randomize',
-            mobTicketClearBtn     : 'Clear',
-            mobTicketSubmitBtn    : 'Done'
+            mobTicketClearBtn     : '{{ language.translate('clear_btn') }}',
+            mobTicketSubmitBtn    : 'Done',
+
         }
     };
 
@@ -125,7 +130,23 @@
 
         <div class="play--page">
 
-            <div class="banner"></div>
+            <div class="banner">
+                <div class="top-banner--section">
+                <div class="top-banner--banner">
+                    <div class="wrapper">
+
+                        <h1 class="top-banner-play">
+                            {% if mobile == 1 %}
+                                {{ language.translate("play_mobile_h1") }}
+                            {% else %}
+                                {{ language.translate("play_h1") }}
+                            {% endif %}
+                        </h1>
+
+                        </div>
+                </div>
+                </div>
+            </div>
 
             <div class="wrapper">
                 <header>
@@ -133,28 +154,28 @@
                     {#TODO : Add real variables here#}
 
                     <div class="left">
-                        <div class="top">
-                            TUESDAY’S
-                        </div>
                         <div class="bottom">
-                            jackpot
+                            {{ language.translate('tittle') }}
+                        </div>
+                        <div class="top">
+                            {% if next_draw == 5  %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
                         </div>
                     </div>
 
 
                     <div class="help-block">
                         <div class="top">
-                            About the Euromillions Lottery
+                            {{ language.translate('aboutLottery') }}
                         </div>
                         <div class="bottom">
-                            <a href="#" class="a-hiw">
-                                how it works
+                            <a href="/{{ language.translate('link_euromillions_help') }}" class="a-hiw">
+                                {{ language.translate('play_howbtn') }}
                             </a>
-                            <a href="#" class="a-results">
-                                results
+                            <a href="/{{ language.translate('link_euromillions_results') }}" class="a-results">
+                                {{ language.translate('play_resultsbtn') }}
                             </a>
-                            <a href="#" class="a-faq">
-                                FAQ
+                            <a href="/{{ language.translate('link_euromillions_faq') }}" class="a-faq">
+                                {{ language.translate('play_faqbtn') }}
                             </a>
                         </div>
                     </div>
@@ -165,7 +186,7 @@
                             {{ jackpot_value }} Million
                         </div>
                         <div class="bottom">
-                            Pick 5 numbers and 2 stars per line
+                            {{ language.translate('shortInstruction') }}
                         </div>
                     </div>
 

@@ -8,14 +8,12 @@
 {% endif %}
 <form action="{{ url_signup }}" name="form_notifications" id="sign-up-form" method="post">
 
-
     <a class="signin--btn" href="/{{ language.translate("link_signin") }}">Sign In</a>
 
     <div class="close--btn">
         <div class="close--btn--inner"></div>
     </div>
 
-    <h1 class="title">Sign up to create your euromillions.com account.</h1>
     {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
     {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}
 
@@ -49,34 +47,28 @@
             </label>
         {% elseif signIn.myClass == 'cart' %}
             <label for="goSignUp" class="submit btn-theme--big">
-                {#TODO : Add real variables here#}
-                sign up
-                {#{{ language.translate("Create account &amp; Play") }}#}
-                {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
+                {{ language.translate("signup_createAccount_btn") }}
             </label>
         {% endif %}
     </div>
 
     <div class="cl txt--already-have-account">
-        {#TODO : Add real variables here#}
-        Already have an account? <a href="/{{ language.translate("link_signin") }}">Sign in Now!</a>
+        {{ language.translate("signup_accountQuestion") }} <a href="/{{ language.translate("link_signin") }}">{{ language.translate("signup_LogIn_btn") }}</a>
     </div>
 
     <div class="cl txt--accept">
-
-        {#TODO : Add real variables here#}
         <label class="label left" for="accept">
             {#<input type="checkbox" id="accept" name="accept" value="yes" class="checkbox" data-role="none">#}
             {#<span class="checkbox-after"></span>#}
             <span class="txt">
-                I accept the Terms & Conditions and Privacy Policy.
+                {{ language.translate("signup_signInTC") }}
             </span>
         </label>
     </div>
 
-    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span
-                class="txt">{{ language.translate("signup_accountQuestion") }}</span> <a class="btn gwy"
-                                                                                         href="javascript:void(0)">{{ language.translate("signup_LogIn_btn") }}</a>
+    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}">
+        <span class="txt">{{ language.translate("signup_accountQuestion") }}</span>
+        <a class="btn gwy" href="/{{ language.translate("link_signin") }}">{{ language.translate("signup_LogIn_btn") }}</a>
     </div>
 </form>
 

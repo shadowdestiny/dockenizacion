@@ -37,10 +37,10 @@
             <h2 class="h1 title2">{{ language.translate("Or maybe you were looking for") }}</h2>
             <ul class="no-li cl h3">
                 <li><a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate("Playing the Lottery") }}</a></li>
-                <li><a href="/{{ lottery }}/numbers">{{ language.translate("Draw History") }}</a></li>
+                <li><a href="/{{ language.translate("link_euromillions_draw_history") }}">{{ language.translate("Draw History") }}</a></li>
                 <li><a href="/{{ language.translate("link_euromillions_faq") }}">{{ language.translate("Asking for help") }}</a></li>
                 <li><a href="/{{ language.translate("link_euromillions_help") }}">{{ language.translate("How to Play Lotto") }}</a></li>
-                <li><a href="/#about-us">{{ language.translate("About Euromillions") }}</a></li>
+                <li><a href="/{{ language.translate("link_legal_about") }}">{{ language.translate("About Euromillions") }}</a></li>
                 <li><a href="/{{ language.translate("link_contact") }}">{{ language.translate("Contact us") }}</a></li>
             </ul>
         </div>
