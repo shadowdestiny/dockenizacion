@@ -16,14 +16,14 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\shared\vo\results\ActionResult;
 use Phalcon\Validation\Message;
 
-class UserAccessController extends ControllerBase
+class UserAccessController extends PublicSiteControllerBase
 {
     /** @var  AuthService */
-    private $authService;
+    protected $authService;
     /** @var  GeoService */
-    private $geoService;
+    protected $geoService;
     /** @var LanguageService */
-    private $languageService;
+    protected $languageService;
 
     const IP_DEFAULT = '127.0.0.1';
 
@@ -44,7 +44,7 @@ class UserAccessController extends ControllerBase
 
         $url_redirect = $this->session->get('original_referer');
 
-
+die('hola');
         if ($this->request->isPost()) {
             if ($sign_in_form->isValid($this->request->getPost()) === false) {
                 $messages = $sign_in_form->getMessages(true);
@@ -100,6 +100,7 @@ class UserAccessController extends ControllerBase
 
     public function signUpAction()
     {
+        die('up');
         $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
