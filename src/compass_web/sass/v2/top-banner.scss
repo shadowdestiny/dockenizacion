@@ -423,18 +423,22 @@
 
         @media only screen and (min-width: $screen-ipad-h) {
           font-size: 140px;
+          line-height: 140px;
           position: relative;
           top: 5px;
           text-align: center;
-          left: 0px;
+          //left: 0px;
+          left: 2px;
         }
         @media only screen and (min-width: $screen-desktop) {
           //font-size: 190px;
           font-size: 140px;
+          line-height: 140px;
           position: relative;
           top: -15px;
           text-align: center;
-          left: -4px;
+          //left: -4px;
+          left: 2px;
         }
       }
 
@@ -442,19 +446,23 @@
 
         @media only screen and (min-width: $screen-ipad-h) {
           font-size: 70px;
+          line-height: 70px;
           position: relative;
           top: 5px;
           text-align: center;
-          left: 0px;
+          //left: 0px;
+          left: 2px;
         }
         @media only screen and (min-width: $screen-desktop) {
           //font-size: 190px;
           margin-top: 40px;
           font-size: 70px;
+          line-height: 70px;
           position: relative;
           top: -15px;
           text-align: center;
-          left: -4px;
+          //left: -4px;
+          left: 2px;
         }
       }
 
@@ -462,6 +470,7 @@
 
         @media only screen and (min-width: $screen-ipad-h) {
           font-size: 58px;
+          line-height: 58px;
           text-align: center;
           text-transform: uppercase;
           position: relative;
@@ -471,6 +480,7 @@
         @media only screen and (min-width: $screen-desktop) {
           //font-size: 78px;
           font-size: 58px;
+          line-height: 58px;
           text-align: center;
           text-transform: uppercase;
           position: relative;
