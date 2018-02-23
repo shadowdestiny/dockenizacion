@@ -152,7 +152,7 @@ export default class MobilePlayApp extends Component {
         </div>
 
         <div className="price-per-line">
-          {selectedBundle ? selectedBundle.price_description : ''}
+            {currencySymbol} {(selectedBundle.singleBetPriceWithDiscount / 100).toFixed(2)} {selectedBundle ? selectedBundle.price_description : ''}
         </div>
 
         {drawsNumber == 1

@@ -56,10 +56,11 @@
     {# end of block with deprecated vars #}
 
     var __initialState = {
-        nextDrawFormat  : '<?php echo $next_draw_format ?>',
+        nextDrawFormat  : '<?php echo $draw_day . ' ' .$next_draw_date_format ?>',
         priceBet        : {{ single_bet_price }},
         currencySymbol  : '<?php echo $currency_symbol ?>',
         discountLines   : <?php echo $discount_lines; ?>,
+        drawDateFormat  : {{ next_draw_date_format }},
         translations    : {
             discountLinesTitle    : '{{ language.translate('tittle_multiple') }}',
             addLinesBtn           : '{{ language.translate('addLines_btn') }}',
@@ -71,13 +72,13 @@
             txtMultLines          : '{{ language.translate('mult_total2') }}',
             txtMultDraws          : '{{ language.translate('mult_total3') }}',
             txtNextButton         : '{{ language.translate('next_btn') }}',
-            addRandomLineBtn      : 'Add random line',
-            pickYourNumbersBtn    : 'Pick your numbers',
+            addRandomLineBtn      : '{{ language.translate("Play_addrandom") }}',
+            pickYourNumbersBtn    : '{{ language.translate("Play_picknumber") }}',
             drawsSectionTitle     : '{{ language.translate('tittle_multiple') }}',
             drawsSectionSubtitle  : '{{ language.translate('multiple_discount') }}',
-            mobTicketRandomizeBtn : 'Randomize',
+            mobTicketRandomizeBtn : '{{ language.translate("Play_randomize") }}',
             mobTicketClearBtn     : '{{ language.translate('clear_btn') }}',
-            mobTicketSubmitBtn    : 'Done',
+            mobTicketSubmitBtn    : '{{ language.translate("Play_donebtn") }}',
 
         }
     };
@@ -183,7 +184,7 @@
 
                     <div class="right">
                         <div class="top{% if jackpot_value|length > 4  %}-small{% endif %}">
-                            {{ jackpot_value }} Million
+                            {{ jackpot_value }} {{ language.translate("million") }}
                         </div>
                         <div class="bottom">
                             {{ language.translate('shortInstruction') }}

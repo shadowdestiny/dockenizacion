@@ -105,7 +105,10 @@ class AccountController extends PublicSiteControllerBase
             'form_errors' => $form_errors,
             'which_form' => 'index',
             'errors' => $errors,
+            'errors_pwd' => null,
+            'errors_email' => null,
             'msg' => $msg,
+            'msg_pwd' => '',
             'myaccount' => $myaccount_form,
             'password_change' => $myaccount_passwordchange_form,
             'error_form' => [],
@@ -165,6 +168,7 @@ class AccountController extends PublicSiteControllerBase
             'ratio' => $ratio,
             'errors' => [],
             'msg' => [],
+            'msg_pwd' => null,
             'symbol' => $symbol,
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
@@ -275,12 +279,85 @@ class AccountController extends PublicSiteControllerBase
             // 'errors' => $error,
             'list_notifications' => $list_notifications,
             'which_form' => 'index',
-            'msg' => '',
-            'errors' => $errors,
+            'msg' => null,
+            'msg_pwd' => null,
+            'errors' => null,
+            'errors_email' => $errors,
+            'errors_pwd' => null,
             'myaccount' => $myaccount_form,
             'password_change' => $myaccount_passwordchange_form,
         ]);
 
+    }
+
+    public function resetAction()
+    {
+        $errors = [];
+        $msg = null;
+        $form_errors = [];
+        $userId = $this->authService->getCurrentUser();
+        $user = $this->userService->getUser($userId);
+        $myaccount_form = $this->getMyACcountForm($userId);
+        $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
+
+        if($this->request->isPost()) {
+            if ($myaccount_passwordchange_form->isValid($this->request->getPost()) === false) {
+
+                $messages = $myaccount_passwordchange_form->getMessages(true);
+                /**
+                 * @var  $field
+                 * @var Message[] $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            } else {
+                if(null != $user) {
+                    $result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
+                    if($result_same_password->success()) {
+                        $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
+                        if ($result->success()) {
+                            $msg = $result->getValues();
+                        } else {
+                            $errors [] = $result->errorMessage();
+                        }
+                    }else{
+                        $errors[] = $result_same_password->errorMessage();
+                    }
+                }
+            }
+        }
+        $userId = $this->authService->getCurrentUser();
+        $result = $this->obtainActiveNotifications($userId);
+        $list_notifications = [];
+
+        if ($result->success()) {
+            $error_msg = '';
+            $notifications_collection = $result->getValues();
+            foreach ($notifications_collection as $notifications) {
+                $list_notifications[] = new UserNotificationsDTO($notifications);
+            }
+        } else {
+            $error_msg = 'An error occurred';
+        }
+
+        $pickView = $this->authService->isLogged() ? 'account/index' : 'user-access/updatePassword';
+        $this->view->pick('account/index');
+        return $this->view->setVars([
+            'which_form' => 'password',
+            'form_errors' => $form_errors,
+            'errors' => null,
+            'errors_pwd' => $errors,
+            'errors_email' => null,
+            'msg_pwd' => $msg,
+            'msg' => null,
+            'myaccount' => $myaccount_form,
+            'password_change' => $myaccount_passwordchange_form,
+            'message' => '',
+            'error_form' => (is_object($errors) && $errors->count() > 0) ? $errors : [],
+            'list_notifications' => $list_notifications,
+        ]);
     }
 
     /**

@@ -107,7 +107,7 @@ function numCharLine($line){
 
             <div class="thank-you-block--jackpot">
                 <p>
-                    {{ language.translate("confirmation_lines") }} {{ start_draw_date_format }}
+                    {{ language.translate("confirmation_lines") }} {{ language.translate(draw_day) }} {{ start_draw_date_format }}
                 </p>
                 <h2>
                     {{ language.translate("tittle") }} {{ jackpot_value }} {{ language.translate("million") }}
