@@ -54,6 +54,13 @@ a:visited, .lnk:visited {
 
   &.li-sign {
     top: 0;
+
+    .btn-theme {
+      width:auto;
+      min-width: 83px;
+      padding: 0 12px;
+    }
+
   }
 }
 .ul-top-nav>li>a.link:hover, .ul-top-nav>li>a.link:focus, .ul-top-nav>li:hover .link, .ul-top-nav>li:focus .link {
