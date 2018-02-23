@@ -735,12 +735,15 @@
         float: right;
         text-align: center;
         //padding-top: 44px;
-        padding-top: 24px;
+        //padding-top: 24px;
+        padding-top: 0px;
 
         //@include desktop--dib();
 
         .top-banner--for-only {
-
+          .countdown {
+            line-height: 40px;
+          }
         }
 
         .btn-row {

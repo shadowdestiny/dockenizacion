@@ -154,11 +154,15 @@
                     {#TODO : Add real variables here#}
 
                     <div class="left">
+                        <div class="resizeme">
                         <div class="bottom">
                             {{ language.translate('tittle') }}
                         </div>
+                        </div>
+                        <div class="resizeme">
                         <div class="top">
                             {% if next_draw == 5  %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
+                        </div>
                         </div>
                     </div>
 
@@ -182,11 +186,18 @@
 
 
                     <div class="right">
-                        <div class="top{% if jackpot_value|length > 4  %}-small{% endif %}">
+
+                        <div class="top{% if jackpot_value|length > 4  %}-small{% endif %} resizeme">
+                            <div>
                             {{ jackpot_value }} Million
+                            </div>
                         </div>
-                        <div class="bottom">
-                            {{ language.translate('shortInstruction') }}
+
+                            <div class="resizeme">
+                                <div class="bottom">
+                            {#{{ language.translate('shortInstruction') }}#}
+                                Lorem ipsum dolor sit amet, consectetur
+                            </div>
                         </div>
                     </div>
 

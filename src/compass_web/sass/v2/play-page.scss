@@ -120,6 +120,7 @@
       @media only screen and (min-width: $screen-desktop) {
         padding-top: 10px;
         padding-left: 30px;
+        max-width: 160px;
       }
 
       .top {
@@ -201,15 +202,18 @@
       @media only screen and (min-width: $screen-ipad-h) {
         float: left;
         padding-right: 0;
-        padding-top: 31px;
+        //padding-top: 31px;
+        padding-top: 0;
         padding-left: 26px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
         float: left;
         padding-right: 0;
-        padding-top: 22px;
+        //padding-top: 22px;
+        padding-top: 0;
         padding-left: 21px;
+        width: 380px;
       }
 
       .top {
@@ -230,10 +234,12 @@
 
         @media only screen and (min-width: $screen-ipad-h) {
           font-size: 58.5px;
+          line-height:59px;
         }
 
         @media only screen and (min-width: $screen-desktop) {
           font-size: 52px;
+          line-height:52px;
         }
 
       }
@@ -272,6 +278,10 @@
         padding-top: 16px;
         padding-bottom: 4px;
 
+        & > * {
+          font-size: inherit;
+        }
+
         @media only screen and (min-width: $screen-ipad-v) {
           color: #fff;
           font-weight: 400;
@@ -283,12 +293,15 @@
 
         @media only screen and (min-width: $screen-ipad-h) {
           font-size: 18px;
-          padding-top: 24px;
+          //padding-top: 24px;
+          padding-top: 0;
         }
 
         @media only screen and (min-width: $screen-desktop) {
           font-size: 13px;
-          padding-top: 13px;
+          //padding-top: 13px;
+          padding-top: 0;
+
         }
       }
     }
