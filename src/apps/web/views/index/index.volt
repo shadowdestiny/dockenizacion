@@ -168,10 +168,10 @@
                         {{ language.translate("cta1_text") }}
                     </div>
 
-                    <a href="{{ language.translate("link_euromillions_play") }}"
-                       class="number-generator--block--button btn-theme--big">
-                        {{ language.translate("cta1_btn") }}
-                    </a>
+                    <div class="number-generator--block--button--block resizeme">
+                        <a href="{{ language.translate("link_euromillions_play") }}"
+                           class="number-generator--block--button btn-theme--big">{{ language.translate("cta1_btn") }}</a>
+                    </div>
                 </div>
 
             </div>
