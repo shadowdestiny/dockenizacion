@@ -511,14 +511,17 @@
         letter-spacing: 2px;
       }
 
+
       .btn-theme--big {
 
         height: 36px;
-        line-height: 36px;
+        //line-height: 36px;
+        line-height: 34px;
         font-size: 17px;
         width: 180px;
         text-align: center;
         margin-right: 14px;
+        //box-sizing: border-box;
 
         //height: 86px;
         //line-height: 91px;

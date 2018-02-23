@@ -50,12 +50,13 @@
                     {% include "_elements/countdown--home.volt" %}
                 </div>
 
-                <div class="btn-row">
                     <a href="/{{ language.translate("link_euromillions_play") }}"
-                       class="btn-theme--big">
+                       class="btn-theme--big resizeme">
+                        <span>
                         {{ language.translate("banner1_btn") }}
+                            </span>
                     </a>
-                </div>
+
             </div>
 
             <div class="top-banner--right desktop--only">
