@@ -1410,3 +1410,22 @@ body, .submit {
   text-decoration: none;
   text-transform: uppercase;
 }
+
+//*************** Font resize Start ***************************
+.resizeme {
+
+  opacity: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  & > * {
+    display: inline-block!important;
+    box-sizing: border-box;
+
+    * {
+      font-size: inherit!important;
+    }
+  }
+}
+//*************** Font resize End ***************************
