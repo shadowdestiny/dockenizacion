@@ -195,8 +195,7 @@
 
                             <div class="resizeme">
                                 <div class="bottom">
-                            {#{{ language.translate('shortInstruction') }}#}
-                                Lorem ipsum dolor sit amet, consectetur
+                            {{ language.translate('shortInstruction') }}
                             </div>
                         </div>
                     </div>
