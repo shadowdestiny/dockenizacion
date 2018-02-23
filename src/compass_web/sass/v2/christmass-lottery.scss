@@ -105,6 +105,7 @@
         padding-top: 21px;
         padding-left: 27px;
 
+
         .top {
           //font-family: WorkSans;
           color: #fff;
@@ -132,6 +133,7 @@
         float: left;
         padding-top: 11px;
         padding-left: 19px;
+        width: 30%;
 
         .top {
           //font-family: WorkSans;
@@ -196,6 +198,7 @@
       @media only screen and (min-width: $screen-desktop) {
         display: block;
         float: right;
+        width: 18%;
 
         .top {
           //font-family: Roboto;
@@ -274,6 +277,7 @@
         padding-top: 11px;
         padding-left: 33px;
         display: inline-block;
+        width: 52%;
       }
 
       .mobile {
