@@ -345,7 +345,7 @@ class AccountController extends PublicSiteControllerBase
         $pickView = $this->authService->isLogged() ? 'account/index' : 'user-access/updatePassword';
         $this->view->pick('account/index');
         return $this->view->setVars([
-            'which_form' => 'index',
+            'which_form' => 'password',
             'form_errors' => $form_errors,
             'errors' => null,
             'errors_pwd' => $errors,

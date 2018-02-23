@@ -42,6 +42,9 @@
                 <li>
                     <a href="/{{ language.translate('link_euromillions_help') }}">{{ language.translate("howto_em_sub") }}</a>
                 </li>
+                <li>
+                    <a href="/{{ language.translate('link_blogindex') }}">{{ language.translate("blogindex") }}</a>
+                </li>
                 {% if user_logged is not empty %}
                 <li class="li--euromillion">
                     {{ language.translate("myAccount_account") }}<br />

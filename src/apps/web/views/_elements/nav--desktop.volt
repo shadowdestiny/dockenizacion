@@ -40,3 +40,8 @@
         <span class="txt">{{ language.translate("howto_em_sub") }}</span>
     </a>
 </li>
+<li class="li-blog{% if activeNav.myClass == 'blog' %} active{% endif %}">
+    <a href="/{{ language.translate("link_blogindex") }}">
+        <span class="txt">{{ language.translate("blogindex") }}</span>
+    </a>
+</li>

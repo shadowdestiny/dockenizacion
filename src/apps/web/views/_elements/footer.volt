@@ -91,6 +91,9 @@
                     <li>
                         <a href="/{{ language.translate("link_legal_cookies") }}" rel="nofollow">{{ language.translate('column5_fourth') }}</a>
                     </li>
+                    <li>
+                        <a href="/{{ language.translate("link_blogindex") }}" rel="nofollow">{{ language.translate('column5_fifth') }}</a>
+                    </li>
 
 
                     {# Future links
