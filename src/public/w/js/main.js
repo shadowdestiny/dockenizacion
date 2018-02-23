@@ -278,7 +278,6 @@ $(function () {
 //v2
 $(document).ready(function () {
 
-
   // FAQ accordion function
 
   if ($('.faq-section .answer').length) {
@@ -391,3 +390,41 @@ $(document).ready(function () {
 
 });
 
+//*************** Font resize Start ***************************
+(function($) {
+  $.fn.textfill = function(options) {
+    var fontSize = options.maxFontPixels;
+    //var ourText = $('span:visible:first', this);
+    var ourText = $(':first-child', this);
+    //var ourText = $(this).first();
+    console.log(ourText);
+    var maxHeight = $(this).height();
+    var maxWidth = $(this).width();
+    //var maxWidth = $(this).innerWidth();
+    var textHeight;
+    var textWidth;
+    do {
+      ourText.css('font-size', fontSize);
+      textHeight = ourText.height();
+      //textWidth = ourText.width();
+      textWidth = ourText.innerWidth();
+      fontSize = fontSize - 1;
+    } while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 3);
+    return this;
+  }
+})(jQuery);
+
+
+$(window).load(function () {
+  $('.resizeme').each(function(){
+    $(this).textfill({ maxFontPixels: 200 }).css({'opacity' : 1});
+  });
+});
+
+$(window).resize(function () {
+  $('.resizeme').each(function(){
+    $(this).textfill({ maxFontPixels: 200 });
+  });
+});
+
+//*************** Font resize End ***************************
