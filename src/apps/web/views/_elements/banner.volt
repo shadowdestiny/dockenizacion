@@ -22,8 +22,10 @@
     <div class="top-banner--bottom-row">
         <div class="wrapper">
 
-            <div class="top-banner--left desktop--only">
-                {#{{ language.translate("banner1_subhead") }}#}
+            <div class="top-banner--left desktop--only resizeme">
+                <div>
+                {{ language.translate("banner1_subhead") }}
+                </div>
             </div>
 
             <div class="top-banner--center desktop--only">
