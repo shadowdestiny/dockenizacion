@@ -46,7 +46,7 @@
                 <div class="mobile-row">
                     {{ jackpot_value }}{{ language.translate("million") }}
                 </div>
-                <div class="top-banner--for-only">
+                <div class="top-banner--for-only resizeme">
                     {% include "_elements/countdown--home.volt" %}
                 </div>
 
