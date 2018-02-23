@@ -396,8 +396,16 @@ $(document).ready(function () {
     var fontSize = options.maxFontPixels;
     //var ourText = $('span:visible:first', this);
     var ourText = $(':first-child', this);
+    var ourTextMaxFontSize = parseInt(ourText.css('font-size'));
+
+    if(fontSize > ourTextMaxFontSize) {
+      fontSize = ourTextMaxFontSize;
+    }
+
+    console.log('fontSize = '+fontSize);
+    console.log('ourTextMaxFontSize = '+ourTextMaxFontSize);
+
     //var ourText = $(this).first();
-    console.log(ourText);
     var maxHeight = $(this).height();
     var maxWidth = $(this).width();
     //var maxWidth = $(this).innerWidth();
