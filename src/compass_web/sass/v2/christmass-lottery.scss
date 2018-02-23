@@ -115,6 +115,10 @@
           text-align: left;
           text-transform: uppercase;
           padding-bottom: 17px;
+
+          div {
+            vertical-align: text-top;
+          }
         }
 
         .bottom {
@@ -125,6 +129,10 @@
           line-height: 17.5px;
           text-align: left;
           text-transform: uppercase;
+
+          div {
+            vertical-align: text-top;
+          }
         }
       }
 
@@ -168,6 +176,7 @@
         display: block;
         float: right;
 
+
         .top {
           //font-family: Roboto;
           font-family: $ff3;
@@ -179,6 +188,11 @@
           text-transform: uppercase;
           padding-top: 23px;
           padding-right: 30px;
+
+          div {
+            vertical-align: text-top;
+          }
+
         }
 
         .bottom {
@@ -192,6 +206,10 @@
           text-align: right;
           text-transform: uppercase;
           padding-right: 30px;
+
+          div {
+            vertical-align: text-top;
+          }
         }
       }
 
