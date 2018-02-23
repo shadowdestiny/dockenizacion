@@ -1412,20 +1412,24 @@ body, .submit {
 }
 
 //*************** Font resize Start ***************************
-.resizeme {
 
-  opacity: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  box-sizing: border-box;
+// Desktop only
+@media only screen and (min-width: $screen-desktop) {
+  .resizeme {
 
-  & > * {
-    display: inline-block!important;
-    box-sizing: border-box;
+    opacity: 0;
     white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
 
-    * {
-      font-size: inherit!important;
+    & > * {
+      display: inline-block!important;
+      box-sizing: border-box;
+      white-space: nowrap;
+
+      * {
+        font-size: inherit!important;
+      }
     }
   }
 }

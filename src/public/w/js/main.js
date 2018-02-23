@@ -422,17 +422,25 @@ $(document).ready(function () {
   }
 })(jQuery);
 
+function fontResizer(){
+  $('.resizeme').each(function(){
+    //$(this).css({'opacity' : 1});
+
+    var html = document.documentElement;
+    var desktop = 992;
+    if(html.clientWidth >= desktop) {
+      $(this).textfill({ maxFontPixels: 200 }).css({'opacity' : 1});
+    }
+
+  });
+}
 
 $(window).load(function () {
-  $('.resizeme').each(function(){
-    $(this).textfill({ maxFontPixels: 200 }).css({'opacity' : 1});
-  });
+  fontResizer();
 });
 
 $(window).resize(function () {
-  $('.resizeme').each(function(){
-    $(this).textfill({ maxFontPixels: 200 });
-  });
+  fontResizer();
 });
 
 //*************** Font resize End ***************************
