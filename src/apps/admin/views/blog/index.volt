@@ -30,34 +30,6 @@
             <div class="module">
                 <div class="module-body">
                     <h1 class="h1 purple">Blog</h1>
-                    {#<p><b class="purple">Create new Post</b></p>#}
-                    {#{% if errorMessage is not empty %}#}
-                        {#<p>{{ errorMessage }}</p>#}
-                    {#{% endif %}#}
-                    {#<form method="post" action="/admin/blog/createPost">#}
-                        {#<table>#}
-                            {#<thead>#}
-                            {#<tr>#}
-                                {#<td>Name</td>#}
-                                {#<td>Description</td>#}
-                                {#<td></td>#}
-                            {#</tr>#}
-                            {#</thead>#}
-                            {#<tbody>#}
-                                {#<tr>#}
-                                    {#<td>#}
-                                        {#<input type="text" name="name" />#}
-                                    {#</td>#}
-                                    {#<td>#}
-                                        {#<input type="text" name="description" />#}
-                                    {#</td>#}
-                                    {#<td>#}
-                                        {#<input type="submit" class="btn btn-primary" value="Create" />#}
-                                    {#</td>#}
-                                {#</tr>#}
-                            {#</tbody>#}
-                        {#</table>#}
-                    {#</form>#}
                     <p><b class="purple">Posts</b></p>
                     {% if postsList is not empty %}
                         <table class="table" width="100%">
