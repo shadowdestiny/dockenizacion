@@ -19,4 +19,11 @@ class BlogService
         $this->blogRepository = $entityManager->getRepository('EuroMillions\web\entities\Blog');
     }
 
+    /**
+     * @return array
+     */
+    public function getPostsList()
+    {
+        return $this->blogRepository->findAll();
+    }
 }
