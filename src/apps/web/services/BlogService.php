@@ -26,4 +26,26 @@ class BlogService
     {
         return $this->blogRepository->findAll();
     }
+
+    /**
+     * @param $language
+     *
+     * @return array
+     */
+    public function getPostsPublishedListByLanguage($language)
+    {
+        return $this->blogRepository->findBy(['language' => $language, 'published' => 1]);
+    }
+
+    /**
+     * @param $url
+     * @param $language
+     *
+     * @return null|object
+     */
+    public function getPostByUrlAndLanguage($url, $language)
+    {
+        return $this->blogRepository->findOneBy(['url' => $url, 'language' => $language]);
+    }
+
 }

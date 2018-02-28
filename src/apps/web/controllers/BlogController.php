@@ -3,28 +3,35 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\web\entities\Blog;
 
 class BlogController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
-        var_dump('indexBlog');
         $this->tag->prependTitle($this->languageService->translate('contact_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('contact_desc'));
 
         return $this->view->setVars([
-            'msg' => '',
+            'postsBlog' => $this->blogService->getPostsPublishedListByLanguage($this->router->getParams()['language'])
         ]);
     }
 
     public function postAction()
     {
-        var_dump($this->router->getParams()[0]);
-        $this->tag->prependTitle($this->languageService->translate('contact_name'));
-        MetaDescriptionTag::setDescription($this->languageService->translate('contact_desc'));
+        /** @var Blog $postData */
+        $postData = $this->blogService->getPostByUrlAndLanguage($this->router->getParams()[0], $this->router->getParams()['language']);
 
-        return $this->view->setVars([
-            'msg' => '',
-        ]);
+        if (!empty($postData)) {
+            $this->tag->prependTitle($postData->getTitle());
+            MetaDescriptionTag::setDescription($postData->getDescription());
+
+            return $this->view->setVars([
+                'postData' => $postData,
+            ]);
+        }
+
+        //TODO: Redirect to index Blog
+        return $this->response->redirect('/');
     }
 }
