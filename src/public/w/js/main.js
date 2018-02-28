@@ -392,55 +392,55 @@ $(document).ready(function () {
 
 //*************** Font resize Start ***************************
 (function($) {
-  $.fn.textfill = function(options) {
-    var fontSize = options.maxFontPixels;
-    //var ourText = $('span:visible:first', this);
-    var ourText = $(':first-child', this);
-    var ourTextMaxFontSize = parseInt(ourText.css('font-size'));
-
-    if(fontSize > ourTextMaxFontSize) {
-      fontSize = ourTextMaxFontSize;
+    $.fn.fontSizeTuner = function(options) {
+        var $this = $(this);
+        
+        var resize = function($elem) {
+            var parentWidth  = $elem.parent().width();
+            var parentHeight = $elem.parent().height();
+            var origFontSize = parseInt($elem.data('original-font-size'));
+            var origPosition = $elem.data('original-position');
+            var fontSize = origFontSize + 1;
+            
+            $elem.css('position', 'absolute');
+            
+            do {
+                fontSize --;
+                $elem.css('font-size', fontSize + 'px');
+                var elemWidth  = $elem.width();
+                var elemHeight = $elem.height();
+            } while ((parentWidth < elemWidth || parentHeight < elemHeight) && fontSize > 3);
+            
+            $elem.css({
+                position : origPosition,
+                opacity : 1,
+            });
+        }
+        
+        $this.each(function() {
+            if (!$(this).data('original-font-size')) {
+                var style = window.getComputedStyle(this);
+                $(this)
+                    .data('original-font-size', style.fontSize)
+                    .data('original-position', style.position);
+            }
+            resize($(this));
+        });
+        
+        var onResize = function() {
+           $this.each(function() {
+               resize($(this));
+           })
+        };
+        
+        $(window).resize(onResize);
+ 
+      return this;
     }
-
-    console.log('fontSize = '+fontSize);
-    console.log('ourTextMaxFontSize = '+ourTextMaxFontSize);
-
-    //var ourText = $(this).first();
-    var maxHeight = $(this).height();
-    var maxWidth = $(this).width();
-    //var maxWidth = $(this).innerWidth();
-    var textHeight;
-    var textWidth;
-    do {
-      ourText.css('font-size', fontSize);
-      textHeight = ourText.height();
-      //textWidth = ourText.width();
-      textWidth = ourText.innerWidth();
-      fontSize = fontSize - 1;
-    } while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 3);
-    return this;
-  }
 })(jQuery);
 
-function fontResizer(){
-  $('.resizeme').each(function(){
-    //$(this).css({'opacity' : 1});
-
-    var html = document.documentElement;
-    var desktop = 992;
-    if(html.clientWidth >= desktop) {
-      $(this).textfill({ maxFontPixels: 200 }).css({'opacity' : 1});
-    }
-
-  });
-}
-
-$(window).load(function () {
-  fontResizer();
-});
-
-$(window).resize(function () {
-  fontResizer();
-});
+(function($) {
+    $('.resizeme').fontSizeTuner();
+}(jQuery));
 
 //*************** Font resize End ***************************
