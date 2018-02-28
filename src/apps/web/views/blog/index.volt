@@ -18,7 +18,7 @@
 {% block body %}
     <main id="content" class="">
         <div class="wrapper">
-            {{ dump(postData) }}
+            {{ dump(postsBlog) }}
         </div>
     </main>
 {% endblock %}

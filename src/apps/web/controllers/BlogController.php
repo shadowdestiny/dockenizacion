@@ -13,7 +13,8 @@ class BlogController extends PublicSiteControllerBase
         MetaDescriptionTag::setDescription($this->languageService->translate('contact_desc'));
 
         return $this->view->setVars([
-            'postsBlog' => $this->blogService->getPostsPublishedListByLanguage($this->router->getParams()['language'])
+            'postsBlog' => $this->blogService->getPostsPublishedListByLanguage($this->router->getParams()['language']),
+            'pageController' => 'blogIndex',
         ]);
     }
 
@@ -28,10 +29,10 @@ class BlogController extends PublicSiteControllerBase
 
             return $this->view->setVars([
                 'postData' => $postData,
+                'pageController' => 'blogIndex',
             ]);
         }
 
-        //TODO: Redirect to index Blog
-        return $this->response->redirect('/');
+        return $this->response->redirect('/' . $this->languageService->translate('link_blogindex'));
     }
 }
