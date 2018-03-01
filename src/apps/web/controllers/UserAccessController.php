@@ -3,6 +3,7 @@
 namespace EuroMillions\web\controllers;
 
 use Captcha\Captcha;
+use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\forms\ForgotPasswordForm;
@@ -10,40 +11,86 @@ use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
 use EuroMillions\web\services\AuthService;
+use EuroMillions\web\services\CartService;
+use EuroMillions\web\services\ChristmasService;
+use EuroMillions\web\services\CurrencyConversionService;
+use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\GeoService;
 use EuroMillions\web\services\LanguageService;
+use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\services\TransactionService;
+use EuroMillions\web\services\UserPreferencesService;
+use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\Email;
 use EuroMillions\shared\vo\results\ActionResult;
 use Phalcon\Validation\Message;
 
-class UserAccessController extends ControllerBase
+class UserAccessController extends PublicSiteControllerBase
 {
-    /** @var  AuthService */
-    private $authService;
     /** @var  GeoService */
-    private $geoService;
-    /** @var LanguageService */
-    private $languageService;
+    protected $geoService;
+    /** @var LotteryService */
+    protected $lotteryService;
+    /** @var  LanguageService */
+    protected $languageService;
+    /** @var  CurrencyService */
+    protected $currencyService;
+    /** @var  UserService */
+    protected $userService;
+    /** @var  AuthService */
+    protected $authService;
+    /** @var  UserPreferencesService */
+    protected $userPreferencesService;
+    /** @var  SiteConfigService $siteConfigService */
+    protected $siteConfigService;
+    /** @var  CartService $cartService */
+    protected $cartService;
+    /** @var  CurrencyConversionService */
+    protected $currencyConversionService;
+    /** @var  TransactionService */
+    protected $transactionService;
+    /** @var  ChristmasService */
+    protected $christmasService;
 
     const IP_DEFAULT = '127.0.0.1';
 
-    public function initialize(AuthService $authService = null, GeoService $geoService = null, LanguageService $languageService = null)
+    public function initialize(LotteryService $lotteryService = null,
+                               LanguageService $languageService = null,
+                               CurrencyService $currencyService = null,
+                               UserService $userService = null,
+                               AuthService $authService = null,
+                               UserPreferencesService $userPreferencesService = null,
+                               SiteConfigService $siteConfigService = null,
+                               CartService $cartService = null,
+                               CurrencyConversionService $currencyConversionService = null,
+                               TransactionService $transactionService = null,
+                               ChristmasService $christmasService = null,
+                               GeoService $geoService = null)
     {
         parent::initialize();
-        $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
         $this->geoService = $geoService ? $geoService : $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $this->languageService = $languageService ? $languageService : $this->domainServiceFactory->getLanguageService();
+        $this->lotteryService = $lotteryService ?: $this->domainServiceFactory->getLotteryService();
+        $this->languageService = $languageService ?: $this->language; //from DI
+        $this->currencyService = $currencyService ?: $this->domainServiceFactory->getCurrencyService();
+        $this->userService = $userService ?: $this->domainServiceFactory->getUserService();
+        $this->authService = $authService ?: $this->domainServiceFactory->getAuthService();
+        $this->userPreferencesService = $userPreferencesService ?: $this->domainServiceFactory->getUserPreferencesService();
+        $this->cartService = $cartService ?: $this->domainServiceFactory->getCartService();
+        $this->currencyConversionService = $currencyConversionService ?: $this->domainServiceFactory->getCurrencyConversionService();
+        $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyConversionService);
+        $this->transactionService = $transactionService ?: new TransactionService($this->di->get('entityManager'), $this->currencyConversionService);
+        $this->christmasService = $christmasService ?: new ChristmasService($this->di->get('entityManager'));
     }
 
     public function signInAction()
     {
+
         $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
 
         $url_redirect = $this->session->get('original_referer');
-
 
         if ($this->request->isPost()) {
             if ($sign_in_form->isValid($this->request->getPost()) === false) {
@@ -71,7 +118,7 @@ class UserAccessController extends ControllerBase
                         $errors[] = 'Incorrect email or password.';
                     }
                 } else {
-                    return $this->response->redirect($url_redirect);
+                    return $this->response->redirect('/');
                 }
             }
         }
@@ -139,7 +186,7 @@ class UserAccessController extends ControllerBase
                         ga('send', 'event', 'Button', 'Register');
                     </script>
                     ";
-                    return $this->response->redirect($url_redirect);
+                    return $this->response->redirect('/');
                 }
             }
         }

@@ -8,6 +8,7 @@ use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\repositories\TranslationDetailRepository;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\BetService;
+use EuroMillions\web\services\BlogService;
 use EuroMillions\web\services\CartService;
 use EuroMillions\web\services\CurrencyConversionService;
 use EuroMillions\web\services\CurrencyService;
@@ -212,6 +213,13 @@ class DomainServiceFactory
         return new UserNotificationsService(
             $this->entityManager,
             $this->getUserService()
+        );
+    }
+
+    public function getBlogService()
+    {
+        return new BlogService(
+            $this->entityManager
         );
     }
 

@@ -56,10 +56,11 @@
     {# end of block with deprecated vars #}
 
     var __initialState = {
-        nextDrawFormat  : '<?php echo $next_draw_format ?>',
+        nextDrawFormat  : '<?php echo $draw_day . ' ' .$next_draw_date_format ?>',
         priceBet        : {{ single_bet_price }},
         currencySymbol  : '<?php echo $currency_symbol ?>',
         discountLines   : <?php echo $discount_lines; ?>,
+        drawDateFormat  : {{ next_draw_date_format }},
         translations    : {
             discountLinesTitle    : '{{ language.translate('tittle_multiple') }}',
             addLinesBtn           : '{{ language.translate('addLines_btn') }}',
@@ -71,13 +72,13 @@
             txtMultLines          : '{{ language.translate('mult_total2') }}',
             txtMultDraws          : '{{ language.translate('mult_total3') }}',
             txtNextButton         : '{{ language.translate('next_btn') }}',
-            addRandomLineBtn      : 'Add random line',
-            pickYourNumbersBtn    : 'Pick your numbers',
+            addRandomLineBtn      : '{{ language.translate("Play_addrandom") }}',
+            pickYourNumbersBtn    : '{{ language.translate("Play_picknumber") }}',
             drawsSectionTitle     : '{{ language.translate('tittle_multiple') }}',
             drawsSectionSubtitle  : '{{ language.translate('multiple_discount') }}',
-            mobTicketRandomizeBtn : 'Randomize',
+            mobTicketRandomizeBtn : '{{ language.translate("Play_randomize") }}',
             mobTicketClearBtn     : '{{ language.translate('clear_btn') }}',
-            mobTicketSubmitBtn    : 'Done',
+            mobTicketSubmitBtn    : '{{ language.translate("Play_donebtn") }}',
 
         }
     };
@@ -154,15 +155,11 @@
                     {#TODO : Add real variables here#}
 
                     <div class="left">
-                        <div class="resizeme">
                         <div class="bottom">
                             {{ language.translate('tittle') }}
                         </div>
-                        </div>
-                        <div class="resizeme">
                         <div class="top">
                             {% if next_draw == 5  %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
-                        </div>
                         </div>
                     </div>
 
@@ -186,17 +183,11 @@
 
 
                     <div class="right">
-
-                        <div class="top{% if jackpot_value|length > 4  %}-small{% endif %} resizeme">
-                            <div>
-                            {{ jackpot_value }} Million
-                            </div>
+                        <div class="top{% if jackpot_value|length > 4  %}-small{% endif %}">
+                            {{ jackpot_value }} {{ language.translate("million") }}
                         </div>
-
-                            <div class="resizeme">
-                                <div class="bottom">
+                        <div class="bottom">
                             {{ language.translate('shortInstruction') }}
-                            </div>
                         </div>
                     </div>
 
