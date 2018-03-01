@@ -152,8 +152,6 @@
             <div class="wrapper">
                 <header>
 
-                    {#TODO : Add real variables here#}
-
                     <div class="left">
                         <div class="bottom">
                             {{ language.translate('tittle') }}
@@ -165,7 +163,7 @@
 
 
                     <div class="help-block">
-                        <div class="top">
+                        <div class="top resizeme">
                             {{ language.translate('aboutLottery') }}
                         </div>
                         <div class="bottom">
@@ -183,11 +181,10 @@
 
 
                     <div class="right">
-                        {#<div class="top{% if jackpot_value|length > 4  %}-small{% endif %}">#}
                         <div class="top resizeme">
                             {{ jackpot_value }} {{ language.translate("million") }}
                         </div>
-                        <div class="bottom">
+                        <div class="bottom resizeme">
                             {{ language.translate('shortInstruction') }}
                         </div>
                     </div>
@@ -211,16 +208,9 @@
                 <div class="gameplay" id="gameplay"></div>
                 <div class="media"></div>
 
-
-
                 {% include "_elements/play-bottom-block.volt" %}
 
-
             </div>
-
-
-
-
 
             <div id="closeticket" class="modal" style="width: 1000px;height: 500px;">
                 <div style="text-align: center;color:white">
