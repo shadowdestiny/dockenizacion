@@ -185,8 +185,7 @@
                     <div class="right">
                         {#<div class="top{% if jackpot_value|length > 4  %}-small{% endif %}">#}
                         <div class="top resizeme">
-                            {#{{ jackpot_value }} {{ language.translate("million") }}#}
-                            €128 million
+                            {{ jackpot_value }} {{ language.translate("million") }}
                         </div>
                         <div class="bottom">
                             {{ language.translate('shortInstruction') }}
