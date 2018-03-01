@@ -9,6 +9,7 @@ use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\Language;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
+use EuroMillions\web\services\BlogService;
 use EuroMillions\web\services\CartService;
 use EuroMillions\web\services\ChristmasService;
 use EuroMillions\web\services\CurrencyConversionService;
@@ -56,6 +57,8 @@ class PublicSiteControllerBase extends ControllerBase
     protected $transactionService;
     /** @var  ChristmasService */
     protected $christmasService;
+    /** @var  BlogService */
+    protected $blogService;
 
     protected $lottery;
 
@@ -73,7 +76,8 @@ class PublicSiteControllerBase extends ControllerBase
                                CartService $cartService = null,
                                CurrencyConversionService $currencyConversionService = null,
                                TransactionService $transactionService = null,
-                               ChristmasService $christmasService = null)
+                               ChristmasService $christmasService = null,
+                               BlogService $blogService = null)
     {
         parent::initialize();
         $this->lotteryService = $lotteryService ?: $this->domainServiceFactory->getLotteryService();
@@ -87,6 +91,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyConversionService);
         $this->transactionService = $transactionService ?: new TransactionService($this->di->get('entityManager'), $this->currencyConversionService);
         $this->christmasService = $christmasService ?: new ChristmasService($this->di->get('entityManager'));
+        $this->blogService = $blogService ?: new BlogService($this->di->get('entityManager'));
         $this->lottery = !isset($this->router->getParams()['lottery']) ? 'euromillions' : $this->router->getParams()['lottery'];
         $this->languageUrl = !isset($this->router->getParams()['language']) ? '' : $this->router->getParams()['language'];
         $this->currencyUrl = !isset($this->router->getParams()['currency']) ? '' : $this->router->getParams()['currency'];

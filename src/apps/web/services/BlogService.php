@@ -8,14 +8,11 @@ use EuroMillions\web\repositories\BlogRepository;
 
 class BlogService
 {
-    private $entityManager;
-
     /** @var BlogRepository $blogRepository */
     private $blogRepository;
 
     public function __construct(EntityManager $entityManager)
     {
-        $this->entityManager = $entityManager;
         $this->blogRepository = $entityManager->getRepository('EuroMillions\web\entities\Blog');
     }
 
@@ -44,4 +41,26 @@ class BlogService
     {
         return $this->blogRepository->find($id);
     }
+
+    /**
+     * @param $language
+     *
+     * @return array
+     */
+    public function getPostsPublishedListByLanguage($language)
+    {
+        return $this->blogRepository->findBy(['language' => $language, 'published' => 1]);
+    }
+
+    /**
+     * @param $url
+     * @param $language
+     *
+     * @return null|object
+     */
+    public function getPostByUrlAndLanguage($url, $language)
+    {
+        return $this->blogRepository->findOneBy(['url' => $url, 'language' => $language]);
+    }
+
 }
