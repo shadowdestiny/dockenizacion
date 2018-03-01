@@ -904,6 +904,9 @@
           }
         }
         span.next-btn {
+          width: 50%;
+          display: inline-block;
+
           @media only screen and (min-width: $screen-desktop) {
             width: 100px;
             float: right;
