@@ -150,7 +150,7 @@
                                     <span id="totalPriceValue">0.00</span>
                                 </span>
                                     {#<span class="gap"><span class="separator"></span></span>#}
-                                <span>{{ language.translate('next_btn') }}</span>
+                                <span class="next-btn"><span class="resizeme">{{ language.translate('next_btn') }}</span></span>
                                 </a>
                             </div>
 

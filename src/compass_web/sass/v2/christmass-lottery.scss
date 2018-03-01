@@ -903,42 +903,49 @@
             width:auto;
           }
         }
-
-        span.next {
-          padding-left: 0px;
-          padding-right: 0px;
-          float: right;
-          text-align: center;
-          width: 50%;
-          cursor: pointer;
-
-          @media only screen and (min-width: $screen-ipad-v) {
-            padding-left: 0px;
-            padding-right: 0px;
-            float: right;
-            text-align: center;
-            width: 50%;
-            cursor: pointer;
-          }
-
-          @media only screen and (min-width: $screen-ipad-h) {
-            padding-left: 20px;
-            width:auto;
-
-            font-size: 34px;
-            line-height: 100px;
-            padding-right: 58px;
-          }
-
+        span.next-btn {
           @media only screen and (min-width: $screen-desktop) {
-            padding-left: 20px;
-            width:auto;
-
-            font-size: 34px;
-            line-height: 100px;
-            padding-right: 58px;
+            width: 100px;
+            float: right;
+            margin-right: 30px;
           }
         }
+
+        //span.next {
+        //  padding-left: 0px;
+        //  padding-right: 0px;
+        //  float: right;
+        //  text-align: center;
+        //  width: 50%;
+        //  cursor: pointer;
+        //
+        //  @media only screen and (min-width: $screen-ipad-v) {
+        //    padding-left: 0px;
+        //    padding-right: 0px;
+        //    float: right;
+        //    text-align: center;
+        //    width: 50%;
+        //    cursor: pointer;
+        //  }
+        //
+        //  @media only screen and (min-width: $screen-ipad-h) {
+        //    padding-left: 20px;
+        //    width:auto;
+        //
+        //    font-size: 34px;
+        //    line-height: 100px;
+        //    padding-right: 58px;
+        //  }
+        //
+        //  @media only screen and (min-width: $screen-desktop) {
+        //    padding-left: 20px;
+        //    width:auto;
+        //
+        //    font-size: 34px;
+        //    line-height: 100px;
+        //    padding-right: 58px;
+        //  }
+        //}
 
         
         &::before {
