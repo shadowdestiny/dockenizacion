@@ -191,12 +191,14 @@
       float: none;
       padding-top: 50px;
       padding-left: 10px;
+      padding-right: 10px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         float: right;
         padding-left: 0;
         padding-right: 42px;
         padding-top: 20px;
+        width: 465px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
@@ -205,6 +207,7 @@
         //padding-top: 31px;
         padding-top: 0;
         padding-left: 26px;
+        width: 380px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
