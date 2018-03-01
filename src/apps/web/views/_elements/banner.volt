@@ -46,8 +46,10 @@
                 <div class="mobile-row">
                     {{ jackpot_value }}{{ language.translate("million") }}
                 </div>
-                <div class="top-banner--for-only resizeme">
+                <div class="top-banner--for-only">
+                    <div class="resizeme">
                     {% include "_elements/countdown--home.volt" %}
+                    </div>
                 </div>
 
                     <a href="/{{ language.translate("link_euromillions_play") }}"

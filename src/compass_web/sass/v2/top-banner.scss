@@ -238,7 +238,8 @@
     overflow: hidden;
 
     @media only screen and (min-width: $screen-xs) {
-      height: 103px;
+      //height: 103px;
+      height: 114px;
     }
 
     @media only screen and (min-width: $screen-ipad-v) {
@@ -264,13 +265,14 @@
 
     .top-banner--for-only {
 
-      margin-top: -16px;
+      //margin-top: -16px;
       margin-bottom: -10px;
 
       @media only screen and (min-width: $screen-ipad-h) {
         text-align: center;
         margin-top: 0;
         margin-bottom: 0;
+
       }
       @media only screen and (min-width: $screen-desktop) {
         text-align: left;
@@ -510,6 +512,18 @@
         text-align: center;
         text-transform: uppercase;
         letter-spacing: 2px;
+      }
+      .top-banner--for-only {
+        width: 300px;
+        margin-bottom: -20px;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 390px;
+        }
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 700px;
+          margin-bottom: 0px;
+        }
       }
 
 

@@ -1414,7 +1414,7 @@ body, .submit {
 //*************** Font resize Start ***************************
 
 // Desktop only
-@media only screen and (min-width: $screen-desktop) {
+//@media only screen and (min-width: $screen-desktop) {
   .resizeme {
 
     opacity: 0;
@@ -1433,5 +1433,5 @@ body, .submit {
       }
     }
   }
-}
+//}
 //*************** Font resize End ***************************

@@ -4,6 +4,9 @@
   right: 10px;
   z-index: 11;
 
+  @media only screen and (min-width: $screen-xs) {
+    top: -54px;
+  }
   @media only screen and (min-width: $screen-ipad-v) {
     top: -56px;
   }
