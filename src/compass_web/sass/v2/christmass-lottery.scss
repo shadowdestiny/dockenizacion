@@ -257,6 +257,8 @@
       text-transform: uppercase;
       //display: inline-block;
       display: block;
+      padding-left: 10px;
+      padding-right: 10px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         //font-family: Roboto;
@@ -269,6 +271,8 @@
         text-transform: uppercase;
         //display: inline-block;
         display: block;
+        padding-left: 10px;
+        padding-right: 10px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
@@ -282,6 +286,7 @@
         padding-top: 24px;
         padding-left: 37px;
         display: inline-block;
+        padding-right: 10px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
@@ -296,6 +301,7 @@
         padding-left: 33px;
         display: inline-block;
         width: 52%;
+        padding-right: 10px;
       }
 
       .mobile {

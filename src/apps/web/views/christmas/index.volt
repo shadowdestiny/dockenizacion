@@ -47,31 +47,31 @@
 
                 <header>
                     <div class="left">
-                        <div class="top resizeme">
-                            <div>
+                        <div class="top">
+                            <div class="resizeme">
                             {{ language.translate("playchris_top_left") }}
                             </div>
                         </div>
-                        <div class="bottom resizeme">
-                            <div>
+                        <div class="bottom">
+                            <div class="resizeme">
                             {{ language.translate("playchris_top_left2") }}
                             </div>
                         </div>
                     </div>
                     <div class="right">
-                        <div class="top resizeme">
-                        <div>
+                        <div class="top">
+                        <div class="resizeme">
                             {{ language.translate("playchris_top_right") }}
                         </div>
                         </div>
-                        <div class="bottom resizeme">
-                        <div>
+                        <div class="bottom">
+                            <div class="resizeme">
 
                         </div>
                         </div>
                     </div>
-                    <div class="jackpot resizeme">
-                        <div>
+                    <div class="jackpot">
+                        <div class="resizeme">
                         {{ currencySymbol }}{{ awardBillionChristmas }} {{ language.translate("playchris_top_middle") }}
                         </div>
 
