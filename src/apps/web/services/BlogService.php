@@ -26,4 +26,22 @@ class BlogService
     {
         return $this->blogRepository->findAll();
     }
+
+    public function savePost($post)
+    {
+        return $this->blogRepository->savePost($post);
+    }
+
+    public function updatePost($post)
+    {
+        $this->blogRepository->updatePost($post);
+    }
+
+    /**
+     * @return object
+     */
+    public function getPostById($id)
+    {
+        return $this->blogRepository->find($id);
+    }
 }
