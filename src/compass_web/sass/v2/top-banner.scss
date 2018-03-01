@@ -745,13 +745,17 @@
 
         .top-banner--for-only {
           .countdown {
-            line-height: 40px;
+            //line-height: 40px;
+            line-height: 28px;
           }
         }
 
         .btn-row {
+          //width: 270px;
+
           .btn-theme--big {
             //width: 100%;
+
 
             @media only screen and (min-width: $screen-desktop) {
 
@@ -762,6 +766,7 @@
               font-size: 32px;
               font-weight: 700;
               padding: 0 40px;
+              width: 270px;
             }
           }
 

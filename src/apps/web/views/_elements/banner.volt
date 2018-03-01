@@ -22,8 +22,8 @@
     <div class="top-banner--bottom-row">
         <div class="wrapper">
 
-            <div class="top-banner--left desktop--only resizeme">
-                <div>
+            <div class="top-banner--left desktop--only">
+                <div class="resizeme">
                 {{ language.translate("banner1_subhead") }}
                 </div>
             </div>
@@ -61,14 +61,18 @@
 
             <div class="top-banner--right desktop--only">
 
-                <div class="top-banner--for-only resizeme">
+                <div class="top-banner--for-only">
+                    <div class="resizeme">
                     {% include "_elements/countdown.volt" %}
+                    </div>
                 </div>
 
-                <div class="btn-row resizeme">
+                <div class="btn-row">
                     <a href="/{{ language.translate("link_euromillions_play") }}"
                        class="btn-theme--big">
+                        <span class="resizeme">
                         {{ language.translate("banner1_btn") }}
+                            </span>
                     </a>
                 </div>
             </div>
