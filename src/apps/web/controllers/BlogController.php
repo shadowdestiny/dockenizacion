@@ -9,8 +9,8 @@ class BlogController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
-        $this->tag->prependTitle($this->languageService->translate('contact_name'));
-        MetaDescriptionTag::setDescription($this->languageService->translate('contact_desc'));
+        $this->tag->prependTitle($this->languageService->translate('blogindex_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('blogindex_desc'));
 
         return $this->view->setVars([
             'postsBlog' => $this->blogService->getPostsPublishedListByLanguage($this->router->getParams()['language']),
