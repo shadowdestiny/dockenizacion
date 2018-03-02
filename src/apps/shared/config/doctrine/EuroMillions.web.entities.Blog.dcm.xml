@@ -14,7 +14,9 @@
         </id>
         <field name="url" type="string" length="100" />
         <field name="title" type="string" length="100" />
+        <field name="title_tag" type="string" length="100" />
         <field name="description" type="string" length="200" />
+        <field name="description_tag" type="string" length="200" />
         <field name="canonical" type="string" length="200" />
         <field name="language" type="string" length="2" />
         <field name="published" type="boolean" />

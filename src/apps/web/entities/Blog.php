@@ -7,7 +7,9 @@ class Blog extends EntityBase
     protected $id;
     protected $url;
     protected $title;
+    protected $title_tag;
     protected $description;
+    protected $description_tag;
     protected $canonical;
     protected $language;
     protected $published;
@@ -66,6 +68,22 @@ class Blog extends EntityBase
     /**
      * @return mixed
      */
+    public function getTitleTag()
+    {
+        return $this->title_tag;
+    }
+
+    /**
+     * @param $title_tag
+     */
+    public function setTitleTag($title_tag)
+    {
+        $this->title_tag = $title_tag;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDescription()
     {
         return $this->description;
@@ -77,6 +95,22 @@ class Blog extends EntityBase
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescriptionTag()
+    {
+        return $this->description_tag;
+    }
+
+    /**
+     * @param $description_tag
+     */
+    public function setDescriptionTag($description_tag)
+    {
+        $this->description_tag = $description_tag;
     }
 
     /**
