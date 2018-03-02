@@ -24,8 +24,8 @@ class BlogController extends PublicSiteControllerBase
         $postData = $this->blogService->getPostByUrlAndLanguage($this->router->getParams()[0], $this->router->getParams()['language']);
 
         if (!empty($postData)) {
-            $this->tag->prependTitle($postData->getTitle());
-            MetaDescriptionTag::setDescription($postData->getDescription());
+            $this->tag->prependTitle($postData->getTitleTag());
+            MetaDescriptionTag::setDescription($postData->getDescriptionTag());
 
             return $this->view->setVars([
                 'postData' => $postData,
