@@ -44,6 +44,31 @@
                     <table>
                         <thead>
                         <tr>
+                            <td>Title Tag</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" name="title_tag" value="{%  if post is defined %}{{ post.getTitleTag() }}{% endif %}"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <thead>
+                        <tr>
+                            <td>Meta Description</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+
+                            <td>
+                                <input type="text" name="description_tag" value="{%  if post is defined %}{{ post.getDescriptionTag() }}{% endif %}"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <thead>
+                        <tr>
                             <td>Url</td>
                         </tr>
                         </thead>
@@ -68,7 +93,7 @@
                         </tbody>
                         <thead>
                         <tr>
-                            <td>Meta Description</td>
+                            <td>Description</td>
                         </tr>
                         </thead>
                         <tbody>
