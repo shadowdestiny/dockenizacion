@@ -2,6 +2,7 @@
 
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\shared\components\widgets\PaginationWidget;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\entities\Blog;
 
@@ -12,8 +13,15 @@ class BlogController extends PublicSiteControllerBase
         $this->tag->prependTitle($this->languageService->translate('blogindex_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('blogindex_desc'));
 
+        $posts = $this->blogService->getPostsPublishedListByLanguage($this->router->getParams()['language']);
+
+        $page = (!empty($this->request->get('page'))) ? $this->request->get('page') : 1;
+        $paginator = $this->getPaginatorAsArray(!empty($posts) ? $posts : [], 10, $page);
+        $paginatorView = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
+
         return $this->view->setVars([
-            'postsBlog' => $this->blogService->getPostsPublishedListByLanguage($this->router->getParams()['language']),
+            'postsBlog' => $paginator->getPaginate()->items,
+            'paginator_view' => $paginatorView,
             'pageController' => 'blogIndex',
         ]);
     }
@@ -28,7 +36,6 @@ class BlogController extends PublicSiteControllerBase
             MetaDescriptionTag::setDescription($postData->getDescriptionTag());
 
             return $this->view->setVars([
-                'postData' => $postData,
                 'pageController' => 'blogIndex',
             ]);
         }
