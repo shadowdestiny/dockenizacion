@@ -107,11 +107,10 @@
             <div class="wrapper">
                 <h3 class="h2 mobile--only">
                     {{ language.translate("lastDraw_title") }}
-                    {{ language.translate(draw_day) }}
                 </h3>
 
                 <h3 class="mobile--only">
-                    {{ last_draw_date }}
+                    {{ language.translate(draw_day) }}, {{ last_draw_date }}
                 </h3>
 
 
@@ -138,11 +137,10 @@
 
                     <h3 class="h2 desktop--only">
                         {{ language.translate("lastDraw_title") }}
-                        {{ language.translate(draw_day) }}
                     </h3>
 
                     <h3 class="desktop--only">
-                        {{ last_draw_date }}
+                        {{ language.translate(draw_day) }}, {{ last_draw_date }}
                     </h3>
                 </div>
 
