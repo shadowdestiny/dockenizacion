@@ -46,6 +46,7 @@
                                     {% endfor %}
                                 </tr>
                             </table>
+                            {{ paginator_view }}
                         {% else %}
                             We don't have posts yet.
                         {% endif %}
