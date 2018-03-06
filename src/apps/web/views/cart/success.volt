@@ -107,7 +107,7 @@ function numCharLine($line){
 
             <div class="thank-you-block--jackpot">
                 <p>
-                    {{ language.translate("confirmation_lines") }} {{ language.translate(draw_day) }} {{ start_draw_date_format }}
+                    {{ language.translate("confirmation_lines") }} {{ language.translate(draw_day) }}, {{ start_draw_date_format }}
                 </p>
                 <h2>
                     {{ language.translate("tittle") }} {{ jackpot_value }} {{ language.translate("million") }}
@@ -121,7 +121,7 @@ function numCharLine($line){
                     ?>
                 <div class="thank-you-block--row">
                     <p>
-                        <b>LINE <?php echo numCharLine($i);?></b> {{ start_draw_date_format }}
+                        <b>LINE <?php echo numCharLine($i);?></b> {{ language.translate(draw_day) }}, {{ start_draw_date_format }}
                     </p>
 
                     <ul class="no-li inline numbers small">
