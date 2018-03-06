@@ -83,8 +83,6 @@ class NumbersController extends PublicSiteControllerBase
         $date = empty($date) ? new \DateTime() : new \DateTime($date);
         $draw_result = $this->lotteryService->getDrawWithBreakDownByDate($lotteryName, $date);
         $draw = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
-        $date_time_util = new DateTimeUtil();
-        $dayOfWeek = $date_time_util->getDayOfWeek($draw);
         /** @var EuroMillionsDraw $euroMillionsDraw */
         $euroMillionsDraw = $draw_result->getValues();
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
@@ -106,7 +104,7 @@ class NumbersController extends PublicSiteControllerBase
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
             'actual_year' => $actualDate->format('Y'),
             'pageController' => 'euroPastResult',
-            'next_draw' => $dayOfWeek,
+            'draw_day' => $euroMillionsDraw->getDrawDate()->format('l'),
             'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
         ]);
     }
