@@ -67,7 +67,7 @@
 {% block body %}
     <main id="content">
 
-        {% include "_elements/banner.volt" %}
+        {% include "_elements/banner-index.volt" %}
 
         <div class="wrapper">
             {% include "_elements/top-nav--mobile.volt" %}
