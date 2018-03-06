@@ -11,9 +11,11 @@ class BlogRepository extends RepositoryBase
     {
         $blog = new Blog();
         $blog->initialize([
-            'url' => $post['url'],
             'title' => $post['title'],
+            'title_tag' => $post['title_tag'],
+            'url' => $post['url'],
             'description' => $post['description'],
+            'description_tag' => $post['description_tag'],
             'canonical' => $post['canonical'],
             'language' => $post['language'],
             'published' => $post['published'],
@@ -30,8 +32,9 @@ class BlogRepository extends RepositoryBase
     {
         /** @var Blog $blog */
         $blog = $this->find($post['id']);
-        $blog->setUrl($post['url']);
         $blog->setTitle($post['title']);
+        $blog->setTitleTag($post['title_tag']);
+        $blog->setUrl($post['url']);
         $blog->setDescription($post['description']);
         $blog->setCanonical($post['canonical']);
         $blog->setLanguage($post['language']);

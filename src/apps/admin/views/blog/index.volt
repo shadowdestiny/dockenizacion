@@ -31,6 +31,7 @@
                 <div class="module-body">
                     <h1 class="h1 purple">Blog</h1>
                     <p><b class="purple">Posts</b></p>
+                    <p><a href="/admin/blog/createPost" class="btn btn-primary" />Create Post</a></p>
                     {% if postsList is not empty %}
                         <table class="table" width="100%">
                             <thead>

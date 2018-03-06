@@ -30,17 +30,20 @@ class BlogController extends AdminControllerBase
      */
     public function createPostAction()
     {
-        if ($this->request->isPost()) {
+
+        if ($this->request->isPost() && $this->request->getPost()) {
+            $post['title'] = $this->request->getPost('title');
+            $post['title_tag'] = $this->request->getPost('title_tag');
             $post['url'] = $this->request->getPost('url');
             $post['title'] = $this->request->getPost('title');
             $post['description'] = $this->request->getPost('description');
+            $post['description_tag'] = $this->request->getPost('description_tag');
             $post['canonical'] = $this->request->getPost('canonical');
             $post['language'] = $this->request->getPost('language');
             $post['published'] = $this->request->getPost('published') ? true : false;
             $post['content'] = $this->request->getPost('content');
             $post['image'] = $this->request->getPost('image') ? true : false;
             $post['date'] = new \DateTime('now');
-
 
             $this->blogService->savePost($post);
         }
