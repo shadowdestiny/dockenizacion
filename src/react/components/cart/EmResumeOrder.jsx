@@ -28,9 +28,9 @@ var EmResumeOrder = new React.createClass({
         }
 
         if(config.frequency == 1) {
-            text_weeks = ' ' + this.props.txt_on + ' ' + day + ' ' + date_since;
+            text_weeks = day + ', ' + config.startDrawDateFormat;
         } else {
-            text_weeks = 'Tuesday & Friday, since ' + date_since + ' for ' + config.frequency / 2 + ' weeks';
+            text_weeks = 'Tuesday & Friday, since ' + config.startDrawDateFormat + ' for ' + config.frequency / 2 + ' weeks';
         }
 
         return (

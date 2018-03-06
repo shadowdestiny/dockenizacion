@@ -277,6 +277,7 @@ class CartController extends PublicSiteControllerBase
                     'frequency' => $play_config_dto->frequency,
                     'draw_days' => $play_config_dto->drawDays,
                     'startDrawDate' => $play_config_dto->startDrawDate,
+                    'startDrawDateFormat' => $play_config_dto->startDrawDateTime->format($this->languageService->translate('dateformat'))
                 ]
             ),
             'wallet_balance' => $wallet_balance->getAmount() / 100,
