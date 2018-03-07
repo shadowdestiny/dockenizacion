@@ -1,4 +1,4 @@
-<div class="top-banner--section">
+<div class="top-banner-index--section">
 
     <div class="top-banner--banner">
         <div class="wrapper">
