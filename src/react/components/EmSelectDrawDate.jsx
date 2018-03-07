@@ -46,7 +46,7 @@ var EmSelectDrawDate = React.createClass({
                     </div>
                     <div style={divStyle}>
                         <label style={labelStyle}>
-                            {this.props.tuesday} {this.props.next_draw_date_format}</label>
+                            {this.props.tuesday}, {this.props.next_draw_date_format}</label>
                     </div>
                 </div>
             )
@@ -58,7 +58,7 @@ var EmSelectDrawDate = React.createClass({
                     </div>
                     <div style={divStyle}>
                         <label style={labelStyle}>
-                            {this.props.friday} {this.props.next_draw_date_format}</label>
+                            {this.props.friday}, {this.props.next_draw_date_format}</label>
                     </div>
                 </div>
             )
