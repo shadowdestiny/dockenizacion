@@ -145,7 +145,7 @@
                     <tr class="row-common tr-transactions-" data-id="">
                         <td class="date">
                             <p>
-                                {{ transaction.date }}
+                                {{ transaction.date.format(language.translate('dateformat')) }}
                             </p>
                         </td>
 
