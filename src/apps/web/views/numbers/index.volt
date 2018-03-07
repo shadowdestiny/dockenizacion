@@ -110,7 +110,7 @@
                 </h3>
 
                 <h3 class="mobile--only">
-                    {{ language.translate(draw_day) }}, {{ last_draw_date }}
+                    {{ last_draw_date }}
                 </h3>
 
 
@@ -140,7 +140,7 @@
                     </h3>
 
                     <h3 class="desktop--only">
-                        {{ language.translate(draw_day) }}, {{ last_draw_date }}
+                        {{ last_draw_date }}
                     </h3>
                 </div>
 
