@@ -6,7 +6,10 @@
                 Christmas
             </td>
             <td class="date-from">
-                2018-12-22
+                <?php
+                    $christmasDateActive = new DateTime($my_christmas_active['start_draw_date']);
+                ?>
+                {{ christmasDateActive.format(language.translate('dateformat')) }}
             </td>
             <td class="date-to">
 
