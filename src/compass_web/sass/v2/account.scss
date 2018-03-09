@@ -925,7 +925,7 @@
     &.my-email {
       h2 {
         background-image: none;
-        border-bottom: 0;
+        //border-bottom: 0;
 
         @media only screen and (min-width: $screen-xs) {
           background-image: url('../img/account/desktop/email.png');
