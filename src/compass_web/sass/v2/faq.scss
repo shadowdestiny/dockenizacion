@@ -225,6 +225,10 @@
       padding-left: 30px;
       padding-right: 30px;
 
+      //margin-bottom: 10px;
+      margin-top: 10px;
+
+
       @media only screen and (min-width: $screen-ipad-v) {
         padding-left: 30px;
         padding-right: 65px;
@@ -254,6 +258,7 @@
           font-size: 18px;
           line-height: 24px;
           margin-bottom: 0;
+          //margin-bottom: 5px;
         }
         @media only screen and (min-width: $screen-ipad-h) {
           font-size: 18px;
