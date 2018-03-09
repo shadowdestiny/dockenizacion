@@ -603,8 +603,14 @@
 
             p {
               border-bottom: 1px solid #333333;
-              margin-bottom: 30px;
-              padding-bottom: 20px;
+              //margin-bottom: 30px;
+              //padding-bottom: 20px;
+
+              padding-bottom: 0;
+              line-height: 70px;
+              margin-bottom: 38px;
+              font-size: 14px;
+              text-transform: uppercase;
             }
           }
 
@@ -617,8 +623,8 @@
 
             p {
               border-bottom: 1px solid #333333;
-              margin-bottom: 30px;
-              padding-bottom: 20px;
+              //margin-bottom: 30px;
+              //padding-bottom: 20px;
             }
 
           }
@@ -939,7 +945,7 @@
     &.my-password {
       h2 {
         background-image: none;
-        border-bottom: 0;
+        //border-bottom: 0;
 
         @media only screen and (min-width: $screen-xs) {
           background-image: url('../img/account/desktop/password.png');
