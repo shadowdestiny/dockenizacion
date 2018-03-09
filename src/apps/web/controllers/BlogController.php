@@ -36,6 +36,7 @@ class BlogController extends PublicSiteControllerBase
             MetaDescriptionTag::setDescription($postData->getDescriptionTag());
 
             return $this->view->setVars([
+                'postData' => $postData,
                 'pageController' => 'blogIndex',
             ]);
         }

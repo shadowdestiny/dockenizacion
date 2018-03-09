@@ -48,7 +48,7 @@ class TransactionDTO extends DTOBase implements IDto
     public function exChangeObject()
     {
         $this->id = $this->transaction->getId();
-        $this->date = $this->transaction->getDate()->format('Y-m-d H:i:s');
+        $this->date = $this->transaction->getDate();
         $this->transactionName = $this->getEntityType($this->transaction);
         $this->movement = $this->transaction->getWalletAfter()->getBalance()->subtract($this->transaction->getWalletBefore()->getBalance());
         $this->balance = $this->transaction->getWalletAfter()->getBalance();

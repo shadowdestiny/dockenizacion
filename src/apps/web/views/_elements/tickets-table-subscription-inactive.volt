@@ -6,10 +6,10 @@
                 Euro Millions
             </td>
             <td class="date-from">
-                {{ my_subscription_inactive['start_draw_date'] }}
+                {{ my_subscription_inactive['start_draw_date'].format(language.translate('dateformat')) }}
             </td>
             <td class="date-to">
-                {{ my_subscription_inactive['last_draw_date'] }}
+                {{ my_subscription_inactive['last_draw_date'].format(language.translate('dateformat')) }}
             </td>
             <td class="numbers">
             {% for i in 1..my_subscription_inactive['lines'] %}

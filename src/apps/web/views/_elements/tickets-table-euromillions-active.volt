@@ -6,7 +6,10 @@
                 {{ language.translate("Euromillions") }}
             </td>
             <td class="date-from">
-                {{ date }}
+                <?php
+                    $euromillionsDateActive = new DateTime($date);
+                ?>
+                {{ euromillionsDateActive.format(language.translate('dateformat')) }}
             </td>
             <td class="date-to">
 
