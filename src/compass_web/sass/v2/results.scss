@@ -11,7 +11,19 @@
     padding-bottom: 46px;
   }
 
+
   .banner {
+
+    .top-banner--section {
+      @media only screen and (min-width: $screen-ipad-v) {
+        display: none;
+
+        .top-banner--banner {
+          display: none;
+        }
+      }
+    }
+
 
     @media only screen and (min-width: $screen-ipad-v) {
       display: block;
@@ -77,24 +89,33 @@
     }
 
     @media only screen and (min-width: $screen-ipad-v) {
-      height: 130px;
-      top: -130px;
-      margin-bottom: -119px;
+      //height: 130px;
+      //top: -130px;
+      //margin-bottom: -119px;
+
+      height: 150px;
+      top: -150px;
+      margin-bottom: -130px;
       padding: 34px 42px 0 28px;
     }
     @media only screen and (min-width: $screen-ipad-h) {
       height: 157px;
       top: -157px;
-      margin-bottom: -149px;
+      margin-bottom: -137px;
     }
     @media only screen and (min-width: $screen-desktop) {
       //height: 171px;
       //top: -171px;
       //margin-bottom: -149px;
 
-      height: 127px;
-      top: -127px;
-      margin-bottom: -111px;
+      //height: 127px;
+      //top: -127px;
+      //margin-bottom: -111px;
+
+      height: 167px;
+      top: -167px;
+      margin-bottom: -147px;
+
       padding: 23px 34px 0 21px;
     }
 
