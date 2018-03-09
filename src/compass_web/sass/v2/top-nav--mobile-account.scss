@@ -186,18 +186,30 @@
             color: #333333;
             font-size: 16px;
             padding-bottom: 6px;
+            font-weight: 900;
           }
 
+          strong {
+            font-weight: 900;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+          }
           a {
             text-decoration: none;
             text-transform: uppercase;
             color: #333333;
             font-size: 14px;
-            font-weight: 900;
+            //font-weight: 900;
+            font-weight: 400;
             display: block;
             padding: 0;
             border-bottom: 0;
             padding-bottom: 5px;
+
+            margin-bottom: 5px;
+            margin-top: 5px;
 
             background-color: transparent!important;
           }
