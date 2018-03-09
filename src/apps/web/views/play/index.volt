@@ -60,7 +60,7 @@
         priceBet        : {{ single_bet_price }},
         currencySymbol  : '<?php echo $currency_symbol ?>',
         discountLines   : <?php echo $discount_lines; ?>,
-        drawDateFormat  : {{ next_draw_date_format }},
+        drawDateFormat  : '{{ next_draw_date_format }}',
         translations    : {
             discountLinesTitle    : '{{ language.translate('tittle_multiple') }}',
             addLinesBtn           : '{{ language.translate('addLines_btn') }}',
