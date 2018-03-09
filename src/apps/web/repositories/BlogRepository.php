@@ -40,7 +40,7 @@ class BlogRepository extends RepositoryBase
         $blog->setLanguage($post['language']);
         $blog->setPublished($post['published'] ? true : false );
         $blog->setContent($post['content']);
-        $blog->setImage($post['image'] ? true : false);
+        $blog->setImage($post['image']);
         $blog->setDate(new \DateTime());
 
         $this->getEntityManager()->persist($blog);
