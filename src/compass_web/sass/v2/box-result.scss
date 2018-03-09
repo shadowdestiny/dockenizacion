@@ -107,8 +107,12 @@
 
       .view-more-block {
         position: absolute;
-        bottom: 29px;
-        right: 11px;
+        bottom: 10px;
+        right: 40px;
+
+        @media only screen and (min-width: $screen-xs ) {
+          right: 11px;
+        }
 
         @media only screen and (min-width: $screen-ipad-v) {
           position: absolute;
@@ -129,7 +133,9 @@
           position: relative;
         }
         .view-more-a {
-          display: none;
+          //display: none;
+          display: block;
+          font-size: 11px;
 
           @media only screen and (min-width: $screen-ipad-v) {
             display: block;
