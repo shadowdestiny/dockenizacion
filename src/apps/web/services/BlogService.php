@@ -60,7 +60,7 @@ class BlogService
      */
     public function getPostByUrlAndLanguage($url, $language)
     {
-        return $this->blogRepository->findOneBy(['url' => $url, 'language' => $language]);
+        return $this->blogRepository->findOneBy(['url' => $url, 'language' => $language, 'published' => 1]);
     }
 
 }
