@@ -14,10 +14,11 @@
     position: relative!important;
     top: -5px!important;
 
-    border-radius: 3px;
-    border-width: 1px;
-    border-color: #b7b7b7;
-    border-style: solid;
+    border: 0;
+    //border-radius: 3px;
+    //border-width: 1px;
+    //border-color: #b7b7b7;
+    //border-style: solid;
     background-color: #ffffff;
     width: 414px;
     height: 59px;
@@ -40,6 +41,9 @@
         background-position: 20px 14px;
         -webkit-background-size: 42px;
         background-size: 42px;
+
+        //-webkit-background-size: 38px;
+        //background-size: 38px;
 
         padding-top: 7px;
         padding-left: 75px;
@@ -69,14 +73,14 @@
       }
 
       .right:before {
-        display: block;
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 2px;
-        height: 53px;
-        width: 1px;
-        background-color: #b7b7b7;
+        //display: block;
+        //content: "";
+        //position: absolute;
+        //left: 0;
+        //top: 2px;
+        //height: 53px;
+        //width: 1px;
+        //background-color: #b7b7b7;
       }
 
       .txt {
@@ -109,10 +113,12 @@
     display: block;
     position: relative !important;
     top: -2px !important;
-    border-radius: 3px;
-    border-width: 1px;
-    border-color: #b7b7b7;
-    border-style: solid;
+
+    //border-radius: 3px;
+    //border-width: 1px;
+    //border-color: #b7b7b7;
+    //border-style: solid;
+
     background-color: #fff;
     width: 311px;
     height: 45px;
@@ -130,9 +136,14 @@
         text-align: left;
         background-image: url('../img/account/desktop/balance.png');
         background-repeat: no-repeat;
-        background-position: 15px 11px;
-        -webkit-background-size: 42px;
-        background-size: 31px;
+        //background-position: 15px 11px;
+        //-webkit-background-size: 31px;
+        //background-size: 31px;
+
+        background-position: 15px 12px;
+        -webkit-background-size: 26px;
+        background-size: 26px;
+
         padding-top: 3px;
         padding-left: 55px;
       }
@@ -146,23 +157,26 @@
         position: relative;
         background-image: url('../img/account/desktop/user.png');
         background-repeat: no-repeat;
-        background-position: 20px 11px;
-        -webkit-background-size: 22px;
-        background-size: 22px;
+        //background-position: 20px 11px;
+        //-webkit-background-size: 22px;
+        //background-size: 22px;
+        background-position: 20px 12px;
+        -webkit-background-size: 18px;
+        background-size: 18px;
         padding-top: 2px;
         padding-left: 50px;
         height: 41px;
       }
 
       .right:before {
-        display: block;
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 2px;
-        height: 40px;
-        width: 1px;
-        background-color: #b7b7b7;
+        //display: block;
+        //content: "";
+        //position: absolute;
+        //left: 0;
+        //top: 2px;
+        //height: 40px;
+        //width: 1px;
+        //background-color: #b7b7b7;
       }
 
       .txt {
