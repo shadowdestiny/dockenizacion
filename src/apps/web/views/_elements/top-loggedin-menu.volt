@@ -27,6 +27,10 @@
             <div class="txt account-menu-desktop--link">
                 {{ user_name }}
             </div>
+            <a href="/account">
+                {{ language.translate('myAccount') }}
+            </a>
+
             <ul class="account-menu-desktop--menu">
                 <li><a href="/account">
                         <span>{{ language.translate("myAccount") }}</span>
@@ -45,9 +49,6 @@
                         <span>{{ language.translate("LogOut") }}</span>
                     </a></li>
             </ul>
-            <a href="/account">
-                {{ language.translate('myAccount') }}
-            </a>
 
         </div>
     </div>

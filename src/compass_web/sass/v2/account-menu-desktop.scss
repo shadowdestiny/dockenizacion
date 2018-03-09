@@ -16,7 +16,8 @@
   width: 355px;
   border: 0;
   border-radius: 0;
-  top:15px;
+  //top:15px;
+  top:45px;
   right: 0px;
   //padding-top: 29px;
 
@@ -70,7 +71,13 @@
 
 }
 
-.account-menu-desktop--menu:hover,
-.account-menu-desktop--link:hover + .account-menu-desktop--menu {
-  display: block;
+.top-loggedin-menu:hover .right {
+  .account-menu-desktop--menu {
+    display: block;
+  }
 }
+
+//.account-menu-desktop--menu:hover,
+//.account-menu-desktop--link:hover + .account-menu-desktop--menu {
+//  display: block;
+//}

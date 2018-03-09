@@ -70,6 +70,22 @@
 
         height: 59px;
 
+
+        a {
+
+          &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            border: 3px solid transparent;
+            border-right: 3px solid #4dec8c;
+            border-bottom: 3px solid #4dec8c;
+            right: 15px;
+            bottom: 5px;
+          }
+
+        }
+
       }
 
       .right:before {
@@ -99,9 +115,6 @@
         font-size: 17px;
         font-weight: 400;
         text-align: left;
-
-
-
       }
     }
 
