@@ -23,6 +23,15 @@ class ViewHelper
 
     public static function formatJackpotNoCents($amount)
     {
+        if (strpos($amount, ".")) {
+            return substr($amount, 0, strpos($amount, "."));
+        } else {
+            return $amount;
+        }
+    }
+
+    public static function formatMillionsJackpot($amount)
+    {
         return substr($amount, 0, strpos($amount, "."));
     }
 

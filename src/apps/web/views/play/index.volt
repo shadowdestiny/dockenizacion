@@ -184,7 +184,13 @@
 
                     <div class="right">
                         <div class="top{% if jackpot_value|length > 4  %}-small{% endif %}">
-                            {{ jackpot_value }} {{ language.translate("million") }}
+                            {{ jackpot_value }} {% if milliards %}
+                                {{ language.translate("billion") }}
+                            {% elseif trillions %}
+                                {{ language.translate("trillion") }}
+                            {% else %}
+                                {{ language.translate("million") }}
+                            {% endif %}
                         </div>
                         <div class="bottom">
                             {{ language.translate('shortInstruction') }}

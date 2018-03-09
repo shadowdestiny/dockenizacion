@@ -31,7 +31,13 @@
                     {{ jackpot_value }}
                 </div>
                 <div class="desktop-row--02">
-                    {{ language.translate("million") }}
+                    {% if milliards %}
+                        {{ language.translate("billion") }}
+                    {% elseif trillions %}
+                        {{ language.translate("trillion") }}
+                    {% else %}
+                        {{ language.translate("million") }}
+                    {% endif %}
                 </div>
             </div>
 
