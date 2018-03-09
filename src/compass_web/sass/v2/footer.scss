@@ -70,11 +70,15 @@
     }
 
     @media only screen and (min-width: $screen-ipad-h) {
-      padding-left: 85px;
+      //padding-left: 85px;
+      padding-left: 0;
+      padding-right: 0;
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      padding-left: 100px;
+      //padding-left: 100px;
+      padding-left: 0;
+      padding-right: 0;
     }
 
     strong,
@@ -82,17 +86,19 @@
       font-family: $ff1;
       color: #9b9b9b;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 400;
       text-align: left;
       text-transform: capitalize;
     }
 
     strong {
-      margin-bottom: 0;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #333333;
     }
 
     li {
-      margin-bottom: 0;
+      margin-bottom: 5px;
     }
 
     .col20per {
