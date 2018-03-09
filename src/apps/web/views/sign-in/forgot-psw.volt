@@ -26,7 +26,7 @@
 
 
             {#<div class="col-right">#}
-            <div class="signin-form">
+            <div class="signin-form forgot-password">
                 <h1 class="h2 title">{{ language.translate("forgotpw_head") }}</h1>
                 <p>{{ language.translate("forgotpw_text1") }}</p>
                 <p>{{ language.translate("forgotpw_text2") }}</p>
@@ -69,10 +69,13 @@
                 #}
                 <div class="cl">
                     <input id="go" type="submit" class="hidden2"/>
+
+                    <div class="submit-row">
                     <label for="go" class="submit  btn-theme--big">
                         {{ language.translate("forgotpw_btn") }}
                         {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
                     </label>
+                    </div>
                 </div>
                 {{ endform() }}
             </div>

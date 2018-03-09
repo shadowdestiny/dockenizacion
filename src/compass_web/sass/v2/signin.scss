@@ -561,7 +561,20 @@
   .btn-row {
     width: 100%;
     overflow: hidden;
-    
+
+    .btn-theme--big {
+      width: 100%;
+
+    }
+  }
+}
+
+.signin-form.forgot-password {
+  .submit-row {
+    width: 100%;
+    overflow: hidden;
+    padding-top: 20px;
+
     .btn-theme--big {
       width: 100%;
 
