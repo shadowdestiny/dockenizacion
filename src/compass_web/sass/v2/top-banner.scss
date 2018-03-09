@@ -668,6 +668,8 @@
 
     .top-banner--center.desktop--only{
       @include desktop--dib();
+
+      width: 33.33%;
     }
 
     .top-banner--left{
@@ -680,7 +682,8 @@
       @media only screen and (min-width: $screen-ipad-h) {
         display: block;
 
-        width: 270px;
+        //width: 270px;
+        width: 33.33%;
         vertical-align: top;
 
         text-align: center;
@@ -707,11 +710,12 @@
       @media only screen and (min-width: $screen-desktop) {
         display: block;
 
-        width: 277px;
+        //width: 277px;
+        width: 33.33%;
         vertical-align: top;
 
         text-align: center;
-        padding-right: 0;
+        //padding-right: 0;
         text-transform: uppercase;
         position: relative;
         padding-top: 56px;
@@ -719,6 +723,8 @@
 
         height: 170px;
         padding-left: 160px;
+        //padding-right: 30px;
+        padding-right: 20px;
         margin-right: 0;
         float: left;
 
@@ -742,7 +748,8 @@
 
       @media only screen and (min-width: $screen-ipad-h) {
         display: inline-block;
-        width: 270px;
+        //width: 270px;
+        width: 33.33%;
         vertical-align: top;
         float: right;
         text-align: center;
@@ -752,7 +759,8 @@
       @media only screen and (min-width: $screen-desktop) {
         display: inline-block;
         //width: 360px;
-        width: 270px;
+        width: 33.33%;
+        //width: 270px;
         vertical-align: top;
         float: right;
         text-align: center;
@@ -763,9 +771,15 @@
         //@include desktop--dib();
 
         .top-banner--for-only {
+
+          width: 270px;
+          margin:auto;
+          text-align: center;
+
           .countdown {
             //line-height: 40px;
             line-height: 28px;
+            text-align: center;
           }
         }
 
@@ -786,6 +800,7 @@
               font-weight: 700;
               padding: 0 40px;
               width: 270px;
+              margin:auto;
             }
           }
 
