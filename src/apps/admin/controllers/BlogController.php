@@ -42,7 +42,7 @@ class BlogController extends AdminControllerBase
             $post['language'] = $this->request->getPost('language');
             $post['published'] = $this->request->getPost('published') ? true : false;
             $post['content'] = $this->request->getPost('content');
-            $post['image'] = $this->request->getPost('image') ? true : false;
+            $post['image'] = $this->request->getPost('image');
             $post['date'] = new \DateTime('now');
 
             $this->blogService->savePost($post);

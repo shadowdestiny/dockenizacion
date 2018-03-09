@@ -93,6 +93,18 @@
                         </tbody>
                         <thead>
                         <tr>
+                            <td>Image</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" name="image" value="{%  if post is defined %}{{ post.getImage() }}{% endif %}"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <thead>
+                        <tr>
                             <td>Description</td>
                         </tr>
                         </thead>
