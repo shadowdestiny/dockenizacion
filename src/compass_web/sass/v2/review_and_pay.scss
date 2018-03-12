@@ -1389,6 +1389,202 @@
         }
 
       }
+
+      .box-bottom {
+        .btn,
+        .btn:hover,
+        .btn:focus {
+          //float: none;
+
+          //border: 0;
+          //border-radius: 3px;
+
+          //background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+          //background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+          //background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+          //background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+          //background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
+          //width: 417px;
+
+          //height: 105px;
+          //padding: 0;
+
+          //padding-left: 10px;
+          //padding-right: 10px;
+          //width: auto;
+          //width: 435px;
+          //float: right;
+
+          @media only screen and (max-width: $screen-ipad-v-pre) {
+
+            width: 100%;
+            background: none;
+            background-color: transparent;
+            border: 0;
+          }
+
+
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            float: none;
+
+            border: 0;
+            border-radius: 3px;
+
+            background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+            background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+            background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+            background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+            background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
+            //width: 417px;
+
+            height: 105px;
+            padding: 0;
+
+
+            //width: auto;
+            //width: 435px;
+            //float: right;
+            //width: 417px;
+            height: 105px;
+            padding: 0;
+
+            padding-left: 10px;
+            padding-right: 10px;
+
+            width: 435px;
+            float: right;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            //width: 312px;
+            height: 79px;
+            padding: 0;
+            //margin-right: 16px;
+          }
+
+          cursor: pointer;
+
+          span {
+            //float: left;
+            //width: 50%;
+            //margin: 0;
+            //
+            ////font-family: WorkSans;
+            //color: #ffffff;
+            //font-weight: 700;
+            //font-size: 33px;
+            //line-height: 105px;
+            //text-align: center;
+
+            @media only screen and (max-width: $screen-ipad-v-pre) {
+              max-width: 301px;
+              width: 100%;
+              height: 48px;
+              border-radius: 3px;
+              background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+              background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+              background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+              background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+              background: linear-gradient(135deg, #4dec8c 0%,#21d167 100%);
+              color: #f2f2f2;
+              font-size: 18px;
+              font-weight: 700;
+              text-transform: uppercase;
+              line-height: 38px;
+              border: 0;
+              display: inline-block;
+              padding: 5px 12px;
+              margin-bottom: 9px;
+              cursor: pointer;
+              text-shadow: none;
+            }
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              float: left;
+              width: 50%;
+              margin: 0;
+
+              //font-family: WorkSans;
+              color: #ffffff;
+              font-weight: 700;
+              font-size: 33px;
+              line-height: 105px;
+              text-align: center;
+
+            }
+            @media only screen and (min-width: $screen-desktop) {
+              font-size: 25px;
+              line-height: 77px;
+              text-transform: uppercase;
+            }
+
+            &.gap {
+              display: none;
+            }
+          }
+
+          & > span:last-of-type {
+            @media only screen and (max-width: $screen-ipad-v-pre) {
+              border-radius: 3px;
+              border-width: 1px;
+              border-color: #bbb;
+              border-style: solid;
+              background: transparent;
+              max-width: 299px;
+              width: 100%;
+              height: 46px;
+              line-height: 36px;
+              color: #bbb;
+              font-size: 18px;
+              font-weight: 700;
+              margin-bottom: 9px;
+              margin-left: 0px;
+              margin-right: 0px;
+              cursor: pointer;
+              text-shadow: none;
+            }
+          }
+
+          & > span:first-of-type {
+
+
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              position: relative;
+
+              span {
+                width: auto;
+                float: none;
+              }
+            }
+          }
+
+          & > span:first-of-type:after {
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              display: block;
+              content: "";
+              position: absolute;
+              right: 0;
+              top: 0;
+              width: 2px;
+              height: 104px;
+              background-image: url('../img/play/desktop/button-separator.png');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              -webkit-background-size: 2px;
+              background-size: 2px;
+
+              width: 2px;
+              height: 104px;
+            }
+            @media only screen and (min-width: $screen-desktop) {
+              width: 1px;
+              height: 79px;
+            }
+          }
+        }
+      }
     }
 
 
