@@ -11,9 +11,27 @@ class IndexController extends PublicSiteControllerBase
     {
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
+        $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        $this->view->setVar('milliards', false);
+        $this->view->setVar('trillions', false);
+        if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
+            $numbers = round(($numbers / 1000), 1);
+            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
+            $this->view->setVar('milliards', true);
+        } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
+            $numbers = round(($numbers / 1000000), 1);
+            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
+            $this->view->setVar('trillions', true);
+        } else{
+            $this->view->setVar('milliards', false);
+            $this->view->setVar('trillions', false);
+        }
+        $this->view->setVar('jackpot_millions', ViewHelper::formatMillionsJackpot($jackpot));
         $time_till_next_draw = $this->lotteryService->getTimeToNextDraw('EuroMillions');
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $last_draw_date = $this->lotteryService->getLastDrawDate('EuroMillions');
+        $this->view->setVar('language', $this->languageService->getLocale());
         $this->view->setVar('euromillions_last_result', $this->lotteryService->getLastResult('EuroMillions'));
         $this->view->setVar('euromillions_results', $this->lotteryService->getLastFiveResults('EuroMillions'));
         $this->view->setVar('days_till_next_draw', $time_till_next_draw->d);

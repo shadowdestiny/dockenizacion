@@ -1056,6 +1056,88 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'nl',
         ));
 
+        /**
+         * BLOG POSTS
+         */
+
+        $router->add("/it/consigli/:params", array(
+            "module" => "web",
+            "params" => 1,
+            'controller' => 'blog',
+            'action' => 'post',
+            'language' => 'it',
+        ));
+
+        $router->add("/ru/факты/:params", array(
+            "module" => "web",
+            "params" => 1,
+            'controller' => 'blog',
+            'action' => 'post',
+            'language' => 'ru',
+        ));
+
+        $router->add("/en/facts/:params", array(
+            "module" => "web",
+            "params" => 1,
+            'controller' => 'blog',
+            'action' => 'post',
+            'language' => 'en',
+        ));
+
+        $router->add("/es/datos/:params", array(
+            "module" => "web",
+            "params" => 1,
+            'controller' => 'blog',
+            'action' => 'post',
+            'language' => 'es',
+        ));
+
+        $router->add("/nl/informatie/:params", array(
+            "module" => "web",
+            "params" => 1,
+            'controller' => 'blog',
+            'action' => 'post',
+            'language' => 'nl',
+        ));
+
+        /**
+         * BLOG INDEX
+         */
+        $router->add("/it/consigli", array(
+            "module" => "web",
+            'controller' => 'blog',
+            'action' => 'index',
+            'language' => 'it',
+        ));
+
+        $router->add("/ru/факты", array(
+            "module" => "web",
+            'controller' => 'blog',
+            'action' => 'index',
+            'language' => 'ru',
+        ));
+
+        $router->add("/en/facts", array(
+            "module" => "web",
+            'controller' => 'blog',
+            'action' => 'index',
+            'language' => 'en',
+        ));
+
+        $router->add("/es/datos", array(
+            "module" => "web",
+            'controller' => 'blog',
+            'action' => 'index',
+            'language' => 'es',
+        ));
+
+        $router->add("/nl/informatie", array(
+            "module" => "web",
+            'controller' => 'blog',
+            'action' => 'index',
+            'language' => 'nl',
+        ));
+
 //        $router->setDefaults(array(
 //            "module"     => "web",
 //            'controller' => 'index',

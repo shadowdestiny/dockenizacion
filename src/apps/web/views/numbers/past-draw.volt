@@ -104,8 +104,7 @@
                 <h3 class="mobile--only">
                     <br />
                     {{ language.translate("draw") }}
-                    {% if next_draw == 5  %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
-                    {{ next_draw_date_format }}
+                    {{ language.translate(draw_day) }}, {{ next_draw_date_format }}
                 </h3>
 
 
@@ -135,9 +134,7 @@
                     </span>
 
                     <h3 class="desktop--only">
-                        {#TODO : Add real variables here#}
-                        {% if next_draw == 5  %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
-                        {{ next_draw_date_format }}
+                        {{ language.translate(draw_day) }}, {{ next_draw_date_format }}
                     </h3>
                 </div>
 

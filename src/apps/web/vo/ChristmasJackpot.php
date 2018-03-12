@@ -34,6 +34,11 @@ class ChristmasJackpot implements IJackpot
         }
     }
 
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+    }
+
     public function isValid()
     {
         return ($this->amount >= 1);

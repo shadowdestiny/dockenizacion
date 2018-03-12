@@ -60,7 +60,7 @@
         priceBet        : {{ single_bet_price }},
         currencySymbol  : '<?php echo $currency_symbol ?>',
         discountLines   : <?php echo $discount_lines; ?>,
-        drawDateFormat  : {{ next_draw_date_format }},
+        drawDateFormat  : '{{ next_draw_date_format }}',
         translations    : {
             discountLinesTitle    : '{{ language.translate('tittle_multiple') }}',
             addLinesBtn           : '{{ language.translate('addLines_btn') }}',
@@ -182,7 +182,13 @@
 
                     <div class="right">
                         <div class="top resizeme">
-                            {{ jackpot_value }} {{ language.translate("million") }}
+                            {{ jackpot_value }} {% if milliards %}
+                                {{ language.translate("billion") }}
+                            {% elseif trillions %}
+                                {{ language.translate("trillion") }}
+                            {% else %}
+                                {{ language.translate("million") }}
+                            {% endif %}
                         </div>
                         <div class="bottom resizeme">
                             {{ language.translate('shortInstruction') }}

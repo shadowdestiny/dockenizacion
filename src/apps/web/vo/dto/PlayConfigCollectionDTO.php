@@ -1,8 +1,6 @@
 <?php
 
-
 namespace EuroMillions\web\vo\dto;
-
 
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
@@ -26,6 +24,9 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
     public $drawDays;
 
     public $startDrawDate;
+
+    /** @var \DateTime */
+    public $startDrawDateTime;
 
     public $lastDrawDate;
 
@@ -69,6 +70,7 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
         $start = $this->playConfig[0]->getStartDrawDate();
         $this->lastDrawDate = $last->format('Y-m-d');
         $this->startDrawDate = $start->format('Y M j');
+        $this->startDrawDateTime = $start;
         $this->lines = $this->euroMillionsLinesToJson();
         $this->regular_numbers = [];
         $this->lucky_numbers = [];

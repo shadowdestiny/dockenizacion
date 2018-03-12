@@ -9,7 +9,13 @@
                 {{ jackpot_value }}
             </div>
             <div class="measure">
-                {{ language.translate("million") }}
+                {% if milliards %}
+                    {{ language.translate("billion") }}
+                {% elseif trillions %}
+                    {{ language.translate("trillion") }}
+                {% else %}
+                    {{ language.translate("million") }}
+                {% endif %}
             </div>
             <div class="title">
                 {{ language.translate("nextDraw_lbl") }}

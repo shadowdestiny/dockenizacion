@@ -509,8 +509,8 @@ class UserService
                 $contLines++;
             } else {
                 $cont++;
-                $subscriptionsActivesPresenter[$cont]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
-                $subscriptionsActivesPresenter[$cont]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
+                $subscriptionsActivesPresenter[$cont]['start_draw_date'] = new \DateTime($subscriptionsActiveValue['start_draw_date']);
+                $subscriptionsActivesPresenter[$cont]['last_draw_date'] = new \DateTime($subscriptionsActiveValue['last_draw_date']);
                 $contLines = 0;
                 $subscriptionsActivesPresenter[$cont]['lines'] = $contLines+1;
                 $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_one'] = $subscriptionsActiveValue['line_regular_number_one'];

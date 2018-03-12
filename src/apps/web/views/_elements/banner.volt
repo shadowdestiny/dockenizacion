@@ -1,4 +1,4 @@
-<div class="top-banner--section">
+<div class="top-banner-index--section">
 
     <div class="top-banner--banner">
         <div class="wrapper">
@@ -32,8 +32,14 @@
                 <div class="resizeme desktop-row--01{% if jackpot_value|length > 4 %}-sm{% endif %}">
                     {{ jackpot_value }}
                 </div>
-                <div class="desktop-row--02 resizeme">
-                    {{ language.translate("million") }}
+                <div class="desktop-row--02">
+                    {% if milliards %}
+                        {{ language.translate("billion") }}
+                    {% elseif trillions %}
+                        {{ language.translate("trillion") }}
+                    {% else %}
+                        {{ language.translate("million") }}
+                    {% endif %}
                 </div>
             </div>
 

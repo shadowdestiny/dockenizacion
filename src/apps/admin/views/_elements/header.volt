@@ -35,6 +35,7 @@
                             <li><a href="/admin/logout">Logout</a></li>
                         </ul>
                     </li>
+                    <li><a href="/admin/blog">Blog</a></li>
                 </ul>
             </div>
         </div>

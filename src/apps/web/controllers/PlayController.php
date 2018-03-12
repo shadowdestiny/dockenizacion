@@ -14,6 +14,24 @@ class PlayController extends PublicSiteControllerBase
     {
         $current_currency = $this->userPreferencesService->getCurrency();
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
+        $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        $this->view->setVar('milliards', false);
+        $this->view->setVar('trillions', false);
+        if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
+            $numbers = round(($numbers / 1000), 1);
+            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
+            $this->view->setVar('milliards', true);
+        } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
+            $numbers = round(($numbers / 1000000), 1);
+            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
+            $this->view->setVar('trillions', true);
+        } else{
+            $this->view->setVar('milliards', false);
+            $this->view->setVar('trillions', false);
+        }
+        $this->view->setVar('language', $this->languageService->getLocale());
         $play_dates = $this->lotteryService->getRecurrentDrawDates('Euromillions');
         $draw = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
         $date_time_util = new DateTimeUtil();
@@ -39,7 +57,6 @@ class PlayController extends PublicSiteControllerBase
         $bet_value = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
 
         return $this->view->setVars([
-            'jackpot_value' => ViewHelper::formatJackpotNoCents($jackpot),
             'play_dates' => $play_dates,
             'next_draw' => $dayOfWeek,
             'next_draw_format' => $draw->format('l j M G:i'),

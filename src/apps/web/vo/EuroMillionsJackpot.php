@@ -27,16 +27,21 @@ class EuroMillionsJackpot implements IJackpot
      */
     public function getAmount()
     {
-        if (!$this->isValid()) {
-            return "1500000000";
-        } else {
+//        if (!$this->isValid()) {
+//            return "1500000000";
+//        } else {
             return (string)$this->amount;
-        }
+//        }
+    }
+
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
     }
 
     public function isValid()
     {
-        return ($this->amount >= 15000000);
+        return ($this->amount >= 10);
     }
 
     public function getCurrency()

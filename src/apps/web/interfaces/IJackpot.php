@@ -9,6 +9,7 @@ interface IJackpot
     public function getAmount();
     public function isValid();
     public function getCurrency();
+    public function setAmount($amount);
 
     /**
      * @return string
