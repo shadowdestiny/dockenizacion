@@ -2793,16 +2793,20 @@
     line-height: 48px;
     text-align: left;
     padding-left: 16px;
+
+    //min-width: 148px;
+    //width:auto;
+    //padding-right: 80px;
   }
 
   @media only screen and (min-width: $screen-desktop) {
-    width: 148px;
-    height: 47px;
-    font-size: 24px;
-    font-weight: 900;
-    line-height: 48px;
-    text-align: left;
-    padding-left: 16px;
+    //width: 148px;
+    //height: 47px;
+    //font-size: 24px;
+    //font-weight: 900;
+    //line-height: 48px;
+    //text-align: left;
+    //padding-left: 16px;
 
   }
 }
@@ -2875,6 +2879,12 @@
     a{
       padding-right: 50px;
       margin-top: 0;
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        min-width: 148px;
+        width:auto;
+        padding-right: 80px;
+      }
     }
   }
 }
