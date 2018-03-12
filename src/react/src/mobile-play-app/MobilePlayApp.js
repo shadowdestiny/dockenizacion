@@ -118,11 +118,11 @@ export default class MobilePlayApp extends Component {
 
         <div className="bets-section">
           {bets.map(this.renderBetRow)}
-          <button className="btn btn--pick" onClick={() => this.showTicket()}>
-            {translations.pickYourNumbersBtn}
-          </button>
           <button className="btn btn--random" onClick={this.addRandomLine}>
             {translations.addRandomLineBtn}
+          </button>
+          <button className="btn btn--pick" onClick={() => this.showTicket()}>
+            {translations.pickYourNumbersBtn}
           </button>
         </div>
 
