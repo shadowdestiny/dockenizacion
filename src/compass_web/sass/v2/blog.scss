@@ -1,0 +1,65 @@
+// Blog Page
+
+.blog--page {
+
+  .title-block {
+    height: 60px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      height: 125px;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      height: 125px;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      height: 93px;
+    }
+
+    h1 {
+      text-align: left;
+      //font-family: WorkSans;
+      font-family: $ff1;
+      color: #333333;
+      line-height: 60px;
+      font-size: 22px;
+      padding-left: 29px;
+      font-weight: 900;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        line-height: 116px;
+        padding-left: 29px;
+        font-size: 37px;
+        //line-height: 63px;
+      }
+      @media only screen and (min-width: $screen-ipad-h) {
+        line-height: 116px;
+        font-size: 40px;
+        padding-left: 29px;
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        line-height: 84px;
+        font-size: 45px;
+        padding-left: 22px;
+      }
+    }
+  }
+
+  .title-blog {
+    font-family: $ff3;
+    color: #f0c11c;
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .link-blog {
+    font-family: $ff1;
+    color: #333333;
+    line-height: 60px;
+    font-size: 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

@@ -1,5 +1,5 @@
 {% extends "main.volt" %}
-{% block bodyClass %}contact{% endblock %}
+{% block bodyClass %}{% endblock %}
 {% block header %}
     {% set activeNav='{"myClass": ""}'|json_decode %}
     {% include "_elements/header.volt" %}
@@ -15,7 +15,6 @@
 
 {% block body %}
     <main id="content">
-
         <div class="blog--page">
             <div class="banner"></div>
 
@@ -30,27 +29,31 @@
                 <div class="content">
                     {{ language.translate("intro_blogindex") }}
                     <hr />
-                    <div class="wrapper">
-                        {% if postsBlog is not empty %}
-                            <table>
-                                <tr>
-                                    {% set cont = 0 %}
-                                    {% for post in postsBlog %}
-                                        <td>
-                                            <img src="{{ post.getImage() }}" />
-                                            <h3>{{ post.getTitle() }}</h3>
-                                            <p>{{ post.getDescription() }}</p>
-                                        </td>
+                    {% if postsBlog is not empty %}
+                        <table>
+                            <tr>
+                                {% set cont = 0 %}
+                                {% for post in postsBlog %}
+                                    <td align="center">
+                                        <img src="{{ post.getImage() }}" width="320px" height="160" />
+                                        <h2 class="title-blog">{{ post.getTitle() }}</h2>
+                                        <p align="justify">{{ post.getDescription() }}</p>
+                                        <p align="left"><a href="/{{ language.translate('link_blogindex') }}/{{ post.getUrl() }}" class="link-blog">READ THE POST</a></p>
+                                    </td>
+                                    {% if mobile == 1 %}
+                                        </tr><tr>
+                                    {% else %}
+                                        <td> &nbsp;&nbsp;&nbsp; </td>
                                         {% set cont = (cont + 1) %}
                                         {% if (cont % 2) == 0 %}</tr><tr>{% endif %}
-                                    {% endfor %}
-                                </tr>
-                            </table>
-                            {{ paginator_view }}
-                        {% else %}
-                            We don't have posts yet.
-                        {% endif %}
-                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        </table>
+                        {{ paginator_view }}
+                    {% else %}
+                        We don't have posts yet.
+                    {% endif %}
                 </div>
             </div>
         </div>
