@@ -12,7 +12,11 @@
             Countdown to next draw is 7 hours and 11 minutes
         </div>
         <div class="btn-row">
-            <a href="#" class="btn-theme--big">Play more</a>
+            <a href="#" class="btn-theme--big">
+                <span class="resizeme">
+                    Play more
+                </span>
+            </a>
         </div>
     </div>
 

@@ -77,7 +77,9 @@
                     <div class="cl">
                         <label for="submitBtn"
                                class="btn-theme--big submit">
-                            {{ language.translate("contact_btn") }}
+                            <span class="resizeme">
+                                {{ language.translate("contact_btn") }}
+                            </span>
                         </label>
                         <input id="submitBtn" type="submit" class="hidden">
                         <span>{{ language.translate("supportOpen") }}</span>

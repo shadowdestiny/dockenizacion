@@ -201,7 +201,9 @@
                             <div class="previous-results">
                                 <div class="btn-line">
                                     <a href="/{{ language.translate("link_euromillions_draw_history") }}" class="btn-theme--big">
-                                        {{ language.translate("morePastResults_btn") }}
+                                        <span class="resizeme">
+                                            {{ language.translate("morePastResults_btn") }}
+                                        </span>
                                     </a>
                                 </div>
                             </div>

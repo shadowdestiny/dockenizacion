@@ -9,7 +9,9 @@
     <div class="btn-row">
         <a href="/{{ language.translate("link_euromillions_play") }}"
            class="btn-theme--big">
-            play now
+            <span class="resizeme">
+                play now
+            </span>
         </a>
     </div>
 
