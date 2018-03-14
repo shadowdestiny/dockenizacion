@@ -72,7 +72,9 @@
 
                     <div class="submit-row">
                     <label for="go" class="submit  btn-theme--big">
-                        {{ language.translate("forgotpw_btn") }}
+                        <span class="resizeme">
+                            {{ language.translate("forgotpw_btn") }}
+                        </span>
                         {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
                     </label>
                     </div>

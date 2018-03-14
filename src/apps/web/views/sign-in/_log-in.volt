@@ -25,14 +25,18 @@
 
             <div class="submit-row">
             <label for="go" class="submit  btn-theme--big">
-                {{ language.translate("signin_LogIn_btn") }}
+                <span class="resizeme">
+                    {{ language.translate("signin_LogIn_btn") }}
+                </span>
                 {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
             </label>
             </div>
         {% elseif signIn.myClass == 'cart' %}
         <div class="submit-row">
             <label for="go" class="submit btn-theme--big">
-                {{ language.translate("signin_LogIn_btn") }}
+                <span class="resizeme">
+                    {{ language.translate("signin_LogIn_btn") }}
+                </span>
                 {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
             </label>
         </div>
