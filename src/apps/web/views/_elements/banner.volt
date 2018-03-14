@@ -20,7 +20,7 @@
     </div>
 
     <div class="top-banner--bottom-row">
-        <div class="wrapper">
+        <div class="wrapper" id="wrapper-top-banner">
 
             <div class="top-banner--left desktop--only">
                 <div class="resizeme">
