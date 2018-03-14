@@ -128,6 +128,14 @@
           line-height: 55px;
           white-space: nowrap;
 
+          @media only screen and (min-width: $screen-ipad-h) {
+            font-size: 14px;
+          }
+
+          @media only screen and (min-width: $screen-desktop-wide) {
+            font-size: 17px;
+          }
+
           //background: -webkit-linear-gradient(-86deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
           //background: -moz-linear-gradient(-86deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
           //background: -o-linear-gradient(-86deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
@@ -228,13 +236,13 @@
       padding: 0 10px;
     }
 
-    @media only screen and (min-width: $screen-desktop-wide) {
-      font-size: 17px;
+    @media only screen and (min-width: $screen-desktop) {
       line-height: 60px;
       height: 59px;
-      //padding: 0 38px;
       padding: 0 18px;
-
+    }
+    @media only screen and (min-width: $screen-desktop-wide) {
+      font-size: 17px;
     }
   }
 
