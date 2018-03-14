@@ -5,8 +5,8 @@
     {% include "_elements/header.volt" %}
 {% endblock %}
 {% block template_scripts %}
-    <script src="/w/js/mobileFix.min.js"></script>{% endblock %}
-
+    <script src="/w/js/mobileFix.min.js"></script>
+{% endblock %}
 {% block template_css %}
     <link Rel="Canonical" href="{{ language.translate('canonical_blogindex') }}" />
 {% endblock %}
