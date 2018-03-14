@@ -17,11 +17,16 @@
   border: 0;
   border-radius: 0;
   //top:15px;
-  top:45px;
+  //top:45px;
+  top:62px;
   right: 0px;
   //padding-top: 29px;
 
   box-shadow: 0px 5px 10px rgba(0,0,0,0.4);
+
+  @media only screen and (min-width: $screen-desktop) {
+
+  }
 
 
   li {
