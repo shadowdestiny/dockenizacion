@@ -386,7 +386,22 @@ $(document).ready(function () {
   }
 
 
+  if($('#show-more-results').length){
 
+    $('#history-numbers tr:lt(11)').show().removeClass('more');
+
+    $('.history-numbers-block').on('click', '#show-more-results', function(){
+
+      $('#history-numbers tr.more:lt(10)').removeClass('more');
+
+      if($('#history-numbers tr.more').length){
+
+      } else {
+        $('#show-more-results').fadeOut(700);
+      }
+
+    });
+  }
 
 });
 

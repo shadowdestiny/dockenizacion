@@ -207,7 +207,7 @@
                                             {{ language.translate("morePastResults_btn") }}
                                         </span>
                                         </a>
-                                    
+
                                 </div>
                             </div>
 
