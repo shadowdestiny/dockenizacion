@@ -433,7 +433,7 @@
           font-size: 140px;
           line-height: 140px;
           position: relative;
-          top: 5px;
+          //top: 5px;
           text-align: center;
           //left: 0px;
           left: 2px;
@@ -443,7 +443,7 @@
           font-size: 140px;
           line-height: 140px;
           position: relative;
-          top: -15px;
+          //top: -15px;
           text-align: center;
           //left: -4px;
           left: 2px;
@@ -497,6 +497,7 @@
           top: -33px;
           left: 7px;
         }
+
       }
 
       .top-banner--for-only{
@@ -1220,6 +1221,7 @@
       padding-bottom: 16px;
       position: relative;
       width: 100%;
+      overflow: hidden;
 
       @media only screen and (min-width: $screen-ipad-v) {
         padding-top: 0px;
@@ -1243,6 +1245,8 @@
         position: relative;
         //left: -19px;
         left: -5px;
+        padding-left: 10px;
+        padding-right: 5px;
       }
 
       .desktop-row--01 {
@@ -1253,14 +1257,20 @@
           top: 5px;
           text-align: center;
           left: 0px;
+
+          //width: 98%;
+          //margin-left: 1%;
         }
         @media only screen and (min-width: $screen-desktop) {
           //font-size: 190px;
           font-size: 140px;
           position: relative;
-          top: -15px;
+          //top: -15px;
           text-align: center;
-          left: -4px;
+          //left: -4px;
+
+          //height: 96px;
+          //line-height: 96px;
         }
       }
 
@@ -1278,9 +1288,9 @@
           margin-top: 40px;
           font-size: 70px;
           position: relative;
-          top: -15px;
+          //top: -15px;
           text-align: center;
-          left: -4px;
+          //left: -4px;
         }
       }
 
@@ -1292,7 +1302,11 @@
           text-transform: uppercase;
           position: relative;
           top: 8px;
-          left: 10px;
+          //left: 10px;
+
+          //width: 98%;
+          //margin-left: 1%;
+          //line-height: 68px;
         }
         @media only screen and (min-width: $screen-desktop) {
           //font-size: 78px;
@@ -1302,8 +1316,10 @@
           position: relative;
           //top: -42px;
           //left: 2px;
-          top: -33px;
-          left: 7px;
+          //top: -33px;
+          //left: 7px;
+
+          //line-height: 68px;
         }
       }
 

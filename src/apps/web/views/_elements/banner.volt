@@ -29,10 +29,13 @@
             </div>
 
             <div class="top-banner--center desktop--only">
-                <div class="resizeme desktop-row--01{% if jackpot_value|length > 4 %}-sm{% endif %}">
+                {#<div class="resizeme desktop-row--01{% if jackpot_value|length > 4 %}-sm{% endif %}">#}
+                    {#{{ jackpot_value }}#}
+                {#</div>#}
+                <div class="resizeme desktop-row--01">
                     {{ jackpot_value }}
                 </div>
-                <div class="desktop-row--02">
+                <div class="resizeme desktop-row--02">
                     {% if milliards %}
                         {{ language.translate("billion") }}
                     {% elseif trillions %}
