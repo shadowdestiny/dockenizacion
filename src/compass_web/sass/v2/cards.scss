@@ -326,7 +326,9 @@
   li {
     margin: 0 4px;
     //min-width: 30px;
-    float: left;
+    //float: left;
+
+    float: none;
 
     @media only screen and (min-width: $screen-xs) {
       float: none;
@@ -382,7 +384,8 @@
 
       &.master-a {
         width: 27px;
-        top: 1px;
+        //top: 1px;
+        top: 4px;
         left: 7px;
 
         @media only screen and (min-width: $screen-xs) {
@@ -410,25 +413,49 @@
       }
 
       &.comodo-a {
-        width: 27px;
-        top: 1px;
+        //width: 27px;
+        width: 55px;
+        //top: 1px;
+        top: 4px;
         left: 7px;
 
+        img {
+          max-width: none;
+          width: 50px;
+        }
+
         @media only screen and (min-width: $screen-xs) {
-          width: 27px;
-          top: 2px;
-          left: -3px;
+          //width: 27px;
+          //top: 2px;
+          top: 6px;
+          //left: -3px;
+
+          img {
+            //max-width: none;
+            //width: 85px;
+          }
         }
 
         @media only screen and (min-width: $screen-ipad-v) {
           width: 35px;
-          top: 5px;
+          //top: 5px;
+          top: 9px;
           left: -9px;
+
+          img {
+            max-width: none;
+            width: 65px;
+          }
         }
         @media only screen and (min-width: $screen-ipad-h) {
           width: 71px;
           top: 14px;
           left: -9px;
+
+          img {
+            max-width: none;
+            width: 85px;
+          }
         }
 
         @media only screen and (min-width: $screen-desktop) {
@@ -446,24 +473,46 @@
 
       &.pcidss-a {
         width: 27px;
-        top: 1px;
+        //top: 1px;
+        top: 6px;
         left: 7px;
 
+        img {
+          max-width: none;
+          width: 50px;
+        }
+
         @media only screen and (min-width: $screen-xs) {
-          width: 27px;
-          top: 2px;
-          left: -3px;
+          //width: 27px;
+          //top: 2px;
+          //left: -3px;
+
+          img {
+            //max-width: none;
+            //width: 85px;
+          }
         }
 
         @media only screen and (min-width: $screen-ipad-v) {
           width: 35px;
-          top: 5px;
+          //top: 5px;
+          top: 9px;
           left: -9px;
+
+          img {
+            max-width: none;
+            width: 65px;
+          }
         }
         @media only screen and (min-width: $screen-ipad-h) {
           width: 71px;
           top: 14px;
           left: -9px;
+
+          img {
+            max-width: none;
+            width: 85px;
+          }
         }
 
         @media only screen and (min-width: $screen-desktop) {
