@@ -19,10 +19,18 @@
   background: -o-linear-gradient(0deg, #fddf53 0%, #fad52b 58%, #f8ce0d 100%);
   background: -ms-linear-gradient(0deg, #fddf53 0%, #fad52b 58%, #f8ce0d 100%);
   background: linear-gradient(90deg, #fddf53 0%, #fad52b 58%, #f8ce0d 100%);
+
+
+  .wrapper--desktop-menu {
+    width: 100%;
+    max-width: none;
+  }
+
 }
 
 .main-nav {
   text-align: center;
+
 
   ul{
 
@@ -211,14 +219,15 @@
     font-weight: 900;
 
     @media only screen and (min-width: $screen-ipad-h) {
-      font-size: 22px;
+      //font-size: 22px;
+      font-size: 14px;
       line-height: 60px;
       height: 79px;
       //padding: 0 30px;
       padding: 0 10px;
     }
 
-    @media only screen and (min-width: $screen-desktop) {
+    @media only screen and (min-width: $screen-desktop-wide) {
       font-size: 17px;
       line-height: 60px;
       height: 59px;

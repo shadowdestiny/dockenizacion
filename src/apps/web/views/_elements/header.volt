@@ -16,7 +16,7 @@
     </div>
 
     <div class="head">
-        <div class="wrapper">
+        <div class="wrapper wrapper--desktop-menu">
             {#{% include "_elements/logo.volt" %}#}
             <nav class="main-nav desktop">
                 <ul>
