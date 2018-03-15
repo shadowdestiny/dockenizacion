@@ -1585,7 +1585,7 @@
           }
         }
 
-
+        [data-btn="wallet"]:hover,
         [data-btn="wallet"]  {
           @media only screen and (max-width: $screen-ipad-v-pre) {
             max-width: 301px;
