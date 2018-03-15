@@ -37,18 +37,11 @@
                 <div class="separator">
                     <hr class="hr">
                     <span class="bg-or"><span class="or">{{ language.app("or") }}</span></span>
-                </div>
-                #}
+                </div>#}
+
                 {% set url_signin = '/sign-in' %}
                 {% include "sign-in/_log-in.volt" %}
             </div>
-
-            <div class="signin-form sign-up hidden">
-                <h1 class="h1 title">{{ language.translate("signup_head") }}</h1>
-                {% set url_signup = '/sign-up' %}
-                {% include "sign-in/_sign-up.volt" %}
-            </div>
-
             {#<div class="terms txt">#}
                 {#{{ language.translate("signup_signInTC") }}#}
             {#</div>#}
