@@ -148,7 +148,7 @@
     <div class="add-funds-block second" style="margin-top: -65px;">
         <h2 class="h3 yellow margin">{{ language.translate("deposit_subhead") }}</h2>
         <div class="div-balance"><strong class="purple">{{ language.translate("deposit_balance") }}:</strong> <span class="value">{{ user_balance }}</span></div>
-        <span class="currency">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
+        <span class="currency">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'style':'left:45px','class':'insert input'~form_errors['funds-value']}) }}
 
 
         <div class="notes cl">
