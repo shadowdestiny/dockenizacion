@@ -53,6 +53,20 @@
     line-height: 20px;
   }
 
+  .title-blog-big {
+    font-family: $ff3;
+    color: #f0c11c;
+    line-height: 60px;
+    font-size: 32px;
+    padding-left: 29px;
+    font-weight: 900;
+  }
+
+  .image-title-blog img {
+    display:block;
+    margin:auto;
+  }
+
   .link-blog {
     font-family: $ff1;
     color: #333333;
