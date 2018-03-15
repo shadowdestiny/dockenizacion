@@ -36,6 +36,7 @@
                     <div class="wrapper">
                         {{ postData.getContent() }}
                     </div>
+                    <a href="/{{ language.translate("link_blogindex") }}">{{ language.translate("gotoindex_btn") }}</a>
                 </div>
             </div>
         </div>

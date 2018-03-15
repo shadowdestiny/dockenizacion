@@ -30,27 +30,26 @@
                     {{ language.translate("intro_blogindex") }}
                     <hr />
                     {% if postsBlog is not empty %}
-                        <table>
+                        <table width="100%" align="center">
                             <tr>
                                 {% set cont = 0 %}
                                 {% for post in postsBlog %}
-                                    <td align="center">
-                                        <img src="{{ post.getImage() }}" width="320px" height="160" />
-                                        <h2 class="title-blog">{{ post.getTitle() }}</h2>
+                                    <td width="450">
+                                        <a href="/{{ language.translate('link_blogindex') }}/{{ post.getUrl() }}" class="link-none"><img src="{{ post.getImage() }}" width="450" height="160" border="0" /></a><br /><br />
+                                        <h2><a href="/{{ language.translate('link_blogindex') }}/{{ post.getUrl() }}" class="link-none  title-blog">{{ post.getTitle() }}</a></h2>
                                         <p align="justify">{{ post.getDescription() }}</p>
-                                        <p align="left"><a href="/{{ language.translate('link_blogindex') }}/{{ post.getUrl() }}" class="link-blog">READ THE POST</a></p>
+                                        <p align="left"><a href="/{{ language.translate('link_blogindex') }}/{{ post.getUrl() }}" class="link-blog">{{ language.translate("readpost_btn") }}</a></p>
                                     </td>
                                     {% if mobile == 1 %}
                                         </tr><tr>
                                     {% else %}
-                                        <td> &nbsp;&nbsp;&nbsp; </td>
                                         {% set cont = (cont + 1) %}
-                                        {% if (cont % 2) == 0 %}</tr><tr>{% endif %}
+                                        {% if (cont % 2) == 0 %}</tr><tr>{% else %}<td width="60">&nbsp;</td>{% endif %}
                                     {% endif %}
                                 {% endfor %}
                             </tr>
                         </table>
-                        {{ paginator_view }}
+                        {#{{ paginator_view }}#}
                     {% else %}
                         We don't have posts yet.
                     {% endif %}
