@@ -209,7 +209,15 @@ var PlayPage = React.createClass({
       const { storage }  = this.state
       const ticketsInRow = this.getTicketsInRow()
       if (storage && storage.length) {
-        return Math.ceil(storage.length / ticketsInRow) * ticketsInRow
+        let lastFilledLine = 0
+        for (let i = storage.length - 1; i >= 0; i --) {
+          if (storage[i].numbers.length > 0 || storage[i].stars.length > 0) {
+            lastFilledLine = i
+            break
+          }
+        }
+        const tickersCount = lastFilledLine + 1
+        return Math.ceil(tickersCount / ticketsInRow) * ticketsInRow
       }
       return ticketsInRow
     },
