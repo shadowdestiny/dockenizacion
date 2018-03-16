@@ -146,7 +146,6 @@
 
                         <div class="box-current-winners--new">
                             <h2 class="h2">
-                                {#TODO : Add real variables here#}
                                 {{ language.translate("resultsdate_h2") }}
                                 {#Euromillions Results & price breakdown for Tuesday 02 November 2016#}
                             </h2>
@@ -193,26 +192,19 @@
                                 </tbody>
                             </table>
 
-                            <div class="previous-results mobile--only">
-                                <div class="btn-line">
-                                    <a href="/{{ language.translate('link_euromillions_results') }}" class="btn-theme--big">
-                                        <span class="resizeme">
-                                            {{ language.translate("resultsdate_btn") }}
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="previous-results desktop--only">
-                                <div class="btn-line">
-                                    <a href="/{{ language.translate('link_euromillions_results') }}" class="btn-theme--big">
-                                        <span class="resizeme">
-                                            {{ language.translate("resultsdate_btn") }}
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
+                            <div class="previous-results--common-row">
+                                {% include "_elements/previous-results-euromillions.volt" %}
 
-                            {% include "_elements/previous-results-euromillions.volt" %}
+                                <div class="previous-results--btn">
+
+                                    <a href="/{{ language.translate('link_euromillions_results') }}" class="btn-theme--big">
+                                        <span class="resizeme">
+                                            {{ language.translate("resultsdate_btn") }}
+                                        </span>
+                                    </a>
+
+                                </div>
+                            </div>
 
                         </div>
                     </div>
