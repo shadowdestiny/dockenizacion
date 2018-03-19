@@ -431,8 +431,13 @@
       padding: 0;
       margin: 0;
 
+      a {
+        float: left;
+      }
+
       .btn-theme {
-        width: 144px;
+        min-width: 144px;
+        width:auto;
         height:34px;
         font-size: 16px;
         font-weight: 700;
@@ -440,8 +445,6 @@
         text-transform: uppercase;
 
         color: #fff !important;
-        text-transform: uppercase;
-
 
         @media only screen and (min-width: $screen-ipad-v) {
             width: 234px;
@@ -457,6 +460,13 @@
 
       }
     }
+
+    li + li {
+      a {
+        float: right;
+      }
+    }
+
   }
 
 }
