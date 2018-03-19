@@ -133,7 +133,8 @@
     //border-style: solid;
 
     background-color: #fff;
-    width: 311px;
+    //width: 311px;
+    width: 300px;
     //height: 45px;
     height: 59px;
 
@@ -144,7 +145,8 @@
 
       .left {
         float: left;
-        width: 160px;
+        //width: 160px;
+        width: 148px;
         margin: 0;
         padding: 0;
         text-align: left;
@@ -154,12 +156,14 @@
         //-webkit-background-size: 31px;
         //background-size: 31px;
 
-        background-position: 15px 12px;
+        //background-position: 15px 12px;
+        background-position: 0px 12px;
         -webkit-background-size: 26px;
         background-size: 26px;
 
         padding-top: 3px;
-        padding-left: 55px;
+        //padding-left: 55px;
+        padding-left: 43px;
       }
 
       .right {
