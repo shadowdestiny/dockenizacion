@@ -25,6 +25,7 @@
                         {{ language.translate("H1_blogindex") }}
                     </h1>
                 </div>
+                {% if mobile == 1 %}<br /><br /><br />{% endif %}
                 <div class="content">
                     {{ language.translate("intro_blogindex") }}
                     <hr />
@@ -34,7 +35,7 @@
                                 {% set cont = 0 %}
                                 {% for post in postsBlog %}
                                     <td width="450">
-                                        <a href="/{{ language.translate('link_blogindex') }}/{{ post.getUrl() }}" class="link-none"><img src="{{ post.getImage() }}" width="450" height="160" border="0" /></a><br /><br />
+                                        <a href="/{{ language.translate('link_blogindex') }}/{{ post.getUrl() }}" class="link-none"><img src="{{ post.getImage() }}" width="450" border="0" /></a><br /><br />
                                         <h2 align="left"><a href="/{{ language.translate('link_blogindex') }}/{{ post.getUrl() }}" class="link-none  title-blog">{{ post.getTitle() }}</a></h2>
                                         <p align="justify">{{ post.getDescription() }}</p>
                                         <p align="left"><a href="/{{ language.translate('link_blogindex') }}/{{ post.getUrl() }}" class="link-blog">{{ language.translate("readpost_btn") }}</a></p>
