@@ -640,20 +640,45 @@
       //
       //@media only screen and (min-width: $screen-ipad-h) {}
       //@media only screen and (min-width: $screen-desktop) {
-        width: 343px;
+      //  width: 343px;
+        width: 100%;
+        padding: 0 30px 0 20px;
         height: 76px;
         line-height: 76px;
+        text-align: center;
         //min-width: 343px;
       //  box-sizing: content-box;
       //}
 
-      .number-generator--block--button {
-        display: inline-block;
+      @media only screen and (min-width: $screen-ipad-v) {
+        width: 343px;
+        padding: 0;
         height: 76px;
         line-height: 76px;
+        text-align: center;
+      }
+
+      .number-generator--block--button {
+        //display: inline-block;
+        //height: 76px;
+        //line-height: 76px;
         //padding-left: 50px;
+
+        width: 100%;
+        display: block;
+        height: 36px;
+        line-height: 36px;
+        font-size: 24px;
       //
-      //  @media only screen and (min-width: $screen-ipad-h) {}
+        @media only screen and (min-width: $screen-ipad-v) {
+          display: inline-block;
+          width: 343px;
+          height: 76px;
+          line-height: 76px;
+          font-size: 42px;
+
+        }
+        @media only screen and (min-width: $screen-ipad-h) {}
         @media only screen and (min-width: $screen-desktop) {
           //width: 343px;
           height: 76px;
