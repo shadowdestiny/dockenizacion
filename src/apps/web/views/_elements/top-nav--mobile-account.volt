@@ -51,7 +51,9 @@
                 </li>
                 {% if user_logged is not empty %}
                 <li class="li--euromillion">
-                    {{ language.translate("myAccount_account") }}<br />
+                    <strong>
+                        {{ language.translate("myAccount_account") }}
+                    </strong>
                     <a href="/account/wallet">{{ language.translate("myAccount_balance") }}</a>
                     <a href="/profile/tickets/games">{{ language.translate("myAccount_tickets") }}</a>
                     <a href="/profile/transactions">{{ language.translate("myAccount_transactions") }}</a>
