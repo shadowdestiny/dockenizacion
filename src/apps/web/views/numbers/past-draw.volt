@@ -196,14 +196,18 @@
                             <div class="previous-results mobile--only">
                                 <div class="btn-line">
                                     <a href="/{{ language.translate('link_euromillions_results') }}" class="btn-theme--big">
-                                        {{ language.translate("resultsdate_btn") }}
+                                        <span class="resizeme">
+                                            {{ language.translate("resultsdate_btn") }}
+                                        </span>
                                     </a>
                                 </div>
                             </div>
                             <div class="previous-results desktop--only">
                                 <div class="btn-line">
                                     <a href="/{{ language.translate('link_euromillions_results') }}" class="btn-theme--big">
-                                        {{ language.translate("resultsdate_btn") }}
+                                        <span class="resizeme">
+                                            {{ language.translate("resultsdate_btn") }}
+                                        </span>
                                     </a>
                                 </div>
                             </div>

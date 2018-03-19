@@ -100,7 +100,11 @@ function numCharLine($line){
 
                 </div>
                 <div class="btn-row">
-                    <a href="/{{ language.translate("link_euromillions_play") }}" class="btn-theme--big">Play more</a>
+                    <a href="/{{ language.translate("link_euromillions_play") }}" class="btn-theme--big">
+                        <span class="resizeme">
+                            Play more
+                        </span>
+                    </a>
                 </div>
             </div>
 

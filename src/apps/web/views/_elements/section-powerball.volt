@@ -27,7 +27,9 @@
             <div class="btn-row">
                 <a href="/{{ language.translate("link_euromillions_play") }}"
                    class="btn-theme--big">
-                    {{ language.translate("nextDraw_btn") }}
+                    <span class="resizeme">
+                        {{ language.translate("nextDraw_btn") }}
+                    </span>
                 </a>
             </div>
         </section>

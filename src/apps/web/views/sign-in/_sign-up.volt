@@ -42,12 +42,16 @@
         <input id="goSignUp" type="submit" class="hidden2"/>
         {% if signIn.myClass == 'sign-in' %}
             <label for="goSignUp" class="submit btn-theme--big">
-                {{ language.translate("signup_createAccount_btn") }}
+                <span class="resizeme">
+                    {{ language.translate("signup_createAccount_btn") }}
+                </span>
                 {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
             </label>
         {% elseif signIn.myClass == 'cart' %}
             <label for="goSignUp" class="submit btn-theme--big">
-                {{ language.translate("signup_createAccount_btn") }}
+                <span class="resizeme">
+                    {{ language.translate("signup_createAccount_btn") }}
+                </span>
             </label>
         {% endif %}
     </div>

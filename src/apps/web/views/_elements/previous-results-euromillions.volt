@@ -28,7 +28,10 @@
         </div>
 
         <div class="previous-results--button">
-            <input type="button" value="{{ language.translate("PastResults_btn") }}" id="show-results" class="btn-theme btn-secondary ui-link" />
+            <div class="btn-theme--big resizeme">
+                <input type="button" value="{{ language.translate("PastResults_btn") }}" id="show-results" class="ui-link" />
+            </div>
+
         </div>
 
     </form>

@@ -1,5 +1,13 @@
 <div class="tickets-table">
     <table>
+
+        <tr>
+            <td class="lottery"></td>
+            <td class="date-from">Draw Date</td>
+            <td class="date-to"></td>
+            <td class="numbers">Numbers Played</td>
+        </tr>
+
         {% for my_christmas_active in my_christmas_actives %}
         <tr>
             <td class="lottery">

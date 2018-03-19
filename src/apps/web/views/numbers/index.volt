@@ -196,15 +196,21 @@
                                 </tbody>
                             </table>
 
-                            {% include "_elements/previous-results-euromillions.volt" %}
 
-                            <div class="previous-results">
-                                <div class="btn-line">
-                                    <a href="/{{ language.translate("link_euromillions_draw_history") }}" class="btn-theme--big">
-                                        {{ language.translate("morePastResults_btn") }}
-                                    </a>
+                            <div class="previous-results--common-row">
+                                {% include "_elements/previous-results-euromillions.volt" %}
+
+                                <div class="previous-results--btn">
+
+                                        <a href="/{{ language.translate("link_euromillions_draw_history") }}" class="btn-theme--big">
+                                        <span class="resizeme">
+                                            {{ language.translate("morePastResults_btn") }}
+                                        </span>
+                                        </a>
+
                                 </div>
                             </div>
+
 
                             <h2>{{ language.translate("resultsem_h2") }}</h2>
                             <div>

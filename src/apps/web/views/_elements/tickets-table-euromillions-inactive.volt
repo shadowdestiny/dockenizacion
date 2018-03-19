@@ -1,5 +1,13 @@
 <div class="tickets-table">
     <table>
+
+        <tr>
+            <td class="lottery"></td>
+            <td class="date-from">Draw Date</td>
+            <td class="date-to">Play Again</td>
+            <td class="numbers">Numbers Played</td>
+        </tr>
+
         {% for date,play_configs in my_games_inactives %}
         <tr>
             <td class="lottery">

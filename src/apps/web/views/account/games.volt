@@ -58,6 +58,27 @@
                 {#Clear html start#}
                 <form action="" class="tickets-form">
 
+                    {% if my_games_actives is not empty %}
+                        <div class="tickets-blocker tickets-blocker--table-03">
+
+                            <div class="nav">
+                                <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
+                                    <a href="#">
+                                        {{ language.translate("tickets_upcoming") }}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <h3>
+                                {{ language.translate("tickets_upcoming") }}
+                            </h3>
+
+                            {#{% include "_elements/tickets-filter.volt" %}#}
+                            {% include "_elements/tickets-table-euromillions-active.volt" %}
+                        </div>
+                    {% endif %}
+
+
                     {% if my_subscription_actives is not empty %}
                     <div class="tickets-blocker tickets-blocker--table-01">
 
@@ -79,44 +100,23 @@
                     </div>
                     {% endif %}
 
-                    {% if my_christmas_actives is not empty %}
-                    <div class="tickets-blocker tickets-blocker--table-02">
-
-                        <div class="nav">
-                        <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
-                            <a href="#">
-                                {{ language.translate("My Christmas Tickets") }}
-                            </a>
-                        </div>
-                        </div>
-
-                        <h3>
-                            {{ language.translate("My Christmas Tickets") }}
-                        </h3>
-
-                        {#{% include "_elements/tickets-filter.volt" %}#}
-                        {% include "_elements/tickets-table-christmas-active.volt" %}
-
-                    </div>
-                    {% endif %}
-
-                    {% if my_games_actives is not empty %}
-                        <div class="tickets-blocker tickets-blocker--table-03">
+                    {% if my_games_inactives is not empty %}
+                        <div class="tickets-blocker tickets-blocker--table-06">
 
                             <div class="nav">
                                 <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
                                     <a href="#">
-                                        {{ language.translate("tickets_upcoming") }}
+                                        {{ language.translate("tickets_past") }}
                                     </a>
                                 </div>
                             </div>
 
                             <h3>
-                                {{ language.translate("tickets_upcoming") }}
+                                {{ language.translate("tickets_past") }}
                             </h3>
 
                             {#{% include "_elements/tickets-filter.volt" %}#}
-                            {% include "_elements/tickets-table-euromillions-active.volt" %}
+                            {% include "_elements/tickets-table-euromillions-inactive.volt" %}
                         </div>
                     {% endif %}
 
@@ -141,6 +141,30 @@
                         </div>
                     {% endif %}
 
+
+                    {% if my_christmas_actives is not empty %}
+                    <div class="tickets-blocker tickets-blocker--table-02">
+
+                        <div class="nav">
+                        <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
+                            <a href="#">
+                                {{ language.translate("My Christmas Tickets") }}
+                            </a>
+                        </div>
+                        </div>
+
+                        <h3>
+                            {{ language.translate("My Christmas Tickets") }}
+                        </h3>
+
+                        {#{% include "_elements/tickets-filter.volt" %}#}
+                        {% include "_elements/tickets-table-christmas-active.volt" %}
+
+                    </div>
+                    {% endif %}
+
+
+
                     {% if my_christmas_inactives is not empty %}
                         <div class="tickets-blocker tickets-blocker--table-05">
 
@@ -162,25 +186,7 @@
                         </div>
                     {% endif %}
 
-                    {% if my_games_inactives is not empty %}
-                        <div class="tickets-blocker tickets-blocker--table-06">
 
-                            <div class="nav">
-                                <div class="dashboard-menu--mobile--back dashboard-menu--mobile--back--submenu">
-                                    <a href="#">
-                                        {{ language.translate("tickets_past") }}
-                                    </a>
-                                </div>
-                            </div>
-
-                            <h3>
-                                {{ language.translate("tickets_past") }}
-                            </h3>
-
-                            {#{% include "_elements/tickets-filter.volt" %}#}
-                            {% include "_elements/tickets-table-euromillions-inactive.volt" %}
-                        </div>
-                    {% endif %}
                 </form>
             </div>
         </div>

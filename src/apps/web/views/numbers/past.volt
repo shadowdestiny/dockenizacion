@@ -98,7 +98,7 @@
                                 </thead>
                                 <tbody>
                                 {% for i,draw in list_draws %}
-                                    <tr style="cursor: pointer"
+                                    <tr class="more" style="cursor: pointer"
                                         onclick="document.location='/{{ language.translate('link_euromillions_draw_history') }}/{{ draw.drawDateParam }}'">
                                         <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
                                         <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
@@ -106,7 +106,18 @@
                                     </tr>
                                 {% endfor %}
                                 </tbody>
+
+
                             </table>
+
+                            <div id="show-more-results">
+                            <div class="btn-theme--big">
+                                <span class="resizme">
+                                    Load more
+                                </span>
+                            </div>
+                            </div>
+
                         </div>
                 </div>
             </div>

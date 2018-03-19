@@ -366,6 +366,7 @@
             display: block;
             padding: 14px 11px;
 
+
             td {
               background-color: #fff;
               border: 0;
@@ -410,6 +411,28 @@
     }
     @media only screen and (min-width: $screen-desktop) {
       padding-right: 290px;
+    }
+
+    #show-more-results {
+      text-align: center;
+      margin:auto;
+      margin-top: 50px;
+
+      .btn-theme--big{
+        height: 55px;
+        line-height: 55px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+    }
+
+
+    #history-numbers {
+      tbody {
+        tr.more {
+          display: none;
+        }
+      }
     }
 
     .box-current-winners--new {

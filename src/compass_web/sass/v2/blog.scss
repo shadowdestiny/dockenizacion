@@ -56,10 +56,24 @@
   .title-blog-big {
     font-family: $ff3;
     color: #f0c11c;
+    text-align: left;
     line-height: 60px;
     font-size: 32px;
-    padding-left: 29px;
     font-weight: 900;
+  }
+
+  .title-blog-big-mobile {
+    font-family: $ff3;
+    color: #f0c11c;
+    text-align: left;
+    padding-left: 8px;
+    line-height: 60px;
+    font-size: 32px;
+    font-weight: 900;
+  }
+
+  .image-title-blog{
+    padding-top: 15px;
   }
 
   .image-title-blog img {
@@ -67,10 +81,18 @@
     margin:auto;
   }
 
+  .link-none {
+    text-decoration: none;
+    cursor: pointer
+  }
+
   .link-blog {
     font-family: $ff1;
     color: #333333;
+    background-color: #f0c11c;
+    border-radius: 5px;
     line-height: 60px;
+    padding: 10px 10px 10px 10px;
     font-size: 16px;
     text-transform: uppercase;
     text-decoration: none;

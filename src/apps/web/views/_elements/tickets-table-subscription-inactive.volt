@@ -1,5 +1,13 @@
 <div class="tickets-table">
     <table>
+
+        <tr>
+            <td class="lottery"></td>
+            <td class="date-from">First Draw</td>
+            <td class="date-to">Last Draw</td>
+            <td class="numbers">Numbers Played</td>
+        </tr>
+
         {% for my_subscription_inactive in my_subscription_inactives %}
         <tr>
             <td class="lottery">

@@ -19,10 +19,18 @@
   background: -o-linear-gradient(0deg, #fddf53 0%, #fad52b 58%, #f8ce0d 100%);
   background: -ms-linear-gradient(0deg, #fddf53 0%, #fad52b 58%, #f8ce0d 100%);
   background: linear-gradient(90deg, #fddf53 0%, #fad52b 58%, #f8ce0d 100%);
+
+
+  .wrapper--desktop-menu {
+    width: 100%;
+    max-width: none;
+  }
+
 }
 
 .main-nav {
   text-align: center;
+
 
   ul{
 
@@ -118,6 +126,15 @@
           font-size: 18px;
           height: 57px;
           line-height: 55px;
+          white-space: nowrap;
+
+          @media only screen and (min-width: $screen-ipad-h) {
+            font-size: 14px;
+          }
+
+          @media only screen and (min-width: $screen-desktop-wide) {
+            font-size: 17px;
+          }
 
           //background: -webkit-linear-gradient(-86deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
           //background: -moz-linear-gradient(-86deg, #f3be05 32%, #f7cc34 54%, #fad553 68%);
@@ -211,7 +228,8 @@
     font-weight: 900;
 
     @media only screen and (min-width: $screen-ipad-h) {
-      font-size: 22px;
+      //font-size: 22px;
+      font-size: 14px;
       line-height: 60px;
       height: 79px;
       //padding: 0 30px;
@@ -219,12 +237,12 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      font-size: 17px;
       line-height: 60px;
       height: 59px;
-      //padding: 0 38px;
       padding: 0 18px;
-
+    }
+    @media only screen and (min-width: $screen-desktop-wide) {
+      font-size: 17px;
     }
   }
 

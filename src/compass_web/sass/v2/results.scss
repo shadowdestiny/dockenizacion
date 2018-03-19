@@ -571,13 +571,45 @@
         }
       }
     }
+
+    .previous-results--common-row {
+      overflow: hidden;
+      margin-bottom: 50px;
+
+      .btn-theme--big {
+        height: 55px;
+        font-size: 25px;
+        //line-height: 50px;
+        line-height: 46px;
+      }
+
+      .previous-results--btn {
+
+        padding-top: 56px;
+        display: inline-block;
+        //width: 200px;
+        width: 160px;
+        overflow: hidden;
+        vertical-align: top;
+
+        .btn-theme--big {
+          padding: 0 20px;
+        }
+
+        a {
+          width: 100%;
+        }
+
+      }
+
     .previous-results.desktop--only {
       display: none;
 
       @media only screen and (min-width: $screen-ipad-v) {
         overflow: hidden;
         padding: 30px 3px 0 3px;
-        display: block;
+        //display: block;
+        display: inline-block;
       }
       @media only screen and (min-width: $screen-ipad-h) {}
       @media only screen and (min-width: $screen-desktop) {
@@ -598,17 +630,49 @@
         @media only screen and (min-width: $screen-desktop) {
           font-size: 14px;
           padding-bottom: 14px;
+          height: 34px;
+          overflow: hidden;
+          box-sizing: border-box;
         }
       }
 
       .previous-results--button {
         display: inline-block;
-        margin-bottom: 50px;
-        position: absolute;
+        //margin-bottom: 50px;
+        //position: absolute;
+        vertical-align: top;
+
+        .btn-theme--big {
+          //width: 110px;
+          width: 150px;
+          padding: 0;
+          font-size: 10px;
+
+          input {
+            cursor: pointer;
+            //display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            box-shadow: none;
+            color: inherit;
+            font-size: inherit;
+            background-color: transparent;
+            //padding: 0;
+            margin: 0;
+            padding: 0 20px;
+            display: inline-block;
+            vertical-align: top;
+            text-transform: uppercase;
+            //font-size: 10px;
+            font-weight: 700;
+          }
+        }
       }
 
       .previous-results--selectboxes {
         text-align: left;
+        display: inline-block;
 
         .selectbox {
           display: inline-block;
@@ -657,6 +721,7 @@
           }
         }
       }
+    }
     }
 
   }

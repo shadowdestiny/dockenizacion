@@ -17,25 +17,22 @@
     <main id="content">
         <div class="blog--page">
             <div class="banner"></div>
-
             <div class="wrapper">
-
-                <div class="image-title-blog">
-                    <img src="{{ postData.getImage() }}" />
-                    {#<img src="{{ postData.getImage() }}" {% if mobile == 1 %}width="320px"{% endif %} />#}
-                </div>
-
-                <div class="title-blog-big">
-                {#<div class="title-blog{% if mobile != 1 %}-big{% endif %}">#}
-                    <h1>
-                        {{ postData.getTitle() }}
-                    </h1>
-                </div>
-
                 <div class="content">
+                    <div class="image-title-blog">
+                        <img src="{{ postData.getImage() }}" {% if mobile == 1 %}width="450" {% else %}width="960"{% endif %} />
+                    </div>
+
+                    <div class="title-blog-big{% if mobile == 1 %}-mobile{% endif %}">
+                        <h1>
+                            {{ postData.getTitle() }}
+                        </h1>
+                    </div>
+
                     <div class="wrapper">
                         {{ postData.getContent() }}
                     </div>
+                    <a href="/{{ language.translate("link_blogindex") }}" class="link-blog">{{ language.translate("gotoindex_btn") }}</a>
                 </div>
             </div>
         </div>

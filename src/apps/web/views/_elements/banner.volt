@@ -3,13 +3,13 @@
     <div class="top-banner--banner">
         <div class="wrapper">
 
-            <h1 class="top-banner--head">
+            <h3 class="top-banner--head">
                 {% if mobile == 1 %}
                     {{ language.translate("home_mobile_h1") }}
                 {% else %}
                     {{ language.translate("banner1_h1") }}
                 {% endif %}
-            </h1>
+            </h3>
             <div class="top-banner--subline">
                 {{ language.translate("banner1_subline") }}
             </div>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="top-banner--bottom-row">
-        <div class="wrapper">
+        <div class="wrapper" id="wrapper-top-banner">
 
             <div class="top-banner--left desktop--only">
                 <div class="resizeme">
@@ -29,10 +29,13 @@
             </div>
 
             <div class="top-banner--center desktop--only">
-                <div class="resizeme desktop-row--01{% if jackpot_value|length > 4 %}-sm{% endif %}">
+                {#<div class="resizeme desktop-row--01{% if jackpot_value|length > 4 %}-sm{% endif %}">#}
+                    {#{{ jackpot_value }}#}
+                {#</div>#}
+                <div class="resizeme desktop-row--01">
                     {{ jackpot_value }}
                 </div>
-                <div class="desktop-row--02">
+                <div class="resizeme desktop-row--02">
                     {% if milliards %}
                         {{ language.translate("billion") }}
                     {% elseif trillions %}
@@ -59,8 +62,8 @@
                 </div>
 
                     <a href="/{{ language.translate("link_euromillions_play") }}"
-                       class="btn-theme--big resizeme">
-                        <span>
+                       class="btn-theme--big">
+                        <span class="resizeme">
                         {{ language.translate("banner1_btn") }}
                             </span>
                     </a>

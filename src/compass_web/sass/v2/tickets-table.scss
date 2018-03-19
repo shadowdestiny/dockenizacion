@@ -153,6 +153,12 @@
             text-align: right;
             padding-right: 23px;
             display: table-cell!important;
+
+            .numbers--row {
+              margin-bottom: 10px;
+              overflow: hidden;
+              clear: both;
+            }
           }
 
           @media only screen and (min-width: $screen-desktop) {
@@ -183,11 +189,24 @@
 
               line-height: 31px;
 
+
+
             }
 
             @media only screen and (min-width: $screen-ipad-v) {
               color:  #333333;
               margin-left: 3px;
+
+              text-align: center;
+              display: inline-block;
+              border-radius: 50%;
+              border-width: 1px;
+              border-color: #6c6c6c;
+              border-style: solid;
+              background-color: #f6f6f6;
+              width: 34px;
+              height: 34px;
+              line-height: 31px;
             }
 
             @media only screen and (min-width: $screen-ipad-h) {
@@ -200,13 +219,24 @@
             @media only screen and (max-width: $width-pre-tablet) {
               color: #f8ce0d;
               border-color: #f8ce0d;
-              margin-left: 15px;
+              margin-left: 15px; 
 
               & + span.star {
                 margin-left: 0px;
               }
             }
             color:  #f9d11b;
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              color: #f8ce0d;
+              border-color: #f8ce0d;
+              margin-left: 15px;
+
+              & + span.star {
+                margin-left: 3px;
+              }
+            }
+
           }
 
           span:first-of-type {
