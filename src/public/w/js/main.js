@@ -388,7 +388,7 @@ $(document).ready(function () {
 
   if($('#show-more-results').length){
 
-    $('#history-numbers tr:lt(11)').show().removeClass('more');
+    $('#history-numbers tr:lt(11)').removeClass('more');
 
     $('.history-numbers-block').on('click', '#show-more-results', function(){
 

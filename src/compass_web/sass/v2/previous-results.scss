@@ -1,7 +1,8 @@
 // Previous results page
 
 .result-page--content--previous-result {
-  padding-bottom: 0px;
+  //padding-bottom: 0px;
+  padding-bottom: 30px;
 
   @media only screen and (min-width: $screen-ipad-v) {
     padding-bottom: 60px;
