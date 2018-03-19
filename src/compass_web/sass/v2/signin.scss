@@ -573,14 +573,29 @@
 }
 
 .signin-form.forgot-password {
+
+  .captcha {
+    width: 304px;
+    display: block;
+    margin:auto;
+  }
+
   .submit-row {
     width: 100%;
     overflow: hidden;
     padding-top: 20px;
+    padding-bottom: 20px;
 
     .btn-theme--big {
       width: 100%;
+      text-align: center;
 
+      span {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+      }
     }
   }
 }

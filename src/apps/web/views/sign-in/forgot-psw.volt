@@ -71,8 +71,8 @@
                     <input id="go" type="submit" class="hidden2"/>
 
                     <div class="submit-row">
-                    <label for="go" class="submit  btn-theme--big">
-                        <span class="resizeme">
+                    <label for="go" class="submit  btn-theme--big btn--forgot-password">
+                        <span class="">
                             {{ language.translate("forgotpw_btn") }}
                         </span>
                         {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
