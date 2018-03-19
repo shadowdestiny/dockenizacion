@@ -1,4 +1,4 @@
-<div class="previous-results desktop--only">
+<div class="previous-results">
     <div class="previous-results--title">
         {{ language.translate("pastNumbers_title") }}
     </div>
