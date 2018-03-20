@@ -47,6 +47,7 @@
                                         {% if (cont % 2) == 0 %}</tr><tr>{% else %}<td width="60">&nbsp;</td>{% endif %}
                                     {% endif %}
                                 {% endfor %}
+                                {% if (cont % 2) != 0 and mobile != 1 %}<td width="450">&nbsp;</td>{% endif %}
                             </tr>
                         </table>
                         {#{{ paginator_view }}#}
