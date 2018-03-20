@@ -245,6 +245,13 @@
         }
       }
     }
+
+    tr:first-of-type {
+      @media only screen and (max-width: $width-pre-tablet) {
+        display: none;
+      }
+
+    }
     tr.opened {
       td.numbers {
         @media only screen and (max-width: $width-pre-tablet) {
