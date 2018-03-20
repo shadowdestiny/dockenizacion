@@ -29,20 +29,28 @@
     background-color: #f6d010;
     position: relative;
     z-index: 1;
-    height: 60px;
+    //height: 60px;
+    min-height: 60px;
+    height:auto;
 
     @media only screen and (min-width: $screen-ipad-v) {
-      height: 125px;
+      //height: 125px;
+      min-height: 125px;
+      height:auto;
       top: -125px;
       margin-bottom: -132px;
     }
     @media only screen and (min-width: $screen-ipad-h) {
-      height: 125px;
+      //height: 125px;
+      min-height: 125px;
+      height:auto;
       top: -125px;
       margin-bottom: -132px;
     }
     @media only screen and (min-width: $screen-desktop) {
-      height: 93px;
+      //height: 93px;
+      min-height: 93px;
+      height:auto;
       top: -93px;
       margin-bottom: -106px;
     }
@@ -147,7 +155,7 @@
           line-height: 55px;
           padding-left: 31px;
           font-size: 24px;
-          padding-right: 40px;
+          padding-right: 40px; 
           margin-bottom: 0;
         }
         @media only screen and (min-width: $screen-desktop) {
