@@ -146,10 +146,9 @@
 
                                 <a href="javascript:void(0);" id="nextButton" class="btn add-cart">
                                 <span class="value">
-                                    {{ currencySymbol }}
-                                    <span id="totalPriceValue">0.00</span>
+                                    <span class="resizeme">{{ currencySymbol }} <span id="totalPriceValue">0.00</span></span>
                                 </span>
-                                    {#<span class="gap"><span class="separator"></span></span>#}
+
                                 <span class="next-btn"><span class="resizeme">{{ language.translate('next_btn') }}</span></span>
                                 </a>
                             </div>
