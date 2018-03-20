@@ -42,16 +42,11 @@
         <input id="goSignUp" type="submit" class="hidden2"/>
         {% if signIn.myClass == 'sign-in' %}
             <label for="goSignUp" class="submit btn-theme--big">
-                <span class="resizeme">
-                    {{ language.translate("signup_createAccount_btn") }}
-                </span>
-                {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
+                <span class="resizeme">{{ language.translate("signup_createAccount_btn") }}</span>
             </label>
         {% elseif signIn.myClass == 'cart' %}
             <label for="goSignUp" class="submit btn-theme--big">
-                <span class="resizeme">
-                    {{ language.translate("signup_createAccount_btn") }}
-                </span>
+                <span class="resizeme">{{ language.translate("signup_createAccount_btn") }}</span>
             </label>
         {% endif %}
     </div>
@@ -72,7 +67,8 @@
 
     <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}">
         <span class="txt">{{ language.translate("signup_accountQuestion") }}</span>
-        <a class="btn gwy" href="/{{ language.translate("link_signin") }}">{{ language.translate("signup_LogIn_btn") }}</a>
+        <a class="btn gwy" href="/{{ language.translate("link_signin") }}"><span class="resizeme">{{ language.translate("signup_LogIn_btn") }}</span></a>
+        <br><br>
     </div>
 </form>
 
