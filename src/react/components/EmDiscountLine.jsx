@@ -9,7 +9,7 @@ var EuroMillionsDiscountLine = React.createClass({
         return (
             <div className="button-draw-list">
                 <a className={classBtn} href="javascript:void(0);" onClick={this.props.sendLineSelected.bind(null, this.props.draws, this.props.discount)}>
-                    <span className="top">{this.props.desc}</span>
+                    <span className="top">{this.props.multi_number} {this.props.desc}</span>
                     <span className="bottom">
                         {price}{this.props.currency_symbol}{this.props.price_desc}
                     </span>

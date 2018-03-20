@@ -406,6 +406,7 @@ class PlayConfigRepository extends RepositoryBase
 
     /**
      * @param $number
+     * @throws \Doctrine\DBAL\DBALException
      */
     public function substractNumFractionsToChristmasTicket($number)
     {
@@ -413,17 +414,20 @@ class PlayConfigRepository extends RepositoryBase
         $this->getEntityManager()->getConnection()->executeQuery("UPDATE christmas_tickets SET n_fractions = n_fractions - 1 where number = '" . $number . "'");
     }
 
+    /**
+     * @return array
+     */
     public function retrieveEuromillionsBundlePrice() {
         $di = Di::getDefault();
         $entityManager = $di->get('entityManager');
         $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
 
         return [
-            ['draws' => '1', 'description' => $translationAdapter->query("mult_btn1"), 'price_description' => $translationAdapter->query("desc_mult1"), 'price' => '1', 'discount' => 0, 'checked' => 'active'],
-            ['draws' => '4', 'description' => $translationAdapter->query("mult_btn2"), 'price_description' => $translationAdapter->query("desc_mult2"), 'price' => '1', 'discount' => 0, 'checked' => ''],
-            ['draws' => '8', 'description' => $translationAdapter->query("mult_btn3"), 'price_description' => $translationAdapter->query("desc_mult3"), 'price' => '8', 'discount' => 0, 'checked' => ''],
-            ['draws' => '24', 'description' => $translationAdapter->query("mult_btn4"), 'price_description' => $translationAdapter->query("desc_mult4"), 'price' => '8', 'discount' => 1.25, 'checked' => ''],
-            ['draws' => '48', 'description' => $translationAdapter->query("mult_btn5"), 'price_description' => $translationAdapter->query("desc_mult5"), 'price' => '8', 'discount' => 4.5, 'checked' => ''],
+            ['draws' => '1', 'description' => $translationAdapter->query("mult_btn1"), 'price_description' => $translationAdapter->query("desc_mult1"), 'price' => '1', 'discount' => 0, 'checked' => 'active', 'multi_number' => $translationAdapter->query("multi_number1")],
+            ['draws' => '4', 'description' => $translationAdapter->query("mult_btn2"), 'price_description' => $translationAdapter->query("desc_mult2"), 'price' => '1', 'discount' => 0, 'checked' => '', 'multi_number' => $translationAdapter->query("multi_number2")],
+            ['draws' => '8', 'description' => $translationAdapter->query("mult_btn3"), 'price_description' => $translationAdapter->query("desc_mult3"), 'price' => '8', 'discount' => 0, 'checked' => '', 'multi_number' => $translationAdapter->query("multi_number3")],
+            ['draws' => '24', 'description' => $translationAdapter->query("mult_btn4"), 'price_description' => $translationAdapter->query("desc_mult4"), 'price' => '8', 'discount' => 1.25, 'checked' => '', 'multi_number' => $translationAdapter->query("multi_number4")],
+            ['draws' => '48', 'description' => $translationAdapter->query("mult_btn5"), 'price_description' => $translationAdapter->query("desc_mult5"), 'price' => '8', 'discount' => 4.5, 'checked' => '', 'multi_number' => $translationAdapter->query("multi_number5")],
         ];
     }
 
