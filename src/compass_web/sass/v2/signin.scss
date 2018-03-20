@@ -321,6 +321,9 @@
     }
 
     .box-extra {
+
+
+
       @media only screen and (max-width: $width-pre-tablet) {
 
         margin-top: 3px;
@@ -330,19 +333,22 @@
         }
 
         .btn {
-        //
-        //  height: 54px;
-        //  //line-height: 57px;
-        //  line-height: 57px;
-        //  font-size: 24px;
           color: #ffffff;
-        //  padding: 0;
           text-transform: uppercase;
           border-radius: 3px;
           border-color: $v2-yellow;
           background-color: $v2-yellow;
           border: 0;
           overflow: hidden;
+        }
+      }
+      @media only screen and (min-width: $screen-ipad-v) {
+        .btn {
+          font-size: 24px;
+          padding: 0 0px;
+          overflow: hidden;
+          text-align: center;
+          box-sizing: content-box;
         }
       }
     }
