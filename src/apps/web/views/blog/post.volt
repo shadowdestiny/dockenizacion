@@ -29,7 +29,7 @@
                         </h1>
                     </div>
 
-                    <div class="wrapper">
+                    <div class="wrapper txt-left">
                         {{ postData.getContent() }}
                     </div>
                     <a href="/{{ language.translate("link_blogindex") }}" class="link-blog">{{ language.translate("gotoindex_btn") }}</a>
