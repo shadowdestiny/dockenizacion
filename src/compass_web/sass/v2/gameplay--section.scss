@@ -976,10 +976,12 @@
 
         cursor: pointer;
 
-        span {
-          float: left;
-          width: 50%;
+        & > span {
+          //float: left;
+          //width: 50%;
           margin: 0;
+          display: inline-block;
+          width:auto; 
 
           //font-family: WorkSans;
           color: #ffffff;
@@ -987,6 +989,9 @@
           font-size: 33px;
           line-height: 105px;
           text-align: center;
+
+          padding-right: 20px;
+          padding-left: 20px;
 
           @media only screen and (min-width: $screen-ipad-h) {
             font-size: 33px;
