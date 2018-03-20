@@ -17,6 +17,7 @@ class BundlePlayDTO implements \JsonSerializable
     public $singleBetPrice;
     public $singleBetPriceWithDiscount;
     public $singleBetPriceWithDiscountConversionCurrrency;
+    public $multi_number;
 
     /**
      * @param array $arrayBundleData
@@ -33,6 +34,7 @@ class BundlePlayDTO implements \JsonSerializable
         $this->active = $arrayBundleData['checked'];
         $this->singleBetPrice = $singleBetPrice;
         $this->singleBetPriceWithDiscount = $this->getSingleBetPriceWithDiscount($singleBetPrice, $arrayBundleData['discount']);
+        $this->multi_number = $arrayBundleData['multi_number'];
     }
 
     /**
@@ -160,6 +162,7 @@ class BundlePlayDTO implements \JsonSerializable
             'checked' => $this->getActive(),
             'singleBetPrice' => $this->singleBetPrice->getAmount(),
             'singleBetPriceWithDiscount' => $this->singleBetPriceWithDiscount->getAmount(),
+            'multi_number' => $this->getMultiNumber(),
         ];
     }
 
@@ -177,5 +180,21 @@ class BundlePlayDTO implements \JsonSerializable
     public function setSingleBetPriceWithDiscountConversionCurrrency($singleBetPriceWithDiscountConversionCurrrency)
     {
         $this->singleBetPriceWithDiscountConversionCurrrency = $singleBetPriceWithDiscountConversionCurrrency;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMultiNumber()
+    {
+        return $this->multi_number;
+    }
+
+    /**
+     * @param $multiNumber
+     */
+    public function setMultiNumber($multiNumber)
+    {
+        $this->multi_number = $multiNumber;
     }
 }
