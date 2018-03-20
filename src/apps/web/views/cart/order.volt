@@ -34,6 +34,10 @@
     var txt_checkout_fee = "{{ language.translate("checkout_fee") }}";
     var txt_edit = "{{ language.translate("edit_btn") }}";
     var txt_link_play = "{{ language.translate("link_euromillions_play") }}";
+    var txt_line = '{{ language.translate('line_x') }}';
+    var tuesday = '{{ language.translate('tuesday') }}';
+    var friday = '{{ language.translate('friday') }}';
+
 
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {
     var total_text = '';
@@ -187,11 +191,11 @@
 
                     <section class="section--card--details">
 
-                            <div class="top-row">
-                                <h1 class="h2">
-                                    {{ language.translate("card_subhead") }}
-                                </h1>
-                            </div>
+                        <div class="top-row">
+                            <h1 class="h2">
+                                {{ language.translate("card_subhead") }}
+                            </h1>
+                        </div>
                         <div class="section--content">
                             <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}"
                                   method="post"

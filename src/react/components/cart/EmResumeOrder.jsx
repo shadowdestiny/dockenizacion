@@ -22,9 +22,9 @@ var EmResumeOrder = new React.createClass({
         var date = new Date(date_since);
         var day = '';
         if(date.getDay() == 2 ) {
-            day = 'Tuesday';
+            day = this.props.tuesday;
         } else if(date.getDay() == 5 ) {
-            day = 'Friday';
+            day = this.props.friday;
         }
 
         if(config.frequency == 1) {

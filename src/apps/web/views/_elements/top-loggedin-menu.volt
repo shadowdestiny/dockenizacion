@@ -17,7 +17,7 @@
 
         <div class="left">
             <div class="txt">
-                {{ language.translate("balance") }}: {{ user_balance }}
+                {{ user_balance }}
             </div>
             <a href="/account/wallet">
                 {{ language.translate("deposit") }}

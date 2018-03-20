@@ -57,12 +57,10 @@ function numCharLine($line){
     return $num_char_line;
 }
 ?>
-
-
     <div class="wrapper">
         <div class="thank-you-block">
             <div class="thank-you-block--top">
-                <h1>Thank you!</h1>
+                <h1>{{ language.translate("confirmation_h1") }}</h1>
 
                 <h2>
                     {{ language.translate("confirmation_head") }}
@@ -71,7 +69,7 @@ function numCharLine($line){
                     {{ language.translate("confirmation_subhead") }}
                 </p>
                 {#<div class="countdown">#}
-                    {##}
+                {##}
                 {#</div>#}
                 <div class="count">
                     <span class="h4">{{ language.translate("countdown") }}
@@ -102,7 +100,7 @@ function numCharLine($line){
                 <div class="btn-row">
                     <a href="/{{ language.translate("link_euromillions_play") }}" class="btn-theme--big">
                         <span class="resizeme">
-                            Play more
+                            {{ language.translate("tickets_play_again") }}
                         </span>
                     </a>
                 </div>
@@ -111,7 +109,8 @@ function numCharLine($line){
 
             <div class="thank-you-block--jackpot">
                 <p>
-                    {{ language.translate("confirmation_lines") }} {{ language.translate(draw_day) }}, {{ start_draw_date_format }}
+                    {{ language.translate("confirmation_lines") }} {{ language.translate(draw_day) }}
+                    , {{ start_draw_date_format }}
                 </p>
                 <h2>
                     {{ language.translate("tittle") }} {{ jackpot_value }} {% if milliards %}
@@ -125,24 +124,25 @@ function numCharLine($line){
             </div>
 
             <div class="thank-you-block--rows">
-                {%  for i,numbers in lines.bets %}
+                {% for i,numbers in lines.bets %}
                     <?php $regular_arr = explode(',', $numbers->regular);
-                        $lucky_arr = explode(',', $numbers->lucky);
-                    ?>
-                <div class="thank-you-block--row">
-                    <p>
-                        <b>LINE <?php echo numCharLine($i);?></b> {{ language.translate(draw_day) }}, {{ start_draw_date_format }}
-                    </p>
+                                                                $lucky_arr = explode(',', $numbers->lucky);
+                                                                ?>
+                    <div class="thank-you-block--row">
+                        <p>
+                            <b>{{ language.translate("line_x") }} <?php echo numCharLine($i);?></b> {{ language.translate(draw_day) }}
+                            , {{ start_draw_date_format }}
+                        </p>
 
-                    <ul class="no-li inline numbers small">
-                        {% for regular_number in regular_arr %}
-                            <li><?php echo sprintf("%02s", $regular_number);?></li>
-                        {% endfor %}
-                        {% for lucky_number in lucky_arr %}
-                            <li class="star"><?php echo sprintf("%02s", $lucky_number);?></li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                        <ul class="no-li inline numbers small">
+                            {% for regular_number in regular_arr %}
+                                <li><?php echo sprintf("%02s", $regular_number);?></li>
+                            {% endfor %}
+                            {% for lucky_number in lucky_arr %}
+                                <li class="star"><?php echo sprintf("%02s", $lucky_number);?></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 {% endfor %}
             </div>
 

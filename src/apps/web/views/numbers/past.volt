@@ -45,40 +45,36 @@
 {% endblock %}
 {% block body %}
     <main id="content">
-
         <div class="result-page--content--previous-result">
             <div class="banner"></div>
             <div class="wrapper">
-
                 <br>
+                <div class="content">
+                    {% include "_elements/section-powerball.volt" %}
 
-            <div class="content">
+                    <div class="left-section result-section">
 
-                {% include "_elements/section-powerball.volt" %}
-
-                <div class="left-section result-section">
-
-                    {#<div class="jackpot--mobile">#}
+                        {#<div class="jackpot--mobile">#}
                         {#<div class="jackpot--row">#}
-                            {#Jackpot €73,000,000#}
+                        {#Jackpot €73,000,000#}
                         {#</div>#}
                         {#<div class="next--row">#}
-                            {#Next draw \ 21hr : 12min : 33sec#}
+                        {#Next draw \ 21hr : 12min : 33sec#}
                         {#</div>#}
                         {#<div class="btn--row">#}
-                            {#<a href="/{{ language.translate("link_euromillions_play") }}" class="btn-theme--big">#}
-                                {#Play now#}
-                            {#</a>#}
+                        {#<a href="/{{ language.translate("link_euromillions_play") }}" class="btn-theme--big">#}
+                        {#Play now#}
+                        {#</a>#}
                         {#</div>#}
-                    {#</div>#}
+                        {#</div>#}
 
-                    <h1 class="h1 title">
-                        {% if mobile == 1 %}
-                            {{ language.translate("resultshist_mobile_h1") }}
-                        {% else %}
-                            {{ language.translate("resultshist_title") }}
-                        {% endif %}
-                    </h1>
+                        <h1 class="h1 title">
+                            {% if mobile == 1 %}
+                                {{ language.translate("resultshist_mobile_h1") }}
+                            {% else %}
+                                {{ language.translate("resultshist_title") }}
+                            {% endif %}
+                        </h1>
                         <div class="history-numbers-block">
                             <div class="pad">
                                 <h2 class="h2 purple">{{ language.translate("historyNumbers_title") }}</h2>
@@ -111,17 +107,17 @@
                             </table>
 
                             <div id="show-more-results">
-                            <div class="btn-theme--big">
+                                <div class="btn-theme--big">
                                 <span class="resizme">
-                                    Load more
+                                    {{ language.translate("loadmore_btn") }}
                                 </span>
-                            </div>
+                                </div>
                             </div>
 
                         </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </main>
 {% endblock %}

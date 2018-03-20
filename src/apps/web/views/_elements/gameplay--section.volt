@@ -2252,7 +2252,7 @@
         <div class="cl" id="box-action" data-reactid=".0.0:$2">
             <ul class="no-li cl box-action" data-reactid=".0.0:$2.0">
                 <li data-for="add-lines" class="box-more"
-                    data-tip="It is not possible to add more lines until you fill in the previous ones"
+                    data-tip={{ language.translate("addlines_message") }}
                     data-reactid=".0.0:$2.0.$1"><a class="btn gwg add-more ui-link" href="javascript:void(0);"
                                                    data-reactid=".0.0:$2.0.$1.0"><span data-reactid=".0.0:$2.0.$1.0.0">Add more lines</span>
                         <svg class="ico v-plus" data-reactid=".0.0:$2.0.$1.0.1">
