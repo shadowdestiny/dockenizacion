@@ -4,7 +4,7 @@
         <tr>
             <td class="lottery"></td>
             <td class="date-from">{{ language.translate("tickets_past_date") }}</td>
-            <td class="date-to">{{ language.translate("tickets_play_again") }}n</td>
+            <td class="date-to">{{ language.translate("tickets_play_again") }}</td>
             <td class="numbers">{{ language.translate("tickets_SubsPast_numbers") }}</td>
         </tr>
 
