@@ -3,13 +3,13 @@
     <div class="top-banner--banner">
         <div class="wrapper">
 
-            <h3 class="top-banner--head">
+            <h1 class="top-banner--head">
                 {% if mobile == 1 %}
                     {{ language.translate("home_mobile_h1") }}
                 {% else %}
                     {{ language.translate("banner1_h1") }}
                 {% endif %}
-            </h3>
+            </h1>
             <div class="top-banner--subline">
                 {{ language.translate("banner1_subline") }}
             </div>
@@ -24,13 +24,13 @@
 
             <div class="top-banner--left desktop--only">
                 <div class="resizeme">
-                {{ language.translate("banner1_subhead") }}
+                    {{ language.translate("banner1_subhead") }}
                 </div>
             </div>
 
             <div class="top-banner--center desktop--only">
                 {#<div class="resizeme desktop-row--01{% if jackpot_value|length > 4 %}-sm{% endif %}">#}
-                    {#{{ jackpot_value }}#}
+                {#{{ jackpot_value }}#}
                 {#</div>#}
                 <div class="resizeme desktop-row--01">
                     {{ jackpot_value }}
@@ -57,16 +57,16 @@
                 </div>
                 <div class="top-banner--for-only">
                     <div class="resizeme">
-                    {% include "_elements/countdown--home.volt" %}
+                        {% include "_elements/countdown--home.volt" %}
                     </div>
                 </div>
 
-                    <a href="/{{ language.translate("link_euromillions_play") }}"
-                       class="btn-theme--big">
+                <a href="/{{ language.translate("link_euromillions_play") }}"
+                   class="btn-theme--big">
                         <span class="resizeme">
                         {{ language.translate("banner1_btn") }}
                             </span>
-                    </a>
+                </a>
 
             </div>
 
@@ -74,7 +74,7 @@
 
                 <div class="top-banner--for-only">
                     <div class="resizeme">
-                    {% include "_elements/countdown.volt" %}
+                        {% include "_elements/countdown.volt" %}
                     </div>
                 </div>
 
