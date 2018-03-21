@@ -47,7 +47,7 @@
     var friday = '{{ language.translate('friday') }}';
     var next_draw_date_format = '{{ next_draw_date_format }}';
     var clear_btn = '{{ language.translate('clear_btn') }}';
-    var addlines_message = '{{ language.translate('addlines_message') }}';
+    var addlines_message = "{{ language.translate('addlines_message') }}";
 
 
     {#añadir aqui el translate#}
