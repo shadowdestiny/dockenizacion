@@ -47,6 +47,17 @@
 
   .txt-left{
     text-align: left;
+    ul {
+      @media only screen and (max-width: 480px) {
+        padding-left: 20px;
+      }
+    }
+
+    ol {
+      @media only screen and (max-width: 480px) {
+        padding-left: 20px;
+      }
+    }
   }
 
   .title-blog {
