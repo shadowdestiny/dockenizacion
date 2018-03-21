@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\forms;
 
 
@@ -69,7 +70,7 @@ class GuestContactForm extends Form
             ],
             [
                 'useEmpty' => true,
-                'emptyText' => $translationAdapter->query("option"),
+                'emptyText' => $translationAdapter->query("options"),
 
             ]
         );
@@ -77,7 +78,7 @@ class GuestContactForm extends Form
 
         $csrf = new Hidden('csrf');
         $csrf->addValidator(new Identical(array(
-            'value'   => $this->security->getSessionToken(),
+            'value' => $this->security->getSessionToken(),
             'message' => 'Cross scripting protection. Reload the page.'
         )));
         $this->add($csrf);

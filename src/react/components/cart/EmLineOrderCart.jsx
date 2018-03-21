@@ -25,7 +25,7 @@ var EmLineOrder = new React.createClass({
         return (
             <div className="row cl">
                 <div className="desc">
-                    Line {num_char_line}
+                    {this.props.txt_line} {num_char_line}
                 </div>
                 <div className="detail">
                     <ul className="no-li inline numbers small">
