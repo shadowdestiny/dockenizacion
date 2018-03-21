@@ -24,7 +24,7 @@
                 </h1>
                 <div class="wrap">
                     <div class="cols">
-                                <h2 class="h2"><span class="purple">{{ language.translate("h2_mainprizes") }}</span>
+                                <h2 class="h2"><span>{{ language.translate("h2_mainprizes") }}</span>
                                 </h2>
                                 <p>{{ language.translate("text_mainprizes") }}</p>
 
@@ -144,8 +144,7 @@
 
                     </div>
                     <div class="cols">
-                        <h2 class="h2"><span
-                                    class="purple">{{ language.translate("check_number") }}</span>
+                        <h2 class="h2"><span>{{ language.translate("check_number") }}</span>
                         </h2>
                         <form class="box-add-card form-currency" method="post" action="/christmas-lottery/search">
                             <label for="ticketnumber">{{ language.translate("insert_number") }}&nbsp;</label><input type="text" id="ticket_number" name="ticket_number"/>
@@ -153,8 +152,7 @@
                         </form>
                     </div>
                     <div class="cols">
-                                <h2 class="h2"><span
-                                            class="purple">{{ language.translate("h2_otherprizes") }}</span>
+                                <h2 class="h2"><span>{{ language.translate("h2_otherprizes") }}</span>
                                 </h2>
                                 <h3 class="h3">{{ language.translate("h3_otherprizesamount") }}</h3>
                                 <p>{{ language.translate("text_otherprizesamount") }}</p>
