@@ -75,9 +75,9 @@
             {#{% include "_elements/christmas-lottery-banner-block.volt" %}#}
 
             <div class="hiw-block--section">
-                <h1 class="h2">
+                <h2 class="h2">
                     {{ language.translate("banner2_head") }}
-                </h1>
+                </h2>
 
                 <div class="hiw-block--inner">
                     <div class="hiw-block hiw-block--01">
