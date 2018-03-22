@@ -54,7 +54,9 @@
 
                 <div class="title-block">
                     <h1>
-                        {{ language.translate("help_head") }}
+                        <span class="resizeme">
+                            {{ language.translate("help_head") }}
+                        </span>
                     </h1>
                 </div>
 
