@@ -660,14 +660,14 @@
 
       .number-generator--block--button {
         //display: inline-block;
-        //height: 76px;
-        //line-height: 76px;
+        height: 76px;
+        line-height: 76px;
         //padding-left: 50px;
 
         width: 100%;
         display: block;
-        height: 36px;
-        line-height: 36px;
+        //height: 36px;
+        //line-height: 36px;
         font-size: 24px;
       //
         @media only screen and (min-width: $screen-ipad-v) {

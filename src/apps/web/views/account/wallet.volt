@@ -179,7 +179,7 @@
                         {{user_name}}
                     </div>
                     <div class="block--balance">
-                        {{ language.translate('balance') }}: {{ user_balance }}
+                        {{ user_balance }}
                     </div>
                 </div>
 

@@ -134,7 +134,7 @@
                     </span>
 
                     <h3 class="desktop--only">
-                        {{ language.translate(draw_day) }}, {{ next_draw_date_format }}
+                        {{ language.translate(draw_day) }}, {{ past_draw_date_format }}
                     </h3>
                 </div>
 

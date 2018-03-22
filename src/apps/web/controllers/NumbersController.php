@@ -114,8 +114,8 @@ class NumbersController extends PublicSiteControllerBase
         }
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
-        $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
-        $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        $numbers = preg_replace('/[A-Z,.]/', '', ViewHelper::formatJackpotNoCents($jackpot));
+        $letters = preg_replace('/[0-9.,]/', '', ViewHelper::formatJackpotNoCents($jackpot));
         $this->view->setVar('milliards', false);
         $this->view->setVar('trillions', false);
         if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
@@ -126,7 +126,7 @@ class NumbersController extends PublicSiteControllerBase
             $numbers = round(($numbers / 1000000), 1);
             $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
             $this->view->setVar('trillions', true);
-        } else{
+        } else {
             $this->view->setVar('milliards', false);
             $this->view->setVar('trillions', false);
         }
@@ -159,7 +159,9 @@ class NumbersController extends PublicSiteControllerBase
             'pageController' => 'euroPastResult',
             'draw_day' => $euroMillionsDraw->getDrawDate()->format('l'),
             'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
+            'past_draw_date_format' => $euroMillionsDraw->getDrawDate()->format('d.m.Y'),
         ]);
+
     }
 
     private function convertCurrency(array $break_downs)

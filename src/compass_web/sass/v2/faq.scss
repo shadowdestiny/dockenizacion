@@ -63,12 +63,14 @@
       line-height: 60px;
       font-size: 22px;
       padding-left: 29px;
+      padding-right: 29px;
       font-weight: 900;
       text-transform: uppercase;
 
       @media only screen and (min-width: $screen-ipad-v) {
         line-height: 116px;
         padding-left: 29px;
+        padding-right: 29px;
         font-size: 37px;
         //line-height: 63px;
       }
@@ -76,11 +78,14 @@
         line-height: 116px;
         font-size: 40px;
         padding-left: 29px;
+        padding-right: 29px;
       }
       @media only screen and (min-width: $screen-desktop) {
-        line-height: 84px;
+        //line-height: 84px;
+        line-height: 92px;
         font-size: 45px;
         padding-left: 22px;
+        padding-right: 22px;
       }
     }
   }
