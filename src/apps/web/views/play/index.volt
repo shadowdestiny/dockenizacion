@@ -61,6 +61,7 @@
         currencySymbol  : '<?php echo $currency_symbol ?>',
         discountLines   : <?php echo $discount_lines; ?>,
         drawDateFormat  : '{{ next_draw_date_format }}',
+        playDate        : '<?php echo explode('#', json_decode($dates_draw)[0][0])[0] ?>',
         translations    : {
             discountLinesTitle    : '{{ language.translate('tittle_multiple') }}',
             addLinesBtn           : '{{ language.translate('addLines_btn') }}',
