@@ -98,7 +98,8 @@ class UserSettingsController extends AjaxControllerBase
                 'legalPrivacy' => '/legal/privacy',
                 'christmasNumbersIndex' => '/christmas-lottery/results',
                 'christmasNumbersSearch' => '/christmas-lottery/search',
-                'blogIndex' => '/en/facts'
+                'blogIndex' => '/en/facts',
+                'powerHowto' => '/powerball/how-to-play',
             ],
             'ru' => [
                 'index' => '/ru',
@@ -119,7 +120,8 @@ class UserSettingsController extends AjaxControllerBase
                 'legalPrivacy' => '/юридическая-информация/конфиденциальность',
                 'christmasNumbersIndex' => '/ru/рождественская-лотерея/результаты',
                 'christmasNumbersSearch' => '/ru/рождественская-лотерея/поиск',
-                'blogIndex' => '/ru/факты'
+                'blogIndex' => '/ru/факты',
+                'powerHowto' => '/ru/powerball/как-играть',
             ],
             'es' => [
                 'index' => '/es',
@@ -140,7 +142,8 @@ class UserSettingsController extends AjaxControllerBase
                 'legalPrivacy' => '/es/privacidad',
                 'christmasNumbersIndex' => '/es/loteria-navidad/resultados',
                 'christmasNumbersSearch' => '/es/loteria-navidad/buscar',
-                'blogIndex' => '/es/datos'
+                'blogIndex' => '/es/datos',
+                'powerHowto' => '/es/powerball/como-se-juega',
             ],
             'it' => [
                 'index' => '/it',
@@ -161,7 +164,8 @@ class UserSettingsController extends AjaxControllerBase
                 'legalPrivacy' => '/it/privacy-policy',
                 'christmasNumbersIndex' => '/it/lotteria-natale/estrazioni',
                 'christmasNumbersSearch' => '/christmas-lottery/search',
-                'blogIndex' => '/it/consigli'
+                'blogIndex' => '/it/consigli',
+                'powerHowto' => '/it/powerball/come-giocare',
             ],
             'nl' => [
                 'index' => '/nl',
@@ -182,7 +186,8 @@ class UserSettingsController extends AjaxControllerBase
                 'legalPrivacy' => '/nl/privacy',
                 'christmasNumbersIndex' => '/nl/kerst-loterij/uitslagen',
                 'christmasNumbersSearch' => '/christmas-lottery/search',
-                'blogIndex' => '/nl/informatie'
+                'blogIndex' => '/nl/informatie',
+                'powerHowto' => '/nl/powerball/speluitleg',
             ],
 
         ];
