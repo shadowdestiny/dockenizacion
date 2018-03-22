@@ -50,6 +50,10 @@ export default class MobilePlayApp extends Component {
      * submission handler
      */
     onSubmit : PropTypes.func,
+    /**
+     * This prop will be submitted on checkout
+     */
+    playDate : PropTypes.string,
   }
 
   constructor (props) {
@@ -341,6 +345,8 @@ export default class MobilePlayApp extends Component {
       bets
     } = this.state
 
+    const { playDate } = this.props
+
     // suppress if no bets placed
     if (!bets.length) {
       return
@@ -357,7 +363,7 @@ export default class MobilePlayApp extends Component {
       }
     })
     // TODO: sort out deprecated and unused params
-    postData += `draw_days=1&frequency=${drawsNumber}&draw_day_play=2`
+    postData += `draw_days=1&frequency=${drawsNumber}&draw_day_play=2&start_draw=${playDate}`
     ajaxFunctions.playCart(postData)
   }
 
