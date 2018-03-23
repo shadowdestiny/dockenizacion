@@ -5,7 +5,7 @@
     <link rel="icon" type="image/png" href="/w/img/logo/favicon.png" />
 
     {# CSS Compress this css in a single file #}
-    <link rel="stylesheet" href="/w/css/main.css">
+    <link rel="stylesheet" href="/w/css/main.css?version=2.0">
     <link rel="stylesheet" href="/w/css/vendor/jquery.countdownTimer.css">
     {% block template_css %}{% endblock %}      {# Inject unique css #}
 
@@ -50,7 +50,7 @@
                             $('#countDownFinishBet').fadeOut('fast');
                         }, {{ countdown_finish_bet['diffTimeActualTimeAndNextDrawTime'] * 1000 }});
 
-                        if (window.location.pathname.split('/')[2] == 'play') {
+                        if (window.location.pathname.split('/')[2] == 'play') {main.
                             setTimeout(function () {
                                 showModalTicketCloseByLimitBet();
                             }, {{ countdown_finish_bet['diffTimeActualTimeAndNextDrawTime'] * 1000 }});
