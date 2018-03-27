@@ -5,24 +5,26 @@ var EuroMillionsClearLine = require('./EmClearLine.js');
 var EuroMillionsCheckMark = require('./EmIcoCheckMark.js');
 var EuroMillionsRandomBtn = require('./EmRandomBtn.js');
 
-var EuroMillionsLine = React.createClass({
+const GAME_MODE_POWERBALL = 'powerball'
+const GAME_MODE_EUROMILLIONS = 'euromillions'
 
-    getDefaultProps: function()
-    {
-        return {
-            maxNumbers : 5,
-            maxStars : 2
-        }
-    },
+var EuroMillionsLine = React.createClass({
 
     getInitialState: function ()
     {
         var showClearBtn = false;
         var numbers = [];
         var stars = [];
-        if(this.props.storage != null || typeof this.props.storage != 'undefined') {
-                numbers = this.props.storage.numbers;
-                stars = this.props.storage.stars;
+        const {
+          storage,
+          maxNumbers,
+          maxStars,
+          gameMode,
+        } = this.props
+
+        if(storage != null || typeof storage != 'undefined') {
+          numbers = storage.numbers;
+          stars   = storage.stars;
         }
         return {
             isAnimated : false,
@@ -30,7 +32,11 @@ var EuroMillionsLine = React.createClass({
             selectedNumbers: {
                 'numbers': numbers,
                 'stars': stars
-            }
+            },
+            maxStars      : maxStars || gameMode == GAME_MODE_POWERBALL ? 1 : 2,
+            maxNumbers    : 5,
+            highestNumber : gameMode == GAME_MODE_POWERBALL ? 69 : 50,
+            highestStar   : gameMode == GAME_MODE_POWERBALL ? 26 : 12,
         };
     },
 
@@ -72,7 +78,7 @@ var EuroMillionsLine = React.createClass({
         if (typeof number != 'undefined') {
             var position = this.state.selectedNumbers.numbers.indexOf(number);
             if (position == -1) {
-                if( this.state.selectedNumbers.numbers.length < this.props.maxNumbers ) {
+                if( this.state.selectedNumbers.numbers.length < this.state.maxNumbers ) {
                     this.state.show_btn_clear = true;
                     this.state.selectedNumbers.numbers.push(number);
                 }
@@ -86,9 +92,11 @@ var EuroMillionsLine = React.createClass({
     },
 
 
-    storePlay : function()
+    storePlay : function(numbers = null, stars = null)
     {
-        this.props.addLineInStorage(null,this.props.lineNumber,this.state.selectedNumbers.numbers, this.state.selectedNumbers.stars);
+      numbers = numbers === null ? this.state.selectedNumbers.numbers : numbers
+      stars   = stars === null ? this.state.selectedNumbers.stars : stars
+      this.props.addLineInStorage(null,this.props.lineNumber, numbers, stars);
     },
 
     handleClickOnStar: function (star)
@@ -96,7 +104,7 @@ var EuroMillionsLine = React.createClass({
         if (typeof star != 'undefined') {
             var position = this.state.selectedNumbers.stars.indexOf(star);
             if (position == -1) {
-                if( this.state.selectedNumbers.stars.length < this.props.maxStars ) {
+                if( this.state.selectedNumbers.stars.length < this.state.maxStars ) {
                     this.state.show_btn_clear = true;
                     this.state.selectedNumbers.stars.push(star);
                 }
@@ -133,13 +141,20 @@ var EuroMillionsLine = React.createClass({
     {
         var nums = [];
         var stars = [];
-        for(var i=0; i < 5; i++){
-            var n = Math.floor(Math.random() * 51);
+        const {
+          highestNumber,
+          highestStar,
+          maxNumbers,
+          maxStars,
+        } = this.state
+
+        for(var i=0; i < maxNumbers; i++){
+            var n = Math.floor(Math.random() * (highestNumber + 1));
             if(nums.indexOf(n) == -1) nums[i] = n; else i--;
             if(n == 0) i--;
         }
-        for(var i=0; i < 2; i++){
-            var s = Math.floor(Math.random() * 13);
+        for(var i=0; i < maxStars; i++){
+            var s = Math.floor(Math.random() * (highestStar + 1));
             if(stars.indexOf(s) == -1) stars[i] = s; else i--;
             if(s == 0) i--;
         }
@@ -157,56 +172,33 @@ var EuroMillionsLine = React.createClass({
 
     render: function ()
     {
-        var rows = [];
-        var linenumber = this.props.lineNumber;
-        var numbers_length = this.state.selectedNumbers.numbers.length;
-        var stars_length = this.state.selectedNumbers.stars.length;
+        const { selectedNumbers } = this.state
+        const { lineNumber, gameMode } = this.props
 
-        if(numbers_length === 0 && stars_length === 0) {
-            this.state.show_btn_clear = false;
-        } else {
-            this.state.show_btn_clear = true;
-        }
-        for (var i = 1; i <= 50; i = i + j) {
-            var row = [];
-            for (var j = 0; j < this.props.numberPerLine; j++) {
-                row.push(i + j)
-            }
-            rows.push(<EuroMillionsLineRow random_animation={this.state.isAnimated} numbers={row} onNumberClick={this.handleClickOnNumber}
-                                           selectedNumbers={this.state.selectedNumbers} key={row[0]}/>);
-        }
-        var star_rows = [];
-        var star_numbers = [];
-        for (var k = 1; k <= 4; k++) {
-            star_numbers.push(k);
-        }
-        star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
-                                                 extraClass="" columnClass="col3 not" key="1"/>);
-        star_numbers = [];
-        for (; k <= 8; k++) {
-            star_numbers.push(k);
-        }
-        star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
-                                                 extraClass=" " columnClass="col3 not" key="2"/>);
-        star_numbers = [];
-        for (; k <= 12; k++) {
-            star_numbers.push(k);
-        }
-        star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
-                                                 extraClass="" columnClass="col3 not" key="3"/>);
+        const showStars = gameMode == GAME_MODE_EUROMILLIONS
+        const showDropdown = gameMode == GAME_MODE_POWERBALL
 
 
         var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var num_char_line = '';
         for(var c = 0; c < alphabet.length; c++) {
-            num_char_line = alphabet.charAt(linenumber)
+            num_char_line = alphabet.charAt(lineNumber)
             if( !num_char_line ) {
-                var cur_pos = (linenumber - alphabet.length);
-                var new_pos = (linenumber - alphabet.length) +2;
+                var cur_pos = (lineNumber - alphabet.length);
+                var new_pos = (lineNumber - alphabet.length) +2;
                 num_char_line = alphabet.charAt(cur_pos) +""+ alphabet.charAt(new_pos);
             }
         }
 
+        var numbers_length = selectedNumbers.numbers.length;
+        var stars_length = selectedNumbers.stars.length;
+
+        // direct state change??
+        if(numbers_length === 0 && stars_length === 0) {
+          this.state.show_btn_clear = false;
+        } else {
+          this.state.show_btn_clear = true;
+        }
         var class_name = "myCol num"+this.props.lineNumber;
         return (
             <div onLoad={this.count} className={class_name}>
@@ -217,18 +209,124 @@ var EuroMillionsLine = React.createClass({
                         <EuroMillionsRandomBtn line={this.props.lineNumber} onBtnRandomClick={this.handleClickRandom}/>
                     </div>
                     <div className="values">
-                        <div className="numbers">
-                            {rows}
-                        </div>
-                        <div className="stars">
-                            {star_rows}
-                        </div>
+                        {this.renderNumbersBlock()}
+                        {showStars ? this.renderStarsBlock() : null}
+                        {showDropdown ? this.renderPowerBallDropdown() : null}
                     </div>
                     <EuroMillionsClearLine clear_btn={clear_btn} showed={this.state.show_btn_clear} onClearClick={this.handleClickOnClear}/>
                 </div>
             </div>
         );
-    }
+    },
+
+    renderNumbersBlock : function () {
+      const {
+        isAnimated,
+        selectedNumbers,
+        highestNumber,
+      } = this.state
+
+      const { numberPerLine } = this.props
+
+      const rows = []
+      let numbers = []
+
+      for (let i = 1; i <= highestNumber; i ++) {
+        numbers.push(i)
+        if ((i % numberPerLine == 0 && numbers.length) || i == highestNumber) {
+          rows.push(<EuroMillionsLineRow
+            key={i}
+            random_animation={isAnimated}
+            numbers={numbers}
+            onNumberClick={this.handleClickOnNumber}
+            selectedNumbers={selectedNumbers}
+          />)
+          numbers = []
+        }
+      }
+
+      return (
+        <div className="numbers">
+            {rows}
+        </div>
+      )
+    },
+
+    renderStarsBlock : function () {
+      const { starsPerLine } = this.props
+      const {
+        highestStar,
+        isAnimated,
+        selectedNumbers,
+      } = this.state
+
+      const rows = []
+      let numbers = []
+
+      for (let i = 1; i <= highestStar; i ++) {
+        numbers.push(i)
+        if ((i % starsPerLine == 0 && numbers.length) || i == highestStar) {
+          rows.push(<EuroMillionsLineStarsRow
+            key={i}
+            random_animation={isAnimated}
+            numbers={numbers}
+            onStarClick={this.handleClickOnStar}
+            selectedNumbers={selectedNumbers}
+            extraClass=""
+            columnClass="col3 not"
+          />)
+          numbers = []
+
+        }
+      }
+
+      return (
+        <div className="stars">
+            {rows}
+        </div>
+      )
+    },
+
+    renderPowerBallDropdown : function () {
+      const { highestStar } = this.state
+      const { stars } = this.state.selectedNumbers
+      const { translations } = this.props
+      const options = [
+        <option key={-1} value={-1}></option>
+      ]
+      for (let i = 0; i < highestStar; i ++) {
+        options.push(<option key={i} value={i}>{i}</option>)
+      }
+
+
+      return (
+        <div>
+          <div>{translations.powerballLabel}</div>
+          <select
+            value={stars && stars[0] ? stars[0] : -1}
+            onChange={e => this.handlePowerballSelection(e.target.value)}
+          >
+            {options}
+          </select>
+        </div>
+      )
+    },
+
+    handlePowerballSelection: function (value) {
+      value = parseInt(value)
+      if (value == -1) {
+        return
+      }
+
+      this.storePlay(null, [value])
+      const { selectedNumbers } = this.state
+
+      this.setState({ selectedNumbers : {
+        numbers : selectedNumbers.numbers,
+        stars   : [value]
+      }})
+    },
+
 });
 
 module.exports = EuroMillionsLine;

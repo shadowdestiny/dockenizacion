@@ -13,6 +13,9 @@ const MAX_MOBILE_WIDTH = 768
 const TABLET_PORTRAIT_WIDTH = 992
 const TABLET_LANDSCAPE_WIDTH = 1024
 
+const GAME_MODE_POWERBALL = 'powerball'
+const GAME_MODE_EUROMILLIONS = 'euromillions'
+
 var PlayPage = React.createClass({
 
     getInitialState : function ()
@@ -40,10 +43,11 @@ var PlayPage = React.createClass({
             reset_advanced_play : false,
             draw_dates : this.props.draw_dates,
             draw_duration : this.props.draw_duration,
-            storage : JSON.parse(localStorage.getItem('bet_line')) || [],
+            storage : JSON.parse(localStorage.getItem(this.getStorageKey())) || [],
             draws_number: this.props.draws_number,
             discount: this.props.discount,
             mobileView : window.innerWidth < MAX_MOBILE_WIDTH,
+            powerPlayEnabled : false,
         }
     },
 
@@ -77,6 +81,7 @@ var PlayPage = React.createClass({
         if( nextState.draws_number != this.state.draws_number) return true;
         if( nextState.discount != this.state.discount) return true;
         if( nextState.mobileView != this.state.mobileView) return true;
+        if( nextState.powerPlayEnabled != this.state.powerPlayEnabled) return true;
         return nextState.price != this.state.price;
     },
 
@@ -87,14 +92,23 @@ var PlayPage = React.createClass({
         this.updatePrice();
     },
 
+    getStorageKey : function () {
+      const storageKeys = {
+        [GAME_MODE_POWERBALL] : 'pb_bat_line',
+        [GAME_MODE_EUROMILLIONS] : 'bet_line',
+      }
+      return storageKeys[this.props.mode]
+    },
 
     getNumLinesThatAreFilled : function ()
     {
         var current_lines = this.state.storage;
         var num_valid_lines = 0;
+        const { mode } = this.props
+        const maxStars = mode == GAME_MODE_POWERBALL ? 1 : 2
 
         current_lines.forEach(function(value) {
-            if(value.numbers.length == 5 && value.stars.length == 2) {
+            if(value.numbers.length == 5 && value.stars.length == maxStars) {
                 num_valid_lines++;
             }
         });
@@ -138,7 +152,7 @@ var PlayPage = React.createClass({
                 this.state.storage[i] = { 'numbers' : [], 'stars' : []};
             }
         }
-        localStorage.setItem('bet_line', JSON.stringify(this.state.storage, function(k,v){
+        localStorage.setItem(this.getStorageKey(), JSON.stringify(this.state.storage, function(k,v){
                 return (v == null || v == 'null') ? { 'numbers' : [], 'stars' : []} : v;
             }));
 
@@ -241,6 +255,10 @@ var PlayPage = React.createClass({
       }
 
       return lines
+    },
+
+    enablePowerPlay : function (enable) {
+      this.setState({ powerPlayEnabled : !!enable })
     },
 
     mouseOverBtnAddLines : function ()
@@ -433,6 +451,7 @@ var PlayPage = React.createClass({
 
     render : function ()
     {
+        const { mode } = this.props
         var elem = [];
         var numberEuroMillionsLine = this.state.lines_default;
         if(this.state.count_lines > 0) {
@@ -443,15 +462,45 @@ var PlayPage = React.createClass({
         var descriptionBeforeButtonPrice = this.getNumLinesThatAreFilled() + ' ' + this.props.txtMultLines + ' x ' + this.state.draws_number + ' ' + this.props.txtMultDraws + ' ';
         var total_price = this.getTotalPriceWithDiscount(this.state.draws_number).toFixed(2);
 
-        elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1" txtLine={this.props.txtLine} />);
-        elem.push(<EuroMillionsBoxAction addlines_message={this.props.addlines_message} clear_btn={clear_btn} clearAllLines={this.props.clearAllLines} randomizeAllLines={this.props.randomizeAllLines} addLinesBtn={this.props.addLinesBtn} next_draw_format={this.props.next_draw_format} show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>);
+        elem.push(<EuroMillionsMultipleEmLines
+          add_storage={this.addLinesInStorage}
+          clear_all={this.state.clear_all}
+          callback={this.handleOfBetsLine}
+          random_all={random_all}
+          numberEuroMillionsLine={numberEuroMillionsLine}
+          key="1"
+          txtLine={this.props.txtLine}
+          gameMode={mode}
+          storage={this.state.storage}
+          translations={__initialState.translations}
+        />);
+
+        elem.push(<EuroMillionsBoxAction
+          addlines_message={this.props.addlines_message}
+          clear_btn={clear_btn}
+          clearAllLines={this.props.clearAllLines}
+          randomizeAllLines={this.props.randomizeAllLines}
+          addLinesBtn={this.props.addLinesBtn}
+          next_draw_format={this.props.next_draw_format}
+          show_tooltip={this.state.show_tooltip_lines}
+          mouse_over_btn={this.mouseOverBtnAddLines}
+          add_lines={this.handlerAddLines}
+          lines={this.state.lines}
+          random_all_btn={this.handlerRandomAll}
+          show_clear_all={this.state.show_clear_all}
+          clear_all_btn={this.handlerClearAll}
+          translations={__initialState.translations}
+          showPowerPlayCheck={mode == GAME_MODE_POWERBALL}
+          enablePowerPlay={this.enablePowerPlay}
+          key="2"
+        />);
 
         if (this.state.mobileView) {
-          return <MobilePlayApp {...__initialState} onSubmit={(data) => console.log(data)} />
+          return <MobilePlayApp {...__initialState} />
         }
 
         return (
-            <div className="gameplay--section">
+            <div className={"gameplay--section " + (mode == GAME_MODE_POWERBALL ? 'powerball-game' : 'euromillions-game')}>
                 {elem}
                 <div className="box-bottom">
                     <div className="wrap">
@@ -478,6 +527,9 @@ var PlayPage = React.createClass({
                           next_draw_date_format={next_draw_date_format}
                           tuesday={tuesday}
                           friday={friday}
+                          powerPlayEnabled={this.state.powerPlayEnabled}
+                          maxNumbers={5}
+                          maxStars={ mode == GAME_MODE_POWERBALL ? 1 : 2}
                         />
                         <EmConfigPlayBlock next_draw={this.props.next_draw} buyForDraw={this.props.buyForDraw} reset={this.handleResetStateAdvancedPlay} update_threshold={this.setChangedWhenThresholdUpdate}  show_config={this.state.show_config} date_play={this.handleChangeDate} reset_config={this.state.reset_advanced_play} draw_dates={this.state.draw_dates}  current_duration_value={this.state.duration} draw_days_selected={this.state.draw_day_play} draw_duration={this.state.draw_duration} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
                     </div>
@@ -497,4 +549,32 @@ var options_draw_duration = [
     {text : '52 weeks (Draws: 52)' , value : 52}
 ];
 
-ReactDOM.render(<PlayPage tuesday={tuesday} friday={friday} next_draw_date_format={next_draw_date_format} discount={discount} draws_number={draws_number} buyForDraw={buyForDraw} clear_btn={clear_btn} clearAllLines={clearAllLines} randomizeAllLines={randomizeAllLines} addLinesBtn={addLinesBtn} discount_lines_title={discount_lines_title} discount_lines={discount_lines} next_draw={next_draw} next_draw_format={next_draw_format} currency_symbol={currency_symbol} automatic_random={automatic_random}  lines_default={5} date_play={""+draw_dates[0]} draw_duration={options_draw_duration} draw_dates={draw_dates} txtLine={txtLine} txtMultTotalPrice={txtMultTotalPrice} txtMultLines={txtMultLines} addlines_message={addlines_message} txtMultDraws={txtMultDraws} txtNextButton={txtNextButton} />, document.getElementById('gameplay'));
+ReactDOM.render(<PlayPage
+  tuesday={tuesday}
+  friday={friday}
+  next_draw_date_format={next_draw_date_format}
+  discount={discount}
+  draws_number={draws_number}
+  buyForDraw={buyForDraw}
+  clear_btn={clear_btn}
+  clearAllLines={clearAllLines}
+  randomizeAllLines={randomizeAllLines}
+  addLinesBtn={addLinesBtn}
+  discount_lines_title={discount_lines_title}
+  discount_lines={discount_lines}
+  next_draw={next_draw}
+  next_draw_format={next_draw_format}
+  currency_symbol={currency_symbol}
+  automatic_random={automatic_random}
+  lines_default={5}
+  date_play={""+draw_dates[0]}
+  draw_duration={options_draw_duration}
+  draw_dates={draw_dates}
+  txtLine={txtLine}
+  txtMultTotalPrice={txtMultTotalPrice}
+  txtMultLines={txtMultLines}
+  addlines_message={addlines_message}
+  txtMultDraws={txtMultDraws}
+  txtNextButton={txtNextButton}
+  mode={__initialState.mode}
+/>, document.getElementById('gameplay'));

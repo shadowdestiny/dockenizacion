@@ -1,3 +1,4 @@
+import PowerPlayCheckbox from './PowerPlayCheckbox'
 var React = require('react');
 var EuroMillionsAddLinesBtn = require('./EmAddLinesBtn.jsx');
 var EuroMillionsRandomAllBtn = require('./EmRandomAllBtn.jsx');
@@ -19,15 +20,33 @@ var EuroMilliosnBoxActionPlay = React.createClass({
     },
 
     render : function() {
-        var elem = [];
-        var show_btn = this.props.show_clear_all;
+      const {
+        translations,
+        showPowerPlayCheck,
+        enablePowerPlay,
+        show_clear_all,
+        addlines_message,
+        show_tooltip,
+        addLinesBtn,
+        mouse_over_btn,
+        randomizeAllLines,
+        clearAllLines,
+      } = this.props
 
-        elem.push(<EuroMillionsAddLinesBtn addlines_message={this.props.addlines_message} show_tooltip={this.props.show_tooltip} addLinesBtn={this.props.addLinesBtn} mouse_over_btn={this.props.mouse_over_btn} onBtnAddLinesClick={this.handlerAddLines} key="1"/>);
-        elem.push(<EuroMillionsRandomAllBtn onBtnRandomAllClick={this.handlerRandomAll} randomizeAllLines={this.props.randomizeAllLines} key="2"/>);
-        elem.push(<EuroMillionsClearAllBtn clear_btn={clear_btn} show_btn_clear={show_btn} clearAllLines={this.props.clearAllLines} onBtnClearAllClick={this.handlerClearAll} key="3"/>);
+        var elem = [];
+
+        elem.push(<EuroMillionsAddLinesBtn addlines_message={addlines_message} show_tooltip={show_tooltip} addLinesBtn={addLinesBtn} mouse_over_btn={mouse_over_btn} onBtnAddLinesClick={this.handlerAddLines} key="1"/>);
+        elem.push(<EuroMillionsRandomAllBtn onBtnRandomAllClick={this.handlerRandomAll} randomizeAllLines={randomizeAllLines} key="2"/>);
+        elem.push(<EuroMillionsClearAllBtn clear_btn={clear_btn} show_btn_clear={show_clear_all} clearAllLines={clearAllLines} onBtnClearAllClick={this.handlerClearAll} key="3"/>);
 
         return (
             <div className="cl" id="box-action">
+              {showPowerPlayCheck
+                ? <div className="left-box-action">
+                    <PowerPlayCheckbox translations={translations} onChange={(checked) => enablePowerPlay(checked)} />
+                  </div>
+                : null
+              }
                 <ul className="no-li cl box-action">
                     {elem}
                 </ul>

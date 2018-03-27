@@ -57,32 +57,35 @@
     {# end of block with deprecated vars #}
 
     var __initialState = {
-    nextDrawFormat  : '<?php echo $draw_day . ' ' .$next_draw_date_format ?>',
-    priceBet        : {{ single_bet_price }},
-    currencySymbol  : '<?php echo $currency_symbol ?>',
-    discountLines   : <?php echo $discount_lines; ?>,
-    drawDateFormat  : '{{ next_draw_date_format }}',
-    playDate        : '<?php echo explode('#', json_decode($dates_draw)[0][0])[0] ?>',
-    translations    : {
-    discountLinesTitle    : '{{ language.translate('tittle_multiple') }}',
-    addLinesBtn           : '{{ language.translate('addLines_btn') }}',
-    randomizeAllLines     : '{{ language.translate('randomizeAll_btn') }}',
-    clearAllLines         : '{{ language.translate('clearAll_btn') }}',
-    buyForDraw            : "{{ language.translate('buyForDraw') }}",
-    txtLine               : '{{ language.translate('line_x') }}',
-    txtMultTotalPrice     : '{{ language.translate('mult_total1') }}',
-    txtMultLines          : '{{ language.translate('mult_total2') }}',
-    txtMultDraws          : '{{ language.translate('mult_total3') }}',
-    txtNextButton         : '{{ language.translate('next_btn') }}',
-    addRandomLineBtn      : '{{ language.translate("Play_addrandom") }}',
-    pickYourNumbersBtn    : '{{ language.translate("Play_picknumber") }}',
-    drawsSectionTitle     : '{{ language.translate('tittle_multiple') }}',
-    drawsSectionSubtitle  : '{{ language.translate('multiple_discount') }}',
-    mobTicketRandomizeBtn : '{{ language.translate("Play_randomize") }}',
-    mobTicketClearBtn     : '{{ language.translate('clear_btn') }}',
-    mobTicketSubmitBtn    : '{{ language.translate("Play_donebtn") }}',
-
-    }
+        mode            : 'powerball',
+        nextDrawFormat  : '<?php echo $draw_day . ' ' .$next_draw_date_format ?>',
+        priceBet        : {{ single_bet_price }},
+        currencySymbol  : '<?php echo $currency_symbol ?>',
+        discountLines   : <?php echo $discount_lines; ?>,
+        drawDateFormat  : '{{ next_draw_date_format }}',
+        playDate        : '<?php echo explode('#', json_decode($dates_draw)[0][0])[0] ?>',
+        translations    : {
+            discountLinesTitle    : '{{ language.translate('tittle_multiple') }}',
+            addLinesBtn           : '{{ language.translate('addLines_btn') }}',
+            randomizeAllLines     : '{{ language.translate('randomizeAll_btn') }}',
+            clearAllLines         : '{{ language.translate('clearAll_btn') }}',
+            buyForDraw            : "{{ language.translate('buyForDraw') }}",
+            txtLine               : '{{ language.translate('line_x') }}',
+            txtMultTotalPrice     : '{{ language.translate('mult_total1') }}',
+            txtMultLines          : '{{ language.translate('mult_total2') }}',
+            txtMultDraws          : '{{ language.translate('mult_total3') }}',
+            txtNextButton         : '{{ language.translate('next_btn') }}',
+            addRandomLineBtn      : '{{ language.translate("Play_addrandom") }}',
+            pickYourNumbersBtn    : '{{ language.translate("Play_picknumber") }}',
+            drawsSectionTitle     : '{{ language.translate('tittle_multiple') }}',
+            drawsSectionSubtitle  : '{{ language.translate('multiple_discount') }}',
+            mobTicketRandomizeBtn : '{{ language.translate("Play_randomize") }}',
+            mobTicketClearBtn     : '{{ language.translate('clear_btn') }}',
+            mobTicketSubmitBtn    : '{{ language.translate("Play_donebtn") }}',
+            powerPlayCheck        : '{{ language.translate("power_play") }}',
+            powerPlayInfo         : '{{ language.translate("power_play_info") }}',
+            powerballLabel        : '{{ language.translate("powerbal_label") }}',
+        }
     };
 
     if(openTicket){
@@ -232,6 +235,28 @@
     </main>
     {#   temporary styling for mobile app     #}
     <style>
-
+        .power-play-check input {
+            display: none;
+        }
+        .power-play-check:before {
+            display: inline-block;
+            content: ' ';
+            width: 20px;
+            height: 20px;
+            background-color: #f8ce0d;
+        }
+        .power-play-check.checked:before {
+            content: '+';
+        }
+        
+        .info-icon {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f8ce0d;
+            border-radius: 10px;
+            color: #f8ce0d;
+            line-height: 15px;
+            text-align: center;
+        }
     </style>
 {% endblock %}

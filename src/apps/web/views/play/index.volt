@@ -57,6 +57,7 @@
     {# end of block with deprecated vars #}
 
     var __initialState = {
+        mode            : 'euromillions',
         nextDrawFormat  : '<?php echo $draw_day . ' ' .$next_draw_date_format ?>',
         priceBet        : {{ single_bet_price }},
         currencySymbol  : '<?php echo $currency_symbol ?>',

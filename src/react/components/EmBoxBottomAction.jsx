@@ -7,13 +7,20 @@ var EmSelectDrawDate = require('./EmSelectDrawDate.jsx');
 var EuroMillionsBoxBottomAction = React.createClass({
 
     addToCart : function () {
+      const {
+        // required amount of stars selected (depends on game mode)
+        maxStars,
+        // required amount of numbers selected (depends on game mode)
+        maxNumbers,
+      } = this.props
+
         if(openTicket) {
             showModalTicketClose();
             return false;
         }
         var params = '';
         this.props.lines.forEach(function(bet,i){
-            if(bet.numbers.length == 5 && bet.stars.length == 2 ) {
+            if(bet.numbers.length == maxNumbers && bet.stars.length == maxStars ) {
                 params += 'bet['+i+']='+ bet.numbers +","+ bet.stars + '&';
             }
         });
@@ -24,6 +31,7 @@ var EuroMillionsBoxBottomAction = React.createClass({
         var start_draw = String(this.props.date_play).split('#')[0];
 
         params += 'draw_days='+draw_days+'&frequency='+frequency+'&start_draw='+start_draw+'&draw_day_play='+draw_day_play;
+        params += '&power_play=' + (this.props.powerPlayEnabled ? '1' : '0')
         ajaxFunctions.playCart(params);
     },
 
