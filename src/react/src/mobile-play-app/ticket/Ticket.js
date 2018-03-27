@@ -13,6 +13,8 @@ import {
   BET_STARS_COUNT,
   TICKET_MAX_NUMBER,
   TICKET_MAX_STAR_NUMBER,
+  GAME_MODE_EUROMILLIONS,
+  GAME_MODE_POWERBALL,
 } from '../constants'
 
 /**
@@ -47,6 +49,8 @@ export default class Ticket extends Component {
      * formatted Date/time of next draw. The corresponding block will be hidden if no value passed
      */
     nextDrawFormat : PropTypes.string,
+
+    gameMode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS]),
   }
 
   constructor (props) {
@@ -59,17 +63,17 @@ export default class Ticket extends Component {
   }
 
   render () {
-    const { translations, nextDrawFormat } = this.props
+    const { translations, nextDrawFormat, gameMode } = this.props
 
     const {
       numbers,
       stars,
     } = this.state
 
-    const regNumbers = range(1, TICKET_MAX_NUMBER + 1)
-    const starNumbers = range(1, TICKET_MAX_STAR_NUMBER + 1)
+    const regNumbers = range(1, TICKET_MAX_NUMBER[gameMode] + 1)
+    const starNumbers = range(1, TICKET_MAX_STAR_NUMBER[gameMode] + 1)
 
-    const canSubmit = numbers.length == BET_NUMBERS_COUNT && stars.length == BET_STARS_COUNT
+    const canSubmit = numbers.length == BET_NUMBERS_COUNT[gameMode] && stars.length == BET_STARS_COUNT[gameMode]
 
     return (
       <div className="ticket">
@@ -164,8 +168,9 @@ export default class Ticket extends Component {
    * @return {void}
    */
   toggleRegNumber = (e, number) => {
+    const { gameMode } = this.props
     this.setState({
-      numbers : this.toggleNumber(this.state.numbers, number, BET_NUMBERS_COUNT)
+      numbers : this.toggleNumber(this.state.numbers, number, BET_NUMBERS_COUNT[gameMode])
     })
   }
 
@@ -177,8 +182,9 @@ export default class Ticket extends Component {
    * @return {void}
    */
   toggleStarNumber = (e, number) => {
+    const { gameMode } = this.props
     this.setState({
-      stars : this.toggleNumber(this.state.stars, number, BET_STARS_COUNT)
+      stars : this.toggleNumber(this.state.stars, number, BET_STARS_COUNT[gameMode])
     })
   }
 
@@ -204,8 +210,9 @@ export default class Ticket extends Component {
    */
   onSubmit = (e) => {
     const { stars, numbers } = this.state
+    const { gameMode } = this.props
 
-    if (numbers.length < BET_NUMBERS_COUNT || stars.length < BET_STARS_COUNT)  {
+    if (numbers.length < BET_NUMBERS_COUNT[gameMode] || stars.length < BET_STARS_COUNT[gameMode])  {
       return
     }
 
@@ -233,8 +240,9 @@ export default class Ticket extends Component {
    * @return {void}
    */
   randomize = () => {
-    const numbers = getRandomNumbers(TICKET_MAX_NUMBER, BET_NUMBERS_COUNT)
-    const stars = getRandomNumbers(TICKET_MAX_STAR_NUMBER, BET_STARS_COUNT)
+    const { gameMode } = this.props
+    const numbers = getRandomNumbers(TICKET_MAX_NUMBER[gameMode], BET_NUMBERS_COUNT[gameMode])
+    const stars = getRandomNumbers(TICKET_MAX_STAR_NUMBER[gameMode], BET_STARS_COUNT[gameMode])
     this.setState({ numbers, stars })
   }
 
