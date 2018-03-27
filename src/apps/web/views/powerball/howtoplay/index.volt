@@ -54,7 +54,9 @@
 
                 <div class="title-block">
                     <h1>
-                        {{ language.translate("h1_howto_pow") }}
+                        <span class="resizeme">
+                            {{ language.translate("h1_howto_pow") }}
+                        </span>
                     </h1>
                 </div>
 
