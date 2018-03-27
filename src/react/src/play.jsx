@@ -528,8 +528,7 @@ var PlayPage = React.createClass({
                           tuesday={tuesday}
                           friday={friday}
                           powerPlayEnabled={this.state.powerPlayEnabled}
-                          maxNumbers={5}
-                          maxStars={ mode == GAME_MODE_POWERBALL ? 1 : 2}
+                          mode={mode}
                         />
                         <EmConfigPlayBlock next_draw={this.props.next_draw} buyForDraw={this.props.buyForDraw} reset={this.handleResetStateAdvancedPlay} update_threshold={this.setChangedWhenThresholdUpdate}  show_config={this.state.show_config} date_play={this.handleChangeDate} reset_config={this.state.reset_advanced_play} draw_dates={this.state.draw_dates}  current_duration_value={this.state.duration} draw_days_selected={this.state.draw_day_play} draw_duration={this.state.draw_duration} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
                     </div>
