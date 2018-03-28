@@ -50,7 +50,7 @@
                                 {% if (cont % 2) != 0 and mobile != 1 %}<td width="450">&nbsp;</td>{% endif %}
                             </tr>
                         </table>
-                        {#{{ paginator_view }}#}
+                        {{ paginator_view }}
                     {% else %}
                         We don't have posts yet.
                     {% endif %}
