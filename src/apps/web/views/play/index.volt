@@ -18,7 +18,7 @@
 					if(json.result == 'OK'){
 						location.href = json.url;
                     } else if (json.result == 'KO') {
-                        alert('{{ language.translate("clearAll_btn") }}');
+                        alert('{{ language.translate("gotopay_message") }}');
                     }
 				},
 				error:function (xhr, status, errorThrown){
