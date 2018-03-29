@@ -15,9 +15,11 @@
 				type:'POST',
 				dataType:"json",
 				success:function(json){
-					if(json.result = 'OK'){
+					if(json.result == 'OK'){
 						location.href = json.url;
-					}
+                    } else if (json.result == 'KO') {
+                        alert('{{ language.translate("clearAll_btn") }}');
+                    }
 				},
 				error:function (xhr, status, errorThrown){
 					{# //EMTD manage errors #}
