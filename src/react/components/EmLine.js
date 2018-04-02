@@ -300,8 +300,8 @@ var EuroMillionsLine = React.createClass({
 
 
       return (
-        <div>
-          <div>{translations.powerballLabel}</div>
+        <div className="powerballlabel">
+          <span>{translations.powerballLabel}</span>
           <select
             value={stars && stars[0] ? stars[0] : -1}
             onChange={e => this.handlePowerballSelection(e.target.value)}

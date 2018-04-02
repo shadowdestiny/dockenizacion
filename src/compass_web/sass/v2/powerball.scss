@@ -1,5 +1,84 @@
 .powerball--page {
 
+
+  .gameplay--section {
+    .box-lines {
+      margin-bottom: 50px;
+
+      .line {
+        border-color: #ff0000;
+
+        &.selected {
+          background-image: url('../img/powerball/full-check.png');
+          -webkit-background-size: 97px;
+          background-size: 97px;
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+        }
+
+        .powerballlabel {
+          span {
+            display: inline-block;
+            color:  #2d2d2d;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 25px;
+          }
+
+          select {
+            display: inline-block;
+            border-radius: 3px;
+            border-width: 1px;
+            border-color:  #ff0000;
+            border-style: solid;
+            background-color:  #ffffff;
+            width: 51px;
+            height: 25px;
+            line-height: 25px;
+            color:  #2d2d2d;
+            //font-size: 18px;
+            font-size: 16px;
+            padding: 0;
+            font-weight: 500;
+            font-family: $ff1;
+          }
+        }
+
+        .gwy{
+          border-color: #ff0000;
+        }
+
+        .gwr{
+          border-color: #ff0000;
+          background-image: url('../img/powerball/clear-red.svg');
+
+          span {
+            color: #ff0000;
+          }
+        }
+
+        .gwp:visited,
+        .gwp {
+          border-color: #ff0000;
+        }
+
+        .gwp.active,
+        .gwp:hover {
+          background-color: #ff0000;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .left-box-action {
+    @media only screen and (min-width: $screen-desktop) {
+      display: inline-block;
+      padding-left: 52px;
+      padding-top: 10px;
+    }
+  }
+
   .power-play-check {
     color: #333333;
     font-size: 18px;
@@ -9,6 +88,13 @@
     height: 30px;
     line-height: 1;
     vertical-align: top;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+
+    }
+    @media only screen and (min-width: $screen-desktop) {
+
+    }
 
     span {
       display: inline-block;
@@ -30,19 +116,15 @@
     background-color: #f8ce0d;
     border-radius: 4px;
     margin-right: 11px;
-    //background-image: url('../svg/check-powerplay.svg');
-    //background-repeat: no-repeat;
-    //-webkit-background-size: cover;
-    //background-size: cover;
-    //background-position: 0 0;
-  }
-  .power-play-check.checked:before {
-    background-color: transparent;
+
     background-image: url('../svg/check-powerplay.svg');
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
     background-position: 0 0;
+  }
+  .power-play-check.checked:before {
+    background-color: transparent;
   }
 
   .info-icon {
@@ -63,7 +145,8 @@
     background-position: 0 0;
 
     position: relative;
-    top: -4px;
+    //top: -4px;
+    top: -6px;
 
     span {
       display: none;
