@@ -1,7 +1,21 @@
 .powerball--page {
 
 
+  header {
+    .help-block {
+
+      &:before {
+        background-image: url('../img/powerball/powerball-help-separator.png');
+      }
+
+      .bottom a {
+        background-color: #da1212;
+      }
+    }
+  }
+
   .gameplay--section {
+
     .box-lines {
       margin-bottom: 50px;
 
