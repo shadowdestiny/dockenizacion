@@ -206,7 +206,9 @@
                 <div class="gameplay" id="gameplay"></div>
                 <div class="media"></div>
 
-                {% include "_elements/play-bottom-block.volt" %}
+                {% include "_elements/powerball-bottom-block.volt" %}
+
+                {#{% include "_elements/play-bottom-block.volt" %}#}
             </div>
 
             <div id="closeticket" class="modal" style="width: 1000px;height: 500px;">
