@@ -27,17 +27,22 @@
     content: ' ';
     width: 30px;
     height: 30px;
-    //background-color: #f8ce0d;
+    background-color: #f8ce0d;
     border-radius: 4px;
     margin-right: 11px;
+    //background-image: url('../svg/check-powerplay.svg');
+    //background-repeat: no-repeat;
+    //-webkit-background-size: cover;
+    //background-size: cover;
+    //background-position: 0 0;
+  }
+  .power-play-check.checked:before {
+    background-color: transparent;
     background-image: url('../svg/check-powerplay.svg');
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
     background-position: 0 0;
-  }
-  .power-play-check.checked:before {
-    content: '+';
   }
 
   .info-icon {
@@ -71,7 +76,7 @@
     border: 0;
     color: #333333;
 
-    border-radius: 50%; 
+    border-radius: 50%;
     background-color:  #b3d8fa;
     width: 32px;
     height: 30px;
