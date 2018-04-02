@@ -81,8 +81,10 @@
     .box-lines {
       margin-bottom: 50px;
 
+      .line:hover,
       .line {
-        border-color: #ff0000;
+        //border-color: #ff0000;
+        border: 1px solid #ff0000;
 
         &.selected {
           background-image: url('../img/powerball/full-check.png');
@@ -121,11 +123,14 @@
         }
 
         .gwy{
-          border-color: #ff0000;
+          //border-color: #ff0000;
+          border: 1px solid #ff0000;
         }
 
+        .gwr:hover,
         .gwr{
-          border-color: #ff0000;
+          //border-color: #ff0000;
+          border: 1px solid #ff0000;
           background-image: url('../img/powerball/clear-red.svg');
 
           span {
@@ -135,7 +140,8 @@
 
         .gwp:visited,
         .gwp {
-          border-color: #ff0000;
+          //border-color: #ff0000;
+          border: 1px solid #ff0000;
         }
 
         .gwp.active,
@@ -230,15 +236,73 @@
 
   }
 
+  .bet-line {
+    .ticket-number {
 
-  .ticket-number.star {
-    border: 0;
-    color: #333333;
+    }
+    .ticket-number.star {
+      border: 0;
+      color: #333333;
 
-    border-radius: 50%;
-    background-color:  #b3d8fa;
-    width: 32px;
-    height: 30px;
+      //border-radius: 50%;
+      background-color:  #b3d8fa;
+      //width: 32px;
+      //height: 30px;
+    }
+  }
+
+  .numbers.selected {
+    .numbers-section.regular {
+      background-image: url('../img/powerball/full-check.png');
+      -webkit-background-size: 97px;
+      background-size: 97px;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .ticket .numbers {
+  .numbers-section {
+    .ticket-number.regular {
+      //border-radius: 50%;
+      border-width: 1px;
+      border-color:  #ff0000;
+      border-style: solid;
+      background-color:  #ffffff;
+      cursor: pointer;
+      //width: 35px;
+      //height: 34px;
+
+      &.selected {
+        //border-radius: 50%;
+        border-width: 1px;
+        border-color:  #ff0000;
+        border-style: solid;
+        background-color:  #ff0000;
+        //width: 34px;
+        //height: 34px;
+        color: #fff;
+      }
+    }
+    .ticket-number.star {
+      //border-radius: 50%;
+      border-width: 1px;
+      border-color:  #f8ce0d;
+      border-style: solid;
+      background-color:  #ffffff;
+      cursor: pointer;
+      //width: 35px;
+      //height: 34px;
+
+      &.selected {
+        //border-radius: 50%;
+        background-color:  #f8ce0d;
+        //width: 36px;
+        //height: 36px;
+        color: #fff;
+      }
+    }
+  }
   }
 
   header {
