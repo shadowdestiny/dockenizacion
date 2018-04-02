@@ -133,7 +133,7 @@
 
 {% block body %}
     <main id="content">
-        <div class="play--page">
+        <div class="play--page powerball--page">
             <div class="banner">
                 <div class="top-banner--section">
                     <div class="top-banner--banner">
@@ -234,29 +234,4 @@
         </div>
     </main>
     {#   temporary styling for mobile app     #}
-    <style>
-        .power-play-check input {
-            display: none;
-        }
-        .power-play-check:before {
-            display: inline-block;
-            content: ' ';
-            width: 20px;
-            height: 20px;
-            background-color: #f8ce0d;
-        }
-        .power-play-check.checked:before {
-            content: '+';
-        }
-        
-        .info-icon {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #f8ce0d;
-            border-radius: 10px;
-            color: #f8ce0d;
-            line-height: 15px;
-            text-align: center;
-        }
-    </style>
 {% endblock %}
