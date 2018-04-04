@@ -40,7 +40,9 @@ cart success minimal
     });
 {% endblock %}
 {% block body %}
-
+    <script>
+        fbq('track', 'Purchase');
+    </script>
 {%  set lines = order.lines|json_decode %}
 <?php
 function numCharLine($line){
