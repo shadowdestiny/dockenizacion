@@ -6,7 +6,7 @@
         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
     </div>
 {% endif %}
-<form action="{{ url_signup }}" name="form_notifications" id="sign-up-form" method="post">
+<form action="{{ url_signup }}" onsubmit="fbRegistration()" name="form_notifications" id="sign-up-form" method="post">
 
     <a class="signin--btn" href="/{{ language.translate("link_signin") }}">Sign In</a>
 
@@ -71,7 +71,11 @@
         <br><br>
     </div>
 </form>
-
+<script>
+    function fbRegistration() {
+        fbq('track', 'CompleteRegistration');
+    }
+</script>
 {% if ga_code is defined %}
     <!--start PROD imports
     <script src="/w/js/dist/GASignUpAttempt.min.js"></script>
