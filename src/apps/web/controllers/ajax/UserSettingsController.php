@@ -100,6 +100,8 @@ class UserSettingsController extends AjaxControllerBase
                 'christmasNumbersSearch' => '/christmas-lottery/search',
                 'blogIndex' => '/en/facts',
                 'powerHowto' => '/powerball/how-to-play',
+                'powerballNumbersIndex' => '/powerball/results',
+                'powerballNumbersPast' => '/powerball/results/draw-history-page',
             ],
             'ru' => [
                 'index' => '/ru',
@@ -122,6 +124,8 @@ class UserSettingsController extends AjaxControllerBase
                 'christmasNumbersSearch' => '/ru/рождественская-лотерея/поиск',
                 'blogIndex' => '/ru/факты',
                 'powerHowto' => '/ru/powerball/как-играть',
+                'powerballNumbersIndex' => '/ru/powerball/результаты',
+                'powerballNumbersPast' => '/ru/powerball/результаты/история-розыгрышей',
             ],
             'es' => [
                 'index' => '/es',
@@ -144,6 +148,8 @@ class UserSettingsController extends AjaxControllerBase
                 'christmasNumbersSearch' => '/es/loteria-navidad/buscar',
                 'blogIndex' => '/es/datos',
                 'powerHowto' => '/es/powerball/como-se-juega',
+                'powerballNumbersIndex' => '/es/powerball/resultados',
+                'powerballNumbersPast' => '/es/powerball/resultados/sorteos-anteriores',
             ],
             'it' => [
                 'index' => '/it',
@@ -166,6 +172,8 @@ class UserSettingsController extends AjaxControllerBase
                 'christmasNumbersSearch' => '/christmas-lottery/search',
                 'blogIndex' => '/it/consigli',
                 'powerHowto' => '/it/powerball/come-giocare',
+                'powerballNumbersIndex' => '/it/powerball/estrazioni',
+                'powerballNumbersPast' => '/it/powerball/estrazioni/archivio',
             ],
             'nl' => [
                 'index' => '/nl',
@@ -188,6 +196,8 @@ class UserSettingsController extends AjaxControllerBase
                 'christmasNumbersSearch' => '/christmas-lottery/search',
                 'blogIndex' => '/nl/informatie',
                 'powerHowto' => '/nl/powerball/speluitleg',
+                'powerballNumbersIndex' => '/nl/powerball/uitslagen',
+                'powerballNumbersPast' => '/nl/powerball/uitslagen/trekking-geschiedenis',
             ],
 
         ];
