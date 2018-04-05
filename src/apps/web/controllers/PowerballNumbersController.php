@@ -15,7 +15,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
     public function indexAction()
     {
         $date = $this->request->get('date');
-        $lotteryName = 'PowerBall';
+        $lotteryName = 'EuroMillions';
         $date = empty($date) ? $this->lotteryService->getLastDrawDate('EuroMillions') : new \DateTime($date);
         $result = $this->lotteryService->getDrawsDTO($lotteryName);
         $draw_result = $this->lotteryService->getLastDrawWithBreakDownByDate($lotteryName, $date);
@@ -50,6 +50,8 @@ class PowerballNumbersController extends PublicSiteControllerBase
 
         $this->tag->prependTitle($this->languageService->translate('results_em_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('results_em_desc'));
+        $this->view->pick('/powerball/numbers/index');
+
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $euroMillionsDraw->getId(),
@@ -64,10 +66,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
             'pageController' => 'powerballNumbersIndex',
         ]);
 
-        $this->view->pick('/powerball/numbers/index');
-        return $this->view->setVars([
-            'pageController' => 'powerballNumbersIndex',
-        ]);
+
     }
 
     public function pastListAction()
