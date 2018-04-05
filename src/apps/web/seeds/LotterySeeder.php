@@ -32,7 +32,7 @@ class LotterySeeder extends AbstractSeed
                 'single_bet_price_amount' => '2500',
                 'single_bet_price_currency_name' => 'EUR',
             ],[
-                'name' => 'PowerBall ',
+                'name' => 'PowerBall',
                 'jackpot_api' => 'Lottorisq',
                 'frequency' => 'w0010010',
                 'draw_time' => '20:00:00',
