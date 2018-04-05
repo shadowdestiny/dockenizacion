@@ -1150,6 +1150,39 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'en',
         ));
 
+        $router->add("/es/powerball/jugar", array(
+            "module" => "web",
+            "lottery" => 'euromillions',
+            'controller' => 'powerball-play',
+            'action' => 'index',
+            'language' => 'es',
+        ));
+
+        $router->add("/it/powerball/gioca", array(
+            "module" => "web",
+            "lottery" => 'euromillions',
+            'controller' => 'powerball-play',
+            'action' => 'index',
+            'language' => 'it',
+        ));
+
+        $router->add("/nl/powerball/speel", array(
+            "module" => "web",
+            "lottery" => 'euromillions',
+            'controller' => 'powerball-play',
+            'action' => 'index',
+            'language' => 'nl',
+        ));
+
+        $router->add("/ru/powerball/играть", array(
+            "module" => "web",
+            "lottery" => 'euromillions',
+            'controller' => 'powerball-play',
+            'action' => 'index',
+            'language' => 'ru',
+            'currency' => 'RUB',
+        ));
+
 
         $router->add("/powerball/how-to-play", array(
             "module" => "web",
