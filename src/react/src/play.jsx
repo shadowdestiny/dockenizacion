@@ -525,8 +525,7 @@ var PlayPage = React.createClass({
                           draw_dates={this.state.draw_dates}
                           next_draw={this.props.next_draw}
                           next_draw_date_format={next_draw_date_format}
-                          tuesday={tuesday}
-                          friday={friday}
+                          draw_day={draw_day}
                           powerPlayEnabled={this.state.powerPlayEnabled}
                           mode={mode}
                         />
@@ -549,8 +548,7 @@ var options_draw_duration = [
 ];
 
 ReactDOM.render(<PlayPage
-  tuesday={tuesday}
-  friday={friday}
+  draw_day={draw_day}
   next_draw_date_format={next_draw_date_format}
   discount={discount}
   draws_number={draws_number}

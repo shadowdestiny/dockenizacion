@@ -38,7 +38,7 @@ var EmSelectDrawDate = React.createClass({
             color : '#333'
         }
 
-        if(this.props.show == 1 && this.props.next_draw == 2) {
+        if(this.props.show == 1) {
             return (
                 <div id="BuyForDrawBox">
                     <div style={divStyle}>
@@ -46,19 +46,7 @@ var EmSelectDrawDate = React.createClass({
                     </div>
                     <div style={divStyle}>
                         <label style={labelStyle}>
-                            {this.props.tuesday}, {this.props.next_draw_date_format}</label>
-                    </div>
-                </div>
-            )
-        } else if(this.props.show == 1 && this.props.next_draw == 5) {
-            return (
-                <div id="BuyForDrawBox">
-                    <div style={divStyle}>
-                        {this.props.buyForDraw}:
-                    </div>
-                    <div style={divStyle}>
-                        <label style={labelStyle}>
-                            {this.props.friday}, {this.props.next_draw_date_format}</label>
+                            {this.props.draw_day}, {this.props.next_draw_date_format}</label>
                     </div>
                 </div>
             )

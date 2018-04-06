@@ -67,8 +67,7 @@ var EuroMillionsBoxBottomAction = React.createClass({
                     active={true}
                     next_draw={this.props.next_draw}
                     next_draw_date_format={this.props.next_draw_date_format}
-                    tuesday={this.props.tuesday}
-                    friday={this.props.friday}
+                    draw_day={this.props.draw_day}
                   />
                 </div>
                 <EuroMillionsAddToCart currency_symbol={this.props.currency_symbol} price={this.props.price} txtNextButton={this.props.txtNextButton} onBtnAddToCartClick={this.addToCart} key="2"/>

@@ -43,8 +43,7 @@
 	var txtMultLines = '{{ language.translate('mult_total2') }}';
 	var txtMultDraws = '{{ language.translate('mult_total3') }}';
 	var txtNextButton = '{{ language.translate('next_btn') }}';
-    var tuesday = '{{ language.translate('tuesday') }}';
-    var friday = '{{ language.translate('friday') }}';
+    var draw_day = '<?php echo $draw_day; ?>';
     var next_draw_date_format = '{{ next_draw_date_format }}';
     var clear_btn = '{{ language.translate('clear_btn') }}';
     var addlines_message = "{{ language.translate('addlines_message') }}";

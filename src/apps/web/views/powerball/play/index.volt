@@ -33,7 +33,7 @@
     var openTicket = <?php echo $openTicket; ?>;
     var currency_symbol = '<?php echo $currency_symbol ?>';
     var automatic_random = '<?php echo $automatic_random; ?>';
-    var discount_lines_title = '{{ language.translate('tittle_multiple') }}';
+    var discount_lines_title = '{{ language.translate('pow_multiple') }}';
     var addLinesBtn = '{{ language.translate('addLines_btn') }}';
     var randomizeAllLines = '{{ language.translate('randomizeAll_btn') }}';
     var clearAllLines = '{{ language.translate('clearAll_btn') }}';
@@ -43,8 +43,7 @@
     var txtMultLines = '{{ language.translate('mult_total2') }}';
     var txtMultDraws = '{{ language.translate('mult_total3') }}';
     var txtNextButton = '{{ language.translate('next_btn') }}';
-    var tuesday = '{{ language.translate('tuesday') }}';
-    var friday = '{{ language.translate('friday') }}';
+    var draw_day = '<?php echo $draw_day; ?>';
     var next_draw_date_format = '{{ next_draw_date_format }}';
     var clear_btn = '{{ language.translate('clear_btn') }}';
     var addlines_message = "{{ language.translate('addlines_message') }}";
