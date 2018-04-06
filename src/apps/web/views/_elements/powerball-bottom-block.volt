@@ -5,21 +5,21 @@
         <img src="/w/img/powerball/powerball-logo.png"/>
     </div>
     <div class="play-bottom-block--center">
-        <h3>
-            powerball - usa’s favourite lotto
-        </h3>
+        <h2>
+            {{ language.translate("play_pow_firstH2") }}
+        </h2>
 
         <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+            {{ language.translate("play_pow_text1") }}
         </p>
     </div>
     <div class="play-bottom-block--right">
-        <h3>
-            pick your numbers and play- its that easy
-        </h3>
+        <h2>
+            {{ language.translate("play_pow_secondH2") }}
+        </h2>
 
         <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+            {{ language.translate("play_pow_text2") }}
         </p>
     </div>
 </div>

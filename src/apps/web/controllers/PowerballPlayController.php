@@ -50,8 +50,8 @@ class PowerballPlayController extends PublicSiteControllerBase
             $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
         }
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
-        $this->tag->prependTitle($this->languageService->translate('play_em_name') . ViewHelper::formatJackpotNoCents($jackpot));
-        MetaDescriptionTag::setDescription($this->languageService->translate('play_em_desc'));
+        $this->tag->prependTitle($this->languageService->translate('play_pow_name') . ViewHelper::formatJackpotNoCents($jackpot));
+        MetaDescriptionTag::setDescription($this->languageService->translate('play_pow_desc'));
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
         $bet_value = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
