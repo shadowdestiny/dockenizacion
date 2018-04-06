@@ -1,7 +1,7 @@
 {% extends "main.volt" %}
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/play.css">
-    <link Rel="Canonical" href="{{ language.translate('canonical_euromillions_play') }}" />
+    <link Rel="Canonical" href="{{ language.translate('canonical_powerball_play') }}" />
 {% endblock %}
 {% block template_scripts %}
     <script src="/w/js/mobileFix.min.js"></script>
@@ -82,9 +82,9 @@
             mobTicketRandomizeBtn : '{{ language.translate("Play_randomize") }}',
             mobTicketClearBtn     : '{{ language.translate('clear_btn') }}',
             mobTicketSubmitBtn    : '{{ language.translate("Play_donebtn") }}',
-            powerPlayCheck        : '{{ language.translate("power_play") }}',
+            powerPlayCheck        : '{{ language.translate("select_power_play") }}',
             powerPlayInfo         : '{{ language.translate("power_play_info") }}',
-            powerballLabel        : '{{ language.translate("powerbal_label") }}',
+            powerballLabel        : '{{ language.translate("select_pow_number") }}',
         }
     };
 
@@ -141,9 +141,9 @@
 
                             <h1 class="top-banner-play">
                                 {% if mobile == 1 %}
-                                    {{ language.translate("play_mobile_h1") }}
+                                    {{ language.translate("play_pow_h1") }}
                                 {% else %}
-                                    {{ language.translate("play_h1") }}
+                                    {{ language.translate("play_pow_mobile_h1") }}
                                 {% endif %}
                             </h1>
                         </div>
@@ -157,18 +157,18 @@
                             {{ language.translate('tittle') }}
                         </div>
                         <div class="top">
-                            {% if next_draw == 5 %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
+                            {% if next_draw == 6 %}{{ language.translate('saturday') }}{% else %}{{ language.translate('wednesday') }}{% endif %}
                         </div>
                     </div>
                     <div class="help-block">
                         <div class="top resizeme">
-                            {{ language.translate('aboutLottery') }}
+                            {{ language.translate('about_pow') }}
                         </div>
                         <div class="bottom">
-                            <a href="/{{ language.translate('link_euromillions_help') }}" class="a-hiw">
+                            <a href="/{{ language.translate('link_powerball_howto') }}" class="a-hiw">
                                 {{ language.translate('play_howbtn') }}
                             </a>
-                            <a href="/{{ language.translate('link_euromillions_results') }}" class="a-results">
+                            <a href="/{{ language.translate('link_powerball_results') }}" class="a-results">
                                 {{ language.translate('play_resultsbtn') }}
                             </a>
                             <a href="/{{ language.translate('link_euromillions_faq') }}" class="a-faq">
@@ -187,7 +187,7 @@
                             {% endif %}
                         </div>
                         <div class="bottom resizeme">
-                            {{ language.translate('shortInstruction') }}
+                            {{ language.translate('pow_instruction') }}
                         </div>
                     </div>
                     {#<h1 class="h3 draw">{{ language.translate("shortInstruction") }}</h1>#}
