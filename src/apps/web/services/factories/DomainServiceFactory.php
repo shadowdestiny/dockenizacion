@@ -154,6 +154,25 @@ class DomainServiceFactory
         );
     }
 
+    public function getPowerBallService()
+    {
+        return new PlayService(
+            $this->entityManager,
+            $this->getLotteryService(),
+            new RedisPlayStorageStrategy(
+                $this->serviceFactory->getDI()->get('redisCache')
+            ),
+            new RedisOrderStorageStrategy(
+                $this->serviceFactory->getDI()->get('redisCache')
+            ),
+            $this->getCartService(),
+            $this->getWalletService(),
+            $this->serviceFactory->getDI()->get('paymentProviderFactory'),
+            $this->getBetService(),
+            $this->serviceFactory->getEmailService()
+        );
+    }
+
     public function getBetService()
     {
         return new BetService(
