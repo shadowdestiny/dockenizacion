@@ -2,7 +2,7 @@
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/faq.css">
     <!--[if IE 9]><style>.laurel{display:none;}</style><![endif]-->
-    <link Rel="Canonical" href="{{ language.translate('canonical_euromillions_faq') }}" />
+    <link Rel="Canonical" href="{{ language.translate('canonical_euromillions_help') }}" />
 {% endblock %}
 {% block bodyClass %}faq{% endblock %}
 
