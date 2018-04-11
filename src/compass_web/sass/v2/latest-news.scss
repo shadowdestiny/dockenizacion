@@ -3,10 +3,14 @@
   margin-top: -19px;
   padding-bottom: 0px;
 
+  display: none;
+
   @media only screen and (min-width: $screen-ipad-v) {
     display: block;
     margin-top: -19px;
     padding-bottom: 0px;
+
+    display: block;
   }
 
   @media only screen and (min-width: $screen-ipad-h) {
@@ -40,7 +44,7 @@
     }
 
     @media only screen and (min-width: $screen-ipad-h) {
-      border-top: 1px solid #424242;
+      //border-top: 1px solid #424242;
       padding-top: 25px;
       margin-bottom: 37px;
 
@@ -49,12 +53,16 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      border-top: 1px solid #424242;
-      padding-top: 19px;
-      margin-bottom: 29px;
+      //border-top: 1px solid #424242;
+      //padding-top: 19px;
+      //margin-bottom: 29px;
 
       padding-left: 0;
       font-size: 39px;
+
+      padding-top: 10px;
+      margin-bottom: 60px;
+
     }
   }
 

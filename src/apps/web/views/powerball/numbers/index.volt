@@ -85,7 +85,7 @@
 {% block body %}
     <main id="content">
 
-        <div class="result-page--content">
+        <div class="powerball--result-page--content">
 
             <div class="banner">
 
@@ -159,10 +159,10 @@
                                 <thead><th> </th></thead>
                                 <tbody>
                                 <tr>
-                                    <td class="td-ball">{{ language.translate("prizePool_matches") }}</td>
+                                    <td class="td-ball td-head">{{ language.translate("prizePool_matches") }}</td>
                                     {#<th class="td-star-ball">{{ language.translate("prizePool_star") }} 2</th>#}
-                                    <td class="td-winners">{{ language.translate("prizePool_winners") }}</td>
-                                    <td class="td-prize">{{ language.translate("prizePool_prize") }}</td>
+                                    <td class="td-winners td-head">{{ language.translate("prizePool_winners") }}</td>
+                                    <td class="td-prize td-head">{{ language.translate("prizePool_prize") }}</td>
                                 </tr>
                                 {% for name,categories in break_downs %}
                                     <tr>
@@ -197,6 +197,19 @@
                             </table>
 
 
+                            <div class="see-results-block">
+                                <form action="">
+
+                                    <label for="see">
+                                        <input type="checkbox">
+
+                                            See power play results
+
+                                    </label>
+                                </form>
+                            </div>
+
+
                             <div class="previous-results--common-row">
                                 {% include "_elements/previous-results-euromillions.volt" %}
 
@@ -219,6 +232,18 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="bottom--banner"></div>
+
+                <div class="block--text--accordion">
+                    <h3>
+                        Have you wan?
+                    </h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aspernatur consequuntur cumque eligendi error, facere, fugiat maxime nobis numquam quidem recusandae totam, voluptates voluptatibus? Maiores, molestiae, neque. Dolorem, eligendi, libero?
+                    </p>
+                </div>
+
             </div>
         </div>
     </main>

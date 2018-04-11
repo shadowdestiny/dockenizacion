@@ -109,3 +109,30 @@ a:visited, .lnk:visited {
   }
 }
 
+
+
+.accordion-blocks {
+  overflow: hidden;
+
+  @media only screen and (min-width: $screen-small) {
+
+    border-top:1px solid #9b9b9b;
+    border-bottom:1px solid #9b9b9b;
+    padding-top: 45px;
+    padding-bottom: 45px;
+    margin-top: 35px;
+    margin-bottom: 45px;
+
+    .block--text--accordion {
+      width: 50%;
+      float: left;
+      margin: 0;
+      padding-right: 20px;
+    }
+
+    .block--text--accordion + .block--text--accordion {
+      padding-right: 0;
+      padding-left: 20px;
+    }
+  }
+}

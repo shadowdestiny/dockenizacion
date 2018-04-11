@@ -71,6 +71,51 @@
 
   }
 
+  h3 {
+    color: #333;
+    font-size: 18.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      color: #333;
+      font-size: 18.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      font-size: 20px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 22px;
+    }
+  }
+
+  p {
+    color:  #6a6969;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 25px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      color:  #6a6969;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 25px;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      font-size: 18px;
+      line-height: 28px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 18px;
+      line-height: 30px;
+    }
+  }
+
+
   .play-bottom-block--img {
     padding-top: 18px;
     padding-bottom: 29px;
@@ -117,56 +162,36 @@
     h3 {
       //font-family: WorkSans;
 
-      color: #333;
-      font-size: 18.5px;
-      font-weight: 600;
       text-align: center;
-      text-transform: uppercase;
       padding-bottom: 3px;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        color: #333;
-        font-size: 18.5px;
-        font-weight: 600;
         text-align: center;
-        text-transform: uppercase;
         padding-bottom: 3px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 20px;
         padding-bottom: 12px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 22px;
         padding-bottom: 6px;
       }
     }
 
     p {
       text-align: center;
-      color:  #6a6969;
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 25px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         text-align: center;
-        color:  #6a6969;
-        font-size: 15px;
-        font-weight: 400;
-        line-height: 25px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 18px;
-        line-height: 28px;
+
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 18px;
-        line-height: 30px;
+
       }
     }
   }
@@ -193,59 +218,38 @@
     }
 
     h3 {
-      //font-family: WorkSans;
-      color: #333;
-      font-size: 18.5px;
-      font-weight: 600;
       text-align: right;
-      text-transform: uppercase;
       padding-bottom: 3px;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        color: #333;
-        font-size: 18.5px;
-        font-weight: 600;
         text-align: right;
-        text-transform: uppercase;
         padding-bottom: 3px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 20px;
         padding-bottom: 13px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 22px;
         padding-bottom: 6px;
       }
     }
 
     p {
       text-align: right;
-      color:  #6a6969;
-      font-size: 14.7px;
-      font-weight: 400;
-      line-height: 25px;
       padding-left: 40px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         text-align: right;
-        color:  #6a6969;
-        font-size: 14.7px;
-        font-weight: 400;
-        line-height: 25px;
         padding-left: 40px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 18px;
-        line-height: 28px;
+
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 18px;
-        line-height: 30px;
+
       }
     }
   }
