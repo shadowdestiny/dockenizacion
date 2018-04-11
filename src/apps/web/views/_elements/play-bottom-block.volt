@@ -1,5 +1,24 @@
 {# PAGES: Christmas lottery, Play #}
 
+<div class="box-bottom--accordion">
+    <div class="block--text--accordion">
+        <h3>
+            {{ language.translate("play_firstH2") }}
+        </h3>
+        <p>
+            {{ language.translate("play_text1") }}
+        </p>
+    </div>
+    <div class="block--text--accordion">
+        <h3>
+            {{ language.translate("play_secondH2") }}
+        </h3>
+        <p>
+            {{ language.translate("play_text2") }}
+        </p>
+    </div>
+</div>
+
 <div class="box-bottom play-bottom-block">
 
     <h3>
@@ -23,9 +42,10 @@
         <h3>
             {{ language.translate("play_secondH2") }}
         </h3>
-
         <p>
             {{ language.translate("play_text2") }}
+
         </p>
+
     </div>
 </div>

@@ -1,4 +1,4 @@
-{# PAGES: Christmas lottery, Play #}
+{# PAGES: Powerball Play #}
 
 <div class="box-bottom play-bottom-block">
     <div class="play-bottom-block--img">

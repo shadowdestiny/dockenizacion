@@ -1,5 +1,15 @@
 // PAGES: Christmas lottery, Play
 
+.box-bottom--accordion {
+  display: block;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    display: none;
+  }
+}
+
 
 .box-bottom.play-bottom-block {
   padding: 0;
@@ -13,12 +23,18 @@
 
   background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
   background-repeat: no-repeat;
-  background-position: 0 100%;
+  //background-position: 0 100%;
+  background-position: 100% 100%;
 
   -webkit-background-size: 34.1%;
   background-size: 34.1%;
 
+  display: none;
+
   @media only screen and (min-width: $screen-ipad-v) {
+
+    display: block;
+
     padding: 0;
     border-bottom: 1px solid #303030;
 
@@ -30,7 +46,8 @@
 
     background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
     background-repeat: no-repeat;
-    background-position: 0 100%;
+    //background-position: 0 100%;
+    background-position: 100% 100%;
 
     -webkit-background-size: 34.1%;
     background-size: 34.1%;
@@ -43,7 +60,8 @@
 
     background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
     background-repeat: no-repeat;
-    background-position: 42px 100%;
+    //background-position: 42px 100%;
+    background-position: 100px 100%;
 
     -webkit-background-size: 31%;
     background-size: 31%;
@@ -60,7 +78,8 @@
 
     background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
     background-repeat: no-repeat;
-    background-position: 31px 100%;
+    //background-position: 31px 100%;
+    background-position: 100% 100%;
 
     -webkit-background-size: 297px;
     background-size: 297px;
@@ -76,20 +95,25 @@
     font-size: 18.5px;
     font-weight: 600;
     text-transform: uppercase;
+    padding-bottom: 3px;
 
     @media only screen and (min-width: $screen-ipad-v) {
       color: #333;
       font-size: 18.5px;
       font-weight: 600;
       text-transform: uppercase;
+      padding-bottom: 3px;
     }
     @media only screen and (min-width: $screen-ipad-h) {
       font-size: 20px;
+      padding-bottom: 13px;
     }
 
     @media only screen and (min-width: $screen-desktop) {
       font-size: 22px;
+      padding-bottom: 6px;
     }
+
   }
 
   p {
@@ -163,19 +187,21 @@
       //font-family: WorkSans;
 
       text-align: center;
-      padding-bottom: 3px;
+      //padding-bottom: 3px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         text-align: center;
-        padding-bottom: 3px;
+        //padding-bottom: 3px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        padding-bottom: 12px;
+        //padding-bottom: 12px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        padding-bottom: 6px;
+        //padding-bottom: 6px;
+        padding-top: 10px;
+        //padding-bottom: 16px;
       }
     }
 
@@ -197,51 +223,55 @@
   }
 
   .play-bottom-block--right {
-    float: right;
+    //float: right;
+    float: left;
     max-width: 450px;
 
     @media only screen and (min-width: $screen-ipad-v) {
-      float: right;
+      //float: right;
       max-width: 450px;
     }
 
     @media only screen and (min-width: $screen-ipad-h) {
-      float: right;
+      //float: right;
       max-width: 590px;
       padding-right: 57px;
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      float: right;
-      max-width: 600px;
+      //float: right;
+      //max-width: 600px;
+      max-width: 710px;
       padding-right: 45px;
     }
 
     h3 {
-      text-align: right;
-      padding-bottom: 3px;
+      //text-align: right;
+      text-align: left;
+      //padding-bottom: 3px;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        text-align: right;
-        padding-bottom: 3px;
+        //text-align: right;
+        //padding-bottom: 3px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        padding-bottom: 13px;
+        //padding-bottom: 13px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        padding-bottom: 6px;
+        //padding-bottom: 6px;
       }
     }
 
     p {
-      text-align: right;
-      padding-left: 40px;
+      //text-align: right;
+      text-align: left;
+      padding-left: 0px;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        text-align: right;
-        padding-left: 40px;
+        //text-align: right;
+        //padding-left: 40px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
