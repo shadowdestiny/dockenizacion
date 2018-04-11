@@ -1,4 +1,4 @@
-{# PAGES: Christmas lottery, Play #}
+{# PAGES: Euromillions Play #}
 
 <div class="box-bottom--accordion">
     <div class="block--text--accordion">
@@ -26,7 +26,6 @@
     </h3>
 
     <div class="play-bottom-block--img">
-        {#<img src="/w/img/christmas-lottery/desktop/bottom-banner--full.png"/>#}
         <img src="/w/img/play/desktop/play-bottom-banner.png"/>
     </div>
     <div class="play-bottom-block--center">
