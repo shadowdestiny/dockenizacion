@@ -1,0 +1,130 @@
+/* PAGE: Christmas lottery Results */
+
+.christmass-lottery-results--page {
+
+  .title-block {
+
+    z-index: 1;
+
+    background-color:  #f02b2b;
+    width: 100%;
+    min-height: 48px;
+
+
+
+    @media only screen and (min-width: $screen-ipad-h) {
+
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      background-color: transparent;
+
+      .wrapper {
+        background-color:  #f02b2b;
+      }
+    }
+
+
+    h1 {
+      color:  #ffffff;
+      font-size: 20px;
+      font-weight: 900;
+      //line-height: 60px;
+      line-height: 1;
+      text-align: left;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+
+      }
+    }
+
+    p {
+      color:  #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      //line-height: 48px;
+      line-height: 1;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      z-index: 1;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+
+    }
+  }
+
+  .main-text{
+    h2 {
+
+    }
+    p {
+
+    }
+  }
+
+  .current-winners-block {
+    .mobile-title {
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        display: none;
+      }
+    }
+
+    .box-current-winners {
+
+    }
+  }
+
+  .did-you-win-block {
+    h2 {
+
+    }
+
+    form {
+      #ticket_number {
+
+      }
+      .btn {
+
+      }
+    }
+  }
+
+  .other-prizes-text {
+    @media only screen and (min-width: $screen-ipad-h) {
+      display: none;
+    }
+
+    h2 {
+      display: none;
+    }
+
+    h3 {
+
+    }
+
+    p {
+
+    }
+  }
+
+  .other-prizes-block {
+    .box-current-winners {
+
+    }
+  }
+
+  .texter {
+
+  }
+
+}
