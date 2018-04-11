@@ -41,7 +41,7 @@ class PaymentController extends CartController
             $this->response->redirect('/' . $this->lottery . '/cart/profile');
             return false;
         }
-        $result = $play_service->getPlaysFromTemporarilyStorage($user);
+        $result = $play_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
         $msg = '';
 
         $order_view = true;

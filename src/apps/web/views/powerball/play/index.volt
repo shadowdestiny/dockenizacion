@@ -10,7 +10,7 @@
     var ajaxFunctions = {
     playCart : function (params){
     $.ajax({
-    url:'/ajax/play-temporarily/temporarilyCart/',
+    url:'/ajax/power-ball-play-temporarily/temporarilyCart/',
     data:params,
     type:'POST',
     dataType:"json",

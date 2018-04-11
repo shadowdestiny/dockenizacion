@@ -25,6 +25,7 @@ use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\play_strategies\RedisOrderStorageStrategy;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\services\PlayService;
+use EuroMillions\web\services\PowerBallService;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\preferences_strategies\WebUserPreferencesStorageStrategy;
 use EuroMillions\web\services\PrizeCheckoutService;
@@ -156,7 +157,7 @@ class DomainServiceFactory
 
     public function getPowerBallService()
     {
-        return new PlayService(
+        return new PowerBallService(
             $this->entityManager,
             $this->getLotteryService(),
             new RedisPlayStorageStrategy(

@@ -444,6 +444,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'profile'
         ));
 
+        $router->add("/{lottery:(powerball)+}/cart/profile", array(
+            "module" => "web",
+            'lottery' => 3,
+            'controller' => 'power-ball-cart',
+            'action' => 'profile'
+        ));
+
         $router->add("/{lottery:(euromillions)+}/order", array(
             "module" => "web",
             'lottery' => 1,
@@ -455,6 +462,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "module" => "web",
             'lottery' => "euromillions",
             'controller' => 'christmas',
+            'action' => 'order'
+        ));
+
+        $router->add("/{lottery:(powerball)+}/order", array(
+            "module" => "web",
+            'lottery' => 3,
+            'controller' => 'power-ball-order',
             'action' => 'order'
         ));
 
