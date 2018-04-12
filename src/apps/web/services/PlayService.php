@@ -92,7 +92,7 @@ class PlayService
         $this->emailService = $emailService;
     }
 
-    public function getPlaysFromGuestUserAndSwitchUser($user_id, $current_user_id)
+    public function getPlaysFromGuestUserAndSwitchUser($user_id, $current_user_id, $lottery)
     {
         /** @var User $user */
         $user = $this->userRepository->find($current_user_id);
@@ -110,8 +110,8 @@ class PlayService
                     $bets = [];
                     foreach ($form_decode->play_config as $bet) {
                         $playConfig = new PlayConfig();
-                        $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines);
-                        $playConfig->setLottery($this->getLottery());
+                        $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines, $this->getLottery($lottery)->getName());
+                        $playConfig->setLottery($this->getLottery($lottery));
                         $playConfig->setDiscount(new Discount($bet->frequency, $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
                         $bets[] = $playConfig;
                     }
@@ -377,7 +377,7 @@ class PlayService
     }
 
 
-    public function getPlaysFromTemporarilyStorage(User $user)
+    public function getPlaysFromTemporarilyStorage(User $user, $lottery)
     {
         try {
             /** @var ActionResult $result */
@@ -387,8 +387,8 @@ class PlayService
                 $bets = [];
                 foreach ($form_decode->play_config as $bet) {
                     $playConfig = new PlayConfig();
-                    $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines);
-                    $playConfig->setLottery($this->getLottery());
+                    $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines, $this->getLottery($lottery)->getName());
+                    $playConfig->setLottery($this->getLottery($lottery));
                     $playConfig->setDiscount(new Discount($bet->frequency, $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
                     $bets[] = $playConfig;
                 }
@@ -485,9 +485,34 @@ class PlayService
     /**
      * @return BundlePlayCollectionDTO
      */
-    public function retrieveEuromillionsBundlePriceDTO()
+    public function retrieveEuromillionsBundlePriceDTO($lottery)
     {
-        $bundlePlayCollectionDTO = new BundlePlayCollectionDTO($this->playConfigRepository->retrieveEuromillionsBundlePrice(), $this->getLottery()->getSingleBetPrice());
+        $bundlePlayCollectionDTO = new BundlePlayCollectionDTO($this->playConfigRepository->retrieveEuromillionsBundlePrice(), $this->getLottery($lottery)->getSingleBetPrice());
+        $di = \Phalcon\Di::getDefault();
+        /** @var DomainServiceFactory $domainServiceFactory */
+        $domainServiceFactory = $di->get('domainServiceFactory');
+        $current_currency = $domainServiceFactory->getUserPreferencesService()->getCurrency();
+        if ($domainServiceFactory->getAuthService()->isLogged()) {
+            /** @var User $user */
+            $user = $this->userRepository->find($domainServiceFactory->getAuthService()->getCurrentUser()->getId());
+            $userCurrency = $user->getUserCurrency();
+            $domainServiceFactory->getUserPreferencesService()->setCurrency($userCurrency);
+            $current_currency = $userCurrency;
+        }
+        /** @var BundlePlayDTO $bundlePlayDto */
+        foreach ($bundlePlayCollectionDTO->bundlePlayDTO as $bundlePlayDto) {
+            $moneyConverted = $domainServiceFactory->getCurrencyConversionService()->convert($bundlePlayDto->singleBetPriceWithDiscount, $current_currency);
+            $bundlePlayDto->singleBetPriceWithDiscount = $moneyConverted;
+        }
+        return $bundlePlayCollectionDTO;
+    }
+
+    /**
+     * @return BundlePlayCollectionDTO
+     */
+    public function retrievePowerBallBundlePriceDTO($lottery)
+    {
+        $bundlePlayCollectionDTO = new BundlePlayCollectionDTO($this->playConfigRepository->retrieveEuroMillionsBundlePrice(), $this->getLottery($lottery)->getSingleBetPrice());
         $di = \Phalcon\Di::getDefault();
         /** @var DomainServiceFactory $domainServiceFactory */
         $domainServiceFactory = $di->get('domainServiceFactory');
@@ -534,9 +559,9 @@ class PlayService
     }
 
     //EMTD workaround, now only once lottery we have. In the future should pass lottery as param
-    private function getLottery()
+    private function getLottery($lottery)
     {
-        return $this->lotteryService->getLotteryConfigByName('EuroMillions');
+        return $this->lotteryService->getLotteryConfigByName($lottery);
     }
 
     private function sendEmailPurchase(User $user, $orderLines)

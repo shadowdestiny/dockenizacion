@@ -12,8 +12,10 @@ class PowerballPlayController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
+
         $current_currency = $this->userPreferencesService->getCurrency();
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
+
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
@@ -32,14 +34,15 @@ class PowerballPlayController extends PublicSiteControllerBase
             $this->view->setVar('trillions', false);
         }
         $this->view->setVar('language', $this->languageService->getLocale());
-        $play_dates = $this->lotteryService->getRecurrentDrawDates('Euromillions');
-        $draw = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
+        $play_dates = $this->lotteryService->getRecurrentDrawDates('PowerBall');
+
+        $draw = $this->lotteryService->getNextDateDrawByLottery('PowerBall');
         $date_time_util = new DateTimeUtil();
         $dayOfWeek = $date_time_util->getDayOfWeek($draw);
         $checkOpenTicket = $date_time_util->checkTimeForClosePlay($draw);
-        $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
+        $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('PowerBall');
         $automatic_random = $this->request->get('random');
-        $bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO();
+        $bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrievePowerBallBundlePriceDTO('PowerBall');
         if (!$this->authService->isLogged()) {
             $user_currency = $this->userPreferencesService->getCurrency();
             $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $user_currency);
@@ -52,7 +55,7 @@ class PowerballPlayController extends PublicSiteControllerBase
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $this->tag->prependTitle($this->languageService->translate('play_pow_name') . ViewHelper::formatJackpotNoCents($jackpot));
         MetaDescriptionTag::setDescription($this->languageService->translate('play_pow_desc'));
-        $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
+        $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('PowerBall');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
         $bet_value = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
 

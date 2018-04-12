@@ -39,7 +39,7 @@ class PlayController extends PublicSiteControllerBase
         $checkOpenTicket = $date_time_util->checkTimeForClosePlay($draw);
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $automatic_random = $this->request->get('random');
-        $bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO();
+        $bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO('EuroMillions');
         if (!$this->authService->isLogged()) {
             $user_currency = $this->userPreferencesService->getCurrency();
             $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $user_currency);
@@ -49,6 +49,7 @@ class PlayController extends PublicSiteControllerBase
             $user = $this->userService->getUser($current_user_id);
             $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
         }
+
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $this->tag->prependTitle($this->languageService->translate('play_em_name') . ViewHelper::formatJackpotNoCents($jackpot));
         MetaDescriptionTag::setDescription($this->languageService->translate('play_em_desc'));

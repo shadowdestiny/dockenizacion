@@ -8,7 +8,7 @@ use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
 
-class OrderController extends CartController
+class PowerBallOrderController extends CartController
 {
 
 
@@ -18,9 +18,10 @@ class OrderController extends CartController
         $current_user_id = $this->authService->getCurrentUser()->getId();
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
-        $play_service = $this->domainServiceFactory->getPlayService();
+        $play_service = $this->domainServiceFactory->getPowerBallService();
         $msg = '';
         $errors = [];
+
         if(!empty($user_id)) {
             $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id,$this->lottery);
             $user = $this->userService->getUser($current_user_id);
@@ -31,12 +32,14 @@ class OrderController extends CartController
                 $this->response->redirect('/'.$this->lottery.'/play');
                 return false;
             }
+
             $result = $play_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
         }
         if(!$result->success()) {
             $this->response->redirect('/'.$this->lottery.'/play');
             return false;
         }
+
         $type = ViewHelper::getNamePaymentType($this->getDI()->get('paymentProviderFactory'));
         $view = $type == 'iframe' ? 'cart/order_iframe' : 'cart/order';
         $this->view->pick($view);

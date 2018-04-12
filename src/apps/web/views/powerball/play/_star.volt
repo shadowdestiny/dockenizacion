@@ -1,0 +1,1 @@
+<svg class="vector v-star-out"><use xlink:href="/w/svg/icon.svg#v-star-out"></use></svg><svg class="vector v-star"><use xlink:href="/w/svg/icon.svg#v-star"></use></svg>

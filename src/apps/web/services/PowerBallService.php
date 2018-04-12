@@ -91,6 +91,41 @@ class PowerBallService
         $this->emailService = $emailService;
     }
 
+    public function getPlaysFromGuestUserAndSwitchUser($user_id, $current_user_id, $lottery)
+    {
+        /** @var User $user */
+        $user = $this->userRepository->find($current_user_id);
+        if (null == $user) {
+            return new ActionResult(false);
+        }
+        try {
+            /** @var ActionResult $result_find_playstorage */
+            $result_find_playstorage = $this->playStorageStrategy->findByKey($user_id);
+            if ($result_find_playstorage->success()) {
+                $this->playStorageStrategy->save($result_find_playstorage->returnValues(), $current_user_id);
+                $result_save_playstorage = $this->playStorageStrategy->findByKey($current_user_id);
+                if ($result_save_playstorage->success()) {
+                    $form_decode = json_decode($result_find_playstorage->getValues());
+                    $bets = [];
+                    foreach ($form_decode->play_config as $bet) {
+                        $playConfig = new PlayConfig();
+                        $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines, $this->getLottery($lottery)->getName());
+                        $playConfig->setLottery($this->getLottery($lottery));
+                        $playConfig->setDiscount(new Discount($bet->frequency, $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
+                        $bets[] = $playConfig;
+                    }
+                    return new ActionResult(true, $bets);
+                } else {
+                    return new ActionResult(false);
+                }
+            } else {
+                return new ActionResult(false);
+            }
+        } catch (\Exception $e) {
+            return new ActionResult(false);
+        }
+    }
+
     /**
      * @param $user_id
      * @param Money $funds
@@ -209,5 +244,37 @@ class PowerBallService
             }
         }
         return new ActionResult(false);
+    }
+
+    public function getPlaysFromTemporarilyStorage(User $user, $lottery)
+    {
+        try {
+            /** @var ActionResult $result */
+            $result = $this->playStorageStrategy->findByKey($user->getId());
+            if ($result->success()) {
+                $form_decode = json_decode($result->returnValues());
+                $bets = [];
+                foreach ($form_decode->play_config as $bet) {
+                    $playConfig = new PlayConfig();
+
+                    $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines, $this->getLottery($lottery)->getName());
+
+                    $playConfig->setLottery($this->getLottery($lottery));
+                    $playConfig->setDiscount(new Discount($bet->frequency, $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
+                    $bets[] = $playConfig;
+                }
+
+                return new ActionResult(true, $bets);
+            } else {
+                return new ActionResult(false);
+            }
+        } catch (\RedisException $r) {
+            return new ActionResult(false, $r->getMessage());
+        }
+    }
+
+    private function getLottery($lottery)
+    {
+        return $this->lotteryService->getLotteryConfigByName($lottery);
     }
 }
