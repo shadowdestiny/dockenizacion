@@ -17,7 +17,7 @@
 
             <div class="title-block">
                 <div class="wrapper">
-                <h1>
+                <h1 class="title-block-h1">
                     {% if mobile == 1 %}
                         {{ language.translate("h1_resultsch_mobile") }}
                     {% else %}
@@ -44,7 +44,7 @@
                 <p>
                     {{ language.translate("text_mainprizes") }}
                 </p>
-                
+
             </div>
 
 

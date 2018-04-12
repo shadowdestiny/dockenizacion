@@ -387,28 +387,28 @@
         padding: 17px 10px 5px 20px;
       }
 
-      h1 {
-        color: #454545;
-        font-size: 18px;
-        font-weight: 700;
-        text-align: left;
-        text-transform: none;
-        margin-bottom: 5px;
-
-        @media only screen and (min-width: $screen-ipad-v) {
-          color: #454545;
-          font-size: 23px;
-          font-weight: 700;
-          text-align: left;
-          text-transform: none;
-          margin-bottom: 53px;
-        }
-        @media only screen and (min-width: $screen-ipad-h) {}
-        @media only screen and (min-width: $screen-desktop) {
-          font-size: 18px;
-          margin-bottom: 39px;
-        }
-      }
+      //h1 {
+      //  color: #454545;
+      //  font-size: 18px;
+      //  font-weight: 700;
+      //  text-align: left;
+      //  text-transform: none;
+      //  margin-bottom: 5px;
+      //
+      //  @media only screen and (min-width: $screen-ipad-v) {
+      //    color: #454545;
+      //    font-size: 23px;
+      //    font-weight: 700;
+      //    text-align: left;
+      //    text-transform: none;
+      //    margin-bottom: 53px;
+      //  }
+      //  @media only screen and (min-width: $screen-ipad-h) {}
+      //  @media only screen and (min-width: $screen-desktop) {
+      //    font-size: 18px;
+      //    margin-bottom: 39px;
+      //  }
+      //}
 
       .table {
         background-color: transparent;
@@ -792,7 +792,9 @@
   .wrapper {
     @media only screen and (min-width: $screen-small) {
       width: auto;
-      max-width: 1280px;
+      //max-width: 1280px;
+      max-width: 1320px;
+      padding: 0 20px;
     }
   }
 

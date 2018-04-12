@@ -77,6 +77,8 @@
 
   }
 
+  h1,
+  h2,
   h3 {
     color: #333;
     font-size: 18.5px;
@@ -99,6 +101,10 @@
       padding-bottom: 6px;
     }
 
+  }
+  h2,
+  h3 {
+    text-transform: uppercase;
   }
 
   p {
@@ -168,6 +174,7 @@
       padding-top: 2px;
     }
 
+    h2,
     h3 {
       text-align: center;
       text-transform: uppercase;
@@ -220,6 +227,7 @@
       padding-right: 45px;
     }
 
+    h2,
     h3 {
       text-align: left;
       text-transform: uppercase;

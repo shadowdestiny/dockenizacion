@@ -151,9 +151,9 @@
                     <div class="left-section result-section">
 
                         <div class="box-current-winners--new">
-                            <h2 class="h2">
+                            <h1 class="h2">
                                 {{ language.translate("prizePool_title") }}
-                            </h2>
+                            </h1>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
                                    data-mode="reflow">
                                 <thead><th> </th></thead>
@@ -236,9 +236,9 @@
                 <div class="bottom--banner"></div>
 
                 <div class="block--text--accordion">
-                    <h3>
+                    <h2>
                         Have you wan?
-                    </h3>
+                    </h2>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aspernatur consequuntur cumque eligendi error, facere, fugiat maxime nobis numquam quidem recusandae totam, voluptates voluptatibus? Maiores, molestiae, neque. Dolorem, eligendi, libero?
                     </p>

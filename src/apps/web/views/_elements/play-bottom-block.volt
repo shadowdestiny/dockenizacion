@@ -2,17 +2,17 @@
 
 <div class="box-bottom--accordion">
     <div class="block--text--accordion">
-        <h3>
+        <h2>
             {{ language.translate("play_firstH2") }}
-        </h3>
+        </h2>
         <p>
             {{ language.translate("play_text1") }}
         </p>
     </div>
     <div class="block--text--accordion">
-        <h3>
+        <h2>
             {{ language.translate("play_secondH2") }}
-        </h3>
+        </h2>
         <p>
             {{ language.translate("play_text2") }}
         </p>
@@ -21,26 +21,26 @@
 
 <div class="box-bottom play-bottom-block">
 
-    <h3>
+    <h1>
         Play Euromillions, Europe's biggest lottery
-    </h3>
+    </h1>
 
     <div class="play-bottom-block--img">
         <img src="/w/img/play/desktop/play-bottom-banner.png"/>
     </div>
     <div class="play-bottom-block--center">
-        <h3>
+        <h2>
             {{ language.translate("play_firstH2") }}
-        </h3>
+        </h2>
 
         <p>
             {{ language.translate("play_text1") }}
         </p>
     </div>
     <div class="play-bottom-block--right">
-        <h3>
+        <h2>
             {{ language.translate("play_secondH2") }}
-        </h3>
+        </h2>
         <p>
             {{ language.translate("play_text2") }}
 
