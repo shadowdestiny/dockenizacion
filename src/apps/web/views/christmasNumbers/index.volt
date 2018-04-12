@@ -42,15 +42,9 @@
                 <h2><span>{{ language.translate("h2_mainprizes") }}</span>
                 </h2>
                 <p>
-                    {#{{ language.translate("text_mainprizes") }}#}
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam architecto cumque cupiditate, deserunt dicta doloribus, ducimus ea natus nulla provident quae qui quia quidem reprehenderit tempore temporibus! Dolorem, ipsam.
+                    {{ language.translate("text_mainprizes") }}
                 </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam deleniti earum libero minima perspiciatis repudiandae veritatis. Aspernatur blanditiis cupiditate dignissimos incidunt praesentium quis quos, tenetur. Laudantium quae soluta voluptate.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad animi beatae cum ea eaque excepturi illum, ipsum laborum maiores nostrum, pariatur, quae quibusdam reprehenderit ut voluptatibus. A exercitationem fuga hic.
-                </p>
+                
             </div>
 
 
@@ -198,8 +192,7 @@
                 </h2>
                 <h3>{{ language.translate("h3_otherprizesamount") }}</h3>
                 <p>
-                    {#{{ language.translate("text_otherprizesamount") }}#}
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid at aut corporis, cum deleniti doloremque, exercitationem fugit laborum minima minus modi nam nesciunt possimus quae, sapiente vel velit voluptas voluptatem?
+                    {{ language.translate("text_otherprizesamount") }}
                 </p>
             </div>
 
@@ -394,15 +387,13 @@
                 <div class="block--text--accordion">
                     <h3>{{ language.translate("h3_pedrea") }}</h3>
                     <p>
-                        {#{{ language.translate("text_pedrea") }}#}
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi blanditiis cupiditate deserunt harum obcaecati officia soluta unde? Earum eligendi impedit ipsa laboriosam optio provident saepe! Consectetur culpa hic neque quod.
+                        {{ language.translate("text_pedrea") }}
                     </p>
                 </div>
                 <div class="block--text--accordion">
                     <h3>{{ language.translate("h3_otherprizesclaim") }}</h3>
                     <p>
-                        {#{{ language.translate("text_otherprizesclaim") }}#}
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto aut culpa cupiditate dolor dolorum earum, est fuga id laudantium necessitatibus nesciunt nobis omnis possimus quasi quisquam repudiandae tempora unde vitae!
+                        {{ language.translate("text_otherprizesclaim") }}
                     </p>
                 </div>
             </div>
@@ -410,5 +401,12 @@
         </div>
 
         </div>
+
+
+
+        {#TODO: add this elemet on the right page#}
+        {% include "_elements/christmass-lottery-results-prize.volt" %}
+
+
     </main>
 {% endblock %}
