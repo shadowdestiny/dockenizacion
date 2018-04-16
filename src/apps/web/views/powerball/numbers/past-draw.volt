@@ -81,7 +81,7 @@
 {% endblock %}
 {% block body %}
     <main id="content">
-        <div class="result-page--content">
+        <div class="powerball--result-page--content">
 
             <div class="banner">
                 <div class="top-banner--section">

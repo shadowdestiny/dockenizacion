@@ -1,0 +1,201 @@
+/* PAGE: Christmas lottery Results */
+
+.christmass-lottery-results-prize--page {
+
+  .wrapper{
+    @media only screen and (min-width: $screen-wide-full) {
+      width: $screen-wide-full-wrapper;
+      max-width: $screen-wide-full-wrapper;
+    }
+  }
+
+  .title-block {
+    z-index: 1;
+    background-color:  #f02b2b;
+    width: 100%;
+    min-height: 48px;
+
+    margin-top: 2px;
+    padding-top: 6px;
+
+
+    @media only screen and (min-width: $screen-ipad-h) {
+
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      background-color: transparent;
+
+      .wrapper {
+        background-color:  #f02b2b;
+        padding-top: 16px;
+        padding-left: 35px;
+        padding-right: 35px;
+        padding-bottom: 13px;
+      }
+
+      margin-top: 72px;
+    }
+
+
+    h1 {
+      color:  #ffffff;
+      font-size: 20px;
+      font-weight: 900;
+      //line-height: 60px;
+      line-height: 1;
+      text-align: left;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 62px;
+      }
+      @media only screen and (min-width: $screen-wide) {
+        font-size: 82px;
+      }
+    }
+
+    p {
+      color:  #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      //line-height: 48px;
+      line-height: 1;
+      text-align: left;
+      text-transform: uppercase;
+      margin-bottom: 0;
+
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 60px;
+      }
+      @media only screen and (min-width: $screen-wide) {
+        font-size: 60px;
+      }
+    }
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      z-index: 1;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+
+    }
+  }
+
+  .main-text{
+    margin-top: 14px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      margin-top: 0px;
+      margin-bottom: 10px;
+
+      padding-top: 29px;
+      padding-right: 40px;
+      padding-bottom: 0px;
+      padding-left: 40px;
+    }
+    
+    h2 {
+      color:  #333333;
+      font-size: 27px;
+      font-weight: 900;
+      text-align: left;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 62px;
+        line-height: 1;
+        margin-bottom: 0px;
+      }
+    }
+
+    p {
+      color:  #333333;
+      font-size: 18px;
+      font-weight: 600;
+      text-align: left;
+      line-height: 1;
+      margin-bottom: 15px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 36px;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .winners-block {
+    margin-bottom: 30px;
+    overflow: hidden;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin-bottom: 80px;
+    }
+
+    .block {
+      overflow: hidden;
+      color:  #333333;
+      font-size: 18px;
+      font-weight: 900;
+      text-align: left;
+      line-height: 28px;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        width: 50%;
+        float: left;
+        margin: 0;
+        font-size: 24px;
+        line-height: 76px;
+      }
+
+      .block-head {
+        height: 28px;
+        background-color:  #fad425;
+        margin-bottom: 1px;
+        padding-left: 10px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          padding-left: 33px;
+          height: 76px;
+          //border-left: 1px solid #fff;
+          //border-right: 1px solid #fff;
+          margin-bottom: 0;
+        }
+      }
+
+      .block-data {
+        height: 28px;
+        background-color:  #f5f5f5;
+        margin-bottom: 1px;
+        padding-left: 10px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          padding-left: 33px;
+          height: 76px;
+          margin-bottom: 0;
+        }
+      }
+
+      & + .block {
+        .block-head {
+          @media only screen and (min-width: $screen-ipad-v) {
+            border-left: 1px solid #fff;
+          }
+        }
+      }
+    }
+
+  }
+
+
+}

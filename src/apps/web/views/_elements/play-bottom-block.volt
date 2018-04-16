@@ -1,54 +1,50 @@
-{# PAGES: Christmas lottery, Play #}
+{# PAGES: Euromillions Play #}
 
-{#<div class="box-bottom play-bottom-block">#}
-    {#<div class="play-bottom-block--img">#}
-        {#<img src="/w/img/christmas-lottery/desktop/bottom-banner--full.png"/>#}
-    {#</div>#}
-    {#<div class="play-bottom-block--center">#}
-        {#<h3>#}
-            {#Euro millions - Europes favourite lotto#}
-        {#</h3>#}
+<div class="box-bottom--accordion">
+    <div class="block--text--accordion">
+        <h2>
+            {{ language.translate("play_firstH2") }}
+        </h2>
+        <p>
+            {{ language.translate("play_text1") }}
+        </p>
+    </div>
+    <div class="block--text--accordion">
+        <h2>
+            {{ language.translate("play_secondH2") }}
+        </h2>
+        <p>
+            {{ language.translate("play_text2") }}
+        </p>
+    </div>
+</div>
 
-        {#<p>#}
-            {#Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem#}
-            {#Ipsum has been the industry's standard dummy text ever since the 1500s.#}
-        {#</p>#}
-    {#</div>#}
-    {#<div class="play-bottom-block--right">#}
-        {#<h3>#}
-            {#pick your numbers and play- its that easy#}
-        {#</h3>#}
+<div class="box-bottom play-bottom-block">
 
-        {#<p>#}
-            {#Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem#}
-            {#Ipsum has been the industry's standard dummy text ever since the 1500s.#}
-        {#</p>#}
-    {#</div>#}
-{#</div>#}
+    <h1>
+        Play Euromillions, Europe's biggest lottery
+    </h1>
 
-<div class="latest-news">
-    <div class="wrapper">
-        <div class="news-block">
-            <div class="news-block--content">
-                <h2 class="news-block--title">
-                    {{ language.translate("play_firstH2") }}
-                </h2>
-                <div class="news-block--body">
-                    {{ language.translate("play_text1") }}
-                </div>
-            </div>
-        </div>
+    <div class="play-bottom-block--img">
+        <img src="/w/img/play/desktop/play-bottom-banner.png"/>
+    </div>
+    <div class="play-bottom-block--center">
+        <h2>
+            {{ language.translate("play_firstH2") }}
+        </h2>
 
-        <div class="news-block">
-            <div class="news-block--content">
-                <h2 class="news-block--title">
-                    {{ language.translate("play_secondH2") }}
-                </h2>
-                <div class="news-block--body">
-                    {{ language.translate("play_text2") }}
-                </div>
-            </div>
-        </div>
+        <p>
+            {{ language.translate("play_text1") }}
+        </p>
+    </div>
+    <div class="play-bottom-block--right">
+        <h2>
+            {{ language.translate("play_secondH2") }}
+        </h2>
+        <p>
+            {{ language.translate("play_text2") }}
+
+        </p>
 
     </div>
 </div>

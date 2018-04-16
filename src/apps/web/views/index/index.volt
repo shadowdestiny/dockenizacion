@@ -177,26 +177,70 @@
             </div>
         </div>
 
+        <div class="wrapper">
+            <div class="accordion-blocks">
+                <div class="block--text--accordion">
+                    <h3>
+                        Play quick and relax with euromillions.com
+                    </h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aspernatur consequuntur cumque eligendi error, facere, fugiat maxime nobis numquam quidem recusandae totam, voluptates voluptatibus? Maiores, molestiae, neque. Dolorem, eligendi, libero?
+                    </p>
+                </div>
+                <div class="block--text--accordion">
+                    <h3>
+                        Buy lottery tickets at the best price
+                    </h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aspernatur consequuntur cumque eligendi error, facere, fugiat maxime nobis numquam quidem recusandae totam, voluptates voluptatibus? Maiores, molestiae, neque. Dolorem, eligendi, libero?
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <div class="latest-news">
             <div class="wrapper">
+                <h2 class="h2">
+                    Latest news on Euromillions.com
+                </h2>
+            </div>
+            <div class="wrapper">
                 <div class="news-block">
+                    <div class="news-block--img">
+                        <img src="/w/img/home/lates-news/desktop/img-man.png" alt="Latest News">
+                    </div>
                     <div class="news-block--content">
-                        <h3 class="news-block--title">
+                        <div class="news-block--title">
                             {{ language.translate("cta2_sub1") }}
-                        </h3>
+                        </div>
                         <div class="news-block--body">
                             {{ language.translate("cta2_text1") }}
+                        </div>
+                        <a href="#" class="news-block--link" title="Latest News">
+                            Read the full article
+                        </a>
+                        <div class="news-block--social">
+                            {% include "_elements/social--news.volt" %}
                         </div>
                     </div>
                 </div>
 
                 <div class="news-block">
+                    <div class="news-block--img">
+                        <img src="/w/img/home/lates-news/desktop/img-woman.png" alt="Latest News">
+                    </div>
                     <div class="news-block--content">
-                        <h3 class="news-block--title">
+                        <div class="news-block--title">
                             {{ language.translate("cta2_sub2") }}
-                        </h3>
+                        </div>
                         <div class="news-block--body">
                             {{ language.translate("cta2_text2") }}
+                        </div>
+                        <a href="#" class="news-block--link" title="Latest News">
+                            Read the full article
+                        </a>
+                        <div class="news-block--social">
+                            {% include "_elements/social--news.volt" %}
                         </div>
                     </div>
                 </div>

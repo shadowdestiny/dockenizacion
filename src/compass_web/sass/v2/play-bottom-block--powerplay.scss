@@ -1,6 +1,6 @@
-// PAGES: Euromillions Play
+// PAGES: Powerball Play
 
-.box-bottom--accordion {
+.box-bottom--accordion--powerplay {
   display: block;
   padding-left: 10px;
   padding-right: 10px;
@@ -11,8 +11,9 @@
 }
 
 
-.box-bottom.play-bottom-block {
+.box-bottom.play-bottom-block--powerplay {
   padding: 0;
+  border-top: 0;
   border-bottom: 1px solid #303030;
 
   width: 100%;
@@ -20,13 +21,15 @@
 
   overflow: hidden;
   padding-bottom: 52px;
-
-  background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
+  background-color: transparent;
+  background-image: url('../img/powerball/powerball-tickets.png');
   background-repeat: no-repeat;
   background-position: 100% 100%;
 
   -webkit-background-size: 34.1%;
   background-size: 34.1%;
+
+  margin-bottom: 20px;
 
   display: none;
 
@@ -35,6 +38,7 @@
     display: block;
 
     padding: 0;
+    border-bottom: 1px solid #303030;
 
     width: 100%;
     border-radius: 0;
@@ -48,6 +52,7 @@
 
   @media only screen and (min-width: $screen-ipad-h) {
     padding: 0;
+    border-bottom: 1px solid #303030;
     padding-bottom: 85px;
 
     -webkit-background-size: 31%;
@@ -60,6 +65,7 @@
 
   @media only screen and (min-width: $screen-desktop) {
     padding: 0;
+    border-bottom: 1px solid #303030;
     padding-bottom: 64px;
 
     -webkit-background-size: 297px;
@@ -77,11 +83,13 @@
     color: #333;
     font-size: 18.5px;
     font-weight: 600;
-    text-transform: uppercase;
     padding-bottom: 3px;
 
     @media only screen and (min-width: $screen-ipad-v) {
-
+      color: #333;
+      font-size: 18.5px;
+      font-weight: 600;
+      padding-bottom: 3px;
     }
     @media only screen and (min-width: $screen-ipad-h) {
       font-size: 20px;
@@ -94,6 +102,10 @@
     }
 
   }
+  h2,
+  h3 {
+    text-transform: uppercase;
+  }
 
   p {
     //color:  #6a6969;
@@ -103,7 +115,9 @@
     line-height: 25px;
 
     @media only screen and (min-width: $screen-ipad-v) {
-
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 25px;
     }
     @media only screen and (min-width: $screen-ipad-h) {
       font-size: 18px;
@@ -163,6 +177,7 @@
     h2,
     h3 {
       text-align: center;
+      text-transform: uppercase;
 
       @media only screen and (min-width: $screen-ipad-v) {
         text-align: center;
@@ -181,7 +196,7 @@
       text-align: center;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        text-align: center;
+
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
@@ -215,6 +230,7 @@
     h2,
     h3 {
       text-align: left;
+      text-transform: uppercase;
 
       @media only screen and (min-width: $screen-ipad-v) {
 
