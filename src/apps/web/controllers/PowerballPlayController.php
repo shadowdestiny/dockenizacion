@@ -74,7 +74,7 @@ class PowerballPlayController extends PublicSiteControllerBase
             'discount_lines' => json_encode($bundlePriceDTO),
             'draws_number' => $bundlePriceDTO->bundlePlayDTOActive->getDraws(),
             'discount' => $bundlePriceDTO->bundlePlayDTOActive->getDiscount(),
-            'pageController' => 'euroPlay',
+            'pageController' => 'powerPlay',
             'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
             'draw_day' => $this->languageService->translate($draw->format('l')),
         ]);
