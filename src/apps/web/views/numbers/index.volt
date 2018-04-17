@@ -221,6 +221,18 @@
 
 
                 </div>
+
+                <div class="bottom--banner"></div>
+
+                <div class="block--text--accordion">
+                    <h2>
+                        Have you wan?
+                    </h2>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aspernatur consequuntur cumque eligendi error, facere, fugiat maxime nobis numquam quidem recusandae totam, voluptates voluptatibus? Maiores, molestiae, neque. Dolorem, eligendi, libero?
+                    </p>
+                </div>
+
             </div>
         </div>
     </main>
