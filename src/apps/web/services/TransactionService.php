@@ -96,5 +96,12 @@ class TransactionService
         return $this->transactionRepository->getNextId();
     }
 
+    public function getWinningTransactions()
+    {
+//        $date = new \DateTime();
+        var_dump($this->transactionRepository->getTransactionsByType('winnings_received'));die();
+
+    }
+
 
 }

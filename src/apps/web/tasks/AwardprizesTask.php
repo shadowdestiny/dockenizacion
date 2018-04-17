@@ -11,6 +11,7 @@ use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplat
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\services\TransactionService;
 use EuroMillions\web\services\PrizeCheckoutService;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\vo\Email;
@@ -30,6 +31,9 @@ class AwardprizesTask extends TaskBase
     /** @var  EmailService $emailService */
     protected $emailService;
 
+    /** @var  TransactionService $transactionService */
+    protected $transactionService;
+
     public function initialize(PrizeCheckoutService $PrizeCheckoutService = null, LotteryService $lotteryService = null)
     {
         $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
@@ -42,6 +46,7 @@ class AwardprizesTask extends TaskBase
 
     public function checkoutAction($args = 'now')
     {
+        $this->transactionService->getWinningTransactions();
         $playConfigsAwarded = [];
         $usersAwarded = 0;
         $today = new \DateTime($args[0]);
