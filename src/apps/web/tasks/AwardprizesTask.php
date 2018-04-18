@@ -19,7 +19,7 @@ use Money\Money;
 
 class AwardprizesTask extends TaskBase
 {
-    const EMAIL_ABOVE = 2500 * 100;
+    const EMAIL_ABOVE = 250000;
 
     /** @var  PrizeCheckoutService */
     private $PrizeCheckoutService;
@@ -30,13 +30,14 @@ class AwardprizesTask extends TaskBase
     /** @var  EmailService $emailService */
     protected $emailService;
 
-    public function initialize(PrizeCheckoutService $PrizeCheckoutService = null, LotteryService $lotteryService = null)
+    public function initialize(PrizeCheckoutService $PrizeCheckoutService = null, LotteryService $lotteryService = null, TransactionService $transactionService = null)
     {
         $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
         $this->PrizeCheckoutService = $PrizeCheckoutService ? $this->PrizeCheckoutService = $PrizeCheckoutService : $domainFactory->getPrizeCheckoutService();
         $this->lotteryService = $lotteryService ?: $this->lotteryService = $domainFactory->getLotteryService();
         $serviceFactory = new ServiceFactory($this->getDI());
         $this->emailService = $serviceFactory->getEmailService();
+        $this->transactionService = $domainFactory->getTransactionService();
         parent::initialize();
     }
 
@@ -54,7 +55,7 @@ class AwardprizesTask extends TaskBase
         $play_configs_result_awarded = $this->PrizeCheckoutService->playConfigsWithBetsAwarded($drawDate);
         //get breakdown
         $result_breakdown = $this->lotteryService->getLastDrawWithBreakDownByDate($lottery_name, $drawDate);
-        if ($result_breakdown->success() && $play_configs_result_awarded->success()) {
+        if ($result_breakdown->success() && $play_configs_result_awarded->success() && !$this->transactionService->getWinningTransactions()) {
             /** @var EuroMillionsDrawBreakDown $euromillions_breakDown */
             $euromillions_breakDown = $result_breakdown->getValues()->getBreakDown();
             $play_configs_awarded = $play_configs_result_awarded->getValues();

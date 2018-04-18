@@ -85,4 +85,18 @@ class TransactionRepository extends RepositoryBase
                 order by date desc'
                 , $rsm)->getResult();
     }
+
+    public function getAwardedByDate($date)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('date','date');
+
+        return $this->getEntityManager()
+            ->createNativeQuery(
+                'SELECT *
+                FROM transactions
+                WHERE entity_type = "winnings_received" and DATE_FORMAT(date,\'%Y-%m-%d\') = "' . $date . '"
+                order by date desc'
+                , $rsm)->getResult();
+    }
 }

@@ -1,15 +1,15 @@
-30 * * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php jackpot update
-35 * * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php result update
+01 * * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php jackpot update
+05 * * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php result update
 0 9 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php latestresult resultsReminderWhenPlayed
 0 9 * * 1,4 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php jackpot reminderJackpot
-45 7 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php awardprizes checkout
-0 8 * * * . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php Play-config update
+30 4 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php awardprizes checkout
+30 5 * * * . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php Play-config update
 57 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/pullFromEMDB.sql
 58 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/analysisQueries.sql
 59 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/Archive.sql
 30 0  * * * . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php clear-cache clear
-30 8 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php bet placeBets
-40 8 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php bet placeBets
-50 8 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php bet placeBets
+30 6 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php bet placeBets
+40 6 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php bet placeBets
+50 6 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php bet placeBets
 55 8 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php check-automatic-purchase verify
 

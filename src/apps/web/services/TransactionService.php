@@ -9,6 +9,7 @@ use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\WinningsReceivedTransaction;
 use EuroMillions\web\vo\dto\TransactionDTO;
 use Money\Currency;
 
@@ -94,6 +95,17 @@ class TransactionService
     public function getLastId()
     {
         return $this->transactionRepository->getNextId();
+    }
+
+    public function getWinningTransactions()
+    {
+        $date = new \DateTime();
+        if ($this->transactionRepository->getAwardedByDate($date->format('Y-m-d')))
+        {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
