@@ -198,55 +198,55 @@
             </div>
         </div>
 
-        <div class="latest-news">
-            <div class="wrapper">
-                <h2 class="h2">
-                    Latest news on Euromillions.com
-                </h2>
-            </div>
-            <div class="wrapper">
-                <div class="news-block">
-                    <div class="news-block--img">
-                        <img src="/w/img/home/lates-news/desktop/img-man.png" alt="Latest News">
-                    </div>
-                    <div class="news-block--content">
-                        <div class="news-block--title">
-                            {{ language.translate("cta2_sub1") }}
-                        </div>
-                        <div class="news-block--body">
-                            {{ language.translate("cta2_text1") }}
-                        </div>
-                        <a href="#" class="news-block--link" title="Latest News">
-                            Read the full article
-                        </a>
-                        <div class="news-block--social">
-                            {% include "_elements/social--news.volt" %}
-                        </div>
-                    </div>
-                </div>
+        {#<div class="latest-news">#}
+            {#<div class="wrapper">#}
+                {#<h2 class="h2">#}
+                    {#Latest news on Euromillions.com#}
+                {#</h2>#}
+            {#</div>#}
+            {#<div class="wrapper">#}
+                {#<div class="news-block">#}
+                    {#<div class="news-block--img">#}
+                        {#<img src="/w/img/home/lates-news/desktop/img-man.png" alt="Latest News">#}
+                    {#</div>#}
+                    {#<div class="news-block--content">#}
+                        {#<div class="news-block--title">#}
+                            {#{{ language.translate("cta2_sub1") }}#}
+                        {#</div>#}
+                        {#<div class="news-block--body">#}
+                            {#{{ language.translate("cta2_text1") }}#}
+                        {#</div>#}
+                        {#<a href="#" class="news-block--link" title="Latest News">#}
+                            {#Read the full article#}
+                        {#</a>#}
+                        {#<div class="news-block--social">#}
+                            {#{% include "_elements/social--news.volt" %}#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
 
-                <div class="news-block">
-                    <div class="news-block--img">
-                        <img src="/w/img/home/lates-news/desktop/img-woman.png" alt="Latest News">
-                    </div>
-                    <div class="news-block--content">
-                        <div class="news-block--title">
-                            {{ language.translate("cta2_sub2") }}
-                        </div>
-                        <div class="news-block--body">
-                            {{ language.translate("cta2_text2") }}
-                        </div>
-                        <a href="#" class="news-block--link" title="Latest News">
-                            Read the full article
-                        </a>
-                        <div class="news-block--social">
-                            {% include "_elements/social--news.volt" %}
-                        </div>
-                    </div>
-                </div>
+                {#<div class="news-block">#}
+                    {#<div class="news-block--img">#}
+                        {#<img src="/w/img/home/lates-news/desktop/img-woman.png" alt="Latest News">#}
+                    {#</div>#}
+                    {#<div class="news-block--content">#}
+                        {#<div class="news-block--title">#}
+                            {#{{ language.translate("cta2_sub2") }}#}
+                        {#</div>#}
+                        {#<div class="news-block--body">#}
+                            {#{{ language.translate("cta2_text2") }}#}
+                        {#</div>#}
+                        {#<a href="#" class="news-block--link" title="Latest News">#}
+                            {#Read the full article#}
+                        {#</a>#}
+                        {#<div class="news-block--social">#}
+                            {#{% include "_elements/social--news.volt" %}#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
 
-            </div>
-        </div>
+            {#</div>#}
+        {#</div>#}
 
         {#{% include "_elements/latest-news.volt" %}#}
 
