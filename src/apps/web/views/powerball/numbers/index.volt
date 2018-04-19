@@ -163,6 +163,9 @@
                                     {#<th class="td-star-ball">{{ language.translate("prizePool_star") }} 2</th>#}
                                     <td class="td-winners td-head">{{ language.translate("prizePool_winners") }}</td>
                                     <td class="td-prize td-head">{{ language.translate("prizePool_prize") }}</td>
+
+                                    <td class="td-winners--powerplay td-head">PowerPlay Winners</td>
+                                    <td class="td-prize--powerplay td-head">PowerPlay Amount</td>
                                 </tr>
                                 {% for name,categories in break_downs %}
                                     <tr>
@@ -190,6 +193,19 @@
                                                     {{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}
                                                 </span>
                                             </td>
+
+
+                                            <td class="td-winners--powerplay">
+                                                <span>
+                                                {{ break_downs[name]['winners'] }}x
+                                                </span>
+                                            </td>
+                                            <td class="td-prize--powerplay">
+                                                <span>
+                                                    {{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}
+                                                </span>
+                                            </td>
+
                                         {% endif %}
                                     </tr>
                                 {% endfor %}
