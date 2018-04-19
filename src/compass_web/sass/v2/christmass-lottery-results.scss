@@ -2,12 +2,12 @@
 
 .christmass-lottery-results--page {
 
-  .wrapper{
-    @media only screen and (min-width: $screen-wide-full) {
-      width: $screen-wide-full-wrapper;
-      max-width: $screen-wide-full-wrapper;
-    }
-  }
+  //.wrapper{
+  //  @media only screen and (min-width: $screen-wide-full) {
+  //    width: $screen-wide-full-wrapper;
+  //    max-width: $screen-wide-full-wrapper;
+  //  }
+  //}
 
   .box-current-winners {
     border: 0;
@@ -42,7 +42,8 @@
         word-break: break-word;
 
         @media only screen and (min-width: $screen-wide) {
-          font-size: 24px;
+          //font-size: 24px;
+          font-size: 18px;
         }
       }
     }
@@ -56,7 +57,7 @@
         border-bottom: 1px solid #fff;
         color:  #333333;
         font-size: 17px;
-        font-weight: 900;
+        //font-weight: 900;
         text-align: left;
 
         &.td-main-prize {
@@ -215,10 +216,12 @@
 
       }
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 62px;
+        //font-size: 62px;
+        font-size: 48px;
       }
       @media only screen and (min-width: $screen-wide) {
-        font-size: 82px;
+        //font-size: 82px;
+        font-size: 62px;
       }
     }
 
@@ -233,10 +236,12 @@
       margin-bottom: 0;
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 60px;
+        //font-size: 60px;
+        font-size: 34px;
       }
       @media only screen and (min-width: $screen-wide) {
-        font-size: 60px;
+        //font-size: 60px;
+        font-size: 45px;
       }
     }
 
@@ -281,7 +286,8 @@
       text-transform: uppercase;
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 52px;
+        //font-size: 52px;
+        font-size: 38px;
         line-height: 1;
         margin-bottom: 30px;
       }
@@ -347,7 +353,8 @@
       text-transform: uppercase;
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 52px;
+        //font-size: 52px;
+        font-size: 38px;
       }
     }
 
@@ -360,7 +367,8 @@
       text-transform: uppercase;
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 24px;
+        //font-size: 24px;
+        font-size: 18px;
       }
     }
 
@@ -378,7 +386,8 @@
 
         @media only screen and (min-width: $screen-desktop) {
           color:  #333333;
-          font-size: 24px;
+          //font-size: 24px;
+          font-size: 18px;
           font-weight: 700;
           text-align: left;
           margin-top: 25px;
@@ -404,7 +413,8 @@
           background-color:  #ffffff;
           width: 490px;
           height: 82px;
-          font-size: 24px;
+          //font-size: 24px;
+          font-size: 18px;
         }
 
         @media only screen and (min-width: $screen-desktop) {
@@ -434,7 +444,8 @@
         @media only screen and (min-width: $screen-ipad-v) {
           width: 286px;
           height: 61px;
-          font-size: 24px;
+          //font-size: 24px;
+          font-size: 18px;
           display: block;
           margin-top: 31px;
         }
@@ -460,7 +471,8 @@
 
     h3 {
       color:  #333333;
-      font-size: 16px;
+      //font-size: 16px;
+      font-size: 12px;
       font-weight: 700;
       text-align: left;
       line-height: 1.25;
@@ -469,7 +481,8 @@
 
     p {
       color:  #333333;
-      font-size: 16px;
+      //font-size: 16px;
+      font-size: 12px;
       font-weight: 400;
       text-align: left;
       line-height: 1.2;
@@ -510,7 +523,8 @@
       h3 {
         @media only screen and (min-width: $screen-desktop) {
           color:  #333333;
-          font-size: 36px;
+          //font-size: 36px;
+          font-size: 28px;
           font-weight: 900;
           text-align: left;
           margin-bottom: 17px;
@@ -520,7 +534,8 @@
       p {
         @media only screen and (min-width: $screen-desktop) {
           color:  #333333;
-          font-size: 17px;
+          //font-size: 17px;
+          font-size: 13px;
           font-weight: 500;
           text-align: left;
         }

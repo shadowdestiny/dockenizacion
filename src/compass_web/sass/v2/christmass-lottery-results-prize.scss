@@ -2,12 +2,12 @@
 
 .christmass-lottery-results-prize--page {
 
-  .wrapper{
-    @media only screen and (min-width: $screen-wide-full) {
-      width: $screen-wide-full-wrapper;
-      max-width: $screen-wide-full-wrapper;
-    }
-  }
+  //.wrapper{
+  //  @media only screen and (min-width: $screen-wide-full) {
+  //    width: $screen-wide-full-wrapper;
+  //    max-width: $screen-wide-full-wrapper;
+  //  }
+  //}
 
   .title-block {
     z-index: 1;
@@ -51,10 +51,12 @@
 
       }
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 62px;
+        //font-size: 62px;
+        font-size: 48px;
       }
       @media only screen and (min-width: $screen-wide) {
-        font-size: 82px;
+        //font-size: 82px;
+        font-size: 62px;
       }
     }
 
@@ -69,10 +71,12 @@
       margin-bottom: 0;
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 60px;
+        //font-size: 60px;
+        font-size: 34px;
       }
       @media only screen and (min-width: $screen-wide) {
-        font-size: 60px;
+        //font-size: 60px;
+        font-size: 45px;
       }
     }
 
@@ -111,7 +115,8 @@
       text-transform: uppercase;
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 62px;
+        //font-size: 62px;
+        font-size: 46px;
         line-height: 1;
         margin-bottom: 0px;
       }
@@ -126,7 +131,8 @@
       margin-bottom: 15px;
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 36px;
+        //font-size: 36px;
+        font-size: 28px;
         font-weight: 500;
         margin-bottom: 0;
       }
@@ -154,7 +160,8 @@
         width: 50%;
         float: left;
         margin: 0;
-        font-size: 24px;
+        //font-size: 24px;
+        font-size: 18px;
         line-height: 76px;
       }
 
