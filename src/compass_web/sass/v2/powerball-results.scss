@@ -950,4 +950,22 @@
     }
   }
 
+  .td-prize--powerplay,
+  .td-winners--powerplay {
+    @media only screen and (max-width: $width-pre-tablet) {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+  }
+
+  &.see-more--on {
+    .td-prize--powerplay,
+    .td-winners--powerplay {
+      @media only screen and (max-width: $width-pre-tablet) {
+        opacity: 1;
+        transition: opacity 0.3s;
+      }
+    }
+  }
+
 }

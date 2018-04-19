@@ -417,6 +417,20 @@ $(document).ready(function () {
     });
   }
 
+  if($('.powerball--result-page--content .see-results-block').length){
+    $('.powerball--result-page--content .see-results-block').click(function(){
+
+      setTimeout(function() {
+        if($('.powerball--result-page--content .see-results-block').find('label').hasClass('ui-checkbox-on')){
+          $('.powerball--result-page--content').addClass('see-more--on');
+        } else {
+          $('.powerball--result-page--content').removeClass('see-more--on');
+        }
+      }, 500);
+
+    });
+  }
+
 });
 
 //*************** Font resize Start ***************************
