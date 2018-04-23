@@ -36,9 +36,9 @@
       line-height: 34px;
       text-align: left;
       text-transform: uppercase;
-
-      @include common-headings-style-h1 ();
     }
+
+    @include common-headings-style-h1 ();
 
   }
 

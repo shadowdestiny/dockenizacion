@@ -102,9 +102,9 @@
           line-height: 1;
           margin-bottom: 13px;
           font-size: 40px;
-
-          @include common-headings-style-h2 ();
         }
+
+        @include common-headings-style-h2 ();
       }
 
       .view-more-block {
@@ -600,9 +600,9 @@
       @media only screen and (min-width: $screen-desktop) {
         font-size: 39px;
         margin-bottom: 1px;
-
-        @include common-headings-style-h1 ();
       }
+
+      @include common-headings-style-h1 ();
     }
 
     .number-generator--block--subtitle {
@@ -618,9 +618,9 @@
       @media only screen and (min-width: $screen-desktop) {
         font-size: 22.6px;
         margin-bottom: 9px;
-
-        @include common-headings-style-h3 ();
       }
+
+      @include common-headings-style-h3 ();
     }
 
     .number-generator--block--body {
