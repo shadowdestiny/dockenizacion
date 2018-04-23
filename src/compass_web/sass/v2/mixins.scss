@@ -409,6 +409,34 @@
 // Use it:
 //    @include btn-account();
 
-
-
 // Form end
+
+
+//Common headings
+
+@mixin common-headings-style-h1 {
+  @media only screen and (min-width: $screen-desktop) {
+    font-size: 33px;
+  }
+}
+@mixin common-headings-style-h2 {
+  @media only screen and (min-width: $screen-desktop) {
+    font-size: 26px;
+  }
+}
+@mixin common-headings-style-h3 {
+  @media only screen and (min-width: $screen-desktop) {
+    font-size: 20px;
+  }
+}
+
+// Use it:
+//h1 {
+//  @include common-headings-style-h1 ();
+//}
+//h2 {
+//  @include common-headings-style-h2 ();
+//}
+//h3 {
+//  @include common-headings-style-h3 ();
+//}
