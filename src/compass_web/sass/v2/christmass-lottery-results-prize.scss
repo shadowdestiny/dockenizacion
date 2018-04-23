@@ -120,6 +120,8 @@
         line-height: 1;
         margin-bottom: 0px;
       }
+
+      @include common-headings-style-h2 ();
     }
 
     p {

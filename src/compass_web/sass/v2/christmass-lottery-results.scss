@@ -291,6 +291,9 @@
         line-height: 1;
         margin-bottom: 30px;
       }
+
+      @include common-headings-style-h2 ();
+
     }
 
     p {
@@ -356,6 +359,8 @@
         //font-size: 52px;
         font-size: 38px;
       }
+
+      @include common-headings-style-h2 ();
     }
 
     h3 {
@@ -370,6 +375,8 @@
         //font-size: 24px;
         font-size: 18px;
       }
+
+      @include common-headings-style-h3 ();
     }
 
     form {
@@ -529,6 +536,8 @@
           text-align: left;
           margin-bottom: 17px;
         }
+
+        @include common-headings-style-h3 ();
       }
 
       p {
