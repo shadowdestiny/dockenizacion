@@ -64,7 +64,8 @@
 
     @media only screen and (min-width: $screen-small) {
       color:  #333333;
-      font-size: 42px;
+      //font-size: 42px;
+      font-size: 17px;
       line-height: 1;
       font-weight: 700;
       text-align: left;
@@ -73,6 +74,8 @@
       cursor: auto;
 
     }
+
+    @include common-headings-style-h3 ();
   }
 
   p {
