@@ -182,3 +182,46 @@ a:visited, .lnk:visited {
 
   }
 }
+
+.play--h1{
+  //font-family: WorkSans;
+  color:  #333333;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 58px;
+  text-align: left;
+  text-transform: uppercase;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    color:  #333333;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 46px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    color:  #333333;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 46px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  @media only screen and (min-width: $screen-desktop) {
+    color:  #333333;
+    font-size: 33px;
+    font-weight: 900;
+    line-height: 34px;
+    text-align: left;
+    text-transform: uppercase;
+
+    display: none;
+
+  }
+
+  @include common-headings-style-h1 ();
+
+}

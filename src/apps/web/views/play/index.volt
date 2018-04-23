@@ -136,18 +136,29 @@
                     <div class="top-banner--banner">
                         <div class="wrapper">
 
-                            <h1 class="top-banner-play">
-                                {% if mobile == 1 %}
-                                    {{ language.translate("play_mobile_h1") }}
-                                {% else %}
-                                    {{ language.translate("play_h1") }}
-                                {% endif %}
-                            </h1>
+                            {#<h1 class="top-banner-play">#}
+                                {#{% if mobile == 1 %}#}
+                                    {#{{ language.translate("play_mobile_h1") }}#}
+                                {#{% else %}#}
+                                    {#{{ language.translate("play_h1") }}#}
+                                {#{% endif %}#}
+                            {#</h1>#}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="wrapper">
+
+
+                <h1 class="play--h1">
+                    {% if mobile == 1 %}
+                        {{ language.translate("play_mobile_h1") }}
+                    {% else %}
+                        {{ language.translate("play_h1") }}
+                    {% endif %}
+                </h1>
+
+
                 <header>
                     <div class="left">
                         <div class="bottom">

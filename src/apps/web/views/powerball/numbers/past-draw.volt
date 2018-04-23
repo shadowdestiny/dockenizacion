@@ -101,6 +101,7 @@
                 </div>
             </div>
             <div class="wrapper">
+
                 <h3 class="mobile--only">
                     <br />
                     {{ language.translate("draw") }}
