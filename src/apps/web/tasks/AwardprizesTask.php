@@ -41,12 +41,12 @@ class AwardprizesTask extends TaskBase
         $this->lotteryService = $lotteryService ?: $this->lotteryService = $domainFactory->getLotteryService();
         $serviceFactory = new ServiceFactory($this->getDI());
         $this->emailService = $serviceFactory->getEmailService();
+        $this->transactionService = $domainFactory->getTransactionService();
         parent::initialize();
     }
 
     public function checkoutAction($args = 'now')
     {
-        $this->transactionService->getWinningTransactions();
         $playConfigsAwarded = [];
         $usersAwarded = 0;
         $today = new \DateTime($args[0]);
@@ -59,7 +59,7 @@ class AwardprizesTask extends TaskBase
         $play_configs_result_awarded = $this->PrizeCheckoutService->playConfigsWithBetsAwarded($drawDate);
         //get breakdown
         $result_breakdown = $this->lotteryService->getLastDrawWithBreakDownByDate($lottery_name, $drawDate);
-        if ($result_breakdown->success() && $play_configs_result_awarded->success()) {
+        if ($result_breakdown->success() && $play_configs_result_awarded->success() && !$this->transactionService->getWinningTransactions()) {
             /** @var EuroMillionsDrawBreakDown $euromillions_breakDown */
             $euromillions_breakDown = $result_breakdown->getValues()->getBreakDown();
             $play_configs_awarded = $play_configs_result_awarded->getValues();

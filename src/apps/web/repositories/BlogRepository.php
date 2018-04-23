@@ -6,7 +6,13 @@ use EuroMillions\web\entities\Blog;
 
 class BlogRepository extends RepositoryBase
 {
-
+    /**
+     * @param $post
+     *
+     * @return Blog
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function savePost($post)
     {
         $blog = new Blog();
@@ -28,6 +34,11 @@ class BlogRepository extends RepositoryBase
         return $blog;
     }
 
+    /**
+     * @param $post
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function updatePost($post)
     {
         /** @var Blog $blog */
@@ -36,12 +47,12 @@ class BlogRepository extends RepositoryBase
         $blog->setTitleTag($post['title_tag']);
         $blog->setUrl($post['url']);
         $blog->setDescription($post['description']);
+        $blog->setDescriptionTag($post['description_tag']);
         $blog->setCanonical($post['canonical']);
         $blog->setLanguage($post['language']);
         $blog->setPublished($post['published'] ? true : false );
         $blog->setContent($post['content']);
         $blog->setImage($post['image']);
-        $blog->setDate(new \DateTime());
 
         $this->getEntityManager()->persist($blog);
         $this->getEntityManager()->flush($blog);
