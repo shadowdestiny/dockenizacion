@@ -377,27 +377,71 @@
         padding: 17px 10px 5px 20px;
       }
 
-      h1 {
-        color: #454545;
-        font-size: 18px;
-        font-weight: 700;
+      //h1 {
+      //  color: #454545;
+      //  font-size: 18px;
+      //  font-weight: 700;
+      //  text-align: left;
+      //  text-transform: none;
+      //  margin-bottom: 5px;
+      //
+      //  @media only screen and (min-width: $screen-ipad-v) {
+      //    color: #454545;
+      //    font-size: 23px;
+      //    font-weight: 700;
+      //    text-align: left;
+      //    text-transform: none;
+      //    margin-bottom: 53px;
+      //  }
+      //  @media only screen and (min-width: $screen-ipad-h) {}
+      //  @media only screen and (min-width: $screen-desktop) {
+      //    font-size: 18px;
+      //    margin-bottom: 39px;
+      //  }
+      //}
+
+      .winners--h1{
+        //font-family: WorkSans;
+        color:  #333333;
+        font-size: 30px;
+        font-weight: 900;
+        line-height: 58px;
         text-align: left;
-        text-transform: none;
-        margin-bottom: 5px;
+        text-transform: uppercase;
 
         @media only screen and (min-width: $screen-ipad-v) {
-          color: #454545;
-          font-size: 23px;
-          font-weight: 700;
+          color:  #333333;
+          font-size: 44px;
+          font-weight: 900;
+          line-height: 46px;
           text-align: left;
-          text-transform: none;
-          margin-bottom: 53px;
+          text-transform: uppercase;
         }
-        @media only screen and (min-width: $screen-ipad-h) {}
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          color:  #333333;
+          font-size: 44px;
+          font-weight: 900;
+          line-height: 46px;
+          text-align: left;
+          text-transform: uppercase;
+        }
+
         @media only screen and (min-width: $screen-desktop) {
-          font-size: 18px;
-          margin-bottom: 39px;
+          color:  #333333;
+          font-size: 33px;
+          font-weight: 900;
+          line-height: 34px;
+          text-align: left;
+          text-transform: uppercase;
+
+          @include common-headings-style-h1 ();
         }
+
+      }
+
+      .h2{
+        @include common-headings-style-h2 ();
       }
 
       .table {

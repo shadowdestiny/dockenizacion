@@ -75,6 +75,14 @@
 
     }
 
+  }
+
+  h2,
+  .h2 {
+    @include common-headings-style-h2 ();
+  }
+  h3,
+  .h3 {
     @include common-headings-style-h3 ();
   }
 
