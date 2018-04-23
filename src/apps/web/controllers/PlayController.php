@@ -23,13 +23,16 @@ class PlayController extends PublicSiteControllerBase
             $numbers = round(($numbers / 1000), 1);
             $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
             $this->view->setVar('milliards', true);
+            $textMillions = 'billion';
         } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
             $numbers = round(($numbers / 1000000), 1);
             $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
             $this->view->setVar('trillions', true);
+            $textMillions = 'trillion';
         } else{
             $this->view->setVar('milliards', false);
             $this->view->setVar('trillions', false);
+            $textMillions = 'million';
         }
         $this->view->setVar('language', $this->languageService->getLocale());
         $play_dates = $this->lotteryService->getRecurrentDrawDates('Euromillions');
@@ -50,7 +53,7 @@ class PlayController extends PublicSiteControllerBase
             $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
         }
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
-        $this->tag->prependTitle($this->languageService->translate('play_em_name') . ViewHelper::formatJackpotNoCents($jackpot));
+        $this->tag->prependTitle($this->languageService->translate('play_em_name') . ViewHelper::formatMillionsJackpot($jackpot) . ' ' . $this->languageService->translate($textMillions));
         MetaDescriptionTag::setDescription($this->languageService->translate('play_em_desc'));
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);

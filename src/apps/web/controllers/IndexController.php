@@ -19,13 +19,16 @@ class IndexController extends PublicSiteControllerBase
             $numbers = round(($numbers / 1000), 1);
             $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
             $this->view->setVar('milliards', true);
+            $textMillions = 'billion';
         } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
             $numbers = round(($numbers / 1000000), 1);
             $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
             $this->view->setVar('trillions', true);
+            $textMillions = 'trillion';
         } else{
             $this->view->setVar('milliards', false);
             $this->view->setVar('trillions', false);
+            $textMillions = 'million';
         }
         $this->view->setVar('jackpot_millions', ViewHelper::formatMillionsJackpot($jackpot));
         $time_till_next_draw = $this->lotteryService->getTimeToNextDraw('EuroMillions');
@@ -43,7 +46,7 @@ class IndexController extends PublicSiteControllerBase
         $this->view->setVar('show_s_days', (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'));
         $this->view->setVar('pageController', 'index');
 
-        $this->tag->prependTitle($this->languageService->translate('home_name') . ViewHelper::formatJackpotNoCents($jackpot));
+        $this->tag->prependTitle($this->languageService->translate('home_name') . ViewHelper::formatMillionsJackpot($jackpot) . ' ' . $this->languageService->translate($textMillions));
         MetaDescriptionTag::setDescription($this->languageService->translate('home_desc'));
     }
 
