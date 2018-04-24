@@ -12,6 +12,18 @@
   }
 
 
+  .wrapper {
+
+    @media only screen and (min-width: $screen-wide) {
+      width: $screen-wide;
+      max-width: $screen-wide;
+    }
+    @media only screen and (min-width: $screen-wide-full) {
+      width: $screen-wide-full-wrapper;
+      max-width: $screen-wide-full-wrapper;
+    }
+  }
+
   .banner {
 
     .top-banner--section {
