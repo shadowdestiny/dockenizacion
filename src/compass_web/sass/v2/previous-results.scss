@@ -31,253 +31,6 @@
     }
   }
 
-  //h2.mobile--only {
-  //  color:  #f8ce0d;
-  //  font-size: 24px;
-  //  font-weight: 900;
-  //  text-align: left;
-  //  margin-top: -6px;
-  //  margin-bottom: 0;
-  //
-  //  @media only screen and (min-width: $screen-ipad-v) {
-  //    display: none;
-  //  }
-  //}
-
-  //h3.mobile--only {
-  //  color:  #f8ce0d;
-  //  font-size: 18px;
-  //  font-weight: 400;
-  //  text-align: left;
-  //  margin-bottom: 10px;
-  //
-  //  @media only screen and (min-width: $screen-ipad-v) {
-  //    display: none;
-  //  }
-  //}
-
-
-  //.title-block {
-  //
-  //  background: -webkit-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
-  //  background: -moz-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
-  //  background: -o-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
-  //  background: -ms-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
-  //  background: linear-gradient(90deg, #51a0e9 0%, #1678d3 100%);
-  //
-  //
-  //  position: relative;
-  //  height: 64px;
-  //  margin-bottom: 0px;
-  //  z-index: 1;
-  //  overflow: hidden;
-  //
-  //  padding: 13px 12px 0 8px;
-  //
-  //  @media only screen and (max-width: $width-pre-tablet) {
-  //    margin-left: -$screen-xxs-wrapper--padding;
-  //    margin-right: -$screen-xxs-wrapper--padding;
-  //  }
-  //
-  //  @media only screen and (min-width: $screen-ipad-v) {
-  //    height: 130px;
-  //    top: -130px;
-  //    margin-bottom: -119px;
-  //    padding: 34px 42px 0 28px;
-  //  }
-  //  @media only screen and (min-width: $screen-ipad-h) {
-  //    height: 157px;
-  //    top: -157px;
-  //    margin-bottom: -149px;
-  //  }
-  //  @media only screen and (min-width: $screen-desktop) {
-  //    //height: 171px;
-  //    //top: -171px;
-  //    //margin-bottom: -149px;
-  //
-  //    height: 127px;
-  //    top: -127px;
-  //    margin-bottom: -111px;
-  //    padding: 23px 34px 0 21px;
-  //  }
-  //
-  //  h2.desktop--only {
-  //    //font-family: WorkSans;
-  //    color: #ffffff;
-  //    font-weight: 900;
-  //    text-align: center;
-  //    font-size: 28px;
-  //    margin-bottom: 0px;
-  //    display: none;
-  //
-  //    @media only screen and (min-width: $screen-ipad-v) {
-  //      font-size: 28px;
-  //      margin-bottom: 0px;
-  //      text-align: left;
-  //      display: block;
-  //    }
-  //    @media only screen and (min-width: $screen-ipad-h) {
-  //      font-size: 42px;
-  //      margin-bottom: 10px;
-  //    }
-  //    @media only screen and (min-width: $screen-desktop) {
-  //      font-size: 35px;
-  //      margin-bottom: 4px;
-  //    }
-  //  }
-  //
-  //  h3.desktop--only {
-  //    //font-family: WorkSans;
-  //    color: #ffffff;
-  //    font-size: 16px;
-  //    font-weight: 400;
-  //    text-align: center;
-  //    display: none;
-  //
-  //    @media only screen and (min-width: $screen-ipad-v) {
-  //      font-size: 22px;
-  //      text-align: left;
-  //      display: block;
-  //    }
-  //    @media only screen and (min-width: $screen-ipad-h) {
-  //      font-size: 32px;
-  //    }
-  //    @media only screen and (min-width: $screen-desktop) {
-  //      font-size: 27px;
-  //    }
-  //  }
-  //
-  //  ul {
-  //    float: none;
-  //
-  //    @media only screen and (min-width: $screen-ipad-v) {
-  //      float: right;
-  //    }
-  //    @media only screen and (min-width: $screen-ipad-h) {
-  //      margin-top: 9px;
-  //
-  //    }
-  //    @media only screen and (min-width: $screen-desktop) {
-  //      margin-top: 0;
-  //    }
-  //
-  //    li {
-  //      background-image: url('../img/results/desktop/ellipce.png');
-  //      background-repeat: no-repeat;
-  //      background-position: 50% 50%;
-  //      text-align: center;
-  //      -webkit-background-size: 38px;
-  //      background-size: 38px;
-  //      width: 38px;
-  //      height: 38px;
-  //      line-height: 38px;
-  //
-  //      //font-family: RobotoCondensed;
-  //      font-family: $ff4;
-  //      color: #333333;
-  //      font-weight: 700;
-  //      font-size: 18px;
-  //      margin-left: 4px;
-  //      float: left;
-  //
-  //      @media only screen and (min-width: $screen-ipad-v) {
-  //        -webkit-background-size: 50px;
-  //        background-size: 50px;
-  //        width: 50px;
-  //        height: 50px;
-  //        line-height: 50px;
-  //        font-size: 24px;
-  //        margin-left: 5px;
-  //        float: none;
-  //        vertical-align: top;
-  //      }
-  //      @media only screen and (min-width: $screen-ipad-h) {
-  //        -webkit-background-size: 70px;
-  //        background-size: 70px;
-  //        width: 70px;
-  //        height: 70px;
-  //        line-height: 70px;
-  //        font-size: 33px;
-  //        margin-left: 5px;
-  //      }
-  //      @media only screen and (min-width: $screen-desktop) {
-  //        -webkit-background-size: 76px;
-  //        background-size: 76px;
-  //        width: 76px;
-  //        height: 76px;
-  //        line-height: 78px;
-  //        font-size: 35px;
-  //        margin-left: 1px;
-  //      }
-  //    }
-  //
-  //    li.star {
-  //
-  //      background-image: url('../img/results/desktop/star.png');
-  //      background-repeat: no-repeat;
-  //      background-position: 50% 50%;
-  //      text-align: center;
-  //      //height: 106px;
-  //      -webkit-background-size: 35px;
-  //      background-size: 35px;
-  //      width: 38px;
-  //      line-height: 38px;
-  //      margin-left: 7px;
-  //
-  //      position: relative;
-  //      top: -1px;
-  //
-  //      @media only screen and (min-width: $screen-ipad-v) {
-  //        -webkit-background-size: 47px;
-  //        background-size: 47px;
-  //        width: 50px;
-  //        line-height: 50px;
-  //        margin-left: 20px;
-  //        top: 0px;
-  //      }
-  //      @media only screen and (min-width: $screen-ipad-h) {
-  //        -webkit-background-size: 66px;
-  //        background-size: 66px;
-  //        width: 70px;
-  //        line-height: 70px;
-  //        margin-left: 17px;
-  //      }
-  //      @media only screen and (min-width: $screen-desktop) {
-  //        -webkit-background-size: 72px;
-  //        background-size: 72px;
-  //        width: 72px;
-  //        line-height: 72px;
-  //        margin-left: 26px;
-  //      }
-  //
-  //      &:last-of-type {
-  //        //margin-left: 12px;
-  //
-  //        @media only screen and (min-width: $screen-ipad-v) {
-  //          margin-left: 12px;
-  //        }
-  //        @media only screen and (min-width: $screen-ipad-h) {}
-  //        @media only screen and (min-width: $screen-desktop) {}
-  //      }
-  //
-  //      span {
-  //        position: relative;
-  //        top: 2px;
-  //
-  //        @media only screen and (min-width: $screen-ipad-v) {
-  //          top: 2px;
-  //        }
-  //        @media only screen and (min-width: $screen-ipad-h) {
-  //          top: 5px;
-  //        }
-  //        @media only screen and (min-width: $screen-desktop) {
-  //          top: 5px;
-  //        }
-  //      }
-  //    }
-  //  }
-  //}
-
   .content {
     padding: 0;
   }
@@ -345,6 +98,21 @@
       }
     }
 
+
+    h1 {
+      @include common-headings-style-h1 ();
+    }
+
+    h2 {
+      font-size: 24px;
+      background-color:  #f8ce0d;
+      padding: 10px;
+
+      @include common-headings-style-h2 ();
+    }
+
+
+
     .history-numbers-block {
       @media only screen and (max-width: $width-pre-tablet) {
 
@@ -375,9 +143,11 @@
               line-height: 1;
             }
             .td-date {
-              color:  #bbbbbb;
-              font-size: 16px;
-              font-weight: 700;
+              color:  #333333;
+              //font-size: 16px;
+              font-size: 14px;
+              //font-weight: 700;
+              font-weight: 400;
               text-align: left;
               margin-bottom: 7px;
             }
@@ -385,15 +155,24 @@
             .td-star-numbers,
             .td-ball-numbers {
               display: inline-block;
-              font-size: 18px;
+              //font-size: 18px;
+              color: #333;
+              font-size: 17px;
               font-weight: 700;
+            }
+
+            .td-star-numbers {
+              float: right;
+              text-align: right;
             }
           }
           tr:nth-child(odd) {
-            background: #e8e8e8;
-            
+            //background: #e8e8e8;
+            background: #e1e1e1;
+
             td {
-              background: #e8e8e8;
+              //background: #e8e8e8;
+              background: #e1e1e1;
             }
           }
         }
@@ -424,6 +203,10 @@
         line-height: 55px;
         font-size: 24px;
         cursor: pointer;
+
+        @media only screen and (max-width: $width-pre-tablet) {
+          width: 100%;
+        }
       }
     }
 
