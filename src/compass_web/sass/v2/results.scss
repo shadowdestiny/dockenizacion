@@ -398,6 +398,15 @@
           font-size: 18px;
           margin-bottom: 39px;
         }
+
+        @include common-headings-style-h1 ();
+
+      }
+
+      .h2{
+        font-size: 22px;
+
+        @include common-headings-style-h2 ();
       }
 
       .table {
@@ -759,4 +768,26 @@
     }
 
   }
+
+
+  .bottom--banner {
+    display: none;
+
+    @media only screen and (min-width: $screen-small) {
+      display: block;
+      height: 135px;
+      background-color: #000000;
+      width: 100%;
+
+      margin-top: 80px; 
+      margin-bottom: 75px;
+
+      background-image: url("../img/powerball/powerball-result-bottom-banner.png");
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      -webkit-background-size: 1024px;
+      background-size: 1024px;
+    }
+  }
+
 }
