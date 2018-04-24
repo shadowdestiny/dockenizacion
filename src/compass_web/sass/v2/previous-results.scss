@@ -12,6 +12,18 @@
     padding-bottom: 46px;
   }
 
+  .wrapper {
+
+    @media only screen and (min-width: $screen-wide) {
+      width: $screen-wide;
+      max-width: $screen-wide;
+    }
+    @media only screen and (min-width: $screen-wide-full) {
+      width: $screen-wide-full-wrapper;
+      max-width: $screen-wide-full-wrapper;
+    }
+  }
+
   .banner {
     display: none;
 
@@ -89,17 +101,12 @@
     }
 
     h1 {
-      @media only screen and (max-width: $width-pre-tablet) {
-        color: #f8ce0d;
-        font-size: 24px;
-        font-weight: 900;
-        text-align: left;
-        text-transform: uppercase;
-      }
-    }
+      color: #f8ce0d;
+      font-size: 24px;
+      font-weight: 900;
+      text-align: left;
+      text-transform: uppercase;
 
-
-    h1 {
       @include common-headings-style-h1 ();
     }
 
@@ -107,6 +114,14 @@
       font-size: 24px;
       background-color:  #f8ce0d;
       padding: 10px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        background-color: transparent;
+        font-weight: 900;
+        padding: 0;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #000;
+      }
 
       @include common-headings-style-h2 ();
     }
@@ -119,6 +134,8 @@
         margin-left: -10px;
         margin-right: -10px;
 
+      }
+
         h1 {
           display: none;
         }
@@ -126,8 +143,16 @@
         .table, .table2 {
           display: block;
 
+          @media only screen and (min-width: $screen-ipad-v) {
+            display: table;
+          }
+
           tbody {
             display: block;
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              display: table-row-group;
+            }
           }
           tr {
             border: 0;
@@ -135,12 +160,20 @@
             display: block;
             padding: 14px 11px;
 
+            @media only screen and (min-width: $screen-ipad-v) {
+              display: table-row;
+            }
+
 
             td {
               background-color: #fff;
               border: 0;
               padding: 0;
               line-height: 1;
+
+              @media only screen and (min-width: $screen-ipad-v) {
+                padding: 20px;
+              }
             }
             .td-date {
               color:  #333333;
@@ -150,6 +183,11 @@
               font-weight: 400;
               text-align: left;
               margin-bottom: 7px;
+
+              @media only screen and (min-width: $screen-ipad-v) {
+                padding-left: 46px;
+                font-size: 17px;
+              }
             }
 
             .td-star-numbers,
@@ -159,11 +197,21 @@
               color: #333;
               font-size: 17px;
               font-weight: 700;
+
+              @media only screen and (min-width: $screen-ipad-v) {
+                display: table-cell;
+              }
             }
 
             .td-star-numbers {
               float: right;
               text-align: right;
+
+              @media only screen and (min-width: $screen-ipad-v) {
+                float: none;
+
+                padding-right: 90px;
+              }
             }
           }
           tr:nth-child(odd) {
@@ -177,7 +225,7 @@
           }
         }
 
-      }
+
     }
 
     .ui-responsive .ui-table-cell-label {
@@ -196,7 +244,12 @@
     #show-more-results {
       text-align: center;
       margin:auto;
-      margin-top: 50px;
+      //margin-top: 50px;
+      margin-top: 20px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        text-align: left;
+      }
 
       .btn-theme--big{
         height: 55px;
@@ -212,6 +265,96 @@
 
 
     #history-numbers {
+
+      thead {
+        //display: table-caption;
+
+        @media only screen and (max-width: $width-pre-tablet) {
+          display: none;
+        }
+
+        th {
+          background-color: #fff;
+          border-bottom: 0;
+          font-size: 14px;
+          text-align: left;
+          padding-left: 0;
+          padding-right: 0;
+          font-style: normal;
+          font-weight: 400;
+          white-space: nowrap;
+          //padding-bottom: 20px;
+          padding-bottom: 40px;
+
+          @media only screen and (min-width: $screen-desktop-wide) {
+            font-size: 24px;
+            padding-bottom: 40px;
+          }
+
+          &.td-date {
+            padding-right: 50px;
+
+            .ico-date {
+              display: inline-block;
+              margin-right: 20px;
+              width: 27px;
+              height: 26px;
+              background-image: url('../img/results/ico/ico-date.svg');
+              -webkit-background-size: 27px;
+              background-size: 27px;
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              position: relative;
+              bottom: -9px;
+
+              @media only screen and (min-width: $screen-desktop-wide) {
+                bottom: -5px;
+              }
+            }
+          }
+          &.td-ball-numbers {
+            padding-right: 50px;
+
+            .ico-ball {
+              display: inline-block;
+              margin-right: 9px;
+              width: 26px;
+              height: 26px;
+              background-image: url('../img/results/ico/ico-ball.svg');
+              -webkit-background-size: 26px;
+              background-size: 26px;
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              position: relative;
+              bottom: -9px;
+
+              @media only screen and (min-width: $screen-desktop-wide) {
+                bottom: -5px;
+              }
+            }
+          }
+          &.td-star-numbers {
+            .ico-star {
+              display: inline-block;
+              margin-right: 10px;
+              width: 26px;
+              height: 26px;
+              background-image: url('../img/results/ico/ico-star.svg');
+              -webkit-background-size: 26px;
+              background-size: 26px;
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              position: relative;
+              bottom: -9px;
+
+              @media only screen and (min-width: $screen-desktop-wide) {
+                bottom: -5px;
+              }
+            }
+          }
+        }
+
+      }
       tbody {
         tr.more {
           display: none;
