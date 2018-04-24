@@ -83,12 +83,13 @@
                                    data-mode="reflow">
                                 <thead>
                                 <tr>
-                                    <th class="td-date">{{ language.translate("pastNumbers_date") }}</th>
-                                    <th class="td-ball-numbers">{{ language.translate("pastNumbers_ball") }} <span
-                                                class="ball"></span></th>
+                                    <th class="td-date"><span class="ico-date"></span>{{ language.translate("pastNumbers_date") }}</th>
+                                    <th class="td-ball-numbers"><span
+                                                class="ico-ball"></span>{{ language.translate("pastNumbers_ball") }}</th>
                                     <th class="td-star-numbers">
+                                        <span class="ico-star"></span>
                                         {{ language.translate("pastNumbers_star") }}
-                                        <span class="star-ball"></span>
+
                                     </th>
                                 </tr>
                                 </thead>
