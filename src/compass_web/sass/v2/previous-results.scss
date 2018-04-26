@@ -194,8 +194,10 @@
               }
 
               @media only screen and (min-width: $screen-ipad-v) {
-                padding-left: 46px;
-                font-size: 17px;
+                //padding-left: 46px;
+                padding-left: 26px;
+                //font-size: 17px;
+                font-size: 14px;
               }
             }
 
@@ -212,6 +214,7 @@
               @media only screen and (min-width: $screen-ipad-v) {
                 display: table-cell;
                 text-align: center;
+                font-size: 14px;
               }
             }
 
@@ -332,12 +335,15 @@
           @media only screen and (min-width: $screen-desktop-wide) {
             //font-size: 24px;
             //padding-bottom: 40px;
-            font-size: 18px;
+            //font-size: 18px;
+            font-size: 14px;
             padding-bottom: 30px;
           }
 
+
           &.td-date {
-            padding-right: 50px;
+            //padding-right: 50px;
+            padding-right: 30px;
 
             .ico-date {
               display: inline-block;
@@ -353,7 +359,7 @@
               bottom: -9px;
 
               @media only screen and (min-width: $screen-desktop-wide) {
-                bottom: -5px;
+                //bottom: -5px;
               }
             }
           }
@@ -378,7 +384,7 @@
               border-radius: 50%;
 
               @media only screen and (min-width: $screen-desktop-wide) {
-                bottom: -5px;
+                //bottom: -5px;
               }
             }
           }
@@ -398,12 +404,14 @@
               bottom: -9px;
 
               @media only screen and (min-width: $screen-desktop-wide) {
-                bottom: -5px;
+                //bottom: -5px;
               }
             }
           }
           &.td-powerball {
-            padding-right: 50px;
+            //padding-right: 50px;
+            //padding-right: 30px;
+            padding-right: 30px;
 
             .ico-ball {
               display: inline-block;
@@ -417,13 +425,13 @@
               bottom: -9px;
 
               @media only screen and (min-width: $screen-desktop-wide) {
-                bottom: -5px;
+                //bottom: -5px;
               }
             }
           }
 
           &.td-powerplay {
-            padding-right: 50px;
+            padding-right: 0px;
 
             .ico-ball {
               display: inline-block;
@@ -437,7 +445,7 @@
               bottom: -9px;
 
               @media only screen and (min-width: $screen-desktop-wide) {
-                bottom: -5px;
+                //bottom: -5px;
               }
             }
           }
@@ -456,7 +464,7 @@
               bottom: -9px;
 
               @media only screen and (min-width: $screen-desktop-wide) {
-                bottom: -5px;
+                //bottom: -5px;
               }
             }
           }
