@@ -81,14 +81,18 @@
                             </div>
                             <table id="history-numbers" class="ui-responsive table2" data-role="table"
                                    data-mode="reflow">
-                                <thead>
+                                <thead class="thead--powerball">
                                 <tr>
-                                    <th class="td-date">{{ language.translate("pastNumbers_date") }}</th>
-                                    <th class="td-ball-numbers">{{ language.translate("pastNumbers_ball") }} <span
-                                                class="ball"></span></th>
-                                    <th class="td-star-numbers">
-                                        {{ language.translate("pastNumbers_star") }}
-                                        <span class="star-ball"></span>
+                                    <th class="td-date"><span class="ico-date"></span>{{ language.translate("pastNumbers_date") }}</th>
+                                    <th class="td-ball-numbers--lottery"><span
+                                                class="ico-ball"></span>{{ language.translate("pastNumbers_ball") }}</th>
+                                    <th class="td-powerball">
+                                        <span class="ico-ball"></span>
+                                        Powerball
+                                    </th>
+                                    <th class="td-powerplay">
+                                        <span class="ico-ball"></span>
+                                        Powerplay
                                     </th>
                                 </tr>
                                 </thead>
@@ -98,7 +102,8 @@
                                         onclick="document.location='/{{ language.translate('link_euromillions_draw_history') }}/{{ draw.drawDateParam }}'">
                                         <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
                                         <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
-                                        <td class="td-star-numbers">{{ draw.luckyNumbers }}</td>
+                                        <td class="td-powerball">21</td>
+                                        <td class="td-powerplay">2x</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
