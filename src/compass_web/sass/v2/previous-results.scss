@@ -15,12 +15,12 @@
   .wrapper {
 
     @media only screen and (min-width: $screen-wide) {
-      width: $screen-wide;
-      max-width: $screen-wide;
+      //width: $screen-wide;
+      //max-width: $screen-wide;
     }
     @media only screen and (min-width: $screen-wide-full) {
-      width: $screen-wide-full-wrapper;
-      max-width: $screen-wide-full-wrapper;
+      //width: $screen-wide-full-wrapper;
+      //max-width: $screen-wide-full-wrapper;
     }
   }
 
@@ -330,8 +330,10 @@
           padding-bottom: 40px;
 
           @media only screen and (min-width: $screen-desktop-wide) {
-            font-size: 24px;
-            padding-bottom: 40px;
+            //font-size: 24px;
+            //padding-bottom: 40px;
+            font-size: 18px;
+            padding-bottom: 30px;
           }
 
           &.td-date {
@@ -356,7 +358,8 @@
             }
           }
           &.td-ball-numbers {
-            padding-right: 50px;
+            //padding-right: 50px;
+            padding-right: 30px;
 
             .ico-ball {
               display: inline-block;
@@ -380,7 +383,8 @@
             }
           }
           &.td-ball-numbers--lottery {
-            padding-right: 50px;
+            //padding-right: 50px;
+            padding-right: 30px;
 
             .ico-ball {
               display: inline-block;
