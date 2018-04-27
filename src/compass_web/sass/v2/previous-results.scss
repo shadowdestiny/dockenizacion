@@ -15,12 +15,12 @@
   .wrapper {
 
     @media only screen and (min-width: $screen-wide) {
-      width: $screen-wide;
-      max-width: $screen-wide;
+      //width: $screen-wide;
+      //max-width: $screen-wide;
     }
     @media only screen and (min-width: $screen-wide-full) {
-      width: $screen-wide-full-wrapper;
-      max-width: $screen-wide-full-wrapper;
+      //width: $screen-wide-full-wrapper;
+      //max-width: $screen-wide-full-wrapper;
     }
   }
 
@@ -160,6 +160,10 @@
             display: block;
             padding: 14px 11px;
 
+            @media only screen and (max-width: $width-pre-tablet) {
+              overflow: hidden;
+            }
+
             @media only screen and (min-width: $screen-ipad-v) {
               display: table-row;
             }
@@ -184,12 +188,21 @@
               text-align: left;
               margin-bottom: 7px;
 
+              @media only screen and (max-width: $width-pre-tablet) {
+                width: 50%;
+                display: block;
+              }
+
               @media only screen and (min-width: $screen-ipad-v) {
-                padding-left: 46px;
-                font-size: 17px;
+                //padding-left: 46px;
+                padding-left: 26px;
+                //font-size: 17px;
+                font-size: 14px;
               }
             }
 
+            .td-powerball,
+            .td-powerplay,
             .td-star-numbers,
             .td-ball-numbers {
               display: inline-block;
@@ -200,6 +213,39 @@
 
               @media only screen and (min-width: $screen-ipad-v) {
                 display: table-cell;
+                text-align: center;
+                font-size: 14px;
+              }
+            }
+
+            .td-ball-numbers {
+              @media only screen and (max-width: $width-pre-tablet) {
+                width: 50%;
+                float: left;
+                text-align: left;
+              }
+            }
+
+            .td-powerball {
+              @media only screen and (max-width: $width-pre-tablet) {
+                //width: 35%;
+                width: 30%;
+                float: left;
+                text-align: center;
+              }
+            }
+
+            .td-powerplay {
+              @media only screen and (max-width: $width-pre-tablet) {
+                width: 15%;
+                float: left;
+                text-align: center;
+              }
+            }
+
+            .td-star-numbers{
+              @media only screen and (max-width: $width-pre-tablet) {
+
               }
             }
 
@@ -287,12 +333,17 @@
           padding-bottom: 40px;
 
           @media only screen and (min-width: $screen-desktop-wide) {
-            font-size: 24px;
-            padding-bottom: 40px;
+            //font-size: 24px;
+            //padding-bottom: 40px;
+            //font-size: 18px;
+            font-size: 14px;
+            padding-bottom: 30px;
           }
 
+
           &.td-date {
-            padding-right: 50px;
+            //padding-right: 50px;
+            padding-right: 30px;
 
             .ico-date {
               display: inline-block;
@@ -308,28 +359,93 @@
               bottom: -9px;
 
               @media only screen and (min-width: $screen-desktop-wide) {
-                bottom: -5px;
+                //bottom: -5px;
               }
             }
           }
           &.td-ball-numbers {
-            padding-right: 50px;
+            //padding-right: 50px;
+            padding-right: 30px;
 
             .ico-ball {
               display: inline-block;
               margin-right: 9px;
               width: 26px;
               height: 26px;
-              background-image: url('../img/results/ico/ico-ball.svg');
-              -webkit-background-size: 26px;
-              background-size: 26px;
-              background-repeat: no-repeat;
-              background-position: 0 0;
+              //background-image: url('../img/results/ico/ico-ball.svg');
+              //-webkit-background-size: 26px;
+              //background-size: 26px;
+              //background-repeat: no-repeat;
+              //background-position: 0 0;
+              position: relative;
+              bottom: -9px;
+              
+              border: 2px solid #333333;
+              border-radius: 50%;
+
+              @media only screen and (min-width: $screen-desktop-wide) {
+                //bottom: -5px;
+              }
+            }
+          }
+          &.td-ball-numbers--lottery {
+            //padding-right: 50px;
+            padding-right: 30px;
+
+            .ico-ball {
+              display: inline-block;
+              margin-right: 9px;
+              width: 26px;
+              height: 26px;
+              border: 2px solid #333333;
+              border-radius: 50%;
+              background-color:  #f31e1e;
               position: relative;
               bottom: -9px;
 
               @media only screen and (min-width: $screen-desktop-wide) {
-                bottom: -5px;
+                //bottom: -5px;
+              }
+            }
+          }
+          &.td-powerball {
+            //padding-right: 50px;
+            //padding-right: 30px;
+            padding-right: 30px;
+
+            .ico-ball {
+              display: inline-block;
+              margin-right: 9px;
+              width: 26px;
+              height: 26px;
+              border: 2px solid #333333;
+              border-radius: 50%;
+              background-color:  #b3d8fa;
+              position: relative;
+              bottom: -9px;
+
+              @media only screen and (min-width: $screen-desktop-wide) {
+                //bottom: -5px;
+              }
+            }
+          }
+
+          &.td-powerplay {
+            padding-right: 0px;
+
+            .ico-ball {
+              display: inline-block;
+              margin-right: 9px;
+              width: 26px;
+              height: 26px;
+              border: 2px solid #333333;
+              border-radius: 50%;
+              background-color:  #bdfcd6;
+              position: relative;
+              bottom: -9px;
+
+              @media only screen and (min-width: $screen-desktop-wide) {
+                //bottom: -5px;
               }
             }
           }
@@ -348,12 +464,51 @@
               bottom: -9px;
 
               @media only screen and (min-width: $screen-desktop-wide) {
-                bottom: -5px;
+                //bottom: -5px;
               }
             }
           }
         }
 
+
+        &.thead--powerball {
+          @media only screen and (max-width: $width-pre-tablet) {
+            display: block;
+
+            tr {
+              background-color: #fff;
+              overflow: hidden;
+            }
+            
+            th {
+              span {
+                display: none!important;
+              }
+
+              &.td-date {
+                display: none;
+              }
+
+              &.td-ball-numbers--lottery {
+                width: 50%;
+                margin: 0;
+                float: left;
+              }
+
+              &.td-powerball {
+                //width: 35%;
+                width: 30%;
+                margin: 0;
+                float: left;
+              }
+              &.td-powerplay {
+                width: 15%;
+                margin: 0;
+                float: left;
+              }
+            }
+          }
+        }
       }
       tbody {
         tr.more {
