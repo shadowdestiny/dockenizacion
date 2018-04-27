@@ -141,9 +141,11 @@ class PowerBallService
                 $di = \Phalcon\Di::getDefault();
 
                 $lottery = $this->lotteryService->getLotteryConfigByName('PowerBall');
+
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
-                $result_order = $this->cartService->get($user_id);
+
+                $result_order = $this->cartService->get($user_id, $lottery->getName());
                 $numPlayConfigs = 0;
                 if ($result_order->success()) {
                     /** @var Order $order */
@@ -153,12 +155,12 @@ class PowerBallService
                             return new ActionResult(false);
                         }
                     }
-
                     $discount = $order->getDiscount()->getValue();
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->addFunds($funds);
                     $order->setAmountWallet($user->getWallet()->getBalance());
-                    $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
+                    $draw = $this->lotteryService->getNextDrawByLottery('PowerBall');
+
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
                         $uniqueId = $this->walletService->getUniqueTransactionId();
@@ -167,10 +169,10 @@ class PowerBallService
                     } else {
                         $result_payment = new ActionResult(true, $order);
                     }
-
                     if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var PlayConfig $play_config */
+
                         foreach ($order->getPlayConfig() as $play_config) {
                             $play_config->setLottery($lottery);
                             $play_config->setDiscount($order->getDiscount());
@@ -178,6 +180,14 @@ class PowerBallService
                             $this->entityManager->flush($play_config);
                         }
                     }
+                    var_dump($play_config);die('guarda');
+                    $curl = curl_init();
+                    curl_setopt($curl, CURLOPT_URL, 'lotteriesbeta.euromillions.com/powerball/tickets/book');
+                    $result = curl_exec($curl);
+                    curl_close($curl);
+                    $formPlay = null;
+//        var_dump($result);
+//        die('patata');
 
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                     if ($result_payment->success() && $orderIsToNextDraw) {
@@ -256,7 +266,6 @@ class PowerBallService
                 $bets = [];
                 foreach ($form_decode->play_config as $bet) {
                     $playConfig = new PlayConfig();
-
                     $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines, $this->getLottery($lottery)->getName());
 
                     $playConfig->setLottery($this->getLottery($lottery));

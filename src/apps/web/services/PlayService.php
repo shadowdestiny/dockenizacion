@@ -137,7 +137,6 @@ class PlayService
      */
     public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null)
     {
-
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();
@@ -145,7 +144,7 @@ class PlayService
                 $lottery = $this->lotteryService->getLotteryConfigByName('EuroMillions');
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
-                $result_order = $this->cartService->get($user_id);
+                $result_order = $this->cartService->get($user_id, $lottery->getName());
                 $numPlayConfigs = 0;
                 if ($result_order->success()) {
                     /** @var Order $order */
@@ -166,6 +165,7 @@ class PlayService
                         $uniqueId = $this->walletService->getUniqueTransactionId();
                         $this->cardPaymentProvider->idTransaction = $uniqueId;
                         $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
+
                     } else {
                         $result_payment = new ActionResult(true, $order);
                     }
@@ -177,6 +177,7 @@ class PlayService
                             $play_config->setLottery($lottery);
                             $play_config->setDiscount($order->getDiscount());
                             $this->playConfigRepository->add($play_config);
+
                             $this->entityManager->flush($play_config);
                         }
                     }

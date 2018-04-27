@@ -75,6 +75,7 @@ class WalletService
                                       $isWallet = null)
     {
         $creditCardCharge = $order->getCreditCardCharge();
+
         $payment_result = $this->pay($provider, $card, $creditCardCharge);
         if ($payment_result->success()) {
             try {

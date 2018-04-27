@@ -24,8 +24,8 @@ class PowerBallLine implements IArraySerializable
 
 
     /**
-     * @param PowerBallRegularNumber[] $regular_numbers
-     * @param PowerBallLuckyNumber[] $lucky_numbers
+     * @param EuroMillionsRegularNumber[] $regular_numbers
+     * @param EuroMillionsLuckyNumber[] $lucky_numbers
      * @param $lottery
      */
     public function __construct(array $regular_numbers, array $lucky_numbers, $lottery = null)
@@ -34,7 +34,7 @@ class PowerBallLine implements IArraySerializable
 //            throw new \InvalidArgumentException("An EuroMillions result should have ".self::NUM_REGULAR_NUMBERS." regular numbers and ".self::NUM_LUCKY_NUMBERS." lucky numbers");
 //        }
         if ($lottery == null) {
-            if ($this->checkTypeAndRepeated($regular_numbers, 'PowerBallRegularNumber') || $this->checkTypeAndRepeated($lucky_numbers, 'PowerBallLuckyNumber')) {
+            if ($this->checkTypeAndRepeated($regular_numbers, 'EuroMillionsRegularNumber') || $this->checkTypeAndRepeated($lucky_numbers, 'EuroMillionsLuckyNumber')) {
                 throw new \InvalidArgumentException("The result numbers cannot have duplicates");
             }
         }

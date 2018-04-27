@@ -199,7 +199,7 @@
                         <div class="section--content">
                             <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}"
                                   method="post"
-                                  action="/euromillions/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
+                                  action="/powerball/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
                                 {% set component='{"where": "cart"}'|json_decode %}
                                 {% include "account/_add-card.volt" %}
                                 <input type="hidden" id="csid" name="csid"/>

@@ -43,6 +43,7 @@ class PowerBallPaymentController extends CartController
             $this->response->redirect('/' . $this->lottery . '/cart/profile');
             return false;
         }
+
         $result = $powerball_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
         $msg = '';
 

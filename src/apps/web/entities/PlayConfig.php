@@ -11,9 +11,6 @@ use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
-use EuroMillions\web\vo\PowerBallLuckyNumber;
-use EuroMillions\web\vo\PowerBallRegularNumber;
-use EuroMillions\web\vo\PowerBallLine;
 use Money\Money;
 use Money\Currency;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -75,25 +72,13 @@ class PlayConfig extends EntityBase implements IEntity, IEMForm, \JsonSerializab
                     $lucky = $bet->lucky;
                 }
                 foreach ($regular as $number) {
-                    if ($lottery == 'EuroMillions') {
-                        $regular_numbers[] = new EuroMillionsRegularNumber((int)$number);
-                    } else if ($lottery == 'PowerBall') {
-                        $regular_numbers[] = new PowerBallRegularNumber((int)$number);
-                    }
+                    $regular_numbers[] = new EuroMillionsRegularNumber((int)$number);
 
                 }
                 foreach ($lucky as $number) {
-                    if ($lottery == 'EuroMillions') {
-                        $lucky_numbers[] = new EuroMillionsLuckyNumber((int)$number);
-                    } else if ($lottery == 'PowerBall') {
-                        $lucky_numbers[] = new PowerBallLuckyNumber((int)$number);
-                    }
+                    $lucky_numbers[] = new EuroMillionsLuckyNumber((int)$number);
                 }
-                if ($lottery == 'EuroMillions') {
-                    $euroMillionsLine = new EuroMillionsLine($regular_numbers, $lucky_numbers);
-                } else if ($lottery == 'PowerBall') {
-                    $euroMillionsLine = new PowerBallLine($regular_numbers, $lucky_numbers);
-                }
+                $euroMillionsLine = new EuroMillionsLine($regular_numbers, $lucky_numbers);
             }
             $this->setLine($euroMillionsLine);
             $this->setActive(true);

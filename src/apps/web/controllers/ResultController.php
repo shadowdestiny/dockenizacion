@@ -37,7 +37,7 @@ class ResultController extends PublicSiteControllerBase
         $user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */
         $user = $this->userService->getUser($user_id);
-        $result_order = $this->cartService->get($user_id);
+        $result_order = $this->cartService->get($user_id, 'EuroMillions');
         $order_dto = new OrderDTO($result_order->getValues());
         $this->view->pick('/cart/success');
 	    $this->tag->prependTitle('Purchase Confirmation');

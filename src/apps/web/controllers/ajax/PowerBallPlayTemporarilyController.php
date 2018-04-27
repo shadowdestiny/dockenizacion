@@ -4,9 +4,9 @@
 namespace EuroMillions\web\controllers\ajax;
 
 use EuroMillions\web\components\DateTimeUtil;
-use EuroMillions\web\vo\PowerBallLine;
-use EuroMillions\web\vo\PowerBallLuckyNumber;
-use EuroMillions\web\vo\PowerBallRegularNumber;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\EuroMillionsLuckyNumber;
+use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\LastDrawDate;
 use EuroMillions\web\vo\PlayFormToStorage;
 
@@ -51,29 +51,29 @@ class PowerBallPlayTemporarilyController extends AjaxControllerBase
 
     /**
      * @param $bets
-     * @return array PowerBallLine
+     * @return array EuroMillionsLine
      */
     private function create($numbers)
     {
 
         /**
          * @param $number
-         * @return PowerBallRegularNumber
+         * @return EuroMillionsRegularNumber
          */
         $callbackN = function($number) {
-            return new PowerBallRegularNumber((int) $number);
+            return new EuroMillionsRegularNumber((int) $number);
         };
         /**
          * @param $number
-         * @return PowerBallLuckyNumber
+         * @return EuroMillionsLuckyNumber
          */
         $callbackL = function($number) {
-            return new PowerBallLuckyNumber((int) $number);
+            return new EuroMillionsLuckyNumber((int) $number);
         };
 
         $regular_numbers = array_map($callbackN,array_slice(explode(',',$numbers),0,5));
         $lucky_numbers = array_map($callbackL,array_slice(explode(',',$numbers),5,8));
-        $euroMillionsLine[] = new PowerBallLine($regular_numbers,$lucky_numbers);
+        $euroMillionsLine[] = new EuroMillionsLine($regular_numbers,$lucky_numbers);
 
         return $euroMillionsLine;
     }

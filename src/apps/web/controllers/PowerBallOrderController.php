@@ -21,7 +21,6 @@ class PowerBallOrderController extends CartController
         $play_service = $this->domainServiceFactory->getPowerBallService();
         $msg = '';
         $errors = [];
-
         if(!empty($user_id)) {
             $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id,$this->lottery);
             $user = $this->userService->getUser($current_user_id);
@@ -41,7 +40,7 @@ class PowerBallOrderController extends CartController
         }
 
         $type = ViewHelper::getNamePaymentType($this->getDI()->get('paymentProviderFactory'));
-        $view = $type == 'iframe' ? 'cart/order_iframe' : 'cart/order';
+        $view = $type == 'iframe' ? 'cart/order_iframe' : 'powerball/cart/order';
         $this->view->pick($view);
         return $this->dataOrderView($user, $result, $form_errors, $msg, $credit_card_form, $errors);
     }

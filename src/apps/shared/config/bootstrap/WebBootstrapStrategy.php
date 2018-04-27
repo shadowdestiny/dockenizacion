@@ -479,6 +479,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'payment',
         ));
 
+        $router->add("/{lottery:(powerball)+}/payment/payment(.*?)", array(
+            "module" => "web",
+            'lottery' => 3,
+            'controller' => 'power-ball-payment',
+            'action' => 'payment',
+        ));
+
         $router->add("/{lottery:(euromillions)+}/payment", array(
             "module" => "web",
             'lottery' => 1,
@@ -486,7 +493,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'payment',
         ));
 
-        $router->add("/powerball/payment", array(
+        $router->add("/{lottery:(powerball)+}/payment", array(
             "module" => "web",
             'lottery' => 3,
             'controller' => 'power-ball-payment',
@@ -505,6 +512,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->add("/{lottery:(euromillions)+}/empay/success", array(
             "module" => "web",
             'lottery' => 1,
+            'controller' => 'empay',
+            'action' => 'payment',
+        ));
+
+        $router->add("/{lottery:(powerball)+}/empay/success", array(
+            "module" => "web",
+            'lottery' => 3,
             'controller' => 'empay',
             'action' => 'payment',
         ));
