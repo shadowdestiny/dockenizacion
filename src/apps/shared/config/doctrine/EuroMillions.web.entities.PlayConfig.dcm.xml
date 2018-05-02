@@ -19,6 +19,7 @@
         <field name="startDrawDate" type="date" nullable="true" column="start_draw_date"/>
         <field name="lastDrawDate" type="date" nullable="true" column="last_draw_date"/>
         <field name="frequency" type="integer" nullable="true" column="frequency"/>
+        <field name="powerPlay" type="integer" nullable="true" column="powerPlay"/>
 
         <embedded name="line" class="EuroMillions\web\vo\EuroMillionsLine"/>
         <embedded name="discount" class="EuroMillions\web\vo\Discount"/>
