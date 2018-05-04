@@ -139,12 +139,12 @@ class PowerBallService
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();
-
                 $lottery = $this->lotteryService->getLotteryConfigByName('PowerBall');
 
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
-
+                $powerPlay = $this->playStorageStrategy->findByKey($user_id);
+                $powerPlay = (int)json_decode($powerPlay->returnValues())->play_config[0]->powerPlay;
                 $result_order = $this->cartService->get($user_id, $lottery->getName());
                 $numPlayConfigs = 0;
                 if ($result_order->success()) {
@@ -159,8 +159,8 @@ class PowerBallService
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->addFunds($funds);
                     $order->setAmountWallet($user->getWallet()->getBalance());
+                    $order->setPowerPlay($powerPlay);
                     $draw = $this->lotteryService->getNextDrawByLottery('PowerBall');
-
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
                         $uniqueId = $this->walletService->getUniqueTransactionId();
@@ -172,10 +172,11 @@ class PowerBallService
                     if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var PlayConfig $play_config */
-
                         foreach ($order->getPlayConfig() as $play_config) {
+
                             $play_config->setLottery($lottery);
                             $play_config->setDiscount($order->getDiscount());
+                            $play_config->setPowerPlay($powerPlay);
                             $this->playConfigRepository->add($play_config);
                             $this->entityManager->flush($play_config);
                         }
@@ -186,8 +187,6 @@ class PowerBallService
                     $result = curl_exec($curl);
                     curl_close($curl);
                     $formPlay = null;
-//        var_dump($result);
-//        die('patata');
 
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                     if ($result_payment->success() && $orderIsToNextDraw) {
@@ -267,7 +266,6 @@ class PowerBallService
                 foreach ($form_decode->play_config as $bet) {
                     $playConfig = new PlayConfig();
                     $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines, $this->getLottery($lottery)->getName());
-
                     $playConfig->setLottery($this->getLottery($lottery));
                     $playConfig->setDiscount(new Discount($bet->frequency, $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
                     $bets[] = $playConfig;

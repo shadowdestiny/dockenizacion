@@ -12,10 +12,9 @@ use EuroMillions\web\vo\PlayFormToStorage;
 
 class PowerBallPlayTemporarilyController extends AjaxControllerBase
 {
-
-
     public function temporarilyCartAction()
     {
+        $powerPlay = $this->request->getPost('power_play');
         $bets = $this->request->getPost('bet');
         $frequency = $this->request->getPost('frequency');
         $startDrawDate = $this->request->getPost('start_draw');
@@ -31,6 +30,7 @@ class PowerBallPlayTemporarilyController extends AjaxControllerBase
             $playFormToStorage = new PlayFormToStorage();
             $playFormToStorage->startDrawDate = $startDrawDate;
             $playFormToStorage->frequency = $frequency;
+            $playFormToStorage->powerPlay = $powerPlay;
             $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
             $playFormToStorage->drawDays = $draw_day_play;
             $playFormToStorage->euroMillionsLines = $this->create($bet);

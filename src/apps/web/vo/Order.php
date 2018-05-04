@@ -34,6 +34,8 @@ class Order implements \JsonSerializable
 
     private $hasSubscription;
 
+    private $powerPlay;
+
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null)
     {
         $this->play_config = $play_config;
@@ -46,6 +48,7 @@ class Order implements \JsonSerializable
             $discount = new Discount(0, []);
         }
         $this->discount = $discount;
+        $this->powerPlay = (int)$play_config[0]->getPowerPlay();
         $this->initialize();
     }
 
@@ -169,6 +172,22 @@ class Order implements \JsonSerializable
     public function setSingleBetPrice($single_bet_price)
     {
         $this->single_bet_price = $single_bet_price;
+    }
+
+    /**
+     * @return null
+     */
+    public function getPowerPlay()
+    {
+        return $this->powerPlay;
+    }
+
+    /**
+     * @param null $powerPlay
+     */
+    public function setPowerPlay($powerPlay)
+    {
+        $this->powerPlay = $powerPlay;
     }
 
     /**

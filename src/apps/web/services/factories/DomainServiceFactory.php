@@ -25,6 +25,7 @@ use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\play_strategies\RedisOrderStorageStrategy;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\services\PlayService;
+use EuroMillions\web\services\PowerBallCartService;
 use EuroMillions\web\services\PowerBallService;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\preferences_strategies\WebUserPreferencesStorageStrategy;
@@ -184,6 +185,15 @@ class DomainServiceFactory
     public function getCartService()
     {
         return new CartService(
+            $this->entityManager,
+            new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache')),
+            new SiteConfigService($this->entityManager,$this->getCurrencyConversionService())
+        );
+    }
+
+    public function getPowerBallCartService()
+    {
+        return new PowerBallCartService(
             $this->entityManager,
             new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache')),
             new SiteConfigService($this->entityManager,$this->getCurrencyConversionService())

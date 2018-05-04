@@ -253,7 +253,7 @@ class PowerBallCartController extends PublicSiteControllerBase
         if ($orderView) {
             $order = new Order($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount); // order created
             $order_eur = new Order($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount); //workaround for new payment gateway
-            $this->cartService->store($order);
+            $this->powerBallCartService->store($order);
         }
         /** @var PlayConfig[] $play_config */
         $play_config_collection = $result->returnValues();
