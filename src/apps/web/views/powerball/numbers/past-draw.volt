@@ -21,7 +21,7 @@
     function recalculateDrawDates() {
     $.ajax({
     type: "POST",
-    url: '/ajax/date-results/getDrawDaysByDate/',
+    url: '/ajax/date-results/getPowerballDrawDaysByDate/',
     data: {
     month: $('#month option:selected').val(),
     year: $('#year option:selected').val()
@@ -90,9 +90,9 @@
 
                             <h1 class="top-banner-play">
                                 {% if mobile == 1 %}
-                                    {{ language.translate("resultsdate_mobile_h1") }}
+                                    {{ language.translate("resultsdate_pow_mobile_h1") }}
                                 {% else %}
-                                    {{ language.translate("resultsdate_title") }}
+                                    {{ language.translate("resultsdate_pow_h1") }}
                                 {% endif %}
                             </h1>
 
@@ -147,7 +147,7 @@
 
                         <div class="box-current-winners--new">
                             <h2 class="h2">
-                                {{ language.translate("resultsdate_h2") }}
+                                {{ language.translate("resultsdate_pow_h2") }}
                                 {#Euromillions Results & price breakdown for Tuesday 02 November 2016#}
                             </h2>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
@@ -158,8 +158,8 @@
                                 <tbody>
                                 <tr>
                                     <td class="td-ball" style="font-weight: bold; font-size: 15px;">{{ language.translate("prizePool_matches") }}</td>
-                                    <td class="td-winners" style="font-weight: bold; font-size: 15px;">{{ language.translate("prizePool_winners") }}</td>
-                                    <td class="td-prize" style="font-weight: bold; font-size: 15px;">{{ language.translate("prizePool_prize") }}</td>
+                                    <td class="td-winners" style="font-weight: bold; font-size: 15px;">{{ language.translate("powerplay_winners") }}</td>
+                                    <td class="td-prize" style="font-weight: bold; font-size: 15px;">{{ language.translate("powerplay_prizes") }}</td>
                                 </tr>
                                 {% for name,categories in break_downs %}
                                     <tr>
@@ -167,7 +167,7 @@
                                             <td class="td-ball">
                                                 <span>
                                                 {#TODO : Add real variables here#}
-                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("prizePool_ball") }} + {{ break_downs[name]['stars_corrected'] }} {{ language.translate("prizePool_star") }}
+                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("prizePool_ball") }} + {{ break_downs[name]['stars_corrected'] }} {{ language.translate("Powerball") }}
                                                 </span>
                                             </td>
                                             <td class="td-star-ball">
@@ -198,7 +198,7 @@
 
                                 <div class="previous-results--btn">
 
-                                    <a href="/{{ language.translate('link_euromillions_results') }}" class="btn-theme--big">
+                                    <a href="/{{ language.translate('link_powerball_results') }}" class="btn-theme--big">
                                         <span class="resizeme">
                                             {{ language.translate("resultsdate_btn") }}
                                         </span>

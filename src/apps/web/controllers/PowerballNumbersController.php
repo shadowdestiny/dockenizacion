@@ -145,9 +145,9 @@ class PowerballNumbersController extends PublicSiteControllerBase
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
-        $this->tag->prependTitle($this->languageService->translate('resultsdate_em_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));
-        MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_em_desc'));
-var_dump($euroMillionsDraw->getDrawDate()->format('l'));die('dia de la semana');
+        $this->tag->prependTitle($this->languageService->translate('resultsdate_pow_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));
+        MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_pow_date'));
+
         $this->view->pick('/powerball/numbers/past-draw');
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
