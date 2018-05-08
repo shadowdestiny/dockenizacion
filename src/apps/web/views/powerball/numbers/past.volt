@@ -99,7 +99,7 @@
                                 <tbody>
                                 {% for i,draw in list_draws %}
                                     <tr class="more" style="cursor: pointer"
-                                        onclick="document.location='/{{ language.translate('link_euromillions_draw_history') }}/{{ draw.drawDateParam }}'">
+                                        onclick="document.location='/{{ language.translate('link_powerball_draw_history') }}/{{ draw.drawDateParam }}'">
                                         <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
                                         <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
                                         <td class="td-powerball">21</td>
