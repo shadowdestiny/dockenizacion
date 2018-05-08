@@ -96,8 +96,8 @@ class PowerballNumbersController extends PublicSiteControllerBase
             $this->view->setVar('trillions', false);
         }
         $this->view->setVar('language', $this->languageService->getLocale());
-        $this->tag->prependTitle($this->languageService->translate('resultshist_em_name'));
-        MetaDescriptionTag::setDescription($this->languageService->translate('resultshist_em_desc'));
+        $this->tag->prependTitle($this->languageService->translate('resultshist_pow_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('resultshist_pow_desc'));
 
         $this->view->pick('/powerball/numbers/past');
         return $this->view->setVars([

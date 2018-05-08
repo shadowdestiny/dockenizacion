@@ -70,14 +70,14 @@
 
                         <h1 class="h1 title">
                             {% if mobile == 1 %}
-                                {{ language.translate("resultshist_mobile_h1") }}
+                                {{ language.translate("resultshist_pow_mobile_h1") }}
                             {% else %}
-                                {{ language.translate("resultshist_title") }}
+                                {{ language.translate("resultshist_pow_h1") }}
                             {% endif %}
                         </h1>
                         <div class="history-numbers-block">
                             <div class="pad">
-                                <h2 class="h2 purple">{{ language.translate("historyNumbers_title") }}</h2>
+                                <h2 class="h2 purple">{{ language.translate("resultshist_pow_h2") }}</h2>
                             </div>
                             <table id="history-numbers" class="ui-responsive table2" data-role="table"
                                    data-mode="reflow">
@@ -85,10 +85,10 @@
                                 <tr>
                                     <th class="td-date"><span class="ico-date"></span>{{ language.translate("pastNumbers_date") }}</th>
                                     <th class="td-ball-numbers--lottery"><span
-                                                class="ico-ball"></span>{{ language.translate("pastNumbers_ball") }}</th>
+                                                class="ico-ball"></span>{{ language.translate("resultshist_pow_numbers") }}</th>
                                     <th class="td-powerball">
                                         <span class="ico-ball"></span>
-                                        Powerball
+                                        {{ language.translate("resultshist_powerballnumber") }}
                                     </th>
                                     <th class="td-powerplay">
                                         <span class="ico-ball"></span>
