@@ -15,11 +15,11 @@ class PowerballNumbersController extends PublicSiteControllerBase
     public function indexAction()
     {
         $date = $this->request->get('date');
-        $lotteryName = 'EuroMillions';
-        $date = empty($date) ? $this->lotteryService->getLastDrawDate('EuroMillions') : new \DateTime($date);
+        $lotteryName = 'PowerBall';
+        $date = empty($date) ? $this->lotteryService->getLastDrawDate('PowerBall') : new \DateTime($date);
         $result = $this->lotteryService->getDrawsDTO($lotteryName);
         $draw_result = $this->lotteryService->getLastDrawWithBreakDownByDate($lotteryName, $date);
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
@@ -48,24 +48,23 @@ class PowerballNumbersController extends PublicSiteControllerBase
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
-        $this->tag->prependTitle($this->languageService->translate('results_em_name'));
-        MetaDescriptionTag::setDescription($this->languageService->translate('results_em_desc'));
+        $this->tag->prependTitle($this->languageService->translate('results_pow_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('results_pow_desc'));
         $this->view->pick('/powerball/numbers/index');
 
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $euroMillionsDraw->getId(),
             'last_result' => ['regular_numbers' => $euroMillionsDraw->getResult()->getRegularNumbersArray(), 'lucky_numbers' => $euroMillionsDraw->getResult()->getLuckyNumbersArray()],
-            'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
+            'date_draw' => $this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours')->format('Y-m-d H:i:s'),
             'last_draw_date' => $euroMillionsDraw->getDrawDate()->format($this->languageService->translate('dateformat')),
             'draw_day' => $euroMillionsDraw->getDrawDate()->format('l'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
-            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
+            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours'))->format('%a'),
             'actual_year' => (new \DateTime())->format('Y'),
             'pageController' => 'powerballNumbersIndex',
         ]);
-
 
     }
 
@@ -78,7 +77,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
                 'error' => $result->errorMessage()
             ]);
         }
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
@@ -102,8 +101,8 @@ class PowerballNumbersController extends PublicSiteControllerBase
 
         $this->view->pick('/powerball/numbers/past');
         return $this->view->setVars([
-            'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
-            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
+            'date_draw' => $this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours')->format('Y-m-d H:i:s'),
+            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours'))->format('%a'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
             'pageController' => 'powerballNumbersPast',
@@ -116,7 +115,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
         if (!isset($params[0])) {
             $this->response->redirect($this->lottery . 'results');
         }
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/', '', ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/', '', ViewHelper::formatJackpotNoCents($jackpot));
@@ -140,7 +139,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
         $actualDate = new \DateTime();
         $date = empty($date) ? new \DateTime() : new \DateTime($date);
         $draw_result = $this->lotteryService->getDrawWithBreakDownByDate($lotteryName, $date);
-        $draw = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
+        $draw = $this->lotteryService->getNextDateDrawByLottery('PowerBall');
         /** @var EuroMillionsDraw $euroMillionsDraw */
         $euroMillionsDraw = $draw_result->getValues();
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
@@ -148,7 +147,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
 
         $this->tag->prependTitle($this->languageService->translate('resultsdate_em_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));
         MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_em_desc'));
-
+var_dump($euroMillionsDraw->getDrawDate()->format('l'));die('dia de la semana');
         $this->view->pick('/powerball/numbers/past-draw');
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
@@ -156,9 +155,9 @@ class PowerballNumbersController extends PublicSiteControllerBase
             'last_result' => ['regular_numbers' => $euroMillionsDraw->getResult()->getRegularNumbersArray(), 'lucky_numbers' => $euroMillionsDraw->getResult()->getLuckyNumbersArray()],
             'last_draw_date' => $euroMillionsDraw->getDrawDate()->format('D, d M Y'),
             'date_canonical' => $euroMillionsDraw->getDrawDate()->format('Y-m-d'),
-            'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
+            'date_draw' => $this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours')->format('Y-m-d H:i:s'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
-            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
+            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours'))->format('%a'),
             'actual_year' => $actualDate->format('Y'),
             'pageController' => 'powerballNumbersPast',
             'draw_day' => $euroMillionsDraw->getDrawDate()->format('l'),

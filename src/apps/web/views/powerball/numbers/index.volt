@@ -5,7 +5,7 @@
     <style>.laurel {
         display: none;
     }</style><![endif]-->
-    <link Rel="Canonical" href="{{ language.translate('canonical_euromillions_results') }}"/>
+    <link Rel="Canonical" href="{{ language.translate('canonical_powerball_results') }}"/>
 {% endblock %}
 {% block bodyClass %}
     numbers
@@ -24,7 +24,7 @@
     function recalculateDrawDates() {
     $.ajax({
     type: "POST",
-    url: '/ajax/date-results/getDrawDaysByDate/',
+    url: '/ajax/date-results/getPowerballDrawDaysByDate/',
     data: {
     month: $('#month option:selected').val(),
     year: $('#year option:selected').val()
@@ -154,15 +154,15 @@
 
                             <h1 class="winners--h1">
                                 {% if mobile == 1 %}
-                                    {{ language.translate("results_mobile_h1") }}
+                                    {{ language.translate("results_pow_mobile_h1") }}
                                 {% else %}
-                                    {{ language.translate("results_tittle") }}
+                                    {{ language.translate("results_pow_h1") }}
                                 {% endif %}
                             </h1>
 
-                            <h1 class="h2">
-                                {{ language.translate("prizePool_title") }}
-                            </h1>
+                            <h2 class="h2">
+                                {{ language.translate("results_pow_h2") }}
+                            </h2>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
                                    data-mode="reflow">
                                 <thead><th> </th></thead>
@@ -173,8 +173,8 @@
                                     <td class="td-winners td-head">{{ language.translate("prizePool_winners") }}</td>
                                     <td class="td-prize td-head">{{ language.translate("prizePool_prize") }}</td>
 
-                                    <td class="td-winners--powerplay td-head">PowerPlay Winners</td>
-                                    <td class="td-prize--powerplay td-head">PowerPlay Amount</td>
+                                    <td class="td-winners--powerplay td-head">{{ language.translate("powerplay_winners") }}</td>
+                                    <td class="td-prize--powerplay td-head">{{ language.translate("powerplay_prizes") }}</td>
                                 </tr>
                                 {% for name,categories in break_downs %}
                                     <tr>
@@ -182,7 +182,7 @@
                                             <td class="td-ball">
                                                 <span>
                                                     {{ categories['numbers_corrected'] }} {{ language.translate("prizePool_ball") }} +
-                                                    {{ categories['stars_corrected'] }} {{ language.translate("prizePool_star") }}
+                                                    {{ categories['stars_corrected'] }} {{ language.translate("Powerball") }}
                                                 </span>
                                             </td>
                                             {#<td class="td-star-ball">#}
@@ -228,7 +228,7 @@
                                     <label for="see">
                                         <input type="checkbox">
 
-                                            See power play results
+                                        {{ language.translate("powerplay_show") }}
 
                                     </label>
                                 </form>
@@ -236,13 +236,13 @@
 
 
                             <div class="previous-results--common-row">
-                                {% include "_elements/previous-results-euromillions.volt" %}
+                                {% include "_elements/previous-results-powerball.volt" %}
 
                                 <div class="previous-results--btn">
 
-                                    <a href="/{{ language.translate("link_euromillions_draw_history") }}" class="btn-theme--big">
+                                    <a href="/{{ language.translate("link_powerball_draw_history") }}" class="btn-theme--big">
                                         <span class="resizeme">
-                                            {{ language.translate("morePastResults_btn") }}
+                                            {{ language.translate("powhistory_btn") }}
                                         </span>
                                     </a>
 
@@ -250,9 +250,9 @@
                             </div>
 
 
-                            <h2>{{ language.translate("resultsem_h2") }}</h2>
+                            <h2>{{ language.translate("resultspow_h2") }}</h2>
                             <div>
-                                {{ language.translate("resultsem_text") }}
+                                {{ language.translate("resultspow_text") }}
                             </div>
                         </div>
                     </div>

@@ -568,14 +568,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'en',
         ));
 
-        $router->add("/powerball/results/draw-history-page/:params", array(
-            "module" => "web",
-            'lottery' => 3,
-            'controller' => 'powerball-numbers',
-            'action' => 'pastResult',
-            'params' => 2,
-            'language' => 'en',
-        ));
+//        $router->add("/powerball/results/draw-history-page/:params", array(
+//            "module" => "web",
+//            'lottery' => 3,
+//            'controller' => 'powerball-numbers',
+//            'action' => 'pastResult',
+//            'params' => 2,
+//            'language' => 'en',
+//        ));
 
         $router->add("/ru/powerball/результаты/история-розыгрышей/:params", array(
             "module" => "web",
@@ -618,6 +618,15 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "module" => "web",
             'lottery' => 1,
             'controller' => 'numbers',
+            'action' => 'pastResult',
+            'params' => 2,
+            'language' => 'en',
+        ));
+
+        $router->add("/{lottery:(powerball)+}/results/draw-history-page/:params", array(
+            "module" => "web",
+            'lottery' => 3,
+            'controller' => 'powerball-numbers',
             'action' => 'pastResult',
             'params' => 2,
             'language' => 'en',
@@ -837,13 +846,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'news',
             'action' => 'de'
         ));
-        $router->add("/powerball/results/draw-history-page", array(
-            "module" => "web",
-            'lottery' => 3,
-            'controller' => 'powerball-numbers',
-            'action' => 'pastList',
-            'language' => 'en',
-        ));
+//        $router->add("/powerball/results/draw-history-page", array(
+//            "module" => "web",
+//            'lottery' => 3,
+//            'controller' => 'powerball-numbers',
+//            'action' => 'pastList',
+//            'language' => 'en',
+//        ));
 
         $router->add("/powerball/результаты/история-розыгрышей", array(
             "module" => "web",
@@ -882,6 +891,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "module" => "web",
             'lottery' => 1,
             'controller' => 'numbers',
+            'action' => 'pastList',
+            'language' => 'en',
+        ));
+
+        $router->add("/{lottery:(powerball)+}/results/draw-history-page", array(
+            "module" => "web",
+            'lottery' => 3,
+            'controller' => 'powerball-numbers',
             'action' => 'pastList',
             'language' => 'en',
         ));
