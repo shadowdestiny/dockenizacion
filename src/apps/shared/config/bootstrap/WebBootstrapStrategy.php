@@ -577,7 +577,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 //            'language' => 'en',
 //        ));
 
-        $router->add("/ru/powerball/результаты/история-розыгрышей/:params", array(
+        $router->add("/ru/lottery:(powerball)+}/результаты/история-розыгрышей/:params", array(
             "module" => "web",
             'lottery' => 3,
             'controller' => 'powerball-numbers',
@@ -587,7 +587,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'currency' => 'RUB',
         ));
 
-        $router->add("/es/powerball/resultados/sorteos-anteriores/:params", array(
+        $router->add("/es/lottery:(powerball)+}/resultados/sorteos-anteriores/:params", array(
             "module" => "web",
             'lottery' => 3,
             'controller' => 'powerball-numbers',
@@ -596,7 +596,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'es',
         ));
 
-        $router->add("/it/powerball/estrazioni/archivio/:params", array(
+        $router->add("/it/lottery:(powerball)+}/estrazioni/archivio/:params", array(
             "module" => "web",
             'lottery' => 3,
             'controller' => 'powerball-numbers',
@@ -605,7 +605,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'it',
         ));
 
-        $router->add("/nl/powerball/uitslagen/trekking-geschiedenis/:params", array(
+        $router->add("/nl/lottery:(powerball)+}/uitslagen/trekking-geschiedenis/:params", array(
             "module" => "web",
             'lottery' => 3,
             'controller' => 'powerball-numbers',
