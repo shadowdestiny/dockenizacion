@@ -895,7 +895,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'en',
         ));
 
-        $router->add("/ru/{lottery:(powerball)+}/results/draw-history-page", array(
+        $router->add("/{lottery:(powerball)+}/results/draw-history-page", array(
             "module" => "web",
             'lottery' => 3,
             'controller' => 'powerball-numbers',
