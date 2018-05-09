@@ -194,7 +194,7 @@
                             </table>
 
                             <div class="previous-results--common-row">
-                                {% include "_elements/previous-results-euromillions.volt" %}
+                                {% include "_elements/previous-results-powerball.volt" %}
 
                                 <div class="previous-results--btn">
 
