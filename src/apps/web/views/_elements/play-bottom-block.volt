@@ -22,7 +22,7 @@
 <div class="box-bottom play-bottom-block">
 
     <h1>
-        Play Euromillions, Europe's biggest lottery
+        {{ language.translate("play_h1") }}
     </h1>
 
     <div class="play-bottom-block--img">

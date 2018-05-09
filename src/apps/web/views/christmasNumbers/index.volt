@@ -25,13 +25,6 @@
                     {% endif %}
                 </h1>
 
-                <p>
-                    {% if mobile == 1 %}
-                        {{ language.translate("h1_resultsch_mobile") }}
-                    {% else %}
-                        {{ language.translate("h1_christmasresults") }}
-                    {% endif %}
-                </p>
             </div>
             </div>
 
@@ -50,10 +43,10 @@
 
 
             <div class="current-winners-block">
-                <p class="mobile-title">
-                    The Christmas Lottery results <br>
-                    for 22 december 2017
-                </p>
+                {#<p class="mobile-title">#}
+                    {#The Christmas Lottery results <br>#}
+                    {#for 22 december 2017#}
+                {#</p>#}
                 <div class="box-current-winners">
                 <table id="current-winners" class="table ui-responsive" data-role="table"
                        data-mode="reflow">
@@ -77,9 +70,9 @@
                         <td class="td-star-ball">
                             <span>1</span>
                         </td>
-                        <td class="td-main-prize--mobile">
-                            <span>{{ language.translate("mainprizes_row1") }}</span>
-                        </td>
+                        {#<td class="td-main-prize--mobile">#}
+                            {#<span>{{ language.translate("mainprizes_row1") }}</span>#}
+                        {#</td>#}
                         <td class="td-winners">
                             <span>4.000.000  €</span>
                         </td>
@@ -98,9 +91,9 @@
                         <td class="td-star-ball">
                             <span>1</span>
                         </td>
-                        <td class="td-main-prize--mobile">
-                            <span>{{ language.translate("mainprizes_row1") }}</span>
-                        </td>
+                        {#<td class="td-main-prize--mobile">#}
+                            {#<span>{{ language.translate("mainprizes_row1") }}</span>#}
+                        {#</td>#}
                         <td class="td-winners">
                             <span>1.250.000  €</span>
                         </td>
@@ -119,9 +112,9 @@
                         <td class="td-star-ball">
                             <span>1</span>
                         </td>
-                        <td class="td-main-prize--mobile">
-                            <span>{{ language.translate("mainprizes_row1") }}</span>
-                        </td>
+                        {#<td class="td-main-prize--mobile">#}
+                            {#<span>{{ language.translate("mainprizes_row1") }}</span>#}
+                        {#</td>#}
                         <td class="td-winners">
                             <span>500.000 €</span>
                         </td>
@@ -140,9 +133,9 @@
                         <td class="td-star-ball">
                             <span>2</span>
                         </td>
-                        <td class="td-main-prize--mobile">
-                            <span>{{ language.translate("mainprizes_row1") }}</span>
-                        </td>
+                        {#<td class="td-main-prize--mobile">#}
+                            {#<span>{{ language.translate("mainprizes_row1") }}</span>#}
+                        {#</td>#}
                         <td class="td-winners">
                             <span>200.000  €</span>
                         </td>
@@ -161,9 +154,9 @@
                         <td class="td-star-ball">
                             <span>8</span>
                         </td>
-                        <td class="td-main-prize--mobile">
-                            <span>{{ language.translate("mainprizes_row1") }}</span>
-                        </td>
+                        {#<td class="td-main-prize--mobile">#}
+                            {#<span>{{ language.translate("mainprizes_row1") }}</span>#}
+                        {#</td>#}
                         <td class="td-winners">
                             <span>60.000  €</span>
                         </td>
@@ -177,10 +170,8 @@
             </div>
 
             <div class="did-you-win-block">
-                <h2>Did you win?
+                <h2>{{ language.translate("check_number") }}
                 </h2>
-                <h3>{{ language.translate("check_number") }}
-                </h3>
                 <form class="box-add-card form-currency" method="post" action="/christmas-lottery/search">
                     <label for="ticketnumber">{{ language.translate("insert_number") }}&nbsp;</label><input type="text" id="ticket_number" name="ticket_number"/>
                     <input type="submit" class="btn btn-primary" value="Check" />
@@ -405,7 +396,7 @@
 
 
         {#TODO: add this elemet on the right page (https://www.euromillions.com/christmas-lottery/search)#}
-        {% include "_elements/christmass-lottery-results-prize.volt" %}
+        {#{% include "_elements/christmass-lottery-results-prize.volt" %}#}
 
 
     </main>

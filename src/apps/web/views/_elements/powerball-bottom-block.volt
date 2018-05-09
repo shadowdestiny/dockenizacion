@@ -22,7 +22,7 @@
 <div class="box-bottom play-bottom-block--powerplay">
 
     <h1>
-        PLAY POWER BALL, USA's BIGGEST JACKPOT!
+        {{ language.translate("play_pow_h1") }}
     </h1>
 
     <div class="play-bottom-block--img">

@@ -189,18 +189,18 @@
             <div class="accordion-blocks">
                 <div class="block--text--accordion">
                     <h3>
-                        Play quick and relax with euromillions.com
+                        {{ language.translate("cta2_sub1") }}
                     </h3>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aspernatur consequuntur cumque eligendi error, facere, fugiat maxime nobis numquam quidem recusandae totam, voluptates voluptatibus? Maiores, molestiae, neque. Dolorem, eligendi, libero?
+                        {{ language.translate("cta2_text1") }}
                     </p>
                 </div>
                 <div class="block--text--accordion">
                     <h3>
-                        Buy lottery tickets at the best price
+                        {{ language.translate("cta2_sub2") }}
                     </h3>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aspernatur consequuntur cumque eligendi error, facere, fugiat maxime nobis numquam quidem recusandae totam, voluptates voluptatibus? Maiores, molestiae, neque. Dolorem, eligendi, libero?
+                        {{ language.translate("cta2_text2") }}
                     </p>
                 </div>
             </div>

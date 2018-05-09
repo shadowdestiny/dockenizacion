@@ -220,11 +220,6 @@
                                 </div>
                             </div>
 
-
-                            <h2>{{ language.translate("resultsem_h2") }}</h2>
-                            <div>
-                                {{ language.translate("resultsem_text") }}
-                            </div>
                         </div>
                     </div>
 
@@ -235,10 +230,10 @@
 
                 <div class="block--text--accordion">
                     <h2>
-                        Have you wan?
+                        {{ language.translate("resultsem_h2") }}
                     </h2>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aspernatur consequuntur cumque eligendi error, facere, fugiat maxime nobis numquam quidem recusandae totam, voluptates voluptatibus? Maiores, molestiae, neque. Dolorem, eligendi, libero?
+                        {{ language.translate("resultsem_text") }}
                     </p>
                 </div>
 
