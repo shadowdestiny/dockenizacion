@@ -59,7 +59,7 @@
                                                 {{ withdraw.user.email }}
                                             </td>
                                             <td class="date">
-                                                {{ withdraw.date }}
+                                                {{ withdraw.date.format('Y-m-d') }}
                                             </td>
                                             <td class="date">
                                                 <strong>Name:</strong> {{ withdraw.user.name }}
