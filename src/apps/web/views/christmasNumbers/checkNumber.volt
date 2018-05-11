@@ -15,6 +15,6 @@
     {% if ticket_number != null %}
         {% include "_elements/christmass-lottery-results-prize.volt" %}
     {% else %}
-        {% include "_elements/christmass-lottery-results-prize.volt" %}
+        {% include "_elements/christmas-lottery-results-not-awarded.volt" %}
     {% endif %}
 {% endblock %}

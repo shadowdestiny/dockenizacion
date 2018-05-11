@@ -178,13 +178,15 @@
                 </form>
             </div>
 
-            <div class="other-prizes-text">
+            <div class="main-text">
                 <h2><span>{{ language.translate("h2_otherprizes") }}</span>
                 </h2>
-                <h3>{{ language.translate("h3_otherprizesamount") }}</h3>
+                <strong><h3 style="font-size: 20px;">{{ language.translate("h3_otherprizesamount") }}</h3></strong>
+                <br />
                 <p>
                     {{ language.translate("text_otherprizesamount") }}
                 </p>
+
             </div>
 
             <div class="other-prizes-block">
