@@ -26,8 +26,8 @@ class UsersController extends AdminControllerBase
     public function indexAction()
     {
         $result = $this->maintenanceUserService->listAllUsers();
-
-        $users = $this->maintenanceUserService->getNumberOfUsers(($this->request->get('pageUsers') - 1) * 100);
+        $page = $this->request->get('pageUsers');
+        $users = $this->maintenanceUserService->getNumberOfUsers(($page ? $page - 1 : 0) * 100);
         $pageUsers = (!empty($this->request->get('pageUsers'))) ? $this->request->get('pageUsers') : 1;
         $paginatorUsers = $this->getPaginatorAsArray(!empty($users) ? $users : [], 1, $pageUsers);
         $paginatorViewUsers = (new PaginationWidgetAdmin($paginatorUsers, $this->request->getQuery(), [], 'pageUsers'))->render();
