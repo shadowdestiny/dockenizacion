@@ -91,24 +91,25 @@
                                             <input type="hidden" name="user_id" value="{{ user.id }}"/>
                                         </form>
                                     </td>
-                                    {#<td class="action">#}
-                                        {#<a href="javascript:void(0)" class="btn btn-danger">Delete</a>#}
-                                        {#<a href="#" class="btn btn-success">View Transactions</a>#}
-                                        {#<a href="javascript:void(0)" data-id="{{ user.id }}" class="btn btn-primary">Edit</a>#}
-                                    {#</td>#}
+                                    <td class="action">
+                                        <a href="javascript:void(0)" class="btn btn-danger">Delete</a>
+                                        <a href="#" class="btn btn-success">View Transactions</a>
+                                        <a href="javascript:void(0)" data-id="{{ user.id }}" class="btn btn-primary">Edit</a>
+                                    </td>
                                 </tr>
                             {% endfor %}
+                            {{ paginator_view_bets }}
                         {% endif %}
                     </tbody>
                 </table>
            </div>
                 <div class="hidden-element crud-user">
-                    <h2 class="sub-title purple"></h1>
+                    <h2 class="sub-title purple"></h2>
                     {% include "_elements/registration.volt" %}
                 </div>
 
                  /* View Transactions */
-                <h2 class="sub-title purple">View Transactions</h1>
+                <h2 class="sub-title purple">View Transactions</h2>
                 <div class="row-fluid">
                     <span class="span6">
                         <strong>Name</strong>: Mario Rossi 
