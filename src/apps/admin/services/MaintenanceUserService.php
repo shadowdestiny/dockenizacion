@@ -80,4 +80,9 @@ class MaintenanceUserService
             return new ActionResult(false, 'Sorry, try it later');
         }
     }
+
+    public function getNumberOfUsers($userId)
+    {
+        return $this->userRepository->findBy(['validated' => 0 ],[], 100, $userId);
+    }
 }
