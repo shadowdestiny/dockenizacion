@@ -122,7 +122,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
-        $router->add('/admin/:controller(/?)/:params', array(
+        $router->add('/admin/:users(/?)/:params', array(
             'module' => 'admin',
             'controller' => 1,
             'params' => 1,
