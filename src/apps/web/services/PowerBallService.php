@@ -181,11 +181,17 @@ class PowerBallService
                             $this->entityManager->flush($play_config);
                         }
                     }
-                    var_dump($play_config);die('guarda');
+
+                    $APIPlayConfigs = json_encode($order->getPlayConfig());
                     $curl = curl_init();
-                    curl_setopt($curl, CURLOPT_URL, 'lotteriesbeta.euromillions.com/powerball/tickets/book');
+                    curl_setopt($curl, CURLOPT_URL, 'http://lotteriesbeta.euromillions.com/powerball/tickets/book/');
+                    curl_setopt($curl, CURLOPT_POST, TRUE);
+                    curl_setopt($curl, CURLOPT_POSTFIELDS,$APIPlayConfigs);
+                    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
                     $result = curl_exec($curl);
                     curl_close($curl);
+                    die('final curl');
+
                     $formPlay = null;
 
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
