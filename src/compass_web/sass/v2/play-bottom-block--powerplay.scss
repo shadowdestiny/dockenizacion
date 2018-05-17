@@ -1,0 +1,273 @@
+// PAGES: Powerball Play
+
+.box-bottom--accordion--powerplay {
+  display: block;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    display: none;
+  }
+}
+
+
+.box-bottom.play-bottom-block--powerplay {
+  padding: 0;
+  border-top: 0;
+  border-bottom: 1px solid #303030;
+
+  width: 100%;
+  border-radius: 0;
+
+  overflow: hidden;
+  padding-bottom: 52px;
+  background-color: transparent;
+  background-image: url('../img/powerball/powerball-tickets.png');
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+
+  -webkit-background-size: 34.1%;
+  background-size: 34.1%;
+
+  margin-bottom: 20px;
+
+  display: none;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+
+    display: block;
+
+    padding: 0;
+    border-bottom: 1px solid #303030;
+
+    width: 100%;
+    border-radius: 0;
+
+    overflow: hidden;
+    padding-bottom: 52px;
+
+    -webkit-background-size: 34.1%;
+    background-size: 34.1%;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    padding: 0;
+    border-bottom: 1px solid #303030;
+    padding-bottom: 85px;
+
+    -webkit-background-size: 31%;
+    background-size: 31%;
+
+    margin-left: -27px;
+    margin-right: -28px;
+  }
+
+
+  @media only screen and (min-width: $screen-desktop) {
+    padding: 0;
+    border-bottom: 1px solid #303030;
+    padding-bottom: 64px;
+
+    -webkit-background-size: 297px;
+    background-size: 297px;
+
+    margin-left: -19px;
+    margin-right: 0;
+    width: 960px;
+
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: #333;
+    font-size: 18.5px;
+    font-weight: 600;
+    padding-bottom: 3px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      color: #333;
+      font-size: 18.5px;
+      font-weight: 600;
+      padding-bottom: 3px;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      font-size: 20px;
+      padding-bottom: 13px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 22px;
+      padding-bottom: 6px;
+    }
+
+  }
+  h2,
+  h3 {
+    text-transform: uppercase;
+  }
+
+  h1 {
+    @include common-headings-style-h1 ();
+  }
+  h2 {
+    @include common-headings-style-h2 ();
+  }
+
+  p {
+    //color:  #6a6969;
+    color:  #333333;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 25px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 25px;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      font-size: 18px;
+      line-height: 28px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 18px;
+      line-height: 30px;
+    }
+  }
+
+
+  .play-bottom-block--img {
+    padding-top: 18px;
+    padding-bottom: 29px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      padding-top: 18px;
+      padding-bottom: 29px;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      padding-bottom: 19px;
+    }
+
+    img {
+
+
+    }
+  }
+  .play-bottom-block--center {
+
+    margin: auto;
+    max-width: 520px;
+    margin-bottom: 26px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin: auto;
+      max-width: 520px;
+      margin-bottom: 26px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      margin: auto;
+      max-width: 620px;
+      margin-bottom: 48px;
+      padding-top: 4px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      margin: auto;
+      max-width: 620px;
+      margin-bottom: 34px;
+      padding-top: 2px;
+    }
+
+    h2,
+    h3 {
+      text-align: center;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        text-align: center;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        padding-top: 10px;
+      }
+    }
+
+    p {
+      text-align: center;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+
+      }
+    }
+  }
+
+  .play-bottom-block--right {
+    float: left;
+    max-width: 450px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      max-width: 450px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      max-width: 590px;
+      padding-right: 57px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      max-width: 710px;
+      padding-right: 45px;
+    }
+
+    h2,
+    h3 {
+      text-align: left;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+
+      }
+    }
+
+    p {
+      text-align: left;
+      padding-left: 0px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+
+      }
+    }
+  }
+
+}

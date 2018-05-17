@@ -1,0 +1,546 @@
+/* PAGE: Christmas lottery Results */
+
+.christmass-lottery-results--page {
+
+  //.wrapper{
+  //  @media only screen and (min-width: $screen-wide-full) {
+  //    width: $screen-wide-full-wrapper;
+  //    max-width: $screen-wide-full-wrapper;
+  //  }
+  //}
+
+  .box-current-winners {
+    border: 0;
+    border-radius: 0;
+  }
+
+  .table {
+
+    width: 100%;
+
+    @media only screen and (max-width: $screen-ipad-h-pre) {
+      border-top: 0;
+    }
+
+    thead {
+
+      @media only screen and (max-width: $screen-ipad-h-pre) {
+        display: none;
+      }
+
+      th {
+        background-image: none;
+        background-color:  #fad425;
+        color:  #333333;
+        font-size: 18px;
+        font-weight: 900;
+        text-align: left;
+        text-shadow: none;
+        text-transform: uppercase;
+        height: 76px;
+        vertical-align: middle;
+        word-break: break-word;
+
+        @media only screen and (min-width: $screen-wide) {
+          //font-size: 24px;
+          font-size: 18px;
+        }
+      }
+    }
+
+    tbody {
+
+
+      tr:nth-child(even) td, .table2 tr:nth-child(odd) td,
+      td {
+        background-color:  #f5f5f5;
+        border-bottom: 1px solid #fff;
+        color:  #333333;
+        font-size: 17px;
+        //font-weight: 900;
+        text-align: left;
+
+        &.td-main-prize {
+          font-weight: 500;
+        }
+
+        &.td-main-prize--mobile {
+          display: none;
+        }
+
+      }
+
+      //Mobile common start
+      tr {
+        @media only screen and (max-width: $screen-ipad-h-pre) {
+          display: block;
+          overflow: hidden;
+          border-bottom: 1px solid #b8b8b8;
+          padding-top: 10px;
+          padding-bottom: 10px;
+
+          &:first-of-type {
+            border-top: 1px solid #b8b8b8;
+          }
+        }
+      }
+
+      tr:nth-child(even) td, .table2 tr:nth-child(odd) td,
+      td {
+        @media only screen and (max-width: $screen-ipad-h-pre) {
+          background-color: transparent;
+
+          color:  #333333;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 14px;
+          text-align: left;
+
+          display: block;
+          width: 50%;
+          float: left;
+          margin: 0;
+          padding: 0px 0 2px 0;
+
+        }
+      }
+      //Mobile common end
+
+    }
+  }
+  //Mobile version start
+  .current-winners-block {
+    .table {
+      tbody {
+
+        tr:nth-child(even) td, .table2 tr:nth-child(odd) td,
+        td {
+          @media only screen and (max-width: $screen-ipad-h-pre) {
+
+            &.td-main-prize--mobile b,
+            &.td-main-prize b,
+            &.td-winners b,
+            &.td-ball b,
+            &.td-star-ball,
+            &.td-prize {
+              display: none;
+            }
+            &.td-main-prize--mobile {
+              display: block;
+              text-transform: uppercase;
+            }
+
+            &.td-main-prize,
+            &.td-ball {
+              color:  #9b9b9b;
+            }
+
+            &.td-winners,
+            &.td-ball {
+              text-align: right;
+            }
+
+
+          }
+        }
+
+      }
+    }
+  }
+
+  .other-prizes-block {
+    .table {
+      tbody {
+        tr:nth-child(even) td, .table2 tr:nth-child(odd) td,
+        td {
+          @media only screen and (max-width: $screen-ipad-h-pre) {
+
+            font-weight: 500;
+
+            &.td-star-ball b,
+            &.td-ball b,
+            &.td-ball-2,
+            &.td-winners {
+              display: none;
+            }
+
+            &.td-star-ball {
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+  }
+  //Mobile version end
+
+  .title-block {
+    z-index: 1;
+    background-color:  #f02b2b;
+    width: 100%;
+    min-height: 48px;
+
+    margin-top: 2px;
+    padding-top: 6px;
+
+
+    @media only screen and (min-width: $screen-ipad-h) {
+
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      background-color: transparent;
+
+      .wrapper {
+        background-color:  #f02b2b;
+        padding-top: 16px;
+        padding-left: 35px;
+        padding-right: 35px;
+        padding-bottom: 13px;
+      }
+
+      margin-top: 72px;
+    }
+
+
+    h1 {
+      color:  #ffffff;
+      font-size: 20px;
+      font-weight: 900;
+      //line-height: 60px;
+      line-height: 1;
+      text-align: left;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        //font-size: 62px;
+        font-size: 48px;
+      }
+      @media only screen and (min-width: $screen-wide) {
+        //font-size: 82px;
+        font-size: 62px;
+      }
+    }
+
+    p {
+      color:  #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      //line-height: 48px;
+      line-height: 1;
+      text-align: left;
+      text-transform: uppercase;
+      margin-bottom: 0;
+
+      @media only screen and (min-width: $screen-desktop) {
+        //font-size: 60px;
+        font-size: 34px;
+      }
+      @media only screen and (min-width: $screen-wide) {
+        //font-size: 60px;
+        font-size: 45px;
+      }
+    }
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      z-index: 1;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+
+    }
+  }
+
+  .main-text{
+    margin-top: 14px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      background-color:  #f5f5f5;
+      margin-top: 38px;
+      margin-bottom: 40px;
+
+      //padding-top: 40px;
+      //padding-right: 44px;
+      //padding-bottom: 40px;
+      //padding-left: 44px;
+
+      padding-top: 29px;
+      padding-right: 40px;
+      padding-bottom: 29px;
+      padding-left: 40px;
+    }
+
+    h2 {
+      color:  #333333;
+      font-size: 20px;
+      font-weight: 900;
+      text-align: left;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-desktop) {
+        //font-size: 52px;
+        font-size: 38px;
+        line-height: 1;
+        margin-bottom: 30px;
+      }
+    }
+
+    p {
+      color:  #333333;
+      font-size: 14px;
+      font-weight: 400;
+      text-align: left;
+      line-height: 1.25;
+      margin-bottom: 15px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 17px;
+        font-weight: 500;
+        margin-bottom: 17px;
+      }
+    }
+  }
+
+  .current-winners-block {
+    .mobile-title {
+      padding-top: 4px;
+      color:  #333333;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: left;
+      margin-bottom: 7px;
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        display: none;
+      }
+    }
+
+    .box-current-winners {
+
+    }
+  }
+
+  .did-you-win-block {
+
+    margin-top: 24px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      margin-top: 1px;
+
+      background-color:  #f5f5f5;
+      margin-bottom: 40px;
+
+      padding-top: 33px;
+      padding-right: 29px;
+      padding-bottom: 40px;
+      padding-left: 29px;
+    }
+
+    h2 {
+      color:  #333333;
+      font-size: 40px;
+      font-weight: 900;
+      text-align: left;
+      line-height: 1;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-desktop) {
+        //font-size: 52px;
+        font-size: 38px;
+      }
+    }
+
+    h3 {
+      color:  #333333;
+      font-size: 20px;
+      font-weight: 900;
+      text-align: left;
+      line-height: 1;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-desktop) {
+        //font-size: 24px;
+        font-size: 18px;
+      }
+    }
+
+    form {
+      text-align: left;
+
+      label {
+        color:  #9b9b9b;
+        font-weight: 400;
+        text-align: left;
+        line-height: 1;
+        display: block;
+        font-size: 15px;
+        margin-bottom: 10px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          color:  #333333;
+          //font-size: 24px;
+          font-size: 18px;
+          font-weight: 700;
+          text-align: left;
+          margin-top: 25px;
+          margin-bottom: 27px;
+        }
+      }
+
+      #ticket_number {
+        border-radius: 4px;
+        border-width: 1px;
+        border-color:  #b7b7b7;
+        border-style: solid;
+        background-color:  #ffffff;
+        //width: 298px;
+        height: 57px;
+        line-height: 57px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          border-radius: 4px;
+          border-width: 1px;
+          border-color:  #b7b7b7;
+          border-style: solid;
+          background-color:  #ffffff;
+          width: 490px;
+          height: 82px;
+          //font-size: 24px;
+          font-size: 18px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+
+        }
+      }
+      .btn {
+        border-radius: 3px;
+        background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
+        height: 48px;
+        width: 100%;
+        border: 0;
+        cursor: pointer;
+        text-transform: uppercase;
+
+        color:  #f2f2f2;
+        font-size: 18px;
+        font-weight: 700;
+        //line-height: 75px;
+        text-align: center;
+        text-shadow: -1px 1px 0px rgba(33, 209, 103, 0.5);
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 286px;
+          height: 61px;
+          //font-size: 24px;
+          font-size: 18px;
+          display: block;
+          margin-top: 31px;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+
+        }
+      }
+    }
+  }
+
+  .other-prizes-text {
+    margin-top: 25px;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      display: none;
+    }
+
+    h2 {
+      line-height: 1;
+      display: none;
+    }
+
+    h3 {
+      color:  #333333;
+      //font-size: 16px;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: left;
+      line-height: 1.25;
+      margin-bottom: 2px;
+    }
+
+    p {
+      color:  #333333;
+      //font-size: 16px;
+      font-size: 12px;
+      font-weight: 400;
+      text-align: left;
+      line-height: 1.2;
+    }
+  }
+
+  .other-prizes-block {
+    .box-current-winners {
+
+    }
+  }
+
+  .texter {
+    margin-top: 17px;
+    margin-bottom: 30px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      background-color:  #f5f5f5;
+      margin-top: 40px;
+      margin-bottom: 82px;
+
+      padding-top: 27px;
+      padding-right: 44px;
+      padding-bottom: 46px;
+      padding-left: 42px;
+    }
+
+    .block--text--accordion {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: transparent;
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin-bottom: 28px;
+      }
+
+
+      h3 {
+        @media only screen and (min-width: $screen-desktop) {
+          color:  #333333;
+          //font-size: 36px;
+          font-size: 28px;
+          font-weight: 900;
+          text-align: left;
+          margin-bottom: 17px;
+        }
+      }
+
+      p {
+        @media only screen and (min-width: $screen-desktop) {
+          color:  #333333;
+          //font-size: 17px;
+          font-size: 13px;
+          font-weight: 500;
+          text-align: left;
+        }
+      }
+    }
+  }
+
+}
