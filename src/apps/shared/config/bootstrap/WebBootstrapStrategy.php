@@ -1354,13 +1354,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 //        ));
 //
 //
-//        $router->add("/powerball/how-to-play", array(
-//            "module" => "web",
-//            'lottery' => 3,
-//            'controller' => 'powerball-help',
-//            'action' => 'index',
-//            'language' => 'en',
-//        ));
+        $router->add("/powerball/how-to-play", array(
+            "module" => "web",
+            'lottery' => 3,
+            'controller' => 'powerball-help',
+            'action' => 'index',
+            'language' => 'en',
+        ));
 //
 //        $router->add("/ru/powerball/как-играть", array(
 //            "module" => "web",
