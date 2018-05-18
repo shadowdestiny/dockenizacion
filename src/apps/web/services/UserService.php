@@ -169,9 +169,11 @@ class UserService
 
     public function getMyInactivePlays($userId)
     {
+        var_dump($userId);echo "user";
         if(!empty($userId)){
             /** @var array $result */
             $result = $this->betRepository->getPastGamesWithPrizes($userId);
+            var_dump($result); echo "result";
             if(empty($result)){
                 return new ActionResult(false,'You don\'t have games');
             }
