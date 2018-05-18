@@ -1361,39 +1361,39 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
             'language' => 'en',
         ));
-//
-//        $router->add("/ru/powerball/как-играть", array(
-//            "module" => "web",
-//            'lottery' => 3,
-//            'controller' => 'powerball-help',
-//            'action' => 'index',
-//            'language' => 'ru',
-//            'currency' => 'RUB',
-//        ));
-//
-//        $router->add("/es/powerball/como-se-juega", array(
-//            "module" => "web",
-//            'lottery' => 3,
-//            'controller' => 'powerball-help',
-//            'action' => 'index',
-//            'language' => 'es',
-//        ));
-//
-//        $router->add("/it/powerball/come-giocare", array(
-//            "module" => "web",
-//            'lottery' => 3,
-//            'controller' => 'powerball-help',
-//            'action' => 'index',
-//            'language' => 'it',
-//        ));
-//
-//        $router->add("/nl/powerball/speluitleg", array(
-//            "module" => "web",
-//            'lottery' => 3,
-//            'controller' => 'powerball-help',
-//            'action' => 'index',
-//            'language' => 'nl',
-//        ));
+
+        $router->add("/ru/powerball/как-играть", array(
+            "module" => "web",
+            'lottery' => 3,
+            'controller' => 'powerball-help',
+            'action' => 'index',
+            'language' => 'ru',
+            'currency' => 'RUB',
+        ));
+
+        $router->add("/es/powerball/como-se-juega", array(
+            "module" => "web",
+            'lottery' => 3,
+            'controller' => 'powerball-help',
+            'action' => 'index',
+            'language' => 'es',
+        ));
+
+        $router->add("/it/powerball/come-giocare", array(
+            "module" => "web",
+            'lottery' => 3,
+            'controller' => 'powerball-help',
+            'action' => 'index',
+            'language' => 'it',
+        ));
+
+        $router->add("/nl/powerball/speluitleg", array(
+            "module" => "web",
+            'lottery' => 3,
+            'controller' => 'powerball-help',
+            'action' => 'index',
+            'language' => 'nl',
+        ));
 
 //        $router->setDefaults(array(
 //            "module"     => "web",
