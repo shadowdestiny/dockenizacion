@@ -83,7 +83,7 @@ class PowerBallCartService
                         $playConfig = new PlayConfig();
                         var_dump('entra3');
 //                        var_dump($bet);;die();
-                        $playConfig->formToEntity($user, $bet, $bet->euromillions_line, $lottery->getName());
+                        $playConfig->formToEntity($user, $bet, $bet->euromillions_line);
                         $bets[] = $playConfig;
                     }
                     $fee = $this->siteConfigService->getFee();
