@@ -1,4 +1,14 @@
-// PAGES: Christmas lottery, Play
+// PAGES: Euromillions Play
+
+.box-bottom--accordion {
+  display: block;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    display: none;
+  }
+}
 
 
 .box-bottom.play-bottom-block {
@@ -13,14 +23,18 @@
 
   background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
   background-repeat: no-repeat;
-  background-position: 0 100%;
+  background-position: 100% 100%;
 
   -webkit-background-size: 34.1%;
   background-size: 34.1%;
 
+  display: none;
+
   @media only screen and (min-width: $screen-ipad-v) {
+
+    display: block;
+
     padding: 0;
-    border-bottom: 1px solid #303030;
 
     width: 100%;
     border-radius: 0;
@@ -28,22 +42,13 @@
     overflow: hidden;
     padding-bottom: 52px;
 
-    background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-
     -webkit-background-size: 34.1%;
     background-size: 34.1%;
   }
 
   @media only screen and (min-width: $screen-ipad-h) {
     padding: 0;
-    border-bottom: 1px solid #303030;
     padding-bottom: 85px;
-
-    background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
-    background-repeat: no-repeat;
-    background-position: 42px 100%;
 
     -webkit-background-size: 31%;
     background-size: 31%;
@@ -55,12 +60,7 @@
 
   @media only screen and (min-width: $screen-desktop) {
     padding: 0;
-    border-bottom: 1px solid #303030;
     padding-bottom: 64px;
-
-    background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
-    background-repeat: no-repeat;
-    background-position: 31px 100%;
 
     -webkit-background-size: 297px;
     background-size: 297px;
@@ -70,6 +70,59 @@
     width: 960px;
 
   }
+
+  h1,
+  h2,
+  h3 {
+    color: #333;
+    font-size: 18.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-bottom: 3px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      font-size: 20px;
+      padding-bottom: 13px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 22px;
+      padding-bottom: 6px;
+    }
+
+  }
+
+  h1 {
+    @include common-headings-style-h1 ();
+  }
+  h2 {
+    @include common-headings-style-h2 ();
+  }
+
+  p {
+    //color:  #6a6969;
+    color:  #333333;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 25px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      font-size: 18px;
+      line-height: 28px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 18px;
+      line-height: 30px;
+    }
+  }
+
 
   .play-bottom-block--img {
     padding-top: 18px;
@@ -114,138 +167,89 @@
       padding-top: 2px;
     }
 
+    h2,
     h3 {
-      //font-family: WorkSans;
-
-      color: #333;
-      font-size: 18.5px;
-      font-weight: 600;
       text-align: center;
-      text-transform: uppercase;
-      padding-bottom: 3px;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        color: #333;
-        font-size: 18.5px;
-        font-weight: 600;
         text-align: center;
-        text-transform: uppercase;
-        padding-bottom: 3px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 20px;
-        padding-bottom: 12px;
+
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 22px;
-        padding-bottom: 6px;
+        padding-top: 10px;
       }
     }
 
     p {
       text-align: center;
-      color:  #6a6969;
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 25px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         text-align: center;
-        color:  #6a6969;
-        font-size: 15px;
-        font-weight: 400;
-        line-height: 25px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 18px;
-        line-height: 28px;
+
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 18px;
-        line-height: 30px;
+
       }
     }
   }
 
   .play-bottom-block--right {
-    float: right;
+    float: left;
     max-width: 450px;
 
     @media only screen and (min-width: $screen-ipad-v) {
-      float: right;
       max-width: 450px;
     }
 
     @media only screen and (min-width: $screen-ipad-h) {
-      float: right;
       max-width: 590px;
       padding-right: 57px;
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      float: right;
-      max-width: 600px;
+      max-width: 710px;
       padding-right: 45px;
     }
 
+    h2,
     h3 {
-      //font-family: WorkSans;
-      color: #333;
-      font-size: 18.5px;
-      font-weight: 600;
-      text-align: right;
-      text-transform: uppercase;
-      padding-bottom: 3px;
+      text-align: left;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        color: #333;
-        font-size: 18.5px;
-        font-weight: 600;
-        text-align: right;
-        text-transform: uppercase;
-        padding-bottom: 3px;
+
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 20px;
-        padding-bottom: 13px;
+
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 22px;
-        padding-bottom: 6px;
+
       }
     }
 
     p {
-      text-align: right;
-      color:  #6a6969;
-      font-size: 14.7px;
-      font-weight: 400;
-      line-height: 25px;
-      padding-left: 40px;
+      text-align: left;
+      padding-left: 0px;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        text-align: right;
-        color:  #6a6969;
-        font-size: 14.7px;
-        font-weight: 400;
-        line-height: 25px;
-        padding-left: 40px;
+
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 18px;
-        line-height: 28px;
+
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        font-size: 18px;
-        line-height: 30px;
+
       }
     }
   }

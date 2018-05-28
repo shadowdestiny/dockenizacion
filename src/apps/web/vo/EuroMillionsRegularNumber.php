@@ -11,6 +11,6 @@ class EuroMillionsRegularNumber extends EuroMillionsResultNumber
 
     protected function getMaxValue()
     {
-        return 50;
+        return 99;
     }
 }

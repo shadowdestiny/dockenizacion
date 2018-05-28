@@ -29,13 +29,13 @@
 
                     <div class="top-banner--banner">
                         <div class="wrapper">
-                            <h1 class="top-banner--head">
-                                {% if mobile == 1 %}
-                                    {{ language.translate("playchris_mobile_h1") }}
-                                {% else %}
-                                    {{ language.translate("playchris_h1") }}
-                                {% endif %}
-                            </h1>
+                            {#<h1 class="top-banner--head">#}
+                                {#{% if mobile == 1 %}#}
+                                    {#{{ language.translate("playchris_mobile_h1") }}#}
+                                {#{% else %}#}
+                                    {#{{ language.translate("playchris_h1") }}#}
+                                {#{% endif %}#}
+                            {#</h1>#}
                         </div>
                     </div>
                 </div>
@@ -132,6 +132,7 @@
                             <h3>We don't have Christmas Tickets.</h3>
                         {% endif %}
 
+
                         <div class="box-bottom under-table-row">
                             <div class="left">
                                 {{ language.translate("playchris_total") }}
@@ -160,6 +161,16 @@
                         {#{% include "_elements/play-bottom-block.volt" %}#}
 
                         <div class="box-bottom">
+
+                            <h1 class="christmas--h1">
+                                {% if mobile == 1 %}
+                                    {{ language.translate("playchris_mobile_h1") }}
+                                {% else %}
+                                    {{ language.translate("playchris_h1") }}
+                                {% endif %}
+                            </h1>
+
+
                             <p align="justify">
                             <h2 style="font-weight: bold; font-size: 26px;">{{ language.translate("playchris_txt_tit") }}</h2>
                             <br/>

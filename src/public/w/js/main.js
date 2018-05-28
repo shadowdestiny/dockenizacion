@@ -309,6 +309,20 @@ $(document).ready(function () {
     });
   }
 
+  //Block accordion mobile
+  if ($('.block--text--accordion').length) {
+
+      $('.block--text--accordion h2, .block--text--accordion h3').click(function () {
+        var mobile = 768;
+        if (document.documentElement.clientWidth < mobile ) {
+          console.log(document.documentElement.clientWidth);
+          $(this).parent().toggleClass('expanded');
+          $(this).next().stop().slideToggle();
+        }
+      });
+
+  }
+
   //Top nav mobile account menu
   //if ($('.top-nav--mobile-account--icon').length) {
   //  $('.top-nav--mobile-account--icon, .top-nav--mobile-account--menu--close').click(function () {

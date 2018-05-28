@@ -5,6 +5,7 @@ import { BetLine } from './bet-line'
 import { Ticket } from './ticket'
 import { SvgIcon } from './svg-icon'
 import { getRandomNumbers } from './utils'
+import PowerPlayCheckbox from '../../components/PowerPlayCheckbox'
 import {
   BUNDLE_CHECKED,
   BUNDLE_UNCHECKED,
@@ -12,6 +13,8 @@ import {
   TICKET_MAX_STAR_NUMBER,
   BET_NUMBERS_COUNT,
   BET_STARS_COUNT,
+  GAME_MODE_POWERBALL,
+  GAME_MODE_EUROMILLIONS,
 } from './constants'
 
 /**
@@ -20,6 +23,10 @@ import {
 export default class MobilePlayApp extends Component {
 
   static propTypes = {
+    /**
+     * game mode. Two game modes supported which have minor differences between each other
+     */
+    mode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS]),
     /**
      * formatted Date/time of next draw
      */
@@ -58,6 +65,7 @@ export default class MobilePlayApp extends Component {
 
   constructor (props) {
     super(props)
+    this.state = {}
     this.state = this.getStartingState(props)
   }
 
@@ -71,15 +79,24 @@ export default class MobilePlayApp extends Component {
     const activeBundle = props.discountLines.find(l => l.checked == BUNDLE_CHECKED)
     const drawsNumber  = activeBundle ? activeBundle.draws : 1
 
-    const betsFromStorage = JSON.parse(localStorage.getItem('bet_line')) || []
+    const betsFromStorage = JSON.parse(localStorage.getItem(this.getStorageKey())) || []
 
     const state = {
       drawsNumber,
       showTicket : null,
       bets : betsFromStorage.filter(b => b.numbers.length && b.stars.length),
+      powerPlayEnabled : this.state.powerPlayEnabled || false,
     }
 
     return state
+  }
+
+  getStorageKey () {
+    const storageKeys = {
+      [GAME_MODE_POWERBALL] : 'pb_bat_line',
+      [GAME_MODE_EUROMILLIONS] : 'bet_line',
+    }
+    return storageKeys[this.props.mode]
   }
 
   render () {
@@ -107,15 +124,18 @@ export default class MobilePlayApp extends Component {
       discountLines,
       translations,
       currencySymbol,
+      mode,
     } = this.props
 
     const {
       drawsNumber,
       bets,
+      powerPlayEnabled,
     } = this.state
 
     const selectedBundle = this.findBundle(drawsNumber)
     const canSubmit = !!bets.length
+    const showPowerCheckbox = mode == GAME_MODE_POWERBALL
 
     return (
       <div className="main-layout">
@@ -129,6 +149,14 @@ export default class MobilePlayApp extends Component {
             {translations.pickYourNumbersBtn}
           </button>
         </div>
+
+        {mode == GAME_MODE_POWERBALL
+          ? <PowerPlayCheckbox
+              checked={powerPlayEnabled}
+              onChange={this.togglePowerPlay}
+              translations={translations}
+            />
+            : null}
 
         <div className="draws-section">
           <div className="section-title">
@@ -206,7 +234,7 @@ export default class MobilePlayApp extends Component {
     const { showTicket, bets, drawsNumber } = this.state
     const bet = bets[showTicket] || {numbers : [], stars : []}
     const {numbers, stars} = bet
-    const { translations, nextDrawFormat } = this.props
+    const { translations, nextDrawFormat, mode } = this.props
 
     return (
       <div className="ticket-layout">
@@ -217,9 +245,14 @@ export default class MobilePlayApp extends Component {
           onSubmit={(numbers, stars) => this.editLine(showTicket, numbers, stars)}
           translations={translations}
           nextDrawFormat={drawsNumber == 1 ? nextDrawFormat : null}
+          gameMode={mode}
         />
       </div>
     )
+  }
+
+  togglePowerPlay = (enabled) => {
+    this.setState({ powerPlayEnabled : enabled })
   }
 
   /**
@@ -263,8 +296,9 @@ export default class MobilePlayApp extends Component {
    * @return {void}
    */
   addRandomLine = () => {
-    const numbers = getRandomNumbers(TICKET_MAX_NUMBER, BET_NUMBERS_COUNT)
-    const stars = getRandomNumbers(TICKET_MAX_STAR_NUMBER, BET_STARS_COUNT)
+    const { mode } = this.props
+    const numbers = getRandomNumbers(TICKET_MAX_NUMBER[mode], BET_NUMBERS_COUNT[mode])
+    const stars = getRandomNumbers(TICKET_MAX_STAR_NUMBER[mode], BET_STARS_COUNT[mode])
     const bets = [...this.state.bets]
     bets.push({ numbers, stars })
     this.saveBets(bets)
@@ -329,7 +363,7 @@ export default class MobilePlayApp extends Component {
    * @return {void}
    */
   saveBets (bets) {
-    localStorage.setItem('bet_line', JSON.stringify(bets))
+    localStorage.setItem(this.getStorageKey(), JSON.stringify(bets))
     this.setState({ bets })
   }
 
@@ -342,11 +376,12 @@ export default class MobilePlayApp extends Component {
   onSubmit = () => {
     const {
       drawsNumber,
-      bets
+      bets,
+      powerPlayEnabled,
     } = this.state
 
-    const { playDate } = this.props
-
+    const { playDate, mode } = this.props
+    const powerPlay = powerPlayEnabled ? '1' : '0'
     // suppress if no bets placed
     if (!bets.length) {
       return
@@ -358,12 +393,12 @@ export default class MobilePlayApp extends Component {
 
     let postData = ''
     bets.forEach((bet, i) => {
-      if (bet.numbers.length == BET_NUMBERS_COUNT && bet.stars.length == BET_STARS_COUNT) {
+      if (bet.numbers.length == BET_NUMBERS_COUNT[mode] && bet.stars.length == BET_STARS_COUNT[mode]) {
         postData += `bet[${i}]=${bet.numbers},${bet.stars}&`
       }
     })
     // TODO: sort out deprecated and unused params
-    postData += `draw_days=1&frequency=${drawsNumber}&draw_day_play=2&start_draw=${playDate}`
+    postData += `draw_days=1&frequency=${drawsNumber}&draw_day_play=2&start_draw=${playDate}&power_play=${powerPlay}&game_mode=${mode}`
     ajaxFunctions.playCart(postData)
   }
 

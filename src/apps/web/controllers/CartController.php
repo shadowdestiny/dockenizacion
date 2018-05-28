@@ -247,11 +247,13 @@ class CartController extends PublicSiteControllerBase
         $user_currency = $user->getUserCurrency();
         $fee_value = $this->siteConfigService->getFeeValueWithCurrencyConverted($user_currency);
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user_currency);
-        $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('EuroMillions');
+        $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery($this->lottery);
         $user = $this->authService->getCurrentUser();
         $discount = new Discount($result->returnValues()[0]->getFrequency(), $this->domainServiceFactory->getPlayService()->getBundleDataAsArray());
+        $powerPlay = 0;
         if ($orderView) {
             $order = new Order($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount); // order created
+            $powerPlay = (int)$order->getPlayConfig()[0]->getPowerPlay();
             $order_eur = new Order($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount); //workaround for new payment gateway
             $this->cartService->store($order);
         }
@@ -299,6 +301,7 @@ class CartController extends PublicSiteControllerBase
             'total_new_payment_gw' => isset($order_eur) ? $order_eur->getTotal()->getAmount() / 100 : '',
             'credit_card_form' => $creditCardForm,
             'emerchant_data' => $this->getEmerchantData(),
+            'power_play =>' => $powerPlay,
         ]);
     }
 

@@ -1,7 +1,7 @@
 {% extends "main.volt" %}
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/play.css">
-    <link Rel="Canonical" href="{{ language.translate('canonical_euromillions_play') }}" />
+    <link Rel="Canonical" href="{{ language.translate('canonical_powerball_play') }}" />
 {% endblock %}
 {% block template_scripts %}
     <script src="/w/js/mobileFix.min.js"></script>
@@ -10,7 +10,7 @@
     var ajaxFunctions = {
     playCart : function (params){
     $.ajax({
-    url:'/ajax/play-temporarily/temporarilyCart/',
+    url:'/ajax/power-ball-play-temporarily/temporarilyCart/',
     data:params,
     type:'POST',
     dataType:"json",
@@ -33,7 +33,7 @@
     var openTicket = <?php echo $openTicket; ?>;
     var currency_symbol = '<?php echo $currency_symbol ?>';
     var automatic_random = '<?php echo $automatic_random; ?>';
-    var discount_lines_title = '{{ language.translate('tittle_multiple') }}';
+    var discount_lines_title = '{{ language.translate('pow_multiple') }}';
     var addLinesBtn = '{{ language.translate('addLines_btn') }}';
     var randomizeAllLines = '{{ language.translate('randomizeAll_btn') }}';
     var clearAllLines = '{{ language.translate('clearAll_btn') }}';
@@ -43,8 +43,7 @@
     var txtMultLines = '{{ language.translate('mult_total2') }}';
     var txtMultDraws = '{{ language.translate('mult_total3') }}';
     var txtNextButton = '{{ language.translate('next_btn') }}';
-    var tuesday = '{{ language.translate('tuesday') }}';
-    var friday = '{{ language.translate('friday') }}';
+    var draw_day = '<?php echo $draw_day; ?>';
     var next_draw_date_format = '{{ next_draw_date_format }}';
     var clear_btn = '{{ language.translate('clear_btn') }}';
     var addlines_message = "{{ language.translate('addlines_message') }}";
@@ -57,32 +56,35 @@
     {# end of block with deprecated vars #}
 
     var __initialState = {
-    nextDrawFormat  : '<?php echo $draw_day . ' ' .$next_draw_date_format ?>',
-    priceBet        : {{ single_bet_price }},
-    currencySymbol  : '<?php echo $currency_symbol ?>',
-    discountLines   : <?php echo $discount_lines; ?>,
-    drawDateFormat  : '{{ next_draw_date_format }}',
-    playDate        : '<?php echo explode('#', json_decode($dates_draw)[0][0])[0] ?>',
-    translations    : {
-    discountLinesTitle    : '{{ language.translate('tittle_multiple') }}',
-    addLinesBtn           : '{{ language.translate('addLines_btn') }}',
-    randomizeAllLines     : '{{ language.translate('randomizeAll_btn') }}',
-    clearAllLines         : '{{ language.translate('clearAll_btn') }}',
-    buyForDraw            : "{{ language.translate('buyForDraw') }}",
-    txtLine               : '{{ language.translate('line_x') }}',
-    txtMultTotalPrice     : '{{ language.translate('mult_total1') }}',
-    txtMultLines          : '{{ language.translate('mult_total2') }}',
-    txtMultDraws          : '{{ language.translate('mult_total3') }}',
-    txtNextButton         : '{{ language.translate('next_btn') }}',
-    addRandomLineBtn      : '{{ language.translate("Play_addrandom") }}',
-    pickYourNumbersBtn    : '{{ language.translate("Play_picknumber") }}',
-    drawsSectionTitle     : '{{ language.translate('tittle_multiple') }}',
-    drawsSectionSubtitle  : '{{ language.translate('multiple_discount') }}',
-    mobTicketRandomizeBtn : '{{ language.translate("Play_randomize") }}',
-    mobTicketClearBtn     : '{{ language.translate('clear_btn') }}',
-    mobTicketSubmitBtn    : '{{ language.translate("Play_donebtn") }}',
-
-    }
+        mode            : 'powerball',
+        nextDrawFormat  : '<?php echo $draw_day . ' ' .$next_draw_date_format ?>',
+        priceBet        : {{ single_bet_price }},
+        currencySymbol  : '<?php echo $currency_symbol ?>',
+        discountLines   : <?php echo $discount_lines; ?>,
+        drawDateFormat  : '{{ next_draw_date_format }}',
+        playDate        : '<?php echo explode('#', json_decode($dates_draw)[0][0])[0] ?>',
+        translations    : {
+            discountLinesTitle    : '{{ language.translate('tittle_multiple') }}',
+            addLinesBtn           : '{{ language.translate('addLines_btn') }}',
+            randomizeAllLines     : '{{ language.translate('randomizeAll_btn') }}',
+            clearAllLines         : '{{ language.translate('clearAll_btn') }}',
+            buyForDraw            : "{{ language.translate('buyForDraw') }}",
+            txtLine               : '{{ language.translate('line_x') }}',
+            txtMultTotalPrice     : '{{ language.translate('mult_total1') }}',
+            txtMultLines          : '{{ language.translate('mult_total2') }}',
+            txtMultDraws          : '{{ language.translate('mult_total3') }}',
+            txtNextButton         : '{{ language.translate('next_btn') }}',
+            addRandomLineBtn      : '{{ language.translate("Play_addrandom") }}',
+            pickYourNumbersBtn    : '{{ language.translate("Play_picknumber") }}',
+            drawsSectionTitle     : '{{ language.translate('tittle_multiple') }}',
+            drawsSectionSubtitle  : '{{ language.translate('multiple_discount') }}',
+            mobTicketRandomizeBtn : '{{ language.translate("Play_randomize") }}',
+            mobTicketClearBtn     : '{{ language.translate('clear_btn') }}',
+            mobTicketSubmitBtn    : '{{ language.translate("Play_donebtn") }}',
+            powerPlayCheck        : '{{ language.translate("select_power_play") }}',
+            powerPlayInfo         : '{{ language.translate("power_play_info") }}',
+            powerballLabel        : '{{ language.translate("select_pow_number") }}',
+        }
     };
 
     if(openTicket){
@@ -130,42 +132,51 @@
 
 {% block body %}
     <main id="content">
-        <div class="play--page">
+        <div class="play--page powerball--page">
             <div class="banner">
                 <div class="top-banner--section">
                     <div class="top-banner--banner">
                         <div class="wrapper">
 
-                            <h1 class="top-banner-play">
-                                {% if mobile == 1 %}
-                                    {{ language.translate("play_mobile_h1") }}
-                                {% else %}
-                                    {{ language.translate("play_h1") }}
-                                {% endif %}
-                            </h1>
+                            {#<h1 class="top-banner-play">#}
+                                {#{% if mobile == 1 %}#}
+                                    {#{{ language.translate("play_pow_h1") }}#}
+                                {#{% else %}#}
+                                    {#{{ language.translate("play_pow_mobile_h1") }}#}
+                                {#{% endif %}#}
+                            {#</h1>#}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="wrapper">
+
+                <h1 class="play--h1">
+                    {% if mobile == 1 %}
+                        {{ language.translate("play_pow_h1") }}
+                    {% else %}
+                        {{ language.translate("play_pow_mobile_h1") }}
+                    {% endif %}
+                </h1>
+
                 <header>
                     <div class="left">
                         <div class="bottom">
                             {{ language.translate('tittle') }}
                         </div>
                         <div class="top">
-                            {% if next_draw == 5 %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
+                            {% if next_draw == 6 %}{{ language.translate('saturday') }}{% else %}{{ language.translate('wednesday') }}{% endif %}
                         </div>
                     </div>
                     <div class="help-block">
                         <div class="top resizeme">
-                            {{ language.translate('aboutLottery') }}
+                            {{ language.translate('about_pow') }}
                         </div>
                         <div class="bottom">
-                            <a href="/{{ language.translate('link_euromillions_help') }}" class="a-hiw">
+                            <a href="/{{ language.translate('link_powerball_howto') }}" class="a-hiw">
                                 {{ language.translate('play_howbtn') }}
                             </a>
-                            <a href="/{{ language.translate('link_euromillions_results') }}" class="a-results">
+                            <a href="/{{ language.translate('link_powerball_results') }}" class="a-results">
                                 {{ language.translate('play_resultsbtn') }}
                             </a>
                             <a href="/{{ language.translate('link_euromillions_faq') }}" class="a-faq">
@@ -184,7 +195,7 @@
                             {% endif %}
                         </div>
                         <div class="bottom resizeme">
-                            {{ language.translate('shortInstruction') }}
+                            {{ language.translate('pow_instruction') }}
                         </div>
                     </div>
                     {#<h1 class="h3 draw">{{ language.translate("shortInstruction") }}</h1>#}
@@ -203,13 +214,15 @@
                 <div class="gameplay" id="gameplay"></div>
                 <div class="media"></div>
 
-                {% include "_elements/play-bottom-block.volt" %}
+                {% include "_elements/powerball-bottom-block.volt" %}
+
+                {#{% include "_elements/play-bottom-block.volt" %}#}
             </div>
 
             <div id="closeticket" class="modal" style="width: 1000px;height: 500px;">
                 <div style="text-align: center;color:white">
-                    It is too late to buy EuroMillions tickets for the draw held in Paris tonight at 20:45 CET.
-                    In a few moments you will be able to purchase EuroMillions tickets for the next draw that will take
+                    It is too late to buy Powerball tickets for the draw held in Paris tonight at 20:45 CET.
+                    In a few moments you will be able to purchase Powerball tickets for the next draw that will take
                     place on Tuesday.
 
                     <br><br>Thank you for your pacience.<br>
@@ -219,8 +232,8 @@
             </div>
             <div id="closeticketbylimitbet" class="modal" style="width: 1000px;height: 500px;">
                 <div style="text-align: center;color:white">
-                    It is too late to buy EuroMillions tickets for the draw held in Paris tonight at 20:45 CET.
-                    You can be able to purchase EuroMillions tickets for the next draw accessing again to <a href="/">Euromillions.com</a>
+                    It is too late to buy Powerball tickets for the draw held in Paris tonight at 20:45 CET.
+                    You can be able to purchase Powerball tickets for the next draw accessing again to <a href="/">Euromillions.com</a>
                     .
 
                     <br><br>Thank you for your pacience.<br>
@@ -231,7 +244,4 @@
         </div>
     </main>
     {#   temporary styling for mobile app     #}
-    <style>
-
-    </style>
 {% endblock %}

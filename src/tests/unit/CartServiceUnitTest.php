@@ -83,7 +83,7 @@ class CartServiceUnitTest extends UnitTestBase
             ['draws' => '4', 'description' => '4 Draws', 'price_description' => 'Line', 'price' => '1', 'discount' => 0, 'checked' => '']
         ]);
         $sut = $this->getSut();
-        $actual = $sut->get($user_id);
+        $actual = $sut->get($user_id, 'EuroMillions');
         $this->assertEquals($expected, $actual);
     }
 
@@ -103,7 +103,7 @@ class CartServiceUnitTest extends UnitTestBase
         $this->lotteryRepository_double->findOneBy(['name' => 'EuroMillions'])->willReturn($lottery);
         $this->userRepository_double->find(['id' => $user_id])->willReturn($user);
         $sut = $this->getSut();
-        $actual = $sut->get($user_id);
+        $actual = $sut->get($user_id,'EuroMillions');
         $this->assertEquals($expected,$actual);
     }
 
@@ -122,7 +122,7 @@ class CartServiceUnitTest extends UnitTestBase
         $this->lotteryRepository_double->findOneBy(['name' => 'EuroMillions'])->willReturn($lottery);
         $this->userRepository_double->find(['id' => $user_id])->willReturn($user);
         $sut = $this->getSut();
-        $actual = $sut->get($user_id);
+        $actual = $sut->get($user_id, 'EuroMillions');
         $this->assertEquals($expected,$actual);
     }
 
@@ -147,7 +147,7 @@ class CartServiceUnitTest extends UnitTestBase
             ['draws' => '4', 'description' => '4 Draws', 'price_description' => 'Line', 'price' => '1', 'discount' => 0, 'checked' => '']
         ]);
         $sut = $this->getSut();
-        $actual = $sut->get($user_id);
+        $actual = $sut->get($user_id, 'EuroMillions');
         $this->assertEquals($order->getTotal(), $actual->getValues()->getTotal());
         $this->assertEquals($order->getFee(), $actual->getValues()->getFee());
     }

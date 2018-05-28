@@ -61,13 +61,13 @@ class CartService
         return new ActionResult(false);
     }
 
-    public function get($user_id)
+    public function get($user_id, $lotteryName)
     {
         try {
             /** @var ActionResult $result */
             $result = $this->orderStorageStrategy->findByKey($user_id);
             /** @var Lottery $lottery */
-            $lottery = $this->lotteryRepository->findOneBy(['name' => 'EuroMillions']);
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
             if ($result->success()) {
                 $json = json_decode($result->returnValues());
                 if (NULL == $json) {

@@ -338,7 +338,7 @@
       border-style: solid;
 
       background: transparent;
-      max-width: 299px;
+      //max-width: 299px;
       width: 100%;
       height: 46px;
 
@@ -349,12 +349,16 @@
       font-weight: 700;
 
       margin-bottom: 9px;
-      margin-left: 10px;
-      margin-right: 10px;
+
+      //margin-left: 10px;
+      //margin-right: 10px;
+
+      max-width: none;
     }
 
     .btn--next {
-      max-width: 301px;
+      //max-width: 301px;
+      max-width: none;
       width: 100%;
       height: 48px;
       border-radius: 3px;

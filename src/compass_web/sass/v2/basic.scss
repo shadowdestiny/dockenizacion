@@ -109,3 +109,119 @@ a:visited, .lnk:visited {
   }
 }
 
+
+
+.accordion-blocks {
+  overflow: hidden;
+
+  @media only screen and (min-width: $screen-small) {
+
+    border-top:1px solid #9b9b9b;
+    border-bottom:1px solid #9b9b9b;
+    padding-top: 45px;
+    padding-bottom: 45px;
+    margin-top: 35px;
+    margin-bottom: 45px;
+
+    .block--text--accordion {
+      width: 50%;
+      float: left;
+      margin: 0;
+      padding-right: 20px;
+    }
+
+    .block--text--accordion + .block--text--accordion {
+      padding-right: 0;
+      padding-left: 20px;
+    }
+  }
+}
+
+#main-page {
+
+  .home-mobile--h1{
+    //font-family: WorkSans;
+    color:  #333333;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 58px;
+    text-align: left;
+    text-transform: uppercase;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      color:  #333333;
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 46px;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      color:  #333333;
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 46px;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      color:  #333333;
+      font-size: 33px;
+      font-weight: 900;
+      line-height: 34px;
+      text-align: left;
+      text-transform: uppercase;
+
+      display: none;
+
+    }
+
+    @include common-headings-style-h1 ();
+
+  }
+}
+
+.play--h1{
+  //font-family: WorkSans;
+  color:  #333333;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 58px;
+  text-align: left;
+  text-transform: uppercase;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    color:  #333333;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 46px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    color:  #333333;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 46px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  @media only screen and (min-width: $screen-desktop) {
+    color:  #333333;
+    font-size: 33px;
+    font-weight: 900;
+    line-height: 34px;
+    text-align: left;
+    text-transform: uppercase;
+
+    display: none;
+
+  }
+
+  @include common-headings-style-h1 ();
+
+}

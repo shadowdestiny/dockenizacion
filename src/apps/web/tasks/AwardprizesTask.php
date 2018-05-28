@@ -11,6 +11,7 @@ use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplat
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\services\TransactionService;
 use EuroMillions\web\services\PrizeCheckoutService;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\vo\Email;
@@ -19,7 +20,7 @@ use Money\Money;
 
 class AwardprizesTask extends TaskBase
 {
-    const EMAIL_ABOVE = 250000;
+    const EMAIL_ABOVE = 2500 * 100;
 
     /** @var  PrizeCheckoutService */
     private $PrizeCheckoutService;
@@ -30,7 +31,10 @@ class AwardprizesTask extends TaskBase
     /** @var  EmailService $emailService */
     protected $emailService;
 
-    public function initialize(PrizeCheckoutService $PrizeCheckoutService = null, LotteryService $lotteryService = null, TransactionService $transactionService = null)
+    /** @var  TransactionService $transactionService */
+    protected $transactionService;
+
+    public function initialize(PrizeCheckoutService $PrizeCheckoutService = null, LotteryService $lotteryService = null)
     {
         $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
         $this->PrizeCheckoutService = $PrizeCheckoutService ? $this->PrizeCheckoutService = $PrizeCheckoutService : $domainFactory->getPrizeCheckoutService();

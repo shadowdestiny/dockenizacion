@@ -105,6 +105,8 @@
 
           @include common-headings-style-h2 ();
         }
+
+        @include common-headings-style-h2 ();
       }
 
       .view-more-block {
@@ -603,6 +605,8 @@
 
         @include common-headings-style-h1 ();
       }
+
+      @include common-headings-style-h1 ();
     }
 
     .number-generator--block--subtitle {
@@ -621,6 +625,8 @@
 
         @include common-headings-style-h3 ();
       }
+
+      @include common-headings-style-h3 ();
     }
 
     .number-generator--block--body {

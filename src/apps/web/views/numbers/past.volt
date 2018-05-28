@@ -76,6 +76,7 @@
                             {% endif %}
                         </h1>
                         <div class="history-numbers-block">
+
                             <div class="pad">
                                 <h2 class="h2 purple">{{ language.translate("historyNumbers_title") }}</h2>
                             </div>
@@ -116,6 +117,9 @@
                             </div>
 
                         </div>
+
+
+
                     </div>
                 </div>
             </div>

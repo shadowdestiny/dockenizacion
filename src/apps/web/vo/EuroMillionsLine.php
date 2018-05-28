@@ -66,7 +66,10 @@ class EuroMillionsLine implements IArraySerializable
         $this->regular_number_four = $regular_numbers[3]->getNumber();
         $this->regular_number_five = $regular_numbers[4]->getNumber();
         $this->lucky_number_one = $lucky_numbers[0]->getNumber();
-        $this->lucky_number_two = $lucky_numbers[1]->getNumber();
+        if (isset($lucky_numbers[1])) {
+            $this->lucky_number_two = $lucky_numbers[1]->getNumber();
+        }
+
 
     }
 

@@ -40,7 +40,7 @@
         text-transform: uppercase;
         height: 76px;
         vertical-align: middle;
-        word-break: break-word;
+        //word-break: break-word;
 
         @media only screen and (min-width: $screen-wide) {
           //font-size: 24px;
@@ -277,7 +277,7 @@
       padding-bottom: 29px;
       padding-left: 40px;
     }
-
+    
     h2 {
       color:  #333333;
       font-size: 20px;
@@ -292,6 +292,9 @@
         line-height: 1;
         margin-bottom: 30px;
       }
+
+      @include common-headings-style-h2 ();
+
     }
 
     p {
@@ -357,6 +360,8 @@
         //font-size: 52px;
         font-size: 38px;
       }
+
+      @include common-headings-style-h2 ();
     }
 
     h3 {
@@ -371,6 +376,8 @@
         //font-size: 24px;
         font-size: 18px;
       }
+
+      @include common-headings-style-h3 ();
     }
 
     form {
@@ -462,12 +469,12 @@
     margin-top: 25px;
 
     @media only screen and (min-width: $screen-ipad-h) {
-      display: none;
+
     }
 
     h2 {
       line-height: 1;
-      display: none;
+
     }
 
     h3 {
@@ -530,6 +537,8 @@
           text-align: left;
           margin-bottom: 17px;
         }
+
+        @include common-headings-style-h3 ();
       }
 
       p {

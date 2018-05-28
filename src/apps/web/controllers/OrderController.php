@@ -22,7 +22,7 @@ class OrderController extends CartController
         $msg = '';
         $errors = [];
         if(!empty($user_id)) {
-            $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id);
+            $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id,$this->lottery);
             $user = $this->userService->getUser($current_user_id);
         } else {
             /** @var User $user */
@@ -31,7 +31,7 @@ class OrderController extends CartController
                 $this->response->redirect('/'.$this->lottery.'/play');
                 return false;
             }
-            $result = $play_service->getPlaysFromTemporarilyStorage($user);
+            $result = $play_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
         }
         if(!$result->success()) {
             $this->response->redirect('/'.$this->lottery.'/play');

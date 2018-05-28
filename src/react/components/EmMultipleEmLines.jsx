@@ -5,7 +5,7 @@ var EuroMillionsLine = require('./EmLine.js');
 var EuroMillionsMultipleEmLines = React.createClass({
 
     getInitialState: function (){
-        return { storage: JSON.parse(localStorage.getItem('bet_line')) || [],
+        return {
                  random_all : false,
                 };
     },
@@ -16,7 +16,20 @@ var EuroMillionsMultipleEmLines = React.createClass({
         var em_lines = [];
         for (let i = 0; i < numberEuroMillionsLine; i++) {
             em_lines.push(
-                    <EuroMillionsLine clear_all={this.props.clear_all} random={random} addLineInStorage={this.props.add_storage} storage={this.state.storage[i]} callback={this.props.callback} numberPerLine="5" key={i} lineNumber={i} txtLine={this.props.txtLine} />
+                    <EuroMillionsLine
+                      clear_all={this.props.clear_all}
+                      random={random}
+                      addLineInStorage={this.props.add_storage}
+                      storage={this.props.storage[i]}
+                      callback={this.props.callback}
+                      numberPerLine="5"
+                      starsPerLine={4}
+                      key={i}
+                      lineNumber={i}
+                      txtLine={this.props.txtLine}
+                      gameMode={this.props.gameMode}
+                      translations={this.props.translations}
+                    />
             );
         }
         var date2 = new Date();

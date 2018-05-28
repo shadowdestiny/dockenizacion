@@ -44,6 +44,8 @@ class PlayConfig extends EntityBase implements IEntity, IEMForm, \JsonSerializab
     /** @var Discount */
     protected $discount;
 
+    protected $powerPlay;
+
     public function __construct()
     {
         $this->bet = new ArrayCollection();
@@ -73,18 +75,26 @@ class PlayConfig extends EntityBase implements IEntity, IEMForm, \JsonSerializab
                 }
                 foreach ($regular as $number) {
                     $regular_numbers[] = new EuroMillionsRegularNumber((int)$number);
+
                 }
                 foreach ($lucky as $number) {
                     $lucky_numbers[] = new EuroMillionsLuckyNumber((int)$number);
                 }
                 $euroMillionsLine = new EuroMillionsLine($regular_numbers, $lucky_numbers);
             }
+
             $this->setLine($euroMillionsLine);
             $this->setActive(true);
             $this->setId(1);
             $this->setStartDrawDate(new \DateTime($formPlay->startDrawDate));
             $this->setLastDrawDate(new \DateTime($formPlay->lastDrawDate));
             $this->setFrequency((int)$formPlay->frequency);
+
+            if(isset($formPlay->powerPlay)) {
+                $this->setPowerPlay($formPlay->powerPlay);
+            } else {
+                $this->setPowerPlay(null);
+            }
 
         } catch (Exception $e) {
             throw new Exception($e);
@@ -240,6 +250,22 @@ class PlayConfig extends EntityBase implements IEntity, IEMForm, \JsonSerializab
     public function getDiscount()
     {
         return $this->discount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPowerPlay()
+    {
+        return $this->powerPlay;
+    }
+
+    /**
+     * @param mixed $powerPlay
+     */
+    public function setPowerPlay($powerPlay)
+    {
+        $this->powerPlay = $powerPlay;
     }
 
     /**

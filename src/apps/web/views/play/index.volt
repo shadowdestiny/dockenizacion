@@ -45,8 +45,7 @@
 	var txtMultLines = '{{ language.translate('mult_total2') }}';
 	var txtMultDraws = '{{ language.translate('mult_total3') }}';
 	var txtNextButton = '{{ language.translate('next_btn') }}';
-    var tuesday = '{{ language.translate('tuesday') }}';
-    var friday = '{{ language.translate('friday') }}';
+    var draw_day = '<?php echo $draw_day; ?>';
     var next_draw_date_format = '{{ next_draw_date_format }}';
     var clear_btn = '{{ language.translate('clear_btn') }}';
     var addlines_message = "{{ language.translate('addlines_message') }}";
@@ -59,6 +58,7 @@
     {# end of block with deprecated vars #}
 
     var __initialState = {
+        mode            : 'euromillions',
         nextDrawFormat  : '<?php echo $draw_day . ' ' .$next_draw_date_format ?>',
         priceBet        : {{ single_bet_price }},
         currencySymbol  : '<?php echo $currency_symbol ?>',
@@ -138,18 +138,29 @@
                     <div class="top-banner--banner">
                         <div class="wrapper">
 
-                            <h1 class="top-banner-play">
-                                {% if mobile == 1 %}
-                                    {{ language.translate("play_mobile_h1") }}
-                                {% else %}
-                                    {{ language.translate("play_h1") }}
-                                {% endif %}
-                            </h1>
+                            {#<h1 class="top-banner-play">#}
+                                {#{% if mobile == 1 %}#}
+                                    {#{{ language.translate("play_mobile_h1") }}#}
+                                {#{% else %}#}
+                                    {#{{ language.translate("play_h1") }}#}
+                                {#{% endif %}#}
+                            {#</h1>#}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="wrapper">
+
+
+                <h1 class="play--h1">
+                    {% if mobile == 1 %}
+                        {{ language.translate("play_mobile_h1") }}
+                    {% else %}
+                        {{ language.translate("play_h1") }}
+                    {% endif %}
+                </h1>
+
+
                 <header>
                     <div class="left">
                         <div class="bottom">

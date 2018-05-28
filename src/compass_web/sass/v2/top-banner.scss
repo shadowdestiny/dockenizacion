@@ -83,6 +83,8 @@
       text-align: left;
       text-transform: uppercase;
 
+      //display: none;
+
       @media only screen and (min-width: $screen-ipad-v) {
         color:  #333333;
         font-size: 44px;
@@ -108,7 +110,11 @@
         line-height: 34px;
         text-align: left;
         text-transform: uppercase;
+
+        display: block;
       }
+
+      @include common-headings-style-h1 ();
 
     }
     .top-banner-play{
@@ -908,6 +914,7 @@
       line-height: 58px;
       text-align: center;
       text-transform: uppercase;
+      display: none;
 
       @media only screen and (min-width: $screen-ipad-v) {
         color:  #333333;
@@ -934,7 +941,11 @@
         line-height: 34px;
         text-align: center;
         text-transform: uppercase;
+
+        display: block;
       }
+
+      @include common-headings-style-h1 ();
 
     }
     .top-banner-play{
