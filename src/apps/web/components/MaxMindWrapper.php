@@ -12,7 +12,7 @@ class MaxMindWrapper implements IGeoIPServiceAPI
     protected $filesPath;
     protected $reader;
 
-    private static $forbbidenCountries = ['DE'];
+    private static $forbbidenCountries = ['DE', 'FR'];
 
     public function __construct($filesPath)
     {
