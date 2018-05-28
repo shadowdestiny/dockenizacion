@@ -45,7 +45,6 @@ class eMerchantPaymentProviderTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
-
     /**
      * method charge
      * when calledWithInvalidParams

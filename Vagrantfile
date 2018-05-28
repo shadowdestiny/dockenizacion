@@ -4,8 +4,11 @@ Vagrant.configure(2) do |config|
         v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
     config.vm.box = "ubuntu/trusty64"
-    config.vm.provision "shell", inline: <<-SCRIPT
+        config.vm.provision "shell", inline: <<-SCRIPT
+        sudo apt-get install python-software-properties
+        sudo add-apt-repository ppa:ondrej/php
         sudo apt-get update
+        sudo apt-get install -y php5.6
         sudo apt-get remove --purge nodejs 
         sudo wget https://launchpad.net/~ansible/+archive/ubuntu/ansible-1.9/+files/ansible_1.9.4-1ppa~trusty_all.deb -O /tmp/ansible.deb
         sudo apt-get install -y python-support \
@@ -20,8 +23,8 @@ Vagrant.configure(2) do |config|
           build-essential
           dpkg -i /tmp/ansible.deb
           rm -f /tmp/ansible.deb
-        curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-        sudo apt-get install -y nodejs
+        sudo service apache2 stop
+        sudo apt-get install -y nodejs npm
         ansible-galaxy install -r /vagrant/vagrant_config/requirements.yml --ignore-errors
     SCRIPT
 
