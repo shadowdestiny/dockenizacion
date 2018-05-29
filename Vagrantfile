@@ -24,7 +24,8 @@ Vagrant.configure(2) do |config|
           dpkg -i /tmp/ansible.deb
           rm -f /tmp/ansible.deb
         sudo service apache2 stop
-        sudo apt-get install -y nodejs npm
+        curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+        sudo apt-get install -y nodejs
         ansible-galaxy install -r /vagrant/vagrant_config/requirements.yml --ignore-errors
     SCRIPT
 

@@ -9,12 +9,20 @@
   shell: rm -r node_modules & npm cache clean --force
   args:
     chdir: /var/www/react
-- name: Npm install
-  shell: npm --no-bin-links install
+- name:  Install webpack globally
+  shell: npm -g install webpack
   args:
     chdir: /var/www/react
-- name: Npm watch
-  shell: npm run watch &
+- name: Npm install
+  shell: npm install
+  args:
+    chdir: /var/www/react
+- name: Npm install dev
+  shell: npm install --save-dev
+  args:
+    chdir: /var/www/react
+- name: Npm build
+  shell: npm run build
   args:
     chdir: /var/www/react
 
