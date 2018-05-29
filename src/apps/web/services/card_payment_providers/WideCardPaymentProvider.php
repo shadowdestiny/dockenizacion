@@ -44,12 +44,14 @@ class WideCardPaymentProvider implements ICardPaymentProvider
         $params = $this->createArrayData($amount, $card);
         /** @var Response $result */
         $result = $this->gatewayClient->send($params);
-        $header = $result->header;
-        $body = json_decode($result->body);
-        if( $header->statusCode != 200 ) {
-            return new PaymentProviderResult(false,$header->statusMessage,$header->statusMessage);
-        }
-        return new PaymentProviderResult($body->status === "ok", $header->statusMessage);
+        $this->responseMessage($result);
+    }
+
+    public function withDraw(Money $amount, $idTransaction)
+    {
+        $result = $this->gatewayClient->send(['idTransaction' => $idTransaction,
+                                              'amount' => $amount ]);
+        $this->responseMessage($result);
     }
 
     /**
@@ -72,5 +74,16 @@ class WideCardPaymentProvider implements ICardPaymentProvider
             'expirationMonth' => $card->expiryDate()->getMonth(),
             'cardHolderName' => $card->cardHolderName()->toNative()
         ];
+    }
+
+    private function responseMessage($result)
+    {
+        $header = $result->header;
+        $body = json_decode($result->body);
+        if( $header->statusCode != 200 ) {
+            return new PaymentProviderResult(false,$header->statusMessage,$header->statusMessage);
+        }
+        return new PaymentProviderResult($body->status === "ok", $header->statusMessage);
+
     }
 }
