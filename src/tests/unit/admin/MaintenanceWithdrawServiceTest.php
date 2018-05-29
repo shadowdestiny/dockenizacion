@@ -34,6 +34,32 @@ class MaintenanceWithdrawServiceTest extends UnitTestBase
     }
 
     /**
+     * method getLastTransactionIdByUser
+     * when called
+     * should returnLastTransactionIdCreatedByUser
+     */
+    public function test_getLastGwuidByUser_called_returnLastTransactionIdCreatedByUser()
+    {
+        $userID='fdsafdsafd456';
+        $expected = '123456';
+        $this->transactionRespository_double->getLastTransactionIDAsPurchaseType($userID)->willReturn('123456');
+        $sut = $this->getSut();
+        $actual = $sut->getLastTransactionIDByUser($userID);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method acceptWithDraw
+     * when called
+     * should returnSuccessfullyResponse
+     */
+    public function test_acceptWithDraw_called_returnSuccessfullyResponse()
+    {
+        $sut = $this->getSut();
+        $actual = $sut->confirmWithDraw(1,1);
+    }
+
+    /**
      * method fetchAll
      * when called
      * should returnProperDTOCollection

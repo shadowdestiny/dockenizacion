@@ -99,4 +99,18 @@ class TransactionRepository extends RepositoryBase
                 order by date desc'
                 , $rsm)->getResult();
     }
+
+
+    public function getLastTransactionIDAsPurchaseType($userId)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('transactionID', 'transactionID');
+
+        return $this->getEntityManager()
+            ->createNativeQuery(
+                'select transactionID from transactions
+                      where transactionID is not null and user_id="'.$userId .'" 
+                      group by transactionID order by date DESC limit 1;'
+                , $rsm)->getResult();
+    }
 }

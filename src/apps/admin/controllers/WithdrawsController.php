@@ -57,6 +57,24 @@ class WithdrawsController extends AdminControllerBase
 
     }
 
+    public function confirmAction()
+    {
+        $userID = $this->request->getPost('userId');
+        $idWithDrawRequest = $this->request->getPost('id');
+        $userID=1;
+        $idWithDrawRequest=3;
+        try {
+            $transactionID = $this->maintenanceWithdrawService->getLastTransactionIDByUser($userID);
+            $result = $this->maintenanceWithdrawService->confirmWithDraw($userID, $idWithDrawRequest);
+        } catch ( \Exception $e ) {
+            throw new \Exception('An error ocurred ' . ' ' . $e->getMessage());
+        }
+    }
+
+    public function rejectWithdrawAction() {
+
+    }
+
     /**
      * @param $result
      * @return array

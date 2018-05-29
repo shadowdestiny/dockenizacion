@@ -81,7 +81,7 @@
                                             </td>
                                             <td>
                                                 {% if withdraw.state == 'pending' %}
-                                                    <a href="/admin/withdraws/update?id={{ withdraw.id }}&state=approved" class="btn btn-success">Approved</a>
+                                                    <a href="/admin/withdraws/confirm" class="btn btn-success">Approved</a>
                                                     <a href="/admin//withdraws/update?id={{ withdraw.id }}&state=rejected" class="btn-danger btn">Rejected</a>
                                                     <a href="/admin//withdraws/update?id={{ withdraw.id }}&state=failed" class="btn btn-primary">Failed</a>
                                                 {% else %}

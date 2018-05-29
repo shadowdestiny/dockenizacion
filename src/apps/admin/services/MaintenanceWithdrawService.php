@@ -8,7 +8,10 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\repositories\TransactionRepository;
+use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
 use EuroMillions\web\vo\dto\WithdrawTransactionDTO;
+use Money\Currency;
+use Money\Money;
 
 class MaintenanceWithdrawService
 {
@@ -34,6 +37,29 @@ class MaintenanceWithdrawService
             $transactionDTO[] = new WithdrawTransactionDTO($withdraw);
         }
         return $transactionDTO;
+    }
+
+    public function confirmWithDraw($idWithdrawRequest, $idTransaction)
+    {
+        /** @var WinningsWithdrawTransaction $transaction */
+        $transaction = $this->transactionRepository->find(3);
+        if( $transaction !== null &&
+            $transaction instanceof WinningsWithdrawTransaction) {
+            $transaction->fromString();
+            $amount = new Money((int) $transaction->getAmountWithdrawed(), new Currency('EUR'));
+
+        }
+
+    }
+
+
+    public function getLastTransactionIDByUser($userID)
+    {
+        try {
+            return $this->transactionRepository->getLastTransactionIDAsPurchaseType($userID);
+        } catch( Exception $e) {
+            throw new \Exception('An error ocurred while get the last id transaction');
+        }
     }
 
     public function changeState( $idTransaction , $state, $transaction = null )
