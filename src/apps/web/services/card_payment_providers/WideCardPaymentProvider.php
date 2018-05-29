@@ -20,10 +20,13 @@ class WideCardPaymentProvider implements ICardPaymentProvider
     /** @var  User $user */
     private $user;
     private $data = [];
+    /** @var WideCardConfig $config */
+    private $config;
 
     public function __construct(WideCardConfig $config, $gatewayClient = null)
     {
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
+        $this->config = $config;
     }
 
     public function __get($name) {
@@ -44,14 +47,22 @@ class WideCardPaymentProvider implements ICardPaymentProvider
         $params = $this->createArrayData($amount, $card);
         /** @var Response $result */
         $result = $this->gatewayClient->send($params);
-        $this->responseMessage($result);
+        $header = $result->header;
+        $body = json_decode($result->body);
+        if( $header->statusCode != 200 ) {
+            return new PaymentProviderResult(false,$header->statusMessage,$header->statusMessage);
+        }
+        return new PaymentProviderResult($body->status === "ok", $header->statusMessage);
+
     }
 
     public function withDraw(Money $amount, $idTransaction)
     {
-        $result = $this->gatewayClient->send(['idTransaction' => $idTransaction,
-                                              'amount' => $amount ]);
-        $this->responseMessage($result);
+        $result = $this->gatewayClient->send(['idTransaction' => $idTransaction[0]['transactionID'],
+                                              'amount' => $amount->getAmount() ]);
+
+        //TODO: in this case, is called from admin only
+        return $result;
     }
 
     /**
@@ -76,14 +87,9 @@ class WideCardPaymentProvider implements ICardPaymentProvider
         ];
     }
 
-    private function responseMessage($result)
+    public function getConfig()
     {
-        $header = $result->header;
-        $body = json_decode($result->body);
-        if( $header->statusCode != 200 ) {
-            return new PaymentProviderResult(false,$header->statusMessage,$header->statusMessage);
-        }
-        return new PaymentProviderResult($body->status === "ok", $header->statusMessage);
-
+        return $this->config;
     }
+
 }

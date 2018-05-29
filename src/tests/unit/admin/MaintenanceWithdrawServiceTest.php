@@ -5,8 +5,10 @@ namespace EuroMillions\tests\unit\admin;
 
 
 
+use Codeception\Step\Action;
 use EuroMillions\admin\services\MaintenanceWithdrawService;
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\tests\helpers\mothers\UserMother;
@@ -29,6 +31,8 @@ class MaintenanceWithdrawServiceTest extends UnitTestBase
 
     public function setUp()
     {
+        $this->transactionsRepository_double = $this->getRepositoryDouble('TransactionRepository');
+        $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
         $this->transactionRespository_double = $this->getRepositoryDouble('TransactionRepository');
         parent::setUp();
     }
@@ -49,12 +53,17 @@ class MaintenanceWithdrawServiceTest extends UnitTestBase
     }
 
     /**
-     * method acceptWithDraw
+     * method confirmWithDraw
      * when called
      * should returnSuccessfullyResponse
      */
-    public function test_acceptWithDraw_called_returnSuccessfullyResponse()
+    public function test_confirmWithDraw_called_returnSuccessfullyResponse()
     {
+        $idWithDrawRequest = 1;
+        $idTransaction = 1;
+        list($transaction, $expected) = $this->prepareWithdraw();
+        $expected = new ActionResult(true);
+        $this->transactionRespository_double->find($idWithDrawRequest)->willReturn($transaction);
         $sut = $this->getSut();
         $actual = $sut->confirmWithDraw(1,1);
     }
@@ -90,6 +99,8 @@ class MaintenanceWithdrawServiceTest extends UnitTestBase
         $sut = $this->getSut();
         $sut->changeState($idTransaction,$state);
     }
+
+
 
     /**
      * method changeState

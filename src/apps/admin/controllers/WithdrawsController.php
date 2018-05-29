@@ -61,11 +61,11 @@ class WithdrawsController extends AdminControllerBase
     {
         $userID = $this->request->getPost('userId');
         $idWithDrawRequest = $this->request->getPost('id');
-        $userID=1;
+        $userID='d04f5a92-2787-4e35-a2b0-6ebe4d65b23f';
         $idWithDrawRequest=3;
         try {
             $transactionID = $this->maintenanceWithdrawService->getLastTransactionIDByUser($userID);
-            $result = $this->maintenanceWithdrawService->confirmWithDraw($userID, $idWithDrawRequest);
+            $result = $this->maintenanceWithdrawService->confirmWithDraw($idWithDrawRequest, $transactionID);
         } catch ( \Exception $e ) {
             throw new \Exception('An error ocurred ' . ' ' . $e->getMessage());
         }
