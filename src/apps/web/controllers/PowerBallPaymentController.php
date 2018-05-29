@@ -96,6 +96,7 @@ class PowerBallPaymentController extends CartController
                 }
             }
         }
+
         $type = ViewHelper::getNamePaymentType($this->getDI()->get('paymentProviderFactory'));
         $view = $type == 'iframe' ? 'cart/order_iframe' : 'cart/order';
         $this->view->pick($view);

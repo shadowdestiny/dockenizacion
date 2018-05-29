@@ -188,9 +188,11 @@ class PowerBallService
                     curl_setopt($curl, CURLOPT_POST, TRUE);
                     curl_setopt($curl, CURLOPT_POSTFIELDS,$APIPlayConfigs);
                     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                     $result = curl_exec($curl);
+
                     curl_close($curl);
-                    die('final curl');
+                    $result_validation = json_decode($result);
 
                     $formPlay = null;
 
@@ -200,9 +202,9 @@ class PowerBallService
                         $config = $di->get('config');
                         if ($config->application->send_single_validations) {
                             foreach ($order->getPlayConfig() as $play_config) {
-                                $result_validation = $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate());
 
-                                if (!$result_validation->success()) {
+
+                                if (!$result_validation->success) {
                                     return new ActionResult(false, $result_validation->errorMessage());
                                 }
                                 if ($order->getHasSubscription()) {
@@ -219,6 +221,7 @@ class PowerBallService
                                     $this->walletService->payWithWallet($user, $play_config);
                                 }
                             }
+
                             $numPlayConfigs = count($order->getPlayConfig());
                         } else {
                             $playConfigs = $order->getPlayConfig();
@@ -231,9 +234,8 @@ class PowerBallService
                             $this->walletService->payGroupedBetsWithWallet($user, $playConfigs[0]->getLottery()->getSingleBetPrice()->multiply(count($playConfigs)));
                             $numPlayConfigs = count($playConfigs);
                         }
-
                         $dataTransaction = [
-                            'lottery_id' => 1,
+                            'lottery_id' => 3,
                             'transactionID' => $uniqueId,
                             'numBets' => count($order->getPlayConfig()),
                             'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
@@ -245,8 +247,10 @@ class PowerBallService
                             }, $order->getPlayConfig()),
                             'discount' => $discount,
                         ];
+
                         $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
                         $this->sendEmailPurchase($user, $order->getPlayConfig());
+
                         return new ActionResult(true, $order);
                     } else {
                         return new ActionResult($result_payment->success(), $order);
@@ -289,5 +293,22 @@ class PowerBallService
     private function getLottery($lottery)
     {
         return $this->lotteryService->getLotteryConfigByName($lottery);
+    }
+
+    private function sendEmailPurchase(User $user, $orderLines)
+    {
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+        if ($orderLines[0]->getFrequency() >= 4) {
+            $emailTemplate = new PurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+//        $emailTemplate->setFrequency($orderLines[0]->getFrequencyPlay());
+            $emailTemplate->setDraws($orderLines[0]->getFrequency());
+//        $emailTemplate->setJackpot($orderLines[0]->getJackpot());
+            $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
+        }
+        $emailTemplate->setLine($orderLines);
+        $emailTemplate->setUser($user);
+
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 }
