@@ -57,18 +57,55 @@ class WithdrawsController extends AdminControllerBase
 
     }
 
-    public function confirmAction()
+    public function rejectAction()
     {
-        $userID = $this->request->getPost('userId');
-        $idWithDrawRequest = $this->request->getPost('id');
-        $userID='d04f5a92-2787-4e35-a2b0-6ebe4d65b23f';
-        $idWithDrawRequest=3;
+        $paginator = null;
+        $paginator_view = null;
+        $page = null;
+        $userID = $this->request->get('userId');
+        $idWithDrawRequest = $this->request->get('id');
         try {
             $transactionID = $this->maintenanceWithdrawService->getLastTransactionIDByUser($userID);
             $result = $this->maintenanceWithdrawService->confirmWithDraw($idWithDrawRequest, $transactionID);
+            $listWithdraws = $this->maintenanceWithdrawService->fetchAll();
+            list($page, $paginator, $paginator_view) = $this->getPaginate($listWithdraws);
+            $this->view->pick('/withdraws/index');
+
         } catch ( \Exception $e ) {
             throw new \Exception('An error ocurred ' . ' ' . $e->getMessage());
         }
+        return $this->view->setVars([
+            'withdraws' => $paginator->getPaginate(),
+            'paginator_view' => $paginator_view,
+            'page' => $page
+        ]);
+
+    }
+
+    public function confirmAction()
+    {
+        $paginator = null;
+        $paginator_view = null;
+        $page = null;
+        $error = null;
+        $userID = $this->request->get('userId');
+        $idWithDrawRequest = $this->request->get('id');
+        try {
+            $transactionID = $this->maintenanceWithdrawService->getLastTransactionIDByUser($userID);
+            $result = $this->maintenanceWithdrawService->confirmWithDraw($idWithDrawRequest, $transactionID);
+            $listWithdraws = $this->maintenanceWithdrawService->fetchAll();
+            list($page, $paginator, $paginator_view) = $this->getPaginate($listWithdraws);
+            $this->view->pick('/withdraws/index');
+        } catch ( \Exception $e ) {
+            $error = $e->getMessage();
+        }
+        return $this->view->setVars([
+            'withdraws' => $paginator->getPaginate(),
+            'paginator_view' => $paginator_view,
+            'page' => $page,
+            'error' => $error
+        ]);
+
     }
 
     public function rejectWithdrawAction() {

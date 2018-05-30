@@ -49,7 +49,9 @@
                                     <th class="action">Change State</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                {% if error is not empty %}
+                                    <span> {{ error }} </span>
+                                {% endif %}
                                 {% if withdraws is empty %}
                                     <span>No data was found</span>
                                 {% else %}
@@ -81,7 +83,7 @@
                                             </td>
                                             <td>
                                                 {% if withdraw.state == 'pending' %}
-                                                    <a href="/admin/withdraws/confirm" class="btn btn-success">Approved</a>
+                                                    <a href="/admin/withdraws/confirm?id={{ withdraw.id }}&userId={{withdraw.user.userId}}" class="btn btn-success">Approved</a>
                                                     <a href="/admin//withdraws/update?id={{ withdraw.id }}&state=rejected" class="btn-danger btn">Rejected</a>
                                                     <a href="/admin//withdraws/update?id={{ withdraw.id }}&state=failed" class="btn btn-primary">Failed</a>
                                                 {% else %}

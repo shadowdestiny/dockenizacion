@@ -109,7 +109,6 @@ class MaintenanceWithdrawService
                 $transaction->toString();
                 $this->entityManager->persist($transaction);
                 $this->entityManager->flush();
-
             } catch ( \Exception $e ) {
                 throw new \Exception('An error ocurred while try update state');
             }

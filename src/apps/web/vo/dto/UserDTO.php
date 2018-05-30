@@ -14,6 +14,7 @@ class UserDTO extends DTOBase implements IDto
     /** @var User $user */
     private $user;
 
+    public $userId;
     public $name;
     public $surname;
     public $email;
@@ -46,6 +47,7 @@ class UserDTO extends DTOBase implements IDto
         $this->bankName = $this->user->getBankName();
         $this->bankAccount = $this->user->getBankAccount();
         $this->bankSwift = $this->user->getBankSwift();
+        $this->userId = $this->user->getId();
 
     }
 
@@ -117,4 +119,21 @@ class UserDTO extends DTOBase implements IDto
     {
         $this->zip = $zip;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param mixed $userId
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    }
+
 }
