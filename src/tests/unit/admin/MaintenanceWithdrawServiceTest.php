@@ -15,25 +15,28 @@ use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\entities\TicketPurchaseTransaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\vo\dto\WithdrawTransactionDTO;
+use Prophecy\Argument;
 
 class MaintenanceWithdrawServiceTest extends UnitTestBase
 {
 
     private $transactionRespository_double;
 
+    private $userRepository_double;
+
 
     protected function getEntityManagerStubExtraMappings()
     {
         return [
             Namespaces::ENTITIES_NS . 'Transaction' => $this->transactionRespository_double,
+            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
         ];
     }
 
     public function setUp()
     {
-        $this->transactionsRepository_double = $this->getRepositoryDouble('TransactionRepository');
-        $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
         $this->transactionRespository_double = $this->getRepositoryDouble('TransactionRepository');
+        $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         parent::setUp();
     }
 
@@ -66,6 +69,28 @@ class MaintenanceWithdrawServiceTest extends UnitTestBase
         $this->transactionRespository_double->find($idWithDrawRequest)->willReturn($transaction);
         $sut = $this->getSut();
         $actual = $sut->confirmWithDraw(1,1);
+    }
+
+
+    /**
+     * method giveBackAmountToUserWallet
+     * when called
+     * should returnSuccessAndIncreaseUserWalletWithAmountWithdraw
+     */
+    public function test_giveBackAmountToUserWallet_returnSuccessAndIncreaseUserWalletWithAmountWithdraw()
+    {
+        $id = 1;
+        list($transaction, $expected) = $this->prepareWithdraw('rejected');
+        $expected = new ActionResult(true);
+        $this->transactionRespository_double->find($id)->willReturn($transaction);
+        $this->userRepository_double->add(Argument::any())->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush(Argument::any())->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->giveBackAmountToUserWallet($id);
+        $this->assertEquals($expected,$actual);
+        $this->assertEquals(5500, $transaction->getUser()->getWallet()->getBalance()->getAmount());
+        $this->assertEquals('rejected',$transaction->getState());
     }
 
     /**
@@ -142,16 +167,16 @@ class MaintenanceWithdrawServiceTest extends UnitTestBase
     /**
      * @return array
      */
-    private function prepareWithdraw()
+    private function prepareWithdraw($state='pending')
     {
         $user = UserMother::aUserWith40EurWinnings()->build();
         $transaction = new WinningsWithdrawTransaction();
-        $transaction->setState('pending');
+        $transaction->setState($state);
         $transaction->setWalletBefore(Wallet::create());
         $transaction->setWalletAfter(Wallet::create());
         $transaction->setAccountBankId(1);
         $transaction->setDate(new \DateTime());
-        $transaction->setAmountWithdrawed(25);
+        $transaction->setAmountWithdrawed(2500);
         $transaction->toString();
         $transaction->setUser($user);
         $expected = [new WithdrawTransactionDTO($transaction)];

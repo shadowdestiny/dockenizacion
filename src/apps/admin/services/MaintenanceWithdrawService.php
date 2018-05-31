@@ -27,11 +27,17 @@ class MaintenanceWithdrawService
     protected $transactionRepository;
     /** @var TransactionService $transactionService */
     private $transactionService;
+    /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
 
     public function __construct( EntityManager $entityManager )
     {
         $this->entityManager = $entityManager;
         $this->transactionRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Transaction');
+        $this->userRepository = $this->entityManager->getRepository('EuroMillions\web\entities\User');
     }
 
     public function fetchAll( Transaction $transaction = null)
@@ -86,6 +92,27 @@ class MaintenanceWithdrawService
 
     }
 
+    public function giveBackAmountToUserWallet($id)
+    {
+        try {
+            /** @var WinningsWithdrawTransaction $transaction */
+            $transaction = $this->transactionRepository->find($id);
+            if ($transaction !== null &&
+                $transaction instanceof WinningsWithdrawTransaction) {
+
+                $amount = new Money((int)$transaction->getAmountWithdrawed(), new Currency('EUR'));
+                $user = $transaction->getUser();
+                $newWallet = $user->getWallet()->award($amount);
+                $user->setWallet($newWallet);
+                $this->userRepository->add($user);
+                $this->entityManager->flush($user);
+                return new ActionResult(true);
+            }
+        } catch(\Exception $e) {
+                return new ActionResult(false);
+        }
+    }
+
 
     public function getLastTransactionIDByUser($userID)
     {
@@ -96,7 +123,7 @@ class MaintenanceWithdrawService
         }
     }
 
-    public function changeState( $idTransaction , $state, $transaction = null )
+    public function changeState( $idTransaction , $state, $transaction = null, $message = null )
     {
         if ( null == $transaction ) {
             /** @var WinningsWithdrawTransaction $transaction */
@@ -106,6 +133,7 @@ class MaintenanceWithdrawService
                 $transaction instanceof WinningsWithdrawTransaction) {
             try {
                 $transaction->setState($state);
+                $transaction->setMessage($message);
                 $transaction->toString();
                 $this->entityManager->persist($transaction);
                 $this->entityManager->flush();
@@ -116,7 +144,4 @@ class MaintenanceWithdrawService
             throw new \Exception('Sorry, it was a problem. Try again.');
         }
     }
-
-
-
 }

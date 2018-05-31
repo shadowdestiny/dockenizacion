@@ -63,14 +63,13 @@ class WithdrawsController extends AdminControllerBase
         $paginator_view = null;
         $page = null;
         $userID = $this->request->get('userId');
-        $idWithDrawRequest = $this->request->get('id');
+        $idTransaction = $this->request->get('id');
+        $message = $this->request->get('message');
         try {
-            $transactionID = $this->maintenanceWithdrawService->getLastTransactionIDByUser($userID);
-            $result = $this->maintenanceWithdrawService->confirmWithDraw($idWithDrawRequest, $transactionID);
+            $this->maintenanceWithdrawService->changeState($idTransaction,'rejected');
             $listWithdraws = $this->maintenanceWithdrawService->fetchAll();
             list($page, $paginator, $paginator_view) = $this->getPaginate($listWithdraws);
             $this->view->pick('/withdraws/index');
-
         } catch ( \Exception $e ) {
             throw new \Exception('An error ocurred ' . ' ' . $e->getMessage());
         }
