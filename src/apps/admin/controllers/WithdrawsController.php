@@ -62,11 +62,11 @@ class WithdrawsController extends AdminControllerBase
         $paginator = null;
         $paginator_view = null;
         $page = null;
-        $userID = $this->request->get('userId');
-        $idTransaction = $this->request->get('id');
-        $message = $this->request->get('message');
+        $idTransaction = $this->request->getPost('id');
+        $message = $this->request->getPost('message' . $idTransaction);
         try {
-            $this->maintenanceWithdrawService->changeState($idTransaction,'rejected');
+            $this->maintenanceWithdrawService->giveBackAmountToUserWallet($idTransaction);
+            $this->maintenanceWithdrawService->changeState($idTransaction,'rejected', null,$message);
             $listWithdraws = $this->maintenanceWithdrawService->fetchAll();
             list($page, $paginator, $paginator_view) = $this->getPaginate($listWithdraws);
             $this->view->pick('/withdraws/index');

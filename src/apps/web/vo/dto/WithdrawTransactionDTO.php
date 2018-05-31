@@ -12,6 +12,7 @@ class WithdrawTransactionDTO extends TransactionDTO implements IDto
     public $user;
     public $state;
     public $movementFormatted;
+    public $message;
 
     public function exChangeObject()
     {
@@ -19,6 +20,7 @@ class WithdrawTransactionDTO extends TransactionDTO implements IDto
         $this->user = new UserDTO($this->transaction->getUser());
         $this->state = $this->transaction->getState();
         $this->movementFormatted = '€' . $this->movement->getAmount() / 100;
+        $this->message = $this->transaction->getMessage();
     }
 
 }

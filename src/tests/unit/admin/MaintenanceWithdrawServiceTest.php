@@ -107,25 +107,6 @@ class MaintenanceWithdrawServiceTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
-    /**
-     * method changeState
-     * when called
-     * should changeStateFromTransaction
-     */
-    public function test_changeState_called_changeStateFromTransaction()
-    {
-        $idTransaction = 1;
-        $state = 'approved';
-        list($transaction, $expected) = $this->prepareWithdraw();
-        $this->transactionRespository_double->find($idTransaction)->willReturn($transaction);
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush()->shouldBeCalled();
-        $entityManager_stub->persist($transaction)->shouldBeCalled();
-        $sut = $this->getSut();
-        $sut->changeState($idTransaction,$state);
-    }
-
-
 
     /**
      * method changeState
