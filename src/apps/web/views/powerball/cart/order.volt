@@ -37,6 +37,7 @@
     var txt_line = '{{ language.translate('line_x') }}';
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';
+    var powerball = true;
 
 
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {

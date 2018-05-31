@@ -135,7 +135,6 @@ class PowerBallService
      */
     public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null)
     {
-
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();
@@ -184,7 +183,7 @@ class PowerBallService
 
                     $APIPlayConfigs = json_encode($order->getPlayConfig());
                     $curl = curl_init();
-                    curl_setopt($curl, CURLOPT_URL, 'http://lotteriesbeta.euromillions.com/powerball/tickets/book/');
+                    curl_setopt($curl, CURLOPT_URL, 'http://localhost:10080/powerball/tickets/book/');
                     curl_setopt($curl, CURLOPT_POST, TRUE);
                     curl_setopt($curl, CURLOPT_POSTFIELDS,$APIPlayConfigs);
                     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
@@ -201,8 +200,9 @@ class PowerBallService
                         $walletBefore = $user->getWallet();
                         $config = $di->get('config');
                         if ($config->application->send_single_validations) {
-                            foreach ($order->getPlayConfig() as $play_config) {
 
+                            foreach ($order->getPlayConfig() as $play_config) {
+                                $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
 
                                 if (!$result_validation->success) {
                                     return new ActionResult(false, $result_validation->errorMessage());
@@ -226,7 +226,7 @@ class PowerBallService
                         } else {
                             $playConfigs = $order->getPlayConfig();
                             foreach (array_chunk($playConfigs, self::NUM_BETS_PER_REQUEST) as $playConfigsSplit) {
-                                $result_validation = $this->betService->groupingValidation($playConfigsSplit, $draw->getValues(), $lottery->getNextDrawDate());
+                                $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
                                 if (!$result_validation->success()) {
                                     return new ActionResult(false, $result_validation->errorMessage());
                                 }

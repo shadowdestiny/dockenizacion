@@ -197,6 +197,11 @@ var CartPage = new React.createClass({
             price_txt_btn = this.state.total;
             href_payment = 'javascript:void(0)';
             data_btn = 'no-wallet';
+        } else if(powerball === true) {
+            txt_button_payment = this.props.txt_buy_btn;
+            href_payment = '/powerball/payment/payment?method=wallet&charge='+this.state.fund_value;
+            data_btn = 'wallet';
+            price_txt_btn = this.state.total;
         } else {
             txt_button_payment = this.props.txt_buy_btn;
             href_payment = '/euromillions/payment/payment?method=wallet&charge='+this.state.fund_value;

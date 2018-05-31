@@ -97,6 +97,51 @@ class BetService
         }
     }
 
+    public function validationLottoRisq(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $dateNextDraw, \DateTime $today = null, $uuid = null)
+    {
+        if (!$today) {
+            $today = new \DateTime();
+        }
+        /** @var User $user */
+        $user = $this->userRepository->find($playConfig->getUser()->getId());
+        $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
+        if (($user->getBalance()->getAmount() || $user->getWallet()->getSubscription()) >= $single_bet_price->getAmount()) {
+            $di = \Phalcon\Di::getDefault();
+            $cypher = $di->get('environmentDetector')->get() != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
+            try {
+                $bet = new Bet($playConfig, $euroMillionsDraw);
+                $log_api_reponse = new LogValidationApi();
+                $log_api_reponse->initialize([
+                    'id_provider' => 2,
+                    'id_ticket' => 0,//$lotteryValidation->getXmlResponse()->id,
+                    'status' => 'OK',//$lotteryValidation->getXmlResponse()->status,
+                    'response' => '',//$lotteryValidation->getXmlResponse(),
+                    'received' => new \DateTime(),
+                    'bet' => $bet,
+                    'uuid' => $uuid
+                ]);
+
+                $this->entityManager->persist($bet);
+                $this->logValidationRepository->add($log_api_reponse);
+                $this->entityManager->flush();
+
+                if ($uuid) {
+                    $this->betRepository->add($bet);
+                    $this->entityManager->flush();
+                    $this->playConfigRepository->add($playConfig);
+                    $this->entityManager->flush();
+                    return new ActionResult(true);
+                } else {
+                    return new ActionResult(false);
+                }
+            } catch (\Exception $e) {
+                return new ActionResult(false);
+            }
+        } else {
+            throw new InvalidBalanceException();
+        }
+    }
+
     public function validationChristmas(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $dateNextDraw, \DateTime $today = null, LotteryValidationCastilloChristmasApi $lotteryValidation = null)
     {
         if (!$today) {
