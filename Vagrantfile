@@ -26,6 +26,7 @@ Vagrant.configure(2) do |config|
         sudo service apache2 stop
         curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
         sudo apt-get install -y nodejs
+        sudo apt install php5.6-apcu --no-install-recommends
         ansible-galaxy install -r /vagrant/vagrant_config/requirements.yml --ignore-errors
     SCRIPT
 
@@ -41,6 +42,14 @@ Vagrant.configure(2) do |config|
         ansible.provisioning_path   = "/vagrant/src/config_tpl"
         ansible.playbook            = "create_config.yml"
     end
+
+    config.vm.provision "shell", inline: <<-SCRIPT
+        cd /var/www/react
+        sudo rm -r node_modules & npm cache clean --force
+        sudo npm -g install webpack
+        sudo npm install --save-dev
+        sudo npm run build
+    SCRIPT
 
     config.vm.network "forwarded_port", guest: 80, host: 8080
     config.vm.network "forwarded_port", guest: 443, host: 4433
