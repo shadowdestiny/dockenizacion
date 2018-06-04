@@ -99,8 +99,8 @@ class MaintenanceWithdrawService
             $transaction = $this->transactionRepository->find($id);
             if ($transaction !== null &&
                 $transaction instanceof WinningsWithdrawTransaction) {
-
-                $amount = new Money((int)$transaction->getAmountWithdrawed(), new Currency('EUR'));
+                $transactionString = $transaction->fromString();
+                $amount = new Money((int)$transactionString->getAmountWithdrawed(), new Currency('EUR'));
                 $user = $transaction->getUser();
                 $newWallet = $user->getWallet()->award($amount);
                 $user->setWallet($newWallet);
