@@ -19,6 +19,7 @@
 
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
+
 {% block body %}
     <div class="wrapper">
         <div class="container">
@@ -49,7 +50,9 @@
                                     <th class="action">Change State</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                {% if error is not empty %}
+                                    <span> {{ error }} </span>
+                                {% endif %}
                                 {% if withdraws is empty %}
                                     <span>No data was found</span>
                                 {% else %}
@@ -81,12 +84,18 @@
                                             </td>
                                             <td>
                                                 {% if withdraw.state == 'pending' %}
-                                                    <a href="/admin/withdraws/update?id={{ withdraw.id }}&state=approved" class="btn btn-success">Approved</a>
-                                                    <a href="/admin//withdraws/update?id={{ withdraw.id }}&state=rejected" class="btn-danger btn">Rejected</a>
+                                                    <a href="/admin/withdraws/confirm?id={{ withdraw.id }}&userId={{withdraw.user.userId}}" class="btn btn-success">Approved</a>
+                                                    <a href="javascript:void(0)" onclick="document.getElementById('formRejected{{ withdraw.id }}').submit();" class="btn-danger btn">Rejected</a>
                                                     <a href="/admin//withdraws/update?id={{ withdraw.id }}&state=failed" class="btn btn-primary">Failed</a>
                                                 {% else %}
-                                                    <a href="/admin/withdraws/update?id={{ withdraw.id }}&state=pending" class="btn btn-primary">Pending</a>
+                                                    <!--<a href="/admin/withdraws/update?id={{ withdraw.id }}&state=pending" class="btn btn-primary">Pending</a>-->
                                                 {% endif %}
+                                                <form method="post" id="formRejected{{ withdraw.id }}" action=/admin//withdraws/reject>
+                                                <input type="hidden" value={{withdraw.id}} id="id" name="id"/>
+                                                <textarea id="message{{ withdraw.id }}" name="message{{ withdraw.id }}" form="formRejected{{ withdraw.id }}" cols="5" rows ="5">
+                                                    {{withdraw.message}}
+                                                </textarea>
+                                                </form>
                                             </td>
                                         </tr>
                                     {% endfor %}

@@ -51,4 +51,23 @@ class WideCardGatewayClientWrapperFunctionalTest extends DatabaseIntegrationTest
     }
 
 
+    /**
+     * method send
+     * when calledPassingAValidJsonWithDraw_returnJsonResponseFromEndpoint
+     */
+    public function test_send_calledPassingAValidJsonWithDraw_returnJsonResponseFromEndpoint()
+    {
+        $endpoint = 'https://api.euromillions.com/beta/withdraw';
+        $api_key= '5ZsX9S3RTc6wVpOgvvtn28WuUNbg61YDNgkM1rw7';
+        $wideCardConfig = new WideCardConfig($endpoint,$api_key);
+        $gwWrapper = new GatewayClientWrapper($wideCardConfig);
+        $json = [
+                    "idTransaction" => 1,
+                    "amount" => 300
+        ];
+        $actual = $gwWrapper->send($json);
+        $actualRaw= json_decode($actual->body);
+        $this->assertEquals("200", $actual->header->statusCode);
+    }
+
 }

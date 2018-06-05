@@ -57,6 +57,60 @@ class WithdrawsController extends AdminControllerBase
 
     }
 
+    public function rejectAction()
+    {
+        $paginator = null;
+        $paginator_view = null;
+        $page = null;
+        $idTransaction = $this->request->getPost('id');
+        $message = $this->request->getPost('message' . $idTransaction);
+        try {
+            $this->maintenanceWithdrawService->giveBackAmountToUserWallet($idTransaction);
+            $this->maintenanceWithdrawService->changeState($idTransaction,'rejected', null,$message);
+            $listWithdraws = $this->maintenanceWithdrawService->fetchAll();
+            list($page, $paginator, $paginator_view) = $this->getPaginate($listWithdraws);
+            $this->view->pick('/withdraws/index');
+        } catch ( \Exception $e ) {
+            throw new \Exception('An error ocurred ' . ' ' . $e->getMessage());
+        }
+        return $this->view->setVars([
+            'withdraws' => $paginator->getPaginate(),
+            'paginator_view' => $paginator_view,
+            'page' => $page
+        ]);
+
+    }
+
+    public function confirmAction()
+    {
+        $paginator = null;
+        $paginator_view = null;
+        $page = null;
+        $error = null;
+        $userID = $this->request->get('userId');
+        $idWithDrawRequest = $this->request->get('id');
+        try {
+            $transactionID = $this->maintenanceWithdrawService->getLastTransactionIDByUser($userID);
+            $result = $this->maintenanceWithdrawService->confirmWithDraw($idWithDrawRequest, $transactionID);
+            $listWithdraws = $this->maintenanceWithdrawService->fetchAll();
+            list($page, $paginator, $paginator_view) = $this->getPaginate($listWithdraws);
+            $this->view->pick('/withdraws/index');
+        } catch ( \Exception $e ) {
+            $error = $e->getMessage();
+        }
+        return $this->view->setVars([
+            'withdraws' => $paginator->getPaginate(),
+            'paginator_view' => $paginator_view,
+            'page' => $page,
+            'error' => $error
+        ]);
+
+    }
+
+    public function rejectWithdrawAction() {
+
+    }
+
     /**
      * @param $result
      * @return array

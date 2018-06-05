@@ -34,6 +34,7 @@
 
         <field name="date" type="datetime" nullable="true" column="date"/>
         <field name="transactionID" type="string" nullable="true" column="transactionID"/>
+        <field name="message" type="string" nullable="true" column="message"/>
         <embedded name="wallet_before" class="EuroMillions\shared\vo\Wallet" use-column-prefix="true" />
         <embedded name="wallet_after" class="EuroMillions\shared\vo\Wallet" use-column-prefix="true" />
         <many-to-one target-entity="EuroMillions\web\entities\User" inversed-by="playConfig" field="user">
