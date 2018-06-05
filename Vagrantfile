@@ -50,7 +50,7 @@ Vagrant.configure(2) do |config|
         sudo npm install --save-dev
         sudo npm run build
     SCRIPT
-
+    config.vm.network "private_network", ip: "192.168.50.1"
     config.vm.network "forwarded_port", guest: 80, host: 8080
     config.vm.network "forwarded_port", guest: 443, host: 4433
     config.vm.network "forwarded_port", guest: 3306, host: 33060
