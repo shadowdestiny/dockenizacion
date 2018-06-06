@@ -113,6 +113,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->setCommonTemplateVariables();
         $this->setVarWinningModal();
 
+        // Set up the flash session service
         $controller_not_referer = [
             'user-access',
             'currency',

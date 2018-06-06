@@ -22,8 +22,8 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
             $subject = 'Добро пожаловать на EuroMillions.com';
         } else {
             // Welcome Email English Version Template ID= 4021147
-            $template_id = "4021147"; //prod
-            //$template_id = "4012194"; //testing
+            //$template_id = "4021147"; //prod
+            $template_id = "4012194"; //testing
             $subject = 'Welcome to Euromillions.com';
         }
 

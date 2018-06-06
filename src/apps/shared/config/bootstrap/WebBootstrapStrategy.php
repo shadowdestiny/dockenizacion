@@ -50,6 +50,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('session', $this->configSession(), true);
         $di->set('url', $this->configUrl(), true);
         $di->set('response', $this->configResponse(), true);
+        $di->set('flash', function() {
+            $flash = new \Phalcon\Flash\Session();
+            return $flash;
+        });
         return $di;
     }
 
@@ -395,6 +399,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'user-access',
             'action' => 'logout'
         ));
+
+        $router->add("/resendtoken", array(
+            "module" => "web",
+            'controller' => 'user-access',
+            'action' => 'resendtoken'
+        ));
+
         $router->add("/validate/:params", array(
             "module" => "web",
             'controller' => 'user-access',

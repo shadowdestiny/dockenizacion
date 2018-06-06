@@ -51,9 +51,13 @@ class CartController extends PublicSiteControllerBase
         $errors = [];
         /** @var AuthService $user */
         $user = $this->authService->getCurrentUser();
-        $userLogged = $this->authService->getLoggedUser();
-        if($user instanceof  User) {
-            $this->response->redirect('/'.$this->lottery.'/order');
+        if($this->authService->isLogged()) {
+            if($this->authService->getLoggedUser()->getValidated()) {
+                $this->response->redirect('/'.$this->lottery.'/order');
+            } else {
+                $this->flash->error('You should confirm your email, please, <a href="/resendtoken"> click </a>');
+                $this->response->redirect('/'.$this->lottery.'/play');
+            }
         }
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
@@ -87,7 +91,7 @@ class CartController extends PublicSiteControllerBase
             }
         }
 
-	    $this->tag->prependTitle('Log In or Sign Up');
+        $this->tag->prependTitle('Log In or Sign Up');
         return $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,
@@ -140,7 +144,12 @@ class CartController extends PublicSiteControllerBase
                         $errors[] = 'Incorrect email or password.';
                     }
                 } else {
-                    return $this->response->redirect('/'.$this->lottery.'/order?user='.$user->getId());
+                    if($this->authService->isLogged()) {
+                        if($this->authService->getLoggedUser()->getValidated()) {
+                            return $this->response->redirect('/'.$this->lottery.'/order?user='.$user->getId());
+                        }
+                        $errors[] = 'You should confirm email registration.';
+                    }
                 }
             }
         }

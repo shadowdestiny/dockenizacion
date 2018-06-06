@@ -201,6 +201,22 @@ class AuthService
         return new ValidationToken($email, $emailValidationTokenGenerator);
     }
 
+    public function resendToken()
+    {
+        /** @var User $currentUser */
+        $currentUser = $this->getCurrentUser();
+
+        if($currentUser instanceof User) {
+            try {
+                $this->emailService->sendWelcomeEmail($currentUser, $this->urlManager);
+            } catch (\Exception $e) {
+                throw new \Exception('Error resend welcome email');
+            }
+
+        }
+
+    }
+
     public function validateEmailToken($token, IEmailValidationToken $emailValidationTokenGenerator = null)
     {
         $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);

@@ -222,6 +222,15 @@ class UserAccessController extends ControllerBase
         $this->view->setVar('message', $message);
     }
 
+    public function resendTokenAction()
+    {
+        if($this->authService->isLogged())
+        {
+            $this->authService->resendToken();
+            return $this->response->redirect('/');
+        }
+    }
+
     public function logoutAction()
     {
         $this->authService->logout();
