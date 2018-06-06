@@ -38,6 +38,8 @@
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';
     var powerball = false;
+    var powerplay = 0;
+    var powerplayprice = 0;
 
 
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {

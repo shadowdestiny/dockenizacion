@@ -41,6 +41,10 @@ var EmWallet = new React.createClass({
         var disabled_value = (this.state.checked) ? 'summary val' : 'summary val disabled';
         var operand_value = (this.state.checked) ? ' - ' : ' ';
 
+        if(this.props.powerplay && wallet > 0) {
+             wallet_value = parseFloat(wallet_value) + (parseFloat(this.props.total_lines) * parseFloat(this.props.powerplayprice));
+        }
+
         var value = accounting.formatMoney(wallet_value, this.props.currency_symbol, 2);
         var total_value = this.props.symbol_position ? operand_value + ' ' + value  :  operand_value + ' ' + value;
 

@@ -14,14 +14,26 @@ var EmBtnPayment = new React.createClass({
                 </div>
             )
         } else {
+            var price = 0;
+
+            if(this.props.powerplay) {
+                price = parseFloat(this.props.total_price) + (parseFloat(this.props.total_lines) * parseFloat(this.props.powerplayprice));
+                // price = (this.props.price) + price.toFixed(2);
+            } else {
+                price = this.props.price;
+            }
+
+            var value = accounting.formatMoney(price, this.props.currency_symbol, 2);
+
             return (
+
                 <div className="box-bottom cl">
                     <a href={this.props.href} data-btn={this.props.databtn} className={this.props.classBtn}>
                         {this.props.text}
                         <span className="gap">
                            |
                         </span>
-                        {this.props.price}
+                        {value}
                     </a>
                 </div>
             )

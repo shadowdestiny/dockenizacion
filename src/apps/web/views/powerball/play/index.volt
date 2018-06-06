@@ -47,6 +47,8 @@
     var next_draw_date_format = '{{ next_draw_date_format }}';
     var clear_btn = '{{ language.translate('clear_btn') }}';
     var addlines_message = "{{ language.translate('addlines_message') }}";
+    var powerplay = '<?php echo $power_play_price; ?>';
+
 
 
     {#añadir aqui el translate#}

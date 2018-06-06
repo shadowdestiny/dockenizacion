@@ -533,6 +533,10 @@ class PlayService
         return $bundlePlayCollectionDTO;
     }
 
+    public function getPowerPlay()
+    {
+        return $this->playConfigRepository->powerPlayPrice();
+    }
 
     public function getBundleDataAsArray()
     {

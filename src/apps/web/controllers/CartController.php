@@ -250,7 +250,11 @@ class CartController extends PublicSiteControllerBase
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery($this->lottery);
         $user = $this->authService->getCurrentUser();
         $discount = new Discount($result->returnValues()[0]->getFrequency(), $this->domainServiceFactory->getPlayService()->getBundleDataAsArray());
-        $powerPlay = 0;
+
+        if ($result->returnValues()[0]->getPowerPlay()) {
+            $powerPlay = true;
+        }
+
         if ($orderView) {
             $order = new Order($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount); // order created
             $powerPlay = (int)$order->getPlayConfig()[0]->getPowerPlay();
@@ -301,7 +305,8 @@ class CartController extends PublicSiteControllerBase
             'total_new_payment_gw' => isset($order_eur) ? $order_eur->getTotal()->getAmount() / 100 : '',
             'credit_card_form' => $creditCardForm,
             'emerchant_data' => $this->getEmerchantData(),
-            'power_play =>' => $powerPlay,
+            'power_play' => $powerPlay,
+            'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay()
         ]);
     }
 

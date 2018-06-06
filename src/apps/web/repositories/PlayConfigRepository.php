@@ -427,8 +427,12 @@ class PlayConfigRepository extends RepositoryBase
             ['draws' => '4', 'description' => $translationAdapter->query("mult_btn2"), 'price_description' => $translationAdapter->query("desc_mult2"), 'price' => '1', 'discount' => 0, 'checked' => '', 'multi_number' => $translationAdapter->query("multi_number2")],
             ['draws' => '8', 'description' => $translationAdapter->query("mult_btn3"), 'price_description' => $translationAdapter->query("desc_mult3"), 'price' => '8', 'discount' => 0, 'checked' => '', 'multi_number' => $translationAdapter->query("multi_number3")],
             ['draws' => '24', 'description' => $translationAdapter->query("mult_btn4"), 'price_description' => $translationAdapter->query("desc_mult4"), 'price' => '8', 'discount' => 1.25, 'checked' => '', 'multi_number' => $translationAdapter->query("multi_number4")],
-            ['draws' => '48', 'description' => $translationAdapter->query("mult_btn5"), 'price_description' => $translationAdapter->query("desc_mult5"), 'price' => '8', 'discount' => 4.5, 'checked' => '', 'multi_number' => $translationAdapter->query("multi_number5")],
+            ['draws' => '48', 'description' => $translationAdapter->query("mult_btn5"), 'price_description' => $translationAdapter->query("desc_mult5"), 'price' => '8', 'discount' => 4.58, 'checked' => '', 'multi_number' => $translationAdapter->query("multi_number5")],
         ];
+    }
+
+    public function powerPlayPrice() {
+        return '1.50';
     }
 
 }
