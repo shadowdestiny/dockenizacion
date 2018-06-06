@@ -185,7 +185,7 @@ class PowerBallService
                     $APIPlayConfigs = json_encode($order->getPlayConfig());
 
                     $curl = curl_init();
-                    curl_setopt($curl, CURLOPT_URL, 'http://192.168.50.2/powerball/tickets/book/');
+                    curl_setopt($curl, CURLOPT_URL, 'http://lotteriesbeta.euromillions.com/powerball/tickets/book/');
                     curl_setopt($curl, CURLOPT_POST, TRUE);
                     curl_setopt($curl, CURLOPT_POSTFIELDS,$APIPlayConfigs);
                     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
