@@ -133,6 +133,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->authService->tryLoginWithRemember();
     }
 
+
     protected function setTopNavValues()
     {
         $user_currency = $this->userPreferencesService->getMyCurrencyNameAndSymbol();

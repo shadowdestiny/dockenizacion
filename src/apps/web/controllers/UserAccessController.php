@@ -3,6 +3,7 @@
 namespace EuroMillions\web\controllers;
 
 use Captcha\Captcha;
+use EuroMillions\shared\helpers\HeaderControllerTrait;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
@@ -25,8 +26,11 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\shared\vo\results\ActionResult;
 use Phalcon\Validation\Message;
 
-class UserAccessController extends PublicSiteControllerBase
+class UserAccessController extends ControllerBase
 {
+
+    use HeaderControllerTrait;
+
     /** @var  GeoService */
     protected $geoService;
     /** @var LotteryService */
@@ -54,32 +58,26 @@ class UserAccessController extends PublicSiteControllerBase
 
     const IP_DEFAULT = '127.0.0.1';
 
-    public function initialize(LotteryService $lotteryService = null,
-                               LanguageService $languageService = null,
-                               CurrencyService $currencyService = null,
-                               UserService $userService = null,
-                               AuthService $authService = null,
-                               UserPreferencesService $userPreferencesService = null,
-                               SiteConfigService $siteConfigService = null,
-                               CartService $cartService = null,
-                               CurrencyConversionService $currencyConversionService = null,
-                               TransactionService $transactionService = null,
-                               ChristmasService $christmasService = null,
-                               GeoService $geoService = null)
+    public function initialize(AuthService $authService = null, GeoService $geoService = null, LanguageService $languageService = null)
     {
         parent::initialize();
+        $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
         $this->geoService = $geoService ? $geoService : $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $this->lotteryService = $lotteryService ?: $this->domainServiceFactory->getLotteryService();
-        $this->languageService = $languageService ?: $this->language; //from DI
-        $this->currencyService = $currencyService ?: $this->domainServiceFactory->getCurrencyService();
-        $this->userService = $userService ?: $this->domainServiceFactory->getUserService();
-        $this->authService = $authService ?: $this->domainServiceFactory->getAuthService();
-        $this->userPreferencesService = $userPreferencesService ?: $this->domainServiceFactory->getUserPreferencesService();
-        $this->cartService = $cartService ?: $this->domainServiceFactory->getCartService();
-        $this->currencyConversionService = $currencyConversionService ?: $this->domainServiceFactory->getCurrencyConversionService();
-        $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyConversionService);
-        $this->transactionService = $transactionService ?: new TransactionService($this->di->get('entityManager'), $this->currencyConversionService);
-        $this->christmasService = $christmasService ?: new ChristmasService($this->di->get('entityManager'));
+        $this->languageService = $languageService ? $languageService : $this->domainServiceFactory->getLanguageService();
+    }
+
+    public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+    {
+        $this->setTopNavValues();
+    }
+
+    public function setTopNavValues()
+    {
+        $this->view->setVar('user_language', $this->userLanguage);
+        $this->view->setVar('current_currency', $this->currentCurrency);
+        $this->view->setVar('user_logged', $this->isLogged);
+        $this->view->setVar('user_currency', $this->userCurrency);
+        $this->view->setVar('user_currency_code', $this->userCurrencyCode);
     }
 
     public function signInAction()
@@ -216,7 +214,8 @@ class UserAccessController extends PublicSiteControllerBase
     {
         $result = $this->authService->validateEmailToken($token);
         if ($result->success()) {
-            $message = 'Thanks! Your email has been validated';
+            $this->authService->confirmUser($token);
+            return $this->response->redirect('/');
         } else {
             $message = 'Sorry, the token you used is no longer valid. (message was: "' . $result->getValues() . '""). Click here to request a new one.'; //EMTD click here has to work and send a new token to the user.
         }

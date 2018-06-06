@@ -5,6 +5,7 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
+use EuroMillions\web\services\AuthService;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\Order;
@@ -48,8 +49,10 @@ class CartController extends PublicSiteControllerBase
     public function profileAction($paramsFromPreviousAction = null)
     {
         $errors = [];
+        /** @var AuthService $user */
         $user = $this->authService->getCurrentUser();
-        if($user instanceof User) {
+        $userLogged = $this->authService->getLoggedUser();
+        if($user instanceof  User) {
             $this->response->redirect('/'.$this->lottery.'/order');
         }
         $sign_up_form = $this->getSignUpForm();
@@ -84,7 +87,6 @@ class CartController extends PublicSiteControllerBase
             }
         }
 
-        $this->view->pick('cart/profile');
 	    $this->tag->prependTitle('Log In or Sign Up');
         return $this->view->setVars([
             'which_form'  => 'up',

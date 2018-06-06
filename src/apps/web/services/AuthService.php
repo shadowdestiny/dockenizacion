@@ -168,7 +168,6 @@ class AuthService
         }
         $this->emailService->sendWelcomeEmail($user, $this->urlManager);
         $this->userService->initUserNotifications($user->getId());
-        $this->storageStrategy->setCurrentUserId($user->getId());
         return new ActionResult(true, $user);
     }
 
@@ -298,6 +297,16 @@ class AuthService
         }
     }
 
+    public function confirmUser($token)
+    {
+        $user = $this->userRepository->getByToken($token);
+        if($user) {
+            $this->storageStrategy->setCurrentUserId($user->getId());
+            return new ActionResult(true);
+        }
+        return new ActionResult(false);
+    }
+
 
     /**
      * @param IEmailValidationToken $emailValidationTokenGenerator
@@ -310,6 +319,7 @@ class AuthService
         }
         return $emailValidationTokenGenerator;
     }
+
 
     protected function log($message, $action) {
         if(method_exists($this,'logError')) {
