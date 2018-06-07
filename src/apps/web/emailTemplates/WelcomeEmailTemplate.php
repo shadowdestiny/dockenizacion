@@ -18,12 +18,11 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
 
         if ($language == "ru") {
             // Welcome Email Russian Version Template ID= 3997341
-            $template_id = "3997341";
+            $template_id = "6820101";
             $subject = 'Добро пожаловать на EuroMillions.com';
         } else {
             // Welcome Email English Version Template ID= 4021147
-            //$template_id = "4021147"; //prod
-            $template_id = "4012194"; //testing
+            $template_id = "6819206"; //testing
             $subject = 'Welcome to Euromillions.com';
         }
 
