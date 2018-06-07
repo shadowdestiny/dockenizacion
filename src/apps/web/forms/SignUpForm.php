@@ -5,6 +5,7 @@ namespace EuroMillions\web\forms;
 use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use Phalcon\Di;
+use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Email;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Password;
@@ -101,6 +102,16 @@ class SignUpForm extends Form
         $this->add($password_confirm);
         // Remember
 
+        $acceptTerms = new Check( 'accept', [
+            'id' => 'accept'
+        ]);
+
+        $acceptTerms->addValidator(new PresenceOf([
+            'message' => $translationAdapter->query('signup_TCerror')
+        ]));
+
+        $this->add($acceptTerms);
+
         $country = new Select(
             'country',
             $options['countries'],
@@ -117,6 +128,7 @@ class SignUpForm extends Form
         ));
 
         $this->add($country);
+
 
         $csrf = new Hidden('csrf');
         $csrf->addValidator(new Identical(array(

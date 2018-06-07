@@ -213,6 +213,7 @@ class CartController extends PublicSiteControllerBase
             'card-cvv' => '',
             'expiry-date-month' => '',
             'expiry-date-year' => '',
+            'accept' => ''
         ];
         return $form_errors;
     }

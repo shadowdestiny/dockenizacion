@@ -125,6 +125,7 @@ class UserAccessController extends ControllerBase
         $this->tag->prependTitle($this->languageService->translate('signintag_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('signintag_desc'));
 
+
         return $this->view->setVars([
             'which_form' => 'in',
             'signinform' => $sign_in_form,
@@ -334,7 +335,8 @@ class UserAccessController extends ControllerBase
             'card-holder' => '',
             'card-cvv' => '',
             'new-password' => '',
-            'confirm-password' => ''
+            'confirm-password' => '',
+            'accept' => ''
 
         ];
         return $form_errors;
