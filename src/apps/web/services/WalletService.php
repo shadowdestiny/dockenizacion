@@ -21,6 +21,8 @@ class WalletService
     private $entityManager;
     private $currencyConversionService;
     private $transactionService;
+    /** @var  LotteryService */
+    private $lotteryService;
 
     public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService, TransactionService $transactionService)
     {
@@ -74,8 +76,19 @@ class WalletService
                                       Order $order,
                                       $isWallet = null)
     {
-        $creditCardCharge = $order->getCreditCardCharge();
 
+        $creditCardCharge = $order->getCreditCardCharge();
+//        var_dump($creditCardCharge);die();
+//        var_dump($creditCardCharge->getNetAmount());die();
+//        $powerplay = $order->getPowerPlay();
+//        $numPlayConfigs = $order->getNumLines();
+//        $lottery = $this->lotteryService->getLotteryConfigByName('PowerBall');
+//        var_dump($lottery);die();
+//        if ($powerplay) {
+//            $amountCreditCard = ($lottery->getPowerPlayValue() * $numPlayConfigs) + $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount();
+//        } else {
+//            $amountCreditCard = $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount();
+//        }
         $payment_result = $this->pay($provider, $card, $creditCardCharge);
         if ($payment_result->success()) {
             try {
@@ -139,6 +152,7 @@ class WalletService
     public function pay(ICardPaymentProvider $provider, CreditCard $card, CreditCardCharge $creditCardCharge)
     {
         try {
+
             $amount = $creditCardCharge->getFinalAmount();
             return $provider->charge($amount, $card);
         } catch (\Exception $e) {

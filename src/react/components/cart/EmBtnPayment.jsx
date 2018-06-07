@@ -7,7 +7,13 @@ var EmBtnPayment = new React.createClass({
 
     render : function ()
     {
+        var frequency = 1;
+        if (this.props.config) {
+            frequency = this.props.config.frequency;
+        }
+
         if(this.props.databtn == 'wallet') {
+
             return (
                 <div className="box-bottom cl">
                     <a href={this.props.href} data-btn={this.props.databtn} className={this.props.classBtn}>{this.props.text}</a>
@@ -17,7 +23,7 @@ var EmBtnPayment = new React.createClass({
             var price = 0;
 
             if(this.props.powerplay) {
-                price = parseFloat(this.props.total_price) + (parseFloat(this.props.total_lines) * parseFloat(this.props.powerplayprice));
+                price = parseFloat(this.props.total_price) + ((parseFloat(this.props.total_lines) * parseFloat(this.props.powerplayprice)) * frequency);
                 // price = (this.props.price) + price.toFixed(2);
             } else {
                 price = this.props.price;

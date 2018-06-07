@@ -112,10 +112,13 @@ var CartPage = new React.createClass({
         PowerPlayCart.numLines = this.state.playConfigList.bets.length;
         PowerPlayCart.PowerPlay = this.props.powerplay;
         PowerPlayCart.powerPlayPrice = this.props.powerplayprice;
+        var frequency = JSON.parse(this.props.config).frequency;
         if (PowerPlayCart.PowerPlay === 1) {
-            PowerPlayCart.total = PowerPlayCart.numLines * PowerPlayCart.powerPlayPrice;
+            PowerPlayCart.total = (PowerPlayCart.numLines * PowerPlayCart.powerPlayPrice) * frequency;
+
         }
         LogicCart.total = parseFloat(LogicCart.total) + parseFloat(PowerPlayCart.total);
+
         LogicCart.pre_total = LogicCart.total;
         LogicCart.payWithWallet();
         this.state.show_all_fee = LogicCart.show_all_fee;
@@ -136,10 +139,13 @@ var CartPage = new React.createClass({
         PowerPlayCart.numLines = this.state.playConfigList.bets.length;
         PowerPlayCart.PowerPlay = this.props.powerplay;
         PowerPlayCart.powerPlayPrice = this.props.powerplayprice;
+        var frequency = JSON.parse(this.props.config).frequency;
         if (PowerPlayCart.PowerPlay === 1) {
-            PowerPlayCart.total = PowerPlayCart.numLines * PowerPlayCart.powerPlayPrice;
+            PowerPlayCart.total = (PowerPlayCart.numLines * PowerPlayCart.powerPlayPrice) * frequency;
+
         }
         LogicCart.total = parseFloat(LogicCart.total) + parseFloat(PowerPlayCart.total);
+
         LogicCart.pre_total = LogicCart.total;
         LogicCart.payWithNoWallet();
         this.state.show_all_fee = LogicCart.show_all_fee;
@@ -152,11 +158,12 @@ var CartPage = new React.createClass({
     handleUpdatePrice : function()
     {
         var total_lines = this.state.playConfigList.bets.length;
-
+        var frequency = JSON.parse(this.props.config).frequency;
         var price = this.props.total;
         if(this.props.powerplay) {
-            var total_powerprice = (parseFloat(this.props.powerplayprice) * total_lines);
+            var total_powerprice = (parseFloat(this.props.powerplayprice) * total_lines) * frequency;
             price = parseFloat(price) + parseFloat(total_powerprice);
+
         }
         if(this.state.checked_wallet) {
             price = this.updatePriceWithCheckedWallet();
@@ -170,6 +177,7 @@ var CartPage = new React.createClass({
         $(document).trigger("totalPriceEvent", [ parseFloat(price).toFixed(2), Funds.funds_value ]);
         CurrencyFormat.value = price;
         var price_and_symbol = CurrencyFormat.getCurrencyFormatted();
+
         this.setState({ total : price_and_symbol });
     },
 
@@ -266,6 +274,7 @@ var CartPage = new React.createClass({
                                          powerplay={this.props.powerplay}
                                          total_lines={total_lines}
                                          powerplayprice={this.props.powerplayprice}
+                                         config={JSON.parse(this.props.config)}
             />;
         }
 
@@ -297,7 +306,7 @@ var CartPage = new React.createClass({
                               total_lines={total_lines}
                               powerplayprice={this.props.powerplayprice}
                               total_price={this.props.total}
-                              symbol_position={this.props.symbol_position}/>
+                              symbol_position={this.props.symbol_position} config={JSON.parse(this.props.config)}/>
             </div>
         )
     }

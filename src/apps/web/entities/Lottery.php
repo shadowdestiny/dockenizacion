@@ -288,4 +288,9 @@ class Lottery extends EntityBase implements IEntity
         return $drawDates;
     }
 
+    public function getPowerPlayValue() {
+        return 150;
+    }
+
+
 }

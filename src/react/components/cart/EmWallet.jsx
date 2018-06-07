@@ -33,6 +33,10 @@ var EmWallet = new React.createClass({
 
     render : function ()
     {
+        var frequency = 1;
+        if (this.props.config) {
+            frequency = this.props.config.frequency;
+        }
         var wallet_balance = (this.state.checked) ? this.props.wallet_balance : 0;
         var total_price = this.props.total_price;
 
@@ -42,7 +46,7 @@ var EmWallet = new React.createClass({
         var operand_value = (this.state.checked) ? ' - ' : ' ';
 
         if(this.props.powerplay && wallet > 0) {
-             wallet_value = parseFloat(wallet_value) + (parseFloat(this.props.total_lines) * parseFloat(this.props.powerplayprice));
+             wallet_value = parseFloat(wallet_value) + ((parseFloat(this.props.total_lines) * parseFloat(this.props.powerplayprice)) * frequency);
         }
 
         var value = accounting.formatMoney(wallet_value, this.props.currency_symbol, 2);

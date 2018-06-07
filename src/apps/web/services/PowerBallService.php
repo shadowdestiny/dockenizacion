@@ -139,6 +139,7 @@ class PowerBallService
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();
+                /** @var Lottery $lottery */
                 $lottery = $this->lotteryService->getLotteryConfigByName('PowerBall');
 
                 /** @var User $user */
@@ -146,9 +147,9 @@ class PowerBallService
                 $powerPlay = $this->playStorageStrategy->findByKey($user_id);
                 $powerPlay = (int)json_decode($powerPlay->returnValues())->play_config[0]->powerPlay;
                 $result_order = $this->cartService->get($user_id, $lottery->getName());
-                $numPlayConfigs = 0;
+
                 if ($result_order->success()) {
-                    /** @var Order $order */
+
                     $order = $result_order->getValues();
                     if (is_null($credit_card) && $withAccountBalance ) {
                         if ($order->totalOriginal()->getAmount() > $user->getBalance()->getAmount()) {
@@ -157,9 +158,14 @@ class PowerBallService
                     }
                     $discount = $order->getDiscount()->getValue();
                     $order->setIsCheckedWalletBalance($withAccountBalance);
-                    $order->addFunds($funds);
-                    $order->setAmountWallet($user->getWallet()->getBalance());
+//                    var_dump($lottery);die();
+                    $order->setPowerPlayPrice($lottery->getPowerPlayValue());
                     $order->setPowerPlay($powerPlay);
+
+                    $order->addFunds($order->getTotal());
+                    $order->setAmountWallet($user->getWallet()->getBalance());
+
+
                     $draw = $this->lotteryService->getNextDrawByLottery('PowerBall');
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
@@ -236,12 +242,18 @@ class PowerBallService
                             $this->walletService->payGroupedBetsWithWallet($user, $playConfigs[0]->getLottery()->getSingleBetPrice()->multiply(count($playConfigs)));
                             $numPlayConfigs = count($playConfigs);
                         }
+                        if ($powerPlay) {
+                            $amount = ($lottery->getPowerPlayValue() * $numPlayConfigs) + $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount();
+                        } else {
+                            $amount = $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount();
+                        }
+
                         $dataTransaction = [
                             'lottery_id' => 3,
                             'transactionID' => $uniqueId,
                             'numBets' => count($order->getPlayConfig()),
                             'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                            'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
+                            'amountWithWallet' => $amount,
                             'walletBefore' => $walletBefore,
                             'amountWithCreditCard' => 0,
                             'playConfigs' => array_map(function ($val) {

@@ -15,6 +15,7 @@ use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\OrderPowerBall;
 use Money\Currency;
 use Money\Money;
 
@@ -84,10 +85,20 @@ class CartService
                     }
                     $fee = $this->siteConfigService->getFee();
                     $fee_limit = $this->siteConfigService->getFeeToLimitValue();
-                    $order = new Order($bets,
+
+                    if ($lottery->getName() == 'EuroMillions') {
+                        $order = new Order($bets,
                         $lottery->getSingleBetPrice(),
                         $fee, $fee_limit,
                         new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
+
+                    } else {
+                        $orderStrategy = "\\EuroMillions\\web\\vo\\" . 'Order' . $lottery->getName();
+                        $order = new $orderStrategy($bets,
+                            $lottery->getSingleBetPrice(),
+                            $fee, $fee_limit,
+                            new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
+                    }
 
                     if (null !== $order) {
                         return new ActionResult(true, $order);
