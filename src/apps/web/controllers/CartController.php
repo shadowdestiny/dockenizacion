@@ -5,6 +5,7 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
+use EuroMillions\web\services\AuthService;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\Order;
@@ -48,9 +49,15 @@ class CartController extends PublicSiteControllerBase
     public function profileAction($paramsFromPreviousAction = null)
     {
         $errors = [];
+        /** @var AuthService $user */
         $user = $this->authService->getCurrentUser();
-        if($user instanceof User) {
-            $this->response->redirect('/'.$this->lottery.'/order');
+        if($this->authService->isLogged()) {
+            if($this->authService->getLoggedUser()->getValidated()) {
+                $this->response->redirect('/'.$this->lottery.'/order');
+            } else {
+                $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                $this->response->redirect('/'.$this->lottery.'/play');
+            }
         }
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
@@ -84,8 +91,7 @@ class CartController extends PublicSiteControllerBase
             }
         }
 
-        $this->view->pick('cart/profile');
-	    $this->tag->prependTitle('Log In or Sign Up');
+        $this->tag->prependTitle('Log In or Sign Up');
         return $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,
@@ -138,7 +144,12 @@ class CartController extends PublicSiteControllerBase
                         $errors[] = 'Incorrect email or password.';
                     }
                 } else {
-                    return $this->response->redirect('/'.$this->lottery.'/order?user='.$user->getId());
+                    if($this->authService->isLogged()) {
+                        if($this->authService->getLoggedUser()->getValidated()) {
+                            return $this->response->redirect('/'.$this->lottery.'/order?user='.$user->getId());
+                        }
+                        $errors[] = 'You should confirm email registration.';
+                    }
                 }
             }
         }
@@ -202,6 +213,7 @@ class CartController extends PublicSiteControllerBase
             'card-cvv' => '',
             'expiry-date-month' => '',
             'expiry-date-year' => '',
+            'accept' => ''
         ];
         return $form_errors;
     }

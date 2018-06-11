@@ -10,6 +10,7 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
     /** @var  User $user */
     protected $user;
 
+
     public function loadVars()
     {
         $data = $this->emailTemplateDataStrategy->getData();
@@ -17,11 +18,11 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
 
         if ($language == "ru") {
             // Welcome Email Russian Version Template ID= 3997341
-            $template_id = "3997341";
+            $template_id = "6820101";
             $subject = 'Добро пожаловать на EuroMillions.com';
         } else {
             // Welcome Email English Version Template ID= 4021147
-            $template_id = "4021147";
+            $template_id = "6819206"; //testing
             $subject = 'Welcome to Euromillions.com';
         }
 
@@ -30,6 +31,10 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
             'template' => $template_id,
             'subject' => $subject,
             'vars' => [
+                [
+                    'name' => 'token',
+                    'content' => $this->config . '/validate/'. $this->user->getValidationToken()->toNative()
+                ],
                 [
                     'name' => 'user_name',
                     'content' => $this->user->getName()
@@ -73,6 +78,7 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
     }
 
 
+
     /**
      * @return mixed
      */
@@ -88,7 +94,6 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
     {
         $this->user = $user;
     }
-
 
     public function loadHeader()
     {

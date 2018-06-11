@@ -41,37 +41,26 @@ class ContactController extends PublicSiteControllerBase
         $captcha->getCaptcha()->setPrivateKey($config['private_key']);
         /** @var User $user */
         $user = $this->authService->getCurrentUser();
+
+        $contactRequest_result = null;
         if ($this->request->isPost()) {
-            if ($guestContactForm->isValid($this->request->getPost()) == false && !$user) {
-                $messages = $guestContactForm->getMessages(true);
-                /**
-                 * @var string $field
-                 * @var Message\Group $field_messages
-                 */
-                foreach ($messages as $field => $field_messages) {
-                    $errors[] = $field_messages[0]->getMessage();
-                    $form_errors[$field] = ' error';
+            if(!$user instanceof User) {
+                if ($guestContactForm->isValid($this->request->getPost()) == false ) {
+                    list($errors, $form_errors) = $this->messageErrors($guestContactForm, $errors, $form_errors);
+                } else {
+                    list($class, $errors, $message) = $this->checker($captcha, $email, $fullName, $content, $topic, $errors, $guestContactForm, $contactRequest_result);
                 }
             } else {
                 if ($user instanceof User) {
                     $email = $user->getEmail()->toNative();
                     $fullName = $user->getName() . ' ' . $user->getSurname();
                 }
-                $reCaptchaResult = $captcha->check()->isValid();
-                $contactFormInfo = new ContactFormInfo(new Email($email), $fullName, $content, $topic);
-                $class = ' error';
-                if (empty($reCaptchaResult)) {
-
-                    $errors[] = 'You are a robot... or you forgot to check the Captcha verification.';
-                } elseif ($reCaptchaResult) {
-                    $contactRequest_result = $this->userService->contactRequest($contactFormInfo);
-                    if ($contactRequest_result->success()) {
-                        $guestContactForm->clear();
-                        $message = $contactRequest_result->getValues();
-                        $class = ' success';
-                    }
+                $_POST['email'] = $email;
+                $_POST['fullname'] = $fullName;
+                if ($guestContactForm->isValid($this->request->getPost()) == false ) {
+                    list($errors, $form_errors) = $this->messageErrors($guestContactForm, $errors, $form_errors);
                 } else {
-                    $errors[] = $contactRequest_result->errorMessage();
+                    list($class, $errors, $message) = $this->checker($captcha, $email, $fullName, $content, $topic, $errors, $guestContactForm, $contactRequest_result);
                 }
             }
         }
@@ -99,8 +88,61 @@ class ContactController extends PublicSiteControllerBase
         $form_errors = [
             'fullname' => '',
             'email' => '',
-            'message' => ''
+            'message' => '',
+            'accept' => ''
         ];
         return $form_errors;
+    }
+
+    /**
+     * @param $captcha
+     * @param $email
+     * @param $fullName
+     * @param $content
+     * @param $topic
+     * @param $errors
+     * @param $guestContactForm
+     * @param $contactRequest_result
+     * @return array
+     */
+    public function checker($captcha, $email, $fullName, $content, $topic, $errors, $guestContactForm, $contactRequest_result)
+    {
+        $reCaptchaResult = $captcha->check()->isValid();
+        $contactFormInfo = new ContactFormInfo(new Email($email), $fullName, $content, $topic);
+        $class = ' error';
+        if (empty($reCaptchaResult)) {
+
+            $errors[] = 'You are a robot... or you forgot to check the Captcha verification.';
+        } elseif ($reCaptchaResult) {
+            $contactRequest_result = $this->userService->contactRequest($contactFormInfo);
+            if ($contactRequest_result->success()) {
+                $guestContactForm->clear();
+                $message = $contactRequest_result->getValues();
+                $class = ' success';
+            }
+        } else {
+            $errors[] = $contactRequest_result->errorMessage();
+        }
+        return array($class, $errors, $message);
+    }
+
+    /**
+     * @param $guestContactForm
+     * @param $errors
+     * @param $form_errors
+     * @return array
+     */
+    public function messageErrors($guestContactForm, $errors, $form_errors)
+    {
+        $messages = $guestContactForm->getMessages(true);
+        /**
+         * @var string $field
+         * @var Message\Group $field_messages
+         */
+        foreach ($messages as $field => $field_messages) {
+            $errors[] = $field_messages[0]->getMessage();
+            $form_errors[$field] = ' error';
+        }
+        return array($errors, $form_errors);
     }
 }

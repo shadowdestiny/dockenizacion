@@ -132,6 +132,9 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
+    {% if flash.has('error')  %}
+        {{ flash.output() }}
+    {% endif %}
     <main id="content">
         <div class="play--page">
             <div class="banner">

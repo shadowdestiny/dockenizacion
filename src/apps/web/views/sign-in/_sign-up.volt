@@ -55,10 +55,12 @@
         {{ language.translate("signup_accountQuestion") }} <a href="/{{ language.translate("link_signin") }}">{{ language.translate("signup_LogIn_btn") }}</a>
     </div>
 
+
     <div class="cl txt--accept">
         <label class="label left" for="accept">
-            {#<input type="checkbox" id="accept" name="accept" value="yes" class="checkbox" data-role="none">#}
-            {#<span class="checkbox-after"></span>#}
+        {{ signupform.render('accept', {'data-role':'none','class':'checkbox'~form_errors['accept']}) }}
+            <span class="checkbox-after">
+            </span>
             <span class="txt">
                 {{ language.translate("signup_signInTC") }}
             </span>

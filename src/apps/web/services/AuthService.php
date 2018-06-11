@@ -168,7 +168,6 @@ class AuthService
         }
         $this->emailService->sendWelcomeEmail($user, $this->urlManager);
         $this->userService->initUserNotifications($user->getId());
-        $this->storageStrategy->setCurrentUserId($user->getId());
         return new ActionResult(true, $user);
     }
 
@@ -200,6 +199,22 @@ class AuthService
     {
         $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
         return new ValidationToken($email, $emailValidationTokenGenerator);
+    }
+
+    public function resendToken()
+    {
+        /** @var User $currentUser */
+        $currentUser = $this->getCurrentUser();
+
+        if($currentUser instanceof User) {
+            try {
+                $this->emailService->sendWelcomeEmail($currentUser, $this->urlManager);
+            } catch (\Exception $e) {
+                throw new \Exception('Error resend welcome email');
+            }
+
+        }
+
     }
 
     public function validateEmailToken($token, IEmailValidationToken $emailValidationTokenGenerator = null)
@@ -298,6 +313,16 @@ class AuthService
         }
     }
 
+    public function confirmUser($token)
+    {
+        $user = $this->userRepository->getByToken($token);
+        if($user) {
+            $this->storageStrategy->setCurrentUserId($user->getId());
+            return new ActionResult(true);
+        }
+        return new ActionResult(false);
+    }
+
 
     /**
      * @param IEmailValidationToken $emailValidationTokenGenerator
@@ -310,6 +335,7 @@ class AuthService
         }
         return $emailValidationTokenGenerator;
     }
+
 
     protected function log($message, $action) {
         if(method_exists($this,'logError')) {

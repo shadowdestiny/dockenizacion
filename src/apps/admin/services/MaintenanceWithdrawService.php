@@ -59,6 +59,7 @@ class MaintenanceWithdrawService
         $transaction = $this->transactionRepository->find($idWithdrawRequest);
         if( $transaction !== null &&
             $transaction instanceof WinningsWithdrawTransaction) {
+                $domainFactory = Di::getDefault()->get('domainServiceFactory');
                 try {
                     $transaction->fromString();
                     $amount = new Money((int) $transaction->getAmountWithdrawed(), new Currency('EUR'));
@@ -70,22 +71,13 @@ class MaintenanceWithdrawService
                     $body = json_decode($result->body);
                     if($body->status === 'ok' ) {
                         /** @var DomainServiceFactory $domainFactory */
-                        $domainFactory = Di::getDefault()->get('domainServiceFactory');
-                        $domainFactory->getTransactionService()->storeTransaction(TransactionType::WINNINGS_WITHDRAW,
-                            [
-                                'accountBankId' => $transaction->getAccountBankId(),
-                                'amountWithdrawed' => $transaction->getAmountWithdrawed(),
-                                'state' => 'approved',
-                                'walletBefore' => $transaction->getWalletBefore(),
-                                'walletAfter' => $transaction->getWalletAfter(),
-                                'now' => new \DateTime(),
-                                'user' => $transaction->getUser()
-                            ]
-                        );
+                        $this->storeWithdrawTransaction($domainFactory, $transaction, 'approved');
                         return new ActionResult(true);
                     }
+                    $this->storeWithdrawTransaction($domainFactory, $transaction, 'error');
                     return new ActionResult(false);
                 } catch ( \Exception $e ) {
+                    $this->storeWithdrawTransaction($domainFactory, $transaction, 'error');
                     throw new \Exception('An error ocurred' . ' ' . $e->getMessage());
                 }
         }
@@ -118,7 +110,7 @@ class MaintenanceWithdrawService
     {
         try {
             return $this->transactionRepository->getLastTransactionIDAsPurchaseType($userID);
-        } catch( Exception $e) {
+        } catch( \Exception $e) {
             throw new \Exception('An error ocurred while get the last id transaction');
         }
     }
@@ -143,5 +135,24 @@ class MaintenanceWithdrawService
         } else {
             throw new \Exception('Sorry, it was a problem. Try again.');
         }
+    }
+
+    /**
+     * @param $domainFactory
+     * @param $transaction
+     */
+    public function storeWithdrawTransaction($domainFactory, $transaction, $state)
+    {
+        $domainFactory->getTransactionService()->storeTransaction(TransactionType::WINNINGS_WITHDRAW,
+            [
+                'accountBankId' => $transaction->getAccountBankId(),
+                'amountWithdrawed' => $transaction->getAmountWithdrawed(),
+                'state' => $state,
+                'walletBefore' => $transaction->getWalletBefore(),
+                'walletAfter' => $transaction->getWalletAfter(),
+                'now' => new \DateTime(),
+                'user' => $transaction->getUser()
+            ]
+        );
     }
 }

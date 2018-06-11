@@ -74,6 +74,14 @@
                                     <input id="captcha" class="input" placeholder="{{ language.app("Enter the code") }}">
                     #}
                     </p>
+                    <div class="cl txt--accept">
+                        <label class="label left" for="accept">
+                        {{ guestContactForm.render('accept', {'data-role':'none','class':'checkbox'~form_errors['accept']}) }}
+                            <span class="txt">
+                                {{ language.translate("signup_signInTC") }}
+                            </span>
+                        </label>
+                    </div>
                     <div class="cl">
                         <label for="submitBtn"
                                class="btn-theme--big submit">
