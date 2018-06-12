@@ -150,7 +150,8 @@ class CartController extends PublicSiteControllerBase
                         if($this->authService->getLoggedUser()->getValidated()) {
                             return $this->response->redirect('/'.$this->lottery.'/order?user='.$user->getId());
                         }
-                        $errors[] = 'You should confirm email registration.';
+                        $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                        $this->response->redirect('/'.$this->lottery.'/play');
                     }
                 }
             }
