@@ -84,7 +84,9 @@ class CartController extends PublicSiteControllerBase
                     'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
-                    $this->response->redirect('/'.$this->lottery.'/order');
+                    $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                    $this->response->redirect('/'.$this->lottery.'/play');
+                    //$this->response->redirect('/'.$this->lottery.'/order');
                 }else{
                     $errors [] = $result->errorMessage();
                 }

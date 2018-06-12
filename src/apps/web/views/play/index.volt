@@ -133,7 +133,9 @@
 
 {% block body %}
     {% if flash.has('error')  %}
-        {{ flash.output() }}
+        <div style="font-family: Work Sans,sans-serif;color: #2d2d2d;font-size: 12px;font-weight: 400;padding: 20px !important;background-color: #eae8e8;border: 1;text-transform: none;">
+            {{ flash.output() }}
+        </div>
     {% endif %}
     <main id="content">
         <div class="play--page">

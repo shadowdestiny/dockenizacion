@@ -118,6 +118,12 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
+    public function deleteaccountAction()
+    {
+        $userId = $this->authService->getCurrentUser();
+        $this->authService->disableUser($userId);
+        $this->response->redirect('/');
+    }
 
     public function downloadinformationAction()
     {
