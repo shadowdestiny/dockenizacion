@@ -73,11 +73,15 @@ class UserAccessController extends ControllerBase
 
     public function setTopNavValues()
     {
+        $this->setValues($this->domainServiceFactory);
         $this->view->setVar('user_language', $this->userLanguage);
         $this->view->setVar('current_currency', $this->currentCurrency);
         $this->view->setVar('user_logged', $this->isLogged);
         $this->view->setVar('user_currency', $this->userCurrency);
         $this->view->setVar('user_currency_code', $this->userCurrencyCode);
+        $this->view->setVar('currencies', $this->currencies);
+        $this->view->setVar('currency_list', $this->currencyList);
+        $this->view->setVar('active_languages', $this->activeLanguages);
     }
 
     public function signInAction()

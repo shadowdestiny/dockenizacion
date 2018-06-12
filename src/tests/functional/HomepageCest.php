@@ -15,18 +15,30 @@ class HomepageCest
     {
     }
 
+    /**
+     * @group buy
+     * @param FunctionalTester $I
+     */
     public function seePage(FunctionalTester $I)
     {
         $I->wantTo('Ensure that frontpage works even if crons did not');
         $I->canSee('PLAY NOW');
     }
 
+    /**
+     * @group buy
+     * @param FunctionalTester $I
+     */
     public function playButton(FunctionalTester $I)
     {
         $I->wantTo('Be able to play');
         $I->canSeeLink('PLAY NOW', '/play');
     }
 
+    /**
+     * @group buy
+     * @param FunctionalTester $I
+     */
     public function jackpotDisplayed(FunctionalTester $I)
     {
         $I->wantTo('Be informed of the jackpot');
@@ -36,6 +48,10 @@ class HomepageCest
         $I->assertGreaterThanOrEqual(15000000, $jackpot_number);
     }
 
+    /**
+     * @group buy
+     * @param FunctionalTester $I
+     */
     public function goToPlayPage(FunctionalTester $I)
     {
         $I->wantTo('Go to the play page');
