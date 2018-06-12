@@ -41,7 +41,7 @@
     var powerplay = <?php echo $power_play; ?>;
     var powerplayprice = <?php echo $power_play_price; ?>;
     var txt_lottery = '<?php echo $lottery_name; ?>';
-    var playingPP = "PowerPlayKey";
+    var playingPP = '{{ language.translate('checkout_powerplay') }}';
 
 
 
