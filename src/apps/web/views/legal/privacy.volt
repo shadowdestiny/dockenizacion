@@ -60,6 +60,9 @@
             <h2 class="h3">{{ language.translate("p13_subhead") }}</h2>
             <p>{{ language.translate("p13_text") }}</p>
 
+            <h2 class="h3">{{ language.translate("p14_subhead") }}</h2>
+            <p>{{ language.translate("p14_text") }}</p>
+
             <hr class="yellow">
             <br><p>{{ language.translate("privacy_foot") }}</p>
         </div>
