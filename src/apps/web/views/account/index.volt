@@ -225,6 +225,24 @@
                     </div>
                 </div>
 
+                <div class="my-account--section personal-information">
+                    <h2 class="">{{ language.translate("downloadinfo_head") }}</h2>
+                    <div class="box-change-psw" style="display:block">
+                        <p>
+                            <label class="label">{{ language.translate("downloadinfo_subhead") }}</label>
+                        </p>
+                        <p>
+                             {{ language.translate("downloadinfo_text") }}
+                        </p>
+                        {{ form('/account/downloadinformation') }}
+                        <label class="btn big blue left submit" for="submitinformation">
+                            {{ language.translate("downloadinfo_btn") }}
+                            <input id="submitinformation" type="submit" class="hidden2">
+                        </label>
+                        {{ endform() }}
+                    </div>
+                </div>
+
 
             </div>
         </div>

@@ -105,7 +105,15 @@ class ContactController extends PublicSiteControllerBase
      * @param $contactRequest_result
      * @return array
      */
-    public function checker($captcha, $email, $fullName, $content, $topic, $errors, $guestContactForm, $contactRequest_result)
+    //TODO: decrease params numbers. Phpstorm extract method
+    public function checker($captcha,
+                            $email,
+                            $fullName,
+                            $content,
+                            $topic,
+                            $errors,
+                            $guestContactForm,
+                            $contactRequest_result)
     {
         $reCaptchaResult = $captcha->check()->isValid();
         $contactFormInfo = new ContactFormInfo(new Email($email), $fullName, $content, $topic);

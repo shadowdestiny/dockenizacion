@@ -5,6 +5,7 @@ use DateTime;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\interfaces\IUrlManager;
 use EuroMillions\web\components\Md5EmailValidationToken;
+use EuroMillions\web\components\PDFGenerator;
 use EuroMillions\web\components\UserId;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\ResetPasswordEmailTemplate;
@@ -13,15 +14,21 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
 use EuroMillions\web\interfaces\IEmailValidationToken;
 use EuroMillions\web\interfaces\IPasswordHasher;
+use EuroMillions\web\interfaces\IPDFWrapper;
 use EuroMillions\web\interfaces\IUser;
+use EuroMillions\web\pdf\PdfTemplate;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
+use EuroMillions\web\vo\dto\NotificationDTO;
+use EuroMillions\web\vo\dto\PastDrawsCollectionDTO;
+use EuroMillions\web\vo\dto\UpcomingDrawsDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\Url;
 use EuroMillions\web\vo\ValidationToken;
+use EuroMillions\web\pdf\GDPRPdfTemplate;
 
 class AuthService
 {
@@ -321,6 +328,37 @@ class AuthService
             return new ActionResult(true);
         }
         return new ActionResult(false);
+    }
+
+
+    public function getPDFFromUser(IPDFWrapper $pdfWrapper, array $notificationsDTO, $transactions )
+    {
+
+        $userData = [];
+        try {
+
+            /** @var User $currentUser */
+            $currentUser = $this->getCurrentUser();
+            $userData['user'] = $currentUser;
+            $userData['notifications'] = $notificationsDTO;
+            $myGames = $this->userService->getMyActivePlays($currentUser->getId())->getValues();
+            $upComingDraws = new UpcomingDrawsDTO($myGames);
+            $userData['upComingDraws'] = $upComingDraws;
+
+            $myGamesInactives = $this->userService->getMyInactivePlays($currentUser->getId())->getValues();
+            $userData['lastTickets'] = $myGamesInactives;
+            $userData['transactions'] = $transactions;
+
+            $pdfTemplate = new PdfTemplate();
+            $gdprPdfTemplate = new GDPRPdfTemplate($pdfTemplate);
+            $gdprPdfTemplate->setData(PDFGenerator::build($userData));
+            $pdfWrapper->build($gdprPdfTemplate->loadHeader(),$gdprPdfTemplate->loadBody(),$gdprPdfTemplate->loadFooter());
+            $pdfWrapper->getPDF();
+
+        } catch (\Exception $e) {
+
+        }
+
     }
 
 
