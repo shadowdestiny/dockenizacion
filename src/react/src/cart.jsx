@@ -209,6 +209,8 @@ var CartPage = new React.createClass({
                                                     txt_line={this.props.txt_line}
                                                     powerplay={this.props.powerplay}
                                                     powerplayprice={this.props.powerplayprice}
+                                                    powerball={this.props.powerball}
+                                                    playingPP={this.props.playingPP}
 
                 />);
         }
@@ -290,7 +292,8 @@ var CartPage = new React.createClass({
                                txt_edit={this.props.txt_edit} txt_link_play={this.props.txt_link_play}
                                txt_line={this.props.txt_line}
                                tuesday={this.props.tuesday}
-                               friday={this.props.friday} />
+                               friday={this.props.friday}
+                txt_lottery={this.props.txt_lottery}/>
 
                 <div className="box-order">
                     {_euroMillionsLine}
@@ -491,6 +494,9 @@ ReactDOM.render(<CartPage total={total_price}
                           friday={friday}
                           powerplay={powerplay}
                           powerplayprice={powerplayprice}
+                          powerball={powerball}
+                          txt_lottery={txt_lottery}
+                          playingPP={playingPP}
                 />, document.getElementById('cart-order'));
 
 

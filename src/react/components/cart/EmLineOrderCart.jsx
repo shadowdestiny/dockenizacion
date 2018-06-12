@@ -25,7 +25,7 @@ var EmLineOrder = new React.createClass({
         return (
             <div className="row cl">
                 <div className="desc">
-                    {this.props.txt_line} {num_char_line}
+                    {this.props.txt_line} {num_char_line} ({this.props.powerplay ? this.props.playingPP : ''})
                 </div>
                 <div className="detail">
                     <ul className="no-li inline numbers small">
@@ -35,10 +35,10 @@ var EmLineOrder = new React.createClass({
                             })
                         }
                         {
-                            stars.map(function(star,i) {
+                            (this.props.powerball ?  <li className="star_red">{stars[1]}</li> : stars.map(function(star,i) {
                                 return <li className="star" key={i}>{star}</li>
-                            })
-                        }
+                            }))}
+
                     </ul>
                 </div>
                 <div className="summary val">{this.props.single_bet_price}</div>

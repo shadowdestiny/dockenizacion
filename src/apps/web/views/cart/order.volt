@@ -40,6 +40,7 @@
     var powerball = false;
     var powerplay = 0;
     var powerplayprice = 0;
+    var txt_lottery = '<?php echo $lottery_name; ?>';
 
 
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {

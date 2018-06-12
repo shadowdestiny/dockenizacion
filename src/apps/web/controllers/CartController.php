@@ -320,7 +320,8 @@ class CartController extends PublicSiteControllerBase
             'credit_card_form' => $creditCardForm,
             'emerchant_data' => $this->getEmerchantData(),
             'power_play' => $powerPlay,
-            'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay()
+            'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay(),
+            'lottery_name' => ucfirst($this->lottery),
         ]);
     }
 
