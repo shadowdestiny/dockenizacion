@@ -30,13 +30,15 @@ trait HeaderControllerTrait
 
     protected $userCurrencyCode;
 
+    protected $activeLanguages;
+
     protected function setValues(\EuroMillions\web\services\factories\DomainServiceFactory $domainServiceFactory)
     {
         $userPreferencesService = $domainServiceFactory->getUserPreferencesService();
         $authService = $domainServiceFactory->getAuthService();
         $userPreferencesService = $domainServiceFactory->getUserPreferencesService();
         $userService = $domainServiceFactory->getUserService();
-        $currencyService = $this->domainServiceFactory->getCurrencyService();
+        $currencyService = $domainServiceFactory->getCurrencyService();
         $currencyConversionService = $domainServiceFactory->getCurrencyConversionService();
         $lotteryService = $domainServiceFactory->getLotteryService();
         $languageService = $domainServiceFactory->getLanguageService();
@@ -78,15 +80,16 @@ trait HeaderControllerTrait
             foreach ($currencies->getValues() as $currency) {
                 $currencies_dto[] = new CurrencyDTO($currency);
             }
-            $this->currencies = ['currencies' => $currencies_dto];
+            $this->currencies = $currencies_dto;
             //$this->view->setVars(['currencies' => $currencies_dto]);
             $currencies_dto = [];
             foreach ($currencies_list->getValues() as $currency) {
                 $currencies_dto[] = new CurrencyDTO($currency);
             }
-            $this->currencyList = ['currency_list' => $currencies_dto];
+            $this->currencyList = $currencies_dto;
         }
 
+        $this->activeLanguages = $languageService->activeLanguagesArray();
     }
 
 

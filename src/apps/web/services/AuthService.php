@@ -343,9 +343,8 @@ class AuthService
             $userData['user'] = $currentUser;
             $userData['notifications'] = $notificationsDTO;
             $myGames = $this->userService->getMyActivePlays($currentUser->getId())->getValues();
-            $upComingDraws = new UpcomingDrawsDTO($myGames);
+            $upComingDraws = $myGames != null ? new UpcomingDrawsDTO($myGames) : [];
             $userData['upComingDraws'] = $upComingDraws;
-
             $myGamesInactives = $this->userService->getMyInactivePlays($currentUser->getId())->getValues();
             $userData['lastTickets'] = $myGamesInactives;
             $userData['transactions'] = $transactions;
