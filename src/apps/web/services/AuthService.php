@@ -112,7 +112,7 @@ class AuthService
         }
         $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->toNative());
         if ($password_match) {
-            if (!$this->checkDisabledDate($user->getDisabledDate())) {
+            if ($user->getDisabledDate() !== null) {
                 return ['bool' => false, 'error' => 'disabledUser'];
             }else {
                 $this->storageStrategy->setCurrentUserId($user->getId());
@@ -125,19 +125,6 @@ class AuthService
             }
         }
         return ['bool' => $password_match, 'error' => ''];
-    }
-
-    private function checkDisabledDate($disabledDate) {
-        if (is_null($disabledDate)) {
-            return true;
-        }
-
-        /** @var DateTime $disabledDate */
-        if ($disabledDate > new DateTime()) {
-            return false;
-        }
-
-        return true;
     }
 
     public function loginWithRememberMe()
@@ -206,6 +193,20 @@ class AuthService
     {
         $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
         return new ValidationToken($email, $emailValidationTokenGenerator);
+    }
+
+    public function disableUser($userId)
+    {
+        try {
+            $user = $this->userService->getUser($userId);
+            $user->setDisabledDate(new \DateTime());
+            $this->userRepository->add($user);
+            $this->entityManager->flush();
+            $this->logout();
+        } catch (\Exception $e) {
+            $this->log( 'An exception occurred disabling user' . ' ' . $e->getMessage(), 'disableUser');
+        }
+
     }
 
     public function resendToken()
