@@ -13,7 +13,7 @@ class GDPRPdfTemplate extends \EuroMillions\web\components\PdfTemplateDecorator
             $details = $this->data['user_details'];
             $notifications = $this->data['notifications'];
             $transactions = $this->data['transactions'];
-            $tickets = $this->data['tickets']->result;
+            $tickets =  count($this->data['tickets']) > 0 ? $this->data['tickets']->result : [];
             $lastTickets = is_array($this->data['last_tickets']) ? [] : $this->data['last_tickets']->result;
 
             $html = '<html>
