@@ -158,7 +158,7 @@ class PowerBallService
                     }
                     $discount = $order->getDiscount()->getValue();
                     $order->setIsCheckedWalletBalance($withAccountBalance);
-//                    var_dump($lottery);die();
+
                     $order->setPowerPlayPrice($lottery->getPowerPlayValue());
                     $order->setPowerPlay($powerPlay);
 
@@ -226,7 +226,8 @@ class PowerBallService
                                         $this->walletService->payWithSubscription($user, $play_config);
                                     }
                                 } else {
-                                    $this->walletService->payWithWallet($user, $play_config);
+                                    $powerPlayValue = new Money($lottery->getPowerPlayValue(), new Currency('EUR'));
+                                    $this->walletService->payWithWallet($user, $play_config, $powerPlayValue);
                                 }
                             }
 

@@ -67,11 +67,11 @@ class OrderPowerBall extends Order
         $price = 0;
         if ($this->powerPlay) {
             $price = new Money($this->powerPlayPrice, new Currency('EUR'));
-            $price = $price->multiply($multiplier);
+            $price->add($price->multiply($multiplier));
+            $this->funds_amount = ($price);
         }
 
-        $this->funds_amount = $price;
-        $total = $this->total->add($price);
+        $total = $this->total->add($this->funds_amount);
 
         $this->credit_card_charge = new CreditCardCharge($total, $this->fee, $this->fee_limit);
 

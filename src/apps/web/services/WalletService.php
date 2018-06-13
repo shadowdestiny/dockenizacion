@@ -186,10 +186,16 @@ class WalletService
     }
 
 
-    public function payWithWallet(User $user, PlayConfig $playConfig)
+    public function payWithWallet(User $user, PlayConfig $playConfig, Money $powerPlayValue = null)
     {
         try {
-            $user->pay($playConfig->getSinglePrice());
+            if ($playConfig->getPowerPlay()) {
+                $price = $powerPlayValue->add($playConfig->getSinglePrice());
+                $user->pay($price);
+            } else {
+                $user->pay($playConfig->getSinglePrice());
+            }
+
             $this->entityManager->flush($user);
         } catch (\Exception $e) {
             //EMTD Log and warn the admin
