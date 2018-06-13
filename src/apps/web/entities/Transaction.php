@@ -24,6 +24,8 @@ abstract class Transaction extends EntityBase
     protected $user;
     protected $transactionID;
     protected $pendingBalanceAmount;
+    protected $message;
+
 
     /**
      * @return mixed
@@ -169,5 +171,20 @@ abstract class Transaction extends EntityBase
         $this->transactionID = $transactionID;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param mixed $message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
 
 }

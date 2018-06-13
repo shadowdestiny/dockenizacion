@@ -5,20 +5,7 @@
   composer: command="install" working_dir="/var/www" no_dev=no
 - name: Set softlink for doctrine command line utilities
   file: src=/var/www/vendor/bin/doctrine dest=/usr/local/bin/doctrine state=link mode="u+x,g+x,o+x"
-- name: Update npm
-  shell: npm update -g npm
-- name: Npm prepare
-  shell: rm -r node_modules & npm cache clean --force
-  args:
-    chdir: /var/www/react
-- name: Npm install
-  shell: npm --no-bin-links install
-  args:
-    chdir: /var/www/react
-- name: Npm watch
-  shell: npm run watch &
-  args:
-    chdir: /var/www/react
+
 
 - name: Translations angular2 dependencies install
   shell: npm install

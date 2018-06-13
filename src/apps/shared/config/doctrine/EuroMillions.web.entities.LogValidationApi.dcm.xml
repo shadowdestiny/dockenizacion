@@ -20,9 +20,11 @@
         <field name="response" type="text"/>
         <field name="received" type="datetime"/>
         <field name="id_ticket" type="bigint"/>
+        <field name="uuid" type="string" />
         <many-to-one target-entity="EuroMillions\web\entities\Bet" inversed-by="bet"
                      field="bet">
         </many-to-one>
+
 
     </entity>
 </doctrine-mapping>

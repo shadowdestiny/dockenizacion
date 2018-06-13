@@ -26,7 +26,8 @@
     "textmagic/smsphp": "dev-master",
     "ramsey/uuid-doctrine": "^1.2",
     "wildbit/postmark-php": "dev-master",
-    "geoip/geoip": "~1.16"
+    "geoip/geoip": "~1.16",
+    "tecnickcom/tcpdf" : "dev-master"
   },
   "autoload" : {
     "psr-4": {

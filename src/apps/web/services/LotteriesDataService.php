@@ -167,13 +167,14 @@ class LotteriesDataService
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
 
-            if ($draw->getBreakDown()->getCategoryOne()->getName()) {
+            if (!$draw->getBreakDown()->getCategoryOne()->getName() && $result['category_one'][0]) {
                 $draw->createBreakDown($result);
                 $this->entityManager->flush();
                 $this->sendEmailResultsOrigin('Loterias y Apuestas Breakdown');
                 return $draw;
 
             } else {
+
                 $result = $result_api->getResultBreakDownForDateSecond($lotteryName, $last_draw_date->format('Y-m-d'));
                 /** @var EuroMillionsDraw $draw */
                 $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);

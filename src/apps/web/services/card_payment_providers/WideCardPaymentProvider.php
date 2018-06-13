@@ -20,10 +20,13 @@ class WideCardPaymentProvider implements ICardPaymentProvider
     /** @var  User $user */
     private $user;
     private $data = [];
+    /** @var WideCardConfig $config */
+    private $config;
 
     public function __construct(WideCardConfig $config, $gatewayClient = null)
     {
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
+        $this->config = $config;
     }
 
     public function __get($name) {
@@ -50,6 +53,16 @@ class WideCardPaymentProvider implements ICardPaymentProvider
             return new PaymentProviderResult(false,$header->statusMessage,$header->statusMessage);
         }
         return new PaymentProviderResult($body->status === "ok", $header->statusMessage);
+
+    }
+
+    public function withDraw(Money $amount, $idTransaction)
+    {
+        $result = $this->gatewayClient->send(['idTransaction' => $idTransaction[0]['transactionID'],
+                                              'amount' => $amount->getAmount() ]);
+
+        //TODO: in this case, is called from admin only
+        return $result;
     }
 
     /**
@@ -73,4 +86,10 @@ class WideCardPaymentProvider implements ICardPaymentProvider
             'cardHolderName' => $card->cardHolderName()->toNative()
         ];
     }
+
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
 }

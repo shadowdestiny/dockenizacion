@@ -37,6 +37,12 @@
     var txt_line = '{{ language.translate('line_x') }}';
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';
+    var powerball = true;
+    var powerplay = <?php echo $power_play; ?>;
+    var powerplayprice = <?php echo $power_play_price; ?>;
+    var txt_lottery = '<?php echo $lottery_name; ?>';
+    var playingPP = '{{ language.translate('checkout_powerplay') }}';
+
 
 
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {

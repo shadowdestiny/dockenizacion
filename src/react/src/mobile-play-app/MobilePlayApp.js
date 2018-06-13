@@ -61,9 +61,12 @@ export default class MobilePlayApp extends Component {
      * This prop will be submitted on checkout
      */
     playDate : PropTypes.string,
+
+    powerPlayPrice: PropTypes.number,
   }
 
   constructor (props) {
+
     super(props)
     this.state = {}
     this.state = this.getStartingState(props)
@@ -80,12 +83,12 @@ export default class MobilePlayApp extends Component {
     const drawsNumber  = activeBundle ? activeBundle.draws : 1
 
     const betsFromStorage = JSON.parse(localStorage.getItem(this.getStorageKey())) || []
-
     const state = {
       drawsNumber,
       showTicket : null,
       bets : betsFromStorage.filter(b => b.numbers.length && b.stars.length),
       powerPlayEnabled : this.state.powerPlayEnabled || false,
+      powerPlayPrice: this.state.powerPlayPrice || 0,
     }
 
     return state
@@ -131,6 +134,7 @@ export default class MobilePlayApp extends Component {
       drawsNumber,
       bets,
       powerPlayEnabled,
+      powerPlayPrice,
     } = this.state
 
     const selectedBundle = this.findBundle(drawsNumber)
@@ -284,8 +288,14 @@ export default class MobilePlayApp extends Component {
   getTotal () {
     const { drawsNumber, bets } = this.state
     const bundle = this.findBundle(drawsNumber)
+    var powerTotal = 0;
+
+      if (this.state.powerPlayEnabled) {
+          powerTotal = bets.length * this.props.powerPlayPrice * drawsNumber
+      }
+
     if (bundle) {
-      return bundle.singleBetPriceWithDiscount / 100 * bets.length * drawsNumber
+      return bundle.singleBetPriceWithDiscount / 100 * bets.length * drawsNumber + powerTotal
     }
     return 0
   }

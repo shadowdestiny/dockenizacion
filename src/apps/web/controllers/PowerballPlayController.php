@@ -80,6 +80,7 @@ class PowerballPlayController extends PublicSiteControllerBase
             'pageController' => 'powerPlay',
             'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
             'draw_day' => $this->languageService->translate($draw->format('l')),
+            'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay()
         ]);
     }
 }

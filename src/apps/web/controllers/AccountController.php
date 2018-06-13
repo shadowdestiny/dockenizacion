@@ -4,6 +4,7 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\web\components\TCPPDFWrapper;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
@@ -115,6 +116,35 @@ class AccountController extends PublicSiteControllerBase
             'message' => '',
             'list_notifications' => $list_notifications,
         ]);
+    }
+
+    public function deleteaccountAction()
+    {
+        $userId = $this->authService->getCurrentUser();
+        $this->authService->disableUser($userId);
+        $this->response->redirect('/');
+    }
+
+    public function downloadinformationAction()
+    {
+        $userId = $this->authService->getCurrentUser();
+        $result = $this->obtainActiveNotifications($userId);
+        $list_notifications = [];
+
+        if ($result->success()) {
+            $error_msg = '';
+            $notifications_collection = $result->getValues();
+            foreach ($notifications_collection as $notifications) {
+                $list_notifications[] = new UserNotificationsDTO($notifications);
+            }
+        } else {
+            $error_msg = 'An error occurred';
+        }
+
+        $transactions = $this->transactionService->getTransactionsDTOByUser($this->userService->getUser($userId) );
+        $this->authService->getPDFFromUser(new TCPPDFWrapper(new \TCPDF()), $list_notifications , $transactions);
+//        $this->response->setHeader('Content-type','application/pdf');
+//        $this->response->setHeader('Content-Disposition','attachment; filename="mydata.pdf"');
     }
 
     /**

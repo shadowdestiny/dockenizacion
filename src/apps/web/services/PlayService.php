@@ -110,7 +110,7 @@ class PlayService
                     $bets = [];
                     foreach ($form_decode->play_config as $bet) {
                         $playConfig = new PlayConfig();
-                        $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines, $this->getLottery($lottery)->getName());
+                        $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines);
                         $playConfig->setLottery($this->getLottery($lottery));
                         $playConfig->setDiscount(new Discount($bet->frequency, $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
                         $bets[] = $playConfig;
@@ -388,7 +388,7 @@ class PlayService
                 $bets = [];
                 foreach ($form_decode->play_config as $bet) {
                     $playConfig = new PlayConfig();
-                    $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines, $this->getLottery($lottery)->getName());
+                    $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines);
                     $playConfig->setLottery($this->getLottery($lottery));
                     $playConfig->setDiscount(new Discount($bet->frequency, $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
                     $bets[] = $playConfig;
@@ -533,6 +533,10 @@ class PlayService
         return $bundlePlayCollectionDTO;
     }
 
+    public function getPowerPlay()
+    {
+        return $this->playConfigRepository->powerPlayPrice();
+    }
 
     public function getBundleDataAsArray()
     {

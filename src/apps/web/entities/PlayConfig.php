@@ -52,7 +52,7 @@ class PlayConfig extends EntityBase implements IEntity, IEMForm, \JsonSerializab
     }
 
 
-    public function formToEntity(User $user, $json, $bets, $lottery)
+    public function formToEntity(User $user, $json, $bets)
     {
         $formPlay = null;
         try {

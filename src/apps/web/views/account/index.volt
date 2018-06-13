@@ -12,8 +12,28 @@
 
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
-    <script src="/w/js/mobileFix.min.js"></script>{% endblock %}
+    <script src="/w/js/mobileFix.min.js"></script>
+{% endblock %}
 
+{% block template_scripts_code %}
+
+    $('#submitdeleteaccount').on('click',function(e){
+        var targeted_popup_class = jQuery(this).attr('data-popup-open');
+        $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+        e.preventDefault();
+    });
+
+    $('#acceptdelete').on('click', function() {
+        window.location.href = "/account/deleteaccount";
+    });
+
+    $('#canceldelete').on('click', function(e) {
+        var targeted_popup_class = jQuery(this).attr('data-popup-close');
+        $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
+        e.preventDefault();
+    });
+
+{% endblock %}
 
 
 
@@ -225,8 +245,53 @@
                     </div>
                 </div>
 
-
+                <div class="my-account--section personal-information">
+                    <h2 class="">{{ language.translate("downloadinfo_head") }}</h2>
+                    <div class="box-change-psw" style="display:block">
+                        <div>
+                        <p>
+                            <label class="label">{{ language.translate("downloadinfo_subhead") }}</label>
+                        </p>
+                        <p>
+                             {{ language.translate("downloadinfo_text") }}
+                        </p>
+                        {{ form('/account/downloadinformation') }}
+                        <label class="btn big blue left submit" for="submitinformation">
+                            {{ language.translate("downloadinfo_btn") }}
+                            <input id="submitinformation" type="submit" class="hidden2">
+                        </label>
+                        {{ endform() }}
+                        </div>
+                        <div style="margin-top:100px">
+                            <p>
+                               <label class="label">{{ language.translate("deleteaccount_subhead") }}</label>
+                            </p>
+                            <p>
+                                 {{ language.translate("deleteaccount_text") }}
+                            </p>
+                            <label class="btn big blue left submit" for="submitdeleteaccount">
+                                {{ language.translate("deleteaccount_btn") }}
+                                <input data-popup-open="popup-1" id="submitdeleteaccount" type="button" class="hidden2">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="popup" data-popup="popup-1">
+                        <div class="popup-inner">
+                            <h2></h2>
+                                <p>{{ language.translate("deleteaccount_popup") }}</p>
+                                 <label class="btn big blue left submit" for="acceptdelete">
+                                                                {{ language.translate("deleteaccount_accept") }}
+                                                                <input data-popup-open="popup-1" id="acceptdelete" type="button" class="hidden2">
+                                                            </label>
+                                 <label class="btn big blue left submit" for="canceldelete" style="margin-left:10px">
+                                                                {{ language.translate("deleteaccount_cancel") }}
+                                                                <input data-popup-close="popup-1" id="canceldelete" type="button" class="hidden2">
+                                                            </label>
+                        </div>
+                     </div>
+                </div>
             </div>
+
         </div>
     </main>
 {% endblock %}

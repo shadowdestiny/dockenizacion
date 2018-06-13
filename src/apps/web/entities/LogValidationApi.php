@@ -24,6 +24,7 @@ class LogValidationApi extends EntityBase implements IEntity
     /** @var  Bet */
     protected $bet;
 
+    protected $uuid;
 
     public function setId($id)
     {
@@ -130,6 +131,22 @@ class LogValidationApi extends EntityBase implements IEntity
     public function setBet($bet)
     {
         $this->bet = $bet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param mixed $uuid
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
     }
 
 }

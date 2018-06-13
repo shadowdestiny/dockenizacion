@@ -23,7 +23,6 @@ class TicketsController extends AccountController
         $playConfigDTO = null;
 
         $myGamesActives = $this->userService->getMyActivePlays($user->getId());
-        var_dump($myGamesActives);echo "games Actives";
         if($myGamesActives->success()){
             $myGames = $myGamesActives->getValues();
             $playConfigDTO = new UpcomingDrawsDTO($myGames);
@@ -31,7 +30,6 @@ class TicketsController extends AccountController
             $message_actives = $myGamesActives->errorMessage();
         }
         $myGamesInactives = $this->userService->getMyInactivePlays($user->getId());
-        var_dump($myGamesInactives);echo "games Inactives";
         if($myGamesInactives->success()){
             $playConfigInactivesDTOCollection = new PastDrawsCollectionDTO($myGamesInactives->getValues());
         }else{
@@ -45,11 +43,10 @@ class TicketsController extends AccountController
         $this->view->pick('account/games');
 
         $mySubsInactives = $this->userService->getMyInactiveSubscriptions($user->getId());
-        var_dump($mySubsInactives);echo "subs Inactives";
         $pageSubsInactives = (!empty($this->request->get('pageSubsInactives'))) ? $this->request->get('pageSubsInactives') : 1;
         $paginatorSubsInactives = $this->getPaginatorAsArray(!empty($mySubsInactives) ? $mySubsInactives : [],4,$pageSubsInactives);
         $paginatorViewSubsInactive = (new PaginationWidgetAdmin($paginatorSubsInactives, $this->request->getQuery(), [], 'pageSubsInactives'))->render();
-die('fin');
+
         $this->tag->prependTitle('My Tickets');
         return $this->view->setVars([
             'my_games_actives' => $playConfigDTO,

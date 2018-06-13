@@ -49,6 +49,7 @@
     var next_draw_date_format = '{{ next_draw_date_format }}';
     var clear_btn = '{{ language.translate('clear_btn') }}';
     var addlines_message = "{{ language.translate('addlines_message') }}";
+    var powerplay = '0';
 
 
     {#añadir aqui el translate#}
@@ -131,6 +132,11 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
+    {% if flash.has('error')  %}
+        <div style="font-family: Work Sans,sans-serif;color: #2d2d2d;font-size: 12px;font-weight: 400;padding: 20px !important;background-color: #eae8e8;border: 1;text-transform: none;">
+            {{ flash.output() }}
+        </div>
+    {% endif %}
     <main id="content">
         <div class="play--page">
             <div class="banner">

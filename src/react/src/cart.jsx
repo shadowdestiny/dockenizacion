@@ -109,6 +109,17 @@ var CartPage = new React.createClass({
         Fee.fee_value = this.props.fee_charge;
         Wallet.total_balance = this.props.wallet_balance;
         Wallet.isChecked = true;
+        PowerPlayCart.numLines = this.state.playConfigList.bets.length;
+        PowerPlayCart.PowerPlay = this.props.powerplay;
+        PowerPlayCart.powerPlayPrice = this.props.powerplayprice;
+        var frequency = JSON.parse(this.props.config).frequency;
+        if (PowerPlayCart.PowerPlay === 1) {
+            PowerPlayCart.total = (PowerPlayCart.numLines * PowerPlayCart.powerPlayPrice) * frequency;
+
+        }
+        LogicCart.total = parseFloat(LogicCart.total) + parseFloat(PowerPlayCart.total);
+
+        LogicCart.pre_total = LogicCart.total;
         LogicCart.payWithWallet();
         this.state.show_all_fee = LogicCart.show_all_fee;
         this.state.show_fee_text = LogicCart.show_fee_text;
@@ -125,6 +136,17 @@ var CartPage = new React.createClass({
         Funds.funds_value = isNaN(this.state.fund_value) ? 0 : this.state.fund_value;
         Fee.fee_value = this.props.fee_charge;
         Wallet.total_balance = this.props.wallet_balance;
+        PowerPlayCart.numLines = this.state.playConfigList.bets.length;
+        PowerPlayCart.PowerPlay = this.props.powerplay;
+        PowerPlayCart.powerPlayPrice = this.props.powerplayprice;
+        var frequency = JSON.parse(this.props.config).frequency;
+        if (PowerPlayCart.PowerPlay === 1) {
+            PowerPlayCart.total = (PowerPlayCart.numLines * PowerPlayCart.powerPlayPrice) * frequency;
+
+        }
+        LogicCart.total = parseFloat(LogicCart.total) + parseFloat(PowerPlayCart.total);
+
+        LogicCart.pre_total = LogicCart.total;
         LogicCart.payWithNoWallet();
         this.state.show_all_fee = LogicCart.show_all_fee;
         this.state.show_fee_text = LogicCart.show_fee_text;
@@ -135,11 +157,18 @@ var CartPage = new React.createClass({
 
     handleUpdatePrice : function()
     {
-
+        var total_lines = this.state.playConfigList.bets.length;
+        var frequency = JSON.parse(this.props.config).frequency;
         var price = this.props.total;
+        if(this.props.powerplay) {
+            var total_powerprice = (parseFloat(this.props.powerplayprice) * total_lines) * frequency;
+            price = parseFloat(price) + parseFloat(total_powerprice);
+
+        }
         if(this.state.checked_wallet) {
             price = this.updatePriceWithCheckedWallet();
             this.state.new_balance = Wallet.getNewWalletBalance();
+
         } else {
             price = this.updatePriceWithoutWallet();
             this.state.new_balance = parseFloat(this.props.wallet_balance);
@@ -148,6 +177,7 @@ var CartPage = new React.createClass({
         $(document).trigger("totalPriceEvent", [ parseFloat(price).toFixed(2), Funds.funds_value ]);
         CurrencyFormat.value = price;
         var price_and_symbol = CurrencyFormat.getCurrencyFormatted();
+
         this.setState({ total : price_and_symbol });
     },
 
@@ -156,8 +186,14 @@ var CartPage = new React.createClass({
         var _playConfigList = this.state.playConfigList;
         var _euroMillionsLine = [];
         var class_button_payment = 'btn blue big buy';
+        var single_bet = 0;
+        if(this.props.powerplay) {
+            single_bet = parseFloat(this.props.single_bet_price) + parseFloat(this.props.powerplayprice);
+        } else {
+            single_bet = this.props.single_bet_price;
+        }
 
-        CurrencyFormat.value = this.props.single_bet_price;
+        CurrencyFormat.value = single_bet;
         var price_and_symbol_order_line = CurrencyFormat.getCurrencyFormatted();
 
         for (let i=0; i< _playConfigList.bets.length; i++) {
@@ -171,6 +207,10 @@ var CartPage = new React.createClass({
                                                     stars={stars}
                                                     single_bet_price={price_and_symbol_order_line}
                                                     txt_line={this.props.txt_line}
+                                                    powerplay={this.props.powerplay}
+                                                    powerplayprice={this.props.powerplayprice}
+                                                    powerball={this.props.powerball}
+                                                    playingPP={this.props.playingPP}
 
                 />);
         }
@@ -197,6 +237,11 @@ var CartPage = new React.createClass({
             price_txt_btn = this.state.total;
             href_payment = 'javascript:void(0)';
             data_btn = 'no-wallet';
+        } else if(powerball === true) {
+            txt_button_payment = this.props.txt_buy_btn;
+            href_payment = '/powerball/payment/payment?method=wallet&charge='+this.state.fund_value;
+            data_btn = 'wallet';
+            price_txt_btn = this.state.total;
         } else {
             txt_button_payment = this.props.txt_buy_btn;
             href_payment = '/euromillions/payment/payment?method=wallet&charge='+this.state.fund_value;
@@ -218,6 +263,7 @@ var CartPage = new React.createClass({
         }
 
         var wallet_component = null;
+        var total_lines = _playConfigList.bets.length;
         if(parseFloat(this.props.wallet_balance) > 0) {
             wallet_component = <EmWallet currency_symbol={this.props.currency_symbol}
                                          symbol_position={this.props.symbol_position}
@@ -227,6 +273,10 @@ var CartPage = new React.createClass({
                                          old_new_balance={old_balance_and_new_balance}
                                          wallet_balance={parseFloat(this.props.wallet_balance).toFixed(2)}
                                          txt_payWithBalanceOption={this.props.txt_payWithBalanceOption}
+                                         powerplay={this.props.powerplay}
+                                         total_lines={total_lines}
+                                         powerplayprice={this.props.powerplayprice}
+                                         config={JSON.parse(this.props.config)}
             />;
         }
 
@@ -242,7 +292,8 @@ var CartPage = new React.createClass({
                                txt_edit={this.props.txt_edit} txt_link_play={this.props.txt_link_play}
                                txt_line={this.props.txt_line}
                                tuesday={this.props.tuesday}
-                               friday={this.props.friday} />
+                               friday={this.props.friday}
+                txt_lottery={this.props.txt_lottery}/>
 
                 <div className="box-order">
                     {_euroMillionsLine}
@@ -254,7 +305,11 @@ var CartPage = new React.createClass({
                     txt_currencyAlert={this.props.txt_currencyAlert} txt_total={this.props.txt_total} />
                 {wallet_component}
                 <EmBtnPayment href={href_payment} databtn={data_btn} price={price_txt_btn}
-                              classBtn={class_button_payment} text={txt_button_payment}/>
+                              classBtn={class_button_payment} text={txt_button_payment} powerplay={this.props.powerplay}
+                              total_lines={total_lines}
+                              powerplayprice={this.props.powerplayprice}
+                              total_price={this.props.total}
+                              symbol_position={this.props.symbol_position} config={JSON.parse(this.props.config)}/>
             </div>
         )
     }
@@ -275,7 +330,12 @@ var CurrencyFormat = {
     }
 };
 
-
+var PowerPlayCart = {
+    powerPlayPrice : 0,
+    numLines : 0,
+    PowerPlay : 0,
+    total : 0,
+};
 
 var LogicCart = {
     total : 0,
@@ -432,6 +492,11 @@ ReactDOM.render(<CartPage total={total_price}
                           txt_line={txt_line}
                           tuesday={tuesday}
                           friday={friday}
+                          powerplay={powerplay}
+                          powerplayprice={powerplayprice}
+                          powerball={powerball}
+                          txt_lottery={txt_lottery}
+                          playingPP={playingPP}
                 />, document.getElementById('cart-order'));
 
 

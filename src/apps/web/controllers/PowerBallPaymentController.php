@@ -87,6 +87,7 @@ class PowerBallPaymentController extends CartController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
+
                         $result = $powerball_service->play($user_id, $amount, $card, $payWallet, $isWallet);
 
                         return $this->playResult($result);
@@ -96,6 +97,7 @@ class PowerBallPaymentController extends CartController
                 }
             }
         }
+
         $type = ViewHelper::getNamePaymentType($this->getDI()->get('paymentProviderFactory'));
         $view = $type == 'iframe' ? 'cart/order_iframe' : 'cart/order';
         $this->view->pick($view);

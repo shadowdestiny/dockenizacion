@@ -5,6 +5,7 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
+use EuroMillions\web\services\AuthService;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\Order;
@@ -48,9 +49,15 @@ class CartController extends PublicSiteControllerBase
     public function profileAction($paramsFromPreviousAction = null)
     {
         $errors = [];
+        /** @var AuthService $user */
         $user = $this->authService->getCurrentUser();
-        if($user instanceof User) {
-            $this->response->redirect('/'.$this->lottery.'/order');
+        if($this->authService->isLogged()) {
+            if($this->authService->getLoggedUser()->getValidated()) {
+                $this->response->redirect('/'.$this->lottery.'/order');
+            } else {
+                $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                $this->response->redirect('/'.$this->lottery.'/play');
+            }
         }
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
@@ -77,15 +84,16 @@ class CartController extends PublicSiteControllerBase
                     'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
-                    $this->response->redirect('/'.$this->lottery.'/order');
+                    $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                    $this->response->redirect('/'.$this->lottery.'/play');
+                    //$this->response->redirect('/'.$this->lottery.'/order');
                 }else{
                     $errors [] = $result->errorMessage();
                 }
             }
         }
 
-        $this->view->pick('cart/profile');
-	    $this->tag->prependTitle('Log In or Sign Up');
+        $this->tag->prependTitle('Log In or Sign Up');
         return $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,
@@ -133,12 +141,18 @@ class CartController extends PublicSiteControllerBase
 
                 if (!$userCheck['bool']) {
                     if ($userCheck['error'] == 'disabledUser') {
-                        $errors[] = 'Your account has been excluded.';
+                        $errors[] = $this->languageService->translate('signin_msg_closed');
                     } else {
                         $errors[] = 'Incorrect email or password.';
                     }
                 } else {
-                    return $this->response->redirect('/'.$this->lottery.'/order?user='.$user->getId());
+                    if($this->authService->isLogged()) {
+                        if($this->authService->getLoggedUser()->getValidated()) {
+                            return $this->response->redirect('/'.$this->lottery.'/order?user='.$user->getId());
+                        }
+                        $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                        $this->response->redirect('/'.$this->lottery.'/play');
+                    }
                 }
             }
         }
@@ -202,6 +216,7 @@ class CartController extends PublicSiteControllerBase
             'card-cvv' => '',
             'expiry-date-month' => '',
             'expiry-date-year' => '',
+            'accept' => ''
         ];
         return $form_errors;
     }
@@ -250,7 +265,11 @@ class CartController extends PublicSiteControllerBase
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery($this->lottery);
         $user = $this->authService->getCurrentUser();
         $discount = new Discount($result->returnValues()[0]->getFrequency(), $this->domainServiceFactory->getPlayService()->getBundleDataAsArray());
-        $powerPlay = 0;
+
+        if ($result->returnValues()[0]->getPowerPlay()) {
+            $powerPlay = true;
+        }
+
         if ($orderView) {
             $order = new Order($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount); // order created
             $powerPlay = (int)$order->getPlayConfig()[0]->getPowerPlay();
@@ -301,7 +320,9 @@ class CartController extends PublicSiteControllerBase
             'total_new_payment_gw' => isset($order_eur) ? $order_eur->getTotal()->getAmount() / 100 : '',
             'credit_card_form' => $creditCardForm,
             'emerchant_data' => $this->getEmerchantData(),
-            'power_play =>' => $powerPlay,
+            'power_play' => $powerPlay,
+            'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay(),
+            'lottery_name' => ucfirst($this->lottery),
         ]);
     }
 

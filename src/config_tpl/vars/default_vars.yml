@@ -66,6 +66,7 @@ gcp_master_gw_id: '21260002'
 gcp_master_sign_key: '6f6pB46l'
 
 wirecard_endpoint: 'https://api.euromillions.com/beta/wirecard-payment'
+wirecard_endpoint_withdraw: 'https://api.euromillions.com/beta/withdraw'
 wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
 lottorisq_endpoint: 'http://192.168.50.2/powerball'
@@ -74,8 +75,8 @@ lottorisq_apikey: ''
 emerchant_endpoint: 'https://api.euromillions.com/emerchant_test/payment'
 emerchant_apikey: 'lIouDMFAM53H8TwxO8Eg69mBjB2By1pX6JBftfaY'
 
-payment_strategy: 'WideCardPaymentStrategy,eMerchantPaymentStrategy'
-payment_config: 'wirecard,emerchant_api'
+payment_strategy: 'WideCardPaymentStrategy'
+payment_config: 'wirecard'
 
 file_databasegeoip_path: '/var/www/data/geoipdatabase'
 

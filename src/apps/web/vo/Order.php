@@ -11,30 +11,29 @@ use Money\Money;
 class Order implements \JsonSerializable
 {
     /** @var  Money $total */
-    private $total;
+    protected $total;
     /** @var PlayConfig[] $play_config */
-    private $play_config;
+    protected $play_config;
     /** @var  Money $fee */
-    private $fee;
+    protected $fee;
     /** @var  Money $fee_limit */
-    private $fee_limit;
+    protected $fee_limit;
     /** @var Money $single_bet_price */
-    private $single_bet_price;
-    private $num_lines;
-    private $state;
-    private $funds_amount;
+    protected $single_bet_price;
+    protected $num_lines;
+    protected $state;
+    protected $funds_amount;
     /** @var  CreditCardCharge $credit_card_charge */
-    private $credit_card_charge;
+    protected $credit_card_charge;
     /** @var bool $isCheckedWalletBalance */
-    private $isCheckedWalletBalance;
+    protected $isCheckedWalletBalance;
     /** @var  Money */
-    private $amountWallet;
+    protected $amountWallet;
     /** @var  Discount */
-    private $discount;
+    protected $discount;
 
-    private $hasSubscription;
+    protected $hasSubscription;
 
-    private $powerPlay;
 
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null)
     {
@@ -48,7 +47,6 @@ class Order implements \JsonSerializable
             $discount = new Discount(0, []);
         }
         $this->discount = $discount;
-        $this->powerPlay = (int)$play_config[0]->getPowerPlay();
         $this->initialize();
     }
 
@@ -175,22 +173,6 @@ class Order implements \JsonSerializable
     }
 
     /**
-     * @return null
-     */
-    public function getPowerPlay()
-    {
-        return $this->powerPlay;
-    }
-
-    /**
-     * @param null $powerPlay
-     */
-    public function setPowerPlay($powerPlay)
-    {
-        $this->powerPlay = $powerPlay;
-    }
-
-    /**
      * @return mixed
      */
     public function getNumLines()
@@ -225,7 +207,7 @@ class Order implements \JsonSerializable
     }
 
 
-    private function initialize()
+    protected function initialize()
     {
         $this->num_lines = count($this->play_config);
         $this->total = new Money(1, new Currency('EUR'));

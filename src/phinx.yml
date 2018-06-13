@@ -51,10 +51,10 @@ environments:
 
     production:
         adapter: mysql
-        host: mysql
+        host: euromillionsweb.cywoihxulkwc.eu-west-1.rds.amazonaws.com
         name: euromillions
-        user: root
-        pass: 'tpl9'
+        user: euromillions
+        pass: 'Panamedia190'
         port: 3306
         charset: utf8
 

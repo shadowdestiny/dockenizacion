@@ -5,6 +5,7 @@ use DateTime;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\interfaces\IUrlManager;
 use EuroMillions\web\components\Md5EmailValidationToken;
+use EuroMillions\web\components\PDFGenerator;
 use EuroMillions\web\components\UserId;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\ResetPasswordEmailTemplate;
@@ -13,15 +14,21 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
 use EuroMillions\web\interfaces\IEmailValidationToken;
 use EuroMillions\web\interfaces\IPasswordHasher;
+use EuroMillions\web\interfaces\IPDFWrapper;
 use EuroMillions\web\interfaces\IUser;
+use EuroMillions\web\pdf\PdfTemplate;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
+use EuroMillions\web\vo\dto\NotificationDTO;
+use EuroMillions\web\vo\dto\PastDrawsCollectionDTO;
+use EuroMillions\web\vo\dto\UpcomingDrawsDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\Url;
 use EuroMillions\web\vo\ValidationToken;
+use EuroMillions\web\pdf\GDPRPdfTemplate;
 
 class AuthService
 {
@@ -105,7 +112,7 @@ class AuthService
         }
         $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->toNative());
         if ($password_match) {
-            if (!$this->checkDisabledDate($user->getDisabledDate())) {
+            if ($user->getDisabledDate() !== null) {
                 return ['bool' => false, 'error' => 'disabledUser'];
             }else {
                 $this->storageStrategy->setCurrentUserId($user->getId());
@@ -118,19 +125,6 @@ class AuthService
             }
         }
         return ['bool' => $password_match, 'error' => ''];
-    }
-
-    private function checkDisabledDate($disabledDate) {
-        if (is_null($disabledDate)) {
-            return true;
-        }
-
-        /** @var DateTime $disabledDate */
-        if ($disabledDate > new DateTime()) {
-            return false;
-        }
-
-        return true;
     }
 
     public function loginWithRememberMe()
@@ -168,7 +162,6 @@ class AuthService
         }
         $this->emailService->sendWelcomeEmail($user, $this->urlManager);
         $this->userService->initUserNotifications($user->getId());
-        $this->storageStrategy->setCurrentUserId($user->getId());
         return new ActionResult(true, $user);
     }
 
@@ -200,6 +193,36 @@ class AuthService
     {
         $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
         return new ValidationToken($email, $emailValidationTokenGenerator);
+    }
+
+    public function disableUser($userId)
+    {
+        try {
+            $user = $this->userService->getUser($userId);
+            $user->setDisabledDate(new \DateTime());
+            $this->userRepository->add($user);
+            $this->entityManager->flush();
+            $this->logout();
+        } catch (\Exception $e) {
+            $this->log( 'An exception occurred disabling user' . ' ' . $e->getMessage(), 'disableUser');
+        }
+
+    }
+
+    public function resendToken()
+    {
+        /** @var User $currentUser */
+        $currentUser = $this->getCurrentUser();
+
+        if($currentUser instanceof User) {
+            try {
+                $this->emailService->sendWelcomeEmail($currentUser, $this->urlManager);
+            } catch (\Exception $e) {
+                throw new \Exception('Error resend welcome email');
+            }
+
+        }
+
     }
 
     public function validateEmailToken($token, IEmailValidationToken $emailValidationTokenGenerator = null)
@@ -298,6 +321,46 @@ class AuthService
         }
     }
 
+    public function confirmUser($token)
+    {
+        $user = $this->userRepository->getByToken($token);
+        if($user) {
+            $this->storageStrategy->setCurrentUserId($user->getId());
+            return new ActionResult(true);
+        }
+        return new ActionResult(false);
+    }
+
+
+    public function getPDFFromUser(IPDFWrapper $pdfWrapper, array $notificationsDTO, $transactions )
+    {
+
+        $userData = [];
+        try {
+
+            /** @var User $currentUser */
+            $currentUser = $this->getCurrentUser();
+            $userData['user'] = $currentUser;
+            $userData['notifications'] = $notificationsDTO;
+            $myGames = $this->userService->getMyActivePlays($currentUser->getId())->getValues();
+            $upComingDraws = $myGames != null ? new UpcomingDrawsDTO($myGames) : [];
+            $userData['upComingDraws'] = $upComingDraws;
+            $myGamesInactives = $this->userService->getMyInactivePlays($currentUser->getId())->getValues();
+            $userData['lastTickets'] = $myGamesInactives;
+            $userData['transactions'] = $transactions;
+
+            $pdfTemplate = new PdfTemplate();
+            $gdprPdfTemplate = new GDPRPdfTemplate($pdfTemplate);
+            $gdprPdfTemplate->setData(PDFGenerator::build($userData));
+            $pdfWrapper->build($gdprPdfTemplate->loadHeader(),$gdprPdfTemplate->loadBody(),$gdprPdfTemplate->loadFooter());
+            $pdfWrapper->getPDF();
+
+        } catch (\Exception $e) {
+
+        }
+
+    }
+
 
     /**
      * @param IEmailValidationToken $emailValidationTokenGenerator
@@ -310,6 +373,7 @@ class AuthService
         }
         return $emailValidationTokenGenerator;
     }
+
 
     protected function log($message, $action) {
         if(method_exists($this,'logError')) {

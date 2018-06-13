@@ -45,6 +45,7 @@ var EmResumeOrder = new React.createClass({
 
                     <div className="txt-black-upper">
                         <h1>{this.props.txt_summary}</h1>
+                        <span className="txt-bold">{this.props.txt_lottery}</span><br />
                         <span className="txt-bold">{this.props.txt_draws} x{config['frequency']}</span><br />
                         <span className="txt-bold">{text_weeks}</span><br />
                         <span className="txt-bold" style={{ display: jackpot}}>Jackpot: </span><span style={{display: jackpot}}>{config['draw_days']}</span>
