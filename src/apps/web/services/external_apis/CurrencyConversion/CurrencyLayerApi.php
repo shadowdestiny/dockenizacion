@@ -36,7 +36,6 @@ class CurrencyLayerApi implements IXchangeGetter
                         $result = (float)$value;
                     }
                 }
-
             }
         }
         return $result;

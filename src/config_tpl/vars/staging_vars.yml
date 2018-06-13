@@ -9,5 +9,9 @@ database_user: 'root'
 database_pass: 'tpl9'
 is_development_mode: 'true'
 
+lottorisq_endpoint: 'https://api.euromillions.com/beta/powerball'
+lottorisq_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
+
+
 restricted_access_activated: '1'
 restricted_access_ips: '62.57.159.66,10.0.2.2'

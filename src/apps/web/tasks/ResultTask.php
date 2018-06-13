@@ -21,6 +21,8 @@ use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\NotificationValue;
 use Phalcon\Di;
+use Phalcon\Http\Client\Provider\Curl;
+use Phalcon\Http\Client\Provider\Exception;
 use Phalcon\Logger;
 
 class ResultTask extends TaskBase
@@ -72,7 +74,6 @@ class ResultTask extends TaskBase
             if (!$breakdown->getCategoryOne()->getName()) {
                 $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
             }
-
         } catch (\Exception $e) {
             $name = 'Breakdown is Empty';
             $type = '';
@@ -81,4 +82,14 @@ class ResultTask extends TaskBase
             $this->emailService->sendLog($name, $type, $message, $time);
         }
     }
+
+    public function importAllHistoricalDataFromPowerballAction()
+    {
+        try {
+            $results = $this->lotteryService->getAllResultFromPowerball(new Curl(), Di::getDefault()->get('config')['lotto_api']);
+        } catch (Exception $e) {
+
+        }
+    }
+
 }
