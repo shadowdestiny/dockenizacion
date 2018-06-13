@@ -275,22 +275,23 @@
                             </label>
                         </div>
                     </div>
+                    <div class="popup" data-popup="popup-1">
+                        <div class="popup-inner">
+                            <h2></h2>
+                                <p>{{ language.translate("deleteaccount_popup") }}</p>
+                                 <label class="btn big blue left submit" for="acceptdelete">
+                                                                {{ language.translate("deleteaccount_accept") }}
+                                                                <input data-popup-open="popup-1" id="acceptdelete" type="button" class="hidden2">
+                                                            </label>
+                                 <label class="btn big blue left submit" for="canceldelete" style="margin-left:10px">
+                                                                {{ language.translate("deleteaccount_cancel") }}
+                                                                <input data-popup-close="popup-1" id="canceldelete" type="button" class="hidden2">
+                                                            </label>
+                        </div>
+                     </div>
                 </div>
             </div>
+
         </div>
-        <div class="popup" data-popup="popup-1">
-            <div class="popup-inner">
-                <h2></h2>
-                    <p>{{ language.translate("deleteaccount_popup") }}</p>
-                     <label class="btn big blue left submit" for="acceptdelete">
-                                                    {{ language.translate("deleteaccount_accept") }}
-                                                    <input data-popup-open="popup-1" id="acceptdelete" type="button" class="hidden2">
-                                                </label>
-                     <label class="btn big blue left submit" for="canceldelete" style="margin-left:10px">
-                                                    {{ language.translate("deleteaccount_cancel") }}
-                                                    <input data-popup-close="popup-1" id="canceldelete" type="button" class="hidden2">
-                                                </label>
-            </div>
-         </div>
     </main>
 {% endblock %}

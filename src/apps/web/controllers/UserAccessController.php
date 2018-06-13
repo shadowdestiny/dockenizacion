@@ -115,7 +115,7 @@ class UserAccessController extends ControllerBase
 
                 if (!$userCheck['bool']) {
                     if ($userCheck['error'] == 'disabledUser') {
-                        $errors[] = 'Your account has been excluded.';
+                        $errors[] = $this->languageService->translate('signin_msg_closed');
                     } else {
                         $errors[] = 'Incorrect email or password.';
                     }
