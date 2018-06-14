@@ -30,6 +30,10 @@ Vagrant.configure(2) do |config|
         ansible-galaxy install -r /vagrant/vagrant_config/requirements.yml --ignore-errors
     SCRIPT
 
+    config.vm.provision "shell", inline: <<-SCRIPT
+            sudo service apache2 stop
+        SCRIPT
+
     config.vm.provision "ansible_local" do |ansible|
         ansible.playbook    = "/vagrant/vagrant_config/provision.yml"
     end
