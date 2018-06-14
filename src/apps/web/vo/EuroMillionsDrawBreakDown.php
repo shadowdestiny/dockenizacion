@@ -41,6 +41,14 @@ class EuroMillionsDrawBreakDown
 
     protected $category_thirteen;
 
+    protected $category_fourteen;
+
+    protected $category_fifteen;
+
+    protected $category_sixteen;
+
+    protected $category_seventeen;
+
 
     /**
      * @param array $breakdown
@@ -252,6 +260,70 @@ class EuroMillionsDrawBreakDown
     public function setCategoryThirteen($category_thirteen)
     {
         $this->category_thirteen = $category_thirteen;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategoryFourteen()
+    {
+        return $this->category_fourteen;
+    }
+
+    /**
+     * @param mixed $category_fourteen
+     */
+    public function setCategoryFourteen($category_fourteen)
+    {
+        $this->category_fourteen = $category_fourteen;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategoryFifteen()
+    {
+        return $this->category_fifteen;
+    }
+
+    /**
+     * @param mixed $category_fifteen
+     */
+    public function setCategoryFifteen($category_fifteen)
+    {
+        $this->category_fifteen = $category_fifteen;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategorySixteen()
+    {
+        return $this->category_sixteen;
+    }
+
+    /**
+     * @param mixed $category_sixteen
+     */
+    public function setCategorySixteen($category_sixteen)
+    {
+        $this->category_sixteen = $category_sixteen;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategorySeventeen()
+    {
+        return $this->category_seventeen;
+    }
+
+    /**
+     * @param mixed $category_seventeen
+     */
+    public function setCategorySeventeen($category_seventeen)
+    {
+        $this->category_seventeen = $category_seventeen;
     }
 
     /**

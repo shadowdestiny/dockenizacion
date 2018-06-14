@@ -19,6 +19,10 @@
         <embedded name="category_eleven" class="EuroMillions\web\vo\EuroMillionsDrawBreakDownData"/>
         <embedded name="category_twelve" class="EuroMillions\web\vo\EuroMillionsDrawBreakDownData"/>
         <embedded name="category_thirteen" class="EuroMillions\web\vo\EuroMillionsDrawBreakDownData"/>
+        <embedded name="category_fourteen" class="EuroMillions\web\vo\EuroMillionsDrawBreakDownData"/>
+        <embedded name="category_fifteen" class="EuroMillions\web\vo\EuroMillionsDrawBreakDownData"/>
+        <embedded name="category_sixteen" class="EuroMillions\web\vo\EuroMillionsDrawBreakDownData"/>
+        <embedded name="category_seventeen" class="EuroMillions\web\vo\EuroMillionsDrawBreakDownData"/>
     </embeddable>
 
 </doctrine-mapping>
