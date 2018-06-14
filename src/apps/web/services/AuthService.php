@@ -349,9 +349,11 @@ class AuthService
             $userData['lastTickets'] = $myGamesInactives;
             $mySubscriptionsActives = $this->userService->getMyActiveSubscriptions($currentUser->getId(), $nextDrawDate);
             $mySubscriptionsInactives = $this->userService->getMyInactiveSubscriptions($currentUser->getId());
+            $christmasActive = $this->userService->getMyActiveChristmas($currentUser->getId());
+            $christmasInactive = $this->userService->getMyInactiveChristmas($currentUser->getId());
             $userData['transactions'] = $transactions;
             $userData['activeSubscriptions'] = $mySubscriptionsActives;
-            $userData['inactiveSubscriptions'] = $mySubscriptionsActives;
+            $userData['inactiveSubscriptions'] = $mySubscriptionsInactives;
 
             $pdfTemplate = new PdfTemplate();
             $gdprPdfTemplate = new GDPRPdfTemplate($pdfTemplate);

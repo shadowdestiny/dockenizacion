@@ -16,6 +16,8 @@ class GDPRPdfTemplate extends \EuroMillions\web\components\PdfTemplateDecorator
             $tickets =  count($this->data['tickets']) > 0 ? $this->data['tickets']->result : [];
             $lastTickets = is_array($this->data['last_tickets']) ? [] : $this->data['last_tickets']->result;
             $subscriptions = count($this->data['subscriptions']) > 0 ? $this->data['subscriptions'] : [];
+            $inactiveSubscription = count($this->data['inactive_subscriptions']) > 0 ? $this->data['inactive_subscriptions'] : [];
+
             $html = '<html>
 <head></head>
 <body>
@@ -98,10 +100,50 @@ if(count($subscriptions) > 0 ) {
         }
         $html .= '</td>';
     }
+} else {
+    $html .= '<tr><td></td><td></td><td></td>';
 }
 $html .= '
 </tr>
 </table>
+
+<br>
+<br>
+
+<p> Inactive Subscriptions</p>
+<table border="1">
+<tr>
+<th>Start date</th>
+<th>End date</th>
+<th>Numbers played</th>
+</tr>';
+if(count($inactiveSubscription) > 0 ) {
+    foreach ($inactiveSubscription as $subscription) {
+        $startDate = $subscription['start_draw_date'];
+        $lastDate = $subscription['last_draw_date'];
+        $html .= '<tr><td>' . $startDate->format('Y-m-d') . '</td>' . '<td>'.$lastDate->format('Y-m-d') .'</td>';
+        unset($subscription['start_draw_date']);
+        unset($subscription['last_draw_date']);
+        unset($subscription['lines']);
+        $html .='<td>';
+        foreach ($subscription as $playConfigs) {
+            foreach ($playConfigs as $numbers ) {
+                $html .=  $numbers . ', ';
+            }
+            $html .= '<br>';
+
+        }
+        $html .= '</td>';
+    }
+} else {
+    $html .= '<tr><td></td><td></td><td></td>';
+}
+
+$html .='
+</tr>
+</table>
+<br>
+<br>
 <p> Upcoming Draws</p>
 <table border="1">
 <tr>
@@ -117,6 +159,8 @@ if(count($tickets) > 0 ) {
         }
         $html .= '</td></tr>';
     }
+} else {
+    $html .= '<tr><td></td><td></td></tr>';
 }
 $html .= '
 </table>
@@ -136,6 +180,8 @@ if( count($lastTickets) > 0 ) {
         }
         $html .= '</td></tr>';
     }
+} else {
+    $html .= '<tr><td></td><td></td></tr>';
 }
 $html .= '
 </table>
@@ -151,6 +197,8 @@ if( count($transactions) > 0 ) {
     foreach ($transactions as $transaction ) {
         $html .= '<tr><td>'.$transaction->date->format('Y/m/d') .'</td><td>'. $transaction->transactionName .'</td><td>'.$transaction->movement .' </td></tr>';
     }
+} else {
+    $html .= '<tr><td></td><td></td><td></td></tr>';
 }
 $html .= '
 </table>
