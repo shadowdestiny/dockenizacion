@@ -506,6 +506,8 @@ class UserService
                 $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_five'] = $subscriptionsActiveValue['line_regular_number_five'];
                 $subscriptionsActivesPresenter[$cont][$contLines]['line_lucky_number_one'] = $subscriptionsActiveValue['line_lucky_number_one'];
                 $subscriptionsActivesPresenter[$cont][$contLines]['line_lucky_number_two'] = $subscriptionsActiveValue['line_lucky_number_two'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['powerplay'] = $subscriptionsActiveValue['power_play'];
+                $subscriptionsActivesPresenter[$cont]['name'] = $subscriptionsActiveValue['name'];
                 $contLines++;
             } else {
                 $cont++;
@@ -520,6 +522,8 @@ class UserService
                 $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_five'] = $subscriptionsActiveValue['line_regular_number_five'];
                 $subscriptionsActivesPresenter[$cont][$contLines]['line_lucky_number_one'] = $subscriptionsActiveValue['line_lucky_number_one'];
                 $subscriptionsActivesPresenter[$cont][$contLines]['line_lucky_number_two'] = $subscriptionsActiveValue['line_lucky_number_two'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['powerplay'] = $subscriptionsActiveValue['power_play'];
+                $subscriptionsActivesPresenter[$cont]['name'] = $subscriptionsActiveValue['name'];
                 $contLines++;
             }
             $lastDrawDate = $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'];

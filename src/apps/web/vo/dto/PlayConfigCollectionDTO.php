@@ -53,6 +53,10 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
 
     public $numPlayConfigs;
 
+    public $lotteryName;
+
+    public $powerPLay;
+
 
 /// EMTD @rmrbest Why there's no unit test over this class? For example, drawDays is declared as DrawDays type, but then you assign an integer to it... WTF?
 
@@ -77,6 +81,8 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
         $this->lines = $this->euroMillionsLinesToJson();
         $this->duration_format = $this->getFormatDuration();
         $this->duration = $this->duration();
+        $this->lotteryName = $this->playConfig[0]->getLottery()->getName();
+        $this->powerPLay = $this->playConfig[0]->getPowerPlay();
         $this->frequency = $this->playConfig[0]->getFrequency();
         $this->user = $this->playConfig[0]->getUser();
         $this->wallet_balance_user = $this->playConfig[0]->getUser()->getBalance();

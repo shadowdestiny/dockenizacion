@@ -111,7 +111,7 @@ class PlayConfigRepository extends RepositoryBase
             ->createQuery(
                 'SELECT b'
                 . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b INNER JOIN b.playConfig p '
-                . ' WHERE p.user = :user_id AND p.active = :active and p.frequency = :frequency and p.lottery = 1'
+                . ' WHERE p.user = :user_id AND p.active = :active and p.frequency = :frequency'
                 . ' GROUP BY p.startDrawDate,p.line.regular_number_one,'
                 . ' p.line.regular_number_two,p.line.regular_number_three, '
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
@@ -237,6 +237,8 @@ class PlayConfigRepository extends RepositoryBase
         $rsm->addScalarResult('line_regular_number_five', 'line_regular_number_five');
         $rsm->addScalarResult('line_lucky_number_one', 'line_lucky_number_one');
         $rsm->addScalarResult('line_lucky_number_two', 'line_lucky_number_two');
+        $rsm->addScalarResult('name', 'name');
+        $rsm->addScalarResult('power_play', 'power_play');
 
         return $this->getEntityManager()
             ->createNativeQuery(
@@ -246,9 +248,12 @@ class PlayConfigRepository extends RepositoryBase
                             p.line_regular_number_four,
                             p.line_regular_number_five,
                             p.line_lucky_number_one,
-                            p.line_lucky_number_two'
+                            p.line_lucky_number_two,
+                            p.power_play,
+                            l.name'
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
                 . ' INNER JOIN log_validation_api lva ON lva.bet_id = b.id '
+                . ' INNER JOIN lotteries l ON l.id = p.lottery_id '
                 . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 '
                 . ' AND last_draw_date >= "' . $nextDrawDate->format('Y-m-d') . '" AND received >= "' . $receivedDate->format('Y-m-d H:i:s') . '"
                     AND lva.status = "OK"
@@ -281,6 +286,8 @@ class PlayConfigRepository extends RepositoryBase
         $rsm->addScalarResult('line_regular_number_five', 'line_regular_number_five');
         $rsm->addScalarResult('line_lucky_number_one', 'line_lucky_number_one');
         $rsm->addScalarResult('line_lucky_number_two', 'line_lucky_number_two');
+        $rsm->addScalarResult('name', 'name');
+        $rsm->addScalarResult('power_play', 'power_play');
 
         return $this->getEntityManager()
             ->createNativeQuery(
@@ -290,8 +297,11 @@ class PlayConfigRepository extends RepositoryBase
                             p.line_regular_number_four,
                             p.line_regular_number_five,
                             p.line_lucky_number_one,
-                            p.line_lucky_number_two'
+                            p.line_lucky_number_two,
+                            p.power_play,
+                            l.name'
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
+                . ' INNER JOIN lotteries l ON l.id = p.lottery_id '
                 . ' WHERE p.user_id = "' . $userId . '" AND p.active = 0 AND p.frequency > 1 '
                 . '    GROUP BY p.start_draw_date,
                             p.line_regular_number_one,
