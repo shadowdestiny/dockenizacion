@@ -245,12 +245,12 @@
                     </div>
                 </div>
 
-                <div class="my-account--section personal-information">
+                <div class="my-account--section personal-information" style="padding-bottom:100px">
                     <h2 class="">{{ language.translate("downloadinfo_head") }}</h2>
                     <div class="box-change-psw" style="display:block">
                         <div>
                         <p>
-                            <label class="label">{{ language.translate("downloadinfo_subhead") }}</label>
+                            <label class="label" style="font-size:14px">{{ language.translate("downloadinfo_subhead") }}</label>
                         </p>
                         <p>
                              {{ language.translate("downloadinfo_text") }}
@@ -264,7 +264,7 @@
                         </div>
                         <div style="margin-top:100px">
                             <p>
-                               <label class="label">{{ language.translate("deleteaccount_subhead") }}</label>
+                               <label class="label" style="font-size:14px;">{{ language.translate("deleteaccount_subhead") }}</label>
                             </p>
                             <p>
                                  {{ language.translate("deleteaccount_text") }}

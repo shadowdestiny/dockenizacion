@@ -162,6 +162,7 @@ class AuthService
         }
         $this->emailService->sendWelcomeEmail($user, $this->urlManager);
         $this->userService->initUserNotifications($user->getId());
+        $this->storageStrategy->setCurrentUserId($user->getId());
         return new ActionResult(true, $user);
     }
 
@@ -332,7 +333,7 @@ class AuthService
     }
 
 
-    public function getPDFFromUser(IPDFWrapper $pdfWrapper, array $notificationsDTO, $transactions )
+    public function getPDFFromUser(IPDFWrapper $pdfWrapper, array $notificationsDTO, $transactions, $nextDrawDate )
     {
 
         $userData = [];
@@ -347,7 +348,13 @@ class AuthService
             $userData['upComingDraws'] = $upComingDraws;
             $myGamesInactives = $this->userService->getMyInactivePlays($currentUser->getId())->getValues();
             $userData['lastTickets'] = $myGamesInactives;
+            $mySubscriptionsActives = $this->userService->getMyActiveSubscriptions($currentUser->getId(), $nextDrawDate);
+            $mySubscriptionsInactives = $this->userService->getMyInactiveSubscriptions($currentUser->getId());
+            $christmasActive = $this->userService->getMyActiveChristmas($currentUser->getId());
+            $christmasInactive = $this->userService->getMyInactiveChristmas($currentUser->getId());
             $userData['transactions'] = $transactions;
+            $userData['activeSubscriptions'] = $mySubscriptionsActives;
+            $userData['inactiveSubscriptions'] = $mySubscriptionsInactives;
 
             $pdfTemplate = new PdfTemplate();
             $gdprPdfTemplate = new GDPRPdfTemplate($pdfTemplate);

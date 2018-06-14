@@ -28,6 +28,9 @@ class PDFGenerator
         $data['user_details']['phone'] = $userData['user']->getPhoneNumber();
         $data['notifications'] = $userData['notifications'];
         $data['tickets'] = $userData['upComingDraws'];
+        $data['subscriptions'] = $userData['activeSubscriptions'];
+        $data['inactive_subscriptions'] = $userData['inactiveSubscriptions'];
+
         if($userData['lastTickets'] == null ) {
             $data['last_tickets'] = [];
         } else {

@@ -141,9 +141,9 @@ class AccountController extends PublicSiteControllerBase
         } else {
             $error_msg = 'An error occurred';
         }
-
+        $nextDrawDate = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
         $transactions = $this->transactionService->getTransactionsDTOByUser($this->userService->getUser($userId) );
-        $this->authService->getPDFFromUser(new TCPPDFWrapper(new \TCPDF()), $list_notifications , $transactions);
+        $this->authService->getPDFFromUser(new TCPPDFWrapper(new \TCPDF()), $list_notifications , $transactions, $nextDrawDate);
 //        $this->response->setHeader('Content-type','application/pdf');
 //        $this->response->setHeader('Content-Disposition','attachment; filename="mydata.pdf"');
     }

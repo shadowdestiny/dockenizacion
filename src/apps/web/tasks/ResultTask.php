@@ -87,6 +87,7 @@ class ResultTask extends TaskBase
     {
         try {
             $results = $this->lotteryService->getAllResultFromPowerball(new Curl(), Di::getDefault()->get('config')['lotto_api']);
+
         } catch (Exception $e) {
 
         }
