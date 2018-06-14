@@ -129,7 +129,7 @@ $html .= '
 
     public function loadHeader()
     {
-        return '<img src=\"/w/img/logo/v2/logo-desktop.png\" alt=\"Euromillions\">';
+        return '<img src="https://www.euromillions.com/w/img/logo/v2/logo-desktop.png" alt="Euromillions">';
         //$this->pdfTemplate->loadHeader();
     }
 
