@@ -12,6 +12,6 @@ class PowerBallLuckyNumber extends PowerBallResultNumber
 
     protected function getMaxValue()
     {
-        return 25;
+        return 26;
     }
 }

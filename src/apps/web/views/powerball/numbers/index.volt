@@ -128,11 +128,12 @@
                                 </li>
                             {% endif %}
                         {% endfor %}
-                        {% for lucky_number in last_result["lucky_numbers"] %}
                             <li class="star">
-                                <span class="num">{{ lucky_number }}</span>
+                                <span class="num">{{ last_result["lucky_numbers"][1] }}</span>
                             </li>
-                        {% endfor %}
+                        <li class="star">
+                            <span class="num">{{ last_result["power_play"] }}</span>
+                        </li>
                     </ul>
 
                     <h3 class="h2 desktop--only">
@@ -163,18 +164,19 @@
                             <h2 class="h2">
                                 {{ language.translate("results_pow_h2") }}
                             </h2>
+                            <table border="0" cellpadding="0" cellspacing="0"
+                                   width="100%">
+                                <tbody>
+                                <tr>
+                                    <td style="width: 50%; vertical-align: top;">
                             <table id="current-winners" class="table ui-responsive" data-role="table"
                                    data-mode="reflow">
                                 <thead><th> </th></thead>
                                 <tbody>
                                 <tr>
                                     <td class="td-ball td-head">{{ language.translate("prizePool_matches") }}</td>
-                                    {#<th class="td-star-ball">{{ language.translate("prizePool_star") }} 2</th>#}
                                     <td class="td-winners td-head">{{ language.translate("prizePool_winners") }}</td>
                                     <td class="td-prize td-head">{{ language.translate("prizePool_prize") }}</td>
-
-                                    <td class="td-winners--powerplay td-head">{{ language.translate("powerplay_winners") }}</td>
-                                    <td class="td-prize--powerplay td-head">{{ language.translate("powerplay_prizes") }}</td>
                                 </tr>
                                 {% for name,categories in break_downs %}
                                     <tr>
@@ -203,6 +205,24 @@
                                                 </span>
                                             </td>
 
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                                    </td>
+                                    <td style="width: 38%; vertical-align: top;">
+                                <table id="current-winners" class="table ui-responsive" data-role="table"
+                                       data-mode="reflow">
+                                    <thead><th> </th></thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="td-winners--powerplay td-head">{{ language.translate("powerplay_winners") }}</td>
+                                        <td class="td-prize--powerplay td-head">{{ language.translate("powerplay_prizes") }}</td>
+                                    </tr>
+                                {% for name,categories in break_downs %}
+                                    <tr>
+                                        {% if break_downs[name] is defined %}
 
                                             <td class="td-winners--powerplay">
                                                 <span>
@@ -211,13 +231,18 @@
                                             </td>
                                             <td class="td-prize--powerplay">
                                                 <span>
-                                                    {{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}
+                                                    {{ symbol }} {{ (break_downs[name]['lottery_prize'] * last_result["power_play"]) | number_format(2, '.', ',') }}
                                                 </span>
                                             </td>
+
 
                                         {% endif %}
                                     </tr>
                                 {% endfor %}
+                                </tbody>
+                            </table>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
 

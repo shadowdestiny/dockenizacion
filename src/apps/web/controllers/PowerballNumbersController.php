@@ -45,6 +45,9 @@ class PowerballNumbersController extends PublicSiteControllerBase
         }
         /** @var EuroMillionsDraw $euroMillionsDraw */
         $euroMillionsDraw = $draw_result->getValues();
+
+        $raffle = $euroMillionsDraw->getRaffle()->toArray();
+        $raffle = $raffle['value'];
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
@@ -55,7 +58,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $euroMillionsDraw->getId(),
-            'last_result' => ['regular_numbers' => $euroMillionsDraw->getResult()->getRegularNumbersArray(), 'lucky_numbers' => $euroMillionsDraw->getResult()->getLuckyNumbersArray()],
+            'last_result' => ['regular_numbers' => $euroMillionsDraw->getResult()->getRegularNumbersArray(), 'lucky_numbers' => $euroMillionsDraw->getResult()->getLuckyNumbersArray(), 'power_play' => $raffle],
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours')->format('Y-m-d H:i:s'),
             'last_draw_date' => $euroMillionsDraw->getDrawDate()->format($this->languageService->translate('dateformat')),
             'draw_day' => $euroMillionsDraw->getDrawDate()->format('l'),
