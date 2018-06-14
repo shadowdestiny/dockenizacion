@@ -162,6 +162,7 @@ class AuthService
         }
         $this->emailService->sendWelcomeEmail($user, $this->urlManager);
         $this->userService->initUserNotifications($user->getId());
+        $this->storageStrategy->setCurrentUserId($user->getId());
         return new ActionResult(true, $user);
     }
 

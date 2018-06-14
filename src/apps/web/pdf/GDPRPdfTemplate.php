@@ -98,13 +98,12 @@ if(count($subscriptions) > 0 ) {
             $html .= '<br>';
 
         }
-        $html .= '</td>';
+        $html .= '</td></tr>';
     }
 } else {
-    $html .= '<tr><td></td><td></td><td></td>';
+    $html .= '<tr><td></td><td></td><td></td></tr>';
 }
 $html .= '
-</tr>
 </table>
 
 <br>
@@ -133,14 +132,13 @@ if(count($inactiveSubscription) > 0 ) {
             $html .= '<br>';
 
         }
-        $html .= '</td>';
+        $html .= '</td></tr>';
     }
 } else {
-    $html .= '<tr><td></td><td></td><td></td>';
+    $html .= '<tr><td></td><td></td><td></td></tr>';
 }
 
 $html .='
-</tr>
 </table>
 <br>
 <br>

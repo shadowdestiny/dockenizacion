@@ -28,6 +28,7 @@ class TCPPDFWrapper implements IPDFWrapper
         $this->tcpPDF->AddPage();
         $this->tcpPDF->writeHTML($this->html, true, 0,0);
         $this->tcpPDF->lastPage();
+        ob_end_clean();
         $this->tcpPDF->Output('mydata.pdf', 'D');
     }
 
