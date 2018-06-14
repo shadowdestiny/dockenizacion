@@ -93,7 +93,7 @@ $html .= '
 </tr>';
 if( count($lastTickets) > 0 ) {
     foreach ($lastTickets['dates'] as $d => $draws) {
-        $html .= '<tr><td>'.$k.'</td><td>';
+        $html .= '<tr><td>'.$d.'</td><td>';
         foreach ($draws as $numbers) {
             $html .= implode(',',array_keys($numbers->numbers)). ' ' . implode(',',array_keys($numbers->stars)) . '<br>';
         }
