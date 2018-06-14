@@ -18,7 +18,9 @@ class GDPRPdfTemplate extends \EuroMillions\web\components\PdfTemplateDecorator
 
             $html = '<html>
 <head></head>
-<body><table border="1">
+<body>
+' . $this->loadHeader() . '
+<table border="1">
 <tr>
 <th>Name</th>
 <th>Username</th>
@@ -127,7 +129,8 @@ $html .= '
 
     public function loadHeader()
     {
-        $this->pdfTemplate->loadHeader();
+        return '<img src=\"/w/img/logo/v2/logo-desktop.png\" alt=\"Euromillions\">';
+        //$this->pdfTemplate->loadHeader();
     }
 
     public function loadFooter()
