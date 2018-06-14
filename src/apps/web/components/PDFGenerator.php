@@ -29,6 +29,7 @@ class PDFGenerator
         $data['notifications'] = $userData['notifications'];
         $data['tickets'] = $userData['upComingDraws'];
         $data['subscriptions'] = $userData['activeSubscriptions'];
+        $data['inactive_subscriptions'] = $userData['inactiveSubscriptions'];
 
         if($userData['lastTickets'] == null ) {
             $data['last_tickets'] = [];
