@@ -15,11 +15,20 @@ class GDPRPdfTemplate extends \EuroMillions\web\components\PdfTemplateDecorator
             $transactions = $this->data['transactions'];
             $tickets =  count($this->data['tickets']) > 0 ? $this->data['tickets']->result : [];
             $lastTickets = is_array($this->data['last_tickets']) ? [] : $this->data['last_tickets']->result;
+            $subscriptions = count($this->data['subscriptions'][1]) > 0 ? $this->data['subscriptions'][1] : [];
+            $startDate = $subscriptions['start_draw_date'];
+            $lastDate = $subscriptions['last_draw_date'];
 
             $html = '<html>
 <head></head>
 <body>
+<table border="0">
+<tr>
+<td>
 ' . $this->loadHeader() . '
+</td>
+</tr>
+</table>
 <table border="1">
 <tr>
 <th>Name</th>
@@ -67,6 +76,32 @@ class GDPRPdfTemplate extends \EuroMillions\web\components\PdfTemplateDecorator
 
 <br>
 <br>
+<p>Subscriptions</p>
+<table border="1">
+<tr>
+<th>Start date</th>
+<th>End date</th>
+<th>Numbers played</th>
+</tr>
+<tr>
+<td>'. $startDate->format('Y-m-d').'</td>
+<td>'. $lastDate->format('Y-m-d').'</td>';
+unset($subscriptions['start_draw_date']);
+unset($subscriptions['last_draw_date']);
+unset($subscriptions['lines']);
+if(count($subscriptions) > 0 ) {
+    foreach ($subscriptions as $k => $v) {
+        $html .= '<td>';
+        foreach ($v as $numbers) {
+            $html .= $numbers . ' ';
+        }
+
+        $html .= '</td>';
+    }
+}
+$html .= '
+</tr>
+</table>
 <p> Upcoming Draws</p>
 <table border="1">
 <tr>
@@ -129,7 +164,7 @@ $html .= '
 
     public function loadHeader()
     {
-        return '<img src="https://www.euromillions.com/w/img/logo/v2/logo-desktop.png" alt="Euromillions">';
+        return '<img width="350px" height="53px" src="https://www.euromillions.com/w/img/logo/v2/logo-desktop.png" alt="Euromillions">';
         //$this->pdfTemplate->loadHeader();
     }
 

@@ -332,7 +332,7 @@ class AuthService
     }
 
 
-    public function getPDFFromUser(IPDFWrapper $pdfWrapper, array $notificationsDTO, $transactions )
+    public function getPDFFromUser(IPDFWrapper $pdfWrapper, array $notificationsDTO, $transactions, $nextDrawDate )
     {
 
         $userData = [];
@@ -347,7 +347,9 @@ class AuthService
             $userData['upComingDraws'] = $upComingDraws;
             $myGamesInactives = $this->userService->getMyInactivePlays($currentUser->getId())->getValues();
             $userData['lastTickets'] = $myGamesInactives;
+            $mySubscriptionsActives = $this->userService->getMyActiveSubscriptions($currentUser->getId(), $nextDrawDate);
             $userData['transactions'] = $transactions;
+            $userData['activeSubscriptions'] = $mySubscriptionsActives;
 
             $pdfTemplate = new PdfTemplate();
             $gdprPdfTemplate = new GDPRPdfTemplate($pdfTemplate);
