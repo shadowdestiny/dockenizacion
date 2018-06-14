@@ -127,6 +127,7 @@ class AccountController extends PublicSiteControllerBase
 
     public function downloadinformationAction()
     {
+        set_time_limit(0);
         $userId = $this->authService->getCurrentUser();
         $result = $this->obtainActiveNotifications($userId);
         $list_notifications = [];
