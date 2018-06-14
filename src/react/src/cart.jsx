@@ -293,6 +293,7 @@ var CartPage = new React.createClass({
                                txt_line={this.props.txt_line}
                                tuesday={this.props.tuesday}
                                friday={this.props.friday}
+                               currency_symbol={this.props.currency_symbol}
                 txt_lottery={this.props.txt_lottery}/>
 
                 <div className="box-order">
@@ -309,7 +310,7 @@ var CartPage = new React.createClass({
                               total_lines={total_lines}
                               powerplayprice={this.props.powerplayprice}
                               total_price={this.props.total}
-                              symbol_position={this.props.symbol_position} config={JSON.parse(this.props.config)}/>
+                              currency_symbol={this.props.currency_symbol} config={JSON.parse(this.props.config)}/>
             </div>
         )
     }

@@ -54,7 +54,7 @@ var EmResumeOrder = new React.createClass({
                     <div className="total">
                         <div className="txt">{this.props.txt_total}</div>
                         <div className="val">{this.props.total_price}</div>
-                        <EmBtnPayment href={this.props.href} databtn={this.props.databtn} price={this.props.total_price}
+                        <EmBtnPayment href={this.props.href} databtn={this.props.databtn} price={this.props.total_price} currency_symbol={this.props.currency_symbol}
                                       classBtn={this.props.classBtn} text={this.props.text}/>
                     </div>
 
