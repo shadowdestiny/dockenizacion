@@ -120,4 +120,5 @@ class EuroMillionsDraw extends EntityBase implements IEntity
         $euroMilliosnBreakDownData = new EuroMillionsDrawBreakDown($breakDowns);
         $this->setBreakDown($euroMilliosnBreakDownData);
     }
+
 }

@@ -86,8 +86,11 @@ class ResultTask extends TaskBase
     public function importAllHistoricalDataFromPowerballAction()
     {
         try {
+            $dependencies = [];
+            $conversionService = $this->domainServiceFactory->getCurrencyConversionService();
+            $dependencies['CurrencyConversionService'] = $conversionService;
             $results = $this->lotteryService->getAllResultFromPowerball(new Curl(), Di::getDefault()->get('config')['lotto_api']);
-
+            $this->lotteriesDataService->insertPowerBallData($results->body,$dependencies);
         } catch (Exception $e) {
 
         }

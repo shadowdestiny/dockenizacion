@@ -11,7 +11,9 @@ use Money\Money;
 class EuroMillionsDrawBreakDown
 {
 
-    CONST NUMBER_OF_CATEGORIES = 13;
+    CONST NUMBER_OF_CATEGORIES = 17;
+
+    protected $type;
 
     protected $breakdown;
 
@@ -327,6 +329,23 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+
+    /**
      * @param $cnt_number
      * @param $cnt_lucky
      * @return mixed
@@ -367,6 +386,7 @@ class EuroMillionsDrawBreakDown
             }
         }
     }
+
 
     private function mappingAward($cnt_number, $cnt_lucky)
     {
@@ -409,5 +429,7 @@ class EuroMillionsDrawBreakDown
         }
         return $result;
     }
+
+
 
 }

@@ -15,6 +15,7 @@ use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
+use EuroMillions\web\services\CurrencyConversionService;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
@@ -144,6 +145,40 @@ class LotteriesDataService
 
         } catch (\Exception $e) {
             throw new \Exception('Error updating results');
+        }
+    }
+
+
+    public function insertPowerBallData($data,array $dependencies)
+    {
+        try {
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => 'PowerBall']);
+            /** @var CurrencyConversionService $currencyConversionService */
+            $currencyConversionService = $dependencies['CurrencyConversionService'];
+
+            try {
+                /** @var EuroMillionsDraw $draw */
+                $draw = $this->lotteryDrawRepository->getLastDraw($lottery);
+            } catch (\Exception $e)
+            {
+                $powerBallDraws  = json_decode($data, true);
+                unset($powerBallDraws[0]);
+                foreach ($powerBallDraws as $powerballDraw) {
+                    $draw = $this->createDraw(new \DateTime($powerballDraw['date']), null, $lottery);
+                    $draw->createResult($powerballDraw['numbers']['main'], [0,$powerballDraw['numbers']['powerball']]);
+                    $draw->setJackpot($currencyConversionService->convert(
+                        new Money((int) $powerballDraw['jackpot']['total'],new Currency('USD') ),
+                        new Currency('EUR')
+                        )
+                    );
+                    $this->entityManager->persist($draw);
+                    $this->entityManager->flush();
+                }
+            }
+        } catch ( \Exception $e )
+        {
+
         }
     }
 
