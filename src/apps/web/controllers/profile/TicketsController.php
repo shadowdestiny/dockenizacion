@@ -51,7 +51,7 @@ class TicketsController extends AccountController
         return $this->view->setVars([
             'my_games_actives' => $playConfigDTO,
             'my_games_inactives' => $paginator->getPaginate()->items,
-            'my_subscription_actives' => $this->userService->getMyActiveSubscriptions($user->getId(), $this->lotteryService->getNextDateDrawByLottery('Euromillions')),
+            'my_subscription_actives' => $this->userService->getMyActiveSubscriptions($user->getId(), $this->lotteryService->getNextDateDrawByLottery('EuroMillions')),
             'my_subscription_inactives' => $paginatorSubsInactives->getPaginate()->items,
             'my_christmas_actives' => $this->userService->getMyActiveChristmas($user->getId()),
             'my_christmas_inactives' => $this->userService->getMyInactiveChristmas($user->getId()),

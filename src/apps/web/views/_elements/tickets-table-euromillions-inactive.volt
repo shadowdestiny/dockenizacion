@@ -2,7 +2,7 @@
     <table>
 
         <tr>
-            <td class="lottery"></td>
+            <td class="lottery">{{ language.translate("tickets_past_lotto") }}</td>
             <td class="date-from">{{ language.translate("tickets_past_date") }}</td>
             <td class="date-to">{{ language.translate("tickets_play_again") }}</td>
             <td class="numbers">{{ language.translate("tickets_SubsPast_numbers") }}</td>
@@ -11,7 +11,7 @@
         {% for date,play_configs in my_games_inactives %}
             <tr>
                 <td class="lottery">
-                    {{ language.translate("Euromillions") }}
+                    {{ play_configs[0].lotteryName }}
                 </td>
                 <td class="date-from">
                     <?php
