@@ -115,9 +115,9 @@ class EuroMillionsDraw extends EntityBase implements IEntity
         $this->result = new EuroMillionsLine($regular_numbers, $lucky_numbers);
     }
 
-    public function createBreakDown(array $breakDowns)
+    public function createBreakDown(array $breakDowns, $className = 'EuroMillionsDrawBreakDown')
     {
-        $euroMilliosnBreakDownData = new EuroMillionsDrawBreakDown($breakDowns);
+        $euroMilliosnBreakDownData = new $className($breakDowns);
         $this->setBreakDown($euroMilliosnBreakDownData);
     }
 

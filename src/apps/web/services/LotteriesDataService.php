@@ -21,6 +21,8 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDownData;
 use EuroMillions\web\vo\EuroMillionsJackpot;
+use EuroMillions\web\vo\PowerBallDrawBreakDown;
+use EuroMillions\web\vo\Raffle;
 use Money\Currency;
 use Money\Money;
 
@@ -172,13 +174,21 @@ class LotteriesDataService
                         new Currency('EUR')
                         )
                     );
+                    $draw->setRaffle(new Raffle($powerballDraw['numbers']['powerplay']));
+                    $draw->createBreakDown([
+                            'prizes' => $powerballDraw['prizes'],
+                            'winners' => $powerballDraw['winners']
+                        ],
+                        PowerBallDrawBreakDown::class
+                        );
                     $this->entityManager->persist($draw);
                     $this->entityManager->flush();
                 }
             }
         } catch ( \Exception $e )
         {
-
+            $this->entityManager->rollback();
+            throw new \Exception($e->getMessage());
         }
     }
 

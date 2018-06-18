@@ -15,7 +15,8 @@ class Raffle
     public function __construct($value)
     {
         Assertion::notEmpty($value);
-        $this->tipoIsCorrect($value);
+        $this->value = $value;
+     //   $this->tipoIsCorrect($value);
     }
 
     public function tipoIsCorrect($raffle)
