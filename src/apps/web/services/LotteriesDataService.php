@@ -65,6 +65,26 @@ class LotteriesDataService
         }
     }
 
+    public function updateNextDrawJackpotPowerball($lotteryName, \DateTime $now = null)
+    {
+        try {
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+            $jackpotApi = $this->apisFactory->jackpotApi($lottery);
+            $jackpotMoney = $jackpotApi->getJackpotForDate($lotteryName, null);
+            $resultApi = $this->apisFactory->resultApi($lottery);
+            $result = $resultApi->getResultForDate($lotteryName, null);
+            $draw = $this->createDraw(new \DateTime($result['date']), $jackpotMoney, $lottery);
+            $this->entityManager->persist($draw);
+            $this->entityManager->flush();
+        } catch (\Exception $e)
+        {
+            $this->entityManager->rollback();
+            throw new \Exception($e->getMessage());
+        }
+
+    }
+
     public function updateNextDrawJackpot($lotteryName, \DateTime $now = null)
     {
         if (!$now) {
@@ -150,10 +170,38 @@ class LotteriesDataService
         }
     }
 
+    public function updateLastDrawResultPowerBall($lotteryName)
+    {
+        try {
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+            $resultApi = $this->apisFactory->resultApi($lottery);
+            $lastDrawDate = $lottery->getLastDrawDate(new \DateTime());
+            $result = $resultApi->getResultForDate($lotteryName, $lastDrawDate->format('Y-m-d'));
+            try {
+                /** @var EuroMillionsDraw $draw */
+                $draw = $this->lotteryDrawRepository->getLastDraw($lottery);
+            } catch (DataMissingException $e) {
+                $draw = $this->createDraw($lastDrawDate, null, $lottery);
+            }
+            $draw->createResult($result['numbers']['main'],  [0,$result['numbers']['powerball']]);
+            if ($draw->getResult()->getRegularNumbers()) {
+                $this->entityManager->persist($draw);
+                $this->entityManager->flush();
+                $this->sendEmailResultsOrigin('Powerball - Lottorisq API');
+                return $draw->getResult();
+            }
+        } catch (\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
 
     public function insertPowerBallData($data,array $dependencies)
     {
         try {
+
             /** @var Lottery $lottery */
             $lottery = $this->lotteryRepository->findOneBy(['name' => 'PowerBall']);
             /** @var CurrencyConversionService $currencyConversionService */
@@ -234,6 +282,37 @@ class LotteriesDataService
             throw new \Exception('Error updating results');
         }
     }
+
+    public function updateLastBreakDownPowerBall($lotteryName)
+    {
+        try {
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+            $resultApi = $this->apisFactory->resultApi($lottery);
+            $lastDrawDate = $lottery->getLastDrawDate(new \DateTime());
+            $result = $resultApi->getResultForDate($lotteryName, $lastDrawDate->format('Y-m-d'));
+            /** @var EuroMillionsDraw $draw */
+            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $lastDrawDate]);
+            if(!$draw->hasBreakDown()) {
+                $draw->createBreakDown(
+                    [
+                        'prizes' => $result['prizes'],
+                        'winners' => $result['winners']
+                    ],
+                    PowerBallDrawBreakDown::class
+                );
+                $this->entityManager->flush();
+                $this->sendEmailResultsOrigin('Loterias y Apuestas Breakdown');
+                return $draw;
+
+            }
+
+        } catch (\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
 
     public function sendEmailResultsOrigin($resultsOrigin)
     {

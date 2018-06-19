@@ -83,6 +83,18 @@ class ResultTask extends TaskBase
         }
     }
 
+
+    public function updatePowerballResultAction(\DateTime $now = null)
+    {
+        try {
+            $this->lotteriesDataService->updateLastDrawResultPowerBall('PowerBall');
+            $this->lotteriesDataService->updateLastBreakDownPowerBall('PowerBall');
+        } catch (\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
     public function importAllHistoricalDataFromPowerballAction()
     {
         try {
@@ -95,5 +107,7 @@ class ResultTask extends TaskBase
             throw new \Exception($e->getMessage());
         }
     }
+
+
 
 }
