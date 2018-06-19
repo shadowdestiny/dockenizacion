@@ -42,6 +42,7 @@ class PowerBallDrawBreakDown extends EuroMillionsDrawBreakDown
                 $methodName = $this->mappingMethodName($k);
                 $euroMillionsDrawBreakDown = new PowerBallDrawBreakDownData();
                 $euroMillionsDrawBreakDown->setName($k);
+
                 $euroMillionsDrawBreakDown->setLotteryPrize($this->currencyConversion(
                         new Money((int) str_replace('.','', $data),
                         new Currency('USD'))
@@ -58,24 +59,24 @@ class PowerBallDrawBreakDown extends EuroMillionsDrawBreakDown
 
     private function mappingMethodName($key)
     {
-        $mappingArray = [
-            'match-5-pp' => 'setCategorySeventeen',
-            'match-5-p' => 'setCategorySixteen',
-            'match-5' => 'setCategoryFifteen',
-            'match-4-pp' => 'setCategoryFourteen',
-            'match-4-p-pp' => 'setCategoryThirteen',
-            'match-4-p' => 'setCategoryTwelve',
-            'match-4' => 'setCategoryEleven',
-            'match-3-pp' => 'setCategoryTen',
-            'match-3-p-pp' => 'setCategoryNine',
-            'match-3-p' => 'setCategoryEight',
-            'match-3' => 'setCategorySeven',
-            'match-2-p-pp' => 'setCategorySix',
-            'match-2-p' => 'setCategoryFive',
-            'match-1-p-pp' => 'setCategoryFour',
-            'match-1-p' => 'setCategoryThree',
-            'match-0-p-pp' => 'setCategoryTwo',
-            'match-0-p' => 'setCategoryOne'
+            $mappingArray = [
+                'match-0-p' => 'setCategorySeventeen',
+                'match-0-p-pp' => 'setCategorySixteen',
+                'match-1-p' => 'setCategoryFifteen',
+                'match-1-p-pp' => 'setCategoryFourteen',
+                'match-2-p' => 'setCategoryThirteen',
+                'match-2-p-pp' => 'setCategoryTwelve',
+                'match-3' => 'setCategoryEleven',
+                'match-3-p' => 'setCategoryTen',
+                'match-3-p-pp' => 'setCategoryNine',
+                'match-3-pp' => 'setCategoryEight',
+                'match-4' => 'setCategorySeven',
+                'match-4-p' => 'setCategorySix',
+                'match-4-p-pp' => 'setCategoryFive',
+                'match-4-pp' => 'setCategoryFour',
+                'match-5' => 'setCategoryThree',
+                'match-5-p' => 'setCategoryTwo',
+                'match-5-pp' => 'setCategoryOne'
         ];
 
         return $mappingArray[$key];
@@ -86,7 +87,8 @@ class PowerBallDrawBreakDown extends EuroMillionsDrawBreakDown
         try {
             /** @var CurrencyConversionService $currencyConversion */
             $currencyConversion = Di::getDefault()->get('domainServiceFactory')->getCurrencyConversionService();
-            return $currencyConversion->convert($money, new Currency('EUR'));
+            $moneyConverted = $currencyConversion->convert($money, new Currency('EUR'));
+            return new Money((int) $moneyConverted->getAmount() * 100, new Currency('EUR'));
         } catch (UnknownCurrencyException $e) {
             return null;
         }

@@ -217,11 +217,12 @@ class LotteriesDataService
                 foreach ($powerBallDraws as $powerballDraw) {
                     $draw = $this->createDraw(new \DateTime($powerballDraw['date']), null, $lottery);
                     $draw->createResult($powerballDraw['numbers']['main'], [0,$powerballDraw['numbers']['powerball']]);
-                    $draw->setJackpot($currencyConversionService->convert(
+                    $jackpotEUR = $currencyConversionService->convert(
                         new Money((int) $powerballDraw['jackpot']['total'],new Currency('USD') ),
                         new Currency('EUR')
-                        )
                     );
+                    $jack = new Money((int) floor($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
+                    $draw->setJackpot($jack);
                     $draw->setRaffle(new Raffle($powerballDraw['numbers']['powerplay']));
                     $draw->createBreakDown([
                             'prizes' => $powerballDraw['prizes'],
@@ -306,7 +307,6 @@ class LotteriesDataService
                 return $draw;
 
             }
-
         } catch (\Exception $e)
         {
             throw new \Exception($e->getMessage());

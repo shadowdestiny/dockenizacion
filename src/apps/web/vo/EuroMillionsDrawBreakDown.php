@@ -73,6 +73,9 @@ class EuroMillionsDrawBreakDown
         $this->category_one = $category_one;
     }
 
+    /**
+     * @return EuroMillionsDrawBreakDownData
+     */
     public function getCategoryOne()
     {
         return $this->category_one;
@@ -83,13 +86,16 @@ class EuroMillionsDrawBreakDown
         $this->category_two = $category_two;
     }
 
+    /**
+     * @return EuroMillionsDrawBreakDownData
+     */
     public function getCategoryTwo()
     {
         return $this->category_two;
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategoryThree()
     {
@@ -105,23 +111,21 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategoryFour()
     {
         return $this->category_four;
     }
 
-    /**
-     * @param mixed $category_four
-     */
+
     public function setCategoryFour($category_four)
     {
         $this->category_four = $category_four;
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategoryFive()
     {
@@ -137,7 +141,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategorySix()
     {
@@ -153,7 +157,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategorySeven()
     {
@@ -169,7 +173,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategoryEight()
     {
@@ -185,7 +189,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategoryNine()
     {
@@ -201,7 +205,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategoryTen()
     {
@@ -217,7 +221,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategoryEleven()
     {
@@ -233,7 +237,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategoryTwelve()
     {
@@ -249,7 +253,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategoryThirteen()
     {
@@ -265,7 +269,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategoryFourteen()
     {
@@ -281,7 +285,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategoryFifteen()
     {
@@ -297,7 +301,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategorySixteen()
     {
@@ -313,7 +317,7 @@ class EuroMillionsDrawBreakDown
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownData
      */
     public function getCategorySeventeen()
     {

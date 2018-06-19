@@ -7,6 +7,7 @@ use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
+use EuroMillions\web\vo\dto\PowerBallDrawBreakDownDTO;
 use Money\Currency;
 use Money\Money;
 
@@ -48,13 +49,12 @@ class PowerballNumbersController extends PublicSiteControllerBase
 
         $raffle = $euroMillionsDraw->getRaffle()->toArray();
         $raffle = $raffle['value'];
-        $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
+        //$breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
+        $breakDownDTO = new PowerBallDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
-
         $this->tag->prependTitle($this->languageService->translate('results_pow_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('results_pow_desc'));
         $this->view->pick('/powerball/numbers/index');
-
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $euroMillionsDraw->getId(),
@@ -176,7 +176,10 @@ class PowerballNumbersController extends PublicSiteControllerBase
         $user_currency = $this->userPreferencesService->getCurrency();
         if (!empty($break_downs)) {
             foreach ($break_downs as &$breakDown) {
-                $breakDown['lottery_prize'] = $this->currencyConversionService->convert(new Money((int)$breakDown['lottery_prize'], new Currency('EUR')), $user_currency)->getAmount() / 10000;
+                $breakDown['powerBallPrize'] = $this->currencyConversionService->convert(new Money((int)$breakDown['powerBallPrize'], new Currency('EUR')), $user_currency)->getAmount() / 10000;
+                if($breakDown['powerPlayPrize']) {
+                    $breakDown['powerPlayPrize'] = $this->currencyConversionService->convert(new Money((int)$breakDown['powerPlayPrize'], new Currency('EUR')), $user_currency)->getAmount() / 10000;
+                }
             }
         }
         return $break_downs;

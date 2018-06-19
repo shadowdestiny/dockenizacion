@@ -13,7 +13,7 @@ use ReflectionProperty;
 class EuroMillionsDrawBreakDownDTO extends DTOBase implements IDto
 {
 
-    private $euroMillionsDrawBreakDown;
+    protected $euroMillionsDrawBreakDown;
 
     public $category_one;
 
