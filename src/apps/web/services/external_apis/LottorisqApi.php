@@ -36,7 +36,14 @@ class LottorisqApi implements IResultApi, IJackpotApi
 
     public function getJackpotForDate($lotteryName, $date)
     {
-        $drawBody = $this->curlWrapper->get($this->config->endpoint.'/results')->body;
+        $drawBody = $this->curlWrapper->get($this->config->endpoint.'/results',
+            [],
+            array(
+                "x-api-key: " .$this->config->api_key,
+                "Content-Type: application/json; charset=utf-8",
+            )
+        )
+            ->body;
         $draw = json_decode($drawBody, true)[0];
         $currency = $this->currencyConversionService->convert(new Money((int) $draw['jackpot']['total'], new Currency('USD')),
                                                               new Currency('EUR'));
