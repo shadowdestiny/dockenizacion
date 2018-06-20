@@ -1,8 +1,11 @@
 {% extends "main.volt" %}
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/numbers.css">
-    <!--[if IE 9]><style>.laurel{display:none;}</style><![endif]-->
-    <link Rel="Canonical" href="{{ language.translate('canonical_powerball_draw_history') }}/{{ date_canonical }}" />
+    <!--[if IE 9]>
+    <style>.laurel {
+        display: none;
+    }</style><![endif]-->
+    <link Rel="Canonical" href="{{ language.translate('canonical_powerball_results') }}"/>
 {% endblock %}
 {% block bodyClass %}
     numbers
@@ -15,7 +18,7 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
-    <script src="/w/js/mobileFix.min.js"></script>
+    <script src="/w/js/mobileFix.js"></script>
 {% endblock %}
 {% block template_scripts_code %}
     function recalculateDrawDates() {
@@ -81,31 +84,33 @@
 {% endblock %}
 {% block body %}
     <main id="content">
+
         <div class="powerball--result-page--content">
 
             <div class="banner">
+
                 <div class="top-banner--section">
+
                     <div class="top-banner--banner">
                         <div class="wrapper">
-
-                            <h1 class="top-banner-play">
-                                {% if mobile == 1 %}
-                                    {{ language.translate("resultsdate_pow_mobile_h1") }}
-                                {% else %}
-                                    {{ language.translate("resultsdate_pow_h1") }}
-                                {% endif %}
-                            </h1>
-
+                            {#<h1 class="top-banner--head">#}
+                                {#{% if mobile == 1 %}#}
+                                    {#{{ language.translate("results_mobile_h1") }}#}
+                                {#{% else %}#}
+                                    {#{{ language.translate("results_tittle") }}#}
+                                {#{% endif %}#}
+                            {#</h1>#}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="wrapper">
+                <h3 class="h2 mobile--only">
+                    {{ language.translate("lastDraw_title") }}
+                </h3>
 
                 <h3 class="mobile--only">
-                    <br />
-                    {{ language.translate("draw") }}
-                    {{ language.translate(draw_day) }}, {{ past_draw_date_format }}
+                    {{ last_draw_date }}
                 </h3>
 
 
@@ -123,19 +128,20 @@
                                 </li>
                             {% endif %}
                         {% endfor %}
-                        {% for lucky_number in last_result["lucky_numbers"] %}
                             <li class="star">
-                                <span class="num">{{ lucky_number }}</span>
+                                <span class="num">{{ last_result["lucky_numbers"][1] }}</span>
                             </li>
-                        {% endfor %}
+                        <li class="star">
+                            <span class="num">{{ last_result["power_play"] }}</span>
+                        </li>
                     </ul>
 
-                    <span class="desktop--only">
-                        {{ language.translate("draw") }}
-                    </span>
+                    <h3 class="h2 desktop--only">
+                        {{ language.translate("lastDraw_title") }}
+                    </h3>
 
                     <h3 class="desktop--only">
-                        {{ language.translate(draw_day) }}, {{ past_draw_date_format }}
+                        {{ last_draw_date }}
                     </h3>
                 </div>
 
@@ -146,61 +152,93 @@
                     <div class="left-section result-section">
 
                         <div class="box-current-winners--new">
+
+                            <h1 class="winners--h1">
+                                {% if mobile == 1 %}
+                                    {{ language.translate("results_pow_mobile_h1") }}
+                                {% else %}
+                                    {{ language.translate("results_pow_h1") }}
+                                {% endif %}
+                            </h1>
+
                             <h2 class="h2">
-                                {{ language.translate("resultsdate_pow_h2") }}
-                                {#Euromillions Results & price breakdown for Tuesday 02 November 2016#}
+                                {{ language.translate("results_pow_h2") }}
                             </h2>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
                                    data-mode="reflow">
                                 <thead>
-                                <th></th>
-                                </thead>
+                                 <th>
+                                 </th>
+                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td class="td-ball" style="font-weight: bold; font-size: 15px;">{{ language.translate("prizePool_matches") }}</td>
-                                    <td class="td-winners" style="font-weight: bold; font-size: 15px;">{{ language.translate("powerplay_winners") }}</td>
-                                    <td class="td-prize" style="font-weight: bold; font-size: 15px;">{{ language.translate("powerplay_prizes") }}</td>
+                                    <td class="td-ball td-head">{{ language.translate("prizePool_matches") }}</td>
+                                    <td class="td-winners td-head">{{ language.translate("prizePool_winners") }}</td>
+                                    <td class="td-prize td-head">{{ language.translate("prizePool_prize") }}</td>
+                                    <td class="td-winners--powerplay td-head">{{ language.translate("powerplay_winners") }}</td>
+                                    <td class="td-prize--powerplay td-head">{{ language.translate("powerplay_prizes") }}</td>
                                 </tr>
-                                {% for name,categories in break_downs %}
+                                {% for line in break_downs %}
                                     <tr>
-                                        {% if break_downs[name] is defined %}
                                             <td class="td-ball">
                                                 <span>
-                                                {#TODO : Add real variables here#}
-                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("prizePool_ball") }} + {{ break_downs[name]['stars_corrected'] }} {{ language.translate("Powerball") }}
+                                                    {{ line['name'] }} {{ language.translate("prizePool_ball") }} +  {{ language.translate("Powerball") }}
                                                 </span>
                                             </td>
-                                            <td class="td-star-ball">
-                                                {% if break_downs[name]['stars_corrected'] > 0 %}
-                                                    {% for corrected_stars in 1..break_downs[name]['stars_corrected'] %}
-                                                        <span class="star-ball"></span>
-                                                    {% endfor %}
-                                                {% endif %}
-                                            </td>
+                                            {#<td class="td-star-ball">#}
+                                            {#{% if break_downs[name]['stars_corrected'] > 0 %}#}
+                                            {#{% for corrected_stars in 1..break_downs[name]['stars_corrected'] %}#}
+                                            {#<span class="star-ball"></span>#}
+                                            {#{% endfor %}#}
+                                            {#{% endif %}#}
+                                            {#</td>#}
                                             <td class="td-winners">
                                                 <span>
-                                                {{ break_downs[name]['winners'] }}x
+                                                {{ line['winnersPowerBall'] }}x
                                                 </span>
                                             </td>
                                             <td class="td-prize">
                                                 <span>
-                                                {{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}
+                                                    {{ symbol }} {{ line['powerBallPrize'] | number_format(2, '.', ',') }}
                                                 </span>
                                             </td>
-                                        {% endif %}
+                                            <td class="td-winners--powerplay">
+                                                <span>
+                                                {{ line['winnersPowerPlay'] }}x
+                                                </span>
+                                            </td>
+                                            <td class="td-prize--powerplay">
+                                                <span>
+                                                    {{ symbol }} {{ line['powerPlayPrize'] | number_format(2, '.', ',') }}
+                                                </span>
+                                            </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
+
+
+                            <div class="see-results-block">
+                                <form action="">
+
+                                    <label for="see">
+                                        <input type="checkbox">
+
+                                        {{ language.translate("powerplay_show") }}
+
+                                    </label>
+                                </form>
+                            </div>
+
 
                             <div class="previous-results--common-row">
                                 {% include "_elements/previous-results-powerball.volt" %}
 
                                 <div class="previous-results--btn">
 
-                                    <a href="/{{ language.translate('link_powerball_results') }}" class="btn-theme--big">
+                                    <a href="/{{ language.translate("link_powerball_draw_history") }}" class="btn-theme--big">
                                         <span class="resizeme">
-                                            {{ language.translate("resultsdate_btn") }}
+                                            {{ language.translate("powhistory_btn") }}
                                         </span>
                                     </a>
 
@@ -210,6 +248,18 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="bottom--banner"></div>
+
+                <div class="block--text--accordion">
+                    <h2>
+                        {{ language.translate("resultspow_h2") }}
+                    </h2>
+                    <p>
+                        {{ language.translate("resultspow_text") }}
+                    </p>
+                </div>
+
             </div>
         </div>
     </main>

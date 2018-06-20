@@ -115,6 +115,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
 
     public function pastResultAction()
     {
+
         $params = $this->router->getParams();
         if (!isset($params[0])) {
             $this->response->redirect($this->lottery . 'results');
@@ -146,7 +147,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
         $draw = $this->lotteryService->getNextDateDrawByLottery('PowerBall');
         /** @var EuroMillionsDraw $euroMillionsDraw */
         $euroMillionsDraw = $draw_result->getValues();
-        $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
+        $breakDownDTO = new PowerBallDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
         $this->tag->prependTitle($this->languageService->translate('resultsdate_pow_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));
@@ -156,7 +157,9 @@ class PowerballNumbersController extends PublicSiteControllerBase
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $euroMillionsDraw->getId(),
-            'last_result' => ['regular_numbers' => $euroMillionsDraw->getResult()->getRegularNumbersArray(), 'lucky_numbers' => $euroMillionsDraw->getResult()->getLuckyNumbersArray()],
+            'last_result' => ['regular_numbers' => $euroMillionsDraw->getResult()->getRegularNumbersArray(),
+                              'lucky_numbers' => $euroMillionsDraw->getResult()->getLuckyNumbersArray(),
+                              'power_play' => $euroMillionsDraw->getRaffle()->toArray()['value']],
             'last_draw_date' => $euroMillionsDraw->getDrawDate()->format('D, d M Y'),
             'date_canonical' => $euroMillionsDraw->getDrawDate()->format('Y-m-d'),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours')->format('Y-m-d H:i:s'),
