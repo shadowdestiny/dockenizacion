@@ -48,7 +48,7 @@ class LottorisqApi implements IResultApi, IJackpotApi
     {
         try {
             if($date != null) {
-                $drawBody = $this->sendCurl('/results'.$date);
+                $drawBody = $this->sendCurl('/results'.'/'.$date);
                 $draw = json_decode($drawBody, true);
             } else {
                 $drawBody = $this->sendCurl('/results');
