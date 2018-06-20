@@ -36,14 +36,7 @@ class LottorisqApi implements IResultApi, IJackpotApi
 
     public function getJackpotForDate($lotteryName, $date)
     {
-        $drawBody = $this->curlWrapper->get($this->config->endpoint.'/results',
-            [],
-            array(
-                "x-api-key: " .$this->config->api_key,
-                "Content-Type: application/json; charset=utf-8",
-            )
-        )
-            ->body;
+        $drawBody = $this->sendCurl('/results');
         $draw = json_decode($drawBody, true)[0];
         $currency = $this->currencyConversionService->convert(new Money((int) $draw['jackpot']['total'], new Currency('USD')),
                                                               new Currency('EUR'));
@@ -55,26 +48,10 @@ class LottorisqApi implements IResultApi, IJackpotApi
     {
         try {
             if($date != null) {
-                $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST,false);
-                $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER,false);
-                $drawBody = $this->curlWrapper->get($this->config->endpoint.'/results'.'/'.$date,
-                    [],
-                    array(
-                        "x-api-key: " .$this->config->api_key,
-                        "Content-Type: application/json; charset=utf-8",
-                    )
-                )
-                ->body;
+                $drawBody = $this->sendCurl('/results'.$date);
                 $draw = json_decode($drawBody, true);
             } else {
-                $drawBody = $this->curlWrapper->get($this->config->endpoint.'/results',
-                    [],
-                    array(
-                        "x-api-key: " .$this->config->api_key,
-                        "Content-Type: application/json; charset=utf-8",
-                    )
-                )
-                ->body;
+                $drawBody = $this->sendCurl('/results');
                 $draw = json_decode($drawBody, true)[0];
             }
             return $draw;
@@ -106,5 +83,23 @@ class LottorisqApi implements IResultApi, IJackpotApi
     public function getRaffleForDateSecond($lotteryName, $date)
     {
         throw new \BadFunctionCallException();
+    }
+
+    /**
+     * @return string
+     */
+    private function sendCurl($endpoint)
+    {
+        $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST, false);
+        $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, false);
+        $drawBody = $this->curlWrapper->get($this->config->endpoint . $endpoint,
+            [],
+            array(
+                "x-api-key: " . $this->config->api_key,
+                "Content-Type: application/json; charset=utf-8",
+            )
+        )
+            ->body;
+        return $drawBody;
     }
 }
