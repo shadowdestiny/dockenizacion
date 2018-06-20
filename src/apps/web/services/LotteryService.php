@@ -9,6 +9,7 @@ use Doctrine\ORM\UnexpectedResultException;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\DateTimeUtil;
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\IEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate;
@@ -29,6 +30,8 @@ use EuroMillions\web\services\user_notifications_strategies\UserNotificationAuto
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationResultsStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\dto\EuroMillionsDrawDTO;
+use EuroMillions\web\vo\dto\PowerBallDrawBreakDownDTO;
+use EuroMillions\web\vo\dto\PowerBallDrawDTO;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsJackpot;
@@ -212,6 +215,28 @@ class LotteryService
             }
         }
 
+        return new ActionResult(false);
+    }
+
+    public function getPowerBallDrawsDTO($lotteryName, $limit = 13, EmTranslationAdapter $emTranslationAdapter)
+    {
+        /** @var Lottery $lottery */
+        $lottery = $this->getLotteryByName($lotteryName);
+        if (null !== $lottery) {
+            try {
+                $euroMillionsDraws = $this->lotteryDrawRepository->getDraws($lottery, $limit);
+                $powerBallDrawsDTO = [];
+                //TODO please, we need move results, jackpot from Draws to another service. Inject this depencencies for example
+                /** @var EuroMillionsDraw[] $euroMillionsDraws */
+                foreach ($euroMillionsDraws as $euroMillionsDraw) {
+                    $powerBallDrawDTO = new PowerBallDrawDTO($euroMillionsDraw, $emTranslationAdapter);
+                    $powerBallDrawsDTO[] = $powerBallDrawDTO;
+                }
+                return new ActionResult(true, $powerBallDrawsDTO);
+            } catch (DataMissingException $e) {
+                return new ActionResult(false);
+            }
+        }
         return new ActionResult(false);
     }
 

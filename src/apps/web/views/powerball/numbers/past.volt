@@ -98,13 +98,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for i,draw in list_draws %}
+                                {% for draw in list_draws %}
                                     <tr class="more" style="cursor: pointer"
                                         onclick="document.location='/{{ language.translate('link_powerball_draw_history') }}/{{ draw.drawDateParam }}'">
-                                        <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
-                                        <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
-                                        <td class="td-powerball">21</td>
-                                        <td class="td-powerplay">2x</td>
+                                        <td class="td-date">{{ draw.drawDateParam }}</td>
+                                        <td class="td-ball-numbers">{{ draw.resultNumbers }}</td>
+                                        <td class="td-powerball">{{ draw.luckyNumber }}</td>
+                                        <td class="td-powerplay">{{ draw.powerPlayNumber }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

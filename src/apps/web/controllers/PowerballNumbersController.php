@@ -3,9 +3,12 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\DateTimeUtil;
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\repositories\TranslationDetailRepository;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\dto\PowerBallDrawBreakDownDTO;
 use Money\Currency;
@@ -73,8 +76,9 @@ class PowerballNumbersController extends PublicSiteControllerBase
 
     public function pastListAction()
     {
-        $lotteryName = 'PowerBall';
-        $result = $this->lotteryService->getDrawsDTO($lotteryName, 1000);
+        $webLanguageStrategy = new WebLanguageStrategy($this->session,$this->di->get('request'));
+        $emTransaltionAdapter = new EmTranslationAdapter($webLanguageStrategy, $this->entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+        $result = $this->lotteryService->getPowerBallDrawsDTO('PowerBall', 1000, $emTransaltionAdapter);
         if (!$result->success()) {
             return $this->view->setVars([
                 'error' => $result->errorMessage()
@@ -115,7 +119,6 @@ class PowerballNumbersController extends PublicSiteControllerBase
 
     public function pastResultAction()
     {
-
         $params = $this->router->getParams();
         if (!isset($params[0])) {
             $this->response->redirect($this->lottery . 'results');

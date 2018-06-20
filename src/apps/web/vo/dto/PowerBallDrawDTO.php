@@ -9,6 +9,7 @@
 namespace EuroMillions\web\vo\dto;
 
 
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
@@ -17,20 +18,29 @@ class PowerBallDrawDTO extends DTOBase implements IDto
 {
 
     /** @var PowerBallDrawBreakDownDTO $powerballDrawBreakDownDTO */
-    protected $powerballDrawBreakDownDTO;
+    public $powerballDrawBreakDownDTO;
 
-    protected $resultNumbers;
+    public $resultNumbers;
 
-    protected $luckyNumber;
+    public $luckyNumber;
 
-    protected $powerPlayNumber;
+    public $powerPlayNumber;
 
-    protected $euromillionsDraw;
+    public $drawDate;
+
+    public $drawDateParam;
+
+    public $drawDateTranslate;
+
+    public $euromillionsDraw;
+
+    private $emTranslationAdapter;
 
 
-    public function __construct(EuroMillionsDraw $euroMillionsDraw)
+    public function __construct(EuroMillionsDraw $euroMillionsDraw, EmTranslationAdapter $emTranslationAdapter)
     {
         $this->euromillionsDraw = $euroMillionsDraw;
+        $this->emTranslationAdapter = $emTranslationAdapter;
         $this->exChangeObject();
     }
 
@@ -42,8 +52,12 @@ class PowerBallDrawDTO extends DTOBase implements IDto
     public function exChangeObject()
     {
         $this->resultNumbers = $this->euromillionsDraw->getResult()->getRegularNumbers();
-        $this->luckyNumber = $this->euromillionsDraw->getResult()->getLuckyNumbers();
+        $this->luckyNumber = str_replace('0,','',$this->euromillionsDraw->getResult()->getLuckyNumbers());
         $this->powerPlayNumber = $this->euromillionsDraw->getRaffle()->getValue();
+        $date = $this->euromillionsDraw->getDrawDate();
+        //$this->drawDate = $this->emTranslationAdapter->query($date->format('l'));
+        //$this->drawDateTranslate = $date->format($this->emTranslationAdapter->query('dateformat'));
+        $this->drawDateParam = $date->format('Y-m-d');
         $this->powerballDrawBreakDownDTO = new PowerBallDrawBreakDownDTO($this->euromillionsDraw->getBreakDown());
     }
 }
