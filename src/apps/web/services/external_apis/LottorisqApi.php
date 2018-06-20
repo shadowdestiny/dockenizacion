@@ -48,10 +48,26 @@ class LottorisqApi implements IResultApi, IJackpotApi
     {
         try {
             if($date != null) {
-                $drawBody = $this->curlWrapper->get($this->config->endpoint.'/results'.'/'.$date)->body;
+                $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST,false);
+                $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER,false);
+                $drawBody = $this->curlWrapper->get($this->config->endpoint.'/results'.'/'.$date,
+                    [],
+                    array(
+                        "x-api-key: " .$this->config->api_key,
+                        "Content-Type: application/json; charset=utf-8",
+                    )
+                )
+                ->body;
                 $draw = json_decode($drawBody, true);
             } else {
-                $drawBody = $this->curlWrapper->get($this->config->endpoint.'/results')->body;
+                $drawBody = $this->curlWrapper->get($this->config->endpoint.'/results',
+                    [],
+                    array(
+                        "x-api-key: " .$this->config->api_key,
+                        "Content-Type: application/json; charset=utf-8",
+                    )
+                )
+                ->body;
                 $draw = json_decode($drawBody, true)[0];
             }
             return $draw;
