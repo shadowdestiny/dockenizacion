@@ -79,7 +79,6 @@ class LotteriesDataService
             $this->entityManager->flush();
         } catch (\Exception $e)
         {
-            $this->entityManager->rollback();
             throw new \Exception($e->getMessage());
         }
 
@@ -236,7 +235,6 @@ class LotteriesDataService
             }
         } catch ( \Exception $e )
         {
-            $this->entityManager->rollback();
             throw new \Exception($e->getMessage());
         }
     }

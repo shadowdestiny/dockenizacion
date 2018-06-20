@@ -364,7 +364,13 @@ class LotteryService
     public function getAllResultFromPowerball(Curl $curl, $config)
     {
         try {
-            $result = $curl->get($config->endpoint.'/results');
+            $result = $curl->get($config->endpoint.'/results',
+                [],
+                array(
+                    "x-api-key: " .$config->api_key,
+                    "Content-Type: application/json; charset=utf-8",
+                )
+            );
             if(!$result) {
                 throw new \Exception('No results data');
             }
