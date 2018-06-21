@@ -26,6 +26,7 @@ use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationResultsStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
@@ -218,8 +219,10 @@ class LotteryService
         return new ActionResult(false);
     }
 
-    public function getPowerBallDrawsDTO($lotteryName, $limit = 13, EmTranslationAdapter $emTranslationAdapter)
+    public function getPowerBallDrawsDTO($lotteryName, $limit = 13,WebLanguageStrategy $webLanguageStrategy)
     {
+
+        $emTranslationAdapter = new EmTranslationAdapter($webLanguageStrategy->get(), $this->entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
         /** @var Lottery $lottery */
         $lottery = $this->getLotteryByName($lotteryName);
         if (null !== $lottery) {

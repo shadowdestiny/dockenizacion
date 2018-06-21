@@ -178,7 +178,7 @@
                                     <td class="td-winners--powerplay td-head">{{ language.translate("powerplay_winners") }}</td>
                                     <td class="td-prize--powerplay td-head">{{ language.translate("powerplay_prizes") }}</td>
                                 </tr>
-                                {% for line in break_downs %}
+                                {% for i,line in break_downs %}
                                     <tr>
                                             <td class="td-ball">
                                                 <span>
@@ -199,18 +199,26 @@
                                             </td>
                                             <td class="td-prize">
                                                 <span>
-                                                    {{ symbol }} {{ line['powerBallPrize'] | number_format(2, '.', ',') }}
+                                                  {{ symbol }} {{ line['powerBallPrize'] | number_format(2, '.', ',') }}
                                                 </span>
                                             </td>
                                             <td class="td-winners--powerplay">
+                                            {% if i == 'lineOne' %}
+                                                <span></span>
+                                            {% else %}
                                                 <span>
                                                 {{ line['winnersPowerPlay'] }}x
                                                 </span>
+                                            {% endif %}
                                             </td>
                                             <td class="td-prize--powerplay">
+                                            {% if i == 'lineOne' %}
+                                                <span></span>
+                                            {% else %}
                                                 <span>
                                                     {{ symbol }} {{ line['powerPlayPrize'] | number_format(2, '.', ',') }}
                                                 </span>
+                                             {% endif %}
                                             </td>
                                     </tr>
                                 {% endfor %}

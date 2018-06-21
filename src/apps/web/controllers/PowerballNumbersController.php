@@ -76,9 +76,9 @@ class PowerballNumbersController extends PublicSiteControllerBase
 
     public function pastListAction()
     {
+
         $webLanguageStrategy = new WebLanguageStrategy($this->session,$this->di->get('request'));
-        $emTransaltionAdapter = new EmTranslationAdapter($webLanguageStrategy, $this->entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-        $result = $this->lotteryService->getPowerBallDrawsDTO('PowerBall', 1000, $emTransaltionAdapter);
+        $result = $this->lotteryService->getPowerBallDrawsDTO('PowerBall', 1000, $webLanguageStrategy);
         if (!$result->success()) {
             return $this->view->setVars([
                 'error' => $result->errorMessage()

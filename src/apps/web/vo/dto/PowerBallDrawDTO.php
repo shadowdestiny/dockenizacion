@@ -55,8 +55,8 @@ class PowerBallDrawDTO extends DTOBase implements IDto
         $this->luckyNumber = str_replace('0,','',$this->euromillionsDraw->getResult()->getLuckyNumbers());
         $this->powerPlayNumber = $this->euromillionsDraw->getRaffle()->getValue();
         $date = $this->euromillionsDraw->getDrawDate();
-        //$this->drawDate = $this->emTranslationAdapter->query($date->format('l'));
-        //$this->drawDateTranslate = $date->format($this->emTranslationAdapter->query('dateformat'));
+        $this->drawDate = $this->emTranslationAdapter->query($date->format('l'));
+        $this->drawDateTranslate = $date->format($this->emTranslationAdapter->query('dateformat'));
         $this->drawDateParam = $date->format('Y-m-d');
         $this->powerballDrawBreakDownDTO = new PowerBallDrawBreakDownDTO($this->euromillionsDraw->getBreakDown());
     }

@@ -184,6 +184,7 @@ class LotteriesDataService
                 $draw = $this->createDraw($lastDrawDate, null, $lottery);
             }
             $draw->createResult($result['numbers']['main'],  [0,$result['numbers']['powerball']]);
+            $draw->setRaffle(new Raffle($result['numbers']['powerplay']));
             if ($draw->getResult()->getRegularNumbers()) {
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();
