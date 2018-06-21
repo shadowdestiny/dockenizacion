@@ -80,22 +80,38 @@
                                 <h2 class="h2 purple">{{ language.translate("resultshist_pow_h2") }}</h2>
                             </div>
                             <table id="history-numbers" class="ui-responsive table2" data-role="table"
-                                   data-mode="reflow">
-                                <thead class="thead--powerball">
-                                <tr>
-                                    <th class="td-date"><span class="ico-date"></span>{{ language.translate("pastNumbers_date") }}</th>
-                                    <th class="td-ball-numbers--lottery"><span
-                                                class="ico-ball"></span>{{ language.translate("resultshist_pow_numbers") }}</th>
-                                    <th class="td-powerball">
-                                        <span class="ico-ball"></span>
-                                        {{ language.translate("resultshist_powerballnumber") }}
-                                    </th>
-                                    <th class="td-powerplay">
-                                        <span class="ico-ball"></span>
-                                        Powerplay
-                                    </th>
-                                </tr>
-                                </thead>
+                                   data-mode="reflow" style="margin-top:-20px">
+                                {% if mobile == 1 %}
+                                    <thead class="thead--powerball" style="height:60px">
+                                    <tr style="height:60px">
+                                        <th class="td-powerball" style="width:40%">
+                                        </th>
+                                        <th class="td-powerball" style="width:40%">
+                                                {{ language.translate("resultshist_powerballnumber") }}
+                                        </th>
+                                        <th class="td-powerplay">
+                                            <span class="ico-ball"></span>
+                                            Powerplay
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                 {% else %}
+                                    <thead class="thead--powerball">
+                                    <tr>
+                                        <th class="td-date"><span class="ico-date"></span>{{ language.translate("pastNumbers_date") }}</th>
+                                        <th class="td-ball-numbers--lottery"><span
+                                                    class="ico-ball"></span>{{ language.translate("resultshist_pow_numbers") }}</th>
+                                        <th class="td-powerball">
+                                            <span class="ico-ball"></span>
+                                                {{ language.translate("resultshist_powerballnumber") }}
+                                        </th>
+                                        <th class="td-powerplay">
+                                            <span class="ico-ball"></span>
+                                            Powerplay
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                {% endif %}
                                 <tbody>
                                 {% for draw in list_draws %}
                                     <tr class="more" style="cursor: pointer"
