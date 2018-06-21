@@ -26,6 +26,16 @@
                 </a>
             </li>
             <li>
+                <a href="/{{ language.translate('link_powerball_results') }}">
+                    {{ language.translate("results_pow_sub") }}
+                </a>
+            </li>
+            <li>
+                <a href="/{{ language.translate('link_powerball_draw_history') }}">
+                    {{ language.translate("results_powhistory") }}
+                </a>
+            </li>
+            <li>
                 <a href="/{{ language.translate('link_christmas_results') }}">
                     {{ language.translate("results_chris_sub") }}
                 </a>
