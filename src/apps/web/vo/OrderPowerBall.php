@@ -66,7 +66,8 @@ class OrderPowerBall extends Order
         $multiplier = count($this->play_config) * $frequency;
         $price = 0;
         if ($this->powerPlay) {
-            $price = new Money($this->powerPlayPrice, new Currency('EUR'));
+            $pwprice = $this->powerPlayPrice * count($this->play_config);
+            $price = new Money($pwprice, new Currency('EUR'));
             $price->add($price->multiply($multiplier));
             $this->funds_amount = ($price);
         }

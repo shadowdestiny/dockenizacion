@@ -310,6 +310,7 @@ var CartPage = new React.createClass({
                               total_lines={total_lines}
                               powerplayprice={this.props.powerplayprice}
                               total_price={this.props.total}
+                              fee={this.props.fee_charge}
                               currency_symbol={this.props.currency_symbol} config={JSON.parse(this.props.config)}/>
             </div>
         )

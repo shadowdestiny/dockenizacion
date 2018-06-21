@@ -20,16 +20,22 @@ var EmBtnPayment = new React.createClass({
                 </div>
             )
         } else {
-            var price = 0;
-
-            if(this.props.powerplay) {
-                price = parseFloat(this.props.total_price) + ((parseFloat(this.props.total_lines) * parseFloat(this.props.powerplayprice)) * frequency);
-                // price = (this.props.price) + price.toFixed(2);
-            } else {
-                price = this.props.price;
-            }
-
-            var value = accounting.formatMoney(price, this.props.currency_symbol, 2);
+//             var price = 0;
+// // console.log(this.props.fee);
+//             // console.log(this.props.price);
+//
+//             if(this.props.powerplay) {
+//                 price = parseFloat(this.props.total_price) + ((parseFloat(this.props.total_lines) * parseFloat(this.props.powerplayprice)) * frequency);
+//                 // price = (this.props.price) + price.toFixed(2);
+//             } else {
+//                 price = this.props.price;
+//             }
+//
+//             if (price <= 12) {
+//                 price = parseFloat(price) + parseFloat(this.props.fee);
+//             }
+//             alert(price);
+//             var value = accounting.formatMoney(price, this.props.currency_symbol, 2);
 
             return (
 
@@ -39,7 +45,7 @@ var EmBtnPayment = new React.createClass({
                         <span className="gap">
                            |
                         </span>
-                        {value}
+                        {this.props.price}
                     </a>
                 </div>
             )

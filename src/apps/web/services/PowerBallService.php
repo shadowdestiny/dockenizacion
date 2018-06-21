@@ -217,13 +217,13 @@ class PowerBallService
                                 }
                                 if ($order->getHasSubscription()) {
                                     if ($isWallet) {
-                                        $this->walletService->paySubscriptionWithWallet($user, $play_config);
-                                        $this->walletService->payWithSubscription($user, $play_config);
+                                        $this->walletService->paySubscriptionWithWallet($user, $play_config, $lottery->getPowerPlayValue());
+                                        $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue());
                                     } elseif ($withAccountBalance) {
-                                        $this->walletService->payWithSubscription($user, $play_config);
+                                        $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue());
                                         $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config);
                                     } else {
-                                        $this->walletService->payWithSubscription($user, $play_config);
+                                        $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue());
                                     }
                                 } else {
                                     $powerPlayValue = new Money($lottery->getPowerPlayValue(), new Currency('EUR'));
