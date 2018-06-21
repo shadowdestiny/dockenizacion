@@ -186,9 +186,9 @@ export default class MobilePlayApp extends Component {
             })}
           </div>
         </div>
-
+          {/*{this.state.powerPlayEnabled ? this.getLine().toFixed(2) : '' }*/}
         <div className="price-per-line">
-            {currencySymbol} {(selectedBundle.singleBetPriceWithDiscount / 100).toFixed(2)} {selectedBundle ? selectedBundle.price_description : ''}
+            {currencySymbol} {this.getLine()} {selectedBundle ? selectedBundle.price_description : ''}
         </div>
 
         {drawsNumber == 1
@@ -299,6 +299,20 @@ export default class MobilePlayApp extends Component {
     }
     return 0
   }
+
+    getLine () {
+        const { drawsNumber, bets } = this.state
+        const selectedBundle = this.findBundle(drawsNumber)
+
+        // return selectedBundle.singleBetPriceWithDiscount / 100) + this.props.powerPlayPrice).toFixed(2)
+        if (this.state.powerPlayEnabled) {
+            return (parseFloat(selectedBundle.singleBetPriceWithDiscount / 100) + parseFloat(this.props.powerPlayPrice)).toFixed(2);
+            // powerTotal = bets.length * this.props.powerPlayPrice * drawsNumber;
+        } else {
+            return (selectedBundle.singleBetPriceWithDiscount / 100).toFixed(2);
+        }
+
+    }
 
   /**
    * addRandomLine - generates random line and places the bet
