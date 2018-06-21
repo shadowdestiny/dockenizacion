@@ -178,7 +178,6 @@ var EuroMillionsLine = React.createClass({
         const showStars = gameMode == GAME_MODE_EUROMILLIONS
         const showDropdown = gameMode == GAME_MODE_POWERBALL
 
-
         var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var num_char_line = '';
         for(var c = 0; c < alphabet.length; c++) {
@@ -294,10 +293,9 @@ var EuroMillionsLine = React.createClass({
       const options = [
         <option key={-1} value={-1}></option>
       ]
-      for (let i = 0; i < highestStar; i ++) {
+      for (let i = 1; i <= highestStar; i ++) {
         options.push(<option key={i} value={i}>{i}</option>)
       }
-
 
       return (
         <div className="powerballlabel">
