@@ -123,15 +123,15 @@ class PowerBallDrawBreakDownDTO extends EuroMillionsDrawBreakDownDTO implements 
                 'name' => $this->euroMillionsDrawBreakDown->getCategoryTen()->getName(),
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategoryTen()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategoryTen()->getLotteryPrize()->getAmount(),
-                'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryEight()->getWinners(),
-                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryEight()->getLotteryPrize()->getAmount()
+                'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryNine()->getWinners(),
+                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryNine()->getLotteryPrize()->getAmount()
             ],
             'lineSix' => [
                 'name' => $this->euroMillionsDrawBreakDown->getCategoryEleven()->getName(),
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategoryEleven()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategoryEleven()->getLotteryPrize()->getAmount(),
-                'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryNine()->getWinners(),
-                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryNine()->getLotteryPrize()->getAmount()
+                'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryEight()->getWinners(),
+                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryEight()->getLotteryPrize()->getAmount()
             ],
             'lineSeven' => [
                 'name' => $this->euroMillionsDrawBreakDown->getCategoryThirteen()->getName(),
