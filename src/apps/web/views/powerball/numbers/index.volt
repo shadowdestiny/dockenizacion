@@ -83,6 +83,23 @@
     });
 {% endblock %}
 {% block body %}
+<script language="javascript">
+    function showPowerPlay() {
+        var checkBox = document.getElementById("powerPlayCheck");
+        if (checkBox.checked == true) {
+            $('.td-winners--powerplay').css('display', 'block');
+            $('.td-prize--powerplay').css('display', 'block');
+            $('.td-prize').css('display', 'none');
+            $('.td-winners').css('display', 'none');
+        } else {
+            $('.td-winners--powerplay').css('display', 'none');
+            $('.td-prize--powerplay').css('display', 'none');
+            $('.td-prize').css('display', 'block');
+            $('.td-winners').css('display', 'block');
+        }
+
+    }
+</script>
     <main id="content">
 
         <div class="powerball--result-page--content">
@@ -177,6 +194,7 @@
                                     <td class="td-prize td-head">{{ language.translate("prizePool_prize") }}</td>
                                     <td class="td-winners--powerplay td-head">{{ language.translate("powerplay_winners") }}</td>
                                     <td class="td-prize--powerplay td-head">{{ language.translate("powerplay_prizes") }}</td>
+
                                 </tr>
                                 {% for i,line in break_downs %}
                                     <tr>
@@ -230,7 +248,7 @@
                                 <form action="">
 
                                     <label for="see">
-                                        <input type="checkbox">
+                                        <input id="powerPlayCheck" type="checkbox" onClick="showPowerPlay();"/>
 
                                         {{ language.translate("powerplay_show") }}
 
