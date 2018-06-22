@@ -14,6 +14,7 @@ use EuroMillions\web\vo\dto\WalletDTO;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderChristmas;
+use Money\Currency;
 use Money\Money;
 
 class WalletService
@@ -202,10 +203,18 @@ class WalletService
         }
     }
 
-    public function paySubscriptionWithWallet(User $user, PlayConfig $playConfig)
+    public function paySubscriptionWithWallet(User $user, PlayConfig $playConfig, $powerPlayValue = null)
     {
         try {
-            $user->removeSubscriptionWithWallet($playConfig->getSinglePrice()->multiply($playConfig->getFrequency()));
+            if ($playConfig->getPowerPlay()) {
+                $powerPlayValue = new Money($powerPlayValue, new Currency('EUR'));
+                $price = $playConfig->getSinglePrice()->multiply($playConfig->getFrequency());
+                $powerPlayValue = $powerPlayValue->multiply($playConfig->getFrequency());
+                $price = $price->add($powerPlayValue);
+                $user->removeSubscriptionWithWallet($price);
+            } else {
+                $user->removeSubscriptionWithWallet($playConfig->getSinglePrice()->multiply($playConfig->getFrequency()));
+            }
 
             $this->entityManager->flush($user);
         } catch (\Exception $e) {
@@ -213,10 +222,18 @@ class WalletService
         }
     }
 
-    public function paySubscriptionWithWalletAndCreditCard(User $user, PlayConfig $playConfig)
+    public function paySubscriptionWithWalletAndCreditCard(User $user, PlayConfig $playConfig, $powerPlayValue = null)
     {
         try {
-            $user->removeWalletToSubscription($playConfig->getSinglePrice()->multiply($playConfig->getFrequency()));
+            if ($playConfig->getPowerPlay()) {
+                $powerPlayValue = new Money($powerPlayValue, new Currency('EUR'));
+                $price = $playConfig->getSinglePrice()->multiply($playConfig->getFrequency());
+                $powerPlayValue = $powerPlayValue->multiply($playConfig->getFrequency());
+                $price = $price->add($powerPlayValue);
+                $user->removeWalletToSubscription($price);
+            } else {
+                $user->removeWalletToSubscription($playConfig->getSinglePrice()->multiply($playConfig->getFrequency()));
+            }
 
             $this->entityManager->flush($user);
         } catch (\Exception $e) {
@@ -225,12 +242,19 @@ class WalletService
     }
 
 
-    //EMTD TEST!!
-    public function payWithSubscription(User $user, PlayConfig $playConfig)
+    public function payWithSubscription(User $user, PlayConfig $playConfig, $powerPlayValue = null)
     {
         try {
-            $user->removeSubscriptionWallet($playConfig->getSinglePrice());
+            if ($playConfig->getPowerPlay()) {
+                $powerPlayValue = new Money($powerPlayValue, new Currency('EUR'));
+                $price = $playConfig->getSinglePrice()->add($powerPlayValue);
+                $user->removeSubscriptionWallet($price);
+            } else {
+                $user->removeSubscriptionWallet($playConfig->getSinglePrice());
+            }
+
             $this->entityManager->flush($user);
+
         } catch (\Exception $e) {
             //EMTD Log and warn the admin
         }
