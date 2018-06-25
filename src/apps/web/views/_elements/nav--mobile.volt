@@ -17,15 +17,15 @@
     </a>
 </li>
 
-<li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">
-    <a href="/{{ language.translate('link_powerball_results') }}">
-        {% if mobile == 1 %}
-            <span class="txt">Powerball results</span>
-        {% else %}
-            <span class="txt">Powerball results</span>
-        {% endif %}
-    </a>
-</li>
+{#<li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">#}
+    {#<a href="/{{ language.translate('link_powerball_results') }}">#}
+        {#{% if mobile == 1 %}#}
+            {#<span class="txt">Powerball results</span>#}
+        {#{% else %}#}
+            {#<span class="txt">Powerball results</span>#}
+        {#{% endif %}#}
+    {#</a>#}
+{#</li>#}
 
 
 {% if mobile == 1 %}
