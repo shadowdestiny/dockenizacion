@@ -25,9 +25,6 @@ abstract class Transaction extends EntityBase
     protected $transactionID;
     protected $pendingBalanceAmount;
     protected $message;
-    protected $subscriptionId;
-    protected $playConfigId;
-
 
     /**
      * @return mixed
@@ -190,36 +187,5 @@ abstract class Transaction extends EntityBase
     }
 
 
-    /**
-     * @return mixed
-     */
-    public function getSubscriptionId()
-    {
-        return $this->subscriptionId;
-    }
-
-    /**
-     * @param mixed $subscriptionId
-     */
-    public function setSubscriptionId($subscriptionId)
-    {
-        $this->subscriptionId = $subscriptionId;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPlayConfigId()
-    {
-        return $this->playConfigId;
-    }
-
-    /**
-     * @param mixed $playConfigId
-     */
-    public function setPlayConfigId($playConfigId)
-    {
-        $this->playConfigId = $playConfigId;
-    }
 
 }

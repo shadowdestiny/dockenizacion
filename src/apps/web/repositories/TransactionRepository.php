@@ -55,8 +55,6 @@ class TransactionRepository extends RepositoryBase
 
     public function getSubscriptionIDByPlayConfig($playConfigID)
     {
-        $transaction = 'EuroMillions\web\entities\SubscriptionPurchasedTransaction';
-        $transactionType = 'subscription_purchase';
         $result = $this->getEntityManager()
             ->createQuery(
                 ' SELECT t.id'
@@ -64,8 +62,8 @@ class TransactionRepository extends RepositoryBase
                 . ' WHERE t.playConfigId= :playConfigId')
             ->setParameters(['playConfigId' => $playConfigID]
             )
-            ->getResult();
-
+            ->getResult()[0];
+        return $result['id'];
     }
 
     public function getDepositsByUserId($userId)
