@@ -79,7 +79,7 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
 
     public function toString()
     {
-        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getDiscount();
+        $this->data = $this->getLotteryId().'#'.$this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getDiscount();
     }
 
     public function fromString()

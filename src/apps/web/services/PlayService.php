@@ -177,7 +177,6 @@ class PlayService
                             $play_config->setLottery($lottery);
                             $play_config->setDiscount($order->getDiscount());
                             $this->playConfigRepository->add($play_config);
-
                             $this->entityManager->flush($play_config);
                         }
                     }

@@ -358,7 +358,7 @@ class LotteryService
                             $walletBefore = $playConfig->getUser()->getWallet();
                             $this->walletService->payWithSubscription($playConfig->getUser(), $playConfig);
                             $dataTransaction = [
-                                'lottery_id' => 1,
+                                'lottery_id' => $lottery->getId(),
                                 'numBets' => 1,
                                 'walletBefore' => $walletBefore,
                                 'amountWithCreditCard' => 0,

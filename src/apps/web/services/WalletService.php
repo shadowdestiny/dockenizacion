@@ -368,6 +368,7 @@ class WalletService
             'feeApplied' => $creditCardCharge->getIsChargeFee(),
             'transactionID' => $uniqueID,
             'amountWithWallet' => 0,
+            'amount' => $creditCardCharge->getFinalAmount()->getAmount(),
             'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount(),
             'user' => $user,
             'walletBefore' => $walletBefore,

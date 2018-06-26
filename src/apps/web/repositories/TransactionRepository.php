@@ -53,6 +53,21 @@ class TransactionRepository extends RepositoryBase
                 , $rsm)->getResult();
     }
 
+    public function getSubscriptionIDByPlayConfig($playConfigID)
+    {
+        $transaction = 'EuroMillions\web\entities\SubscriptionPurchasedTransaction';
+        $transactionType = 'subscription_purchase';
+        $result = $this->getEntityManager()
+            ->createQuery(
+                ' SELECT t.id'
+                . ' FROM EuroMillions\web\entities\SubscriptionPurchaseTransaction t'
+                . ' WHERE t.playConfigId= :playConfigId')
+            ->setParameters(['playConfigId' => $playConfigID]
+            )
+            ->getResult();
+
+    }
+
     public function getDepositsByUserId($userId)
     {
         $rsm = new ResultSetMapping();
