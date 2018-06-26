@@ -23,6 +23,7 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
         $this->setWalletAfter($data['walletAfter']);
         $this->setAmountAdded($data['amount']);
         $this->setTransactionID($data['transactionID']);
+        $this->setPlayConfigs($data['playConfigs']);
         $this->setDate($data['now']);
         $this->setUser($data['user']);
         $this->setPendingBalanceAmount($data['amountWithCreditCard'] + $data['amountWithWallet']);

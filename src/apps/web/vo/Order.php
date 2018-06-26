@@ -304,4 +304,11 @@ class Order implements \JsonSerializable
     {
         $this->hasSubscription = $hasSubscription;
     }
+
+    public function getPlayConfigsId()
+    {
+        return array_map(function ($val) {
+            return $val->getId();
+        }, $this->getPlayConfig());
+    }
 }

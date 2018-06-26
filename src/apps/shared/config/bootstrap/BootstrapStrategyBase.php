@@ -3,11 +3,14 @@ namespace EuroMillions\shared\config\bootstrap;
 
 use Doctrine\Common\Cache\ApcuCache;
 use Doctrine\Common\Cache\RedisCache;
+use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Types\Type;
+use Doctrine\ORM\Events;
 use EuroMillions\admin\services\DomainAdminServiceFactory;
 use EuroMillions\shared\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
+use EuroMillions\shared\events\PlayConfigTransactionEventSubscriber;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\payments_util\PaymentsCollection;
 use EuroMillions\web\services\card_payment_providers\payments_util\PaymentsRegistry;
@@ -95,7 +98,6 @@ abstract class BootstrapStrategyBase
         $config = Setup::createXMLMetadataConfiguration(array($this->configPath . 'doctrine'), $is_dev_mode);
         $config->setQueryCacheImpl(new ApcuCache());
         $config->setMetadataCacheImpl(new ApcuCache());
-
         $redis_cache = new RedisCache();
         $redis_cache->setRedis($redis);
         $redis_cache->setNamespace('result_');
@@ -108,10 +110,13 @@ abstract class BootstrapStrategyBase
             'dbname' => $appConfig['database']['dbname'],
             'charset' => 'utf8'
         ];
-        $em = EntityManager::create($conn, $config);
+        $eventManager = new EventManager();
+        $eventManager->addEventSubscriber(new PlayConfigTransactionEventSubscriber());
+        $em = EntityManager::create($conn, $config, $eventManager);
         if (!Type::hasType('uuid')) {
             Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
         }
+
         $platform = $em->getConnection()->getDatabasePlatform();
         $platform->registerDoctrineTypeMapping('enum', 'string');
         $platform->registerDoctrineTypeMapping('uuid', 'uuid');

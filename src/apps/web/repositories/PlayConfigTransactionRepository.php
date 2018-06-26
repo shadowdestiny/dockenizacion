@@ -9,7 +9,7 @@
 namespace EuroMillions\web\repositories;
 
 
-class PlayConfigTransaction extends RepositoryBase
+class PlayConfigTransactionRepository extends RepositoryBase
 {
 
 }

@@ -26,15 +26,15 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
     protected function getFixtures()
     {
         return [
-            'users',
             'transactions',
+            'users'
         ];
     }
 
     public function setUp()
     {
-        parent::setUp();
         $this->transactionRepository = $this->entityManager->getRepository($this->getEntitiesToArgument('Transaction'));
+        parent::setUp();
     }
 
 
@@ -82,7 +82,7 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
                 'SELECT t'
                 . ' FROM \EuroMillions\web\entities\Transaction t')
             ->getResult();
-        $this->assertCount(7,$actual);
+        $this->assertCount(8,$actual);
         $this->assertEquals('ticket_purchase',$actual[0]->getEntityType());
     }
 
@@ -157,6 +157,21 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
             ->getResult();
 
         $this->assertInstanceOf('EuroMillions\web\entities\TicketPurchaseTransaction',$actual[0]);
+
+    }
+
+
+    public function test_rebuildEntityFromData_called_returnEntityWithProperties()
+    {
+        $class = 'EuroMillions\web\entities\SubscriptionPurchaseTransaction';
+        $actual = $this->entityManager
+            ->createQuery(
+                'SELECT t'
+                . ' FROM \EuroMillions\web\entities\Transaction t '
+                . ' where t INSTANCE OF '.$class )
+            ->getResult();
+
+
 
     }
 

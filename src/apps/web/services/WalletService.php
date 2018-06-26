@@ -96,14 +96,14 @@ class WalletService
                 $walletBefore = $user->getWallet();
                 if (!$order->getHasSubscription()) {
                     $user->reChargeWallet($creditCardCharge->getNetAmount());
-                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore);
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore,$order);
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
                 } else {
                     $user->reChargeSubscriptionWallet($creditCardCharge->getNetAmount());
                     if ($isWallet) {
                         $user->removeSubscriptionWithWallet($creditCardCharge->getNetAmount());
                     }
-                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore);
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore,$order);
                     $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
                 }
                 $this->entityManager->persist($user);
@@ -360,14 +360,20 @@ class WalletService
      * @param $walletBefore
      * @return array
      */
-    private function buildDepositTransactionData(User $user, CreditCardCharge $creditCardCharge, $uniqueID, $walletBefore)
+    private function buildDepositTransactionData(User $user,
+                                                 CreditCardCharge $creditCardCharge,
+                                                 $uniqueID,
+                                                 $walletBefore,
+                                                 Order $order = null)
     {
+
         $dataTransaction = [
             'lottery_id' => 1,
             'numBets' => count($user->getPlayConfig()),
             'feeApplied' => $creditCardCharge->getIsChargeFee(),
             'transactionID' => $uniqueID,
             'amountWithWallet' => 0,
+            'playConfigs' => (null !== $order) ? $order->getPlayConfig()[0]->getId() : 0,
             'amount' => $creditCardCharge->getFinalAmount()->getAmount(),
             'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount(),
             'user' => $user,
