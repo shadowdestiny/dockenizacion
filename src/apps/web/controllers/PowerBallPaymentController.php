@@ -112,7 +112,7 @@ class PowerBallPaymentController extends CartController
     protected function playResult(ActionResult $result)
     {
         if ($result->success()) {
-            $this->response->redirect('/' . $this->lottery . '/result/success');
+            $this->response->redirect('/' . $this->lottery . '/result/success/'.$this->lottery);
             return false;
         } else {
             $this->response->redirect('/' . $this->lottery . '/result/failure');

@@ -15,7 +15,9 @@ class ResultController extends PublicSiteControllerBase
 
     public function successAction()
     {
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $params = $this->router->getParams();
+        $lotteryName = $this->lotteryService->getLotteryConfigByName($params['lottery'])->getName();
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot($lotteryName));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
@@ -37,23 +39,25 @@ class ResultController extends PublicSiteControllerBase
         $user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */
         $user = $this->userService->getUser($user_id);
-        $result_order = $this->cartService->get($user_id, 'EuroMillions');
+        $result_order = $this->cartService->get($user_id, $lotteryName);
         $order_dto = new OrderDTO($result_order->getValues());
         $this->view->pick('/cart/success');
 	    $this->tag->prependTitle('Purchase Confirmation');
-        $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
+        $date_next_draw = $this->lotteryService->getNextDateDrawByLottery($lotteryName);
         $date_time_util = new DateTimeUtil();
         /** @var \DateTime $actualDate */
         $actualDate = $order_dto->getStartDrawDate();
-
+        $linkPlay = 'link_'.$lotteryName.'_play';
         return $this->view->setVars([
             'order' => $order_dto,
+            'lottery_name' => $lotteryName,
+            'play_link' => $linkPlay,
             'user' => new UserDTO($user),
             'start_draw_date_format' => $actualDate->format($this->languageService->translate('dateformat')),
             'draw_day' => $actualDate->format('l'),
             'countdown_next_draw' => $date_time_util->getCountDownNextDraw($date_next_draw),
-            'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
-            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
+            'date_draw' => $this->lotteryService->getNextDateDrawByLottery($lotteryName)->modify('-1 hours')->format('Y-m-d H:i:s'),
+            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery($lotteryName)->modify('-1 hours'))->format('%a'),
         ]);
     }
 

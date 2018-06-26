@@ -779,6 +779,96 @@
               line-height: 37px;
             }
           }
+          li.star_red {
+            background-image: url('../img/home/result-block/desktop/ellipse_red.svg');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            -webkit-background-size: 37px;
+            background-size: 33px;
+            text-indent: 0;
+            color: #333;
+            width: 37px;
+            height: 37px;
+            margin-left: 11px;
+            margin-right: 2px;
+            line-height: 25px;
+            position: relative;
+            top: 0px;
+            padding-top: 4px;
+
+            @media only screen and (min-width: $screen-xs) {
+              background-image: url('../img/home/result-block/desktop/ellipse_red.svg');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              -webkit-background-size: 30px;
+              background-size: 30px;
+              text-indent: 0;
+              color: #333;
+              width: 30px;
+              height: 30px;
+              margin-left: 0px;
+              margin-right: 2px;
+              line-height: 25px;
+              position: relative;
+              top: 0px;
+              padding-top: 4px;
+            }
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              background-image: url('../img/home/result-block/desktop/ellipse_red.svg');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              -webkit-background-size: 60px;
+              background-size: 60px;
+              text-indent: 0;
+              color: #333;
+              width: 60px;
+              height: 56px;
+              margin-left: 20px;
+              margin-right: 10px;
+              line-height: 50px;
+              position: relative;
+              top: -2px;
+              padding-top: 4px;
+            }
+
+            @media only screen and (min-width: $screen-ipad-h) {
+              background-image: url('../img/home/result-block/desktop/ellipse_red.svg');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              -webkit-background-size: 47px;
+              background-size: 47px;
+
+              text-indent: 0;
+              color:  #333333;
+
+              position: static;
+              padding-top: 0;
+
+              width: 47px;
+              height: 44px;
+              margin-left: 19px;
+              margin-right: 6px;
+              line-height: 47px;
+            }
+
+            @media only screen and (min-width: $screen-desktop) {
+              background-image: url('../img/home/result-block/desktop/ellipse_red.svg');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              -webkit-background-size: 47px;
+              background-size: 38px;
+              text-indent: 0;
+              color: #333;
+              position: static;
+              padding-top: 0;
+              width: 38px;
+              height: 38px;
+              margin-left: 18px;
+              margin-right: 1px;
+              line-height: 37px;
+            }
+          }
           li.star + li.star {
             margin-left: 0;
             margin-right: 0px;
