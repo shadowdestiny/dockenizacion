@@ -67,6 +67,10 @@ class UserNotificationsDTO extends DTOBase implements IDto
             case 5:
                 $name = 'email_marketing';
                 break;
+            case 6:
+                $name = 'email_marketing';
+                break;
+
             default:
                 throw new \Exception();
         }
