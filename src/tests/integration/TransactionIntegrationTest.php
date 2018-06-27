@@ -192,7 +192,6 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
             ->getResult();
 
         $this->assertEquals(2,count($actual));
-
     }
     
     

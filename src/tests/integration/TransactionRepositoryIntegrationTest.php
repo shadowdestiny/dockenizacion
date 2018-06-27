@@ -23,7 +23,9 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     {
         return [
           'users',
+            'lotteries',
           'transactions',
+          'play_configs',
           'playconfig_transaction'
         ];
     }
@@ -82,7 +84,14 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
             ->getResult();
 
         $this->isInstanceOf('PlayConfigTransaction',$actual[0]);
-        $this->assertEquals(2,count($actual));
+        $this->assertEquals(6,count($actual));
+    }
+
+    public function test_getSubscriptionBalanceByLottery_called_returnProperBalanceSubscriptionByLottery()
+    {
+        $lotteryId=3;
+        $actual = $this->sut->getSubscriptionBalanceByLottery($lotteryId);
+        $this->assertEquals(4900,$actual);
     }
 
     /**
@@ -93,7 +102,7 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     public function test_getLast_called_returnNextIdFromTransactionTable()
     {
         $actual = $this->sut->getNextId();
-        $this->assertEquals(9, $actual);
+        $this->assertEquals(11, $actual);
     }
     
 }

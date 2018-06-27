@@ -113,6 +113,36 @@ class TransactionRepository extends RepositoryBase
                 , $rsm)->getResult();
     }
 
+    public function getSubscriptionBalanceByLottery($lotteryId)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('total_subscription','total_subscription');
+        $result = $this->getEntityManager()
+            ->createNativeQuery(
+                                    'select SUM(t.wallet_after_subscription_amount-t.wallet_before_subscription_amount)
+                           -
+                           (select
+                                SUM(tr.wallet_before_subscription_amount-tr.wallet_after_subscription_amount) from transactions tr
+                              where
+                                exists( select pt.id from playconfig_transaction pt
+                                  inner join play_configs pl on pl.id=pt.playConfig_id and pl.lottery_id="'.$lotteryId.'" where pt.transactionID=tr.id)
+                                and
+                                tr.entity_type IN ("ticket_purchase","automatic_purchase")) as total_subscription
+                    from transactions t
+                    where
+                      exists(
+                          select pt.id from playconfig_transaction pt
+                            inner join play_configs pl on pl.id=pt.playConfig_id and pl.lottery_id="'.$lotteryId.'" where pt.transactionID=t.id
+                      )
+                    and t.entity_type IN("subscription_purchase");',
+            $rsm)->getResult();
+
+        return $result[0]['total_subscription'];
+
+
+
+    }
+
 
     public function getLastTransactionIDAsPurchaseType($userId)
     {
