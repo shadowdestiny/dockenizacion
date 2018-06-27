@@ -65,7 +65,7 @@ function numCharLine($line){
                 <h1>{{ language.translate("confirmation_h1") }}</h1>
 
                 <h2>
-                    {{ language.translate("confirmation_head") }}
+                    {{ language.translate("confirmation_head", ['value': lottery_name]) }}
                 </h2>
                 <p>
                     {{ language.translate("confirmation_subhead") }}
@@ -100,7 +100,7 @@ function numCharLine($line){
 
                 </div>
                 <div class="btn-row">
-                    <a href="/{{ language.translate("link_euromillions_play") }}" class="btn-theme--big">
+                    <a href="/{{ language.translate(play_link) }}" class="btn-theme--big">
                         <span class="resizeme">
                             {{ language.translate("tickets_play_again") }}
                         </span>
@@ -124,7 +124,6 @@ function numCharLine($line){
                     {% endif %}
                 </h2>
             </div>
-
             <div class="thank-you-block--rows">
                 {% for i,numbers in lines.bets %}
                     <?php $regular_arr = explode(',', $numbers->regular);
@@ -140,10 +139,15 @@ function numCharLine($line){
                             {% for regular_number in regular_arr %}
                                 <li><?php echo sprintf("%02s", $regular_number);?></li>
                             {% endfor %}
-                            {% for lucky_number in lucky_arr %}
-                                <li class="star"><?php echo sprintf("%02s", $lucky_number);?></li>
-                            {% endfor %}
+                            {% if (lottery_name == 'PowerBall') %}
+                            <li class="star_red"><?php echo sprintf("%02s", $lucky_arr[1]);?></li>
+                            {% else %}
+                                {% for lucky_number in lucky_arr %}
+                                    <li class="star"><?php echo sprintf("%02s", $lucky_number);?></li>
+                                {% endfor %}
+                            {% endif %}
                         </ul>
+
                     </div>
                 {% endfor %}
             </div>

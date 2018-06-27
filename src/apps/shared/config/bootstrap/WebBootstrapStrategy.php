@@ -565,11 +565,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        $router->add("/{lottery:(euromillions|powerball)+}/result/success", array(
+        $router->add("/{lottery:(euromillions|powerball)+}/result/success/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'result',
             'action' => 'success',
+            'params' => 2,
         ));
 
         $router->add("/{lottery:(euromillions)+}/result/failure", array(
