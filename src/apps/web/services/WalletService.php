@@ -313,17 +313,35 @@ class WalletService
                 $wallet = $user->getWallet();
                 $current_winnnings_convert = $this->currencyConversionService->convert($user->getWinningAbove(), $user->getUserCurrency());
                 $amount_current_winning = $this->currencyConversionService->toString($current_winnnings_convert, $user->getLocale());
-                $balance_convert = $this->currencyConversionService->convert($wallet->getBalance(), $user->getUserCurrency());
-                $amount_balance = $this->currencyConversionService->toString($balance_convert, $user->getLocale());
-                $winnings_convert = $this->currencyConversionService->convert($wallet->getWithdrawable(), $user->getUserCurrency());
-                $amount_winnings = $this->currencyConversionService->toString($winnings_convert, $user->getLocale());
-                $subscription_convert = $this->currencyConversionService->convert($wallet->getSubscription(), $user->getUserCurrency());
-                $amount_subscription = $this->currencyConversionService->toString($subscription_convert, $user->getLocale());
-                $wallet_dto = new WalletDTO($amount_balance,
-                    $amount_winnings,
-                    $amount_current_winning,
-                    $amount_subscription,
-                    $current_winnnings_convert);
+                $amount_balance = $this->currencyConversionService->toString(
+                    $this->currencyConversionService->convert($wallet->getBalance(), $user->getUserCurrency()),
+                    $user->getLocale()
+                );
+                $amount_winnings = $this->currencyConversionService->toString(
+                    $this->currencyConversionService->convert($wallet->getWithdrawable(), $user->getUserCurrency()),
+                    $user->getLocale()
+                );
+                $amount_subscription = $this->currencyConversionService->toString(
+                    $this->currencyConversionService->convert($wallet->getSubscription(), $user->getUserCurrency()),
+                    $user->getLocale()
+                );
+                $amountSubscriptionBalanceEuroMillions = $this->currencyConversionService->toString( $this->currencyConversionService->convert(
+                    $this->transactionService->getSubscriptionByLotteryAndUserId('EuroMillions', $user->getId()),
+                    $user->getUserCurrency()
+                ), $user->getLocale());
+                $amountSubscriptionBalancePowerBall = $this->currencyConversionService->toString( $this->currencyConversionService->convert(
+                    $this->transactionService->getSubscriptionByLotteryAndUserId('PowerBall', $user->getId()),
+                    $user->getUserCurrency()
+                ), $user->getLocale());
+                $wallet_dto = new WalletDTO([
+                    'amountBalance' => $amount_balance,
+                    'amountWinngins' => $amount_winnings,
+                    'amountCurrentWinning' => $amount_current_winning,
+                    'amountSubscription' => $amount_subscription,
+                    'currentWinningConvert' => $current_winnnings_convert,
+                    'amountSubscriptionBalanceEuroMillions' => $amountSubscriptionBalanceEuroMillions,
+                    'amountSubscriptionBalancePowerBall' => $amountSubscriptionBalancePowerBall,
+                ]);
                 $balance = $this->currencyConversionService->toString($wallet->getBalance(), $user->getLocale());
                 $winnings = $this->currencyConversionService->toString($wallet->getWithdrawable(), $user->getLocale());
                 $wallet_dto->setBalance($balance);

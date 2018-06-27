@@ -90,7 +90,8 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     public function test_getSubscriptionBalanceByLottery_called_returnProperBalanceSubscriptionByLottery()
     {
         $lotteryId=3;
-        $actual = $this->sut->getSubscriptionBalanceByLottery($lotteryId);
+        $userId = '9098299B-14AC-4124-8DB0-19571EDABE60';
+        $actual = $this->sut->getSubscriptionBalanceByLottery($lotteryId,$userId);
         $this->assertEquals(4900,$actual);
     }
 

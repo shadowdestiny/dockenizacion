@@ -16,16 +16,21 @@ class WalletDTO
     public $balance;
     public $winnings;
     public $hasEnoughWinnings;
+    public $subscriptionBalanceEuromillions;
+    public $subscriptionBalancePowerBall;
     private $limitWithdrawWinning;
 
 
-    public function __construct( $balance, $winnings, $current_winnings, $subscription, Money $currentWinningsConverted )
+    public function __construct(array $data)
     {
-        $this->wallet_balance_amount = $balance;
-        $this->wallet_winning_amount = $winnings;
-        $this->wallet_subscription_amount = $subscription;
-        $this->current_winnings = $currentWinningsConverted->isZero() ? '' : $current_winnings;
+        $this->wallet_balance_amount = $data['amountBalance'];
+        $this->wallet_winning_amount = $data['amountWinnings'];
+        $this->wallet_subscription_amount = $data['amountSubscription'];
+        $this->current_winnings = $data['currentWinningConvert']->isZero() ? '' : $data['currentWinningConvert'];
+        $this->subscriptionBalanceEuromillions = $data['amountSubscriptionBalanceEuroMillions'];
+        $this->subscriptionBalancePowerBall= $data['amountSubscriptionBalancePowerBall'];
         $this->limitWithdrawWinning = new Money((int) 2500, new Currency('EUR'));
+
     }
 
     /**
@@ -111,6 +116,38 @@ class WalletDTO
     public function getHasEnoughWinnings()
     {
         return $this->hasEnoughWinnings;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubscriptionBalanceEuromillions()
+    {
+        return $this->subscriptionBalanceEuromillions;
+    }
+
+    /**
+     * @param mixed $subscriptionBalanceEuromillions
+     */
+    public function setSubscriptionBalanceEuromillions($subscriptionBalanceEuromillions)
+    {
+        $this->subscriptionBalanceEuromillions = $subscriptionBalanceEuromillions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubscriptionBalancePowerBall()
+    {
+        return $this->subscriptionBalancePowerBall;
+    }
+
+    /**
+     * @param mixed $subscriptionBalancePowerBall
+     */
+    public function setSubscriptionBalancePowerBall($subscriptionBalancePowerBall)
+    {
+        $this->subscriptionBalancePowerBall = $subscriptionBalancePowerBall;
     }
 
 }

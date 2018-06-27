@@ -113,7 +113,7 @@ class TransactionRepository extends RepositoryBase
                 , $rsm)->getResult();
     }
 
-    public function getSubscriptionBalanceByLottery($lotteryId)
+    public function getSubscriptionBalanceByLottery($lotteryId, $userId)
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('total_subscription','total_subscription');
@@ -134,7 +134,8 @@ class TransactionRepository extends RepositoryBase
                           select pt.id from playconfig_transaction pt
                             inner join play_configs pl on pl.id=pt.playConfig_id and pl.lottery_id="'.$lotteryId.'" where pt.transactionID=t.id
                       )
-                    and t.entity_type IN("subscription_purchase");',
+                    and t.entity_type IN("subscription_purchase")
+                    and t.user_id="'.$userId.'"',
             $rsm)->getResult();
 
         return $result[0]['total_subscription'];

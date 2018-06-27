@@ -5,13 +5,16 @@ namespace EuroMillions\web\services;
 
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsReceivedTransaction;
+use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\vo\dto\TransactionDTO;
 use Money\Currency;
+use Money\Money;
 
 
 class TransactionService
@@ -85,6 +88,22 @@ class TransactionService
         } else {
             return null;
         }
+    }
+
+    public function getSubscriptionByLotteryAndUserId($lotteryName, $userId)
+    {
+        try {
+            /** @var LotteryRepository $lotteryRepository */
+            $lotteryRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'Lottery');
+            $lottery = $lotteryRepository->getLotteryByName($lotteryName);
+            return new Money((int) $this->transactionRepository->getSubscriptionBalanceByLottery($lottery->getId(), $userId),
+                new Currency('EUR')
+            );
+        } catch(\Exception $e)
+        {
+            return $e->getMessage();
+        }
+
     }
 
     public function getUniqueTransactionId()
