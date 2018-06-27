@@ -13,6 +13,7 @@ use Money\Currency;
 use Phalcon\Validation\Message;
 
 
+//TODO: Extract to new parent class
 class CartController extends PublicSiteControllerBase
 {
     const IP_DEFAULT = '127.0.0.1';

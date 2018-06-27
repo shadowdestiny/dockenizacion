@@ -12,6 +12,8 @@ use Money\Currency;
 use Phalcon\Validation\Message;
 
 
+
+//TODO: Extract to new parent class
 class PowerBallCartController extends PublicSiteControllerBase
 {
     const IP_DEFAULT = '127.0.0.1';
@@ -50,8 +52,13 @@ class PowerBallCartController extends PublicSiteControllerBase
 
         $errors = [];
         $user = $this->authService->getCurrentUser();
-        if($user instanceof User) {
-            $this->response->redirect('/'.$this->lottery.'/order');
+        if($this->authService->isLogged()) {
+            if($this->authService->getLoggedUser()->getValidated()) {
+                $this->response->redirect('/'.$this->lottery.'/order');
+            } else {
+                $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                $this->response->redirect('/'.$this->lottery.'/play');
+            }
         }
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
@@ -78,7 +85,8 @@ class PowerBallCartController extends PublicSiteControllerBase
                     'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
-                    $this->response->redirect('/'.$this->lottery.'/order');
+                    $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                    $this->response->redirect('/'.$this->lottery.'/play');
                 }else{
                     $errors [] = $result->errorMessage();
                 }
@@ -138,7 +146,13 @@ class PowerBallCartController extends PublicSiteControllerBase
                         $errors[] = 'Incorrect email or password.';
                     }
                 } else {
-                    return $this->response->redirect('/'.$this->lottery.'/order?user='.$user->getId());
+                    if($this->authService->isLogged()) {
+                        if($this->authService->getLoggedUser()->getValidated()) {
+                            return $this->response->redirect('/'.$this->lottery.'/order?user='.$user->getId());
+                        }
+                        $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                        $this->response->redirect('/'.$this->lottery.'/play');
+                    }
                 }
             }
         }
@@ -202,6 +216,7 @@ class PowerBallCartController extends PublicSiteControllerBase
             'card-cvv' => '',
             'expiry-date-month' => '',
             'expiry-date-year' => '',
+            'accept' => ''
         ];
         return $form_errors;
     }
