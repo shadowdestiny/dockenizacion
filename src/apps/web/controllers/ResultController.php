@@ -46,6 +46,10 @@ class ResultController extends PublicSiteControllerBase
         /** @var \DateTime $actualDate */
         $actualDate = $order_dto->getStartDrawDate();
 
+        //TJ pixel success buy
+        $randomNumber = time() . mt_rand(1000, 9999999);
+        $currentPage = substr($_SERVER["REQUEST_URI"], 0, 255);
+        $userEmail = $this->authService->getCurrentUser()->getEmail()->toNative();
         return $this->view->setVars([
             'order' => $order_dto,
             'user' => new UserDTO($user),
@@ -54,7 +58,11 @@ class ResultController extends PublicSiteControllerBase
             'countdown_next_draw' => $date_time_util->getCountDownNextDraw($date_next_draw),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
+            'random_number' => $randomNumber,
+            'current_page' => $currentPage,
+            'user_email' => $userEmail,
         ]);
+
     }
 
     public function failureAction()

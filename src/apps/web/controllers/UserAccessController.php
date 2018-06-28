@@ -24,6 +24,7 @@ use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\Email;
 use EuroMillions\shared\vo\results\ActionResult;
+use Phalcon\Http\Client\Provider\Curl;
 use Phalcon\Validation\Message;
 
 class UserAccessController extends ControllerBase
@@ -189,6 +190,12 @@ class UserAccessController extends ControllerBase
                         ga('send', 'event', 'Button', 'Register');
                     </script>
                     ";
+
+                    $randomNumber = time() . mt_rand(1000, 9999999);
+                    $currentPage = substr($_SERVER["REQUEST_URI"], 0, 255);
+                    $curl = new Curl();
+                    $curl->get('https://ads.trafficjunky.net/tj_ads_pt?a=1000153071&member_id=1000848161&cb=' . $randomNumber . '&epu=' . $currentPage . '&cti=' . $register_result->getValues()->getEmail()->toNative() . '&ctv=1&ctd=signup');
+
                     return $this->response->redirect('/');
                 }
             }
