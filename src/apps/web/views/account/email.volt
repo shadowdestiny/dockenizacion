@@ -25,7 +25,8 @@
                                 {% for i,notification in list_notifications %}
                                     {% if notification.notification.notification_type != 2 and
                                           notification.notification.notification_type != 3 and
-                                          notification.notification.notification_type != 1%}
+                                          notification.notification.notification_type != 1 and
+                                          notification.notification.notification_type != 6%}
                                         <li>
                                             <label for="check{{ i }}">
                                                 <input id="check{{ i }}" data-type="{{ notification.notification.notification_type }}" name="{{ notification.name }}" data-value="{{ notification.config_value }}" data-id="{{ notification.id }}" class="checkbox" type="checkbox" {% if notification.active == true %} checked="checked" {% endif %} data-role="none">
