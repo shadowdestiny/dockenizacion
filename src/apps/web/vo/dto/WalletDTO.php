@@ -27,10 +27,10 @@ class WalletDTO
         $this->wallet_winning_amount = $data['amountWinnings'];
         $this->wallet_subscription_amount = $data['amountSubscription'];
         $this->current_winnings = $data['currentWinningConvert']->isZero() ? '' : $data['currentWinningConvert'];
-        $this->subscriptionBalanceEuromillions = $data['amountSubscriptionBalanceEuroMillions'];
+        $this->subscriptionBalanceEuromillions =$data['amountSubscriptionBalanceEuroMillions'];
         $this->subscriptionBalancePowerBall= $data['amountSubscriptionBalancePowerBall'];
         $this->limitWithdrawWinning = new Money((int) 2500, new Currency('EUR'));
-
+        $this->checkLaterSubscriptionsWithoutRelations();
     }
 
     /**
@@ -148,6 +148,21 @@ class WalletDTO
     public function setSubscriptionBalancePowerBall($subscriptionBalancePowerBall)
     {
         $this->subscriptionBalancePowerBall = $subscriptionBalancePowerBall;
+    }
+
+    private function checkLaterSubscriptionsWithoutRelations()
+    {
+        $euroMillionsSubscription = str_replace(['€','.'],"", $this->subscriptionBalanceEuromillions);
+        $this->subscriptionBalanceEuromillions = ((int) $euroMillionsSubscription > 0) ?
+            $this->subscriptionBalanceEuromillions : $this->wallet_subscription_amount;
+        $powerBallSubscription = str_replace(['€','.'],"", $this->subscriptionBalancePowerBall);
+        $walletSubscriptionBalance = str_replace(['€','.'],"", $this->wallet_subscription_amount);
+        $sumLotteries = $euroMillionsSubscription + $powerBallSubscription;
+        if($sumLotteries !== $walletSubscriptionBalance)
+        {
+            $substractBalances = $walletSubscriptionBalance - $sumLotteries;
+            $this->subscriptionBalanceEuromillions = $substractBalances + $euroMillionsSubscription;
+        }
     }
 
 }

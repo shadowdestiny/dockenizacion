@@ -351,6 +351,10 @@ class WalletService
                 $wallet_dto->setBalance($balance);
                 $wallet_dto->setWinnings($winnings);
                 $wallet_dto->hasEnoughWinningsBalance($wallet->getWithdrawable());
+                $wallet_dto->subscriptionBalanceEuromillions = $this->currencyConversionService->toString( $this->currencyConversionService->convert(
+                        new Money((int) $wallet_dto->getSubscriptionBalanceEuromillions(), new Currency('EUR')),
+                        $user->getUserCurrency()
+                ), $user->getLocale());
                 return $wallet_dto;
             } catch (\Exception $e) {
                 return null;
