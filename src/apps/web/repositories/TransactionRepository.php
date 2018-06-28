@@ -127,7 +127,9 @@ class TransactionRepository extends RepositoryBase
                                 exists( select pt.id from playconfig_transaction pt
                                   inner join play_configs pl on pl.id=pt.playConfig_id and pl.lottery_id="'.$lotteryId.'" where pt.transactionID=tr.id)
                                 and
-                                tr.entity_type IN ("ticket_purchase","automatic_purchase")) as total_subscription
+                                tr.entity_type IN ("ticket_purchase","automatic_purchase")
+                                and tr.user_id="'.$userId.'"
+                                ) as total_subscription
                     from transactions t
                     where
                       exists(
