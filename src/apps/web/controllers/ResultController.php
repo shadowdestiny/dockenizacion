@@ -47,7 +47,13 @@ class ResultController extends PublicSiteControllerBase
         $date_time_util = new DateTimeUtil();
         /** @var \DateTime $actualDate */
         $actualDate = $order_dto->getStartDrawDate();
+
+        //TJ pixel success buy
+        $randomNumber = time() . mt_rand(1000, 9999999);
+        $currentPage = substr($_SERVER["REQUEST_URI"], 0, 255);
+        $userEmail = $this->authService->getCurrentUser()->getEmail()->toNative();
         $linkPlay = 'link_'.$lotteryName.'_play';
+
         return $this->view->setVars([
             'order' => $order_dto,
             'lottery_name' => $lotteryName,
@@ -58,6 +64,9 @@ class ResultController extends PublicSiteControllerBase
             'countdown_next_draw' => $date_time_util->getCountDownNextDraw($date_next_draw),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery($lotteryName)->modify('-1 hours')->format('Y-m-d H:i:s'),
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery($lotteryName)->modify('-1 hours'))->format('%a'),
+            'random_number' => $randomNumber,
+            'current_page' => $currentPage,
+            'user_email' => $userEmail,
         ]);
     }
 

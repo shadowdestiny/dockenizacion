@@ -166,5 +166,5 @@ function numCharLine($line){
             </div>
         </div>
     </div>
-
+    <img id="1000153081_cpa_testing" src="https://ads.trafficjunky.net/tj_ads_pt?a=1000153081&member_id=1000848161&cb={{ random_number }}&epu={{ current_page }}&cti={{ user_email }}&ctv=1&ctd=buyaticket" width="1" height="1" border="0" />
 {% endblock %}
