@@ -14,6 +14,7 @@ class PastDrawDTO extends DTOBase implements IDto
     public $stars;
     public $prize;
     private $pastDraw;
+    public $lotteryName;
 
     public function __construct($pastDraw)
     {
@@ -49,5 +50,6 @@ class PastDrawDTO extends DTOBase implements IDto
         $this->numbers = array_count_values(array_merge($regularNumbers,$matchRegularNumbers));
         $this->stars = array_count_values(array_merge($starNumbers,$matchStarNumbers));
         $this->prize = !empty($this->pastDraw[0]->getPrize()) ? $this->pastDraw[0]->getPrize()->getAmount() / 100 : 0;
+        $this->lotteryName = $this->pastDraw[0]->getPlayConfig()->getLottery()->getName();
     }
 }

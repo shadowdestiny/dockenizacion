@@ -11,7 +11,7 @@
         {% for my_subscription_inactive in my_subscription_inactives %}
             <tr>
                 <td class="lottery">
-                    {{ my_subscription_active['name'] }}
+                    {{ my_subscription_inactive['name'] }}
                 </td>
                 <td class="date-from">
                     {{ my_subscription_inactive['start_draw_date'].format(language.translate('dateformat')) }}
