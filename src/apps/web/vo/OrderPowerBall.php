@@ -63,19 +63,17 @@ class OrderPowerBall extends Order
             $amount = new Money(0, new Currency('EUR'));
         }
         $frequency = $this->play_config[0]->getFrequency();
-        $multiplier = count($this->play_config) * $frequency;
+        $multiplier = $frequency;
         $price = 0;
         if ($this->powerPlay) {
             $pwprice = $this->powerPlayPrice * count($this->play_config);
+
             $price = new Money($pwprice, new Currency('EUR'));
-            $price->add($price->multiply($multiplier));
-            $this->funds_amount = ($price);
+            $price = $price->multiply($multiplier);
         }
-
-        $total = $this->total->add($this->funds_amount);
-
+        $total = $this->total->add($price);
+        $this->total = $total;
         $this->credit_card_charge = new CreditCardCharge($total, $this->fee, $this->fee_limit);
-
 
     }
 }

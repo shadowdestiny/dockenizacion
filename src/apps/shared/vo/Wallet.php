@@ -71,7 +71,6 @@ class Wallet implements IArraySerializable
         }
     }
 
-    //TODO: @etey o @benair3 crear TEST!!!!!
     public function payWithSubscription(Money $amount)
     {
         return new self($this->uploaded, $this->winnings, $this->subscription->subtract($amount));

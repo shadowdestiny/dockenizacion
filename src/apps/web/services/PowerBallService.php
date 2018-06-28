@@ -221,7 +221,7 @@ class PowerBallService
                                         $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue());
                                     } elseif ($withAccountBalance) {
                                         $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue());
-                                        $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config);
+                                        $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config,$lottery->getPowerPlayValue());
                                     } else {
                                         $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue());
                                     }

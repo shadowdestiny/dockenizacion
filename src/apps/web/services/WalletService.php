@@ -79,6 +79,7 @@ class WalletService
     {
 
         $creditCardCharge = $order->getCreditCardCharge();
+
 //        var_dump($creditCardCharge);die();
 //        var_dump($creditCardCharge->getNetAmount());die();
 //        $powerplay = $order->getPowerPlay();
@@ -225,7 +226,9 @@ class WalletService
     public function paySubscriptionWithWalletAndCreditCard(User $user, PlayConfig $playConfig, $powerPlayValue = null)
     {
         try {
+
             if ($playConfig->getPowerPlay()) {
+
                 $powerPlayValue = new Money($powerPlayValue, new Currency('EUR'));
                 $price = $playConfig->getSinglePrice()->multiply($playConfig->getFrequency());
                 $powerPlayValue = $powerPlayValue->multiply($playConfig->getFrequency());
@@ -247,12 +250,13 @@ class WalletService
         try {
             if ($playConfig->getPowerPlay()) {
                 $powerPlayValue = new Money($powerPlayValue, new Currency('EUR'));
+
                 $price = $playConfig->getSinglePrice()->add($powerPlayValue);
+
                 $user->removeSubscriptionWallet($price);
             } else {
                 $user->removeSubscriptionWallet($playConfig->getSinglePrice());
             }
-
             $this->entityManager->flush($user);
 
         } catch (\Exception $e) {
