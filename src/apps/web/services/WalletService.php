@@ -80,17 +80,6 @@ class WalletService
 
         $creditCardCharge = $order->getCreditCardCharge();
 
-//        var_dump($creditCardCharge);die();
-//        var_dump($creditCardCharge->getNetAmount());die();
-//        $powerplay = $order->getPowerPlay();
-//        $numPlayConfigs = $order->getNumLines();
-//        $lottery = $this->lotteryService->getLotteryConfigByName('PowerBall');
-//        var_dump($lottery);die();
-//        if ($powerplay) {
-//            $amountCreditCard = ($lottery->getPowerPlayValue() * $numPlayConfigs) + $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount();
-//        } else {
-//            $amountCreditCard = $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount();
-//        }
         $payment_result = $this->pay($provider, $card, $creditCardCharge);
         if ($payment_result->success()) {
             try {

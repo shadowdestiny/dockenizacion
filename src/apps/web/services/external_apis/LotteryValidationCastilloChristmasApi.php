@@ -61,7 +61,6 @@ class LotteryValidationCastilloChristmasApi
 
         $idsession = $bet->getCastilloBet()->id();
         $key = $castilloKey->key();
-//        var_dump($castilloKey->key());die();
         $content_cyphered = $cypher->encrypt($key, $content);
         $signature = $cypher->getSignature($content_cyphered);
         $xml = '<?xml version="1.0" encoding="UTF-8"?><message><operation id="' . $idsession . '" key="' . $key . '" type="5"><content>' . $content_cyphered . '</content></operation>';
@@ -72,7 +71,6 @@ class LotteryValidationCastilloChristmasApi
         $this->curlWrapper->setOption(CURLOPT_POST, 1);
         $result = $this->curlWrapper->post($this->url);
         $xml_response = simplexml_load_string($result->body);
-//        var_dump($xml_response->operation['key']);die();
         $xml_uncyphered_string = $cypher->decrypt((string)$xml_response->operation->content, intval($xml_response->operation['key']));
         $xml_uncyphered = simplexml_load_string($xml_uncyphered_string);
         //set xml_uncypherd to be visible from outside.
