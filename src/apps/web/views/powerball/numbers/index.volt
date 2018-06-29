@@ -86,16 +86,13 @@
 <script language="javascript">
     function showPowerPlay() {
         var checkBox = document.getElementById("powerPlayCheck");
+
         if (checkBox.checked == true) {
-            $('.td-winners--powerplay').css('display', 'block');
-            $('.td-prize--powerplay').css('display', 'block');
-            $('.td-prize').css('display', 'none');
-            $('.td-winners').css('display', 'none');
+            $('#current-winners').hide();
+            $('#current-winners-powerplay-mobile').show();
         } else {
-            $('.td-winners--powerplay').css('display', 'none');
-            $('.td-prize--powerplay').css('display', 'none');
-            $('.td-prize').css('display', 'block');
-            $('.td-winners').css('display', 'block');
+            $('#current-winners').show();
+            $('#current-winners-powerplay-mobile').hide();
         }
 
     }
@@ -238,6 +235,55 @@
                                                 </span>
                                              {% endif %}
                                             </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <table id="current-winners-powerplay-mobile" class="table ui-responsive" data-role="table" style="display:none;"
+                                   data-mode="reflow">
+                                <thead>
+                                <th>
+                                </th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="td-ball td-head">{{ language.translate("prizePool_matches") }}</td>
+                                    <td class="td-winners--powerplay td-head">{{ language.translate("powerplay_winners") }}</td>
+                                    <td class="td-prize--powerplay td-head">{{ language.translate("powerplay_prizes") }}</td>
+
+                                </tr>
+                                {% for i,line in break_downs %}
+                                    <tr>
+                                        <td class="td-ball">
+                                                <span>
+                                                    {{ line['name'] }} {{ language.translate("prizePool_ball") }} +  {{ language.translate("Powerball") }}
+                                                </span>
+                                        </td>
+                                        {#<td class="td-star-ball">#}
+                                        {#{% if break_downs[name]['stars_corrected'] > 0 %}#}
+                                        {#{% for corrected_stars in 1..break_downs[name]['stars_corrected'] %}#}
+                                        {#<span class="star-ball"></span>#}
+                                        {#{% endfor %}#}
+                                        {#{% endif %}#}
+                                        {#</td>#}
+                                        <td class="td-winners">
+                                            {% if i == 'lineOne' %}
+                                                <span></span>
+                                            {% else %}
+                                                <span>
+                                                {{ line['winnersPowerPlay'] }}x
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="td-prize">
+                                            {% if i == 'lineOne' %}
+                                                <span></span>
+                                            {% else %}
+                                                <span>
+                                                    {{ symbol }} {{ line['powerPlayPrize'] | number_format(2, '.', ',') }}
+                                                </span>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
