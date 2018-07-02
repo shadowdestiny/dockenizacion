@@ -64,7 +64,7 @@ class OrderPowerBall extends Order
         }
         $frequency = $this->play_config[0]->getFrequency();
         $multiplier = $frequency;
-        $price = 0;
+        $price = new Money(0, new Currency('EUR'));
         if ($this->powerPlay) {
             $pwprice = $this->powerPlayPrice * count($this->play_config);
 
