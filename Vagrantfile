@@ -27,7 +27,7 @@ Vagrant.configure(2) do |config|
         curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
         sudo apt-get install -y nodejs
         sudo apt install php5.6-apcu --no-install-recommends
-        ansible-galaxy install -r /vagrant/vagrant_config/requirements.yml --ignore-errors
+        ansible-galaxy install --offline -r /vagrant/vagrant_config/requirements.yml --ignore-errors
     SCRIPT
 
     config.vm.provision "shell", inline: <<-SCRIPT
