@@ -73,7 +73,7 @@ class PowerBallPurchaseConfirmationEmailTemplate extends EmailTemplateDecorator
 //            foreach($line->getLine()->getLuckyNumbersArray() as $stars) {
 //                $play['lucky_numbers'][]['number'] = $stars;
 //            }
-            $play['power_play'] = $line->getPowerPlay();
+            $play['power_play'] = $line->getPowerPlay() ? 'Power Play' : null;
             array_push($lines,$play);
         }
         return $lines;
