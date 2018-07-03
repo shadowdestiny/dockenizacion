@@ -5,6 +5,8 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\PowerBallPurchaseConfirmationEmailTemplate;
+use EuroMillions\web\emailTemplates\PowerBallPurchaseSubscriptionConfirmationEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationChristmasEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseSubscriptionConfirmationEmailTemplate;
@@ -313,12 +315,10 @@ class PowerBallService
     private function sendEmailPurchase(User $user, $orderLines)
     {
         $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+        $emailTemplate = new PowerBallPurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
         if ($orderLines[0]->getFrequency() >= 4) {
-            $emailTemplate = new PurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
-//        $emailTemplate->setFrequency($orderLines[0]->getFrequencyPlay());
+            $emailTemplate = new PowerballPurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
             $emailTemplate->setDraws($orderLines[0]->getFrequency());
-//        $emailTemplate->setJackpot($orderLines[0]->getJackpot());
             $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
         }
         $emailTemplate->setLine($orderLines);
