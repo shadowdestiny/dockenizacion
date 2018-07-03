@@ -18,8 +18,6 @@ class PowerBallPurchaseConfirmationEmailTemplate extends EmailTemplateDecorator
     public function loadVars()
     {
         $data = $this->emailTemplateDataStrategy->getData();
-        var_dump($this);echo('patata');
-        var_dump($data);die();
         $vars = [
             'template' => '7289821',
 //            'template' => '624539', Old Template
@@ -75,7 +73,7 @@ class PowerBallPurchaseConfirmationEmailTemplate extends EmailTemplateDecorator
 //            foreach($line->getLine()->getLuckyNumbersArray() as $stars) {
 //                $play['lucky_numbers'][]['number'] = $stars;
 //            }
-            $powerPlay =
+            $play['power_play'] = $line->getPowerPlay();
             array_push($lines,$play);
         }
         return $lines;
