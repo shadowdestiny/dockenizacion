@@ -154,9 +154,11 @@ class PowerBallPurchaseSubscriptionConfirmationEmailTemplate extends EmailTempla
             foreach ($line->getLine()->getRegularNumbersArray() as $balls) {
                 $play['regular_numbers'][]['number'] = $balls;
             }
-            foreach ($line->getLine()->getLuckyNumbersArray() as $stars) {
-                $play['lucky_numbers'][]['number'] = $stars;
-            }
+            $lucky = $line->getLine()->getLuckyNumbersArray();
+            $play['lucky_numbers'][]['number'] = $lucky[1];
+//            foreach ($line->getLine()->getLuckyNumbersArray() as $stars) {
+//                $play['lucky_numbers'][]['number'] = $stars;
+//            }
             array_push($lines, $play);
         }
         return $lines;
