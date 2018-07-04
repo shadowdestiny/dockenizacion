@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
+use EuroMillions\web\emailTemplates\WinEmailPowerBallTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\PlayConfig;
@@ -166,6 +167,28 @@ class PrizeCheckoutService
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
         $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers() . ' )';
+        $emailTemplate->setWinningLine($numLine);
+        $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
+        $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
+        $emailTemplate->setUser($user);
+        $emailTemplate->setResultAmount($amount);
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    }
+
+
+    /**
+     * @param User $user
+     * @param Money $amount
+     * @param Bet $bet
+     * @param array $scalarValues
+     * @internal param array $countBalls
+     */
+    private function sendSmallWinPowerBallEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
+    {
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new WinEmailPowerBallTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+        $powerBall = explode(',', $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers());
+        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $powerBall[1] . ' )';
         $emailTemplate->setWinningLine($numLine);
         $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
         $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
