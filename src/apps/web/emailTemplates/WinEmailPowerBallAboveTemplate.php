@@ -7,7 +7,7 @@ namespace EuroMillions\web\emailTemplates;
 use EuroMillions\web\entities\User;
 
 
-class WinEmailAboveTemplate extends EmailTemplateDecorator
+class WinEmailPowerBallAboveTemplate extends EmailTemplateDecorator
 {
 
     /** @var  User $user */
@@ -29,10 +29,10 @@ class WinEmailAboveTemplate extends EmailTemplateDecorator
 
         if ($language == "ru") {
             // Win Email Russian Version Template ID= 4020263
-            $template_id = "4020262";
+            $template_id = "7325646";
             $subject = 'Поздравляем';
         } else {
-            $template_id = "4021621";
+            $template_id = "7325585";
             $subject = 'Congratulations';
         }
 
@@ -153,11 +153,7 @@ class WinEmailAboveTemplate extends EmailTemplateDecorator
      */
     public function getStarBalls()
     {
-        if ($this->starBalls == 0) {
-            return null;
-        } else {
-            return 'Power Ball';
-        }
+        return $this->starBalls;
     }
 
     /**
