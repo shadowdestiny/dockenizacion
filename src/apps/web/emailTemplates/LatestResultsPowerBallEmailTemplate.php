@@ -12,7 +12,7 @@ use Money\Money;
 use EuroMillions\web\entities\User;
 
 
-class LatestResultsEmailTemplate extends EmailTemplateDecorator
+class LatestResultsPowerBallEmailTemplate extends EmailTemplateDecorator
 {
 
     protected $break_down_list;
@@ -31,13 +31,15 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
 
         if ($language == "ru") {
             // Welcome Email Russian Version Template ID= 3997341
-            $template_id = "4000783";
+            $template_id = "7329039";
             $subject = 'Результаты розыгрышей последней лотереи';
         } else {
             // Welcome Email English Version Template ID= 4021147
-            $template_id = "4021404";
+            $template_id = "7329181";
             $subject = 'Latest results';
         }
+
+
         $vars = [
             //'template' => '624601', // Old template email ID
             'template' => $template_id,
@@ -62,7 +64,7 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name' => 'lucky_numbers',
-                        'content' => $this->mapNumbers($draw_result['lucky_numbers'])
+                        'content' => $this->mapLuckyNumbers($draw_result['lucky_numbers'])
                     ],
                     [
                         'name' => 'draw_day_format_one',
@@ -127,6 +129,14 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
         foreach ($numbers as $number) {
             $numbersToEmail[]['number'] = (int)$number;
         }
+        return $numbersToEmail;
+    }
+
+    public function mapLuckyNumbers(array $numbers)
+    {
+        $numbersToEmail = [];
+        $numbersToEmail[]['number'] = (int)$numbers[1];
+
         return $numbersToEmail;
     }
 
