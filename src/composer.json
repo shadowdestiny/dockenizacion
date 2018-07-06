@@ -27,7 +27,8 @@
     "ramsey/uuid-doctrine": "^1.2",
     "wildbit/postmark-php": "dev-master",
     "geoip/geoip": "~1.16",
-    "tecnickcom/tcpdf" : "dev-master"
+    "tecnickcom/tcpdf" : "dev-master",
+    "aws/aws-sdk-php": "^3.62"
   },
   "autoload" : {
     "psr-4": {

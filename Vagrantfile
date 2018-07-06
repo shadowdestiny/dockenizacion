@@ -9,7 +9,7 @@ Vagrant.configure(2) do |config|
         sudo add-apt-repository ppa:ondrej/php
         sudo apt-get update
         sudo apt-get install -y php5.6
-        sudo apt-get remove --purge nodejs 
+        sudo apt-get remove --purge nodejs
         sudo wget https://launchpad.net/~ansible/+archive/ubuntu/ansible-1.9/+files/ansible_1.9.4-1ppa~trusty_all.deb -O /tmp/ansible.deb
         sudo apt-get install -y python-support \
           python-jinja2 \
@@ -27,7 +27,8 @@ Vagrant.configure(2) do |config|
         curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
         sudo apt-get install -y nodejs
         sudo apt install php5.6-apcu --no-install-recommends
-        ansible-galaxy install -r /vagrant/vagrant_config/requirements.yml --ignore-errors
+        sudo curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+        #ansible-galaxy install -r /vagrant/vagrant_config/requirements.yml
     SCRIPT
 
     config.vm.provision "shell", inline: <<-SCRIPT
