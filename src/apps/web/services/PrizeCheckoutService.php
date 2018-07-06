@@ -81,6 +81,21 @@ class PrizeCheckoutService
         }
     }
 
+    public function calculatePrizeAndReturnMessage($date)
+    {
+        try
+        {
+            $resultAwarded = $this->betRepository->getMatchesPlayConfigAndUserFromPowerBallByDrawDate($date);
+
+
+        }catch(\Exception $e)
+        {
+
+        }
+
+    }
+
+
     public function awardUser(Bet $bet, Money $amount, array $scalarValues)
     {
         $config = $this->di->get('config');

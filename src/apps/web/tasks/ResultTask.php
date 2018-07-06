@@ -1,16 +1,9 @@
 <?php
 namespace EuroMillions\web\tasks;
 
-use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
-use EuroMillions\web\emailTemplates\EmailTemplate;
-use EuroMillions\web\entities\PlayConfig;
-use EuroMillions\web\entities\User;
-use EuroMillions\web\entities\UserNotifications;
-use EuroMillions\web\repositories\LotteryDrawRepository;
+
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\factories\DomainServiceFactory;
-
-use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\LotteryService;
@@ -87,10 +80,20 @@ class ResultTask extends TaskBase
     public function updatePowerballResultAction(\DateTime $now = null)
     {
         try {
+            $drawDate = $this->lotteryService->getLastDrawDate('PowerBall');
             $this->lotteriesDataService->updateLastDrawResultPowerBall('PowerBall');
             $this->lotteriesDataService->updateLastBreakDownPowerBall('PowerBall');
+            $this->domainServiceFactory->getServiceFactory()->getCloudService()->cloud()->queue()->messageProducer([
+                'drawDate' => $drawDate->format('Y-m-d'),
+                'lotteryName' => 'PowerBall'
+            ]);
+
         } catch (\Exception $e)
         {
+            $this->domainServiceFactory->getServiceFactory()->getCloudService()->cloud()->queue()->messageProducer([
+                'drawDate' => $drawDate->format('Y-m-d'),
+                'lotteryName' => 'Error'
+            ]);
             throw new \Exception($e->getMessage());
         }
     }

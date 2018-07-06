@@ -1,6 +1,10 @@
 <?php
 namespace EuroMillions\web\services\factories;
 
+use EuroMillions\shared\components\AwsCloud;
+use EuroMillions\shared\components\AwsQueueImpl;
+use EuroMillions\shared\services\AWSService;
+use EuroMillions\shared\services\CloudService;
 use EuroMillions\web\components\PostMarkWrapper;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\GeoService;
@@ -32,6 +36,16 @@ class ServiceFactory
         );
     }
 
+    public function getCloudService()
+    {
+        $config = $this->di->get('config')['aws'];
+        return new CloudService(
+            new AwsCloud(
+                new AwsQueueImpl($config)
+            )
+        );
+
+    }
 
     public function getEmailService()
     {
