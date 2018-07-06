@@ -18,10 +18,20 @@ class PurchaseConfirmationEmailTemplate extends EmailTemplateDecorator
     public function loadVars()
     {
         $data = $this->emailTemplateDataStrategy->getData();
+        $language = $this->user->getDefaultLanguage();
+
+        if ($language == "ru") {
+            $template_id = "7342223";
+            $subject = 'Подтверждение покупки - EuroMillions';
+        } else {
+            $template_id = "4011802";
+            $subject = 'Purchase confirmation - EuroMillions';
+        }
+
         $vars = [
-            'template' => '4011802',
+            'template' => $template_id,
 //            'template' => '624539', Old Template
-            'subject' => 'Congratulations',
+            'subject' => $subject,
             'vars' =>
                 [
                     [

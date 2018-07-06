@@ -88,10 +88,19 @@ class PowerBallPurchaseSubscriptionConfirmationEmailTemplate extends EmailTempla
     public function loadVars()
     {
         $data = $this->emailTemplateDataStrategy->getData();
+        $language = $this->user->getDefaultLanguage();
+
+        if ($language == "ru") {
+            $template_id = "7342222";
+            $subject = 'Поздравляем';
+        } else {
+            $template_id = "7289961";
+            $subject = 'Congratulations';
+        }
+
         $vars = [
-            'template' => '7289961',
-//            'template' => '1169621', Old Template
-            'subject' => 'Congratulations',
+            'template' => $template_id,
+            'subject' => $subject,
             'vars' =>
                 [
                     [
