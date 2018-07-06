@@ -79,7 +79,17 @@ class LotteriesDataService
             $this->entityManager->flush();
         } catch (\Exception $e)
         {
-            throw new \Exception($e->getMessage());
+            $jackpot = EuroMillionsJackpot::fromAmountIncludingDecimals(4000000000);
+            $next_draw_date = $lottery->getNextDrawDate(new \DateTime());
+            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
+            if (!$draw) {
+                $draw = $this->createDraw($next_draw_date, $jackpot, $lottery);
+            } else {
+                $draw->setJackpot($jackpot);
+            }
+            $this->entityManager->persist($draw);
+            $this->entityManager->flush();
+            //throw new DataMissingException();
         }
 
     }

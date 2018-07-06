@@ -112,7 +112,9 @@ class LotteryService
             return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
         } catch (DataMissingException $e) {
             try {
-                $next_jackpot = $this->lotteriesDataService->updateNextDrawJackpot($lotteryName);
+                $next_jackpot = ($lotteryName == 'PowerBall') ?
+                    $this->lotteriesDataService->updateNextDrawJackpotPowerball($lotteryName) :
+                    $this->lotteriesDataService->updateNextDrawJackpot($lotteryName);
                 return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
             } catch (DataMissingException $e) {
                 return $jackpot_object::fromAmountIncludingDecimals(null);
