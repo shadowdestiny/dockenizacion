@@ -12,9 +12,11 @@ use EuroMillions\web\emailTemplates\WinEmailPowerBallAboveTemplate;
 use EuroMillions\web\emailTemplates\WinEmailPowerBallTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\Bet;
+use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\BetRepository;
+use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\shared\vo\results\ActionResult;
@@ -49,6 +51,9 @@ class PrizeCheckoutService
     /** @var  EmailService */
     private $emailService;
 
+    /** @var  LotteryDrawRepository */
+    private $lotteryDrawRepository;
+
     /** @var  TransactionService */
     private $transactionService;
 
@@ -61,6 +66,7 @@ class PrizeCheckoutService
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
         $this->betRepository = $entityManager->getRepository('EuroMillions\web\entities\Bet');
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
+        $this->lotteryDrawRepository = $this->entityManager->getRepository('EuroMillions\web\entities\EuroMillionsDraw');
         $this->di = \Phalcon\Di\FactoryDefault::getDefault();
         $this->currencyConversionService = $currencyConversionService;
         $this->userService = $userService;
@@ -81,11 +87,14 @@ class PrizeCheckoutService
         }
     }
 
-    public function calculatePrizeAndReturnMessage($date)
+    public function calculatePrizeAndInsertMessagesInQueue($date, $lottery)
     {
         try
         {
             $resultAwarded = $this->betRepository->getMatchesPlayConfigAndUserFromPowerBallByDrawDate($date);
+            /** @var EuroMillionsDraw $draw */
+            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $date]);
+            var_dump($draw->getBreakDown());die();
 
 
         }catch(\Exception $e)

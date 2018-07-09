@@ -39,12 +39,30 @@ class PrizesTask extends TaskBase
     {
         while(true)
         {
-            $message = $this->serviceFactory->getCloudService()->cloud()->queue()->receiveMessage();
-            if($message !== null)
-            {
-                $this->prizeService->calculatePrizeAndReturnMessage('2018-07-04');
+            $result = $this->serviceFactory->getCloudService()->cloud()->queue()->receiveMessage();
 
+            if(count($result->get('Messages')) > 0)
+            {
+                foreach($result->get('Messages') as $message)
+                {
+                    $body = $message['Body'];
+                    $this->prizeService->calculatePrizeAndInsertMessagesInQueue('2018-07-07');
+                }
             }
+
+
+
+
+//            if($message['Messages'] !== null)
+//            {
+//                $resultMessage = array_pop($message['Messages']);
+//                $queue_handle = $resultMessage['ReceiptHandle'];
+//                $message = $resultMessage['Body'];
+//
+//                print_r($message);
+//
+//                //$this->prizeService->calculatePrizeAndReturnMessage('2018-07-04');
+//            }
         }
 
 
