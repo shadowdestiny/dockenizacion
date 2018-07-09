@@ -72,6 +72,11 @@ wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 lottorisq_endpoint: 'http://192.168.50.2/powerball'
 lottorisq_apikey: ''
 
+queue_results_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/results_testing'
+queue_prizes_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/prizes_test'
+aws_secret_access_key: 'yX6OWDq23bhTWqZUpCl8ih00ubWYRXsmKVsWEWIn'
+aws_access_key_id: 'AKIAJ4KKQDQVDECKXUNQ'
+
 emerchant_endpoint: 'https://api.euromillions.com/emerchant_test/payment'
 emerchant_apikey: 'lIouDMFAM53H8TwxO8Eg69mBjB2By1pX6JBftfaY'
 
