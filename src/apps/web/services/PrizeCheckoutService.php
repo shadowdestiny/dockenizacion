@@ -23,10 +23,12 @@ use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailTemplateStrategy;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Raffle;
 use Money\Currency;
 use Money\Money;
+use Phalcon\Di;
 
 class PrizeCheckoutService
 {
@@ -90,27 +92,75 @@ class PrizeCheckoutService
         }
     }
 
-    //TODO: At this moment for powerball
+    //TODO: At this moment for powerball and should be extract to powerball module
     public function calculatePrizeAndInsertMessagesInQueue($date, $lottery)
     {
         try
         {
+            /** @var DomainServiceFactory $domainServiceFactory */
+            $domainServiceFactory = Di::getDefault()->get('domainServiceFactory');
+            $prizeConfigQueue = $this->di->get('config')['aws']['queue_prizes_endpoint'];
             $resultAwarded = $this->betRepository->getMatchesPlayConfigAndUserFromPowerBallByDrawDate($date);
             /** @var Lottery $lottery */
             $lottery = $this->lotteryRepository->findOneBy(['name' => $lottery]);
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->getLastDraw($lottery,new \DateTime($date));
             if(count($resultAwarded) > 0) {
-                foreach($resultAwarded as $result)
+                foreach($resultAwarded as $k => $result)
                 {
                     $prize = new PowerBallPrize($draw->getBreakDown(), [$result['cnt'],$result['cnt_lucky'],$result['power_play']]);
-
+                    $domainServiceFactory->getServiceFactory()->getCloudService($prizeConfigQueue)->cloud()->queue()->messageProducer([
+                        'userId' => $result['userId'],
+                        'prize' => $prize->getPrize()->getAmount(),
+                        'drawId' => $draw->getId(),
+                        'betId' => $result['bet'],
+                        'cnt' => $result['cnt'],
+                        'cnt_lucky' => $result['cnt_lucky'],
+                        'power_play' => $result['power_play']
+                    ]);
                 }
             }
         }catch(\Exception $e)
         {
-
+            throw new \Exception($e->getMessage());
         }
+
+    }
+
+    //TODO it should new method to award prize
+    public function award($betId,Money $amount, array $scalarValues)
+    {
+        $bet = $this->betRepository->findOneBy(['id' => $betId]);
+        $config = $this->di->get('config');
+        $threshold_price = new Money((int)$config->threshold_above['value'] * 100, new Currency('EUR'));
+        /** @var User $user */
+        $user = $this->userRepository->find($scalarValues['userId']);
+        try {
+            //EMTD WinningVO to avoid this logic
+            $data = $this->prepareDataToTransaction($bet, $user, $amount);
+            $current_amount = $amount->getAmount() / 100;
+            $amount = new Money((int)$current_amount, new Currency('EUR'));
+            if ($amount->greaterThanOrEqual($threshold_price)) {
+                $user->setWinningAbove($amount);
+                $user->setShowModalWinning(1);
+                $this->storeAwardTransaction($data, TransactionType::BIG_WINNING);
+                $this->sendBigWinPowerBallEmail($bet, $user, $amount, $scalarValues);
+            } else {
+                $user->awardPrize($amount);
+                $data['walletAfter'] = $user->getWallet();
+                $data['state'] = '';
+                $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
+                //TODO: send to new queue
+                $this->sendSmallWinPowerBallEmail($bet, $user, $amount, $scalarValues);
+            }
+            $this->userRepository->add($user);
+            $this->entityManager->flush($user);
+            return new ActionResult(true, $user);
+        } catch (\Exception $e) {
+            return new ActionResult(false);
+        }
+
+
 
     }
 

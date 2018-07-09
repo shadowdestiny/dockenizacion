@@ -25,12 +25,11 @@ class AwsQueueImpl implements IQueue
     protected $queueUrl;
 
 
-    public function __construct(Config $config)
+    public function __construct($queue)
     {
-        $this->config = $config;
         $this->initialize();
         $this->sqs = new SqsClient($this->awsConfig);
-        $this->queueUrl = $this->config['queue_results_endpoint'];
+        $this->queueUrl = $queue;
     }
 
     protected function initialize()
@@ -70,6 +69,15 @@ class AwsQueueImpl implements IQueue
 
     public function deleteMessage($message)
     {
-        // TODO: Implement deleteMessage() method.
+        try
+        {
+            $this->sqs->deleteMessage(array(
+                'QueueUrl' => $this->queueUrl,
+                'ReceiptHandle' => $message
+            ));
+        } catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
     }
 }

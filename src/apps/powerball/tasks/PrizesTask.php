@@ -15,6 +15,8 @@ use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\PrizeCheckoutService;
 use EuroMillions\web\tasks\TaskBase;
+use Money\Currency;
+use Money\Money;
 
 
 class PrizesTask extends TaskBase
@@ -37,35 +39,32 @@ class PrizesTask extends TaskBase
 
     public function listenAction()
     {
-        while(true)
-        {
-            $result = $this->serviceFactory->getCloudService()->cloud()->queue()->receiveMessage();
-
-            if(count($result->get('Messages')) > 0)
+        $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
+        try {
+            while(true)
             {
-                foreach($result->get('Messages') as $message)
+                $result = $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->receiveMessage();
+                if(count($result->get('Messages')) > 0)
                 {
-                    $body = $message['Body'];
-                    $this->prizeService->calculatePrizeAndInsertMessagesInQueue('2018-07-07', 'PowerBall');
+                    foreach($result->get('Messages') as $message)
+                    {
+                        $body = json_decode($message['Body'], true);
+                        $this->prizeService->calculatePrizeAndInsertMessagesInQueue($body['drawDate'], $body['lotteryName']);
+                    }
+                    $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->deleteMessage(
+                        $message['ReceiptHandle']
+                    );
                 }
             }
-
-
-
-
-//            if($message['Messages'] !== null)
-//            {
-//                $resultMessage = array_pop($message['Messages']);
-//                $queue_handle = $resultMessage['ReceiptHandle'];
-//                $message = $resultMessage['Body'];
-//
-//                print_r($message);
-//
-//                //$this->prizeService->calculatePrizeAndReturnMessage('2018-07-04');
-//            }
+        }catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
         }
 
+    }
 
+    public function awardAction()
+    {
 
     }
 

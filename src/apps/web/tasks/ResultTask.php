@@ -80,17 +80,18 @@ class ResultTask extends TaskBase
     public function updatePowerballResultAction(\DateTime $now = null)
     {
         try {
+            $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
             $drawDate = $this->lotteryService->getLastDrawDate('PowerBall');
             $this->lotteriesDataService->updateLastDrawResultPowerBall('PowerBall');
             $this->lotteriesDataService->updateLastBreakDownPowerBall('PowerBall');
-            $this->domainServiceFactory->getServiceFactory()->getCloudService()->cloud()->queue()->messageProducer([
+            $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
                 'drawDate' => $drawDate->format('Y-m-d'),
                 'lotteryName' => 'PowerBall'
             ]);
 
-        } catch (\Exception $e)
+        }catch (\Exception $e)
         {
-            $this->domainServiceFactory->getServiceFactory()->getCloudService()->cloud()->queue()->messageProducer([
+            $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
                 'drawDate' => $drawDate->format('Y-m-d'),
                 'lotteryName' => 'Error'
             ]);

@@ -10,6 +10,7 @@ use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\GeoService;
 use EuroMillions\web\services\LoggerFactory;
 use EuroMillions\web\services\LogService;
+use Phalcon\Config;
 use Phalcon\DiInterface;
 
 class ServiceFactory
@@ -36,12 +37,11 @@ class ServiceFactory
         );
     }
 
-    public function getCloudService()
+    public function getCloudService($configQueue)
     {
-        $config = $this->di->get('config')['aws'];
         return new CloudService(
             new AwsCloud(
-                new AwsQueueImpl($config)
+                new AwsQueueImpl($configQueue)
             )
         );
 
