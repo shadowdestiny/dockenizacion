@@ -5,6 +5,7 @@ namespace EuroMillions\web\services;
 
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\vo\PowerBallPrize;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
@@ -13,6 +14,7 @@ use EuroMillions\web\emailTemplates\WinEmailPowerBallTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\BetRepository;
@@ -67,6 +69,7 @@ class PrizeCheckoutService
         $this->betRepository = $entityManager->getRepository('EuroMillions\web\entities\Bet');
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
         $this->lotteryDrawRepository = $this->entityManager->getRepository('EuroMillions\web\entities\EuroMillionsDraw');
+        $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->di = \Phalcon\Di\FactoryDefault::getDefault();
         $this->currencyConversionService = $currencyConversionService;
         $this->userService = $userService;
@@ -87,16 +90,23 @@ class PrizeCheckoutService
         }
     }
 
+    //TODO: At this moment for powerball
     public function calculatePrizeAndInsertMessagesInQueue($date, $lottery)
     {
         try
         {
             $resultAwarded = $this->betRepository->getMatchesPlayConfigAndUserFromPowerBallByDrawDate($date);
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lottery]);
             /** @var EuroMillionsDraw $draw */
-            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $date]);
-            var_dump($draw->getBreakDown());die();
+            $draw = $this->lotteryDrawRepository->getLastDraw($lottery,new \DateTime($date));
+            if(count($resultAwarded) > 0) {
+                foreach($resultAwarded as $result)
+                {
+                    $prize = new PowerBallPrize($draw->getBreakDown(), [$result['cnt'],$result['cnt_lucky'],$result['power_play']]);
 
-
+                }
+            }
         }catch(\Exception $e)
         {
 

@@ -143,18 +143,8 @@ class BetRepository extends RepositoryBase
     public function getMatchesPlayConfigAndUserFromPowerBallByDrawDate($date)
     {
         $rsm = new ResultSetMapping;
-        $rsm->addEntityResult('EuroMillions\web\entities\Bet', 'b');
-        $rsm->addMetaResult('b','bet','id', true);
-        $rsm->addMetaResult('b','draw','euromillions_draw_id', true);
-        $rsm->addMetaResult('b','playConfig','playConfig_id',true);
-        $rsm->addEntityResult('EuroMillions\web\entities\PlayConfig', 'p');
-        //$rsm->addEntityResult('EuroMillions\web\entities\User', 'u');
-        // $rsm->addJoinedEntityResult('EuroMillions\web\entities\PlayConfig','p','b','playConfig');
-//        $rsm->addJoinedEntityResult('EuroMillions\web\entities\User','u','p','user');
-        $rsm->addFieldResult('p','id','id');
 //        $rsm->addFieldResult('u','userId','id');
         $rsm->addScalarResult('userId','userId');
-        $rsm->addScalarResult('playConfig','playConfig');
         $rsm->addScalarResult('cnt','cnt');
         $rsm->addScalarResult('cnt_lucky','cnt_lucky');
         $rsm->addScalarResult('power_play','power_play');

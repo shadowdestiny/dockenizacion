@@ -46,7 +46,7 @@ class PrizesTask extends TaskBase
                 foreach($result->get('Messages') as $message)
                 {
                     $body = $message['Body'];
-                    $this->prizeService->calculatePrizeAndInsertMessagesInQueue('2018-07-07');
+                    $this->prizeService->calculatePrizeAndInsertMessagesInQueue('2018-07-07', 'PowerBall');
                 }
             }
 
