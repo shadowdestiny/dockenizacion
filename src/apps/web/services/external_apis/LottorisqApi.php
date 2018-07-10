@@ -112,6 +112,7 @@ class LottorisqApi implements IResultApi, IJackpotApi, IBookApi
             $this->curlWrapper->setOption( CURLOPT_RETURNTRANSFER, true);
             return $this->curlWrapper->post($this->config->endpoint .'/tickets',
                 $data,
+                true,
                 [
                     "x-api-key: " . $this->config->api_key,
                     "Content-Type: application/json; charset=utf-8",
