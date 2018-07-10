@@ -76,6 +76,31 @@ class LotteryDrawRepository extends EntityRepository
         return $result[0]->getJackpot();
     }
 
+    public function getAllNextJackpots(\DateTime $date = null)
+    {
+        if (!$date) {
+            $date = new \DateTime();
+        }
+        $jackpots = null;
+        /** @var EuroMillionsDraw[] $result */
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT ld'
+                . ' FROM ' . $this->getEntityName() . ' ld JOIN ld.lottery l'
+                . ' WHERE ld.draw_date >= :date AND l.draw_time >= :time'
+                . ' ORDER BY ld.draw_date ASC')
+            ->setParameters([ 'date' => $date->format('Y-m-d'), 'time' => $date->format("H:i:s")])
+            ->getResult();
+        if (!count($result)) {
+            throw new DataMissingException('Couldn\'t find the next draw row in the database');
+        }
+        foreach($result as $res) {
+            $jackpots[$res->getLottery()->getName()] = $res->getJackpot();
+        }
+
+        return $jackpots;
+    }
+
     public function getLastResult(Lottery $lottery, \DateTime $date = null)
     {
         if (!$date) {

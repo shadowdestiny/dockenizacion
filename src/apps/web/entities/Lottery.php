@@ -107,6 +107,14 @@ class Lottery extends EntityBase implements IEntity
         return $this->getDrawDate($now, 'Next');
     }
 
+    public function getNextDrawDateAndJackpot(\DateTime $now = null, $lotteries)
+    {
+        foreach ($lotteries as $lottery) {
+            $this->getDrawDate($now, 'Next');
+        }
+        return $this->getDrawDate($now, 'Next');
+    }
+
     public function getRecurringIntervalDrawDate($iteration = 5, \DateTime $now = null)
     {
         return $this->getRecurrentDraw($iteration, $now);
