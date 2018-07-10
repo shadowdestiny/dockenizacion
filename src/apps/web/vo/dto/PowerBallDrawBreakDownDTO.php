@@ -92,72 +92,77 @@ class PowerBallDrawBreakDownDTO extends EuroMillionsDrawBreakDownDTO implements 
     {
         return [
             'lineOne' => [
-                'name' => $this->euroMillionsDrawBreakDown->getCategoryTwo()->getName(),
+                'name' => 5,
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategoryTwo()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategoryTwo()->getLotteryPrize()->getAmount(),
                 'winnersPowerPlay' => 0,
-                'powerPlayPrize' => 0
+                'powerPlayPrize' => 0,
+                'showPowerball' => true
             ],
             'lineTwo' => [
-                'name' => $this->euroMillionsDrawBreakDown->getCategoryThree()->getName(),
+                'name' => 5,
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategoryThree()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategoryThree()->getLotteryPrize()->getAmount(),
                 'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryOne()->getWinners(),
-                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryOne()->getLotteryPrize()->getAmount()
+                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryOne()->getLotteryPrize()->getAmount(),
+                'showPowerball' => false
             ],
             'lineThree' => [
-                'name' => $this->euroMillionsDrawBreakDown->getCategorySix()->getName(),
+                'name' => 4,
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategorySix()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategorySix()->getLotteryPrize()->getAmount(),
                 'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryFive()->getWinners(),
-                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryFive()->getLotteryPrize()->getAmount()
+                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryFive()->getLotteryPrize()->getAmount(),
+                'showPowerball' => true
             ],
             'lineFour' => [
-                'name' => $this->euroMillionsDrawBreakDown->getCategorySeven()->getName(),
+                'name' => 4,
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategorySeven()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategorySeven()->getLotteryPrize()->getAmount(),
                 'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryFour()->getWinners(),
-                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryFour()->getLotteryPrize()->getAmount()
+                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryFour()->getLotteryPrize()->getAmount(),
+                'showPowerball' => false
             ],
             'lineFive' => [
-                'name' => $this->euroMillionsDrawBreakDown->getCategoryTen()->getName(),
+                'name' => 3,
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategoryTen()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategoryTen()->getLotteryPrize()->getAmount(),
                 'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryNine()->getWinners(),
-                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryNine()->getLotteryPrize()->getAmount()
+                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryNine()->getLotteryPrize()->getAmount(),
+                'showPowerball' => true
             ],
             'lineSix' => [
-                'name' => $this->euroMillionsDrawBreakDown->getCategoryEleven()->getName(),
+                'name' => 3,
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategoryEleven()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategoryEleven()->getLotteryPrize()->getAmount(),
                 'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryEight()->getWinners(),
-                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryEight()->getLotteryPrize()->getAmount()
+                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryEight()->getLotteryPrize()->getAmount(),
+                'showPowerball' => false
             ],
             'lineSeven' => [
-                'name' => $this->euroMillionsDrawBreakDown->getCategoryThirteen()->getName(),
+                'name' => 2,
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategoryThirteen()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategoryThirteen()->getLotteryPrize()->getAmount(),
                 'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryTwelve()->getWinners(),
-                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryTwelve()->getLotteryPrize()->getAmount()
+                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryTwelve()->getLotteryPrize()->getAmount(),
+                'showPowerball' => true
             ],
             'lineEight' => [
-                'name' => $this->euroMillionsDrawBreakDown->getCategoryFifteen()->getName(),
+                'name' => 1,
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategoryFifteen()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategoryFifteen()->getLotteryPrize()->getAmount(),
                 'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryFourteen()->getWinners(),
-                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryFourteen()->getLotteryPrize()->getAmount()
+                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryFourteen()->getLotteryPrize()->getAmount(),
+                'showPowerball' => true
             ],
             'lineNine' => [
-                'name' => $this->euroMillionsDrawBreakDown->getCategorySeventeen()->getName(),
+                'name' => 0,
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategorySeventeen()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategorySeventeen()->getLotteryPrize()->getAmount(),
                 'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategorySixteen()->getWinners(),
-                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategorySixteen()->getLotteryPrize()->getAmount()
+                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategorySixteen()->getLotteryPrize()->getAmount(),
+                'showPowerball' => true
             ]
-
-
-
-
         ];
 
     }

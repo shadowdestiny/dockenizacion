@@ -22,6 +22,8 @@ class PowerBallBreakDownDataDTO
 
     public $powerPlayPrize;
 
+    public $showPowerball;
+
 
     public function __construct(array $data)
     {
@@ -30,6 +32,7 @@ class PowerBallBreakDownDataDTO
         $this->winnersPowerBall = $data['winnersPowerBall'];
         $this->winnersPowerPlay = $data['winnersPowerPlay'];
         $this->powerPlayPrize = $data['powerPlayPrize'];
+        $this->showPowerball = $data['showPowerball'];
     }
 
 

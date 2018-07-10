@@ -76,7 +76,35 @@ class PrizesTask extends TaskBase
 
     public function awardAction()
     {
+        try
+        {
+            $prizeConfigQueue = $this->di->get('config')['aws']['queue_prizes_endpoint'];
+            while(true)
+            {
+                $result = $this->serviceFactory->getCloudService($prizeConfigQueue)->cloud()->queue()->receiveMessage();
+                if(count($result->get('Messages')) > 0)
+                {
+                    foreach($result->get('Messages') as $message)
+                    {
+                        $body = json_decode($message['Body'], true);
+                        $amount = new Money((int) $body['prize'], new Currency('EUR'));
+                        $this->prizeService->award($body['betId'], $amount, [
+                            'matches' => ['cnt' => $body['cnt'],
+                                          'cnt_lucky' => $body['cnt_lucky']
+                            ],
+                            'userId' => $body['userId']
+                        ]);
 
+                    }
+                    $this->serviceFactory->getCloudService($prizeConfigQueue)->cloud()->queue()->deleteMessage(
+                        $message['ReceiptHandle']
+                    );
+                }
+            }
+        } catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
     }
 
 

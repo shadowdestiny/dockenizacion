@@ -197,7 +197,7 @@
                                     <tr>
                                             <td class="td-ball">
                                                 <span>
-                                                    {{ line['name'] }} {{ language.translate("prizePool_ball") }} +  {{ language.translate("Powerball") }}
+                                                    {{ line['name'] }} {{ language.translate("prizePool_ball") }}  {% if line['showPowerball'] == true %} + {{ language.translate("Powerball") }} {% endif %}
                                                 </span>
                                             </td>
                                             {#<td class="td-star-ball">#}
