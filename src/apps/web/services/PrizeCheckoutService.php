@@ -104,7 +104,7 @@ class PrizeCheckoutService
             /** @var Lottery $lottery */
             $lottery = $this->lotteryRepository->findOneBy(['name' => $lottery]);
             /** @var EuroMillionsDraw $draw */
-            $draw = $this->lotteryDrawRepository->getLastDraw($lottery,new \DateTime($date));
+            $draw = $this->lotteryDrawRepository->findOneBy(['draw_date' => new \DateTime($date)]);
             if(count($resultAwarded) > 0) {
                 foreach($resultAwarded as $k => $result)
                 {
