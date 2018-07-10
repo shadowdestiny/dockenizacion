@@ -5,6 +5,7 @@ namespace EuroMillions\web\services;
 
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\vo\PowerBallPrize;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
@@ -12,17 +13,22 @@ use EuroMillions\web\emailTemplates\WinEmailPowerBallAboveTemplate;
 use EuroMillions\web\emailTemplates\WinEmailPowerBallTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\Bet;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\BetRepository;
+use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailTemplateStrategy;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Raffle;
 use Money\Currency;
 use Money\Money;
+use Phalcon\Di;
 
 class PrizeCheckoutService
 {
@@ -49,6 +55,9 @@ class PrizeCheckoutService
     /** @var  EmailService */
     private $emailService;
 
+    /** @var  LotteryDrawRepository */
+    private $lotteryDrawRepository;
+
     /** @var  TransactionService */
     private $transactionService;
 
@@ -61,6 +70,8 @@ class PrizeCheckoutService
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
         $this->betRepository = $entityManager->getRepository('EuroMillions\web\entities\Bet');
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
+        $this->lotteryDrawRepository = $this->entityManager->getRepository('EuroMillions\web\entities\EuroMillionsDraw');
+        $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->di = \Phalcon\Di\FactoryDefault::getDefault();
         $this->currencyConversionService = $currencyConversionService;
         $this->userService = $userService;
@@ -80,6 +91,79 @@ class PrizeCheckoutService
             return new ActionResult(false);
         }
     }
+
+    //TODO: At this moment for powerball and should be extract to powerball module
+    public function calculatePrizeAndInsertMessagesInQueue($date, $lottery)
+    {
+        try
+        {
+            /** @var DomainServiceFactory $domainServiceFactory */
+            $domainServiceFactory = Di::getDefault()->get('domainServiceFactory');
+            $prizeConfigQueue = $this->di->get('config')['aws']['queue_prizes_endpoint'];
+            $resultAwarded = $this->betRepository->getMatchesPlayConfigAndUserFromPowerBallByDrawDate($date);
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lottery]);
+            /** @var EuroMillionsDraw $draw */
+            $draw = $this->lotteryDrawRepository->getLastDraw($lottery,new \DateTime($date));
+            if(count($resultAwarded) > 0) {
+                foreach($resultAwarded as $k => $result)
+                {
+                    $prize = new PowerBallPrize($draw->getBreakDown(), [$result['cnt'],$result['cnt_lucky'],$result['power_play']]);
+                    $domainServiceFactory->getServiceFactory()->getCloudService($prizeConfigQueue)->cloud()->queue()->messageProducer([
+                        'userId' => $result['userId'],
+                        'prize' => $prize->getPrize()->getAmount(),
+                        'drawId' => $draw->getId(),
+                        'betId' => $result['bet'],
+                        'cnt' => $result['cnt'],
+                        'cnt_lucky' => $result['cnt_lucky'],
+                        'power_play' => $result['power_play']
+                    ]);
+                }
+            }
+        }catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
+
+    }
+
+    //TODO it should new method to award prize
+    public function award($betId,Money $amount, array $scalarValues)
+    {
+        $bet = $this->betRepository->findOneBy(['id' => $betId]);
+        $config = $this->di->get('config');
+        $threshold_price = new Money((int)$config->threshold_above['value'] * 100, new Currency('EUR'));
+        /** @var User $user */
+        $user = $this->userRepository->find($scalarValues['userId']);
+        try {
+            //EMTD WinningVO to avoid this logic
+            $data = $this->prepareDataToTransaction($bet, $user, $amount);
+            $current_amount = $amount->getAmount() / 100;
+            $amount = new Money((int)$current_amount, new Currency('EUR'));
+            if ($amount->greaterThanOrEqual($threshold_price)) {
+                $user->setWinningAbove($amount);
+                $user->setShowModalWinning(1);
+                $this->storeAwardTransaction($data, TransactionType::BIG_WINNING);
+                $this->sendBigWinPowerBallEmail($bet, $user, $amount, $scalarValues);
+            } else {
+                $user->awardPrize($amount);
+                $data['walletAfter'] = $user->getWallet();
+                $data['state'] = '';
+                $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
+                //TODO: send to new queue
+                $this->sendSmallWinPowerBallEmail($bet, $user, $amount, $scalarValues);
+            }
+            $this->userRepository->add($user);
+            $this->entityManager->flush($user);
+            return new ActionResult(true, $user);
+        } catch (\Exception $e) {
+            return new ActionResult(false);
+        }
+
+
+
+    }
+
 
     public function awardUser(Bet $bet, Money $amount, array $scalarValues)
     {
