@@ -9,6 +9,7 @@
 namespace EuroMillions\web\services\external_apis;
 
 
+use EuroMillions\web\interfaces\IBookApi;
 use EuroMillions\web\interfaces\IJackpotApi;
 use EuroMillions\web\interfaces\IResultApi;
 use EuroMillions\web\services\CurrencyConversionService;
@@ -18,7 +19,7 @@ use Phalcon\Di;
 use Phalcon\Http\Client\Provider\Curl;
 
 
-class LottorisqApi implements IResultApi, IJackpotApi
+class LottorisqApi implements IResultApi, IJackpotApi, IBookApi
 {
 
     protected $curlWrapper;
@@ -101,5 +102,24 @@ class LottorisqApi implements IResultApi, IJackpotApi
         )
             ->body;
         return $drawBody;
+    }
+
+    public function book($data)
+    {
+        try {
+            $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST, false);
+            $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, false);
+            $this->curlWrapper->setOption( CURLOPT_RETURNTRANSFER, true);
+            return $this->curlWrapper->post($this->config->endpoint .'/tickets',
+                $data,
+                [
+                    "x-api-key: " . $this->config->api_key,
+                    "Content-Type: application/json; charset=utf-8",
+                ]
+            );
+        } catch(\Exception $e)
+        {
+            return [];
+        }
     }
 }

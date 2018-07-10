@@ -20,6 +20,7 @@ use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\external_apis\LottorisqApi;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Discount;
@@ -181,7 +182,6 @@ class PowerBallService
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var PlayConfig $play_config */
                         foreach ($order->getPlayConfig() as $play_config) {
-
                             $play_config->setLottery($lottery);
                             $play_config->setDiscount($order->getDiscount());
                             $play_config->setPowerPlay($powerPlay);
@@ -191,20 +191,8 @@ class PowerBallService
                     }
 
                     $APIPlayConfigs = json_encode($order->getPlayConfig());
-
-                    $curl = curl_init();
-                    curl_setopt($curl, CURLOPT_URL, 'http://lotteriesbeta.euromillions.com/powerball/tickets/book/');
-                    curl_setopt($curl, CURLOPT_POST, TRUE);
-                    curl_setopt($curl, CURLOPT_POSTFIELDS,$APIPlayConfigs);
-                    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-                    $result = curl_exec($curl);
-
-                    curl_close($curl);
-                    $result_validation = json_decode($result);
-
+                    $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
                     $formPlay = null;
-
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                     if ($result_payment->success() && $orderIsToNextDraw) {
                         $walletBefore = $user->getWallet();
