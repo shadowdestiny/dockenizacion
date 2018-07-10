@@ -22,6 +22,8 @@ use Money\Money;
 class PrizesTask extends TaskBase
 {
 
+    const BACKOFF_MAX = 3600;
+
     /** @var ServiceFactory  */
     protected $serviceFactory;
 
@@ -40,12 +42,15 @@ class PrizesTask extends TaskBase
     public function listenAction()
     {
         $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
+        $backOff = 0;
+
         try {
             while(true)
             {
                 $result = $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->receiveMessage();
                 if(count($result->get('Messages')) > 0)
                 {
+                    $backOff = 0;
                     foreach($result->get('Messages') as $message)
                     {
                         $body = json_decode($message['Body'], true);
@@ -54,6 +59,12 @@ class PrizesTask extends TaskBase
                     $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->deleteMessage(
                         $message['ReceiptHandle']
                     );
+                } else {
+                    $backOff += 0.5;
+                    if ($backOff > self::BACKOFF_MAX) {
+                        $backOff = self::BACKOFF_MAX;
+                    }
+                    sleep($backOff);
                 }
             }
         }catch(\Exception $e)
