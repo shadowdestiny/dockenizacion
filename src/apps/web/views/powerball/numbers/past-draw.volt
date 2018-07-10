@@ -5,7 +5,7 @@
     <style>.laurel {
         display: none;
     }</style><![endif]-->
-    <link Rel="Canonical" href="{{ language.translate('canonical_powerball_results') }}"/>
+    <link Rel="Canonical" href="{{ language.translate('canonical_powerball_draw_history') }}/{{date_canonical}} "/>
 {% endblock %}
 {% block bodyClass %}
     numbers
@@ -107,13 +107,13 @@
 
                     <div class="top-banner--banner">
                         <div class="wrapper">
-                            {#<h1 class="top-banner--head">#}
-                                {#{% if mobile == 1 %}#}
-                                    {#{{ language.translate("results_mobile_h1") }}#}
-                                {#{% else %}#}
-                                    {#{{ language.translate("results_tittle") }}#}
-                                {#{% endif %}#}
-                            {#</h1>#}
+                            <h1 class="top-banner--head">
+                                {% if mobile == 1 %}
+                                    {{ language.translate("resultsdate_pow_mobile_h1") }}
+                                {% else %}
+                                    {{ language.translate("resultsdate_pow_h1") }}
+                                {% endif %}
+                            </h1>
                         </div>
                     </div>
                 </div>
@@ -176,7 +176,7 @@
                             </h1>
 
                             <h2 class="h2">
-                                {{ language.translate("results_pow_h2") }}
+                                {{ language.translate("resultsdate_pow_h2") }}
                             </h2>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
                                    data-mode="reflow">
@@ -300,15 +300,13 @@
                                 </form>
                             </div>
 
-
                             <div class="previous-results--common-row">
                                 {% include "_elements/previous-results-powerball.volt" %}
 
                                 <div class="previous-results--btn">
-
-                                    <a href="/{{ language.translate("link_powerball_draw_history") }}" class="btn-theme--big">
+                                    <a href="/{{ language.translate("link_powerball_results") }}" class="btn-theme--big">
                                         <span class="resizeme">
-                                            {{ language.translate("powhistory_btn") }}
+                                            {{ language.translate("resultsdate_btn") }}
                                         </span>
                                     </a>
 
@@ -317,17 +315,6 @@
 
                         </div>
                     </div>
-                </div>
-
-                <div class="bottom--banner"></div>
-
-                <div class="block--text--accordion">
-                    <h2>
-                        {{ language.translate("resultspow_h2") }}
-                    </h2>
-                    <p>
-                        {{ language.translate("resultspow_text") }}
-                    </p>
                 </div>
 
             </div>
