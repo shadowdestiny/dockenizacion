@@ -122,6 +122,33 @@ class LotteryService
         }
     }
 
+    /**
+     * @param $lotteryName
+     * @return IJackpot
+     */
+    public function getAllNextJackpots()
+    {
+        $allJackpots = null;
+        try {
+            $next_jackpots = $this->lotteryDrawRepository->getAllNextJackpots();
+            foreach($next_jackpots as $key=>$val) {
+                /** @var EuroMillionsJackpot $jackpot_object */
+                $jackpot_object = 'EuroMillions\web\vo\\' . $key . 'Jackpot';
+                $allJackpots[$key] = $jackpot_object::fromAmountIncludingDecimals($val->getAmount());
+            }
+            return $allJackpots;
+        } catch (DataMissingException $e) {
+//            try {
+//                $next_jackpot = ($lotteryName == 'PowerBall') ?
+//                    $this->lotteriesDataService->updateNextDrawJackpotPowerball($lotteryName) :
+//                    $this->lotteriesDataService->updateNextDrawJackpot($lotteryName);
+//                return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
+//            } catch (DataMissingException $e) {
+//                return $jackpot_object::fromAmountIncludingDecimals(null);
+//            }
+        }
+    }
+
     public function getLastResult($lotteryName)
     {
         /** @var Lottery $lottery */
@@ -184,6 +211,22 @@ class LotteryService
     {
         list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         return $lottery->getNextDrawDate($now);
+    }
+
+    public function getNextDrawAndJackpotForAllLotteries(\DateTime $now = null) {
+        $jackpots = $this->getAllNextJackpots();
+        list($now, $lotteries) = $this->getAllLotteriesAndNowDate($now);
+        $time = null;
+        foreach($lotteries as $lottery) {
+            if($lottery->getName() != 'Christmas') {
+                $time[$lottery->getName()]['show_days'] = (new \DateTime())->diff($this->getNextDateDrawByLottery($lottery->getName())->modify('-1 hours'))->format('%a');
+                $time[$lottery->getName()]['jackpot_value'] = $jackpots[$lottery->getName()]->getAmount();
+                $time[$lottery->getName()]['link'] = $lottery->getName().'/play';
+                $time[$lottery->getName()]['name'] = $lottery->getName().' Jackpot';
+            }
+        }
+
+        return $time;
     }
 
     public function getRecurrentDrawDates($lotteryName, $iteration = 12, \DateTime $now = null)
@@ -517,6 +560,15 @@ class LotteryService
     }
 
     /**
+     * @return array
+     */
+    private function getAllLotteries()
+    {
+        $lotteries = $this->lotteryRepository->findAll();
+        return $lotteries;
+    }
+
+    /**
      * @param $lotteryName
      * @param \DateTime $now
      * @return array
@@ -530,6 +582,17 @@ class LotteryService
         /** @var Lottery $lottery */
         $lottery = $this->getLotteryByName($lotteryName);
         return array($now, $lottery);
+    }
+
+    private function getAllLotteriesAndNowDate(\DateTime $now = null)
+    {
+        if (!$now) {
+            $now = new \DateTime();
+        }
+
+        /** @var Lottery $lottery */
+        $lotteries = $this->getAllLotteries();
+        return array($now, $lotteries);
     }
 
     /**
