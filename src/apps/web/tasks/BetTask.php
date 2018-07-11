@@ -53,6 +53,24 @@ class BetTask extends TaskBase
         }
     }
 
+    public function placePowerBallBetsAction($args = null)
+    {
+        if (!$args) {
+            $date = new \DateTime();
+        } else {
+            $date = new \DateTime($args[0]);
+        }
+
+        $lotteries = $this->lotteryService->getLotteriesOrderedByNextDrawDate();
+        /** @var Lottery $lottery */
+        foreach ($lotteries as $lottery) {
+            if ($lottery->getName() == 'PowerBall') {
+
+                $this->lotteryService->placePowerBallBetForNextDraw($lottery, $date);
+            }
+        }
+    }
+
 
     public function longTermNotificationAction(\DateTime $today = null)
     {

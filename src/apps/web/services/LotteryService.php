@@ -26,6 +26,7 @@ use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\external_apis\LottorisqApi;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationResultsStrategy;
@@ -409,6 +410,60 @@ class LotteryService
                         /** @var EuroMillionsDraw $euroMillionsDraw */
                         $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
                         if ($result->success()) {
+                            $walletBefore = $playConfig->getUser()->getWallet();
+                            $this->walletService->payWithSubscription($playConfig->getUser(), $playConfig);
+                            $dataTransaction = [
+                                'lottery_id' => $lottery->getId(),
+                                'numBets' => 1,
+                                'walletBefore' => $walletBefore,
+                                'amountWithCreditCard' => 0,
+                                'playConfigs' => $playConfig->getId(),
+                                'discount' => $playConfig->getDiscount(),
+                            ];
+                            $this->walletService->purchaseTransactionGrouped($playConfig->getUser(), TransactionType::AUTOMATIC_PURCHASE, $dataTransaction);
+                            try {
+                                $this->sendEmailPurchase($playConfig->getUser(), $playConfig);
+                            } catch (\Exception $e) {
+                                echo $e->getMessage();
+                            }
+                        }
+                    } else {
+                        try {
+                            $userNotificationAutoPlayNoFunds = new UserNotificationAutoPlayNoFunds($this->userService);
+                            $hasNotification = $this->userNotificationsService->hasNotificationActive($userNotificationAutoPlayNoFunds, $playConfig->getUser());
+                            if ($hasNotification) {
+                                $this->emailService->sendLowBalanceEmail($playConfig->getUser());
+                            }
+                        } catch (\Exception $e) {
+                            echo $e->getMessage();
+                        }
+                    }
+                }
+            }
+            echo $cont;
+        }
+    }
+
+    public function placePowerBallBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
+    {
+        $playConfigs = $this->playConfigRepository->getPowerBallSubscriptionsActives();
+
+        if (!is_null($playConfigs)) {
+            $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
+            /** @var PlayConfig $playConfig */
+            $cont = 0;
+            foreach ($playConfigs as $playConfig) {
+                $cont++;
+                $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
+                if (empty($this->betService->obtainBetsWithAPlayConfigAndAEuromillionsDraw($playConfig, $euroMillionsDraw))) {
+                    $price = $this->lotteriesDataService->getPriceForNextDraw([$playConfig]);
+
+                    if ($playConfig->getUser()->getWallet()->getSubscription()->getAmount() >= $price->getAmount()) {
+
+                        $APIPlayConfigs = json_encode([$playConfig]);
+                        $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
+                        $this->betService->validationLottoRisq($playConfig, $euroMillionsDraw, $lottery->getNextDrawDate(), null, $result_validation->uuid);
+                        if ($result_validation->success) {
                             $walletBefore = $playConfig->getUser()->getWallet();
                             $this->walletService->payWithSubscription($playConfig->getUser(), $playConfig);
                             $dataTransaction = [
