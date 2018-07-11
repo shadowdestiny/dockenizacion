@@ -218,7 +218,7 @@ class LotteryService
         list($now, $lotteries) = $this->getAllLotteriesAndNowDate($now);
         $time = null;
         foreach($lotteries as $lottery) {
-            if($lottery->getName() != 'Christmas') {
+            if(trim($lottery->getName()) != 'Christmas') {
                 $time[$lottery->getName()]['show_days'] = (new \DateTime())->diff($this->getNextDateDrawByLottery($lottery->getName())->modify('-1 hours'))->format('%a');
                 $time[$lottery->getName()]['jackpot_value'] = $jackpots[$lottery->getName()]->getAmount();
                 $time[$lottery->getName()]['link'] = $lottery->getName().'/play';
