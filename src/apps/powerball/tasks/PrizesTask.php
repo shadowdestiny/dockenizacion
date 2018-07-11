@@ -1,10 +1,12 @@
 <?php
+ini_set("memory_limit","256M");
 /**
  * Created by PhpStorm.
  * User: rmrbest
  * Date: 29/06/18
  * Time: 11:26
  */
+
 
 namespace EuroMillions\powerball\tasks;
 
@@ -59,7 +61,8 @@ class PrizesTask extends TaskBase
                         $message['ReceiptHandle']
                     );
                 } else {
-                    $backOff += 0.5;
+                    unset($result);
+                    $backOff += 1;
                     if ($backOff > self::BACKOFF_MAX) {
                         $backOff = self::BACKOFF_MAX;
                     }
@@ -100,7 +103,8 @@ class PrizesTask extends TaskBase
                         $message['ReceiptHandle']
                     );
                 } else {
-                    $backOff += 0.5;
+                    unset($result);
+                    $backOff += 1;
                     if ($backOff > self::BACKOFF_MAX) {
                         $backOff = self::BACKOFF_MAX;
                     }
@@ -109,6 +113,7 @@ class PrizesTask extends TaskBase
             }
         } catch(\Exception $e)
         {
+
             throw new \Exception($e->getMessage());
         }
     }
