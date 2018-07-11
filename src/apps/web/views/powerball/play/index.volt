@@ -128,7 +128,7 @@
 {% block bodyClass %}play{% endblock %}
 
 {% block header %}
-    {% set activeNav='{"myClass": "play"}'|json_decode %}
+    {% set activeNav='{"myClass": "powerball"}'|json_decode %}
     {% include "_elements/header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}

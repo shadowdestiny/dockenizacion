@@ -3,6 +3,11 @@
         <span class="txt">{{ language.translate("playeuromillions") }}</span>
     </a>
 </li>
+<li class="li-play-powerball{% if activeNav.myClass == 'powerball' %} active{% endif %}">
+    <a href="/{{ language.translate("link_powerball_play") }}">
+        <span class="txt">{{ language.translate("playpowerball") }}</span>
+    </a>
+</li>
 <li class="li-christmas{% if activeNav.myClass == 'christmas' %} active{% endif %}">
     <a href="/{{ language.translate("link_christmas_play") }}">
         <span class="txt">{{ language.translate("playchris_sub") }}</span>
@@ -25,16 +30,16 @@
                     {{ language.translate("results_emhistory") }}
                 </a>
             </li>
-            {#<li>#}
-                {#<a href="/{{ language.translate('link_powerball_results') }}">#}
-                    {#{{ language.translate("results_pow_sub") }}#}
-                {#</a>#}
-            {#</li>#}
-            {#<li>#}
-                {#<a href="/{{ language.translate('link_powerball_draw_history') }}">#}
-                    {#{{ language.translate("results_powhistory") }}#}
-                {#</a>#}
-            {#</li>#}
+            <li>
+                <a href="/{{ language.translate('link_powerball_results') }}">
+                    {{ language.translate("results_pow_sub") }}
+                </a>
+            </li>
+            <li>
+                <a href="/{{ language.translate('link_powerball_draw_history') }}">
+                    {{ language.translate("results_powhistory") }}
+                </a>
+            </li>
             <li>
                 <a href="/{{ language.translate('link_christmas_results') }}">
                     {{ language.translate("results_chris_sub") }}
