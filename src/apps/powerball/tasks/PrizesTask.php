@@ -1,5 +1,4 @@
 <?php
-ini_set("memory_limit","256M");
 /**
  * Created by PhpStorm.
  * User: rmrbest
