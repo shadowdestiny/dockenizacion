@@ -7,6 +7,12 @@
     docker exec {{webserver_container_name}} crontab /var/www/global_config/crontab.txt
   ignore_errors: yes
 
+- name: Run results listener
+  shell: docker exec {{webserver_container_name}} php /var/www/apps/powerball/powerball-cli.php prizes listen &
+
+- name: Run award listener
+  shell: docker exec {{webserver_container_name}} php /var/www/apps/powerball/powerball-cli.php prizes award &
+
 - name: configure cron backup on slave database
   shell: >
       docker exec {{database_slave_name}} crontab /var/www/global_config/cron_backup.txt

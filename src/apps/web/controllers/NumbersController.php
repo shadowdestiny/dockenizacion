@@ -39,15 +39,15 @@ class NumbersController extends PublicSiteControllerBase
             $this->view->setVar('milliards', false);
             $this->view->setVar('trillions', false);
         }
-        $widgetValues = $this->lotteryService->getNextDrawAndJackpotForAllLotteries();
-        foreach ($widgetValues as $key=>$values) {
-            $widget = 'EuroMillions\web\components\tags\\'.$key.'WidgetTag';
-            $widget = new $widget();
-            $widget::setTime($values['show_days']);
-            $widget::setJackpot($values['jackpot_value']);
-            $widget::setLink($values['link']);
-            $widget::setName($values['name']);
-        }
+//        $widgetValues = $this->lotteryService->getNextDrawAndJackpotForAllLotteries();
+//        foreach ($widgetValues as $key=>$values) {
+//            $widget = 'EuroMillions\web\components\tags\\'.$key.'WidgetTag';
+//            $widget = new $widget();
+//            $widget::setTime($values['show_days']);
+//            $widget::setJackpot($values['jackpot_value']);
+//            $widget::setLink($values['link']);
+//            $widget::setName($values['name']);
+//        }
 
 
         $this->view->setVar('language', $this->languageService->getLocale());

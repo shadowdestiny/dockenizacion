@@ -83,13 +83,8 @@
       - develredis:redis
     env:
       EM_ENV: development
-- name: PhantomJs and ZAP security
-  docker:
-    name: phantomJsZAP
-    image: rmrbest/phantomjs-zap
-    ports:
-      - "4444:4444"
-      - "8090:8090"
+      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
+      AWS_SECRET_ACCESS_KEY: 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
 
 - name: Create script with env vars
   shell: docker exec {{webserver_container_name}} printenv | sed 's/^\(.*\)$/export \1/g' | grep EM_ENV > /tmp/project_env.sh
