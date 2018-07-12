@@ -10,11 +10,11 @@
             </div>
             <div class="measure">
                 {% if milliards %}
-                    {{ language.translate("billion") }}
+                {{ language.translate("billion") }}
                 {% elseif trillions %}
-                    {{ language.translate("trillion") }}
+                {{ language.translate("trillion") }}
                 {% else %}
-                    {{ language.translate("million") }}
+                {{ language.translate("million") }}
                 {% endif %}
             </div>
             <div class="title">
@@ -26,8 +26,8 @@
 
             <div class="btn-row">
                 <a href="/{{ language.translate("link_euromillions_play") }}"
-                   class="btn-theme--big">
-                    <span class="resizeme">
+                class="btn-theme--big">
+                <span class="resizeme">
                         {{ language.translate("nextDraw_btn") }}
                     </span>
                 </a>

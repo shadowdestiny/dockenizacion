@@ -71,4 +71,26 @@ class ViewHelper
         return [];
     }
 
+    public static function setSemanticJackpotValue($numbers, $letters, $jackpotValue, $languageLocale)
+    {
+        if ($numbers > 1000 && $languageLocale != 'es_ES') {
+            $numbers = round(($numbers / 1000), 1);
+            return ['jackpot_value' => $letters . ' ' . $numbers,
+                    'milliards' => true,
+                    'trillions' => false
+            ];
+        } elseif ($numbers > 1000000 && $languageLocale != 'es_ES') {
+            $numbers = round(($numbers / 1000000), 1);
+            return ['jackpot_value' => $letters . ' ' . $numbers,
+                    'trillions' => true,
+                    'milliards' => false
+            ];
+        } else{
+            return ['jackpot_value' => self::formatJackpotNoCents($jackpotValue),
+                    'milliards' => false,
+                    'trillions' => false
+            ];
+        }
+    }
+
 }

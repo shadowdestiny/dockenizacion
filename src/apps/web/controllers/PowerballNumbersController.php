@@ -27,21 +27,13 @@ class PowerballNumbersController extends PublicSiteControllerBase
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
-        $this->view->setVar('milliards', false);
-        $this->view->setVar('trillions', false);
-        if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
-            $numbers = round(($numbers / 1000), 1);
-            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
-            $this->view->setVar('milliards', true);
-        } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
-            $numbers = round(($numbers / 1000000), 1);
-            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
-            $this->view->setVar('trillions', true);
-        } else{
-            $this->view->setVar('milliards', false);
-            $this->view->setVar('trillions', false);
-        }
+
+        $params = ViewHelper::setSemanticJackpotValue($numbers, $letters, $jackpot, $this->languageService->getLocale());
+        $this->view->setVar('milliards', $params['milliards']);
+        $this->view->setVar('trillions', $params['trillions']);
+        $this->view->setVar('jackpot_value', $params['jackpot_value']);
         $this->view->setVar('language', $this->languageService->getLocale());
+
         if (!$result->success()) {
             return $this->view->setVars([
                 'error' => $result->errorMessage()
