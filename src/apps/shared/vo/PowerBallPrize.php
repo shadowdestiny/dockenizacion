@@ -23,11 +23,11 @@ class PowerBallPrize extends Prize
         $countCombination = implode(',',$this->categoryCombination);
 
         $mappingArray = [
-            '0,1' => 'getCategorySeventeen',
+            '0,1,0' => 'getCategorySeventeen',
             '0,1,1' => 'getCategorySixteen',
-            '1,1' => 'getCategoryFifteen',
+            '1,1,0' => 'getCategoryFifteen',
             '1,1,1' => 'getCategoryFourteen',
-            '2,1' => 'getCategoryThirteen',
+            '2,1,0' => 'getCategoryThirteen',
             '2,1,1' => 'getCategoryTwelve',
             '3,0,0' => 'getCategoryEleven',
             '3,1,0' => 'getCategoryTen',
