@@ -7,6 +7,15 @@
         {% endif %}
     </a>
 </li>
+<li class="li-play{% if activeNav.myClass == 'powerball' %} active{% endif %}">
+    <a href="/{{ language.translate("link_powerball_play") }}">
+        {% if mobile == 1 %}
+            <span class="txt">Play PowerBall</span>
+        {% else %}
+            <span class="txt">Play PowerBall</span>
+        {% endif %}
+    </a>
+</li>
 <li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">
     <a href="/{{ language.translate('link_euromillions_results') }}">
         {% if mobile == 1 %}
@@ -17,15 +26,15 @@
     </a>
 </li>
 
-{#<li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">#}
-    {#<a href="/{{ language.translate('link_powerball_results') }}">#}
-        {#{% if mobile == 1 %}#}
-            {#<span class="txt">Powerball results</span>#}
-        {#{% else %}#}
-            {#<span class="txt">Powerball results</span>#}
-        {#{% endif %}#}
-    {#</a>#}
-{#</li>#}
+<li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">
+    <a href="/{{ language.translate('link_powerball_results') }}">
+        {% if mobile == 1 %}
+            <span class="txt">Powerball results</span>
+        {% else %}
+            <span class="txt">Powerball results</span>
+        {% endif %}
+    </a>
+</li>
 
 
 {% if mobile == 1 %}
