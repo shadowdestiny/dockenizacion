@@ -2,6 +2,7 @@
 
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\shared\components\widgets\JackpotAndCountDownWidget;
 use EuroMillions\shared\helpers\PaginatedControllerTrait;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\DateTimeUtil;
@@ -112,6 +113,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->setNavValues();
         $this->setCommonTemplateVariables();
         $this->setVarWinningModal();
+        $this->setJackpotWidget();
 
         // Set up the flash session service
         $controller_not_referer = [
@@ -134,6 +136,34 @@ class PublicSiteControllerBase extends ControllerBase
         $this->authService->tryLoginWithRemember();
     }
 
+    protected function setJackpotWidget()
+    {
+        $controllerWidgetForLotteries = $this->di->get('config')['jackpot_widget'];
+        $widgetArr = null;
+        $count = 1;
+        $numLotteries = count($controllerWidgetForLotteries);
+        foreach($controllerWidgetForLotteries as $lottery => $controllers)
+        {
+            foreach(explode(',',$controllers) as $controller) {
+                if($this->dispatcher->getControllerName() ==  $controller)
+                {
+                    $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot($lottery));
+                    $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
+                    $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
+                    $params = ViewHelper::setSemanticJackpotValue($numbers, $letters, $jackpot, $this->languageService->getLocale());
+                    $params['show_s_days'] = (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery($lottery)->modify('-1 hours'))->format('%a');
+                    $params['date_draw'] = $this->lotteryService->getNextDateDrawByLottery($lottery)->modify('-1 hours')->format('Y-m-d H:i:s');
+                    if($widgetArr != null) $widgetArr .= '<br>';
+                    if($numLotteries == $count) $params['last'] = true;
+                    $widgetArr .= (new JackpotAndCountDownWidget($params['jackpot_value'],
+                        $this->lotteryService->getLotteryConfigByName($lottery),
+                        $params))->render();
+                    $count++;
+                }
+            }
+        }
+        $this->view->setVar('jackpot_widget', $widgetArr);
+    }
 
     protected function setTopNavValues()
     {
@@ -182,6 +212,16 @@ class PublicSiteControllerBase extends ControllerBase
             $fakeDateTime = new \DateTime($this->request->get('fakedatetime'));
             $this->view->setVar('countdown_finish_bet', ViewHelper::setCountDownFinishBet(1, 100, 5, $this->lotteryService->getNextDateDrawByLottery('EuroMillions', new \DateTime('2016-11-11 18:00:00')), $fakeDateTime->setTime(17, 9, 58)));
         }
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
+        $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        $params = ViewHelper::setSemanticJackpotValue($numbers, $letters, $jackpot, $this->languageService->getLocale());
+        $this->view->setVar('milliards', $params['milliards']);
+        $this->view->setVar('trillions', $params['trillions']);
+        $this->view->setVar('jackpot_value', $params['jackpot_value']);
+        $this->view->setVar('language', $this->languageService->getLocale());
+
+
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
         $bet_value = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);

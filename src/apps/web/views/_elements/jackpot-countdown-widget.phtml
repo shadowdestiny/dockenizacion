@@ -1,39 +1,83 @@
-<div class="right-section">
-    <div class="section-powerball">
+<script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
+<script>
+    var html_formatted_offset = [];
+    $(function() {
+        $('.countdown<?= $jackpot['lotteryName']?> .dots').eq(2).hide();
+        $('.countdown<?= $jackpot['lotteryName']?> .seconds').hide();
+        var element = $('.countdown<?= $jackpot['lotteryName']?>');
+        var html_formatted = element.html();
+        $('.countdown<?= $jackpot['lotteryName']?> .dots').eq(2).show();
+        $('.countdown<?= $jackpot['lotteryName']?> .seconds').show();
+        $('.countdown<?= $jackpot['lotteryName']?> .day').remove();
+        $('.countdown<?= $jackpot['lotteryName']?> .dots').eq(0).remove();
+        html_formatted_offset[0] = $('.countdown<?= $jackpot['lotteryName']?>').html();
+        $('.countdown<?= $jackpot['lotteryName']?> .hour').remove();
+        $('.countdown<?= $jackpot['lotteryName']?> .dots').eq(0).remove();
+        html_formatted_offset[1] = $('.countdown').html();
+        $('.countdown<?= $jackpot['lotteryName']?> .minute').remove();
+        $('.countdown<?= $jackpot['lotteryName']?> .dots').eq(0).remove();
+        html_formatted_offset[2] = $('.countdown<?= $jackpot['lotteryName']?>').html();
+        var finish_action = function () {
+            $('.box-next-draw .btn.red').remove();
+        }
+        var date ="<?= $jackpot['date_draw']; ?>";
+        var finish_text = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
+        $(element).each(function () {
+            count_down(element, html_formatted, html_formatted_offset, date, finish_text, finish_action);
+        });
+    });
+</script>
+    <div  id="widget<?= $jackpot['lotteryName']?>" class="section-powerball">
         <section class="section-01">
-            <div class="corner"></div>
+            <div class="<?= $jackpot['cornerCss']?>"></div>
             <div class="title">
-                {{ language.translate("nextDraw_Estimate") }}
+                <?= $jackpot['title'] ?>
             </div>
-            <div class="price{% if jackpot_value|length > 4 %}-sm{% endif %}">
-                {{ jackpot_value }}
+            <div class="<?= $jackpot['css_price'] ?>">
+                <?= $jackpot['jackpot_value'] ?>
             </div>
             <div class="measure">
-                {% if milliards %}
-                {{ language.translate("billion") }}
-                {% elseif trillions %}
-                {{ language.translate("trillion") }}
-                {% else %}
-                {{ language.translate("million") }}
-                {% endif %}
+                <?= $jackpot['measure'] ?>
             </div>
             <div class="title">
-                {{ language.translate("nextDraw_lbl") }}
+                <?= $jackpot['title'] ?>
             </div>
             <div class="timer">
-                {% include "_elements/countdown.volt" %}
+                <div class="countdown countdown<?= $jackpot['lotteryName']?>">
+                    <div class="day unit">
+                        <span class="val"><?= $jackpot['countDown']['nextDrawDay']?></span>
+                    </div>
+                    <div class="dots">:</div>
+                    <div class="hour unit">
+                        <span class="val"><?= $jackpot['countDown']['nextDrawHour']?></span>
+                    </div>
+                    <div class="dots">:</div>
+                    <div class="minute unit">
+                        <span class="val"><?= $jackpot['countDown']['nextDrawMin']?></span>
+                    </div>
+                    <?php if($jackpot['countDown']['today'] == 0) : ?>
+                    <div class="dots">:</div>
+                    <div class="seconds unit">
+                        <span class="val"><?= $jackpot['countDown']['nextDrawSec']?></span>
+                    </div>
+                    <?php endif; ?>
+                </div>
             </div>
 
             <div class="btn-row">
-                <a href="/{{ language.translate("link_euromillions_play") }}"
+                <a href="/<?= $jackpot['play_link'] ?>"
                 class="btn-theme--big">
                 <span class="resizeme">
-                        {{ language.translate("nextDraw_btn") }}
-                    </span>
+                    <?= $jackpot['nextDrawButton'] ?>
+                </span>
                 </a>
             </div>
         </section>
-
-        <?php //echo EuroMillions\web\components\tags\PowerBallWidgetTag::getWidget(); ?>
     </div>
-</div>
+<?php if($jackpot['last'] == true){ ?>
+    <script>
+        $(function() {
+            $('.bottom--banner').css('margin-top', "200px");
+        });
+    </script>
+<?php } ?>

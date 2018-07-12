@@ -39,6 +39,10 @@
         position: relative;
       }
 
+      .corner-powerball {
+        position: relative;
+      }
+
       .corner:after {
         content: "";
         display: block;
@@ -54,6 +58,26 @@
           border: 21px solid transparent;
           border-right: 21px solid #4698e5;
           border-top: 21px solid #4698e5;
+          right: -14px;
+          top: -18px;
+        }
+      }
+
+      .corner-powerball:after {
+        content: "";
+        display: block;
+        position: absolute;
+        border: 30px solid transparent;
+        border-right: 30px solid #f03c3c;
+        border-top: 30px solid #f03c3c;
+        right: -22px;
+        top: -30px;
+
+        @media only screen and (min-width: $screen-desktop) {
+
+          border: 21px solid transparent;
+          border-right: 21px solid #f03c3c;
+          border-top: 21px solid #f03c3c;
           right: -14px;
           top: -18px;
         }

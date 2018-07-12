@@ -83,6 +83,10 @@ emerchant_apikey: 'lIouDMFAM53H8TwxO8Eg69mBjB2By1pX6JBftfaY'
 payment_strategy: 'WideCardPaymentStrategy'
 payment_config: 'wirecard'
 
+controllers_euromillions: 'numbers,powerball-numbers'
+controllers_powerball: 'numbers,powerball-numbers'
+
+
 file_databasegeoip_path: '/var/www/data/geoipdatabase'
 
 payment_balancing: 'Random'

@@ -2,6 +2,7 @@
 
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\shared\components\widgets\JackpotAndCountDownWidget;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
@@ -24,10 +25,8 @@ class PowerballNumbersController extends PublicSiteControllerBase
         $result = $this->lotteryService->getDrawsDTO($lotteryName);
         $draw_result = $this->lotteryService->getLastDrawWithBreakDownByDate($lotteryName, $date);
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
-        $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
-
         $params = ViewHelper::setSemanticJackpotValue($numbers, $letters, $jackpot, $this->languageService->getLocale());
         $this->view->setVar('milliards', $params['milliards']);
         $this->view->setVar('trillions', $params['trillions']);
@@ -41,6 +40,10 @@ class PowerballNumbersController extends PublicSiteControllerBase
         }
         /** @var EuroMillionsDraw $euroMillionsDraw */
         $euroMillionsDraw = $draw_result->getValues();
+        $params['show_s_days'] = (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours'))->format('%a');
+        $jackpotCountDownWidget = (new JackpotAndCountDownWidget($params['jackpot_value'],
+                                                                $this->lotteryService->getLotteryConfigByName($lotteryName),
+                                                                $params))->render();
 
         $raffle = $euroMillionsDraw->getRaffle()->toArray();
         $raffle = $raffle['value'];
@@ -59,7 +62,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
             'draw_day' => $euroMillionsDraw->getDrawDate()->format('l'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
-            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours'))->format('%a'),
+            'show_s_days' => $params['show_s_days'],
             'actual_year' => (new \DateTime())->format('Y'),
             'pageController' => 'powerballNumbersIndex',
         ]);
