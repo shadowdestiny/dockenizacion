@@ -328,7 +328,7 @@ class BetRepository extends RepositoryBase
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
                 . ' p.line.lucky_number_one, p.line.lucky_number_two'
                 . ' FROM ' . $this->getEntityName() . ' b JOIN b.playConfig p JOIN b.euromillionsDraw e'
-                . ' WHERE p.user = :user_id AND e.draw_date < :actual_date and p.frequency = :frequency and p.lottery = 1'
+                . ' WHERE p.user = :user_id AND e.draw_date < :actual_date and p.frequency = :frequency'
                 . ' ORDER BY p.startDrawDate DESC ')
             ->setParameters(['user_id' => $userId, 'actual_date' => date('Y-m-d'), 'frequency' => 1])
             ->getResult();
