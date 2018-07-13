@@ -328,7 +328,7 @@ class WalletService
                 ), $user->getLocale());
                 $wallet_dto = new WalletDTO([
                     'amountBalance' => $amount_balance,
-                    'amountWinngins' => $amount_winnings,
+                    'amountWinnings' => $amount_winnings,
                     'amountCurrentWinning' => $amount_current_winning,
                     'amountSubscription' => $amount_subscription,
                     'currentWinningConvert' => $current_winnnings_convert,
