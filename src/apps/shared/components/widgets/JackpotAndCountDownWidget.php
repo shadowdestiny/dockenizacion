@@ -108,7 +108,7 @@ class JackpotAndCountDownWidget extends \Phalcon\Mvc\User\Component
 
     protected function prepareParams()
     {
-        $this->cssPrice = ( count($this->jackpot) > 4 ) ? 'price-sm' : 'price';
+        $this->cssPrice = ( strlen($this->jackpot) > 4 ) ? 'price-sm' : 'price';
         $this->measure = $this->translationAdapter->query($this->getMeasure());
         $this->link = $this->lotteryLink();
         return [
