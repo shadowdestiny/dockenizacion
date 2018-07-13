@@ -33,6 +33,8 @@
     .box-next-draw *, h1{color:#fff;}
     h1{margin-bottom:1em;}
     .countdown{float:left;}
+    .countdownpower{float:left;}
+    .countdowneuro{float:left;}
 /*    .disabled .countdown{float:none;}*/
     .closed{width:100%; font-weight:700; text-align:center;}
     .box-value{
@@ -103,6 +105,8 @@ body.numbers{
         h1{margin-bottom:8px; font-size:$basic-size;}
         .btn{float:none; margin:auto; clear:both; margin-top:10px;}
         .countdown{float:none; margin:auto;}
+        .countdownpower{float:none; margin:auto;}
+        .countdowneuro{float:none; margin:auto;}
         .val{font-size:$h2; margin:0;}
         .box-value{
             margin-bottom:13px;
@@ -124,6 +128,8 @@ body.numbers{
           .br{display:none;}
         }
         .countdown{margin:0 auto 10px;}
+        .countdownpower{margin:0 auto 10px;}
+        .countdowneuro{margin:0 auto 10px;}
         .box-value{
             margin-bottom:20px;
             .currency, .value{font-size:$h2;}

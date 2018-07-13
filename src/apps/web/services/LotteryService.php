@@ -212,7 +212,7 @@ class LotteryService
     {
         list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         $date = $lottery->getNextDrawDate($now);
-        if($lottery->getName() !== 'EuroMillions')
+        if($lottery->getName() !== 'EuroMillions' && $lottery->getName() !== 'PowerBall')
         {
             //TODO: Timezone should be store in Lottery entity
             $date = new DateTime($date->format('Y-m-d'). ' ' .$lottery->getDrawTime(), new \DateTimeZone('America/New_York'));
