@@ -117,6 +117,7 @@ function count_down(element,
                     html_formatted_offset,
                     date,
                     finish_text, finish_action) {
+    console.log(element);
   return element.countdown(date).on('update.countdown', function (event) {
     if (event.offset.days == 0) {
       $(this).html(event.strftime(html_formatted_offset[0]));
