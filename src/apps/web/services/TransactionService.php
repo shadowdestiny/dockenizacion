@@ -8,6 +8,8 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\BigWinTransaction;
+use EuroMillions\web\entities\Lottery;
+use EuroMillions\web\entities\SubscriptionPurchaseTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsReceivedTransaction;
@@ -56,10 +58,13 @@ class TransactionService
         $result = $this->transactionRepository->findBy(['user' => $user->getId()], ['id' => 'DESC']);
         if (null != $result) {
             $transactionDtoCollection = [];
+            /** @var LotteryRepository $lotteryRepository */
+            $lotteryRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'Lottery');
             /** @var Transaction $transaction */
             foreach ($result as $transaction) {
                 if ($transaction instanceof BigWinTransaction) continue;
                 $transactionDTO = new TransactionDTO($transaction);
+                $transactionDTO->lotteryId = $this->getLotteryName($lotteryRepository,$transaction);
                 $movement = $this->currencyConversionService->convert($transactionDTO->movement, new Currency('EUR'));
                 $balance = $this->currencyConversionService->convert($transactionDTO->balance, new Currency('EUR'));
                 $winnings = $this->currencyConversionService->convert($transactionDTO->winnings, new Currency('EUR'));
@@ -77,6 +82,23 @@ class TransactionService
             return $transactionDtoCollection;
         }
         return [];
+    }
+
+    //Shit function
+    private function getLotteryName(LotteryRepository $lotteryRepository,Transaction $transaction)
+    {
+        /** @var Lottery$lottery */
+        $lottery = null;
+        if($transaction instanceof WinningsReceivedTransaction)
+        {
+            $transaction->fromString();
+            $lottery = $lotteryRepository->findBy(["id" => ($transaction->getDrawId()) ? $transaction->getDrawId() : 1]);
+
+        } else {
+            $lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
+        }
+        return $lottery[0]->getName();
+
     }
 
     public function getTransaction($id)

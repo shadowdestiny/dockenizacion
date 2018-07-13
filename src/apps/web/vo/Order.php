@@ -32,6 +32,8 @@ class Order implements \JsonSerializable
     /** @var  Discount */
     protected $discount;
 
+    protected $lottery;
+
     protected $hasSubscription;
 
 
@@ -310,5 +312,15 @@ class Order implements \JsonSerializable
         return array_map(function ($val) {
             return $val->getId();
         }, $this->getPlayConfig());
+    }
+
+    public function getLottery()
+    {
+        return $this->lottery;
+    }
+
+    public function setLottery($lottery)
+    {
+        $this->lottery = $lottery;
     }
 }

@@ -85,7 +85,8 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
 
     public function fromString()
     {
-        list($fee,$amount,$discount) = explode('#',$this->data);
+        list($lotteryId,$fee,$amount,$discount) = explode('#',$this->data);
+        $this->lotteryId = $lotteryId;
         $this->hasFee = $fee;
         $this->amountAdded = $amount;
         $this->discount = $discount;

@@ -60,9 +60,7 @@ class TransactionDTO extends DTOBase implements IDto
         } else {
             $this->ticketPrice = new Money(0, new Currency('EUR'));
         }
-        if (method_exists($this->transaction,'getLotteryId')){
-            $this->lotteryId = $this->transaction->getLotteryId();
-        }
+
     }
 
     public function getEntityType($transactionType)

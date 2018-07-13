@@ -411,8 +411,9 @@ class WalletService
             $isChargeFee = $creditCardCharge->getIsChargeFee();
             $finalAmount = $creditCardCharge->getFinalAmount()->getAmount();
         }
+
         $dataTransaction = [
-            'lottery_id' => 1,
+            'lottery_id' => $order->getLottery()->getId(),
             'numBets' => count($user->getPlayConfig()),
             'feeApplied' => $isChargeFee,
             'transactionID' => $uniqueID,

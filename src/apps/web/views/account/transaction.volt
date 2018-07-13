@@ -152,7 +152,7 @@
                         <td class="lottery">
                             <p>
                                 {% if (not(transaction.lotteryId is empty)) %}
-                                    {{ language.translate('lottery_id_' ~ transaction.lotteryId) }}
+                                    {{ transaction.lotteryId }}
                                 {% endif %}
                             </p>
                         </td>
