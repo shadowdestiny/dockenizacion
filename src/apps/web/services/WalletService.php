@@ -205,7 +205,6 @@ class WalletService
             } else {
                 $user->removeSubscriptionWithWallet($playConfig->getSinglePrice()->multiply($playConfig->getFrequency()));
             }
-
             $this->entityManager->flush($user);
         } catch (\Exception $e) {
             //TODO: Log and warn the admin
@@ -368,6 +367,28 @@ class WalletService
         //EMTD TO DO
     }
 
+    public function createSubscriptionTransaction(User $user,
+                                                  $uniqueID = null,
+                                                  Order $order)
+    {
+
+        try
+        {
+            $walletBefore = $user->getWallet();
+            $data = $this->buildDepositTransactionData(
+                $user,
+                null,
+                $uniqueID,
+                $walletBefore,
+                $order
+            );
+            $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $data);
+        }catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
     /**
      * @param User $user
      * @param CreditCardCharge $creditCardCharge
@@ -376,21 +397,29 @@ class WalletService
      * @return array
      */
     private function buildDepositTransactionData(User $user,
-                                                 CreditCardCharge $creditCardCharge,
+                                                 CreditCardCharge $creditCardCharge = null,
                                                  $uniqueID,
                                                  $walletBefore,
                                                  Order $order = null)
     {
 
+        //This is a big shit
+        $isChargeFee = '';
+        $finalAmount = '';
+        if($creditCardCharge != null)
+        {
+            $isChargeFee = $creditCardCharge->getIsChargeFee();
+            $finalAmount = $creditCardCharge->getFinalAmount()->getAmount();
+        }
         $dataTransaction = [
             'lottery_id' => 1,
             'numBets' => count($user->getPlayConfig()),
-            'feeApplied' => $creditCardCharge->getIsChargeFee(),
+            'feeApplied' => $isChargeFee,
             'transactionID' => $uniqueID,
             'amountWithWallet' => 0,
             'playConfigs' => (null !== $order) ? $order->getPlayConfig()[0]->getId() : 0,
-            'amount' => $creditCardCharge->getFinalAmount()->getAmount(),
-            'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount(),
+            'amount' => $finalAmount,
+            'amountWithCreditCard' => $finalAmount,
             'user' => $user,
             'walletBefore' => $walletBefore,
             'walletAfter' => $user->getWallet(),

@@ -156,7 +156,7 @@ class WalletDTO
         $this->subscriptionBalanceEuromillions = ((int) $euroMillionsSubscription > 0) ?
             $this->subscriptionBalanceEuromillions : $this->wallet_subscription_amount;
         $powerBallSubscription = str_replace(['€','.'],"", $this->subscriptionBalancePowerBall);
-        $walletSubscriptionBalance = str_replace(['€','.'],"", $this->wallet_subscription_amount);
+        $walletSubscriptionBalance = str_replace(['€','.',','],"", $this->wallet_subscription_amount);
         $sumLotteries = $euroMillionsSubscription + $powerBallSubscription;
         if($sumLotteries !== $walletSubscriptionBalance)
         {

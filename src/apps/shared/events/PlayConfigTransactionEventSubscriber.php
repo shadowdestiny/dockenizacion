@@ -73,7 +73,7 @@ class PlayConfigTransactionEventSubscriber implements EventSubscriber
 
         } catch (\Exception $e)
         {
-            var_dump($e->getMessage());die();
+
         }
     }
 

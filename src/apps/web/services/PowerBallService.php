@@ -152,7 +152,7 @@ class PowerBallService
                 $result_order = $this->cartService->get($user_id, $lottery->getName());
 
                 if ($result_order->success()) {
-
+                    /** @var Order $order */
                     $order = $result_order->getValues();
                     if (is_null($credit_card) && $withAccountBalance ) {
                         if ($order->totalOriginal()->getAmount() > $user->getBalance()->getAmount()) {
@@ -170,12 +170,16 @@ class PowerBallService
 
 
                     $draw = $this->lotteryService->getNextDrawByLottery('PowerBall');
+                    $uniqueId = $this->walletService->getUniqueTransactionId();;
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
-                        $uniqueId = $this->walletService->getUniqueTransactionId();
                         $this->cardPaymentProvider->idTransaction = $uniqueId;
                         $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
                     } else {
+                        if($order->getHasSubscription())
+                        {
+                            $this->walletService->createSubscriptionTransaction($user,$uniqueId,$order);
+                        }
                         $result_payment = new ActionResult(true, $order);
                     }
                     if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
@@ -198,7 +202,6 @@ class PowerBallService
                         $walletBefore = $user->getWallet();
                         $config = $di->get('config');
                         if ($config->application->send_single_validations) {
-
                             foreach ($order->getPlayConfig() as $play_config) {
                                 $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
 
