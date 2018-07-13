@@ -179,7 +179,7 @@ class JackpotAndCountDownWidget extends \Phalcon\Mvc\User\Component
     protected function getMeasure()
     {
         if($this->measure['milliards']) return 'billion';
-        if($this->measure['trillion']) return 'trillion';
+        if($this->measure['trillions']) return 'trillion';
         return 'million';
     }
 
