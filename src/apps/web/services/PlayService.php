@@ -137,7 +137,6 @@ class PlayService
      */
     public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null)
     {
-        set_time_limit(0);
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();
@@ -188,11 +187,11 @@ class PlayService
                         $config = $di->get('config');
                         if ($config->application->send_single_validations) {
                             foreach ($order->getPlayConfig() as $play_config) {
-                                $result_validation = $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate());
-
-                                if (!$result_validation->success()) {
-                                    return new ActionResult(false, $result_validation->errorMessage());
-                                }
+//                                $result_validation = $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate());
+//
+//                                if (!$result_validation->success()) {
+//                                    return new ActionResult(false, $result_validation->errorMessage());
+//                                }
                                 if ($order->getHasSubscription()) {
                                     if ($isWallet) {
                                         $this->walletService->paySubscriptionWithWallet($user, $play_config);

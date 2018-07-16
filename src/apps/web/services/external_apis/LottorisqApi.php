@@ -110,9 +110,6 @@ class LottorisqApi implements IResultApi, IJackpotApi, IBookApi
             $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST, false);
             $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, false);
             $this->curlWrapper->setOption( CURLOPT_RETURNTRANSFER, true);
-            $this->curlWrapper->setOption( CURLOPT_NOSIGNAL, true);
-            $this->curlWrapper->setOption( CURLOPT_CONNECTTIMEOUT, 0);
-            $this->curlWrapper->setOption( CURLOPT_TIMEOUT, 300);
             return $this->curlWrapper->post($this->config->endpoint .'/tickets',
                 $data,
                 true,

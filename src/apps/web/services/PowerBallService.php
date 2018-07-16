@@ -138,9 +138,9 @@ class PowerBallService
      */
     public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null)
     {
-        set_time_limit(0);
         if ($user_id) {
             try {
+
                 $di = \Phalcon\Di::getDefault();
                 /** @var Lottery $lottery */
                 $lottery = $this->lotteryService->getLotteryConfigByName('PowerBall');
@@ -182,6 +182,7 @@ class PowerBallService
                         }
                         $result_payment = new ActionResult(true, $order);
                     }
+
                     if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var PlayConfig $play_config */
@@ -203,7 +204,7 @@ class PowerBallService
                         $config = $di->get('config');
                         if ($config->application->send_single_validations) {
                             foreach ($order->getPlayConfig() as $play_config) {
-                                $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
+                                //$this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
                                 if (!$result_validation->success) {
                                     return new ActionResult(false, $result_validation->errorMessage());
                                 }
@@ -222,6 +223,7 @@ class PowerBallService
                                     $this->walletService->payWithWallet($user, $play_config, $powerPlayValue);
                                 }
                             }
+                            var_dump(__LINE__);
                             $numPlayConfigs = count($order->getPlayConfig());
                         } else {
                             $playConfigs = $order->getPlayConfig();
@@ -265,7 +267,7 @@ class PowerBallService
                     //error
                 }
             } catch (\Exception $e) {
-
+                var_dump($e->getMessage());die();
             }
         }
         return new ActionResult(false);
