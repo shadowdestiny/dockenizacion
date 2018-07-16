@@ -38,6 +38,8 @@
     var txt_line = '{{ language.translate('line_x') }}';
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';
+    var wednesday = '{{ language.translate('wednesday') }}';
+    var saturday = '{{ language.translate('saturday') }}';
     var powerball = false;
     var powerplay = 0;
     var powerplayprice = 0;

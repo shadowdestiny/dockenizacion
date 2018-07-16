@@ -294,6 +294,8 @@ var CartPage = new React.createClass({
                                txt_line={this.props.txt_line}
                                tuesday={this.props.tuesday}
                                friday={this.props.friday}
+                               wednesday={this.props.wednesday}
+                               saturday={this.props.saturday}
                                currency_symbol={this.props.currency_symbol}
                 txt_lottery={this.props.txt_lottery}/>
 
@@ -496,6 +498,8 @@ ReactDOM.render(<CartPage total={total_price}
                           txt_line={txt_line}
                           tuesday={tuesday}
                           friday={friday}
+                          wednesday={wednesday}
+                          saturday={saturday}
                           powerplay={powerplay}
                           powerplayprice={powerplayprice}
                           powerball={powerball}

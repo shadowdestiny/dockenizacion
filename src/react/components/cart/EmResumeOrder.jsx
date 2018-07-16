@@ -24,6 +24,10 @@ var EmResumeOrder = new React.createClass({
             day = this.props.tuesday;
         } else if(date.getDay() == 5 ) {
             day = this.props.friday;
+        } else if(date.getDay() == 3 ) {
+            day = this.props.wednesday;
+        } else if(date.getDay() == 6 ) {
+            day = this.props.saturday;
         }
 
         if(this.props.txt_lottery === 'Powerball') {
