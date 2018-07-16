@@ -12,7 +12,7 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
 {% block template_scripts_code %}
-    function euromillionsPlay(numbers)
+    function euromillionsPlay(numbers,lottery)
     {
         var storageNumbers = '[', playConfigs = numbers.split("|");
 
@@ -24,8 +24,12 @@
         storageNumbers = storageNumbers.slice(0, -1) + ']';
 
         localStorage.setItem('bet_line', storageNumbers);
+        if(lottery === 'EuroMillions') {
+            window.location.href = '/{{ language.translate('link_euromillions_play') }}';
+        } elseif(lottery === 'PowerBall') {
+            window.location.href = '/{{ language.translate('link_powerball_play') }}';
+        }
 
-        window.location.href = '/{{ language.translate('link_euromillions_play') }}';
     }
 {% endblock %}
 {% block body %}
