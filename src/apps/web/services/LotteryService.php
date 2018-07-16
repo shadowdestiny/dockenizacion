@@ -12,6 +12,8 @@ use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\IEmailTemplate;
+use EuroMillions\web\emailTemplates\PowerBallPurchaseConfirmationEmailTemplate;
+use EuroMillions\web\emailTemplates\PowerBallPurchaseSubscriptionConfirmationEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseSubscriptionConfirmationEmailTemplate;
 use EuroMillions\web\entities\Bet;
@@ -476,7 +478,7 @@ class LotteryService
                             ];
                             $this->walletService->purchaseTransactionGrouped($playConfig->getUser(), TransactionType::AUTOMATIC_PURCHASE, $dataTransaction);
                             try {
-                                $this->sendEmailPurchase($playConfig->getUser(), $playConfig);
+                                $this->sendPowerBallEmailPurchase($playConfig->getUser(), $playConfig);
                             } catch (\Exception $e) {
                                 echo $e->getMessage();
                             }
@@ -678,6 +680,21 @@ class LotteryService
             $emailTemplate->setStartingDate($playConfig->getStartDrawDate()->format('d-m-Y'));
         }
         $emailTemplate->setLine([$playConfig]);
+        $emailTemplate->setUser($user);
+
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    }
+
+    private function sendPowerBallEmailPurchase(User $user, PlayConfig $playConfig)
+    {
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new PowerBallPurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
+        if ($playConfig->getFrequency() >= 4) {
+            $emailTemplate = new PowerballPurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
+            $emailTemplate->setDraws($playConfig->getFrequency());
+            $emailTemplate->setStartingDate($playConfig->getStartDrawDate()->format('d-m-Y'));
+        }
+        $emailTemplate->setLine($playConfig);
         $emailTemplate->setUser($user);
 
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);

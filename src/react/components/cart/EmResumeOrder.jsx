@@ -17,7 +17,6 @@ var EmResumeOrder = new React.createClass({
 
         var date_since = config.startDrawDate;
         var text_weeks = '';
-        var txt_link_play = "/" + this.props.txt_link_play;
 
         var date = new Date(date_since);
         var day = '';
@@ -25,8 +24,17 @@ var EmResumeOrder = new React.createClass({
             day = this.props.tuesday;
         } else if(date.getDay() == 5 ) {
             day = this.props.friday;
+        } else if(date.getDay() == 3 ) {
+            day = this.props.wednesday;
+        } else if(date.getDay() == 6 ) {
+            day = this.props.saturday;
         }
 
+        if(this.props.txt_lottery === 'Powerball') {
+            txt_link_play = "/" + this.props.txt_link_powerball;
+        } else {
+            txt_link_play = "/" + this.props.txt_link_play;
+        }
         if(config.frequency == 1) {
             text_weeks = day + ', ' + config.startDrawDateFormat;
         } else {
