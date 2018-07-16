@@ -138,7 +138,6 @@ class PowerBallService
      */
     public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null)
     {
-        set_time_limit(0);
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();
@@ -170,7 +169,7 @@ class PowerBallService
 
 
                     $draw = $this->lotteryService->getNextDrawByLottery('PowerBall');
-                    $uniqueId = $this->walletService->getUniqueTransactionId();;
+                    $uniqueId = $this->walletService->getUniqueTransactionId();
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
                         $this->cardPaymentProvider->idTransaction = $uniqueId;
@@ -265,6 +264,7 @@ class PowerBallService
                     //error
                 }
             } catch (\Exception $e) {
+
             }
         }
         return new ActionResult(false);

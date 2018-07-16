@@ -137,6 +137,7 @@ class PlayService
      */
     public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null)
     {
+        set_time_limit(0);
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();
@@ -157,12 +158,13 @@ class PlayService
 
                     $discount = $order->getDiscount()->getValue();
                     $order->setIsCheckedWalletBalance($withAccountBalance);
+                    $order->setLottery($lottery);
                     $order->addFunds($funds);
                     $order->setAmountWallet($user->getWallet()->getBalance());
                     $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
+                    $uniqueId = $this->walletService->getUniqueTransactionId();
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
-                        $uniqueId = $this->walletService->getUniqueTransactionId();
                         $this->cardPaymentProvider->idTransaction = $uniqueId;
                         $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
 
