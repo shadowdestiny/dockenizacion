@@ -40,7 +40,7 @@ class WinningsReceivedTransaction extends Transaction implements ITransactionDat
         $this->betId = $betId;
         $this->amount = $amount;
         $this->state = $state;
-        $this->lotteryId = $lotteryId;
+        $this->lotteryId = isset($lotteryId) ? $lotteryId : 1;
         return $this;
     }
 

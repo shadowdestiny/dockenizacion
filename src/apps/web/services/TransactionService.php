@@ -8,11 +8,13 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\BigWinTransaction;
+use EuroMillions\web\entities\DepositTransaction;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\SubscriptionPurchaseTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsReceivedTransaction;
+use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\vo\dto\TransactionDTO;
 use Money\Currency;
@@ -91,6 +93,7 @@ class TransactionService
         try {
             /** @var Lottery$lottery */
             $lottery = null;
+            if($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction) return "";
             $lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
             return $lottery[0]->getName();
         } catch (\Exception $e)
