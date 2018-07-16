@@ -173,7 +173,7 @@
                             {{ language.translate('tittle') }}
                         </div>
                         <div class="top">
-                            {% if next_draw == 6 %}{{ language.translate('saturday') }}{% else %}{{ language.translate('wednesday') }}{% endif %}
+                            {% if next_draw == 4 %}{{ language.translate('wednesday') }}{% else %}{{ language.translate('saturday') }}{% endif %}
                         </div>
                     </div>
                     <div class="help-block">

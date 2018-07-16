@@ -210,16 +210,18 @@ class LotteryService
         return $now->diff($next_draw_date);
     }
 
-    public function getNextDateDrawByLottery($lotteryName, \DateTime $now = null)
+    public function getNextDateDrawByLottery($lotteryName, \DateTime $now = null, $showLotteryLocalTime = true)
     {
         list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         $date = $lottery->getNextDrawDate($now);
-        if($lottery->getName() !== 'EuroMillions' && $lottery->getName() !== 'PowerBall')
-        {
-            //TODO: Timezone should be store in Lottery entity
-            $date = new DateTime($date->format('Y-m-d'). ' ' .$lottery->getDrawTime(), new \DateTimeZone('America/New_York'));
-            $date->setTimezone(new \DateTimeZone('Europe/Madrid'));
-            return $date;
+        if($showLotteryLocalTime) {
+            if($lottery->getName() !== 'EuroMillions' && $lottery->getName() !== 'PowerBall')
+            {
+                //TODO: Timezone should be store in Lottery entity
+                $date = new DateTime($date->format('Y-m-d'). ' ' .$lottery->getDrawTime(), new \DateTimeZone('America/New_York'));
+                $date->setTimezone(new \DateTimeZone('Europe/Madrid'));
+                return $date;
+            }
         }
         return $date;
 
