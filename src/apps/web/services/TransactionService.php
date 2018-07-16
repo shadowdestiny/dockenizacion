@@ -94,6 +94,7 @@ class TransactionService
             /** @var Lottery$lottery */
             $lottery = null;
             if($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction) return "";
+            $transaction->fromString();
             $lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
             return $lottery[0]->getName();
         } catch (\Exception $e)
