@@ -8,7 +8,10 @@
                     </div>
                     <br />
                     <div class="text-sub-carroussel">
-                        {{ jackpot_millions }}M
+                            {{ jackpot_value }}{% if milliards %}B
+                            {% elseif trillions %}T
+                            {% else %}M
+                            {% endif %}
                         <img class="image-carroussel" src="/w/img/home/starsBlue.png" style="width: 25%;height: 25%; margin-left: -32px;">
                     </div>
                 </div>
@@ -21,7 +24,10 @@
                     </div>
                     <br />
                     <div class="text-sub-carroussel">
-                        {{ jackpot_powerball }}M
+                            {{ jackpot_powerball }}{% if milliards %}B
+                            {% elseif trillions %}T
+                            {% else %}M
+                            {% endif %}
                         <img class="image-carroussel" src="/w/img/home/starsRed.png"  style="width: 25%;height: 25%; margin-left: -29px;">
                     </div>
                 </div>
