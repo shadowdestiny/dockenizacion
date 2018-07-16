@@ -13,6 +13,7 @@ class WinningsReceivedTransaction extends Transaction implements ITransactionDat
     protected $betId;
     protected $amount;
     protected $state;
+    protected $lotteryId;
 
     public function __construct(array $data)
     {
@@ -24,20 +25,22 @@ class WinningsReceivedTransaction extends Transaction implements ITransactionDat
         $this->setWalletAfter($data['walletAfter']);
         $this->setDate($data['now']);
         $this->setUser($data['user']);
+        $this->setLotteryId($data['lottery_id']);
     }
 
     public function toString()
     {
-        $this->data = $this->drawId.'#'.$this->betId.'#'.$this->amount.'#'.$this->state;
+        $this->data = $this->drawId.'#'.$this->betId.'#'.$this->amount.'#'.$this->state.'#'.$this->lotteryId;
     }
 
     public function fromString()
     {
-        list($drawId, $betId, $amount,$state) = explode('#',$this->data);
+        list($drawId, $betId, $amount,$state,$lotteryId) = explode('#',$this->data);
         $this->drawId = $drawId;
         $this->betId = $betId;
         $this->amount = $amount;
         $this->state = $state;
+        $this->lotteryId = $lotteryId;
         return $this;
     }
 
@@ -108,6 +111,22 @@ class WinningsReceivedTransaction extends Transaction implements ITransactionDat
     public function getEntityType()
     {
         return parent::WINNING_RECEIVED_TYPE;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLotteryId()
+    {
+        return $this->lotteryId;
+    }
+
+    /**
+     * @param mixed $lotteryId
+     */
+    public function setLotteryId($lotteryId)
+    {
+        $this->lotteryId = $lotteryId;
     }
 
 }

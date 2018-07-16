@@ -130,6 +130,7 @@ class PrizeCheckoutService
     //TODO it should new method to award prize
     public function award($betId,Money $amount, array $scalarValues)
     {
+        /** @var Bet $bet */
         $bet = $this->betRepository->findOneBy(['id' => $betId]);
         $config = $this->di->get('config');
         $threshold_price = new Money((int)$config->threshold_above['value'] * 100, new Currency('EUR'));
@@ -149,6 +150,7 @@ class PrizeCheckoutService
                 $user->awardPrize($amount);
                 $data['walletAfter'] = $user->getWallet();
                 $data['state'] = '';
+                $data['lottery_id'] = $bet->getPlayConfig()->getLottery()->getId();
                 $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
                 //TODO: send to new queue
                 $this->sendSmallWinPowerBallEmail($bet, $user, $amount, $scalarValues);
@@ -185,6 +187,7 @@ class PrizeCheckoutService
                 $user->awardPrize($amount);
                 $data['walletAfter'] = $user->getWallet();
                 $data['state'] = '';
+                $data['lottery_id'] = $bet->getPlayConfig()->getLottery()->getId();
                 $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
                 $this->sendSmallWinEmail($bet, $user, $amount, $scalarValues);
             }

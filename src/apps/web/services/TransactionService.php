@@ -92,8 +92,7 @@ class TransactionService
         if($transaction instanceof WinningsReceivedTransaction)
         {
             $transaction->fromString();
-            $lottery = $lotteryRepository->findBy(["id" => ($transaction->getDrawId()) ? $transaction->getDrawId() : 1]);
-
+            $lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
         } else {
             $lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
         }
