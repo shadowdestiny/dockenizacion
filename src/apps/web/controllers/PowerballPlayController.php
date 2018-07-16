@@ -17,6 +17,7 @@ class PowerballPlayController extends PublicSiteControllerBase
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
 
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
+        $this->view->setVar('jackpot_powerball', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $this->view->setVar('milliards', false);

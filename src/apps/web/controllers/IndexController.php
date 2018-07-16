@@ -12,25 +12,8 @@ class IndexController extends PublicSiteControllerBase
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
         $jackpotPowerBall = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
-        $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
-        $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
-        $this->view->setVar('milliards', false);
-        $this->view->setVar('trillions', false);
-        if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
-            $numbers = round(($numbers / 1000), 1);
-            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
-            $this->view->setVar('milliards', true);
-            $textMillions = 'billion';
-        } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
-            $numbers = round(($numbers / 1000000), 1);
-            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
-            $this->view->setVar('trillions', true);
-            $textMillions = 'trillion';
-        } else{
-            $this->view->setVar('milliards', false);
-            $this->view->setVar('trillions', false);
-            $textMillions = 'million';
-        }
+//        var_dump(ViewHelper::formatJackpotNoCents($jackpot)); die();
+        $textMillions = $this->billionsAndTrillions($jackpot);
         $this->view->setVar('jackpot_millions', ViewHelper::formatMillionsJackpot($jackpot));
         $this->view->setVar('jackpot_powerball', ViewHelper::formatMillionsJackpot($jackpotPowerBall));
         $time_till_next_draw = $this->lotteryService->getTimeToNextDraw('EuroMillions');
@@ -57,6 +40,29 @@ class IndexController extends PublicSiteControllerBase
     public function notfoundAction()
     {
         $this->response->redirect('/error/page404');
+    }
+
+    public function billionsAndTrillions($jackpot) {
+        $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        $this->view->setVar('milliards', false);
+        $this->view->setVar('trillions', false);
+        if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
+            $numbers = round(($numbers / 1000), 1);
+            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
+            $this->view->setVar('milliards', true);
+            $textMillions = 'billion';
+        } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
+            $numbers = round(($numbers / 1000000), 1);
+            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
+            $this->view->setVar('trillions', true);
+            $textMillions = 'trillion';
+        } else{
+            $this->view->setVar('milliards', false);
+            $this->view->setVar('trillions', false);
+            $textMillions = 'million';
+        }
+        return $textMillions;
     }
 }
 

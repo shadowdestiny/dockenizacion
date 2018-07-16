@@ -194,7 +194,7 @@
                     </div>
                     <div class="right">
                         <div class="top resizeme">
-                            {{ jackpot_value }} {% if milliards %}
+                            {{ jackpot_powerball }} {% if milliards %}
                                 {{ language.translate("billion") }}
                             {% elseif trillions %}
                                 {{ language.translate("trillion") }}
