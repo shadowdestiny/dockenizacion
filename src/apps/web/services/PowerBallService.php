@@ -138,6 +138,7 @@ class PowerBallService
      */
     public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null)
     {
+        set_time_limit(0);
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();
