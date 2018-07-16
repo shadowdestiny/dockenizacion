@@ -8,7 +8,7 @@
                     </div>
                     <br />
                     <div class="text-sub-carroussel">
-                        €58M
+                        {{ jackpot_millions }}M
                         <img class="image-carroussel" src="/w/img/home/starsBlue.png" style="width: 25%;height: 25%; margin-left: -32px;">
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                     </div>
                     <br />
                     <div class="text-sub-carroussel">
-                        €45M
+                        {{ jackpot_powerball }}M
                         <img class="image-carroussel" src="/w/img/home/starsRed.png"  style="width: 25%;height: 25%; margin-left: -29px;">
                     </div>
                 </div>
@@ -34,27 +34,25 @@
 
         <div class="grey-box-carroussel">
             <div style="margin-top:10px;"><img class="image-carroussel" src="/w/img/home/clock.png">
-
-                            <div class="countdowneuro" style="margin-top: -49px;margin-left: 80px;">
-                                <div class="dayeuro unit" style="color:black;">
-                                    <span class="val" style="color:black;">%-d{% if show_s_days == '1' %}D{% else %}D{% endif %}</span>
-                                </div>
-                                <div class="dotseuro"></div>
-                                <div class="houreuro unit" style="color:black;">
-                                    <span class="val" style="color:black;">%-HH</span>
-                                </div>
-                                <div class="dotseuro" style="color:black;">:</div>
-                                <div class="minuteeuro unit" style="color:black;">
-                                    <span class="val" style="color:black;">%-MM</span>
-                                </div>
-                                {% if show_s_days == '1' %}
-                                    <div class="dotseuro" style="color:black;">:</div>
-                                    <div class="secondseuro unit" style="color:black;">
-                                    <span class="val" style="color:black;">%-SS</span>
-                                </div>
-                                {% endif %}
-                            </div>
-
+                <div class="countdowneuro" style="margin-top: -49px;margin-left: 80px;">
+                    <div class="dayeuro unit" style="color:black;">
+                        <span class="val" style="color:black;">%-d{% if show_s_days == '1' %}D{% else %}D{% endif %}</span>
+                    </div>
+                    <div class="dotseuro"></div>
+                    <div class="houreuro unit" style="color:black;">
+                        <span class="val" style="color:black;">%-HH</span>
+                    </div>
+                    <div class="dotseuro" style="color:black;">:</div>
+                    <div class="minuteeuro unit" style="color:black;">
+                        <span class="val" style="color:black;">%-MM</span>
+                    </div>
+                    {% if show_s_days == '1' %}
+                        <div class="dotseuro" style="color:black;">:</div>
+                        <div class="secondseuro unit" style="color:black;">
+                        <span class="val" style="color:black;">%-SS</span>
+                    </div>
+                    {% endif %}
+                </div>
                 <div class="btn-row" style="float:right;margin-top: -56px;margin-right: -10px;">
                     <a href="/{{ language.translate("link_euromillions_play") }}"
                        class="btn-theme--big image-carroussel" style="height: 59px;width: 212px;margin-top: 9px;margin-right: 20px;">
@@ -71,27 +69,25 @@
 
         <div class="grey-box-carroussel">
             <div style="margin-top:10px;"><img class="image-carroussel" src="/w/img/home/clock.png">
-
-                            <div class="countdownpower" style="margin-top: -49px;margin-left: 80px;">
-                                <div class="daypower unit" style="color:black;">
-                                    <span class="val" style="color:black;">%-d{% if show_p_days == '1' %}D{% else %}D{% endif %}</span>
-                                </div>
-                                <div class="dotspower"></div>
-                                <div class="hourpower unit" style="color:black;">
-                                    <span class="val" style="color:black;">%-HH</span>
-                                </div>
-                                <div class="dotspower" style="color:black;">:</div>
-                                <div class="minutepower unit" style="color:black;">
-                                    <span class="val" style="color:black;">%-MM</span>
-                                </div>
-                                {% if show_p_days == '1' %}
-                                    <div class="dotspower" style="color:black;">:</div>
-                                    <div class="secondspower unit" style="color:black;">
-                                    <span class="val" style="color:black;">%-SS</span>
-                                </div>
-                                {% endif %}
-                            </div>
-
+                <div class="countdownpower" style="margin-top: -49px;margin-left: 80px;">
+                    <div class="daypower unit" style="color:black;">
+                        <span class="val" style="color:black;">%-d{% if show_p_days == '1' %}D{% else %}D{% endif %}</span>
+                    </div>
+                    <div class="dotspower"></div>
+                    <div class="hourpower unit" style="color:black;">
+                        <span class="val" style="color:black;">%-HH</span>
+                    </div>
+                    <div class="dotspower" style="color:black;">:</div>
+                    <div class="minutepower unit" style="color:black;">
+                        <span class="val" style="color:black;">%-MM</span>
+                    </div>
+                    {% if show_p_days == '1' %}
+                        <div class="dotspower" style="color:black;">:</div>
+                        <div class="secondspower unit" style="color:black;">
+                        <span class="val" style="color:black;">%-SS</span>
+                    </div>
+                    {% endif %}
+                </div>
                 <div class="btn-row" style="float:right;margin-top: -56px;margin-right: -10px;">
                     <a href="/{{ language.translate("link_powerball_play") }}"
                        class="btn-theme--big image-carroussel" style="height: 59px;width: 212px;margin-top: 9px;margin-right: 20px;">

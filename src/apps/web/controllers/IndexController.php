@@ -10,6 +10,7 @@ class IndexController extends PublicSiteControllerBase
     public function indexAction()
     {
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $jackpotPowerBall = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
@@ -31,6 +32,7 @@ class IndexController extends PublicSiteControllerBase
             $textMillions = 'million';
         }
         $this->view->setVar('jackpot_millions', ViewHelper::formatMillionsJackpot($jackpot));
+        $this->view->setVar('jackpot_powerball', ViewHelper::formatMillionsJackpot($jackpotPowerBall));
         $time_till_next_draw = $this->lotteryService->getTimeToNextDraw('EuroMillions');
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $last_draw_date = $this->lotteryService->getLastDrawDate('EuroMillions');
