@@ -34,6 +34,7 @@
     var txt_checkout_fee = "{{ language.translate("checkout_fee") }}";
     var txt_edit = "{{ language.translate("edit_btn") }}";
     var txt_link_play = "{{ language.translate("link_euromillions_play") }}";
+    var txt_link_powerball = "{{ language.translate("link_powerball_play") }}";
     var txt_line = '{{ language.translate('line_x') }}';
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';
