@@ -138,7 +138,7 @@ class PowerBallService
      */
     public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null)
     {
-
+        set_time_limit(0);
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();
@@ -204,7 +204,6 @@ class PowerBallService
                         if ($config->application->send_single_validations) {
                             foreach ($order->getPlayConfig() as $play_config) {
                                 $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
-
                                 if (!$result_validation->success) {
                                     return new ActionResult(false, $result_validation->errorMessage());
                                 }
@@ -223,7 +222,6 @@ class PowerBallService
                                     $this->walletService->payWithWallet($user, $play_config, $powerPlayValue);
                                 }
                             }
-
                             $numPlayConfigs = count($order->getPlayConfig());
                         } else {
                             $playConfigs = $order->getPlayConfig();
@@ -267,7 +265,6 @@ class PowerBallService
                     //error
                 }
             } catch (\Exception $e) {
-
             }
         }
         return new ActionResult(false);

@@ -87,16 +87,16 @@ class TransactionService
     //Shit function
     private function getLotteryName(LotteryRepository $lotteryRepository,Transaction $transaction)
     {
-        /** @var Lottery$lottery */
-        $lottery = null;
-        if($transaction instanceof WinningsReceivedTransaction)
+
+        try {
+            /** @var Lottery$lottery */
+            $lottery = null;
+            $lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
+            return $lottery[0]->getName();
+        } catch (\Exception $e)
         {
-            $transaction->fromString();
-            $lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
-        } else {
-            $lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
+            return "";
         }
-        return $lottery[0]->getName();
 
     }
 

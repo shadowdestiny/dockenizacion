@@ -186,10 +186,8 @@ class WalletService
             } else {
                 $user->pay($playConfig->getSinglePrice());
             }
-
             $this->entityManager->flush($user);
         } catch (\Exception $e) {
-            //EMTD Log and warn the admin
         }
     }
 
