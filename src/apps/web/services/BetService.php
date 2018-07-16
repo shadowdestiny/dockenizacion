@@ -106,8 +106,6 @@ class BetService
         $user = $this->userRepository->find($playConfig->getUser()->getId());
         $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
         if (($user->getBalance()->getAmount() || $user->getWallet()->getSubscription()) >= $single_bet_price->getAmount()) {
-            $di = \Phalcon\Di::getDefault();
-            $cypher = $di->get('environmentDetector')->get() != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
             try {
                 $bet = new Bet($playConfig, $euroMillionsDraw);
                 $log_api_reponse = new LogValidationApi();
