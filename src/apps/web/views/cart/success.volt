@@ -121,7 +121,7 @@ function numCharLine($line){
                     , {{ start_draw_date_format }}
                 </p>
                 <h2>
-                    {{ language.translate("tittle") }} {{ jackpot_value }} {% if milliards %}
+                    {{ language.translate("tittle") }} {{ jackpot_value_success }} {% if milliards %}
                         {{ language.translate("billion") }}
                     {% elseif trillions %}
                         {{ language.translate("trillion") }}
