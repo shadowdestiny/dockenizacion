@@ -167,14 +167,6 @@
 
                         <div class="box-current-winners--new">
 
-                            <h1 class="winners--h1">
-                                {% if mobile == 1 %}
-                                    {{ language.translate("results_pow_mobile_h1") }}
-                                {% else %}
-                                    {{ language.translate("results_pow_h1") }}
-                                {% endif %}
-                            </h1>
-
                             <h2 class="h2">
                                 {{ language.translate("resultsdate_pow_h2") }}
                             </h2>
