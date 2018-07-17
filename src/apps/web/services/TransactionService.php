@@ -11,6 +11,7 @@ use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\DepositTransaction;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\SubscriptionPurchaseTransaction;
+use EuroMillions\web\entities\TicketPurchaseTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsReceivedTransaction;

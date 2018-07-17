@@ -150,7 +150,7 @@ class PowerBallService
                 $powerPlay = $this->playStorageStrategy->findByKey($user_id);
                 $powerPlay = (int)json_decode($powerPlay->returnValues())->play_config[0]->powerPlay;
                 $result_order = $this->cartService->get($user_id, $lottery->getName());
-                $walletBefore = $user->getWallet();
+
                 if ($result_order->success()) {
                     /** @var Order $order */
                     $order = $result_order->getValues();
@@ -201,6 +201,7 @@ class PowerBallService
                     $formPlay = null;
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                     if ($result_payment->success() && $orderIsToNextDraw) {
+                        $walletBefore = $user->getWallet();
                         $config = $di->get('config');
                         if ($config->application->send_single_validations) {
                             foreach ($order->getPlayConfig() as $play_config) {
