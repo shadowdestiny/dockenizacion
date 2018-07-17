@@ -24,9 +24,9 @@
         storageNumbers = storageNumbers.slice(0, -1) + ']';
 
         localStorage.setItem('bet_line', storageNumbers);
-        if(lottery === 'EuroMillions') {
+        if(lottery == 'EuroMillions') {
             window.location.href = '/{{ language.translate('link_euromillions_play') }}';
-        } elseif(lottery === 'PowerBall') {
+        } else if(lottery == 'PowerBall') {
             window.location.href = '/{{ language.translate('link_powerball_play') }}';
         }
 

@@ -44,6 +44,7 @@
                             {% set tickets_inactives = tickets_inactives ~ numbers_inactives ~ stars_inactives ~ '|' %}
                         {% endif %}
                     {% endfor %}
+                    {{ dump(play_configs[0].lotteryName) }}
                     <a onClick="euromillionsPlay('{{ tickets_inactives }}', '{{ play_configs[0].lotteryName }}');" href="#">
                         {{ language.translate("tickets_play_again") }}
                     </a>
