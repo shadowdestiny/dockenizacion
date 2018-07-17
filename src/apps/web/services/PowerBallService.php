@@ -204,7 +204,7 @@ class PowerBallService
                         $config = $di->get('config');
                         if ($config->application->send_single_validations) {
                             foreach ($order->getPlayConfig() as $play_config) {
-                               // $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
+                                $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
                                 if (!$result_validation->success) {
                                     return new ActionResult(false, $result_validation->errorMessage());
                                 }
