@@ -79,7 +79,6 @@ class BetService
                 $this->logValidationRepository->add($log_api_reponse);
                 $this->entityManager->flush();
 
-
                 if ($result_validation->success()) {
                     $this->betRepository->add($bet);
                     $this->entityManager->flush();
@@ -122,12 +121,13 @@ class BetService
                 $this->entityManager->persist($bet);
                 $this->logValidationRepository->add($log_api_reponse);
                 $this->entityManager->flush();
+                $this->entityManager->clear();
 
                 if ($uuid) {
                     $this->betRepository->add($bet);
-                    $this->entityManager->flush();
                     $this->playConfigRepository->add($playConfig);
                     $this->entityManager->flush();
+                    $this->entityManager->clear();
                     return new ActionResult(true);
                 } else {
                     return new ActionResult(false);

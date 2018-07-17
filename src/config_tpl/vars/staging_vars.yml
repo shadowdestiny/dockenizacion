@@ -9,7 +9,7 @@ database_user: 'root'
 database_pass: 'tpl9'
 is_development_mode: 'true'
 
-lottorisq_endpoint: 'https://api.euromillions.com/beta/powerball'
+lottorisq_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball'
 lottorisq_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
 
