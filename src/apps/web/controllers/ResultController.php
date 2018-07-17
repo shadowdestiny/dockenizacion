@@ -18,7 +18,7 @@ class ResultController extends PublicSiteControllerBase
         $params = $this->router->getParams();
         $lotteryName = $this->lotteryService->getLotteryConfigByName($params['lottery'])->getName();
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot($lotteryName));
-        $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
+        $this->view->setVar('jackpot_value_success', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $this->view->setVar('milliards', false);

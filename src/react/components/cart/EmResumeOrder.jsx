@@ -37,9 +37,12 @@ var EmResumeOrder = new React.createClass({
         }
         if(config.frequency == 1) {
             text_weeks = day + ', ' + config.startDrawDateFormat;
-        } else {
-            text_weeks = 'Tuesday & Friday, since ' + config.startDrawDateFormat + ' for ' + config.frequency / 2 + ' weeks';
+        } else if(this.props.txt_lottery === 'Euromillions') {
+            text_weeks = this.props.tuesday + ' & ' + this.props.friday + ', ' + this.props.txt_since + ' ' + config.startDrawDateFormat + ' ' + this.props.txt_for + config.frequency / 2 + ' ' + this.props.txt_weeks;
+        } else if(this.props.txt_lottery === 'Powerball') {
+            text_weeks = this.props.wednesday + ' & ' + this.props.saturday + ', ' + this.props.txt_since + ' ' + config.startDrawDateFormat + ' ' + this.props.txt_for + config.frequency / 2 + ' ' + this.props.txt_weeks;
         }
+
 
         return (
             <div className="box-order">
