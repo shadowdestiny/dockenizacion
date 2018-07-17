@@ -11,7 +11,10 @@ cart success minimal
     {% include "_elements/header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
-{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>if (window!=top){top.location.href=location.href;}localStorage.removeItem('bet_line');
+{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>if (window!=top){top.location.href=location.href;}
+{% if (lottery_name == 'EuroMillions') %}
+localStorage.removeItem('bet_line');
+{%endif%}
 {% if (lottery_name == 'PowerBall') %}
     localStorage.removeItem('pb_bat_line');
 {%endif%}
