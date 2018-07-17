@@ -26,10 +26,20 @@ class WinEmailPowerBallTemplate extends EmailTemplateDecorator
     {
         $strategy = $strategy ? $strategy : new JackpotDataEmailTemplateStrategy();
         $data = $strategy->getData();
+        $language = $this->user->getDefaultLanguage();
 
+        if ($language == "ru") {
+            // Welcome Email Russian Version Template ID= 3997341
+            $template_id = "7642974";
+            $subject = 'Поздравляем, Вы выиграли';
+        } else {
+            // Welcome Email English Version Template ID= 4021147
+            $template_id = "7310861"; //testing
+            $subject = 'Congratulations you have won!';
+        }
         $vars = [
-            'template' => '7310861',
-            'subject' => 'Congratulations',
+            'template' => $template_id,
+            'subject' => $subject,
             'vars' =>
                 [
                     [
