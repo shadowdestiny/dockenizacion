@@ -18,15 +18,20 @@
 
         playConfigs.forEach(function(element) {
             playConfig = element.split(".");
-            storageNumbers += '{"numbers":['+playConfig[0]+'],"stars":['+playConfig[1]+']},';
+            if(lottery == 'EuroMillions') {
+                storageNumbers += '{"numbers":['+playConfig[0]+'],"stars":['+playConfig[1]+']},';
+            }
+            if(lottery == 'PowerBall') {
+                powerball = playConfig[1].split(",");
+                storageNumbers += '{"numbers":['+playConfig[0]+'],"stars":['+powerball[1]+']},';
+            }
         });
-
         storageNumbers = storageNumbers.slice(0, -1) + ']';
-
-        localStorage.setItem('bet_line', storageNumbers);
         if(lottery == 'EuroMillions') {
+            localStorage.setItem('bet_line', storageNumbers);
             window.location.href = '/{{ language.translate('link_euromillions_play') }}';
         } else if(lottery == 'PowerBall') {
+            localStorage.setItem('pb_bat_line', storageNumbers);
             window.location.href = '/{{ language.translate('link_powerball_play') }}';
         }
 

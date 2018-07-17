@@ -411,12 +411,12 @@ class WalletService
         }
 
         $dataTransaction = [
-            'lottery_id' => $order->getLottery()->getId(),
+            'lottery_id' => $order ? $order->getLottery()->getId() : 1,
             'numBets' => count($user->getPlayConfig()),
             'feeApplied' => $isChargeFee,
             'transactionID' => $uniqueID,
             'amountWithWallet' => 0,
-            'playConfigs' => (null !== $order) ? $order->getPlayConfig()[0]->getId() : 0,
+            'playConfigs' => $order ? $order->getPlayConfig()[0]->getId() : 0,
             'amount' => $finalAmount,
             'amountWithCreditCard' => $finalAmount,
             'user' => $user,
