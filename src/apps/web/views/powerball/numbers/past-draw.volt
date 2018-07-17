@@ -79,7 +79,6 @@
     }
     var date = '{{ date_draw }}'; {# To test "2015/11/17 10:49:00"  #}
     var finish_text = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
-    count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
     });
 {% endblock %}
 {% block body %}
@@ -122,7 +121,6 @@
                 <h3 class="h2 mobile--only">
                     {{ language.translate("lastDraw_title") }}
                 </h3>
-
                 <h3 class="mobile--only">
                     {{ last_draw_date }}
                 </h3>
@@ -161,8 +159,9 @@
 
                 <div class="content">
 
-                    {% include "_elements/section-powerball.volt" %}
-
+                    <div class="right-section">
+                        {{ jackpot_widget }}
+                    </div>
                     <div class="left-section result-section">
 
                         <div class="box-current-winners--new">
@@ -188,7 +187,7 @@
                                     <tr>
                                             <td class="td-ball">
                                                 <span>
-                                                    {{ line['name'] }} {{ language.translate("prizePool_ball") }} +  {{ language.translate("Powerball") }}
+                                                   {{ line['name'] }} {{ language.translate("prizePool_ball") }}  {% if line['showPowerball'] == true %} + {{ language.translate("Powerball") }} {% endif %}
                                                 </span>
                                             </td>
                                             {#<td class="td-star-ball">#}

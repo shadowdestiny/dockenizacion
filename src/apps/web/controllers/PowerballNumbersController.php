@@ -158,7 +158,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
             'last_result' => ['regular_numbers' => $euroMillionsDraw->getResult()->getRegularNumbersArray(),
                               'lucky_numbers' => $euroMillionsDraw->getResult()->getLuckyNumbersArray(),
                               'power_play' => $euroMillionsDraw->getRaffle()->toArray()['value']],
-            'last_draw_date' => $euroMillionsDraw->getDrawDate()->format('D, d M Y'),
+            'last_draw_date' => $euroMillionsDraw->getDrawDate()->format($this->languageService->translate('dateformat')),
             'date_canonical' => $euroMillionsDraw->getDrawDate()->format('Y-m-d'),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours')->format('Y-m-d H:i:s'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],

@@ -173,7 +173,7 @@
                         <td class="amount">
                             <p>
                                 {% if transaction.transactionName == 'Ticket Purchase' %}{{ transaction.ticketPrice }}
-                                {% elseif transaction.transactionName == 'Subscription Deposit' %}+{{ transaction.pendingBalanceMovement }}
+                                {% elseif transaction.transactionName == 'Subscription Deposit'%}+{{ transaction.pendingBalanceMovement }}
                                 {% elseif transaction.transactionName == 'Automatic Purchase' %}{{ transaction.pendingBalanceMovement }}
                                 {% else %}{{ transaction.movement }}
                                 {% endif %}

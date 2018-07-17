@@ -40,7 +40,6 @@
     }
     var date = '{{ date_draw }}'; {# To test "2015/11/17 10:49:00"  #}
     var finish_text = "div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
-    count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
     });
 {% endblock %}
 {% block body %}
@@ -50,7 +49,9 @@
             <div class="wrapper">
                 <br>
                 <div class="content">
-                    {% include "_elements/section-powerball.volt" %}
+                    <div class="right-section">
+                        {{ jackpot_widget }}
+                    </div>
 
                     <div class="left-section result-section">
 
@@ -67,7 +68,6 @@
                         {#</a>#}
                         {#</div>#}
                         {#</div>#}
-
                         <h1 class="h1 title">
                             {% if mobile == 1 %}
                                 {{ language.translate("resultshist_pow_mobile_h1") }}
