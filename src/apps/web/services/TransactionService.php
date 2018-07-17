@@ -67,6 +67,10 @@ class TransactionService
                 if ($transaction instanceof BigWinTransaction) continue;
                 $transactionDTO = new TransactionDTO($transaction);
                 $transactionDTO->lotteryId = $this->getLotteryName($lotteryRepository,$transaction);
+                //TODO: refactor subscription purchase with wallet
+                if( $transaction instanceof SubscriptionPurchaseTransaction && $transactionDTO->pendingBalanceMovement->getAmount() == 0) {
+                    continue;
+                }
                 $movement = $this->currencyConversionService->convert($transactionDTO->movement, new Currency('EUR'));
                 $balance = $this->currencyConversionService->convert($transactionDTO->balance, new Currency('EUR'));
                 $winnings = $this->currencyConversionService->convert($transactionDTO->winnings, new Currency('EUR'));
