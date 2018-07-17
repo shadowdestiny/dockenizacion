@@ -46,6 +46,8 @@ class JackpotAndCountDownWidget extends \Phalcon\Mvc\User\Component
 
     protected $dateDraw;
 
+    protected $nextDraw;
+
     public function __construct($jackpot,
                                 Lottery $lottery,
                                 $params
@@ -122,7 +124,8 @@ class JackpotAndCountDownWidget extends \Phalcon\Mvc\User\Component
             'lotteryName' => $this->lotteryName,
             'date_draw' => $this->dateDraw,
             'last' => $this->lastLottery,
-            'cornerCss' => $this->getCornerCss()
+            'cornerCss' => $this->getCornerCss(),
+            'nextDrawTest' => $this->translationAdapter->query('nextDraw_lbl')
         ];
     }
 
