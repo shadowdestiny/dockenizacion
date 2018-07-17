@@ -146,7 +146,7 @@
                                 <span class="num">{{ last_result["lucky_numbers"][1] }}</span>
                             </li>
                         <li class="star">
-                            <span class="num">{{ last_result["power_play"] }}</span>
+                            <span class="num">x{{ last_result["power_play"] }}</span>
                         </li>
                     </ul>
 
