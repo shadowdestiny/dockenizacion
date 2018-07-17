@@ -297,12 +297,19 @@ var CartPage = new React.createClass({
                                wednesday={this.props.wednesday}
                                saturday={this.props.saturday}
                                currency_symbol={this.props.currency_symbol}
+                               txt_for={this.props.txt_for}
+                               txt_since={this.props.txt_since}
+                               txt_weeks={this.props.txt_weeks}
                 txt_lottery={this.props.txt_lottery}/>
 
                 <div className="box-order">
                     {_euroMillionsLine}
                     <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList}
-                                       pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}/>
+                                       pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration} wednesday={this.props.wednesday}
+                                       saturday={this.props.saturday} txt_for={this.props.txt_for}
+                                       txt_since={this.props.txt_since}
+                                       txt_weeks={this.props.txt_weeks}
+                                       txt_lottery={this.props.txt_lottery}/>
                     {line_fee_component}
                 </div>
                 <EmTotalCart pricetopay={this.state.total} funds={Funds.funds_value} total_price={this.state.total}
@@ -505,6 +512,9 @@ ReactDOM.render(<CartPage total={total_price}
                           powerball={powerball}
                           txt_lottery={txt_lottery}
                           playingPP={playingPP}
+                          txt_for={txt_for}
+                          txt_since={txt_since}
+                          txt_weeks={txt_weeks}
                 />, document.getElementById('cart-order'));
 
 

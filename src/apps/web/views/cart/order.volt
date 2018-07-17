@@ -45,6 +45,9 @@
     var powerplayprice = 0;
     var txt_lottery = '<?php echo $lottery_name; ?>';
     var playingPP = '';
+    var txt_for = '{{ language.translate('subs_for') }}';
+    var txt_since = '{{ language.translate('subs_since') }}';
+    var txt_weeks = '{{ language.translate('subs_weeks') }}';
 
 
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {
