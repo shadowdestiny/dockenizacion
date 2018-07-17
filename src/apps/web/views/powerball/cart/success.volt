@@ -11,7 +11,7 @@ cart success minimal
     {% include "_elements/header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
-{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>if (window!=top){top.location.href=location.href;}localStorage.removeItem('bet_line')</script>
+{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>if (window!=top){top.location.href=location.href;}localStorage.removeItem('pb_bat_line')</script>
 {% endblock %}
 {% block template_scripts_code %}
     $(function(){
