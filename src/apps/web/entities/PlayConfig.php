@@ -126,7 +126,8 @@ class PlayConfig extends EntityBase implements IEntity, IEMForm, \JsonSerializab
             'lastDrawDate' => $this->lastDrawDate->format('Y-m-d H:i:s'),
             'frequency' => $this->frequency,
             'euromillions_line' => $lines,
-            'user' => ['id' => (string)$this->user->getId()]
+            'user' => ['id' => (string)$this->user->getId()],
+            'powerplay' => $this->powerPlay
         ];
     }
 
