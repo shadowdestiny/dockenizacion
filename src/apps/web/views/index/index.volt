@@ -34,7 +34,6 @@
     $(function(){
     var hash = window.location.hash;
     var elem = hash.split('#')[1];
-    console.log(elem);
     var scrollTop = typeof elem == 'undefined' ? 0 : $('#'+hash.split('#')[1]).offset().top;
     $(document.body).animate({
     'scrollTop': scrollTop
