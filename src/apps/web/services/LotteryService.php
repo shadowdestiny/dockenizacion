@@ -219,7 +219,7 @@ class LotteryService
             {
                 //TODO: Timezone should be store in Lottery entity
                 $date = new DateTime($date->format('Y-m-d'). ' ' .$lottery->getDrawTime(), new \DateTimeZone('America/New_York'));
-                $date->setTimezone(new \DateTimeZone('Europe/Madrid'))->modify('-30 minutes')->format('Y-m-d H:i:s');;
+                $date->setTimezone(new \DateTimeZone('Europe/Madrid'))->modify('+30 minutes')->format('Y-m-d H:i:s');;
                 return $date;
             }
         }
