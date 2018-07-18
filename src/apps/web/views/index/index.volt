@@ -132,7 +132,7 @@
                     {{ language.translate("banner1_h1") }}
                 {% endif %}
             </h1>
-            {% include "_elements/carroussel.volt" %}
+            {#{% include "_elements/carroussel.volt" %}#}
             <div class="hiw-block--section">
 
 
