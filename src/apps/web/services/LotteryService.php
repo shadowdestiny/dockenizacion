@@ -215,16 +215,15 @@ class LotteryService
         list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         $date = $lottery->getNextDrawDate($now);
         if($showLotteryLocalTime) {
-            if($lottery->getName() !== 'EuroMillions' && $lottery->getName() !== 'PowerBall')
+            if($lottery->getName() !== 'EuroMillions')
             {
                 //TODO: Timezone should be store in Lottery entity
                 $date = new DateTime($date->format('Y-m-d'). ' ' .$lottery->getDrawTime(), new \DateTimeZone('America/New_York'));
-                $date->setTimezone(new \DateTimeZone('Europe/Madrid'));
+                $date->setTimezone(new \DateTimeZone('Europe/Madrid'))->modify('-30 minutes')->format('Y-m-d H:i:s');;
                 return $date;
             }
         }
         return $date;
-
     }
 
     public function getNextDrawAndJackpotForAllLotteries(\DateTime $now = null) {
