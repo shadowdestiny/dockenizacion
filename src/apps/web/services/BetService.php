@@ -14,6 +14,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\exceptions\InvalidBalanceException;
 use EuroMillions\web\repositories\BetRepository;
 use EuroMillions\web\repositories\LogValidationApiRepository;
+use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloChristmasApi;
 use EuroMillions\web\vo\CastilloCypherKey;
@@ -31,6 +32,7 @@ class BetService
     /** @var LogValidationApiRepository $logValidationRepository */
     private $logValidationRepository;
 
+    /** @var PlayConfigRepository $playConfigRepository */
     private $playConfigRepository;
 
 
@@ -240,10 +242,10 @@ class BetService
         }
     }
 
-    public function updatePlayConfigsToInactive(\DateTime $dateTime)
+    public function updatePlayConfigsToInactive(\DateTime $dateTime, $lottery)
     {
         try {
-            $this->playConfigRepository->updateToInactives($dateTime);
+            $this->playConfigRepository->updateToInactives($dateTime, $lottery);
         } catch (\Exception $e) {
             throw new \Exception('Error updating playconfigs actives');
         }
