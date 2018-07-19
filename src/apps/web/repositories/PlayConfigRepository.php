@@ -410,7 +410,7 @@ class PlayConfigRepository extends RepositoryBase
         return $result;
     }
 
-    public function updateToInactives(\DateTime $dateTime)
+    public function updateToInactives(\DateTime $dateTime, $lottery)
     {
         $date = $dateTime->format('Y-m-d');
         $result = $this->getEntityManager()
@@ -418,9 +418,10 @@ class PlayConfigRepository extends RepositoryBase
                 'UPDATE '
                 . $this->getEntityName() . ' p '
                 . ' SET p.active=0'
-                . ' WHERE :date > p.lastDrawDate')
+                . ' WHERE :date > p.lastDrawDate AND :lottery = p.lottery ')
             ->setParameters([
-                'date' => $date
+                'date' => $date,
+                'lottery' => $lottery
             ])
             ->execute();
         return $result;

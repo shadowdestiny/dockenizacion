@@ -34,7 +34,16 @@ class PlayConfigTask extends TaskBase
         if(!$today) {
             $today = new \DateTime();
         }
-        $this->betService->updatePlayConfigsToInactive($today);
+        $this->betService->updatePlayConfigsToInactive($today, 1);
+    }
+
+    public function updatePowerBallAction($args = 'now')
+    {
+        $today = new \DateTime($args[0]);
+        if(!$today) {
+            $today = new \DateTime();
+        }
+        $this->betService->updatePlayConfigsToInactive($today, 3);
     }
 
 
