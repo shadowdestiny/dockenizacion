@@ -9,6 +9,9 @@ use EuroMillions\web\interfaces\IReports;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\TransactionRepository;
 use EuroMillions\web\repositories\UserRepository;
+use EuroMillions\shared\services\CurrencyConversionService;
+use Money\Currency;
+use Money\Money;
 use Phalcon\Exception;
 
 class ReportsService
@@ -23,7 +26,8 @@ class ReportsService
     /** @var  LotteryDrawRepository $lotteryDrawRepository */
     private $lotteryDrawRepository;
 
-    public function __construct(IReports $iReports = null, EntityManager $entityManager)
+
+    public function __construct(IReports $iReports = null, EntityManager $entityManager,CurrencyConversionService $conversionService)
     {
         $this->entityManager = $entityManager;
         $this->reportsRepository = $iReports;
@@ -31,6 +35,8 @@ class ReportsService
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->transactionRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Transaction');
         $this->lotteryDrawRepository = $this->entityManager->getRepository('EuroMillions\web\entities\EuroMillionsDraw');
+        $this->currencyConversionService = $conversionService;
+
     }
 
     /**
@@ -254,6 +260,21 @@ class ReportsService
      *
      * @return array
      */
+    public function getPowerBallDrawsActualAfterDatesById($id)
+    {
+        /** @var EuroMillionsDraw $actualDraw */
+        $actualDraw = $this->lotteryDrawRepository->find($id);
+        $nextDrawDate = clone $actualDraw->getDrawDate()->setTime(19, 30, 00);
+        $actualDrawDate = $this->getNextDateDrawByLottery('PowerBall', $actualDraw->getDrawDate()->modify('-5 days'))->setTime(19, 30, 00);
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
+    /**
+     * @param $id
+     *
+     * @return array
+     */
     public function getChristmasDrawsActualAfterDatesById($id)
     {
         /** @var EuroMillionsDraw $actualDraw */
@@ -278,6 +299,20 @@ class ReportsService
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
     }
 
+    /**
+     * @param $date
+     *
+     * @return array
+     */
+    public function getPowerBallDrawsActualAfterDatesByDrawDate($date)
+    {
+        $actualDraw = new \DateTime($date);
+        $nextDrawDate = clone $actualDraw->setTime(19, 30, 00);
+        $actualDrawDate = $this->getNextDateDrawByLottery('PowerBall', $actualDraw->modify('-5 days'))->setTime(19, 30, 00);
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
     public function getChristmassDrawsActualAfterDatesByDrawDate($date)
     {
         $actualDraw = new \DateTime($date);
@@ -296,6 +331,40 @@ class ReportsService
     public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates)
     {
         $drawDetails = $this->generateMovement($this->reportsRepository->getEuromillionsDrawDetailsByIdAndDates($id, $drawDates));
+        foreach ($drawDetails as $drawKey => $drawValue) {
+            if ($drawValue['entity_type'] == 'ticket_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[5])) {
+                    $betIds = explode(',', $drawData[5]);
+                    $cont = 0;
+                    foreach ($betIds as $betId) {
+                        $drawDetails[$drawKey]['betIds']['id'][$cont] = $betId;
+                        $drawDetails[$drawKey]['betIds']['numbers'][$cont] = implode(", ", $this->reportsRepository->getNumbersPlayedByBetId($betId));
+                        $cont++;
+                    }
+                }
+            } elseif ($drawValue['entity_type'] == 'automatic_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[2])) {
+                    $drawDetails[$drawKey]['betIds']['id'][0] = $drawData[2];
+                    $drawDetails[$drawKey]['betIds']['numbers'][0] = implode(", ", $this->reportsRepository->getNumbersPlayedByBetId($drawData[2]));
+                }
+            }
+        }
+
+        return $drawDetails;
+    }
+
+    /**
+     * @param $id
+     * @param $drawDates
+     *
+     * @return array
+     */
+    public function getPowerBallDrawDetailsByIdAndDates($id, $drawDates)
+    {
+
+        $drawDetails = $this->generateMovement($this->reportsRepository->getPowerBallDrawDetailsByIdAndDates($id, $drawDates));
         foreach ($drawDetails as $drawKey => $drawValue) {
             if ($drawValue['entity_type'] == 'ticket_purchase') {
                 $drawData = explode('#', $drawValue['data']);
@@ -372,6 +441,25 @@ class ReportsService
         foreach ($salesDraw as $keyDraw => $valueDraw) {
             $drawDates = $this->getEuromillionsDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
             $drawData = $this->reportsRepository->getEuromillionsDrawDetailsBetweenDrawDates($drawDates);
+            $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
+            $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
+            $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];
+        }
+        return $salesDraw;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function fetchSalesDrawPowerBall()
+    {
+        $salesDraw = $this->reportsRepository->getSalesDrawPowerBall();
+        foreach ($salesDraw as $keyDraw => $valueDraw) {
+            $drawDates = $this->getPowerBallDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
+//            $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('PowerBall');
+            $single_bet_price = new Money(200, new Currency('USD'));
+            $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency('EUR'));
+            $drawData = $this->reportsRepository->getPowerBallDrawDetailsBetweenDrawDates($drawDates, $single_bet_price_currency->getAmount());
             $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
             $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
             $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];

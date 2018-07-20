@@ -4,6 +4,7 @@ namespace EuroMillions\admin\controllers;
 
 use EuroMillions\admin\services\TrackingService;
 use EuroMillions\shared\components\widgets\PaginationWidgetAdmin;
+use EuroMillions\shared\services\CurrencyConversionService;
 use EuroMillions\web\services\GeoService;
 use EuroMillions\web\vo\dto\PastDrawsCollectionDTO;
 use EuroMillions\web\vo\dto\UpcomingDrawsDTO;
@@ -17,11 +18,15 @@ class ReportsController extends AdminControllerBase
     /** @var array $countries */
     private $countries;
 
+    /** @var  $currencyConversionService CurrencyConversionService */
+    protected $currencyConversionService;
+
     public function initialize()
     {
         parent::initialize();
         $this->trackingService = $this->domainAdminServiceFactory->getTrackingService();
         $this->geoService = $this->domainAdminServiceFactory->getGeoService();
+        $this->currencyConversionService = $this->domainAdminServiceFactory->getCurrencyConversionService();
         $this->countries = $this->getCountries();
 
     }
@@ -210,6 +215,15 @@ class ReportsController extends AdminControllerBase
         ]);
     }
 
+    public function salesDrawPowerBallAction()
+    {
+        $this->checkPermissions();
+        $this->view->setVars([
+            'needReportsMenu' => true,
+            'salesDraw' => $this->reportsService->fetchSalesDrawPowerBall()
+        ]);
+    }
+
     public function salesDrawChristmasAction()
     {
         $this->checkPermissions();
@@ -230,6 +244,22 @@ class ReportsController extends AdminControllerBase
                 'salesDrawDetailsData' => $this->reportsService->getEuromillionsDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
                 'countryList' => $this->countries,
             ]);
+        }
+    }
+
+    public function salesDrawPowerBallDetailsAction()
+    {
+        $this->checkPermissions();
+        if ($this->request->get('id')) {
+            $drawDates = $this->reportsService->getPowerBallDrawsActualAfterDatesById($this->request->get('id'));
+
+            $this->view->setVars([
+                'needReportsMenu' => true,
+                'euromillionsDrawId' => $this->request->get('id'),
+                'salesDrawDetailsData' => $this->reportsService->getPowerBallDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'countryList' => $this->countries,
+            ]);
+
         }
     }
 
