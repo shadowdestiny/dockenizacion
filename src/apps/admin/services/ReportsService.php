@@ -307,7 +307,7 @@ class ReportsService
     public function getPowerBallDrawsActualAfterDatesByDrawDate($date)
     {
         $actualDraw = new \DateTime($date);
-        $nextDrawDate = clone $actualDraw->setTime(19, 30, 00);
+        $nextDrawDate = clone $actualDraw->setTime(23, 59, 00);
         $actualDrawDate = $this->getNextDateDrawByLottery('PowerBall', $actualDraw->modify('-5 days'))->setTime(19, 30, 00);
 
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
