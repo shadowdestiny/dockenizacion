@@ -84,7 +84,7 @@ class ReportsRepository implements IReports
                   JOIN bets b on b.euromillions_draw_id=e.id
                   join log_validation_api l on l.bet_id=b.id
                   where e.lottery_id = 3
-                  GROUP BY e.draw_date", $rsm)
+                  GROUP BY e.draw_date DESC", $rsm)
             ->getResult();
     }
 
