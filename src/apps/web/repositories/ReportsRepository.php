@@ -742,7 +742,8 @@ class ReportsRepository implements IReports
                                     ) as grossMargin
                             FROM transactions
                             WHERE (entity_type = "ticket_purchase" || entity_type = "automatic_purchase") and data like "3#%" and
-                            date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"'
+                            date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"
+                            ORDER BY date DESC'
                 , $rsm)->getResult();
     }
 
