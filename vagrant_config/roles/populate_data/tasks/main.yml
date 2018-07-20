@@ -1,0 +1,5 @@
+---
+- name: Populate translations
+  shell: mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 euromillions < ../src/data/sql/translations/all_translations.sql
+  ignore_errors: yes
+
