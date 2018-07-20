@@ -235,10 +235,8 @@ class WalletService
     {
         try {
             if ($playConfig->getPowerPlay()) {
-                $powerPlayValue = new Money($powerPlayValue, new Currency('EUR'));
-
+                $powerPlayValue = new Money(150, new Currency('EUR'));
                 $price = $playConfig->getSinglePrice()->add($powerPlayValue);
-
                 $user->removeSubscriptionWallet($price);
             } else {
                 $user->removeSubscriptionWallet($playConfig->getSinglePrice());
