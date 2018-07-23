@@ -187,7 +187,7 @@ class PrizeCheckoutService
                 $user->awardPrize($amount);
                 $data['walletAfter'] = $user->getWallet();
                 $data['state'] = '';
-                $data['lottery_id'] = $bet->getPlayConfig()->getLottery()->getId();
+                $data['lottery_id'] = 1;
                 $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
                 $this->sendSmallWinEmail($bet, $user, $amount, $scalarValues);
             }
