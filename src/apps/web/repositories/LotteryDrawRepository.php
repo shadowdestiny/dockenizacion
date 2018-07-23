@@ -2,6 +2,7 @@
 namespace EuroMillions\web\repositories;
 
 use Doctrine\ORM\EntityRepository;
+use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\exceptions\DataMissingException;
@@ -58,6 +59,10 @@ class LotteryDrawRepository extends EntityRepository
             $date = new \DateTime();
         }
         $next_draw_date = $lottery->getNextDrawDate($date);
+        if($lottery->getName() == 'PowerBall') {
+            $next_draw_date = DateTimeUtil::convertDateTimeBetweenTimeZones($next_draw_date,'America/New_York','Europe/Madrid')->modify('-1 day');
+        }
+
 
         /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()

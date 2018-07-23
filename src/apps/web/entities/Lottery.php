@@ -3,6 +3,7 @@
 namespace EuroMillions\web\entities;
 
 use antonienko\PositiveModulus\PositiveModulus;
+use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\interfaces\IEntity;
 use Money\Money;
 
@@ -149,7 +150,11 @@ class Lottery extends EntityBase implements IEntity
         $days_to_check = 7;
         while ($days_to_check) {
             if (1 == (int)$configParams[$weekday_index] && ($days_to_check < 7 || $hourCondition($hour))) {
-                return $result_date;
+                if($this->getName() == 'PowerBall') {
+                    return DateTimeUtil::convertDateTimeBetweenTimeZones($result_date,'Europe/Madrid','America/New_York');
+                } else {
+                    return $result_date;
+                }
             } else {
                 $result_date = $result_date->$iterationMethod($one_day);
                 $weekday_index = PositiveModulus::calc($weekday_index + $increment, 7);

@@ -13,6 +13,7 @@ class HomepageCest
 
     public function _after(FunctionalTester $I)
     {
+
     }
 
     /**
@@ -22,7 +23,7 @@ class HomepageCest
     public function seePage(FunctionalTester $I)
     {
         $I->wantTo('Ensure that frontpage works even if crons did not');
-        $I->canSee('PLAY NOW');
+        $I->canSee('banner1_btn', 'span');
     }
 
     /**
@@ -32,7 +33,7 @@ class HomepageCest
     public function playButton(FunctionalTester $I)
     {
         $I->wantTo('Be able to play');
-        $I->canSeeLink('PLAY NOW', '/play');
+        $I->canSeeLink('banner1_btn', '/euromillions/play');
     }
 
     /**
@@ -42,10 +43,10 @@ class HomepageCest
     public function jackpotDisplayed(FunctionalTester $I)
     {
         $I->wantTo('Be informed of the jackpot');
-        $jackpot = $I->grabTextFrom('.jackpot .mytxt');
+        $jackpot = $I->grabTextFrom('.desktop-row--01');
         $jackpot_number = (int)str_replace(['.',',','€'],'', $jackpot);
         $I->expect('The Jackpot would be greather or equal than 15M euros');
-        $I->assertGreaterThanOrEqual(15000000, $jackpot_number);
+        $I->assertGreaterThanOrEqual(15, $jackpot_number);
     }
 
     /**
@@ -55,7 +56,16 @@ class HomepageCest
     public function goToPlayPage(FunctionalTester $I)
     {
         $I->wantTo('Go to the play page');
-        $I->click('PLAY NOW');
-        $I->canSee('Choose 5 numbers & 2 stars per line');
+        $I->click('banner1_btn','.btn-theme--big .resizeme');
+        $I->canSee('pick 5 numbers and 2 stars');
+    }
+
+
+    private function setEuroMillionsDraw(FunctionalTester $I)
+    {
+        $I->haveInDatabase(
+            'euromillions_draws',
+                    \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build()->toArray()
+        );
     }
 }

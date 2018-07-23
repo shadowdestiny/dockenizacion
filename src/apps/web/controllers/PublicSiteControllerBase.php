@@ -272,7 +272,7 @@ class PublicSiteControllerBase extends ControllerBase
             $body_class = "mobile";
         }
 
-        if ((strpos(strtolower($_SERVER['HTTP_ACCEPT']), 'application/vnd.wap.xhtml+xml') > 0) or ((isset($_SERVER['HTTP_X_WAP_PROFILE']) or isset($_SERVER['HTTP_PROFILE'])))) {
+        if ((strpos(strtolower(isset($_SERVER['HTTP_ACCEPT'])), 'application/vnd.wap.xhtml+xml') > 0) or ((isset($_SERVER['HTTP_X_WAP_PROFILE']) or isset($_SERVER['HTTP_PROFILE'])))) {
             $mobile_browser++;
             $body_class = "mobile";
         }
