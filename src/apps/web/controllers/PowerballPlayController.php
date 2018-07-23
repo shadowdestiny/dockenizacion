@@ -40,7 +40,7 @@ class PowerballPlayController extends PublicSiteControllerBase
         $this->view->setVar('language', $this->languageService->getLocale());
         $play_dates = $this->lotteryService->getRecurrentDrawDates('PowerBall');
         $draw = $this->lotteryService->getNextDateDrawByLottery('PowerBall',null,false);
-        $dateTimeToClose =  $this->lotteryService->getNextDateDrawByLottery('PowerBall');
+        $dateTimeToClose =  $this->lotteryService->getNextDateDrawByLottery('PowerBall',null,false);
         $date_time_util = new DateTimeUtil();
         $dayOfWeek = $date_time_util->getDayOfWeek($draw);
         $checkOpenTicket = $date_time_util->checkTimeForClosePlay($dateTimeToClose);

@@ -219,8 +219,8 @@ class LotteryService
             if($lottery->getName() !== 'EuroMillions')
             {
                 //TODO: Timezone should be store in Lottery entity
-                $date = new DateTime($date->format('Y-m-d'). ' ' .$lottery->getDrawTime(), new \DateTimeZone('America/New_York'));
-                $date->setTimezone(new \DateTimeZone('Europe/Madrid'))->modify('+30 minutes')->format('Y-m-d H:i:s');;
+                $date = new DateTime($date->format('Y-m-d'). ' ' .$lottery->getDrawTime(), new \DateTimeZone('Europe/Madrid'));
+                $date->setTimezone(new \DateTimeZone('America/New_York'))->modify('+30 minutes')->format('Y-m-d H:i:s');
                 return $date;
             }
         }

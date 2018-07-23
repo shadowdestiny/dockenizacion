@@ -83,8 +83,13 @@ class ResultTask extends TaskBase
             $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
             $drawDate = $this->lotteryService->getLastDrawDate('PowerBall');
             $result = $this->lotteryService->getLastResult('PowerBall');
-            if (!$result['regular_numbers'][0]) {
+            $breakdown = $this->lotteryService->getLastBreakdown('PowerBall');
+            if (!$result['regular_numbers'][0])
+            {
                 $this->lotteriesDataService->updateLastDrawResultPowerBall('PowerBall');
+            }
+            if(!$breakdown->getCategoryOne()->getName())
+            {
                 $this->lotteriesDataService->updateLastBreakDownPowerBall('PowerBall');
                 $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
                     'drawDate' => $drawDate->format('Y-m-d'),
