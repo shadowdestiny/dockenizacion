@@ -15,7 +15,7 @@ return [
             'active' => 1,
             'frequency' => 'w0010010',
             'jackpot_api' => 'LottorisApi',
-            'draw_time' => '20:00:00'
+            'draw_time' => '09:00:00'
         ],
   ]
 ];

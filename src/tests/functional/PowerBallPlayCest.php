@@ -1,5 +1,7 @@
 <?php
 
+use Codeception\Util\Locator;
+
 
 /**
  * Class PowerBallPlayCest
@@ -8,7 +10,7 @@ class PowerBallPlayCest
 {
     public function _before(FunctionalTester $I)
     {
-        $I->amOnPage('/powerball/play');
+
     }
 
     public function _after(FunctionalTester $I)
@@ -17,16 +19,32 @@ class PowerBallPlayCest
     }
 
     /**
-     * @group buy
+     * @group powerball
      * @param FunctionalTester $I
      */
-    public function jackpotDisplayed(FunctionalTester $I)
+    public function itShouldCreateNewDraw(FunctionalTester $I)
     {
-        $I->wantTo('Be informed of the jackpot');
-        $jackpot = $I->grabTextFrom('.desktop-row--01');
-        $jackpot_number = (int)str_replace(['.',',','€'],'', $jackpot);
-        $I->expect('The Jackpot would be greather or equal than 15M euros');
-        $I->assertGreaterThanOrEqual(15, $jackpot_number);
+        $I->expect('Can see new draw and new jackpot value');
+        $I->amOnPage('/powerball/play');
+        $I->canSeeNumRecords(2, 'euromillions_draws');
+    }
+
+    /**
+     * @group powerball
+     * @param FunctionalTester $I
+     */
+    public function itShouldShowCutOffCorrectly(FunctionalTester $I)
+    {
+        $I->expect('To see cut off modal');
+        $this->poopulateDatabase($I);
+        $I->amOnPage('/powerball/play');
+        $I->seeElement(Locator::find('div', ['id' => 'closeticket']));
+    }
+
+    private function poopulateDatabase(FunctionalTester $I)
+    {
+        //TODO Dynamic draw time and frequency depends on day time test run
+        $I->updateInDatabase('lotteries', array('draw_time' => '12:00:00','frequency' => 'w0100001'), array('id' => '3'));
     }
 
 }
