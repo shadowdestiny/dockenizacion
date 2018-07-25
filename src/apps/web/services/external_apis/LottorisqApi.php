@@ -9,6 +9,7 @@
 namespace EuroMillions\web\services\external_apis;
 
 
+use EuroMillions\web\exceptions\ValidDateRangeException;
 use EuroMillions\web\interfaces\IBookApi;
 use EuroMillions\web\interfaces\IJackpotApi;
 use EuroMillions\web\interfaces\IResultApi;
@@ -35,14 +36,21 @@ class LottorisqApi implements IResultApi, IJackpotApi, IBookApi
         $this->currencyConversionService =  $currencyConversionService ? $currencyConversionService : Di::getDefault()->get('domainServiceFactory')->getCurrencyConversionService();
     }
 
-    public function getJackpotForDate($lotteryName, $date)
+    public function getJackpotForDate($lotteryName, $date = null)
     {
-        $drawBody = $this->sendCurl('/results');
-        $draw = json_decode($drawBody, true)[0];
-        $currency = $this->currencyConversionService->convert(new Money((int) $draw['jackpot']['total'], new Currency('USD')),
-                                                              new Currency('EUR'));
-
-        return new Money((int) floor($currency->getAmount() / 1000000) * 100000000, new Currency('EUR'));
+        if (!$date) {
+            $date = (new \DateTime())->format('Y-m-d');
+        }
+        try {
+            $drawBody = $this->sendCurl('/results'.'/'.$date);
+            $draw = json_decode($drawBody, true);
+            $currency = $this->currencyConversionService->convert(new Money((int) $draw['jackpot']['total'], new Currency('USD')),
+                new Currency('EUR'));
+            return new Money((int) floor($currency->getAmount() / 1000000) * 100000000, new Currency('EUR'));
+        } catch (\Exception $e)
+        {
+            throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the Lottorisq');
+        }
     }
 
     public function getResultForDate($lotteryName, $date)
@@ -57,7 +65,7 @@ class LottorisqApi implements IResultApi, IJackpotApi, IBookApi
             }
             return $draw;
         } catch ( \Exception $e) {
-            return [];
+            throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the LottorisqApi');
         }
     }
 

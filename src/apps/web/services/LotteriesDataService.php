@@ -70,8 +70,9 @@ class LotteriesDataService
         try {
             /** @var Lottery $lottery */
             $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+            $next_draw_date = $lottery->getNextDrawDate($now);
             $jackpotApi = $this->apisFactory->jackpotApi($lottery);
-            $jackpotMoney = $jackpotApi->getJackpotForDate($lotteryName, null);
+            $jackpotMoney = $jackpotApi->getJackpotForDate($lotteryName, $next_draw_date->format("Y-m-d"));
             $resultApi = $this->apisFactory->resultApi($lottery);
             $result = $resultApi->getResultForDate($lotteryName, null);
             /** @var EuroMillionsDraw $draw */
@@ -97,7 +98,7 @@ class LotteriesDataService
             $this->entityManager->flush();
             //throw new DataMissingException();
         }
-
+        return $jackpot;
     }
 
     public function updateNextDrawJackpot($lotteryName, \DateTime $now = null)
@@ -113,7 +114,7 @@ class LotteriesDataService
             try {
                 $jackpot = $jackpot_api->getJackpotForDate($lotteryName, $next_draw_date->format("Y-m-d"));
             } catch (ValidDateRangeException $e) {
-                $jackpot = $jackpot_api->getJackpotForDateSecond($lotteryName, $next_draw_date->format("Y-m-d"));
+               // $jackpot = $jackpot_api->getJackpotForDateSecond($lotteryName, $next_draw_date->format("Y-m-d"));
             }
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
