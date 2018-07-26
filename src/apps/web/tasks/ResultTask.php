@@ -91,10 +91,6 @@ class ResultTask extends TaskBase
             if(!$breakdown->getCategoryOne()->getName())
             {
                 $this->lotteriesDataService->updateLastBreakDownPowerBall('PowerBall');
-                $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
-                    'drawDate' => $drawDate->format('Y-m-d'),
-                    'lotteryName' => 'PowerBall'
-                ]);
             }
         }catch (\Exception $e)
         {
@@ -104,6 +100,27 @@ class ResultTask extends TaskBase
             ]);
             throw new \Exception($e->getMessage());
         }
+    }
+
+
+    public function startProcessAwardAction()
+    {
+        try {
+            $drawDate = $this->lotteryService->getLastDrawDate('PowerBall');
+            $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
+            $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
+                'drawDate' => $drawDate->format('Y-m-d'),
+                'lotteryName' => 'PowerBall'
+            ]);
+        } catch ( \Exception $e)
+        {
+            $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
+                'drawDate' => $drawDate->format('Y-m-d'),
+                'lotteryName' => 'Error'
+            ]);
+            throw new \Exception($e->getMessage());
+        }
+
     }
 
     public function importAllHistoricalDataFromPowerballAction()

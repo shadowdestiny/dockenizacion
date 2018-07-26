@@ -73,12 +73,10 @@ class LotteriesDataService
             $next_draw_date = $lottery->getNextDrawDate($now);
             $jackpotApi = $this->apisFactory->jackpotApi($lottery);
             $jackpotMoney = $jackpotApi->getJackpotForDate($lotteryName, $next_draw_date->format("Y-m-d"));
-            $resultApi = $this->apisFactory->resultApi($lottery);
-            $result = $resultApi->getResultForDate($lotteryName, null);
             /** @var EuroMillionsDraw $draw */
-            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => new \DateTime($result['date'])]);
+            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
             if(!$draw) {
-              $draw = $this->createDraw(new \DateTime($result['date']), $jackpotMoney, $lottery);
+              $draw = $this->createDraw($next_draw_date, $jackpotMoney, $lottery);
             } else {
               $draw->setJackpot($jackpotMoney);
             }
