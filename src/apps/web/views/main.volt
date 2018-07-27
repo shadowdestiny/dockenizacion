@@ -6,6 +6,7 @@
 
     {# CSS Compress this css in a single file #}
     <link rel="stylesheet" href="/w/css/main.css">
+    <link rel="stylesheet" href="/w/css/main_v2.css">
     <link rel="stylesheet" href="/w/css/vendor/jquery.countdownTimer.css">
     {% block template_css %}{% endblock %}      {# Inject unique css #}
 

@@ -7,6 +7,7 @@
         <script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
 
         <link rel="stylesheet" href="/w/css/main.css"> {# Basic style library #}
+        <link rel="stylesheet" href="/w/css/main_v2.css"> {# Basic style library #}
 
         <link rel="stylesheet" href="/w/css/style/style.css"> {# Style of this specific page  #}
 

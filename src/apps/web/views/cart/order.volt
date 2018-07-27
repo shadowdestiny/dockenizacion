@@ -2,6 +2,7 @@
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/cart.css">
     <link rel="stylesheet" href="/w/css/main.css">
+    <link rel="stylesheet" href="/w/css/main_v2.css">
 {% endblock %}
 {% block template_scripts_code %}
     {# //vars to cart.jsx #}

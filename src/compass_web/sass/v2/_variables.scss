@@ -1,0 +1,133 @@
+/* COLORS */
+$purple:#ae5279;
+$purple-dark:darken($purple, 15%);
+$purple-darker:darken($purple, 35%);
+$yellow-lighter:#fffeec;
+$yellow-light:#ffcf58;
+$yellow:#efc048;
+$yellow-dark:darken($yellow, 10%);
+$yellow-darker:darken($yellow, 30%);
+$black:#333;
+$grey:#777;
+$grey-dark:darken($grey, 20%);
+$grey-light:#aaa;
+$grey-lighter:#ddd;
+$grey-lighter2:#eee;
+$blue:#372c72;
+$blue-dark:darken($blue, 15%);
+$green:#007800;
+$green-light:lighten($green, 10%);
+$green-dark:darken($green, 10%);
+$bg-green:#e0ffe4;
+$red:#cc2222;
+$bg-red:#ffe0e0;
+
+$btn-blue:#1479b9;
+$btn-blue-dark:darken($btn-blue, 20%);
+$btn-purple:#ae5279;
+$btn-purple-dark:darken($btn-purple, 20%);
+$btn-red:#bf4e0b;
+$btn-red-dark:darken($btn-red, 20%);
+$btn-green:#34922d;
+$btn-green-dark:darken($btn-green, 13%);
+
+/* LINKS COLORS */
+$link:#5350a2;
+$visited:#A846B5;
+$hover:#474ea0;
+$active:#c03;
+
+$h0:3.375em;			/* 16x3.375 = 54px */
+$h0-2:3em;              /* 16x3 = 48px*/
+$h0-3:2.5em;            /* 16x2.5 = 40px */
+$h1:1.875em;			/* 16x1.875 = 30px */
+$h2:1.375em;			/* 16x1.375=22 */
+$h3:1.125em;			/* 16x1.125=18 */
+$h4:.9375em;	        /* 16x0.9375=15 */
+$basic-size:.875em; 	/* 16x1.125=14 */
+$small:.75em;
+
+// Site version #2 start
+
+// Main colors
+
+$v2-color : #333333;
+$v2-yellow : #f8ce0d;		// dark
+$v2-yellow-hover : #fbd93a;	// light
+$v2-green : #4dec8c;
+$v2-grey : #elelel;			// light
+$v2-placeholder-color:  #999999;
+
+// Desktop menu
+$v2-desktop-menu-color : #f9d118;
+$v2-desktop-menu-bg : #fcdd4c;
+$v2-desktop-menu-hover-color : #f9d118;
+$v2-desktop-menu-hover-bg : #6c6c6c;
+
+// Fonts
+$basic-font:'Work Sans', sans-serif;
+$ff1 : $basic-font;
+$ff2:'Chivo', sans-serif;
+$ff3:'Roboto', sans-serif;
+$ff4:'Roboto Condensed', sans-serif;
+
+// Grid v2
+
+$screen-xxs 				: 320px;
+$screen-xxs-wrapper 		: 320px;
+$screen-xxs-wrapper--padding: 10px;
+
+//$screen-xs 					: 480px;
+//$screen-xs-wrapper 			: 480px;
+
+$screen-xs 					: 414px;	//iPhone 6 PLus
+$screen-xs-wrapper 			: 414px;
+
+$width-pre-tablet			: 767px;
+
+$screen-small 				: 768px; 	// ipad vertical
+$screen-small-wrapper 		: 748px; 	// ipad vertical
+
+//$screen-small-plus 			: 769px;
+//$screen-small-plus-wrapper 	: 769px;
+
+$screen-medium-pre 			: 991px;
+$screen-medium 				: 992px;
+//$screen-medium-wrapper 		: 952px;
+$screen-medium-wrapper 		: 960px;
+
+//$screen-full 				: 1300px;
+$screen-full 				: 992px;
+$screen-wide 				: 1200px;
+//$screen-full-wrapper 		: 1280px;
+$screen-full-wrapper 		: 960px;
+
+$screen-wide-full			: 1300px;
+$screen-wide-full-wrapper   : 1277px;
+
+
+// Devices start
+$screen-ipad-v-pre 				: $width-pre-tablet;
+$screen-ipad-v 					: $screen-small;
+$screen-ipad-h-pre 				: $screen-medium-pre;
+$screen-ipad-h 					: $screen-medium;
+$screen-desktop 	 			: $screen-full;
+$screen-desktop-wide 	 		: $screen-wide;
+$screen-desktop-play 	 		: 1025px;
+
+$screen-ipad-v-wrapper 			: $screen-small-wrapper;
+$screen-ipad-h-wrapper 			: $screen-medium-wrapper;
+$screen-desktop-wrapper 		: $screen-full-wrapper;
+// Devices end
+
+//$balanceRowHeightDesktop 		: 93px;
+//$balanceRowLineHeightDesktop 	: 90px;
+//$balanceRowLineHeightDesktopBtn : 92px;
+
+$balanceRowHeightDesktop 		: 69px;
+$balanceRowLineHeightDesktop 	: 60px;
+$balanceRowLineHeightDesktopBtn : 69px;
+
+$balanceRowHeightMobile 		: 50px;
+$balanceRowLineHeightMobile 	: 46px;
+$balanceRowLineHeightMobileBtn 	: 48px;
