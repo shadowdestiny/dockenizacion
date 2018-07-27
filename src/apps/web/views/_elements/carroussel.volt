@@ -12,7 +12,6 @@
                             <span class="resizeme">{{ jackpot_value }}{% if milliards %}B {% elseif trillions %}T {% else %}M {% endif %}</span>
                         </div>
                         <div class="img-block">
-                            {#<img class="image-carroussel" src="/w/img/home/starsBlue.png" style="width: 25%;height: 25%; margin-left: -32px;">#}
                             <img class="image-carroussel" src="/w/img/home/starsBlue.png">
                         </div>
                     </div>
@@ -30,7 +29,6 @@
                             <span class="resizeme"> {{ jackpot_powerball }}{% if milliards %}B {% elseif trillions %}T {% else %}M {% endif %}</span>
                         </div>
                         <div class="img-block">
-                            {#<img class="image-carroussel" src="/w/img/home/starsRed.png"  style="width: 25%;height: 25%; margin-left: -29px;">#}
                             <img class="image-carroussel" src="/w/img/home/starsRed.png">
                         </div>
 
