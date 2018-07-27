@@ -42,8 +42,8 @@
     <div style="padding-bottom: 73px;">
 
         <div class="grey-box-carroussel">
-            <div style="margin-top:10px;"><img class="image-carroussel" src="/w/img/home/clock.png">
-                <div class="countdowneuro" style="margin-top: -49px;margin-left: 80px;">
+            <div style="margin-top:10px;"><img class="image-carroussel image-carroussel--clock" src="/w/img/home/clock.png">
+                <div class="countdowneuro" style="">
                     <div class="dayeuro unit" style="color:black;">
                         <span class="val" style="color:black;">%-d{% if show_s_days == '1' %}D{% else %}D{% endif %}</span>
                     </div>
@@ -62,7 +62,7 @@
                     </div>
                     {% endif %}
                 </div>
-                <div class="btn-row" style="float:right;margin-top: -56px;margin-right: -10px;">
+                <div class="btn-row" style="">
                     <a href="/{{ language.translate("link_euromillions_play") }}"
                        class="btn-theme--big image-carroussel" style="height: 59px;width: 212px;margin-top: 9px;margin-right: 20px;">
                         <div  style="font-size: 25px;margin-top: -19px;">
@@ -77,8 +77,8 @@
         </div>
 
         <div class="grey-box-carroussel">
-            <div style="margin-top:10px;"><img class="image-carroussel" src="/w/img/home/clock.png">
-                <div class="countdownpower" style="margin-top: -49px;margin-left: 80px;">
+            <div style="margin-top:10px;"><img class="image-carroussel image-carroussel--clock" src="/w/img/home/clock.png">
+                <div class="countdownpower" style="">
                     <div class="daypower unit" style="color:black;">
                         <span class="val" style="color:black;">%-d{% if show_p_days == '1' %}D{% else %}D{% endif %}</span>
                     </div>
@@ -97,7 +97,7 @@
                     </div>
                     {% endif %}
                 </div>
-                <div class="btn-row" style="float:right;margin-top: -56px;margin-right: -10px;">
+                <div class="btn-row" style="">
                     <a href="/{{ language.translate("link_powerball_play") }}"
                        class="btn-theme--big image-carroussel" style="height: 59px;width: 212px;margin-top: 9px;margin-right: 20px;">
                         <div  style="font-size: 25px;margin-top: -19px;">

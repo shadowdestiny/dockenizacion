@@ -230,11 +230,11 @@
   }
 
   .top-banner--bottom-row {
-    background: -webkit-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
-    background: -moz-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
-    background: -o-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
-    background: -ms-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
-    background: linear-gradient(90deg, #51a0e9 0%, #1678d3 100%);
+    //background: -webkit-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    //background: -moz-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    //background: -o-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    //background: -ms-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    //background: linear-gradient(90deg, #51a0e9 0%, #1678d3 100%);
 
     //height: 107px;
     height: 125px;
@@ -245,6 +245,8 @@
     line-height: 1;
     padding-top: 0px;
     overflow: hidden;
+
+    background: #fff;
 
     @media only screen and (min-width: $screen-xs) {
       //height: 103px;
@@ -261,6 +263,7 @@
       line-height: 1;
       padding-top: 18px;
       overflow: hidden;
+
     }
 
     @media only screen and (min-width: $screen-ipad-h) {
@@ -270,6 +273,7 @@
     @media only screen and (min-width: $screen-desktop) {
       height: 203px;
       font-size: 23px;
+      background: #fff;
     }
 
 
@@ -884,7 +888,15 @@
 
 .image-carroussel {
   @media only screen and (max-width: $screen-ipad-v) {
-    display: none;
+    //display: none;
+  }
+
+  &.image-carroussel--clock {
+    //float: left;
+
+    @media only screen and (max-width: $screen-ipad-v) {
+      float: left;
+    }
   }
 }
 
@@ -918,6 +930,7 @@
 }
 
 .banner-carroussel {
+
   @media only screen and (max-width: $screen-ipad-v) {
     min-height: 102px;
   }
@@ -1005,11 +1018,40 @@
 .grey-box-carroussel {
   background-color: #ebeced;
   width: 49.5%;
-  height: 50px;
+  //height: 50px;
+  //height: 100px;
+  height: 160px;
   float:left;
 
-  @media only screen and (min-width: $screen-ipad-v) {
+  margin-top: -46px;
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    margin-top: 0;
     height: 100px;
+  }
+
+  .countdowneuro {
+    @media only screen and (min-width: $screen-ipad-h) {
+      margin-top: -49px;margin-left: 80px;
+    }
+  }
+  .countdowneuro,
+  .countdownpower {
+    margin-top: 26px;
+    margin-left: 80px;
+    float: left;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      margin-top: -49px;
+      margin-left: 80px;
+      float: none;
+    }
+  }
+
+  .btn-row {
+    @media only screen and (min-width: $screen-ipad-h) {
+      float:right;margin-top: -56px;margin-right: -10px;
+    }
   }
 }
 
