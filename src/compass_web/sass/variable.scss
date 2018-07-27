@@ -7,6 +7,12 @@ NO ALLLOWED: Class, ID or Keyframes
 ALLOWED: Variable and Extension
 */
 
+// Fonts
+$basic-font:'Work Sans', sans-serif;
+$ff1 : $basic-font;
+$ff2:'Chivo', sans-serif;
+$ff3:'Roboto', sans-serif;
+$ff4:'Roboto Condensed', sans-serif;
 
 /* COLORS */
 $purple:#ae5279;
@@ -86,89 +92,3 @@ $small:.75em;
 /* COLUMNS */
 %cols{position:relative; margin-bottom:2em; display:table; width:100%;}
 %columns{display:table-cell; float:none; vertical-align:top; position:relative; box-sizing:content-box;}
-
-
-// Site version #2 start
-
-// Main colors
-
-$v2-color : #333333;
-$v2-yellow : #f8ce0d;		// dark
-$v2-yellow-hover : #fbd93a;	// light
-$v2-green : #4dec8c;
-$v2-grey : #elelel;			// light
-$v2-placeholder-color:  #999999;
-
-// Desktop menu
-$v2-desktop-menu-color : #f9d118;
-$v2-desktop-menu-bg : #fcdd4c;
-$v2-desktop-menu-hover-color : #f9d118;
-$v2-desktop-menu-hover-bg : #6c6c6c;
-
-// Fonts
-$basic-font:'Work Sans', sans-serif;
-$ff1 : $basic-font;
-$ff2:'Chivo', sans-serif;
-$ff3:'Roboto', sans-serif;
-$ff4:'Roboto Condensed', sans-serif;
-
-// Grid v2
-
-$screen-xxs 				: 320px;
-$screen-xxs-wrapper 		: 320px;
-$screen-xxs-wrapper--padding: 10px;
-
-//$screen-xs 					: 480px;
-//$screen-xs-wrapper 			: 480px;
-
-$screen-xs 					: 414px;	//iPhone 6 PLus
-$screen-xs-wrapper 			: 414px;
-
-$width-pre-tablet			: 767px;
-
-$screen-small 				: 768px; 	// ipad vertical
-$screen-small-wrapper 		: 748px; 	// ipad vertical
-
-//$screen-small-plus 			: 769px;
-//$screen-small-plus-wrapper 	: 769px;
-
-$screen-medium-pre 			: 991px;
-$screen-medium 				: 992px;
-//$screen-medium-wrapper 		: 952px;
-$screen-medium-wrapper 		: 960px;
-
-//$screen-full 				: 1300px;
-$screen-full 				: 992px;
-$screen-wide 				: 1200px;
-//$screen-full-wrapper 		: 1280px;
-$screen-full-wrapper 		: 960px;
-
-$screen-wide-full			: 1300px;
-$screen-wide-full-wrapper   : 1277px;
-
-
-// Devices start
-$screen-ipad-v-pre 				: $width-pre-tablet;
-$screen-ipad-v 					: $screen-small;
-$screen-ipad-h-pre 				: $screen-medium-pre;
-$screen-ipad-h 					: $screen-medium;
-$screen-desktop 	 			: $screen-full;
-$screen-desktop-wide 	 		: $screen-wide;
-$screen-desktop-play 	 		: 1025px;
-
-$screen-ipad-v-wrapper 			: $screen-small-wrapper;
-$screen-ipad-h-wrapper 			: $screen-medium-wrapper;
-$screen-desktop-wrapper 		: $screen-full-wrapper;
-// Devices end
-
-//$balanceRowHeightDesktop 		: 93px;
-//$balanceRowLineHeightDesktop 	: 90px;
-//$balanceRowLineHeightDesktopBtn : 92px;
-
-$balanceRowHeightDesktop 		: 69px;
-$balanceRowLineHeightDesktop 	: 60px;
-$balanceRowLineHeightDesktopBtn : 69px;
-
-$balanceRowHeightMobile 		: 50px;
-$balanceRowLineHeightMobile 	: 46px;
-$balanceRowLineHeightMobileBtn 	: 48px;

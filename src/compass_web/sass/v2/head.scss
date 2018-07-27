@@ -291,7 +291,8 @@
   .active {
     border-right: 0 solid transparent;
     background-color: $yellow; /* fallback */
-    @include background-image(linear-gradient(#CC9816, $yellow));
+
+    //@include background-image(linear-gradient(#CC9816, $yellow));
   }
 
   //.main-nav a:hover, .li-your-account:hover > a {
