@@ -4,15 +4,17 @@
             <div class="wrapper" id="wrapper-top-banner">
                 <div class="block-carroussel-blue">
                     <div class="text-carroussel">
-                        {{ language.translate("carousel_em_name") }}
+                        <span class="resizeme">{{ language.translate("carousel_em_name") }}</span>
                     </div>
                     <br />
                     <div class="text-sub-carroussel">
-                            {{ jackpot_value }}{% if milliards %}B
-                            {% elseif trillions %}T
-                            {% else %}M
-                            {% endif %}
-                        <img class="image-carroussel" src="/w/img/home/starsBlue.png" style="width: 25%;height: 25%; margin-left: -32px;">
+                        <div class="texter">
+                            <span class="resizeme">{{ jackpot_value }}{% if milliards %}B {% elseif trillions %}T {% else %}M {% endif %}</span>
+                        </div>
+                        <div class="img-block">
+                            {#<img class="image-carroussel" src="/w/img/home/starsBlue.png" style="width: 25%;height: 25%; margin-left: -32px;">#}
+                            <img class="image-carroussel" src="/w/img/home/starsBlue.png">
+                        </div>
                     </div>
                 </div>
                 <div class="block-carroussel-white">
@@ -20,15 +22,18 @@
                 </div>
                 <div class="block-carroussel-red">
                     <div class="text-carroussel">
-                        {{ language.translate("carousel_pow_name") }}
+                        <span class="resizeme">{{ language.translate("carousel_pow_name") }}</span>
                     </div>
                     <br />
                     <div class="text-sub-carroussel">
-                            {{ jackpot_powerball }}{% if milliards %}B
-                            {% elseif trillions %}T
-                            {% else %}M
-                            {% endif %}
-                        <img class="image-carroussel" src="/w/img/home/starsRed.png"  style="width: 25%;height: 25%; margin-left: -29px;">
+                        <div class="texter">
+                            <span class="resizeme"> {{ jackpot_powerball }}{% if milliards %}B {% elseif trillions %}T {% else %}M {% endif %}</span>
+                        </div>
+                        <div class="img-block">
+                            {#<img class="image-carroussel" src="/w/img/home/starsRed.png"  style="width: 25%;height: 25%; margin-left: -29px;">#}
+                            <img class="image-carroussel" src="/w/img/home/starsRed.png">
+                        </div>
+
                     </div>
                 </div>
 

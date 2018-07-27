@@ -894,6 +894,8 @@
   margin-top: -18px;
   width: 49.5%;
   height: 203px;
+
+
   @media only screen and (max-width: $screen-ipad-v) {
     height: 123px;
     margin-left: -10px;
@@ -936,8 +938,15 @@
   float: left;
   font-size: 40px;
   opacity: 1;
-  margin-top: 18px;
-  margin-left: 25px;
+  //margin-top: 18px;
+  padding-top: 18px;
+  //height: 40px;
+  height: 58px;
+  //margin-left: 25px;
+  padding-left: 25px;
+  width: 100%;
+  overflow: hidden;
+  text-align: left;
 
   @media only screen and (max-width: $screen-ipad-v) {
     font-size: 20px;
@@ -947,8 +956,36 @@
 .text-sub-carroussel {
   float: left;
   font-size: 110px;
-  margin-top: 16px;
-  margin-left: 26px;
+  //margin-top: 16px;
+  //margin-left: 26px;
+  padding-top: 16px;
+  padding-left: 26px;
+  //height: 163px;
+  height: 147px;
+  box-sizing: border-box;
+  //height: 179px;
+  width: 100%;
+
+  .texter {
+    width: 70%;
+    //display: inline-block;
+    display: block;
+    float: left;
+    vertical-align: top;
+    text-align: left;
+    overflow: hidden;
+  }
+
+  .img-block  {
+    width: 25%;
+    float: right;
+    text-align: left;
+
+    img {
+      width: 100%;
+      padding-right: 32px;
+    }
+  }
 
   @media only screen and (max-width: $screen-ipad-v) {
     font-size: 50px;
