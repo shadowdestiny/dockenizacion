@@ -887,14 +887,16 @@
 }
 
 .image-carroussel {
-  @media only screen and (max-width: $screen-ipad-v) {
+  @media only screen and (min-width: $screen-ipad-v) {
     //display: none;
   }
 
   &.image-carroussel--clock {
-    //float: left;
+    float: left;
+    width: 25px;
 
-    @media only screen and (max-width: $screen-ipad-v) {
+    @media only screen and (min-width: $screen-ipad-v) {
+      width: 77px;
       float: left;
     }
   }
@@ -964,6 +966,15 @@
   }
 }
 
+.grey-blocks--row {
+  padding-bottom: 23px;
+  overflow: hidden;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    //padding-bottom: 73px;
+    padding-bottom:0;
+  }
+}
 .text-carroussel {
   float: left;
   opacity: 1;
@@ -1044,7 +1055,7 @@
 
     img {
       width: 100%;
-      padding-right: 32px;
+      //padding-right: 32px;
     }
 
     display: none;
@@ -1071,11 +1082,16 @@
   width: 49.5%;
   //height: 50px;
   //height: 100px;
-  height: 160px;
+  //height: 160px;
   float:left;
+  padding-bottom: 10px;
 
-  margin-top: -46px;
-
+  //margin-top: -46px;
+  @media only screen and (min-width: $screen-ipad-v) {
+    height: 160px;
+    padding-bottom: 0;
+    padding-top: 5px;
+  }
   @media only screen and (min-width: $screen-ipad-h) {
     margin-top: 0;
     height: 100px;
@@ -1083,33 +1099,81 @@
 
   .countdowneuro {
     @media only screen and (min-width: $screen-ipad-h) {
-      margin-top: -49px;margin-left: 80px;
+      //margin-top: -49px;
+      margin-left: 80px;
     }
   }
   .countdowneuro,
   .countdownpower {
-    margin-top: 26px;
-    margin-left: 80px;
+    margin-top: 2px;
+    margin-left: 10px;
     float: left;
 
-    @media only screen and (min-width: $screen-ipad-h) {
-      margin-top: -49px;
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin-top: 26px;
       margin-left: 80px;
-      float: none;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      //margin-top: -49px;
+      //margin-left: 80px;
+      margin-left: 10px;
+      //float: none;
+      float: left;
+
     }
   }
 
   .btn-row {
+
+    height: 49px;
+    width: 90%;
+    margin:auto;
+    margin-top: 9px;
+    //margin-right: 20px;
+    clear: both;
+    overflow: hidden;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      height: 59px;
+      width: 212px;
+      //margin-top: 9px;
+      //margin-right: 20px;
+      float: left;
+      //margin-top: 15px;
+      margin-top: 0px;
+      clear: none;
+      position: relative;
+      top: 5px;
+      margin-left: 15px;
+
+    }
     @media only screen and (min-width: $screen-ipad-h) {
-      float:right;margin-top: -56px;margin-right: -10px;
+
+    }
+
+    .btn-theme--big {
+      font-size: 15px;
+      height: 100%;
+      width: 100%;
+      padding: 0 10px;
+      line-height: 49px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 25px;
+        width: 100%;
+        padding: 0 40px;
+        line-height: 59px;
+      }
+      @media only screen and (min-width: $screen-ipad-h) {
+
+      }
     }
   }
 }
 
 
 .top-banner-index--section {
-
-
+  overflow: hidden;
 
   .top-banner--banner {
 
@@ -1372,6 +1436,10 @@
       line-height: 1;
       padding-top: 18px;
       overflow: hidden;
+
+      &.banner-carroussel {
+        height: 200px;
+      }
     }
 
     @media only screen and (min-width: $screen-ipad-h) {
@@ -1680,14 +1748,6 @@
         }
 
         @media only screen and (min-width: $screen-desktop) {
-          //height: 97px;
-          //line-height: 97px;
-          //font-size: 42.01px;
-          //font-weight: 700;
-          //padding: 0 40px;
-          //display: inline-block;
-          //width:auto;
-
           border-radius: 3px;
           height: 73px;
           line-height: 71px;

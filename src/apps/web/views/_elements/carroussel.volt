@@ -39,7 +39,7 @@
         </div>
 
     </div>
-    <div style="padding-bottom: 73px;">
+    <div class="grey-blocks--row">
 
         <div class="grey-box-carroussel">
             <div style="margin-top:10px;"><img class="image-carroussel image-carroussel--clock" src="/w/img/home/clock.png">
@@ -64,10 +64,10 @@
                 </div>
                 <div class="btn-row" style="">
                     <a href="/{{ language.translate("link_euromillions_play") }}"
-                       class="btn-theme--big image-carroussel" style="height: 59px;width: 212px;margin-top: 9px;margin-right: 20px;">
-                        <div  style="font-size: 25px;margin-top: -19px;">
+                       class="btn-theme--big image-carroussel" style="">
+                        <span class="resizeme"  style="">
                             {{ language.translate("banner1_btn") }}
-                        </div>
+                        </span>
                     </a>
                 </div>
             </div>
@@ -99,10 +99,10 @@
                 </div>
                 <div class="btn-row" style="">
                     <a href="/{{ language.translate("link_powerball_play") }}"
-                       class="btn-theme--big image-carroussel" style="height: 59px;width: 212px;margin-top: 9px;margin-right: 20px;">
-                        <div  style="font-size: 25px;margin-top: -19px;">
+                       class="btn-theme--big image-carroussel" style="">
+                        <span class="resizeme"  style="">
                             {{ language.translate("banner1_btn") }}
-                        </div>
+                        </span>
                     </a>
                 </div>
             </div>
