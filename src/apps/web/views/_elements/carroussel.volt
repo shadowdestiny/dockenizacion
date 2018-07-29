@@ -1,7 +1,7 @@
 <div class="carroussel" style="margin-top: 15px;">
     <div class="top-banner-index--section">
         <div class="top-banner--bottom-row banner-carroussel">
-            <div class="wrapper" id="wrapper-top-banner">
+            <div class="wrapper wrapper-top-banner--carousel" id="wrapper-top-banner">
                 <div class="block-carroussel-blue">
                     <div class="text-carroussel">
                         <span class="resizeme">{{ language.translate("carousel_em_name") }}</span>

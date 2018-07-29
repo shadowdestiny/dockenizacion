@@ -900,6 +900,11 @@
   }
 }
 
+.top-banner-index--section .top-banner--bottom-row.banner-carroussel,
+.wrapper-top-banner--carousel {
+  background: #fff;
+}
+
 .block-carroussel-blue {
   height: 123px;
   margin-left: -10px;
@@ -907,7 +912,8 @@
 
   background-color: #4698e5;
   float: left;
-  width: 49.5%;
+  //width: 49.5%;
+  width: 50.5%;
 
   @media only screen and (min-width: $screen-ipad-v) {
     margin-top: -18px;
