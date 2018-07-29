@@ -903,19 +903,22 @@
 .top-banner-index--section .top-banner--bottom-row.banner-carroussel,
 .wrapper-top-banner--carousel {
   background: #fff;
+  padding: 0;
+  width: 100%;
 }
 
 .block-carroussel-blue {
   height: 123px;
-  margin-left: -10px;
+  //margin-left: -10px;
   margin-top: 0px;
 
   background-color: #4698e5;
   float: left;
-  //width: 49.5%;
-  width: 50.5%;
+  width: 49.5%;
+
 
   @media only screen and (min-width: $screen-ipad-v) {
+    width: 50.5%;
     margin-top: -18px;
     height: 203px;
   }
@@ -945,7 +948,7 @@
 .block-carroussel-red {
 
   height: 123px;
-  margin-right: 10px;
+  //margin-right: 10px;
   margin-top: 0px;
 
   background-color: #f31e1e;
@@ -963,46 +966,75 @@
 
 .text-carroussel {
   float: left;
-  font-size: 20px;
-
   opacity: 1;
-  //margin-top: 18px;
-  padding-top: 18px;
-  //height: 40px;
-  height: 58px;
-  //margin-left: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
+  font-size: 20px;
+  padding-top: 5px;
+  height: 35px;
+  padding-left: 10px;
+  padding-right: 10px;
   width: 100%;
   overflow: hidden;
   text-align: left;
 
   @media only screen and (min-width: $screen-ipad-v) {
+    padding-top: 18px;
+    height: 58px;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 100%;
     font-size: 40px;
+  }
+  @media only screen and (min-width: $screen-ipad-h) {
+
+  }
+  @media only screen and (min-width: $screen-desktop) {
+
+  }
+
+  @media only screen and (min-width: $screen-ipad-v) {
+
   }
 }
 
 .text-sub-carroussel {
   float: left;
-  font-size: 110px;
-  //margin-top: 16px;
-  //margin-left: 26px;
-  padding-top: 16px;
-  padding-left: 26px;
-  //height: 163px;
-  height: 147px;
+  font-size: 50px;
+
+  padding-top: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 88px;
   box-sizing: border-box;
-  //height: 179px;
   width: 100%;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    font-size: 100px;
+    padding-top: 16px;
+    padding-left: 26px;
+    padding-right: 26px;
+    height: 147px;
+  }
+
   .texter {
-    width: 70%;
-    //display: inline-block;
+    width: 100%;
     display: block;
     float: left;
     vertical-align: top;
     text-align: left;
     overflow: hidden;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      width: 70%;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+
+    }
+
   }
 
   .img-block  {
@@ -1014,11 +1046,24 @@
       width: 100%;
       padding-right: 32px;
     }
+
+    display: none;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      display: block;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+
+    }
+
   }
 
-  @media only screen and (max-width: $screen-ipad-v) {
-    font-size: 50px;
-  }
+
 }
 
 .grey-box-carroussel {
@@ -1219,14 +1264,6 @@
     }
 
     .top-banner--subline {
-      //font-family: WorkSans;
-      //color:  #333333;
-      //font-size: 24px;
-      //font-weight: 700;
-      //text-align: left;
-      //line-height: 1;
-      //padding-top: 3px;
-      //padding-bottom: 13px;
       text-align: center;
       display: none;
 
@@ -1264,12 +1301,6 @@
       }
     }
     .top-banner--cost-per-lines{
-      //font-family: WorkSans;
-      //color:  #333333;
-      //font-size: 36px;
-      //font-weight: 700;
-      //text-align: left;
-      //text-transform: uppercase;
       text-align: center;
       display: none;
 
