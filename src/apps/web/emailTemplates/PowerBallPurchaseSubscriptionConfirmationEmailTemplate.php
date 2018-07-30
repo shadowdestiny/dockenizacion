@@ -157,6 +157,10 @@ class PowerBallPurchaseSubscriptionConfirmationEmailTemplate extends EmailTempla
     public function getLine()
     {
         $lines = [];
+
+        if(!is_array($this->line)) {
+            $this->line = [$this->line];
+        }
         /** @var PlayConfig $line */
         foreach ($this->line as $line) {
             $play = [];
