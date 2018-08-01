@@ -105,6 +105,7 @@ class PublicSiteControllerBase extends ControllerBase
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
+        $this->setJackpotWidget();
         $this->checkAuth();
         $this->setCurrencyByUrl();
         $this->setActiveLanguages();
@@ -113,7 +114,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->setNavValues();
         $this->setCommonTemplateVariables();
         $this->setVarWinningModal();
-        $this->setJackpotWidget();
+
 
         // Set up the flash session service
         $controller_not_referer = [
