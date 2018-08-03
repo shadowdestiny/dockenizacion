@@ -17,6 +17,7 @@ use EuroMillions\web\services\card_payment_providers\payments_util\PaymentsRegis
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\card_payment_providers\pgwlb\RandomStrategy;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy;
+use EuroMillions\shared\services\payments_load_balancer_strategies\GeoIPStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon\Config;
@@ -53,6 +54,8 @@ abstract class BootstrapStrategyBase
         $redis = $this->configRedis($config);
         $di->set('redisCache', $redis, true);
         $di->set('entityManager', $this->configDoctrine($config, $redis), true);
+        $di->set('paymentsCollection', $this->registerPayments($di,$this->paymentsCollection()), true);
+        $di->set('paymentStrategy', $this->loadPaymentGateWayByStrategy($di), true);
         $di->set('paymentProviderFactory', $this->configPaymentProvider($di), true);
         $di->set('domainServiceFactory', $this->setDomainServiceFactory($di), true);
         $di->set('domainAdminServiceFactory', $this->setDomainAdminServiceFactory($di), true);
@@ -128,10 +131,43 @@ abstract class BootstrapStrategyBase
         return new EnvironmentDetector();
     }
 
+
+    protected function paymentsCollection()
+    {
+        return new \EuroMillions\shared\components\PaymentsCollection();
+    }
+
     protected function configConfig(EnvironmentDetector $em)
     {
         return new Ini($this->configPath . $this->getConfigFileName($em));
     }
+
+    protected function registerPayments(Di $di, \EuroMillions\shared\components\PaymentsCollection $paymentsCollection)
+    {
+        $paymentGatewayLoader = $di->get('config')['payment_gateway'];
+        try {
+            foreach (explode(',', $paymentGatewayLoader->class_strategy) as $k => $class_strategy) {
+                $class = "\\EuroMillions\\web\\services\\card_payment_providers\\" . $class_strategy;
+                $paymentsCollection->addItem($class_strategy,new $class);
+            }
+            return $paymentsCollection;
+        } catch (\Exception $e)
+        {
+            throw new \Exception('An error occurred while payments were registered');
+        }
+
+    }
+
+    protected function loadPaymentGateWayByStrategy(Di $di)
+    {
+        $paymentsCollection = $di->get('paymentsCollection');
+        $paymentStrategy = $di->get('config')['payment_balancing'];
+        $dependencies = $di->get('config')[$paymentStrategy->dependencies];
+        $paymentInstance = "\\EuroMillions\\shared\\services\\payments_load_balancer_strategies\\".$paymentStrategy->strategy;
+        $payment = new $paymentInstance($paymentsCollection,$dependencies);
+        return $payment;
+    }
+
 
     protected function configPaymentProvider(Di $di)
     {
@@ -145,10 +181,10 @@ abstract class BootstrapStrategyBase
         $configPayments = explode(',', $paymentGatewayLoader->config);
         $paymentStrategy = $di->get('config')['payment_balancing'];
 
-        $paymentStrategy = "\\EuroMillions\\web\\services\\card_payment_providers\\pgwlb\\" . $paymentStrategy->strategy . 'Strategy';
-        $paymentInstance = new $paymentStrategy(new PaymentsRegistry($configPayments));
+//        $paymentStrategy = "\\EuroMillions\\web\\services\\card_payment_providers\\pgwlb\\" . $paymentStrategy->strategy . 'Strategy';
+//        $paymentInstance = new $paymentStrategy(new PaymentsRegistry($configPayments));
 
-        return $paymentProviderFactory->getCreditCardPaymentProvider($paymentInstance->getInstance());
+        return $paymentProviderFactory->getCreditCardPaymentProvider($di->get('paymentStrategy')->getInstance());
     }
 
     protected function getConfigFileName(EnvironmentDetector $em)

@@ -17,7 +17,7 @@ class GeoIPService
 
     public function countryFromIP($ip)
     {
-        $this->geoIPServiceAPI->getCountryFromIp($ip);
+        return $this->geoIPServiceAPI->getCountryFromIp($ip);
     }
 
 }
