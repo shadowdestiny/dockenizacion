@@ -69,6 +69,11 @@ wirecard_endpoint: 'https://api.euromillions.com/beta/wirecard-payment'
 wirecard_endpoint_withdraw: 'https://api.euromillions.com/beta/withdraw'
 wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
+moneymatrix_endpoint: 'https://api-stage.moneymatrix.com/api/v1/Hosted/'
+moneymatrix_merchantid: ''
+moneymatrix_merchantkey: ''
+
+
 lottorisq_endpoint: 'http://192.168.50.2/powerball'
 lottorisq_apikey: ''
 
@@ -86,7 +91,14 @@ payment_config: 'wirecard'
 controllers_euromillions: 'numbers,powerball-numbers'
 controllers_powerball: 'numbers,powerball-numbers'
 
-
 file_databasegeoip_path: '/var/www/data/geoipdatabase'
 
-payment_balancing: 'Random'
+geoip_normal : 'MoneyMatrixPaymentStrategy'
+geoip_blocked: 'WideCardPaymentStrategy'
+geoip_geoip: 'GeoIPService'
+geoip_geoIpImpl: 'MaxMindWrapper'
+geoip_database_path: '/var/www/data/geoipdatabase'
+geoip_blocked_countries: 'ES'
+
+payment_balancing: 'GeoIPStrategy'
+payment_balancing_dependencies: 'geoip_strategy'

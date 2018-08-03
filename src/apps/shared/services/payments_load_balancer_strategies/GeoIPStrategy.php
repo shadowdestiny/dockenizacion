@@ -28,6 +28,9 @@ class GeoIPStrategy implements ILoadBalancingPayment
 
     public function __construct(\EuroMillions\shared\components\PaymentsCollection $payments, Config $params)
     {
+        if($this->guard($params)){
+            throw new \Exception('Miss params in GeoIPStrategy constructor');
+        }
         $this->normalGW = $payments->getItem($params->normal);
         $this->blockedGW = $payments->getItem($params->blocked);
         $this->geoipImpl = $this->geoService($params);
@@ -58,12 +61,13 @@ class GeoIPStrategy implements ILoadBalancingPayment
         return new $service($wrapper);
     }
 
-    private function guard(array $params)
+    private function guard(Config $params)
     {
-        foreach ($params as $k => $param)
-        {
-            return !in_array($k,self::FIELDS);
-        }
+        $config = [];
+        foreach ($params as $k => $param) {
+            $config[] = $k;
+         }
+        return count(array_diff(self::FIELDS,$config)) > 0;
     }
 
     private function getIp()

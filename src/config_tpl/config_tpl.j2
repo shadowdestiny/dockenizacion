@@ -102,6 +102,11 @@ endpoint= {{ wirecard_endpoint }}
 endpoint_withdraw= {{ wirecard_endpoint_withdraw }}
 api_key={{ wirecard_apikey }}
 
+[moneymatrix]
+url={{ moneymatrix_endpoint }}
+merchant_id={{ moneymatrix_merchantid }}
+merchant_key={{ moneymatrix_merchantkey }}
+
 [lotto_api]
 endpoint= {{ lottorisq_endpoint }}
 api_key={{ lottorisq_apikey }}
@@ -116,8 +121,17 @@ access_key_id= {{ aws_access_key_id }}
 class_strategy={{ payment_strategy }}
 config= {{ payment_config }}
 
+[geoip_strategy]
+normal={{geoip_normal}}
+blocked={{geoip_blocked}}
+geoip={{geoip_geoip}}
+geoIpImpl={{geoip_geoIpImpl}}
+database_path={{geoip_database_path}}
+blocked_countries={{geoip_blocked_countries}}
+
 [payment_balancing]
 strategy={{ payment_balancing }}
+dependencies={{payment_balancing_dependencies}}
 
 [jackpot_widget]
 EuroMillions={{ controllers_euromillions }}
