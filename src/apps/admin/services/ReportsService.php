@@ -307,7 +307,7 @@ class ReportsService
     public function getPowerBallDrawsActualAfterDatesByDrawDate($date)
     {
         $actualDraw = new \DateTime($date);
-        $nextDrawDate = clone $actualDraw->setTime(23, 59, 00);
+        $nextDrawDate = clone $actualDraw->modify('+27 hours');
         $actualDrawDate = $this->getNextDateDrawByLottery('PowerBall', $actualDraw->modify('-5 days'))->setTime(19, 30, 00);
 
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
@@ -463,6 +463,7 @@ class ReportsService
             $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
             $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
             $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];
+            $salesDraw[$keyDraw]['totalPowerplay'] = $drawData[0]['totalPowerplay'];
         }
         return $salesDraw;
     }

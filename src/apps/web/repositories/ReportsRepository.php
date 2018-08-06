@@ -72,11 +72,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('id', 'id');
         $rsm->addScalarResult('draw_date', 'draw_date');
         $rsm->addScalarResult('draw_status', 'draw_status');
-//        $rsm->addScalarResult('count_id', 'count_id');
-//        $rsm->addScalarResult('count_id_3', 'count_id_3');
-//        $rsm->addScalarResult('count_id_05', 'count_id_05');
 
-//        select 'EM' as em, e.id as id, e.draw_date as draw_date, IF(e.draw_date < now(),'Finished','Open') as draw_status, count(b.id) as count_id, count(b.id) * 3.00 as count_id_3, count(b.id) * 0.50 as count_id_05
         return $this->entityManager
             ->createNativeQuery(
                 "select 'PB' as em, e.id as id, e.draw_date as draw_date, IF(date_add(CAST(e.draw_date AS DATETIME), INTERVAL 19 HOUR) < now(),'Finished','Open') as draw_status
@@ -727,6 +723,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('totalBets', 'totalBets');
         $rsm->addScalarResult('grossSales', 'grossSales');
         $rsm->addScalarResult('grossMargin', 'grossMargin');
+        $rsm->addScalarResult('totalPowerplay', 'totalPowerplay');
 
         return $this->entityManager
             ->createNativeQuery('SELECT sum(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) as totalBets, sum(CASE
@@ -739,8 +736,11 @@ class ReportsRepository implements IReports
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - '. $amount .')
                                         ELSE 0
                                         END
-                                    ) as grossMargin
-                            FROM transactions
+                                    ) as grossMargin,
+                                    sum(p.power_play) as totalPowerplay
+                            FROM transactions t
+                            INNER JOIN playconfig_transaction pt on pt.transactionID = t.id
+                            INNER JOIN play_configs p on p.id = pt.playConfig_id
                             WHERE (entity_type = "ticket_purchase" || entity_type = "automatic_purchase") and data like "3#%" and
                             date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"
                             ORDER BY date DESC'
