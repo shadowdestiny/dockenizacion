@@ -211,6 +211,7 @@ class ReportsService
         foreach ($subscriptionsActives as $subscriptionsActiveKey => $subscriptionsActiveValue) {
             $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
             $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
+            $subscriptionsActives[$subscriptionsActiveKey]['lottery'] = $subscriptionsActiveValue['lottery_id'] == 1 ? 'Euromillions' : 'PowerBall';
         }
         return $subscriptionsActives;
     }
@@ -226,6 +227,7 @@ class ReportsService
         foreach ($subscriptionsActives as $subscriptionsActiveKey =>  $subscriptionsActiveValue) {
             $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
             $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
+            $subscriptionsActives[$subscriptionsActiveKey]['lottery'] = $subscriptionsActiveValue['lottery_id'] == 1 ? 'Euromillions' : 'PowerBall';
         }
         return $subscriptionsActives;
     }

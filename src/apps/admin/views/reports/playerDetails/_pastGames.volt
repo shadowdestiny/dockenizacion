@@ -26,19 +26,21 @@
                         ?>
                         {{ startDrawDate }}
                 </td>
-                <td align="center">
-                    <strong>Euromillions</strong>
-                </td>
-                <td class="numbers">
-                    <table>
-                        <?php $rows = count($game);?>
-                        <?php
+                <?php $rows = count($game);?>
+                <?php
                             $numColumn = 0;
                             for($i=0;$i<$rows/2;$i++){
                             ?>
-                        <?php
+                <?php
                             $pastGame = $game[$numColumn];
+                            $lottery = $pastGame->lotteryName;
                         ?>
+                <td align="center">
+                    <strong>{{ lottery }}</strong>
+                </td>
+                <td class="numbers">
+                    <table>
+
                         <tr>
                             <td class="numbers" style="border-right: 1px solid purple;">
                                 <div class="myCol">
@@ -46,8 +48,11 @@
                                         <span class="num <?php if($regular_number > 1) echo 'highlight' ?>">{{ r }}</span>
                                     {% endfor %}
                                     {% for s,lucky_number in pastGame.stars  %}
+                                        {% if s != 0 %}
                                         <span class="num yellow <?php if($lucky_number > 1) echo 'highlight' ?>">{{ s }}</span>
+                                            {% endif %}
                                     {% endfor %}
+
                                     <?php if($pastGame->prize > 0){?>
                                     <span class="">({{ pastGame.prize }})</span>
                                     <?php } ?>

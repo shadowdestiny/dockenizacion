@@ -18,22 +18,25 @@
         </thead>
         <tbody>
         {% for index,upcoming in my_games_actives %}
+            {#{{ dump(my_games_actives) }}#}
             <tr>
                 <td align="center">
                     {{ nextDrawDate }}
                 </td>
-                <td align="center">
-                    <strong>Euromillions</strong>
-                </td>
-                <td>
-                    <table>
-                        <?php $rows = count($my_games_actives[$index]); ?>
-                        <?php
+                <?php $rows = count($my_games_actives[$index]); ?>
+                <?php
                             $numColumn = 0;
                             for($i=0;$i<$rows/2;$i++){
                                 $game = $my_games_actives[$index][$numColumn];
                                 $game = $game->get(0);
-                        ?>
+                                $lottery = $game->lotteryName;
+                ?>
+                <td align="center">
+                    <strong>{{ lottery }}</strong>
+                </td>
+                <td>
+                    <table>
+
                         <tr>
                             <td class="numbers">
                                 <div>
@@ -43,9 +46,13 @@
                                     {% for regular_number in regular  %}
                                         <span class="num">{{ regular_number }}</span>
                                     {% endfor %}
-                                    {% for lucky_number in lucky  %}
-                                        <span class="num yellow">{{ lucky_number }}</span>
-                                    {% endfor %}
+                                    {% if lottery === 'PowerBall' %}
+                                        <span class="num yellow">{{ lucky[1] }}</span>
+                                    {% else %}
+                                        {% for lucky_number in lucky  %}
+                                                <span class="num yellow">{{ lucky_number }}</span>
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
                             </td>
                             <?php if(count($my_games_actives[$index]) > 1 && $numColumn < $rows-1 ) {?>

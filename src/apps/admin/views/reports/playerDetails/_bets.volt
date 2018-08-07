@@ -9,6 +9,9 @@
                 Date
             </th>
             <th>
+                Lottery
+            </th>
+            <th>
                 Transaction
             </th>
             <th>
@@ -24,6 +27,15 @@
                 <tr>
                     <td align="center">
                         {{ userBet['date'] }}
+                    </td>
+                    <td align="center">
+                        <?php $lotteryId = substr($userBet['data'],0,1);
+                            if($lotteryId == 1) {
+                                $lottery = 'EuroMillions';
+                            } elseif($lotteryId == 3) {
+                                $lottery = 'PowerBall';
+                            }?>
+                        {{ lottery }}
                     </td>
                     <td align="center">
                         {{ userBet['entity_type'] }}

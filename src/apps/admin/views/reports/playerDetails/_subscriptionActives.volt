@@ -23,7 +23,7 @@
                     {{ my_subscription_active['start_draw_date'] }} to {{ my_subscription_active['last_draw_date'] }}
                 </td>
                 <td align="center">
-                    <strong>Euromillions</strong>
+                    <strong>{{ my_subscription_active['lottery'] }}</strong>
                 </td>
                 <td>
                     <span class="num">{{ my_subscription_active['line_regular_number_one'] }}</span>
@@ -31,7 +31,9 @@
                     <span class="num">{{ my_subscription_active['line_regular_number_three'] }}</span>
                     <span class="num">{{ my_subscription_active['line_regular_number_four'] }}</span>
                     <span class="num">{{ my_subscription_active['line_regular_number_five'] }}</span>
-                    <span class="num yellow">{{ my_subscription_active['line_lucky_number_one'] }}</span>
+                    {% if my_subscription_active['lottery'] != 'PowerBall' %}
+                        <span class="num yellow">{{ my_subscription_active['line_lucky_number_one'] }}</span>
+                    {% endif %}
                     <span class="num yellow">{{ my_subscription_active['line_lucky_number_two'] }}</span>
                 </td>
             </tr>
