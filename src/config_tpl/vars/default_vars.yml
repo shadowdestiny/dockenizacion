@@ -85,7 +85,7 @@ aws_access_key_id: 'AKIAJ4KKQDQVDECKXUNQ'
 emerchant_endpoint: 'https://api.euromillions.com/emerchant_test/payment'
 emerchant_apikey: 'lIouDMFAM53H8TwxO8Eg69mBjB2By1pX6JBftfaY'
 
-payment_strategy: 'WideCardPaymentStrategy'
+payment_strategy: 'WideCardPaymentStrategy,MoneyMatrixPaymentStrategy'
 payment_config: 'wirecard'
 
 controllers_euromillions: 'numbers,powerball-numbers'
