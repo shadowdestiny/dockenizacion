@@ -19,6 +19,7 @@ class OrderController extends CartController
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
         $play_service = $this->domainServiceFactory->getPlayService();
+        $paymentProviderService = $this->domainServiceFactory->getPaymentProviderService();
         $msg = '';
         $errors = [];
         if(!empty($user_id)) {
@@ -33,13 +34,28 @@ class OrderController extends CartController
             }
             $result = $play_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
         }
+//        var_dump($result);die();
         if(!$result->success()) {
             $this->response->redirect('/'.$this->lottery.'/play');
             return false;
         }
+
+        $cashierViewDTO = $paymentProviderService->cashierViewDto($this->orderDataToPaymentProvider);
+//        $transactionId = $this->paymentProviderService->transactionId();
+//        $this->orderDataToPaymentProvider->setTransactionId($transactionId);
+
+        //este metodo devuelve un DTO entre los datos hay o NO URL.
+//        $cashierViewDTO = $this->paymentProviderService->cashierViewDto($this->$orderDataToPaymentProvider);
+
+
+
+
+
         $type = ViewHelper::getNamePaymentType($this->getDI()->get('paymentProviderFactory'));
+
         $view = $type == 'iframe' ? 'cart/order_iframe' : 'cart/order';
         $this->view->pick($view);
+//        $this->view->setVar('cashierView', $cashierViewDTOURL);
         return $this->dataOrderView($user, $result, $form_errors, $msg, $credit_card_form, $errors);
     }
 

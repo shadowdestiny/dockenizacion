@@ -7,6 +7,7 @@ use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\vo\Discount;
+use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\Order;
 use Money\Currency;
@@ -290,6 +291,30 @@ class CartController extends PublicSiteControllerBase
         $currency_symbol = $this->currencyConversionService->getSymbol($wallet_balance, $locale);
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user_currency);
         $this->tag->prependTitle('Review and Buy');
+
+
+//var_dump($user);die();
+        $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO($user);
+//            $user,
+//            $amount,
+//            $paymentProvider =$this->getDI()->get('paymentProviderFactory'),
+//
+//        );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         return $this->view->setVars([
             'order' => $play_config_dto,

@@ -20,4 +20,9 @@ class PaymentProviderService
         $isOk = true;
         $provider = $this->getProvider($paymentMethod);
     }
+
+    public function cashierViewDto($orderData)
+    {
+        return true;
+    }
 }
