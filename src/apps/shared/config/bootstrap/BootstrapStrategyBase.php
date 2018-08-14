@@ -155,7 +155,6 @@ abstract class BootstrapStrategyBase
         {
             throw new \Exception('An error occurred while payments were registered');
         }
-
     }
 
     protected function loadPaymentGateWayByStrategy(Di $di)
@@ -163,8 +162,8 @@ abstract class BootstrapStrategyBase
         $paymentsCollection = $di->get('paymentsCollection');
         $paymentStrategy = $di->get('config')['payment_balancing'];
         $dependencies = $di->get('config')[$paymentStrategy->dependencies];
-        $paymentInstance = "\\EuroMillions\\shared\\services\\payments_load_balancer_strategies\\".$paymentStrategy->strategy;
-        $payment = new $paymentInstance($paymentsCollection,$dependencies);
+        $paymentInstanceStrategy = "\\EuroMillions\\shared\\services\\payments_load_balancer_strategies\\".$paymentStrategy->strategy;
+        $payment = new $paymentInstanceStrategy($paymentsCollection,$dependencies);
         return $payment;
     }
 

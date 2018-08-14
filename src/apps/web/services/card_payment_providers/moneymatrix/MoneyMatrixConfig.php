@@ -1,7 +1,7 @@
 <?php
 
 
-namespace EuroMillions\web\services\card_payment_providers\widecard;
+namespace EuroMillions\web\services\card_payment_providers\moneymatrix;
 
 
 class MoneyMatrixConfig
