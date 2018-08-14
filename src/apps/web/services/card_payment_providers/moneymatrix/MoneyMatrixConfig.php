@@ -8,12 +8,10 @@ class MoneyMatrixConfig
 {
 
     private $endpoint;
-    private $apiKey;
 
-    public function __construct($endpoint, $apiKey)
+    public function __construct($endpoint)
     {
         $this->endpoint = $endpoint;
-        $this->apiKey = $apiKey;
     }
 
     /**
@@ -23,29 +21,4 @@ class MoneyMatrixConfig
     {
         return $this->endpoint;
     }
-
-    /**
-     * @param mixed $endpoint
-     */
-    public function setEndpoint($endpoint)
-    {
-        $this->endpoint = $endpoint;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getApiKey()
-    {
-        return $this->apiKey;
-    }
-
-    /**
-     * @param mixed $apiKey
-     */
-    public function setApiKey($apiKey)
-    {
-        $this->apiKey = $apiKey;
-    }
-
 }

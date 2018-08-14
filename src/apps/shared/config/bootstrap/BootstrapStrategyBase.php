@@ -145,10 +145,11 @@ abstract class BootstrapStrategyBase
     protected function registerPayments(Di $di, \EuroMillions\shared\components\PaymentsCollection $paymentsCollection)
     {
         $paymentGatewayLoader = $di->get('config')['payment_gateway'];
+        $configPaymentGatewayLoader = explode(',',$paymentGatewayLoader->config);
         try {
             foreach (explode(',', $paymentGatewayLoader->class_strategy) as $k => $class_strategy) {
                 $class = "\\EuroMillions\\web\\services\\card_payment_providers\\" . $class_strategy;
-                $paymentsCollection->addItem($class_strategy,new $class);
+                $paymentsCollection->addItem($class_strategy,new $class($di->get('config')[$configPaymentGatewayLoader[$k]]));
             }
             return $paymentsCollection;
         } catch (\Exception $e)
@@ -182,7 +183,7 @@ abstract class BootstrapStrategyBase
 
 //        $paymentStrategy = "\\EuroMillions\\web\\services\\card_payment_providers\\pgwlb\\" . $paymentStrategy->strategy . 'Strategy';
 //        $paymentInstance = new $paymentStrategy(new PaymentsRegistry($configPayments));
-
+        $paymentGateway = $di->get('paymentStrategy')->getInstance();
         return $paymentProviderFactory->getCreditCardPaymentProvider($di->get('paymentStrategy')->getInstance());
     }
 

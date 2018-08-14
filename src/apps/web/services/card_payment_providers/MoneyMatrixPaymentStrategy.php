@@ -9,6 +9,8 @@
 namespace EuroMillions\web\services\card_payment_providers;
 
 
+use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixConfig;
+
 class MoneyMatrixPaymentStrategy implements ICreditCardStrategy
 {
 
@@ -21,6 +23,6 @@ class MoneyMatrixPaymentStrategy implements ICreditCardStrategy
 
     public function get()
     {
-        return new MoneyMatrixPaymentProvider();
+        return new MoneyMatrixPaymentProvider(new MoneyMatrixConfig($this->config['endpoint']));
     }
 }

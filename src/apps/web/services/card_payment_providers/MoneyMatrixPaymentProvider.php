@@ -12,11 +12,27 @@ namespace EuroMillions\web\services\card_payment_providers;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixConfig;
+use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixGatewayClientWrapper;
 use EuroMillions\web\vo\CreditCard;
 use Money\Money;
 
 class MoneyMatrixPaymentProvider implements ICardPaymentProvider
 {
+
+    protected $gatewayClient;
+
+    protected $config;
+
+    protected $data;
+
+
+
+    public function __construct(MoneyMatrixConfig $config, $gateway = null)
+    {
+        $this->gatewayClient = $gateway ?: new MoneyMatrixGatewayClientWrapper($config);
+        $this->config = $config;
+    }
 
     /**
      * @param Money $amount
@@ -36,4 +52,13 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider
     {
 
     }
+
+    /**
+     * @return MoneyMatrixConfig
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
 }
