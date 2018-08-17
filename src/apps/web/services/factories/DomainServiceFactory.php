@@ -185,7 +185,7 @@ class DomainServiceFactory
     public function getPaymentProviderService()
     {
         return new PaymentProviderService(
-            $this->entityManager
+            $this->getTransactionService()
         );
     }
 

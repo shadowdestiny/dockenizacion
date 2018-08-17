@@ -12,12 +12,13 @@ namespace EuroMillions\web\services\card_payment_providers;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixConfig;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixGatewayClientWrapper;
 use EuroMillions\web\vo\CreditCard;
 use Money\Money;
 
-class MoneyMatrixPaymentProvider implements ICardPaymentProvider
+class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGateway
 {
 
     protected $gatewayClient;
@@ -41,7 +42,7 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider
      */
     public function charge(Money $amount, CreditCard $card)
     {
-
+        throw new \BadFunctionCallException();
     }
 
     /**
@@ -61,4 +62,13 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider
         return $this->config;
     }
 
+    public function call($data)
+    {
+        try {
+            return $this->gatewayClient->send($data);
+        } catch ( \Exception $e ) {
+            throw new \Exception($e->getMessage());
+        }
+
+    }
 }

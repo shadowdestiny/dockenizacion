@@ -39,8 +39,7 @@ class OrderController extends CartController
             $this->response->redirect('/'.$this->lottery.'/play');
             return false;
         }
-
-        $cashierViewDTO = $paymentProviderService->cashierViewDto($this->orderDataToPaymentProvider);
+        $cashierViewDTO = $paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$this->$this->orderDataToPaymentProvider);
 //        $transactionId = $this->paymentProviderService->transactionId();
 //        $this->orderDataToPaymentProvider->setTransactionId($transactionId);
 

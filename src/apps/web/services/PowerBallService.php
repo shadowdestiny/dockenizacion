@@ -162,7 +162,6 @@ class PowerBallService
                     $discount = $order->getDiscount()->getValue();
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->setLottery($lottery);
-                    $order->setPowerPlayPrice($lottery->getPowerPlayValue());
                     $order->setPowerPlay($powerPlay);
 
                     $order->addFunds($order->getTotal());

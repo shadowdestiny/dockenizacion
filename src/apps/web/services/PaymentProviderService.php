@@ -5,24 +5,27 @@ namespace EuroMillions\web\services;
 
 
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\interfaces\IHandlerPaymentGateway;
+use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use Money\Money;
 
 class PaymentProviderService
 {
 
-    public function __construct()
-    {
+    /** @var  TransactionService $transactionService */
+    protected $transactionService;
 
+    public function __construct(TransactionService $transactionService)
+    {
+        $this->transactionService = $transactionService;
     }
 
-    public function charge(ICardPaymentProvider $paymentMethod, Money $amount)
+    public function getCashierViewDTOFromMoneyMatrix(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
-        $isOk = true;
-        $provider = $this->getProvider($paymentMethod);
-    }
 
-    public function cashierViewDto($orderData)
-    {
-        return true;
+        $transactionID = $this->transactionService->getUniqueTransactionId();
+        $orderData->setTransactionID($transactionID);
+        $dto = $paymentMethod->call($orderData->toJson());
+        return $dto;
     }
 }

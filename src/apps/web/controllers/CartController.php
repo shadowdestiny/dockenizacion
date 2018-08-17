@@ -242,7 +242,7 @@ class CartController extends PublicSiteControllerBase
         }
     }
 
-    //EMTD refactor this function, shit!!
+    //TODO refactor this function, shit!!
     /**
      * @param $user
      * @param $result
@@ -293,23 +293,14 @@ class CartController extends PublicSiteControllerBase
         $this->tag->prependTitle('Review and Buy');
 
 
-//var_dump($user);die();
-        $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO($user);
+//var_dump($user_currency->getName());die();
+        $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $total_price, $user_currency->getName(), $this->lottery);
+
 //            $user,
 //            $amount,
 //            $paymentProvider =$this->getDI()->get('paymentProviderFactory'),
 //
 //        );
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -70,6 +70,8 @@ class PublicSiteControllerBase extends ControllerBase
 
     protected $currencyUrl;
 
+    protected $cartPaymentProvider;
+
     public function initialize(LotteryService $lotteryService = null,
                                LanguageService $languageService = null,
                                CurrencyService $currencyService = null,
@@ -101,6 +103,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->lottery = !isset($this->router->getParams()['lottery']) ? 'euromillions' : $this->router->getParams()['lottery'];
         $this->languageUrl = !isset($this->router->getParams()['language']) ? '' : $this->router->getParams()['language'];
         $this->currencyUrl = !isset($this->router->getParams()['currency']) ? '' : $this->router->getParams()['currency'];
+        $this->cartPaymentProvider = $this->getDI()->get('paymentProviderFactory');
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)

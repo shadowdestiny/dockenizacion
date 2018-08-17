@@ -9,6 +9,7 @@
 namespace EuroMillions\web\vo;
 
 
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use Money\Currency;
 use Money\Money;
@@ -75,5 +76,12 @@ class OrderPowerBall extends Order
         $this->total = $total;
         $this->credit_card_charge = new CreditCardCharge($total, $this->fee, $this->fee_limit);
 
+    }
+
+    public function setLottery($lottery)
+    {
+        /** @var Lottery $lottery */
+        $this->lottery = $lottery;
+        $this->setPowerPlayPrice($lottery->getPowerPlayValue());
     }
 }

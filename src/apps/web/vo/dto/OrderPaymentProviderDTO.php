@@ -12,11 +12,19 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
 {
     public $MMdata;
     public $user;
+    public $totalPrice;
+    public $currency;
+    public $lottery;
+    public $transactionID;
 
-    public function __construct(IUser $user)
+
+    public function __construct(IUser $user, $total_price, $currency, $lottery)
     {
         /** @var User $user */
         $this->user = $user;
+        $this->totalPrice = $total_price;
+        $this->currency = $currency;
+        $this->lottery = $lottery;
         $this->user->getId();
         $this->exChangeObject();
     }
@@ -31,40 +39,56 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
         throw new \Exception('Method not implemented');
     }
 
-    public function createDataMoneyMatrix()
+    protected function createDataMoneyMatrix()
     {
         return $this->MMdata = [
-            "transactionID" => "123456",
+            "transactionID" => $this->transactionID,
             "userID" => $this->user->getId(),
-            "firstName"=> $this->user->getName(),
-            "lastName" =>  $this->user->getSurname(),
-            "emailAddress" =>  $this->user->getEmail(),
-            "countryCode" =>  $this->user->getCountry(),
-            "CallbackUrl" =>  "http => //merchant-site.com/notifications.ashx",
-            "ipAddress" =>  $this->user->getIpAddress(),
-            "address" =>  $this->user->getStreet(),
-            "city" =>  $this->user->getCity(),
-            "phoneNumber" =>  $this->user->getPhoneNumber(),
-            "postalCode" =>  $this->user->getZip(),
-            "state" =>  "N/A",
-            "birthDate" =>  "N/A",
-            "paymentMethod" =>  "null",
-            "amount" =>  "12.00",
-            "currency" =>  "EUR",
-            "SuccessUrl" =>  "http => //merchant-site.com/success.ashx",
-            "FailUrl" =>  "http => //merchant-site.com/fail.ashx",
-            "CancelUrl" =>  "http => //merchant-site.com/cancel.ashx",
-            "CheckStatusUrl" =>  "http => //merchant-site.com/synch_check.ashx",
-            "channel" =>  "Desktop",
-            "allowPaySolChange" =>  "true",
-            "registrationIpAddress" =>  "194.44.124.242",
-            "registrationDate" =>  "10/10/2016",
-            "merchantID" =>  "6"
+            "firstName" => $this->user->getName(),
+            "lastName" => $this->user->getSurname(),
+            "emailAddress" => $this->user->getEmail(),
+            "countryCode" => $this->user->getCountry(),
+            "CallbackUrl" => "http => //merchant-site.com/notifications.ashx",
+            "ipAddress" => $this->user->getIpAddress(),
+            "address" => $this->user->getStreet(),
+            "city" => $this->user->getCity(),
+            "phoneNumber" => $this->user->getPhoneNumber(),
+            "postalCode" => $this->user->getZip(),
+            "state" => "N/A",
+            "birthDate" => "N/A",
+            "paymentMethod" => "null",
+            "amount" => $this->totalPrice / 100,
+            "currency" => $this->currency,
+            "SuccessUrl" => "https://localhost:4433/" . $this->lottery . "/payment/payment?method=wallet",
+            "FailUrl" => "http => //merchant-site.com/fail.ashx",
+            "CancelUrl" => "http => //merchant-site.com/cancel.ashx",
+            "CheckStatusUrl" => "http => //merchant-site.com/synch_check.ashx",
+            "channel" => "Desktop",
+            "allowPaySolChange" => "true",
+            "registrationIpAddress" => $this->user->getIpAddress(),
+            "registrationDate" => $this->user->getLastConnection()
         ];
     }
 
-    public function setTransactionId()
+    /**
+     * @return mixed
+     */
+    public function getTransactionID()
     {
-
+        return $this->transactionID;
     }
+
+    /**
+     * @param mixed $transactionID
+     */
+    public function setTransactionID($transactionID)
+    {
+        $this->transactionID = $transactionID;
+    }
+
+    public function toJson()
+    {
+        return json_encode($this->MMdata);
+    }
+
 }
