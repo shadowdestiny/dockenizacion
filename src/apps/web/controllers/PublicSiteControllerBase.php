@@ -18,6 +18,7 @@ use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\LanguageService;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\PowerBallCartService;
 use EuroMillions\web\services\TransactionService;
 use EuroMillions\web\services\UserPreferencesService;
@@ -64,6 +65,9 @@ class PublicSiteControllerBase extends ControllerBase
     /** @var  BlogService */
     protected $blogService;
 
+    /** @var PaymentProviderService */
+    protected $paymentProviderService;
+
     protected $lottery;
 
     protected $languageUrl;
@@ -104,6 +108,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->languageUrl = !isset($this->router->getParams()['language']) ? '' : $this->router->getParams()['language'];
         $this->currencyUrl = !isset($this->router->getParams()['currency']) ? '' : $this->router->getParams()['currency'];
         $this->cartPaymentProvider = $this->getDI()->get('paymentProviderFactory');
+        $this->paymentProviderService = $this->di->get('domainServiceFactory')->getPaymentProviderService();
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)

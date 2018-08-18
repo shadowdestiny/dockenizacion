@@ -105,7 +105,7 @@ class DomainServiceFactory
         return new LoggedUserServiceStrategy(
             $this->getCurrencyConversionService(),
             $this->serviceFactory->getEmailService(),
-            new PaymentProviderService(),
+            new PaymentProviderService($this->getTransactionService()),
             $this->getWalletService(),
             $this->entityManager,
             $this->serviceFactory->getLogService()

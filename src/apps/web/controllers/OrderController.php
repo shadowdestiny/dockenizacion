@@ -19,7 +19,6 @@ class OrderController extends CartController
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
         $play_service = $this->domainServiceFactory->getPlayService();
-        $paymentProviderService = $this->domainServiceFactory->getPaymentProviderService();
         $msg = '';
         $errors = [];
         if(!empty($user_id)) {
@@ -39,13 +38,12 @@ class OrderController extends CartController
             $this->response->redirect('/'.$this->lottery.'/play');
             return false;
         }
-        $cashierViewDTO = $paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$this->$this->orderDataToPaymentProvider);
+
 //        $transactionId = $this->paymentProviderService->transactionId();
 //        $this->orderDataToPaymentProvider->setTransactionId($transactionId);
 
         //este metodo devuelve un DTO entre los datos hay o NO URL.
 //        $cashierViewDTO = $this->paymentProviderService->cashierViewDto($this->$orderDataToPaymentProvider);
-
 
 
 

@@ -201,7 +201,19 @@
 
 
                 <div class="payment hidden">
+                    {% if cashier.cashierUrl != null %}
+                     <section class="section--card--details">
 
+                                            <div class="top-row">
+                                                <h1 class="h2">
+                                                    {{ language.translate("card_subhead") }}
+                                                </h1>
+                                            </div>
+                          <div class="section--content">
+                                <iframe width="100%" height="100%" src={{ cashier.cashierUrl}} ></iframe>
+                          </div>
+                      </section>
+                    {% else %}
                     <section class="section--card--details">
 
                         <div class="top-row">
@@ -219,6 +231,7 @@
                             </form>
                         </div>
                     </section>
+                    {% endif %}
                 </div>
 
             </div>

@@ -138,7 +138,7 @@ class TransactionService
 
     public function getUniqueTransactionId()
     {
-        return str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT). microtime();
+        return str_pad(mt_rand(0, 999999999), 6, '0', STR_PAD_LEFT);
     }
 
     public function getLastId()
