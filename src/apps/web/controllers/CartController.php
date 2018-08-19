@@ -323,15 +323,7 @@ class CartController extends PublicSiteControllerBase
         $this->tag->prependTitle('Review and Buy');
 
 
-//var_dump($user_currency->getName());die();
         $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $total_price, $user_currency->getName(), $this->lottery);
-
-//            $user,
-//            $amount,
-//            $paymentProvider =$this->getDI()->get('paymentProviderFactory'),
-//
-//        );
-
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$this->orderDataToPaymentProvider);
 
 

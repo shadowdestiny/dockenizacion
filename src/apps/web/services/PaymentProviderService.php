@@ -23,10 +23,15 @@ class PaymentProviderService
 
     public function getCashierViewDTOFromMoneyMatrix(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
-        $transactionID = $this->transactionService->getUniqueTransactionId();
-        $orderData->setTransactionID($transactionID);
-        $orderData->exChangeObject();
-        $response = $paymentMethod->call($orderData->toJson());
-        return new ChasierDTO(json_decode($response, true));
+        try {
+            $transactionID = $this->transactionService->getUniqueTransactionId();
+            $orderData->setTransactionID($transactionID);
+            $orderData->exChangeObject();
+            $response = $paymentMethod->call($orderData->toJson());
+            return new ChasierDTO(json_decode($response, true));
+        } catch (\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
     }
 }
