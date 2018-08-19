@@ -152,6 +152,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "action" => "notfound"
         ));
 
+
         $router->add("/error/page404", array(
             "module" => "web",
             'controller' => 'error',
@@ -203,6 +204,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'index',
             'action' => 'index',
             'language' => 'it',
+        ));
+
+        $router->add('/paymentmx/success', array(
+            "module" => "web",
+            "controller" => "moneymatrix",
+            "action" => "success"
         ));
 
         $router->add("/{lottery:(euromillions)+}/play", array(

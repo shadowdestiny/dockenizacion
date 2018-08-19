@@ -167,8 +167,6 @@ class PowerBallService
                     $order->addFunds($order->getTotal());
                     $order->setAmountWallet($user->getWallet()->getBalance());
 
-
-
                     $draw = $this->lotteryService->getNextDrawByLottery('PowerBall');
                     $uniqueId = $this->walletService->getUniqueTransactionId();
                     if ($credit_card != null) {

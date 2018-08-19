@@ -385,6 +385,30 @@ class WalletService
         }
     }
 
+    public function createDepositTransaction(User $user,
+                                                  $uniqueID = null,
+                                                  Order $order)
+    {
+
+        try
+        {
+            $creditCardCharge = $order->getCreditCardCharge();
+
+            $walletBefore = $user->getWallet();
+            $data = $this->buildDepositTransactionData(
+                $user,
+                $creditCardCharge,
+                $uniqueID,
+                $walletBefore,
+                $order
+            );
+            $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $data);
+        }catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
     /**
      * @param User $user
      * @param CreditCardCharge $creditCardCharge
@@ -409,7 +433,7 @@ class WalletService
         }
 
         $dataTransaction = [
-            'lottery_id' => $order ? $order->getLottery()->getId() : 1,
+            'lottery_id' => $order->getLottery() != null ? $order->getLottery()->getId() : 1,
             'numBets' => count($user->getPlayConfig()),
             'feeApplied' => $isChargeFee,
             'transactionID' => $uniqueID,

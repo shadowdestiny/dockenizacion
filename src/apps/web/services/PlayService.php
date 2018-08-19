@@ -19,6 +19,7 @@ use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
+use EuroMillions\web\services\factories\LotteryValidatorsFactory;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\BundlePlayCollectionDTO;
@@ -251,6 +252,7 @@ class PlayService
     public function playWithMoneyMatrix($lotteryName, $transactionID, $userID,$withWallet)
     {
         try {
+            $di = \Phalcon\Di::getDefault();
             /** @var Lottery $lottery */
             $lottery = $this->lotteryService->getLotteryConfigByName($lotteryName);
             /** @var User $user */
@@ -271,18 +273,21 @@ class PlayService
                     $this->entityManager->flush($play_config);
                 }
             }
+
+            $this->walletService->createDepositTransaction($user,$transactionID,$order);
+
             $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
             if ($result_payment->success() && $orderIsToNextDraw) {
                 $walletBefore = $user->getWallet();
                 $config = $di->get('config');
                 if ($config->application->send_single_validations) {
                     foreach ($order->getPlayConfig() as $play_config) {
-                        $result_validation = $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate());
-
+                        $result_validation = $this->validatorResult($lottery,$play_config,$draw,$order);
                         if (!$result_validation->success()) {
                             return new ActionResult(false, $result_validation->errorMessage());
                         }
                         if ($order->getHasSubscription()) {
+                            $this->walletService->createSubscriptionTransaction($user,$transactionID,$order);
                            if ($withWallet) {
                                 $this->walletService->payWithSubscription($user, $play_config);
                                 $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config);
@@ -669,6 +674,17 @@ class PlayService
         $emailTemplate->setUser($user);
 
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    }
+
+    private function validatorResult(Lottery $lottery, $play_config,ActionResult $draw, Order $order)
+    {
+        $lotteryValidator = LotteryValidatorsFactory::create($lottery->getName());
+        if($lottery->getName() == 'EuroMillions')
+        {
+            return $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate(), $lotteryValidator);
+        }
+        $result_validation = json_decode($lotteryValidator->book(json_encode($order->getPlayConfig()))->body);
+        return $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
     }
 
     private function sendEmailPurchaseChristmas(User $user, $orderLines)
