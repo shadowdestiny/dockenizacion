@@ -78,10 +78,34 @@ class OrderPowerBall extends Order
 
     }
 
+    public function getAmount()
+    {
+        $numPlayConfigs = count($this->getPlayConfig());
+        if($this->powerPlay)
+        {
+            return ($this->lottery->getPowerPlayValue() * $numPlayConfigs) +
+                $this->lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount();
+        }
+
+        $this->lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount();
+    }
+
     public function setLottery($lottery)
     {
         /** @var Lottery $lottery */
         $this->lottery = $lottery;
         $this->setPowerPlayPrice($lottery->getPowerPlayValue());
     }
+
+    public function getCreditCardCharge()
+    {
+        if($this->powerPlay)
+        {
+            $powerPlayValue = (new Money($this->lottery->getPowerPlayValue(), new Currency('EUR')))->multiply(count($this->play_config));
+            $this->total =  $this->total->add($powerPlayValue);
+        }
+        return $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
+    }
+
+
 }

@@ -323,4 +323,16 @@ class Order implements \JsonSerializable
     {
         $this->lottery = $lottery;
     }
+
+    //TODO ha de ir en OrderPowerBall
+    public function setData($data=null)
+    {
+        if($data !=null)
+        {
+            $powerPlayValue = (new Money($data, new Currency('EUR')))->multiply(count($this->play_config));
+            $this->total =  $this->total->add($powerPlayValue);
+        }
+        $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
+    }
+
 }

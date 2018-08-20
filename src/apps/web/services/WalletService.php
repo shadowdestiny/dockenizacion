@@ -105,6 +105,32 @@ class WalletService
         return $payment_result;
     }
 
+    public function payWithMoneyMatrix(User $user, $transactionID, Order $order, $isWallet)
+    {
+
+        $creditCardCharge = $order->getCreditCardCharge();
+
+        try {
+            $walletBefore = $user->getWallet();
+            if (!$order->getHasSubscription()) {
+                $user->reChargeWallet($creditCardCharge->getNetAmount());
+                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $transactionID, $walletBefore,$order);
+                $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
+            } else {
+                $user->reChargeSubscriptionWallet($creditCardCharge->getNetAmount());
+                if ($isWallet) {
+                    $user->removeSubscriptionWithWallet($creditCardCharge->getNetAmount());
+                }
+                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $transactionID, $walletBefore,$order);
+                $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
+            }
+            $this->entityManager->persist($user);
+            $this->entityManager->flush($user);
+        } catch (\Exception $e) {
+
+        }
+    }
+
     /**
      * @param ICardPaymentProvider $provider
      * @param CreditCard $card
@@ -177,10 +203,14 @@ class WalletService
     }
 
 
-    public function payWithWallet(User $user, PlayConfig $playConfig, Money $powerPlayValue = null)
+    public function payWithWallet(User $user, PlayConfig $playConfig, Money $powerPlayValue = null, Order $order =null)
     {
         try {
             if ($playConfig->getPowerPlay()) {
+                if($order != null)
+                {
+                    $powerPlayValue = new Money($order->getLottery()->getPowerPlayValue(), new Currency('EUR'));
+                }
                 $price = $powerPlayValue->add($playConfig->getSinglePrice());
                 $user->pay($price);
             } else {
@@ -191,11 +221,14 @@ class WalletService
         }
     }
 
-    public function paySubscriptionWithWallet(User $user, PlayConfig $playConfig, $powerPlayValue = null)
+    public function paySubscriptionWithWallet(User $user, PlayConfig $playConfig, $powerPlayValue = null, Order $order = null)
     {
         try {
             if ($playConfig->getPowerPlay()) {
-                $powerPlayValue = new Money($powerPlayValue, new Currency('EUR'));
+                if($order != null)
+                {
+                    $powerPlayValue = new Money($order->getLottery()->getPowerPlayValue(), new Currency('EUR'));
+                }
                 $price = $playConfig->getSinglePrice()->multiply($playConfig->getFrequency());
                 $powerPlayValue = $powerPlayValue->multiply($playConfig->getFrequency());
                 $price = $price->add($powerPlayValue);
@@ -209,13 +242,15 @@ class WalletService
         }
     }
 
-    public function paySubscriptionWithWalletAndCreditCard(User $user, PlayConfig $playConfig, $powerPlayValue = null)
+    public function paySubscriptionWithWalletAndCreditCard(User $user, PlayConfig $playConfig, $powerPlayValue = null, Order $order = null)
     {
         try {
 
             if ($playConfig->getPowerPlay()) {
-
-                $powerPlayValue = new Money($powerPlayValue, new Currency('EUR'));
+                if($order != null)
+                {
+                    $powerPlayValue = new Money($order->getLottery()->getPowerPlayValue(), new Currency('EUR'));
+                }
                 $price = $playConfig->getSinglePrice()->multiply($playConfig->getFrequency());
                 $powerPlayValue = $powerPlayValue->multiply($playConfig->getFrequency());
                 $price = $price->add($powerPlayValue);
@@ -231,11 +266,14 @@ class WalletService
     }
 
 
-    public function payWithSubscription(User $user, PlayConfig $playConfig, $powerPlayValue = null)
+    public function payWithSubscription(User $user, PlayConfig $playConfig, $powerPlayValue = null, Order $order = null)
     {
         try {
             if ($playConfig->getPowerPlay()) {
-                $powerPlayValue = new Money(150, new Currency('EUR'));
+                if($order != null)
+                {
+                    $powerPlayValue = new Money($order->getLottery()->getPowerPlayValue(), new Currency('EUR'));
+                }
                 $price = $playConfig->getSinglePrice()->add($powerPlayValue);
                 $user->removeSubscriptionWallet($price);
             } else {

@@ -262,6 +262,7 @@ class PlayService
             $order = $result_order->getValues();
             $order->setIsCheckedWalletBalance(false);
             $order->addFunds(null);
+            $order->setLottery($lottery);
             $order->setAmountWallet($user->getWallet()->getBalance());
             $draw = $this->lotteryService->getNextDrawByLottery($lotteryName);
             $result_payment = new ActionResult(true, $order);
@@ -273,9 +274,7 @@ class PlayService
                     $this->entityManager->flush($play_config);
                 }
             }
-
-            $this->walletService->createDepositTransaction($user,$transactionID,$order);
-
+            $this->walletService->payWithMoneyMatrix($user,$transactionID,$order,$withWallet);
             $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
             if ($result_payment->success() && $orderIsToNextDraw) {
                 $walletBefore = $user->getWallet();
@@ -289,13 +288,13 @@ class PlayService
                         if ($order->getHasSubscription()) {
                             $this->walletService->createSubscriptionTransaction($user,$transactionID,$order);
                            if ($withWallet) {
-                                $this->walletService->payWithSubscription($user, $play_config);
-                                $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config);
+                                $this->walletService->payWithSubscription($user, $play_config,null,$order);
+                                $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config,null,$order);
                             } else {
-                                $this->walletService->payWithSubscription($user, $play_config);
+                               $this->walletService->payWithSubscription($user, $play_config,null,$order);
                             }
                         } else {
-                            $this->walletService->payWithWallet($user, $play_config);
+                            $this->walletService->payWithWallet($user, $play_config,null,$order);
                         }
                     }
                     $numPlayConfigs = count($order->getPlayConfig());
@@ -681,7 +680,7 @@ class PlayService
         $lotteryValidator = LotteryValidatorsFactory::create($lottery->getName());
         if($lottery->getName() == 'EuroMillions')
         {
-            return $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate(), $lotteryValidator);
+            return $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $lotteryValidator);
         }
         $result_validation = json_decode($lotteryValidator->book(json_encode($order->getPlayConfig()))->body);
         return $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);

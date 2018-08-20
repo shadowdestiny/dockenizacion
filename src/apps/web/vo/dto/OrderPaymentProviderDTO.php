@@ -59,7 +59,7 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
             "paymentMethod" => "null",
             "amount" => number_format($this->totalPrice / 100,2),
             "currency" => $this->currency,
-            "SuccessUrl" => "https://localhost:4433/moneymatrix/payment?method=wallet&transactionID=".$this->getTransactionID()."&userID=".$this->user->getId()."&lottery=".$this->lottery,
+            "SuccessUrl" => "https://localhost:4433/paymentmx/success?wallet=false&transactionID=".$this->getTransactionID()."&userID=".$this->user->getId()."&lottery=".$this->lottery,
             "FailUrl" => "http://merchant-site.com/fail.ashx",
             "CancelUrl" => "http://merchant-site.com/cancel.ashx",
             "CheckStatusUrl" => "http://merchant-site.com/synch_check.ashx",

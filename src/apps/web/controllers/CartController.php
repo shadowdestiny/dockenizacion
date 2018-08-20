@@ -295,6 +295,7 @@ class CartController extends PublicSiteControllerBase
         $fee_value = $this->siteConfigService->getFeeValueWithCurrencyConverted($user_currency);
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user_currency);
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery($this->lottery);
+        $lottery = $this->domainServiceFactory->getLotteryService()->getLotteryConfigByName($this->lottery);
         $user = $this->authService->getCurrentUser();
         $discount = new Discount($result->returnValues()[0]->getFrequency(), $this->domainServiceFactory->getPlayService()->getBundleDataAsArray());
 
@@ -304,8 +305,16 @@ class CartController extends PublicSiteControllerBase
 
         if ($orderView) {
             $order = new Order($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount); // order created
+            $order->setLottery($lottery);
             $powerPlay = (int)$order->getPlayConfig()[0]->getPowerPlay();
             $order_eur = new Order($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount); //workaround for new payment gateway
+            $order_eur->setLottery($lottery);
+            //Dios que mierda.... quedará oculto cuando utilicemos OrderPowerBall
+            if($powerPlay)
+            {
+                $order->setData($lottery->getPowerPlayValue());
+                $order_eur->setData($lottery->getPowerPlayValue());
+            }
             $this->cartService->store($order);
         }
         /** @var PlayConfig[] $play_config */
@@ -323,7 +332,7 @@ class CartController extends PublicSiteControllerBase
         $this->tag->prependTitle('Review and Buy');
 
 
-        $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $total_price, $user_currency->getName(), $this->lottery);
+        $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $order_eur->getCreditCardCharge()->getFinalAmount()->getAmount(), $user_currency->getName(), $this->lottery);
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$this->orderDataToPaymentProvider);
 
 
