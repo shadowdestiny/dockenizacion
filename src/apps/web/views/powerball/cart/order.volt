@@ -210,7 +210,7 @@
                                                 </h1>
                                             </div>
                           <div class="section--content">
-                                <iframe width="100%" height="100%" src={{ cashier.cashierUrl}} ></iframe>
+                                <iframe  style="position:relative;top:0px;width:100%;height:100vh;" src={{ cashier.cashierUrl}}  ></iframe>
                           </div>
                       </section>
                     {% else %}
