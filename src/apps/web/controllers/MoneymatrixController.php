@@ -10,8 +10,10 @@ namespace EuroMillions\web\controllers;
 
 
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\entities\Currency;
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\services\factories\DomainServiceFactory;
+use Money\Money;
 
 class MoneymatrixController extends PaymentController
 {
@@ -38,9 +40,10 @@ class MoneymatrixController extends PaymentController
             $transactionID = $this->request->get('transactionID');
             $lotteryName = $this->request->get('lottery');
             $withWallet = $this->request->get('wallet');
+            $amount= $this->request->get('amount');
             $userId = $this->authService->getCurrentUser()->getId();
             $play_service = $this->domainServiceFactory->getPlayService();
-            $result = $play_service->playWithMoneyMatrix($lotteryName,$transactionID,$userId,$withWallet);
+            $result = $play_service->playWithMoneyMatrix($lotteryName,$transactionID,$userId,$withWallet,new Money( (int) $amount, new \Money\Currency('EUR') ));
             $this->playResult($result);
         } catch (\Exception $e) {
             $this->playResult(new ActionResult(false));

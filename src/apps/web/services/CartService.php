@@ -85,7 +85,6 @@ class CartService
                     }
                     $fee = $this->siteConfigService->getFee();
                     $fee_limit = $this->siteConfigService->getFeeToLimitValue();
-
                     if ($lottery->getName() == 'EuroMillions') {
                         $order = new Order($bets,
                         $lottery->getSingleBetPrice(),

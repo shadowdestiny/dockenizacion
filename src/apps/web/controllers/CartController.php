@@ -23,6 +23,7 @@ use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\Order;
 use Money\Currency;
+use Money\Money;
 use Phalcon\Validation\Message;
 
 
@@ -203,6 +204,7 @@ class CartController extends PublicSiteControllerBase
     }
 
 
+
     public function validateAction($token)
     {
         $current_user = $this->forceLogin($this->authService);
@@ -216,6 +218,22 @@ class CartController extends PublicSiteControllerBase
             $message = 'Sorry, the token you used is no longer valid. (message was: "'.$result->getValues().'""). Click here to request a new one.'; //EMTD click here has to work and send a new token to the user.
         }
         $this->view->setVar('message', $message);
+    }
+
+    public function iframeReloadAction()
+    {
+        $this->noRender();
+        $userCurrency=$this->userPreferencesService->getCurrency();
+        $user_id = $this->authService->getCurrentUser()->getId();
+        /** @var User $user */
+        $user = $this->userService->getUser($user_id);
+        $amount = $this->request->getPost('amount');
+        $lottery = $this->request->getPost("lottery");
+        $isWallet = $this->request->getPost('wallet');
+        $currencyAmount = new Money((int) filter_var($amount, FILTER_SANITIZE_NUMBER_INT) , $userCurrency);
+        $orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $currencyAmount->getAmount(), $userCurrency->getName(), $lottery,$isWallet);
+        $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider);
+        echo json_encode($cashierViewDTO);
     }
 
     /**
@@ -330,13 +348,8 @@ class CartController extends PublicSiteControllerBase
         $currency_symbol = $this->currencyConversionService->getSymbol($wallet_balance, $locale);
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user_currency);
         $this->tag->prependTitle('Review and Buy');
-
-
-        $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $order_eur->getCreditCardCharge()->getFinalAmount()->getAmount(), $user_currency->getName(), $this->lottery);
+        $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $order_eur->getCreditCardCharge()->getFinalAmount()->getAmount(), $user_currency->getName(), $this->lottery,$checked_wallet);
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$this->orderDataToPaymentProvider);
-
-
-
 
 
         return $this->view->setVars([

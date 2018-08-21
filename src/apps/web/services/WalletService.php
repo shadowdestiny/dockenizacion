@@ -105,21 +105,20 @@ class WalletService
         return $payment_result;
     }
 
-    public function payWithMoneyMatrix(User $user, $transactionID, Order $order, $isWallet)
+    public function payWithMoneyMatrix(User $user, $transactionID, Order $order, $isWallet,$amount)
     {
 
         $creditCardCharge = $order->getCreditCardCharge();
-
         try {
             $walletBefore = $user->getWallet();
             if (!$order->getHasSubscription()) {
-                $user->reChargeWallet($creditCardCharge->getNetAmount());
+                $user->reChargeWallet($amount);
                 $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $transactionID, $walletBefore,$order);
                 $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
             } else {
-                $user->reChargeSubscriptionWallet($creditCardCharge->getNetAmount());
+                $user->reChargeSubscriptionWallet($amount);
                 if ($isWallet) {
-                    $user->removeSubscriptionWithWallet($creditCardCharge->getNetAmount());
+                    $user->removeSubscriptionWithWallet($amount);
                 }
                 $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $transactionID, $walletBefore,$order);
                 $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
@@ -127,7 +126,6 @@ class WalletService
             $this->entityManager->persist($user);
             $this->entityManager->flush($user);
         } catch (\Exception $e) {
-
         }
     }
 

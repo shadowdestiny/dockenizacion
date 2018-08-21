@@ -16,15 +16,17 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
     public $currency;
     public $lottery;
     public $transactionID;
+    public $isWallet;
 
 
-    public function __construct(IUser $user, $total_price, $currency, $lottery)
+    public function __construct(IUser $user, $total_price, $currency, $lottery, $isWallet = false)
     {
         /** @var User $user */
         $this->user = $user;
         $this->totalPrice = $total_price;
         $this->currency = $currency;
         $this->lottery = $lottery;
+        $this->isWallet = $isWallet;
         $this->user->getId();
         $this->exChangeObject();
     }
@@ -57,9 +59,9 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
             "state" => "",
             "birthDate" => "",
             "paymentMethod" => "null",
-            "amount" => number_format($this->totalPrice / 100,2),
+            "amount" =>  number_format($this->totalPrice / 100,2),
             "currency" => $this->currency,
-            "SuccessUrl" => "https://localhost:4433/paymentmx/success?wallet=false&transactionID=".$this->getTransactionID()."&userID=".$this->user->getId()."&lottery=".$this->lottery,
+            "SuccessUrl" => "https://localhost:4433/paymentmx/success?wallet=".$this->isWallet."&amount=".number_format($this->totalPrice / 100,2)."&transactionID=".$this->getTransactionID()."&userID=".$this->user->getId()."&lottery=".$this->lottery,
             "FailUrl" => "http://merchant-site.com/fail.ashx",
             "CancelUrl" => "http://merchant-site.com/cancel.ashx",
             "CheckStatusUrl" => "http://merchant-site.com/synch_check.ashx",

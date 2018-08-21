@@ -249,7 +249,7 @@ class PlayService
         return new ActionResult(false);
     }
 
-    public function playWithMoneyMatrix($lotteryName, $transactionID, $userID,$withWallet)
+    public function playWithMoneyMatrix($lotteryName, $transactionID, $userID,$withWallet,$amount)
     {
         try {
             $di = \Phalcon\Di::getDefault();
@@ -260,9 +260,10 @@ class PlayService
             $result_order = $this->cartService->get($userID, $lotteryName);
             /** @var Order $order */
             $order = $result_order->getValues();
-            $order->setIsCheckedWalletBalance(false);
-            $order->addFunds(null);
+            $order->setIsCheckedWalletBalance($withWallet);
+            //$order->addFunds(new Money((int) $amount, new Currency('EUR')));
             $order->setLottery($lottery);
+            $order->addFunds(null);
             $order->setAmountWallet($user->getWallet()->getBalance());
             $draw = $this->lotteryService->getNextDrawByLottery($lotteryName);
             $result_payment = new ActionResult(true, $order);
@@ -274,7 +275,7 @@ class PlayService
                     $this->entityManager->flush($play_config);
                 }
             }
-            $this->walletService->payWithMoneyMatrix($user,$transactionID,$order,$withWallet);
+            $this->walletService->payWithMoneyMatrix($user,$transactionID,$order,$withWallet,$amount);
             $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
             if ($result_payment->success() && $orderIsToNextDraw) {
                 $walletBefore = $user->getWallet();

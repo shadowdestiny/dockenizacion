@@ -51,6 +51,26 @@
     var txt_weeks = '{{ language.translate('subs_weeks') }}';
 
 
+    //Workaround for moneymatrix
+
+    $(document).on("moneymatrix",{total: 0, param2: 0},function(e, total, param2) {
+        var total_text = '';
+        if(currency_symbol !== '€') {
+        var rest_total_from_funds = accounting.unformat(total.slice(1)) - accounting.unformat(param2);
+        var total_eur = accounting.unformat(rest_total_from_funds)/accounting.unformat(ratio);
+        var total_convert =  accounting.unformat(total_eur) + accounting.unformat(param2);//parseFloat(parseFloat(total_eur).toFixed(2) + parseFloat(param2).toFixed(2));
+        var convert = accounting.toFixed(total_convert,2)
+        total_text = '(€'+convert+')';
+        }
+         var isWallet = $('#pay-wallet').is(":checked");
+         $.post('/cart/iframereload', "amount="+total+"&wallet="+isWallet+"&lottery=EuroMillions",function(response){
+                let result = JSON.parse(response);
+                $("#iframemx").attr('src',result.cashierUrl);
+         });
+        }
+    )
+
+
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {
     var total_text = '';
     if(currency_symbol !== '€') {
@@ -201,17 +221,7 @@
 
                 <div class="payment hidden">
                     {% if cashier.cashierUrl != null %}
-                     <section class="section--card--details">
-
-                                            <div class="top-row">
-                                                <h1 class="h2">
-                                                    {{ language.translate("card_subhead") }}
-                                                </h1>
-                                            </div>
-                          <div class="section--content">
-                                <iframe  style="position:relative;top:0px;width:100%;height:100vh;" src={{ cashier.cashierUrl}}  ></iframe>
-                          </div>
-                      </section>
+                      {% include "cart/moneymatrix_iframe.volt" %}
                     {% else %}
                     <section class="section--card--details">
 

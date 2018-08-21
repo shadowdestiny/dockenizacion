@@ -36,6 +36,7 @@ var CartPage = new React.createClass({
         if( wallet_balance == 0 && accounting.unformat(price) > accounting.unformat(fee)) {
             this.setState({ show_all_fee : false, checked_wallet : this.state.checked_wallet });
         }
+        this.moneyMatrix();
         this.handleUpdatePrice();
     },
 
@@ -85,7 +86,31 @@ var CartPage = new React.createClass({
             $('.box-bottom').show();
         }
         this.state.checked_wallet = value;
+        this.moneyMatrix();
         this.handleUpdatePrice();
+    },
+
+    moneyMatrix: function()
+    {
+        var total_lines = this.state.playConfigList.bets.length;
+        var frequency = JSON.parse(this.props.config).frequency;
+        var price = this.props.total;
+        if(this.props.powerplay) {
+            var total_powerprice = (parseFloat(this.props.powerplayprice) * total_lines) * frequency;
+            price = parseFloat(price) + parseFloat(total_powerprice);
+
+        }
+        if(this.state.checked_wallet) {
+            price = this.updatePriceWithCheckedWallet();
+            this.state.new_balance = Wallet.getNewWalletBalance();
+
+        } else {
+            price = this.updatePriceWithoutWallet();
+            this.state.new_balance = parseFloat(this.props.wallet_balance);
+        }
+
+        $(document).trigger("moneymatrix", [ price, Funds.funds_value ]);
+
     },
 
     handlePreTotal : function (value)
@@ -173,11 +198,9 @@ var CartPage = new React.createClass({
             price = this.updatePriceWithoutWallet();
             this.state.new_balance = parseFloat(this.props.wallet_balance);
         }
-
         $(document).trigger("totalPriceEvent", [ parseFloat(price).toFixed(2), Funds.funds_value ]);
         CurrencyFormat.value = price;
         var price_and_symbol = CurrencyFormat.getCurrencyFormatted();
-
         this.setState({ total : price_and_symbol });
     },
 
@@ -261,6 +284,7 @@ var CartPage = new React.createClass({
             symbol_price_balance = CurrencyFormat.getCurrencyFormatted();
             old_balance_and_new_balance = <span className="value"> <span className="current">{symbol_price_balance}</span> </span>;
         }
+
 
         var wallet_component = null;
         var total_lines = _playConfigList.bets.length;
