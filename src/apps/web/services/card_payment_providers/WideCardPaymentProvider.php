@@ -7,13 +7,14 @@ namespace EuroMillions\web\services\card_payment_providers;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\widecard\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
 use EuroMillions\web\vo\CreditCard;
 use Money\Money;
 use Phalcon\Http\Client\Response;
 
-class WideCardPaymentProvider implements ICardPaymentProvider
+class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGateway
 {
 
     private $gatewayClient;
@@ -92,4 +93,8 @@ class WideCardPaymentProvider implements ICardPaymentProvider
         return $this->config;
     }
 
+    public function call($data)
+    {
+        // TODO: Implement call() method.
+    }
 }
