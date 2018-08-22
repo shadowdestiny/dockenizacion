@@ -725,9 +725,8 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('totalBets', 'totalBets');
         $rsm->addScalarResult('grossSales', 'grossSales');
         $rsm->addScalarResult('grossMargin', 'grossMargin');
-        $rsm->addScalarResult('totalPowerplay', 'totalPowerplay');
 
-        return $this->entityManager
+        $data = $this->entityManager
             ->createNativeQuery('SELECT sum(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) as totalBets, sum(CASE
                                         WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 350) 
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
@@ -738,8 +737,20 @@ class ReportsRepository implements IReports
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - '. $amount .')
                                         ELSE 0
                                         END
-                                    ) as grossMargin,
-                                    sum(p.power_play) as totalPowerplay
+                                    ) as grossMargin
+                            FROM transactions t
+                            WHERE (entity_type = "ticket_purchase" || entity_type = "automatic_purchase") and data like "3#%" and
+                            date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"
+                            ORDER BY date DESC'
+                , $rsm)->getResult();
+
+
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('totalPowerplay', 'totalPowerplay');
+
+        $powerPlay =  $this->entityManager
+            ->createNativeQuery('SELECT sum(p.power_play) as totalPowerplay
                             FROM transactions t
                             INNER JOIN playconfig_transaction pt on pt.transactionID = t.id
                             INNER JOIN play_configs p on p.id = pt.playConfig_id
@@ -747,6 +758,15 @@ class ReportsRepository implements IReports
                             date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"
                             ORDER BY date DESC'
                 , $rsm)->getResult();
+
+        $result = $data[0] + $powerPlay[0];
+
+        return $result;
+    }
+
+    public function getPowerPlayDrawDetailsBetweenDrawDates($drawDates, $amount)
+    {
+
     }
 
     /**

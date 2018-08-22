@@ -310,7 +310,8 @@ class ReportsService
     {
         $actualDraw = new \DateTime($date);
         $nextDrawDate = clone $actualDraw->modify('+27 hours');
-        $actualDrawDate = $this->getNextDateDrawByLottery('PowerBall', $actualDraw->modify('-5 days'))->setTime(19, 30, 00);
+        $actualDrawDate = $this->getNextDateDrawByLottery('PowerBall', $actualDraw->modify('-5 days'))->setTime(03, 00, 00);
+        $actualDrawDate = $actualDrawDate->modify('+1 day');
 
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
     }
@@ -462,10 +463,10 @@ class ReportsService
             $single_bet_price = new Money(200, new Currency('USD'));
             $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency('EUR'));
             $drawData = $this->reportsRepository->getPowerBallDrawDetailsBetweenDrawDates($drawDates, $single_bet_price_currency->getAmount());
-            $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
-            $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
-            $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];
-            $salesDraw[$keyDraw]['totalPowerplay'] = $drawData[0]['totalPowerplay'];
+            $salesDraw[$keyDraw]['totalBets'] = $drawData['totalBets'];
+            $salesDraw[$keyDraw]['grossSales'] = $drawData['grossSales'];
+            $salesDraw[$keyDraw]['grossMargin'] = $drawData['grossMargin'];
+            $salesDraw[$keyDraw]['totalPowerplay'] = $drawData['totalPowerplay'];
         }
         return $salesDraw;
     }
