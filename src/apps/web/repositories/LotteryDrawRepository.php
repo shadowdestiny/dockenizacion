@@ -63,7 +63,6 @@ class LotteryDrawRepository extends EntityRepository
             $next_draw_date = DateTimeUtil::convertDateTimeBetweenTimeZones($next_draw_date,'America/New_York','Europe/Madrid')->modify('-1 day');
         }
 
-//        var_dump($next_draw_date);die();
         /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
             ->createQuery(

@@ -40,4 +40,5 @@
         {% endfor %}
         </tbody>
     </table>
+    {{ paginator_view_subs_inactive }}
 {% endif %}

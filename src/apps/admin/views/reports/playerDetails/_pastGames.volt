@@ -20,27 +20,34 @@
         {% for index,game in my_games_inactives %}
             <tr>
                 <td class="date" align="center">
-                        <?php
+                    <?php
                             $date = new \DateTime($index);
                             $startDrawDate = $date->format('Y M j');
-                        ?>
-                        {{ startDrawDate }}
+                    ?>
+                    {{ startDrawDate }}
                 </td>
-                <?php $rows = count($game);?>
+                <?php $rowslottery = count($game);?>
                 <?php
-                            $numColumn = 0;
-                            for($i=0;$i<$rows/2;$i++){
+                            $numColumnlottery = 0;
+                            for($i=0;$i<$rowslottery/2;$i++){
                             ?>
                 <?php
-                            $pastGame = $game[$numColumn];
-                            $lottery = $pastGame->lotteryName;
-                        ?>
+                            $pastGamelottery = $game[$numColumnlottery];
+                            $lottery2 = $pastGamelottery->lotteryName;
+                }?>
                 <td align="center">
-                    <strong>{{ lottery }}</strong>
+                    <strong>{{ lottery2 }}</strong>
                 </td>
                 <td class="numbers">
                     <table>
-
+                        <?php $rows = count($game);?>
+                        <?php
+                            $numColumn = 0;
+                            for($i=0;$i<$rows/2;$i++){
+                            ?>
+                        <?php
+                            $pastGame = $game[$numColumn];
+                        ?>
                         <tr>
                             <td class="numbers" style="border-right: 1px solid purple;">
                                 <div class="myCol">
@@ -49,10 +56,9 @@
                                     {% endfor %}
                                     {% for s,lucky_number in pastGame.stars  %}
                                         {% if s != 0 %}
-                                        <span class="num yellow <?php if($lucky_number > 1) echo 'highlight' ?>">{{ s }}</span>
-                                            {% endif %}
+                                            <span class="num yellow <?php if($lucky_number > 1) echo 'highlight' ?>">{{ s }}</span>
+                                        {% endif %}
                                     {% endfor %}
-
                                     <?php if($pastGame->prize > 0){?>
                                     <span class="">({{ pastGame.prize }})</span>
                                     <?php } ?>
@@ -73,7 +79,10 @@
                                         <span class="num <?php if($regular_number > 1) echo 'highlight' ?> ">{{ r }}</span>
                                     {% endfor %}
                                     {% for s,lucky_number in pastGame.stars  %}
-                                        <span class="num yellow <?php if($lucky_number > 1) echo 'highlight' ?>">{{ s }}</span>
+                                        {% if s != 0 %}
+                                            <span class="num yellow <?php if($lucky_number > 1) echo 'highlight' ?>">{{ s }}</span>
+                                        {% endif %}
+
                                     {% endfor %}
                                     <?php if($pastGame->prize > 0){?>
                                     <span class="">({{ pastGame.prize }})</span>
