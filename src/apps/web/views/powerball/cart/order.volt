@@ -166,7 +166,6 @@
     e.preventDefault();
     }
     });
-    console.log(cashier);
 {% endblock %}
 {% block template_scripts_after %}
     <script src="/w/js/react/cart.js"></script>

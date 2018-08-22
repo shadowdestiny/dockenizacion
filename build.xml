@@ -5,7 +5,7 @@
     <property name="phpcpd"  value="phpcpd"/>
     <property name="phpcs"   value="phpcs"/>
     <target name="build"
-            depends="prepare,vendors,phpcpd-ci,phpcs-ci,phpunit,-check-failure"
+            depends="prepare,vendors,phpcpd-ci,phpcs-ci,-check-failure"
             description=""/>
 
     <target name="clean"
@@ -98,14 +98,14 @@
 
 
 
-    <target name="phpunit"
-            depends="vendors"
-            description="Run unit tests with PHPUnit">
-        <exec executable="${toolsdir}phpunit" resultproperty="result.phpunit" taskname="phpunit">
-            <arg value="--configuration"/>
-            <arg path="src/tests/phpunit.xml"/>
-        </exec>
-    </target>
+    <!--<target name="phpunit"-->
+            <!--depends="vendors"-->
+            <!--description="Run unit tests with PHPUnit">-->
+        <!--<exec executable="${toolsdir}phpunit" resultproperty="result.phpunit" taskname="phpunit">-->
+            <!--<arg value="&#45;&#45;configuration"/>-->
+            <!--<arg path="src/tests/phpunit.xml"/>-->
+        <!--</exec>-->
+    <!--</target>-->
 
 
  <target name="-check-failure">
