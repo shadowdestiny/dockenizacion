@@ -36,6 +36,7 @@ class ChristmasController extends PublicSiteControllerBase
         $this->tag->prependTitle($this->languageService->translate('play_ch_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('play_ch_desc'));
 
+
         return $this->view->setVars([
             'currencySymbol' => $currency_symbol,
             'singleBetPrice' => $single_bet_price_currency->getAmount() / 100,
