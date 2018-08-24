@@ -463,8 +463,10 @@ class ReportsService
             $drawDates = $this->getPowerBallDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
 //            $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('PowerBall');
             $single_bet_price = new Money(200, new Currency('USD'));
+            $powerball_price = new Money(100, new Currency('USD'));
             $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency('EUR'));
-            $drawData = $this->reportsRepository->getPowerBallDrawDetailsBetweenDrawDates($drawDates, $single_bet_price_currency->getAmount());
+            $powerball_price_currency = $this->currencyConversionService->convert($powerball_price, new Currency('EUR'));
+            $drawData = $this->reportsRepository->getPowerBallDrawDetailsBetweenDrawDates($drawDates, $single_bet_price_currency->getAmount(), $powerball_price_currency->getAmount());
             $salesDraw[$keyDraw]['totalBets'] = $drawData['totalBets'];
             $salesDraw[$keyDraw]['grossSales'] = $drawData['grossSales'];
             $salesDraw[$keyDraw]['grossMargin'] = $drawData['grossMargin'];

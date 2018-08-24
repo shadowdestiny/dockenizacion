@@ -719,7 +719,7 @@ class ReportsRepository implements IReports
      *
      * @return array
      */
-    public function getPowerBallDrawDetailsBetweenDrawDates($drawDates, $amount)
+    public function getPowerBallDrawDetailsBetweenDrawDates($drawDates, $amount, $amountPowerBall)
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('totalBets', 'totalBets');
@@ -728,12 +728,12 @@ class ReportsRepository implements IReports
 
         $data = $this->entityManager
             ->createNativeQuery('SELECT sum(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) as totalBets, sum(CASE
-                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 350) 
+                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1)) 
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
                                         ELSE 0
                                         END
                                     ) as grossSales, sum(CASE
-                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 350) - (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * '. $amount .')
+                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1)) - (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * '. $amount .')
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - '. $amount .')
                                         ELSE 0
                                         END
@@ -760,6 +760,7 @@ class ReportsRepository implements IReports
                 , $rsm)->getResult();
 
         $result = $data[0] + $powerPlay[0];
+        $result['grossMargin'] = $result['grossMargin'] - ($amountPowerBall * (int)$result['totalPowerplay']);
 
         return $result;
     }
