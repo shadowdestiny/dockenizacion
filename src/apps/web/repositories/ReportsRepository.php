@@ -759,6 +759,7 @@ class ReportsRepository implements IReports
                             ORDER BY date DESC'
                 , $rsm)->getResult();
 
+
         $result = $data[0] + $powerPlay[0];
         $result['grossMargin'] = $result['grossMargin'] - ($amountPowerBall * (int)$result['totalPowerplay']);
 
