@@ -63,7 +63,7 @@
         total_text = '(€'+convert+')';
         }
          var isWallet = $('#pay-wallet').is(":checked");
-         $.post('/cart/iframereload', "amount="+total+"&wallet="+isWallet+"&lottery=EuroMillions",function(response){
+         $.post('/cart/iframereload', "wallet="+isWallet+"&lottery=EuroMillions",function(response){
                 let result = JSON.parse(response);
                 $("#iframemx").attr('src',result.cashierUrl);
          });

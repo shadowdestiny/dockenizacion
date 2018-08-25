@@ -112,6 +112,17 @@ class CartService
         return new ActionResult(false);
     }
 
+
+    public function amountCalculateWithCreditCardAndBalance(Money $orderAmount, Money $walletAmount, $isWallet)
+    {
+        if($isWallet == 'false')
+        {
+            return $orderAmount;
+        }
+        $amount = $orderAmount->subtract($walletAmount);
+        return new Money( $amount->getAmount(), new Currency('EUR'));
+    }
+
     public function getChristmas($user_id)
     {
         try {

@@ -223,17 +223,28 @@ class CartController extends PublicSiteControllerBase
     public function iframeReloadAction()
     {
         $this->noRender();
-        $userCurrency=$this->userPreferencesService->getCurrency();
-        $user_id = $this->authService->getCurrentUser()->getId();
-        /** @var User $user */
-        $user = $this->userService->getUser($user_id);
-        $amount = $this->request->getPost('amount');
-        $lottery = $this->request->getPost("lottery");
-        $isWallet = $this->request->getPost('wallet');
-        $currencyAmount = new Money((int) filter_var($amount, FILTER_SANITIZE_NUMBER_INT) , $userCurrency);
-        $orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $currencyAmount->getAmount(), $userCurrency->getName(), $lottery,$isWallet);
-        $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider);
-        echo json_encode($cashierViewDTO);
+        try {
+            $userCurrency=$this->userPreferencesService->getCurrency();
+            $user_id = $this->authService->getCurrentUser()->getId();
+            /** @var User $user */
+            $user = $this->userService->getUser($user_id);
+            $lottery = $this->request->getPost("lottery");
+            $isWallet = $this->request->getPost('wallet');
+            $transactionID = $this->request->getPost('tsid');
+            $cartService = $this->cartService->get($user_id,$lottery);
+            /** @var Order $order */
+            $order = $cartService->getValues();
+            $amountEUR = $this->cartService->amountCalculateWithCreditCardAndBalance($order->getTotal(),$user->getWallet()->getBalance(),$isWallet);
+            $orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $amountEUR->getAmount(), $userCurrency->getName(), $lottery,$isWallet);
+            $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider,$transactionID);
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$amountEUR,$transactionID);
+            echo json_encode($cashierViewDTO);
+        } catch (\Exception $e)
+        {
+            echo json_encode([
+                'errorMsg' => $e->getMessage()
+            ]);
+        }
     }
 
     /**

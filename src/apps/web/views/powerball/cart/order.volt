@@ -50,22 +50,16 @@
     var txt_since = '{{ language.translate('subs_since') }}';
     var txt_weeks = '{{ language.translate('subs_weeks') }}';
     var cashier = null;
+    var tsid = '<?php echo $cashier->transactionID; ?>';
 
 
     //Workaround for moneymatrix
 
-    $(document).on("moneymatrix",{total: 0, param2: 0},function(e, total, param2) {
-        var total_text = '';
-        if(currency_symbol !== '€') {
-        var rest_total_from_funds = accounting.unformat(total.slice(1)) - accounting.unformat(param2);
-        var total_eur = accounting.unformat(rest_total_from_funds)/accounting.unformat(ratio);
-        var total_convert =  accounting.unformat(total_eur) + accounting.unformat(param2);//parseFloat(parseFloat(total_eur).toFixed(2) + parseFloat(param2).toFixed(2));
-        var convert = accounting.toFixed(total_convert,2)
-        total_text = '(€'+convert+')';
-        }
-         var isWallet = $('#pay-wallet').is(":checked");
-         $.post('/cart/iframereload', "amount="+total+"&wallet="+isWallet+"&lottery=PowerBall",function(response){
+    $(document).on("moneymatrix",{wallet: true},function(e, wallet) {
+         if(wallet == 1) wallet = true;
+         $.post('/cart/iframereload', "tsid="+tsid+"&wallet="+wallet+"&lottery=PowerBall",function(response){
                 let result = JSON.parse(response);
+                console.log(result + " " + tsid);
                 $("#iframemx").attr('src',result.cashierUrl);
          });
         }

@@ -43,7 +43,7 @@ class TransactionService
         if ($data['now'] == null) {
             $data['now'] = new \DateTime();
         }
-        list($partOne, $partTwo) = explode('_', $transactionType);
+        @list($partOne, $partTwo) = explode('_', $transactionType);
         $class = 'EuroMillions\web\components\transaction\\' . ucfirst($partOne) . ucfirst($partTwo) . 'Generator';
         try {
             /** @var Transaction $entity */
@@ -54,6 +54,19 @@ class TransactionService
             return new ActionResult(false);
         }
         return new ActionResult(true, $entity);
+    }
+
+    public function updateTransaction($entity)
+    {
+        try
+        {
+            $this->entityManager->persist($entity);
+            $this->entityManager->flush();
+        }catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
+
     }
 
     public function getTransactionsDTOByUser(User $user)
@@ -113,6 +126,17 @@ class TransactionService
     {
         /** @var Transaction $transactionEntity */
         $transactionEntity = $this->transactionRepository->findBy(["id" => $id]);
+        if ($transactionEntity != null) {
+            return $transactionEntity;
+        } else {
+            return null;
+        }
+    }
+
+    public function getTransactionByEmTransactionID($id)
+    {
+        /** @var Transaction $transactionEntity */
+        $transactionEntity = $this->transactionRepository->findBy(["transactionID" => $id]);
         if ($transactionEntity != null) {
             return $transactionEntity;
         } else {

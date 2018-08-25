@@ -51,7 +51,7 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
      */
     public function user(User $user)
     {
-
+        throw new \BadFunctionCallException();
     }
 
     /**

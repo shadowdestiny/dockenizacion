@@ -17,12 +17,16 @@ class ChasierDTO  extends DTOBase implements IDto
 
     public $cashierUrl;
 
-    public function __construct(array $data=null)
+    public $transactionID;
+
+    public function __construct(array $data=null, $transactionID=null)
     {
         if($data == null)
         {
             $this->cashierUrl = null;
+            $this->transactionID = null;
         } else {
+            $this->transactionID = $transactionID;
             $this->guard($data);
         }
     }

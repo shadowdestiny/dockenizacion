@@ -109,7 +109,7 @@ var CartPage = new React.createClass({
             this.state.new_balance = parseFloat(this.props.wallet_balance);
         }
 
-        $(document).trigger("moneymatrix", [ price, Funds.funds_value ]);
+        $(document).trigger("moneymatrix", [ this.state.checked_wallet ]);
 
     },
 

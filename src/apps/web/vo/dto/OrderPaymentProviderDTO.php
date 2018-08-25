@@ -26,7 +26,7 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
         $this->totalPrice = $total_price;
         $this->currency = $currency;
         $this->lottery = $lottery;
-        $this->isWallet = $isWallet;
+        $this->isWallet = $isWallet == 'true' ? true : false;
         $this->user->getId();
         $this->exChangeObject();
     }
@@ -60,8 +60,8 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
             "birthDate" => "",
             "paymentMethod" => "null",
             "amount" =>  number_format($this->totalPrice / 100,2),
-            "currency" => $this->currency,
-            "SuccessUrl" => "https://localhost:4433/paymentmx/success?wallet=".$this->isWallet."&amount=".number_format($this->totalPrice / 100,2)."&transactionID=".$this->getTransactionID()."&userID=".$this->user->getId()."&lottery=".$this->lottery,
+            "currency" => 'EUR',
+            "SuccessUrl" => "https://localhost:4433/paymentmx/success?wallet=".$this->isWallet."&transactionID=".$this->getTransactionID()."&userID=".$this->user->getId()."&lottery=".$this->lottery,
             "FailUrl" => "http://merchant-site.com/fail.ashx",
             "CancelUrl" => "http://merchant-site.com/cancel.ashx",
             "CheckStatusUrl" => "http://merchant-site.com/synch_check.ashx",

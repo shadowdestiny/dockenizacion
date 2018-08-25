@@ -11,6 +11,7 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
 
     protected $hasFee;
     protected $amountAdded;
+    protected $status;
 
     public function __construct(array $data)
     {
@@ -23,18 +24,20 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
         $this->setTransactionID($data['transactionID']);
         $this->setDate($data['now']);
         $this->setUser($data['user']);
+        $this->setStatus(!empty($data['status']) ? $data['status'] : 'SUCCESS');
     }
 
     public function toString()
     {
-        $this->data = $this->getHasFee().'#'.$this->getAmountAdded();
+        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getStatus();
     }
 
     public function fromString()
     {
-        list($fee,$amount) = explode('#',$this->data);
+        list($fee,$amount,$status) = explode('#',$this->data);
         $this->hasFee = $fee;
         $this->amountAdded = $amount;
+        $this->status = $status;
         return $this;
     }
 
@@ -76,5 +79,19 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
         return parent::DEPOSIT_TRANSACTION_TYPE;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 }
