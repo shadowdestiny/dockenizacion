@@ -13,6 +13,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
+use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderPowerBall;
@@ -37,13 +38,14 @@ class CartService
     /** @var PlayConfigRepository $playConfigRepository */
     private $playConfigRepository;
 
-    public function __construct(EntityManager $entityManager, IPlayStorageStrategy $orderStorageStrategy, SiteConfigService $siteConfigService)
+    public function __construct(EntityManager $entityManager, IPlayStorageStrategy $orderStorageStrategy, SiteConfigService $siteConfigService, WalletService $walletService)
     {
         $this->entityManager = $entityManager;
         $this->orderStorageStrategy = $orderStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
         $this->lotteryRepository = $entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
+        $this->walletService = $walletService;
         $this->siteConfigService = $siteConfigService;
     }
 
@@ -85,20 +87,13 @@ class CartService
                     }
                     $fee = $this->siteConfigService->getFee();
                     $fee_limit = $this->siteConfigService->getFeeToLimitValue();
-                    if ($lottery->getName() == 'EuroMillions') {
-                        $order = new Order($bets,
+                    $order = OrderFactory::create(
+                        $bets,
                         $lottery->getSingleBetPrice(),
                         $fee, $fee_limit,
-                        new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
-
-                    } else {
-                        $orderStrategy = "\\EuroMillions\\web\\vo\\" . 'Order' . $lottery->getName();
-                        $order = new $orderStrategy($bets,
-                            $lottery->getSingleBetPrice(),
-                            $fee, $fee_limit,
-                            new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
-                    }
-
+                        new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()),
+                        $lottery
+                    );
                     if (null !== $order) {
                         return new ActionResult(true, $order);
                     }
@@ -110,6 +105,10 @@ class CartService
             return new ActionResult(false, $r->getMessage());
         }
         return new ActionResult(false);
+    }
+
+    public function checkout($event,$component)
+    {
     }
 
 

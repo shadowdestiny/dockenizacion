@@ -269,7 +269,8 @@ class Order implements \JsonSerializable
             'fee_limit' => $this->fee_limit->getAmount(),
             'single_bet_price' => $this->single_bet_price->getAmount(),
             'num_lines' => $this->num_lines,
-            'play_config' => $bets
+            'play_config' => $bets,
+            'lottery' => $this->getLottery()->getName()
         ];
 
     }

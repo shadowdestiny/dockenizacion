@@ -248,6 +248,7 @@ class PlayService
         return new ActionResult(false);
     }
 
+
     public function playWithMoneyMatrix($lotteryName, $transactionID, $userID,$withWallet,$amount)
     {
         try {
@@ -287,7 +288,7 @@ class PlayService
                         }
                         if ($order->getHasSubscription()) {
                             $this->walletService->createSubscriptionTransaction($user,$transactionID,$order);
-                           if ($withWallet) {
+                           if ($withWallet) {$order->setAmountWallet($user->getWallet()->getBalance());
                                 $this->walletService->payWithSubscription($user, $play_config,null,$order);
                                 $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config,null,$order);
                             } else {

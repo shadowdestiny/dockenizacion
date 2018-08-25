@@ -29,15 +29,16 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
 
     public function toString()
     {
-        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getStatus();
+        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getStatus().'#'.$this->getLotteryId();
     }
 
     public function fromString()
     {
-        list($fee,$amount,$status) = explode('#',$this->data);
+        @list($fee,$amount,$status,$lotteryID) = explode('#',$this->data);
         $this->hasFee = $fee;
         $this->amountAdded = $amount;
         $this->status = $status;
+        $this->lotteryId = $lotteryID;
         return $this;
     }
 

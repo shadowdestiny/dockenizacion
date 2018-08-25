@@ -194,7 +194,8 @@ class DomainServiceFactory
         return new CartService(
             $this->entityManager,
             new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache')),
-            new SiteConfigService($this->entityManager,$this->getCurrencyConversionService())
+            new SiteConfigService($this->entityManager,$this->getCurrencyConversionService()),
+            $this->getWalletService()
         );
     }
 

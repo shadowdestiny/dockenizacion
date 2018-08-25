@@ -13,12 +13,17 @@ use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
 use Exception;
 use Money\Money;
+use Phalcon\Events\EventsAwareInterface;
+use Phalcon\Events\ManagerInterface;
 
-class PaymentProviderService
+class PaymentProviderService implements EventsAwareInterface
 {
 
     /** @var  TransactionService $transactionService */
     protected $transactionService;
+
+    /** @var \Phalcon\Events\Manager */
+    protected $_eventsManager;
 
     public function __construct(TransactionService $transactionService)
     {
@@ -42,7 +47,7 @@ class PaymentProviderService
         }
     }
 
-    public function createOrUpdateDepositTransactionWithPendingStatus(Order $order, User $user,Money $amount, $transactionID)
+    public function createOrUpdateDepositTransactionWithPendingStatus(Order $order, User $user,Money $amount, $transactionID, $status='PENDING')
     {
         try
         {
@@ -60,22 +65,45 @@ class PaymentProviderService
                 'walletBefore' => $user->getWallet(),
                 'walletAfter' => $user->getWallet(),
                 'now' => new \DateTime(),
-                'status' => 'PENDING'
+                'status' => $status
             ];
             if($transaction == null)
             {
                 $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
             } else {
                 $transaction[0]->setAmountAdded($amount->getAmount());
-                $transaction[0]->setStatus('PENDING');
+                $transaction[0]->setStatus($status);
                 $transaction[0]->setHasFee($order->getCreditCardCharge()->getIsChargeFee());
                 $transaction[0]->toString();
                 $this->transactionService->updateTransaction($transaction[0]);
+                if($status == 'SUCCESS')
+                {
+                    $this->_eventsManager->fire('cartservice:checkout', $this, $order);
+                }
             }
-
         } catch( Exception $e )
         {
 
         }
+    }
+
+    /**
+     * Sets the events manager
+     *
+     * @param mixed $eventsManager
+     */
+    public function setEventsManager(ManagerInterface $eventsManager)
+    {
+        $this->_eventsManager = $eventsManager;
+    }
+
+    /**
+     * Returns the internal event manager
+     *
+     * @return ManagerInterface
+     */
+    public function getEventsManager()
+    {
+        return $this->_eventsManager;
     }
 }
