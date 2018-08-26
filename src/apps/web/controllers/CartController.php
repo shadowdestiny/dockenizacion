@@ -339,6 +339,7 @@ class CartController extends PublicSiteControllerBase
             $order = OrderFactory::create($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$lottery);
             $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$lottery);
             $this->cartService->store($order);
+            var_dump($order->getCreditCardCharge());die();
         }
         /** @var PlayConfig[] $play_config */
         $play_config_collection = $result->returnValues();

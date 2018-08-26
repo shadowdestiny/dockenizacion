@@ -107,8 +107,9 @@ class CartService
         return new ActionResult(false);
     }
 
-    public function checkout($event,$component)
+    public function checkout($event,$component, $data)
     {
+        //meter fecha del siguiente draw en la order... Tiene que estar todo en la order
     }
 
 
