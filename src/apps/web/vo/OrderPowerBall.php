@@ -107,5 +107,26 @@ class OrderPowerBall extends Order
         return $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
     }
 
+    public function getUnitPrice()
+    {
+        if($this->getPowerPlay())
+        {
+           return  $this->getPlayConfig()[0]->getSinglePrice()->add($this->getPowerPlayPrice());
+        }
+         return $this->getPlayConfig()[0]->getSinglePrice();
+    }
+
+    public function getUnitPriceSubscription()
+    {
+        if($this->getPowerPlay())
+        {
+            $powerPlay = $this->getPowerPlayPrice()->multiply($this->getPlayConfig()[0]->getFrequency());
+            $price = $this->getPlayConfig()[0]->getSinglePrice()->multiply($this->getPlayConfig()[0]->getFrequency());
+            $sum =  $price->add($powerPlay);
+            return $sum;
+        }
+        return $this->getPlayConfig()[0]->getSinglePrice()->multiply($this->getPlayConfig()[0]->getFrequency());
+    }
+
 
 }

@@ -348,6 +348,15 @@ class Order implements \JsonSerializable
         $this->nextDraw = $nextDraw;
     }
 
+    public function getUnitPrice()
+    {
+        return $this->getPlayConfig()[0]->getSinglePrice();
+    }
+
+    public function getUnitPriceSubscription()
+    {
+        return $this->getPlayConfig()[0]->getSinglePrice()->multiply($this->getPlayConfig()[0]->getFrequency());
+    }
 
     //TODO ha de ir en OrderPowerBall
     public function setData($data=null)

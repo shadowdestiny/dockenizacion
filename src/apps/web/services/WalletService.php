@@ -105,6 +105,49 @@ class WalletService
         return $payment_result;
     }
 
+    public function payOrder(User $user, Order $order)
+    {
+        if($order->getHasSubscription())
+        {
+            $user->reChargeSubscriptionWallet($order->getCreditCardCharge()->getNetAmount());
+        } else {
+            $user->reChargeWallet($order->getCreditCardCharge()->getNetAmount());
+        }
+        try
+        {
+            $this->entityManager->persist($user);
+            $this->entityManager->flush($user);
+        } catch (\Exception $e)
+        {
+        }
+    }
+
+    public function extract(User $user, Order $order)
+    {
+        if($order->getHasSubscription())
+        {
+            if($order->isIsCheckedWalletBalance())
+            {
+                $user->removeWalletToSubscription($order->getUnitPriceSubscription());
+            } else
+            {
+                $user->removeSubscriptionWallet($order->getUnitPrice());
+            }
+        } else
+        {
+            $user->pay($order->getUnitPrice());
+        }
+        try
+        {
+            $this->entityManager->flush($user);
+        } catch(\Exception $e)
+        {
+
+        }
+
+    }
+
+
     public function payWithMoneyMatrix(User $user, $transactionID, Order $order, $isWallet,$amount)
     {
 
