@@ -52,7 +52,7 @@ class LotteryValidationCastilloChristmasApi
 //        <date>" . $date_next_draw->format('Ymd') . "</date>
         $content .= "<lottery number='1' price='" . self::PRICE_BET . "'>
             <decimo>
-                <date>20171222</date>
+                <date>20181222</date>
                 <number>" . str_replace(',', '', $line->getRegularNumbers()) . "</number>
                 <serie>" . $luckyNumbers[0] . "</serie>
                 <fraccion>" . $luckyNumbers[1] . "</fraccion>
