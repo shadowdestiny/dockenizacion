@@ -28,12 +28,13 @@ class NotificationController extends MoneymatrixController
             throw new \Exception();
         }
         $transaction->fromString();
-        $lottery = $this->lotteryService->getLotteryConfigByName('PowerBall');
-        $result = $this->cartService->get($transaction->getUser()->getId(),'PowerBall');
+        $result = $this->cartService->get($transaction->getUser()->getId(),$transaction->getLotteryName());
         /** @var Order $order */
         $order = $result->getValues();
         $this->paymentProviderService->setEventsManager($this->eventsManager);
-        $this->eventsManager->attach('cartservice', $this->cartService);
+        $this->eventsManager->attach('orderservice', $this->orderService);
+        $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName())->getValues();
+        $order->setNextDraw($nextDrawForOrder);
         $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,'SUCCESS');
     }
 }

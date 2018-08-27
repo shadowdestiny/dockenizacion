@@ -20,9 +20,9 @@ class OrderPowerBall extends Order
 
     private $powerPlay;
 
-    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null)
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet)
     {
-        parent::__construct($play_config, $single_bet_price, $fee, $fee_limit, $discount);
+        parent::__construct($play_config, $single_bet_price, $fee, $fee_limit, $discount, $withWallet);
         $this->powerPlay = (int)$play_config[0]->getPowerPlay();
     }
 

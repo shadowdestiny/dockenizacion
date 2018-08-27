@@ -34,17 +34,20 @@ class Order implements \JsonSerializable
 
     protected $lottery;
 
+    protected $nextDraw;
+
+
     protected $hasSubscription;
 
 
-    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null)
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null,$withWallet=false)
     {
         $this->play_config = $play_config;
         $this->single_bet_price = $single_bet_price;
         $this->fee = $fee;
         $this->fee_limit = $fee_limit;
         $this->funds_amount = new Money(0, new Currency('EUR'));
-        $this->isCheckedWalletBalance = false;
+        $this->isCheckedWalletBalance = $withWallet == 'false' ? false : true;
         if (!$discount) {
             $discount = new Discount(0, []);
         }
@@ -202,9 +205,13 @@ class Order implements \JsonSerializable
      * @param \DateTime $draw_date
      * @return bool
      */
-    public function isNextDraw(\DateTime $draw_date)
+    public function isNextDraw(\DateTime $draw_date = null)
     {
         $play_config = $this->getPlayConfig();
+        if($this->getNextDraw() != null && $draw_date == null)
+        {
+            return $play_config[0]->getStartDrawDate()->getTimestamp() <= $this->getNextDraw()->getDrawDate()->getTimestamp();
+        }
         return $play_config[0]->getStartDrawDate()->getTimestamp() <= $draw_date->getTimestamp();
     }
 
@@ -285,8 +292,8 @@ class Order implements \JsonSerializable
             if ($this->amountWallet->greaterThan($this->total)) {
                 $this->amountWallet = $this->total;
             }
-            $total = $this->total->subtract($this->amountWallet)->add($this->funds_amount);
-            $this->credit_card_charge = new CreditCardCharge($total, $this->fee, $this->fee_limit);
+            $this->total = $this->total->subtract($this->amountWallet)->add($this->funds_amount);
+            $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
         } else {
             $this->amountWallet = new Money(0, new Currency('EUR'));
         }
@@ -324,6 +331,23 @@ class Order implements \JsonSerializable
     {
         $this->lottery = $lottery;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNextDraw()
+    {
+        return $this->nextDraw;
+    }
+
+    /**
+     * @param mixed $nextDraw
+     */
+    public function setNextDraw($nextDraw)
+    {
+        $this->nextDraw = $nextDraw;
+    }
+
 
     //TODO ha de ir en OrderPowerBall
     public function setData($data=null)

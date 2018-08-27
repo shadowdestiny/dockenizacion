@@ -76,6 +76,8 @@ class PublicSiteControllerBase extends ControllerBase
 
     protected $cartPaymentProvider;
 
+    protected $orderService;
+
     public function initialize(LotteryService $lotteryService = null,
                                LanguageService $languageService = null,
                                CurrencyService $currencyService = null,
@@ -109,6 +111,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->currencyUrl = !isset($this->router->getParams()['currency']) ? '' : $this->router->getParams()['currency'];
         $this->cartPaymentProvider = $this->getDI()->get('paymentProviderFactory');
         $this->paymentProviderService = $this->di->get('domainServiceFactory')->getPaymentProviderService();
+        $this->orderService = $this->domainServiceFactory->getOrderService();
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)

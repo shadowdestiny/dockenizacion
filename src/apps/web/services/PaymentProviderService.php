@@ -54,7 +54,7 @@ class PaymentProviderService implements EventsAwareInterface
             $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID);
             $dataTransaction = [
                 'lottery_id' => $order->getLottery() != null ? $order->getLottery()->getId() : 1,
-                'numBets' => count($user->getPlayConfig()),
+                'numBets' => count($order->getPlayConfig()),
                 'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
                 'transactionID' => $transactionID,
                 'amountWithWallet' => 0,
@@ -65,20 +65,28 @@ class PaymentProviderService implements EventsAwareInterface
                 'walletBefore' => $user->getWallet(),
                 'walletAfter' => $user->getWallet(),
                 'now' => new \DateTime(),
-                'status' => $status
+                'status' => $status,
+                'lotteryName' => $order->getLottery()->getName()
             ];
             if($transaction == null)
             {
-                $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
+                if($order->getHasSubscription())
+                {
+                    $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
+                } else {
+                    $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
+                }
             } else {
                 $transaction[0]->setAmountAdded($amount->getAmount());
                 $transaction[0]->setStatus($status);
                 $transaction[0]->setHasFee($order->getCreditCardCharge()->getIsChargeFee());
+                $transaction[0]->setLotteryId($order->getLottery()->getId());
+                $transaction[0]->setLotteryName($order->getLottery()->getName());
                 $transaction[0]->toString();
                 $this->transactionService->updateTransaction($transaction[0]);
                 if($status == 'SUCCESS')
                 {
-                    $this->_eventsManager->fire('cartservice:checkout', $this, $order);
+                    $this->_eventsManager->fire('orderservice:checkout', $this, $order);
                 }
             }
         } catch( Exception $e )

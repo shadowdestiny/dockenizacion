@@ -57,9 +57,9 @@
 
     $(document).on("moneymatrix",{wallet: true},function(e, wallet) {
          if(wallet == 1) wallet = true;
+         console.log(wallet);
          $.post('/cart/iframereload', "tsid="+tsid+"&wallet="+wallet+"&lottery=PowerBall",function(response){
                 let result = JSON.parse(response);
-                console.log(result + " " + tsid);
                 $("#iframemx").attr('src',result.cashierUrl);
          });
         }

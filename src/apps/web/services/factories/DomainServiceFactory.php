@@ -21,6 +21,7 @@ use EuroMillions\web\services\LoggedAuthServiceStrategy;
 use EuroMillions\web\services\LoggedUserServiceStrategy;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\services\OrderService;
 use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\play_strategies\RedisOrderStorageStrategy;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
@@ -153,6 +154,14 @@ class DomainServiceFactory
             $this->serviceFactory->getDI()->get('paymentProviderFactory'),
             $this->getBetService(),
             $this->serviceFactory->getEmailService()
+        );
+    }
+
+    public function getOrderService()
+    {
+        return new OrderService(
+            $this->getWalletService(),
+            $this->getPlayService()
         );
     }
 

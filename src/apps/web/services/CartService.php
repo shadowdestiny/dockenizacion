@@ -38,7 +38,13 @@ class CartService
     /** @var PlayConfigRepository $playConfigRepository */
     private $playConfigRepository;
 
-    public function __construct(EntityManager $entityManager, IPlayStorageStrategy $orderStorageStrategy, SiteConfigService $siteConfigService, WalletService $walletService)
+    /** @var PlayService $playService */
+    protected $playService;
+
+    public function __construct(EntityManager $entityManager,
+                                IPlayStorageStrategy $orderStorageStrategy,
+                                SiteConfigService $siteConfigService,
+                                WalletService $walletService)
     {
         $this->entityManager = $entityManager;
         $this->orderStorageStrategy = $orderStorageStrategy;
@@ -64,7 +70,7 @@ class CartService
         return new ActionResult(false);
     }
 
-    public function get($user_id, $lotteryName)
+    public function get($user_id, $lotteryName,$withWallet = true)
     {
         try {
             /** @var ActionResult $result */
@@ -73,6 +79,7 @@ class CartService
             $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
             if ($result->success()) {
                 $json = json_decode($result->returnValues());
+
                 if (NULL == $json) {
                     return new ActionResult(false);
                 }
@@ -92,7 +99,9 @@ class CartService
                         $lottery->getSingleBetPrice(),
                         $fee, $fee_limit,
                         new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()),
-                        $lottery
+                        $lottery,
+                        $result->getValues(),
+                        $withWallet
                     );
                     if (null !== $order) {
                         return new ActionResult(true, $order);
@@ -107,9 +116,8 @@ class CartService
         return new ActionResult(false);
     }
 
-    public function checkout($event,$component, $data)
+    public function checkout($event,$component,Order $order)
     {
-        //meter fecha del siguiente draw en la order... Tiene que estar todo en la order
     }
 
 

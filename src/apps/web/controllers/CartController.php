@@ -237,10 +237,11 @@ class CartController extends PublicSiteControllerBase
             $cartService = $this->cartService->get($user_id,$lottery);
             /** @var Order $order */
             $order = $cartService->getValues();
-            $amountEUR = $this->cartService->amountCalculateWithCreditCardAndBalance($order->getTotal(),$user->getWallet()->getBalance(),$isWallet);
-            $orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $amountEUR->getAmount(), $userCurrency->getName(), $lottery,$isWallet);
+            $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(),$order->getLottery(), $order->getNextDraw(),$isWallet);
+            $orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $order->getTotal()->getAmount(), $userCurrency->getName(), $lottery,$isWallet);
             $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider,$transactionID);
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$amountEUR,$transactionID);
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$order->getTotal(),$transactionID);
+            $this->cartService->store($order);
             echo json_encode($cashierViewDTO);
         } catch (\Exception $e)
         {
@@ -336,10 +337,11 @@ class CartController extends PublicSiteControllerBase
         }
 
         if ($orderView) {
-            $order = OrderFactory::create($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$lottery);
-            $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$lottery);
+            $draw = $this->lotteryService->getNextDateDrawByLottery($this->lottery);
+            $this->lotteryService->getNextDateDrawByLottery($lottery->getName());
+            $order = OrderFactory::create($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$lottery, $draw, true);
+            $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$lottery,$draw, true);
             $this->cartService->store($order);
-            var_dump($order->getCreditCardCharge());die();
         }
         /** @var PlayConfig[] $play_config */
         $play_config_collection = $result->returnValues();
@@ -356,6 +358,7 @@ class CartController extends PublicSiteControllerBase
         $this->tag->prependTitle('Review and Buy');
         $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $order_eur->getCreditCardCharge()->getFinalAmount()->getAmount(), $user_currency->getName(), $this->lottery,$checked_wallet);
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$this->orderDataToPaymentProvider);
+        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
 
 
         return $this->view->setVars([
@@ -389,7 +392,7 @@ class CartController extends PublicSiteControllerBase
             'total_new_payment_gw' => isset($order_eur) ? $order_eur->getTotal()->getAmount() / 100 : '',
             'credit_card_form' => $creditCardForm,
             'emerchant_data' => $this->getEmerchantData(),
-            'power_play' => $powerPlay,
+            'power_play' => method_exists($order,'getPowerPlay') ? $order->getPowerPlay() : false,
             'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay(),
             'lottery_name' => ucfirst($this->lottery),
         ]);

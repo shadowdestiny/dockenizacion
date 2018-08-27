@@ -676,7 +676,7 @@ class PlayService
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
-    private function validatorResult(Lottery $lottery, $play_config,ActionResult $draw, Order $order)
+    public function validatorResult(Lottery $lottery, $play_config,ActionResult $draw, Order $order)
     {
         $lotteryValidator = LotteryValidatorsFactory::create($lottery->getName());
         if($lottery->getName() == 'EuroMillions')

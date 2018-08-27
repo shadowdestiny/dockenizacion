@@ -167,7 +167,6 @@ class WalletService
     public function pay(ICardPaymentProvider $provider, CreditCard $card, CreditCardCharge $creditCardCharge)
     {
         try {
-
             $amount = $creditCardCharge->getFinalAmount();
             return $provider->charge($amount, $card);
         } catch (\Exception $e) {
