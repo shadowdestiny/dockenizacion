@@ -90,14 +90,39 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
 
     public function fromString()
     {
-        list($lotteryId,$fee,$amount,$discount,$status,$lotteryName) = explode('#',$this->data);
-        $this->lotteryId = $lotteryId;
-        $this->hasFee = $fee;
-        $this->amountAdded = $amount;
-        $this->discount = $discount;
-        $this->status = $status;
-        $this->lotteryName = $lotteryName;
-        return $this;
+        try
+        {
+            $arr=explode('#',$this->data);
+            $count=count($arr);
+
+            switch($count)
+            {
+                case 2:
+                    list($lotteryId,$fee)= $arr;
+                    break;
+                case 3:
+                    list($lotteryId,$fee,$amount)= $arr;
+                    break;
+                case 4:
+                    list($lotteryId,$fee,$amount,$discount)= $arr;
+                    break;
+                case 5:
+                    list($lotteryId,$fee,$amount,$discount,$status)= $arr;
+                    break;
+                default:
+                    list($lotteryId,$fee,$amount,$discount,$status,$lotteryName) = $arr;
+            }
+
+            $this->lotteryId = isset($lotteryId) && $lotteryId!=''? $lotteryId: 0;
+            $this->hasFee = isset($fee) && $fee!=''? $fee: '';
+            $this->amountAdded = isset($amount) && $amount!=''? $amount: 0;
+            $this->discount = isset($discount) && $discount!=''? $discount: '';
+            $this->status = isset($status) && $status!=''? $status: 'PENDING';
+            $this->lotteryName = isset($lotteryName) && $lotteryName!=''? $lotteryName: 'NONE';
+            return $this;
+        } catch ( \Exception $e ) {
+            throw new BadEntityInitializationException('Invalid data format');
+        }
     }
 
     public function getEntityType()
