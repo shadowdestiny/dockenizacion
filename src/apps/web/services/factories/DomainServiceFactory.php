@@ -161,7 +161,8 @@ class DomainServiceFactory
     {
         return new OrderService(
             $this->getWalletService(),
-            $this->getPlayService()
+            $this->getPlayService(),
+            $this->getTransactionService()
         );
     }
 

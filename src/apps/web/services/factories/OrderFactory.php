@@ -35,15 +35,11 @@ class OrderFactory
         $user = $play_config[0]->getUser();
         if($lottery->getName() == 'PowerBall')
         {
-            $order = new OrderPowerBall($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet);
-            $order->setLottery($lottery);
-            $order->setNextDraw($draw);
+            $order = new OrderPowerBall($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
             $order->setAmountWallet($user->getWallet()->getBalance());
             return $order;
         }
-        $order = new Order($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet);
-        $order->setNextDraw($draw);
-        $order->setLottery($lottery);
+        $order = new Order($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
         $order->setAmountWallet($user->getWallet()->getBalance());
         return $order;
     }

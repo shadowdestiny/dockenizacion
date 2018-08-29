@@ -13,6 +13,7 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
     protected $amountAdded;
     protected $status;
     protected $lotteryName;
+    protected $withWallet;
 
 
     public function __construct(array $data)
@@ -28,21 +29,24 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
         $this->setUser($data['user']);
         $this->setLotteryName($data['lotteryName']);
         $this->setStatus(!empty($data['status']) ? $data['status'] : 'SUCCESS');
+        $this->setWithWallet($data['withWallet']);
+
     }
 
     public function toString()
     {
-        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getStatus().'#'.$this->getLotteryId().'#'.$this->getLotteryName();
+        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getStatus().'#'.$this->getLotteryId().'#'.$this->getLotteryName().'#'.$this->withWallet;
     }
 
     public function fromString()
     {
-        @list($fee,$amount,$status,$lotteryID,$lotteryName) = explode('#',$this->data);
+        @list($fee,$amount,$status,$lotteryID,$lotteryName,$withWallet) = explode('#',$this->data);
         $this->hasFee = $fee;
         $this->amountAdded = $amount;
         $this->status = $status;
         $this->lotteryId = $lotteryID;
         $this->lotteryName = $lotteryName;
+        $this->withWallet = $withWallet;
         return $this;
     }
 
@@ -115,6 +119,24 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
     {
         $this->lotteryName = $lotteryName;
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getWithWallet()
+    {
+        return $this->withWallet;
+    }
+
+    /**
+     * @param mixed $withWallet
+     */
+    public function setWithWallet($withWallet)
+    {
+        $this->withWallet = $withWallet;
+    }
+
 
 
 }

@@ -4,6 +4,7 @@
 namespace EuroMillions\web\vo;
 
 
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use Money\Currency;
 use Money\Money;
@@ -40,18 +41,20 @@ class Order implements \JsonSerializable
     protected $hasSubscription;
 
 
-    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null,$withWallet=false)
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null,$withWallet=false, Lottery $lottery, $draw)
     {
         $this->play_config = $play_config;
         $this->single_bet_price = $single_bet_price;
         $this->fee = $fee;
         $this->fee_limit = $fee_limit;
         $this->funds_amount = new Money(0, new Currency('EUR'));
-        $this->isCheckedWalletBalance = $withWallet == 'false' ? false : true;
+        $this->isCheckedWalletBalance = $withWallet;
         if (!$discount) {
             $discount = new Discount(0, []);
         }
         $this->discount = $discount;
+        $this->nextDraw = $draw;
+        $this->lottery = $lottery;
         $this->initialize();
     }
 
@@ -350,6 +353,10 @@ class Order implements \JsonSerializable
 
     public function getUnitPrice()
     {
+        if($this->getHasSubscription())
+        {
+            return $this->getPlayConfig()[0]->getSinglePrice()->multiply($this->getPlayConfig()[0]->getFrequency());
+        }
         return $this->getPlayConfig()[0]->getSinglePrice();
     }
 
