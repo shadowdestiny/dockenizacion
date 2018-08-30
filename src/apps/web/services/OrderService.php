@@ -84,6 +84,7 @@ class OrderService
                     'discount' => $order->getDiscount()->getValue(),
                 ];
                 $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                $this->playService->sendEmailPurchase($user,$order->getPlayConfig());
             }
         } catch(\Exception $e)
         {

@@ -138,7 +138,6 @@ class WalletService
         {
             $user->pay($order->getUnitPrice());
         }
-
         try
         {
             $this->entityManager->flush($user);

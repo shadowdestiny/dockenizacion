@@ -659,7 +659,7 @@ class PlayService
         return $this->lotteryService->getLotteryConfigByName($lottery);
     }
 
-    private function sendEmailPurchase(User $user, $orderLines)
+    public function sendEmailPurchase(User $user, $orderLines)
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
