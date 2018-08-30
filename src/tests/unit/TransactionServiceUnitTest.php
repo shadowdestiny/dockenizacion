@@ -151,45 +151,4 @@ class TransactionServiceUnitTest extends UnitTestBase
     {
         return new TransactionService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal());
     }
-
-    /**
-     * method isPendingTransaction
-     * when called
-     * should return true
-     * @dataProvider getTransactionTypeAndExpected
-     */
-
-    public function test_isPendingTransaction_called_isAPendingTransaccion_hasGetStatusMethod($data)
-    {
-        $actual=new DepositTransaction($data + ['status' => 'PENDING', 'amount' => 0, 'feeApplied' => 0, 'transactionID' => '123', 'lotteryName' => 'TEST']);
-        $sut= $this->getSut();
-        $this->assertTrue($sut->isPendingTransaction($actual));
-    }
-
-    /**
-     * method isPendingTransaction
-     * when called
-     * should return false
-     * @dataProvider getTransactionTypeAndExpected
-     */
-
-    public function test_isPendingTransaction_called_isNotAPendingTransaccion_hasGetStatusMethod($data)
-    {
-        $actual=new DepositTransaction($data + ['status' => 'SUCCESS', 'amount' => 0, 'feeApplied' => 0, 'transactionID' => '123', 'lotteryName' => 'TEST']);
-        $sut= $this->getSut();
-        $this->assertNotTrue($sut->isPendingTransaction($actual));
-    }
-
-    /**
-     * method isPendingTransaction
-     * when called
-     * should return false
-     */
-
-    public function test_isPendingTransaction_called_isNotAPendingTransaccion_hasNotGetStatusMethod()
-    {
-        $actual=new PurchaseTransaction([]);
-        $sut= $this->getSut();
-        $this->assertNotTrue($sut->isPendingTransaction($actual));
-    }
 }

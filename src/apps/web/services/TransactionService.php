@@ -82,7 +82,7 @@ class TransactionService
                 if( $transaction instanceof SubscriptionPurchaseTransaction && $transactionDTO->pendingBalanceMovement->getAmount() == 0) {
                     continue;
                 }
-                if($this->isPendingTransaction($transaction))
+                if($transaction->isPendingTransaction())
                 {
                     continue;
                 }
@@ -178,21 +178,6 @@ class TransactionService
         {
             return true;
         } else {
-            return false;
-        }
-    }
-
-    public function isPendingTransaction($transaction)
-    {
-        try
-        {
-            if (method_exists($transaction, 'getStatus') && $transaction->getStatus() == 'PENDING') {
-                return true;
-            }
-            return false;
-        }
-        catch(\Exception $e)
-        {
             return false;
         }
     }
