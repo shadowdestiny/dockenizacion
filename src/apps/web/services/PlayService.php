@@ -687,6 +687,11 @@ class PlayService
         return $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
     }
 
+    public function retrieveEuromillionsBundlePrice()
+    {
+        return $this->playConfigRepository->retrieveEuromillionsBundlePrice();
+    }
+
     private function sendEmailPurchaseChristmas(User $user, $orderLines)
     {
         $emailBaseTemplate = new EmailTemplate();

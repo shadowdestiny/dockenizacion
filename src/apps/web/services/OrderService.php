@@ -20,6 +20,7 @@ use Phalcon\Events\ManagerInterface;
 class OrderService
 {
 
+    /** @var PlayService $playService */
     protected $playService;
 
     protected $walletService;
@@ -50,7 +51,8 @@ class OrderService
         {
             if($order->isNextDraw())
             {
-                $this->walletService->payOrder($user,$order);
+                $order->getPlayConfig()[0]->setLottery($order->getLottery());
+                $user = $this->walletService->payOrder($user,$order);
                 $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
                 $transaction->fromString();
                 $transaction->setWalletBefore($walletBefore);
@@ -65,17 +67,15 @@ class OrderService
                     $result = $this->playService->validatorResult($lottery,$playConfig,new ActionResult(true, $order->getNextDraw()),$order);
                     if($result->success())
                     {
-                        //TODO fire event
                        $this->walletService->extract($user,$order);
                     }
                 }
-                //TODO:
                 $dataTransaction = [
                     'lottery_id' => $order->getLottery()->getId(),
                     'transactionID' => $transactionID,
                     'numBets' => count($order->getPlayConfig()),
                     'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                    'amountWithWallet' => $lottery->getSingleBetPrice()->multiply(count($order->getPlayConfig()))->getAmount(),
+                    'amountWithWallet' => $order->amountForTicketPurchaseTransaction(),
                     'walletBefore' => $walletBefore,
                     'amountWithCreditCard' => 0,
                     'playConfigs' => array_map(function ($val) {

@@ -353,10 +353,6 @@ class Order implements \JsonSerializable
 
     public function getUnitPrice()
     {
-        if($this->getHasSubscription())
-        {
-            return $this->getPlayConfig()[0]->getSinglePrice()->multiply($this->getPlayConfig()[0]->getFrequency());
-        }
         return $this->getPlayConfig()[0]->getSinglePrice();
     }
 
@@ -374,6 +370,11 @@ class Order implements \JsonSerializable
             $this->total =  $this->total->add($powerPlayValue);
         }
         $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
+    }
+
+    public function amountForTicketPurchaseTransaction()
+    {
+        return $this->getLottery()->getSingleBetPrice()->multiply(count($this->getPlayConfig()))->getAmount();
     }
 
 }

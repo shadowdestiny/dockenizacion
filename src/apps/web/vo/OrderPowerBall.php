@@ -44,6 +44,10 @@ class OrderPowerBall extends Order
         if($this->powerPlay)
         {
             $powerPlayValue = (new Money($this->lottery->getPowerPlayValue(), new Currency('EUR')))->multiply(count($this->play_config));
+            if($this->getHasSubscription())
+            {
+                $powerPlayValue = $powerPlayValue->multiply($this->play_config[0]->getFrequency());
+            }
             $this->total =  $this->total->add($powerPlayValue);
         }
         $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
@@ -133,37 +137,41 @@ class OrderPowerBall extends Order
 
     public function getUnitPrice()
     {
-        if($this->getHasSubscription())
+        if($this->getPowerPlay())
         {
-            if($this->getPowerPlay())
-            {
-                $powerPlay = $this->getPowerPlayPrice()->multiply($this->getPlayConfig()[0]->getFrequency());
-                $price = $this->getPlayConfig()[0]->getSinglePrice()->multiply($this->getPlayConfig()[0]->getFrequency());
-                $sum =  $price->add($powerPlay);
-                return $sum;
-            }
-            return $this->getPlayConfig()[0]->getSinglePrice()->multiply($this->getPlayConfig()[0]->getFrequency());
-        } else
-        {
-            if($this->getPowerPlay())
-            {
-                return  $this->getPlayConfig()[0]->getSinglePrice()->add($this->getPowerPlayPrice());
-            }
-            return $this->getPlayConfig()[0]->getSinglePrice();
+            return  $this->getPlayConfig()[0]->getSinglePrice()->add($this->getPowerPlayPrice());
         }
+        return $this->getPlayConfig()[0]->getSinglePrice();
+    }
+
+    private function getPowerPlayPriceForThisOrder()
+    {
+        return $this->getPowerPlayPrice()->multiply($this->getPlayConfig()[0]->getFrequency());
     }
 
     public function getUnitPriceSubscription()
     {
         if($this->getPowerPlay())
         {
-            $powerPlay = $this->getPowerPlayPrice()->multiply($this->getPlayConfig()[0]->getFrequency());
             $price = $this->getPlayConfig()[0]->getSinglePrice()->multiply($this->getPlayConfig()[0]->getFrequency());
-            $sum =  $price->add($powerPlay);
+            $sum =  $price->add($this->getPowerPlayPriceForThisOrder());
             return $sum;
         }
         return $this->getPlayConfig()[0]->getSinglePrice()->multiply($this->getPlayConfig()[0]->getFrequency());
     }
+
+    public function amountForTicketPurchaseTransaction()
+    {
+        if($this->getPowerPlay())
+        {
+            $amount = $this->getLottery()->getSingleBetPrice()->multiply(count($this->getPlayConfig()));
+            $powerPlay = $this->getPowerPlayPrice()->multiply(count($this->getPlayConfig()));
+            return $amount->add($powerPlay)->getAmount();
+
+        }
+        return $this->getLottery()->getSingleBetPrice()->multiply(count($this->getPlayConfig()))->getAmount();
+    }
+
 
 
 }

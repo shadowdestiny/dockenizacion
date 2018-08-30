@@ -110,6 +110,10 @@ class WalletService
         if($order->getHasSubscription())
         {
             $user->reChargeSubscriptionWallet($order->getCreditCardCharge()->getNetAmount());
+            if($order->isIsCheckedWalletBalance())
+            {
+                $user->removeWalletToSubscription($order->getUnitPriceSubscription());
+            }
         } else {
             $user->reChargeWallet($order->getCreditCardCharge()->getNetAmount());
         }
@@ -117,26 +121,24 @@ class WalletService
         {
             $this->entityManager->persist($user);
             $this->entityManager->flush($user);
+            return $user;
         } catch (\Exception $e)
         {
         }
     }
 
+
+
     public function extract(User $user, Order $order)
     {
         if($order->getHasSubscription())
         {
-            if($order->isIsCheckedWalletBalance())
-            {
-                $user->removeWalletToSubscription($order->getUnitPriceSubscription());
-            } else
-            {
-                $user->removeSubscriptionWallet($order->getUnitPrice());
-            }
+            $user->removeSubscriptionWallet($order->getUnitPrice());
         } else
         {
             $user->pay($order->getUnitPrice());
         }
+
         try
         {
             $this->entityManager->flush($user);
