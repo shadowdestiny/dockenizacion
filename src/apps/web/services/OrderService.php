@@ -11,6 +11,7 @@ namespace EuroMillions\web\services;
 
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
 use Phalcon\Events\EventsAwareInterface;
@@ -60,6 +61,7 @@ class OrderService
                 foreach ($order->getPlayConfig() as $playConfig)
                 {
                     $playConfig->setLottery($order->getLottery());
+                    $playConfig->setDiscount(new Discount($order->getPlayConfig()[0]->getFrequency(),$this->playService->retrieveEuromillionsBundlePrice()));
                     $result = $this->playService->validatorResult($lottery,$playConfig,new ActionResult(true, $order->getNextDraw()),$order);
                     if($result->success())
                     {
