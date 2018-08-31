@@ -5,6 +5,7 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\ErrorEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationChristmasEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseSubscriptionConfirmationEmailTemplate;
@@ -17,6 +18,7 @@ use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\email_templates_strategies\ErrorDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\LotteryValidatorsFactory;
@@ -674,6 +676,13 @@ class PlayService
         $emailTemplate->setUser($user);
 
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    }
+
+    public function sendErrorEmail(Order $order)
+    {
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new ErrorEmailTemplate($emailBaseTemplate, new ErrorDataEmailTemplateStrategy($order));
+        $this->emailService->sendTransactionalEmail($order->getPlayConfig()[0]->getUser(),$emailTemplate);
     }
 
     public function validatorResult(Lottery $lottery, $play_config,ActionResult $draw, Order $order)

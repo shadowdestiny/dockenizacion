@@ -90,9 +90,13 @@ class OrderService
         {
 
         }
+
     }
 
-
+    public function sendErrorEmail(Order $order)
+    {
+        $this->playService->sendErrorEmail($order);
+    }
 
 
 
