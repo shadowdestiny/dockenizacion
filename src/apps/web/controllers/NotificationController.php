@@ -20,7 +20,8 @@ class NotificationController extends MoneymatrixController
     //TODO: send to queue
     public function notificationAction()
     {
-        $transactionID = $this->request->get('transaction');
+        $transactionID = $this->request->getPost('transaction');
+        $status = $this->request->getPost('status');
         /** @var Transaction $transaction */
         $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
         if($transaction == null)
@@ -28,13 +29,17 @@ class NotificationController extends MoneymatrixController
             throw new \Exception();
         }
         $transaction->fromString();
-        $result = $this->cartService->get($transaction->getUser()->getId(),$transaction->getLotteryName());
+        if($transaction->getStatus() != 'PENDING')
+        {
+            throw new \Exception();
+        }
+        $result = $this->cartService->get($transaction->getUser()->getId(),$transaction->getLotteryName(), $transaction->getWithWallet());
         /** @var Order $order */
         $order = $result->getValues();
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
         $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName())->getValues();
         $order->setNextDraw($nextDrawForOrder);
-        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,'SUCCESS');
+        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,$status);
     }
 }

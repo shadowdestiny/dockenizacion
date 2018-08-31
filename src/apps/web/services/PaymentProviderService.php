@@ -66,7 +66,8 @@ class PaymentProviderService implements EventsAwareInterface
                 'walletAfter' => $user->getWallet(),
                 'now' => new \DateTime(),
                 'status' => $status,
-                'lotteryName' => $order->getLottery()->getName()
+                'lotteryName' => $order->getLottery()->getName(),
+                'withWallet' => $order->isIsCheckedWalletBalance() ? 1: 0
             ];
             if($transaction == null)
             {
@@ -77,16 +78,20 @@ class PaymentProviderService implements EventsAwareInterface
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
                 }
             } else {
-                $transaction[0]->setAmountAdded($amount->getAmount());
+                $transaction[0]->setAmountAdded($order->getCreditCardCharge()->getFinalAmount()->getAmount());
                 $transaction[0]->setStatus($status);
                 $transaction[0]->setHasFee($order->getCreditCardCharge()->getIsChargeFee());
                 $transaction[0]->setLotteryId($order->getLottery()->getId());
                 $transaction[0]->setLotteryName($order->getLottery()->getName());
+                $transaction[0]->setWithWallet($order->isIsCheckedWalletBalance() ? 1 :0);
                 $transaction[0]->toString();
                 $this->transactionService->updateTransaction($transaction[0]);
                 if($status == 'SUCCESS')
                 {
-                    $this->_eventsManager->fire('orderservice:checkout', $this, $order);
+                    $this->_eventsManager->fire('orderservice:checkout', $this, ["order" => $order,
+                                                                                           "transactionID" => $transactionID
+                            ]
+                    );
                 }
             }
         } catch( Exception $e )

@@ -11,22 +11,38 @@ namespace EuroMillions\web\services;
 
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
+use Phalcon\Events\EventsAwareInterface;
+use Phalcon\Events\ManagerInterface;
 
 class OrderService
 {
 
+    /** @var PlayService $playService */
+    protected $playService;
+
+    protected $walletService;
+
+    protected $transactionService;
+
+
     public function __construct(WalletService $walletService,
-                                PlayService $playService)
+                                PlayService $playService,
+                                TransactionService $transactionService)
     {
         $this->playService = $playService;
         $this->walletService = $walletService;
+        $this->transactionService = $transactionService;
     }
 
 
-    public function checkout($event,$component,Order $order)
+    public function checkout($event,$component,array $data)
     {
+        /** @var Order $order */
+        $order = $data['order'];
+        $transactionID = $data['transactionID'];
         /** @var User $user */
         $user = $order->getPlayConfig()[0]->getUser();
         $walletBefore = $user->getWallet();
@@ -35,23 +51,31 @@ class OrderService
         {
             if($order->isNextDraw())
             {
-                $this->walletService->payOrder($user,$order);
+                $order->getPlayConfig()[0]->setLottery($order->getLottery());
+                $user = $this->walletService->payOrder($user,$order);
+                $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
+                $transaction->fromString();
+                $transaction->setWalletBefore($walletBefore);
+                $transaction->setWalletAfter($user->getWallet());
+                $transaction->toString();
+                $this->transactionService->updateTransaction($transaction);
+                $walletBefore = $user->getWallet();
                 foreach ($order->getPlayConfig() as $playConfig)
                 {
                     $playConfig->setLottery($order->getLottery());
+                    $playConfig->setDiscount(new Discount($order->getPlayConfig()[0]->getFrequency(),$this->playService->retrieveEuromillionsBundlePrice()));
                     $result = $this->playService->validatorResult($lottery,$playConfig,new ActionResult(true, $order->getNextDraw()),$order);
                     if($result->success())
                     {
                        $this->walletService->extract($user,$order);
                     }
                 }
-                //TODO:
                 $dataTransaction = [
-                    'lottery_id' => 1,
-                    'transactionID' => 1243242,
+                    'lottery_id' => $order->getLottery()->getId(),
+                    'transactionID' => $transactionID,
                     'numBets' => count($order->getPlayConfig()),
                     'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                    'amountWithWallet' => $lottery->getSingleBetPrice()->multiply(count($order->getPlayConfig()))->getAmount(),
+                    'amountWithWallet' => $order->amountForTicketPurchaseTransaction(),
                     'walletBefore' => $walletBefore,
                     'amountWithCreditCard' => 0,
                     'playConfigs' => array_map(function ($val) {
@@ -60,11 +84,15 @@ class OrderService
                     'discount' => $order->getDiscount()->getValue(),
                 ];
                 $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                $this->playService->sendEmailPurchase($user,$order->getPlayConfig());
             }
         } catch(\Exception $e)
         {
+
         }
     }
+
+
 
 
 

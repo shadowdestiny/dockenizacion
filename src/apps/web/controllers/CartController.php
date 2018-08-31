@@ -331,25 +331,22 @@ class CartController extends PublicSiteControllerBase
         $lottery = $this->domainServiceFactory->getLotteryService()->getLotteryConfigByName($this->lottery);
         $user = $this->authService->getCurrentUser();
         $discount = new Discount($result->returnValues()[0]->getFrequency(), $this->domainServiceFactory->getPlayService()->getBundleDataAsArray());
-
-        if ($result->returnValues()[0]->getPowerPlay()) {
-            $powerPlay = true;
-        }
+        /** @var PlayConfig[] $play_config */
+        $play_config_collection = $result->returnValues();
+        $play_config_dto = new PlayConfigCollectionDTO($play_config_collection, $single_bet_price);
+        $play_config_dto->single_bet_price_converted = $this->currencyConversionService->convert($play_config_dto->single_bet_price, $user_currency);
+        $play_config_dto->singleBetPriceWithDiscountConverted = $this->currencyConversionService->convert($play_config_dto->singleBetPriceWithDiscount, $user_currency);
+        $wallet_balance = $this->currencyConversionService->convert($play_config_dto->wallet_balance_user, $user_currency);
+        $checked_wallet = ($wallet_balance->getAmount() && !$this->request->isPost()) > 0 ? true : false;
 
         if ($orderView) {
             $draw = $this->lotteryService->getNextDateDrawByLottery($this->lottery);
             $this->lotteryService->getNextDateDrawByLottery($lottery->getName());
-            $order = OrderFactory::create($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$lottery, $draw, true);
-            $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$lottery,$draw, true);
+            $order = OrderFactory::create($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$lottery, $draw, $checked_wallet);
+            $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$lottery,$draw, $checked_wallet);
             $this->cartService->store($order);
         }
-        /** @var PlayConfig[] $play_config */
-        $play_config_collection = $result->returnValues();
-        $play_config_dto = new PlayConfigCollectionDTO($play_config_collection, $single_bet_price);
-        $wallet_balance = $this->currencyConversionService->convert($play_config_dto->wallet_balance_user, $user_currency);
-        $checked_wallet = ($wallet_balance->getAmount() && !$this->request->isPost()) > 0 ? true : false;
-        $play_config_dto->single_bet_price_converted = $this->currencyConversionService->convert($play_config_dto->single_bet_price, $user_currency);
-        $play_config_dto->singleBetPriceWithDiscountConverted = $this->currencyConversionService->convert($play_config_dto->singleBetPriceWithDiscount, $user_currency);
+
         //convert to user currency
         $total_price = ($this->currencyConversionService->convert($play_config_dto->singleBetPriceWithDiscount, $user_currency)->getAmount() * $play_config_dto->numPlayConfigs) * $play_config_dto->frequency;
         $symbol_position = $this->currencyConversionService->getSymbolPosition($locale, $user_currency);

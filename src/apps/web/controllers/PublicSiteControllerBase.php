@@ -18,6 +18,7 @@ use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\LanguageService;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\services\OrderService;
 use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\PowerBallCartService;
 use EuroMillions\web\services\TransactionService;
@@ -76,6 +77,7 @@ class PublicSiteControllerBase extends ControllerBase
 
     protected $cartPaymentProvider;
 
+    /** @var OrderService $orderService */
     protected $orderService;
 
     public function initialize(LotteryService $lotteryService = null,

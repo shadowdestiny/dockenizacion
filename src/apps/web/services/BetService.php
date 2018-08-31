@@ -119,7 +119,6 @@ class BetService
 
                 $this->entityManager->persist($bet);
                 $this->logValidationRepository->add($log_api_reponse);
-                $this->entityManager->flush();
                 if ($uuid) {
                     $this->betRepository->add($bet);
                     $this->playConfigRepository->add($playConfig);

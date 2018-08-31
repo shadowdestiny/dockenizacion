@@ -659,7 +659,7 @@ class PlayService
         return $this->lotteryService->getLotteryConfigByName($lottery);
     }
 
-    private function sendEmailPurchase(User $user, $orderLines)
+    public function sendEmailPurchase(User $user, $orderLines)
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
@@ -685,6 +685,11 @@ class PlayService
         }
         $result_validation = json_decode($lotteryValidator->book(json_encode($order->getPlayConfig()))->body);
         return $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
+    }
+
+    public function retrieveEuromillionsBundlePrice()
+    {
+        return $this->playConfigRepository->retrieveEuromillionsBundlePrice();
     }
 
     private function sendEmailPurchaseChristmas(User $user, $orderLines)

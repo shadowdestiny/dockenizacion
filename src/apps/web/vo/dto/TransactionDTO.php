@@ -100,5 +100,9 @@ class TransactionDTO extends DTOBase implements IDto
         return $amount;
     }
 
+    public function isErrorTransaction()
+    {
+        return $this->transaction->isErrorTransaction();
+    }
 
 }

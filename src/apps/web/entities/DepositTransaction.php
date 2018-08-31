@@ -13,6 +13,7 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
     protected $amountAdded;
     protected $status;
     protected $lotteryName;
+    protected $withWallet;
 
 
     public function __construct(array $data)
@@ -28,11 +29,13 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
         $this->setUser($data['user']);
         $this->setLotteryName($data['lotteryName']);
         $this->setStatus(!empty($data['status']) ? $data['status'] : 'SUCCESS');
+        $this->setWithWallet($data['withWallet']);
+
     }
 
     public function toString()
     {
-        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getStatus().'#'.$this->getLotteryId().'#'.$this->getLotteryName();
+        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getStatus().'#'.$this->getLotteryId().'#'.$this->getLotteryName().'#'.$this->withWallet;
     }
 
     public function fromString()
@@ -53,8 +56,11 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
                 case 4:
                     list($fee,$amount,$status,$lotteryID)= $arr;
                     break;
-                default:
+                case 5:
                     list($fee,$amount,$status,$lotteryID,$lotteryName) = $arr;
+                    break;
+                default:
+                    list($fee,$amount,$status,$lotteryID,$lotteryName,$withWallet) = $arr;
             }
 
             $this->hasFee = isset($fee) && $fee!=''?$fee:0;
@@ -62,6 +68,7 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
             $this->status = isset($status) && $status!=''?$amount:'PENDING';
             $this->lotteryId = isset($lotteryID) && $lotteryID!=''?$lotteryID:'0';
             $this->lotteryName = isset($lotteryName) && $lotteryName!=''?$lotteryName:'NONE';
+            $this->withWallet = isset($withWallet) && $withWallet!=''?$withWallet:0;
             return $this;
         } catch ( \Exception $e ) {
             throw new BadEntityInitializationException('Invalid data format');
@@ -137,6 +144,24 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
     {
         $this->lotteryName = $lotteryName;
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getWithWallet()
+    {
+        return $this->withWallet;
+    }
+
+    /**
+     * @param mixed $withWallet
+     */
+    public function setWithWallet($withWallet)
+    {
+        $this->withWallet = $withWallet;
+    }
+
 
 
 }

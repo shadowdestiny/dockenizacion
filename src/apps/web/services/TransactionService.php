@@ -16,6 +16,8 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\vo\dto\TransactionDTO;
+use EuroMillions\web\vo\Order;
+use Exception;
 use Money\Currency;
 use Money\Money;
 

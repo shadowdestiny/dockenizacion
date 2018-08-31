@@ -15,6 +15,9 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
     protected $discount;
     protected $status;
     protected $lotteryName;
+    protected $withWallet;
+
+
 
     public function __construct(array $data)
     {
@@ -31,7 +34,7 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
         $this->setPendingBalanceAmount($data['amountWithCreditCard'] + $data['amountWithWallet']);
         $this->setLotteryName($data['lotteryName']);
         $this->setStatus(!empty($data['status']) ? $data['status'] : 'SUCCESS');
-
+        $this->setWithWallet($data['withWallet']);
     }
 
 
@@ -85,7 +88,7 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
 
     public function toString()
     {
-        $this->data = $this->getLotteryId().'#'.$this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getDiscount().'#'.$this->getStatus().'#'.$this->getLotteryName();
+        $this->data = $this->getLotteryId().'#'.$this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getDiscount().'#'.$this->getStatus().'#'.$this->getLotteryName(). '#'.$this->withWallet;
     }
 
     public function fromString()
@@ -109,8 +112,11 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
                 case 5:
                     list($lotteryId,$fee,$amount,$discount,$status)= $arr;
                     break;
-                default:
+                case 6:
                     list($lotteryId,$fee,$amount,$discount,$status,$lotteryName) = $arr;
+                    break;
+                default:
+                    list($lotteryId,$fee,$amount,$discount,$status,$lotteryName,$withWallet) = $arr;
             }
 
             $this->lotteryId = isset($lotteryId) && $lotteryId!=''? $lotteryId: 0;
@@ -119,6 +125,7 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
             $this->discount = isset($discount) && $discount!=''? $discount: '';
             $this->status = isset($status) && $status!=''? $status: 'PENDING';
             $this->lotteryName = isset($lotteryName) && $lotteryName!=''? $lotteryName: 'NONE';
+            $this->withWallet = isset($withWallet) && $withWallet!=''? $withWallet: 0;
             return $this;
         } catch ( \Exception $e ) {
             throw new BadEntityInitializationException('Invalid data format');
@@ -192,5 +199,21 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
     public function setLotteryName($lotteryName)
     {
         $this->lotteryName = $lotteryName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWithWallet()
+    {
+        return $this->withWallet;
+    }
+
+    /**
+     * @param mixed $withWallet
+     */
+    public function setWithWallet($withWallet)
+    {
+        $this->withWallet = $withWallet;
     }
 }
