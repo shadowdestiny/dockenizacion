@@ -20,8 +20,8 @@ class NotificationController extends MoneymatrixController
     //TODO: send to queue
     public function notificationAction()
     {
-        $transactionID = $this->request->getPost('transaction');
-        $status = $this->request->getPost('status');
+        $transactionID = $this->request->get('transaction');
+        $status = $this->request->get('status');
         /** @var Transaction $transaction */
         $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
         if($transaction == null)
@@ -29,13 +29,16 @@ class NotificationController extends MoneymatrixController
             throw new \Exception();
         }
         $transaction->fromString();
-        if($transaction->getStatus() != 'PENDING')
-        {
-            throw new \Exception();
-        }
         $result = $this->cartService->get($transaction->getUser()->getId(),$transaction->getLotteryName(), $transaction->getWithWallet());
         /** @var Order $order */
         $order = $result->getValues();
+        if($transaction->getStatus() == 'ERROR')
+        {
+            //TODO update deposit transaction with status error
+            //TODO send an email to inform user (Deposit Purchase Error)
+            $this->orderService->sendErrorEmail($order);
+            throw new \Exception();
+        }
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
         $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName())->getValues();
