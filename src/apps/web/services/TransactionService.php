@@ -84,7 +84,7 @@ class TransactionService
                 if( $transaction instanceof SubscriptionPurchaseTransaction && $transactionDTO->pendingBalanceMovement->getAmount() == 0) {
                     continue;
                 }
-                if($transaction->isPendingTransaction())
+                if($transaction->checkTransactionType('PENDING'))
                 {
                     continue;
                 }

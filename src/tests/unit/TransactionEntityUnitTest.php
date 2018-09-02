@@ -66,7 +66,7 @@ class TransactionEntityUnitTest extends UnitTestBase
     public function test_isPendingTransaction_called_isAPendingTransaccion_hasGetStatusMethod($data)
     {
         $sut=new DepositTransaction($data + ['status' => 'PENDING']);
-        $this->assertTrue($sut->isPendingTransaction());
+        $this->assertTrue($sut->checkTransactionType('PENDING'));
     }
 
     /**
@@ -79,7 +79,7 @@ class TransactionEntityUnitTest extends UnitTestBase
     public function test_isPendingTransaction_called_isNotAPendingTransaccion_hasGetStatusMethod($data)
     {
         $sut=new DepositTransaction($data + ['status' => 'SUCCESS']);
-        $this->assertNotTrue($sut->isPendingTransaction());
+        $this->assertNotTrue($sut->checkTransactionType('PENDING'));
     }
 
     /**
@@ -91,7 +91,7 @@ class TransactionEntityUnitTest extends UnitTestBase
     public function test_isPendingTransaction_called_isNotAPendingTransaccion_hasNotGetStatusMethod()
     {
         $sut=new PurchaseTransaction([]);
-        $this->assertNotTrue($sut->isPendingTransaction());
+        $this->assertNotTrue($sut->checkTransactionType('PENDING'));
     }
 
     /**
@@ -104,7 +104,7 @@ class TransactionEntityUnitTest extends UnitTestBase
     public function test_isErrorTransaction_called_isAErrorTransaccion_hasGetStatusMethod($data)
     {
         $sut=new DepositTransaction($data + ['status' => 'ERROR']);
-        $this->assertTrue($sut->isErrorTransaction());
+        $this->assertTrue($sut->checkTransactionType('ERROR'));
     }
 
     /**
@@ -117,7 +117,7 @@ class TransactionEntityUnitTest extends UnitTestBase
     public function test_isErrorTransaction_called_isNotAErrorTransaccion_hasGetStatusMethod($data)
     {
         $sut=new DepositTransaction($data + ['status' => 'SUCCESS']);
-        $this->assertNotTrue($sut->isErrorTransaction());
+        $this->assertNotTrue($sut->checkTransactionType('ERROR'));
     }
 
     /**
@@ -129,6 +129,6 @@ class TransactionEntityUnitTest extends UnitTestBase
     public function test_isErrorTransaction_called_isNotAErrorTransaccion_hasNotGetStatusMethod()
     {
         $sut=new PurchaseTransaction([]);
-        $this->assertNotTrue($sut->isErrorTransaction());
+        $this->assertNotTrue($sut->checkTransactionType('ERROR'));
     }
 }

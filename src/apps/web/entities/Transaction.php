@@ -189,25 +189,12 @@ abstract class Transaction extends EntityBase
     /**
      * @return boolean
      */
-    public function isPendingTransaction()
+    public function checkTransactionType($transaction)
     {
-        if (method_exists($this, 'getStatus') && $this->getStatus() == 'PENDING')
+        if (method_exists($this, 'getStatus') && $this->getStatus() == $transaction)
         {
             return true;
         }
         return false;
     }
-
-    /**
-     * @return boolean
-     */
-    public function isErrorTransaction()
-    {
-        if (method_exists($this, 'getStatus') && $this->getStatus() == 'ERROR')
-        {
-            return true;
-        }
-        return false;
-    }
-
 }

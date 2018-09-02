@@ -83,7 +83,7 @@ class OrderService
                     }, $order->getPlayConfig()),
                     'discount' => $order->getDiscount()->getValue(),
                 ];
-                $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                $this->wallet1Service->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
                 $this->playService->sendEmailPurchase($user,$order->getPlayConfig());
             }
         } catch(\Exception $e)
@@ -93,9 +93,10 @@ class OrderService
 
     }
 
-    public function sendErrorEmail(Order $order)
+    public function sendErrorEmail(Order $order, $dateOrder)
     {
-        $this->playService->sendErrorEmail($order);
+        $user = $order->getPlayConfig()[0]->getUser();
+        $this->playService->sendErrorEmail($user, $order, $dateOrder);
     }
 
 
