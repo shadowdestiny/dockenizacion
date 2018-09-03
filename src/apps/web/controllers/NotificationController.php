@@ -34,8 +34,6 @@ class NotificationController extends MoneymatrixController
         $order = $result->getValues();
         if($transaction->getStatus() == 'ERROR')
         {
-            //TODO update deposit transaction with status error
-            //TODO send an email to inform user (Deposit Purchase Error)
             $this->orderService->sendErrorEmail($order,     $transaction->getDate());
             throw new \Exception();
         }

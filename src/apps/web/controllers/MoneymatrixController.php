@@ -37,14 +37,7 @@ class MoneymatrixController extends PaymentController
     public function successAction()
     {
         try {
-            $transactionID = $this->request->get('transactionID');
-            $lotteryName = $this->request->get('lottery');
-            $withWallet = $this->request->get('wallet');
-            $amount= $this->request->get('amount');
-            $userId = $this->authService->getCurrentUser()->getId();
-            $play_service = $this->domainServiceFactory->getPlayService();
-            $result = $play_service->playWithMoneyMatrix($lotteryName,$transactionID,$userId,$withWallet,new Money( (int) $amount, new \Money\Currency('EUR') ));
-            $this->playResult($result);
+            $this->playResult(new ActionResult(true));
         } catch (\Exception $e) {
             $this->playResult(new ActionResult(false));
 

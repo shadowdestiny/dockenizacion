@@ -54,6 +54,7 @@ class OrderService
                 $order->getPlayConfig()[0]->setLottery($order->getLottery());
                 $user = $this->walletService->payOrder($user,$order);
                 $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
+                //TODO move to TransactionService
                 $transaction->fromString();
                 $transaction->setWalletBefore($walletBefore);
                 $transaction->setWalletAfter($user->getWallet());
@@ -70,6 +71,7 @@ class OrderService
                        $this->walletService->extract($user,$order);
                     }
                 }
+                //TODO move to TransactionService
                 $dataTransaction = [
                     'lottery_id' => $order->getLottery()->getId(),
                     'transactionID' => $transactionID,
