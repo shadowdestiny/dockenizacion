@@ -36,7 +36,6 @@ var CartPage = new React.createClass({
         if( wallet_balance == 0 && accounting.unformat(price) > accounting.unformat(fee)) {
             this.setState({ show_all_fee : false, checked_wallet : this.state.checked_wallet });
         }
-        this.moneyMatrix();
         this.handleUpdatePrice();
     },
 
