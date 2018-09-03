@@ -65,7 +65,7 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
 
             $this->hasFee = isset($fee) && $fee!=''?$fee:0;
             $this->amountAdded = isset($amount) && $amount!=''?$amount:0;
-            $this->status = isset($status) && $status!=''?$amount:'PENDING';
+            $this->status = isset($status) && $status!=''?$status:'PENDING';
             $this->lotteryId = isset($lotteryID) && $lotteryID!=''?$lotteryID:'0';
             $this->lotteryName = isset($lotteryName) && $lotteryName!=''?$lotteryName:'NONE';
             $this->withWallet = isset($withWallet) && $withWallet!=''?$withWallet:0;
