@@ -678,11 +678,11 @@ class PlayService
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
-    public function sendErrorEmail(Order $order)
+    public function sendErrorEmail(User $user, Order $order, $dateOrder)
     {
         $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new ErrorEmailTemplate($emailBaseTemplate, new ErrorDataEmailTemplateStrategy($order));
-        $this->emailService->sendTransactionalEmail($order->getPlayConfig()[0]->getUser(),$emailTemplate);
+        $emailTemplate = new ErrorEmailTemplate($emailBaseTemplate, new ErrorDataEmailTemplateStrategy($user, $order, $dateOrder));
+        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
     }
 
     public function validatorResult(Lottery $lottery, $play_config,ActionResult $draw, Order $order)

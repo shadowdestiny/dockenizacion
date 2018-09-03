@@ -40,14 +40,39 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
 
     public function fromString()
     {
-        @list($fee,$amount,$status,$lotteryID,$lotteryName,$withWallet) = explode('#',$this->data);
-        $this->hasFee = $fee;
-        $this->amountAdded = $amount;
-        $this->status = $status;
-        $this->lotteryId = $lotteryID;
-        $this->lotteryName = $lotteryName;
-        $this->withWallet = $withWallet;
-        return $this;
+        try
+        {
+            $arr=explode('#',$this->data);
+            $count=count($arr);
+
+            switch($count)
+            {
+                case 2:
+                    list($fee,$amount)= $arr;
+                    break;
+                case 3:
+                    list($fee,$amount,$status)= $arr;
+                    break;
+                case 4:
+                    list($fee,$amount,$status,$lotteryID)= $arr;
+                    break;
+                case 5:
+                    list($fee,$amount,$status,$lotteryID,$lotteryName) = $arr;
+                    break;
+                default:
+                    list($fee,$amount,$status,$lotteryID,$lotteryName,$withWallet) = $arr;
+            }
+
+            $this->hasFee = isset($fee) && $fee!=''?$fee:0;
+            $this->amountAdded = isset($amount) && $amount!=''?$amount:0;
+            $this->status = isset($status) && $status!=''?$amount:'PENDING';
+            $this->lotteryId = isset($lotteryID) && $lotteryID!=''?$lotteryID:'0';
+            $this->lotteryName = isset($lotteryName) && $lotteryName!=''?$lotteryName:'NONE';
+            $this->withWallet = isset($withWallet) && $withWallet!=''?$withWallet:0;
+            return $this;
+        } catch ( \Exception $e ) {
+            throw new BadEntityInitializationException('Invalid data format');
+        }
     }
 
 

@@ -16,8 +16,8 @@ class ErrorEmailTemplate extends EmailTemplateDecorator
     public function loadVars()
     {
         $data = $this->emailTemplateDataStrategy->getData();
-        $template_id = '8153316';
-        $subject = 'Your purchase has not been processed correctly';
+        $template_id = $data['language']=='ru_RU'? '8169125':'8153316';
+        $subject = $data['language']=='ru_RU' ? 'Ваша покупка не обработана правильно':'Your purchase has not been processed correctly';
         $vars = [
             'template' => $template_id,
 //            'template' => '624539', Old Template
@@ -33,12 +33,16 @@ class ErrorEmailTemplate extends EmailTemplateDecorator
                         'content' => $data['user_name']
                     ],
                     [
-                        'name' => 'draw_day_format_one',
-                        'content' => $data['draw_day_format_one']
+                        'name' => 'deposit_name',
+                        'content' => $data['deposit_name']
                     ],
                     [
-                        'name' => 'draw_day_format_two',
-                        'content' => $data['draw_day_format_two']
+                        'name' => 'date',
+                        'content' => $data['date']
+                    ],
+                    [
+                        'name' => 'date_header',
+                        'content' => $data['date']
                     ]
                 ]
         ];

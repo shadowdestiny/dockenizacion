@@ -9,6 +9,7 @@
 namespace EuroMillions\web\services\email_templates_strategies;
 
 
+use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
 use EuroMillions\web\vo\Order;
 
@@ -16,10 +17,14 @@ class ErrorDataEmailTemplateStrategy implements IEmailTemplateDataStrategy
 {
 
     protected $order;
+    protected $user;
+    protected $dateOrder;
 
-    public function __construct(Order $order)
+    public function __construct(User $user,Order $order, $dateOrder)
     {
         $this->order = $order;
+        $this->user = $user;
+        $this->dateOrder= $dateOrder;
     }
 
 
@@ -29,15 +34,16 @@ class ErrorDataEmailTemplateStrategy implements IEmailTemplateDataStrategy
         {
             $deposit = $this->order->getTotal()->getAmount();
             $lotteryName = $this->order->getLottery()->getName();
-
             return [
-                'deposit' => $deposit,
-                'lottery' => $lotteryName,
-                'user_name' => $this->order->getPlayConfig()[0]->getUser()->getName()
+                'deposit_name' => $deposit,
+                'lottery_name' => $lotteryName,
+                'user_name' => $this->user->getName(),
+                'date' => $this->dateOrder,
+                'language' => $this->user->getLocale()
             ];
         } catch (\Exception $e)
         {
-            //TODO throw exception
+            throw new \Exception($e->getMessage());
         }
     }
 }

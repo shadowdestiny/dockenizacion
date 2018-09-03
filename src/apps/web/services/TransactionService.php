@@ -11,10 +11,8 @@ use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\DepositTransaction;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\SubscriptionPurchaseTransaction;
-use EuroMillions\web\entities\TicketPurchaseTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\entities\WinningsReceivedTransaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\vo\dto\TransactionDTO;
@@ -22,7 +20,6 @@ use EuroMillions\web\vo\Order;
 use Exception;
 use Money\Currency;
 use Money\Money;
-
 
 class TransactionService
 {
@@ -85,6 +82,10 @@ class TransactionService
                 $transactionDTO->lotteryId = $this->getLotteryName($lotteryRepository,$transaction);
                 //TODO: refactor subscription purchase with wallet
                 if( $transaction instanceof SubscriptionPurchaseTransaction && $transactionDTO->pendingBalanceMovement->getAmount() == 0) {
+                    continue;
+                }
+                if($transaction->checkTransactionType('PENDING'))
+                {
                     continue;
                 }
                 $movement = $this->currencyConversionService->convert($transactionDTO->movement, new Currency('EUR'));
@@ -182,6 +183,4 @@ class TransactionService
             return false;
         }
     }
-
-
 }

@@ -93,9 +93,10 @@ class OrderService
 
     }
 
-    public function sendErrorEmail(Order $order)
+    public function sendErrorEmail(Order $order, $dateOrder)
     {
-        $this->playService->sendErrorEmail($order);
+        $user = $order->getPlayConfig()[0]->getUser();
+        $this->playService->sendErrorEmail($user, $order, $dateOrder);
     }
 
 

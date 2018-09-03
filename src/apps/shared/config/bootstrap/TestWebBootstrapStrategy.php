@@ -11,6 +11,7 @@ use Phalcon\Config\Adapter\Ini;
 use Phalcon\Di;
 use Redis;
 
+$_SERVER['REMOTE_ADDR']='127.0.0.1';
 class TestWebBootstrapStrategy extends WebBootstrapStrategy
 {
 

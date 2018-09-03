@@ -36,7 +36,7 @@ class NotificationController extends MoneymatrixController
         {
             //TODO update deposit transaction with status error
             //TODO send an email to inform user (Deposit Purchase Error)
-            $this->orderService->sendErrorEmail($order);
+            $this->orderService->sendErrorEmail($order,     $transaction->getDate());
             throw new \Exception();
         }
         $this->paymentProviderService->setEventsManager($this->eventsManager);
