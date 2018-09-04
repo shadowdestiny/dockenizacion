@@ -97,4 +97,9 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
     {
         // TODO: Implement call() method.
     }
+
+    public function type()
+    {
+        return "FORM";
+    }
 }

@@ -225,6 +225,11 @@ class CartController extends PublicSiteControllerBase
 
     public function iframeReloadAction()
     {
+        if($this->cartPaymentProvider->type() == 'IFRAME')
+        {
+            throw new \Exception();
+        }
+
         $this->noRender();
         try {
             $userCurrency=$this->userPreferencesService->getCurrency();
@@ -355,7 +360,11 @@ class CartController extends PublicSiteControllerBase
         $this->tag->prependTitle('Review and Buy');
         $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $order_eur->getCreditCardCharge()->getFinalAmount()->getAmount(), $user_currency->getName(), $this->lottery,$checked_wallet);
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$this->orderDataToPaymentProvider);
-        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
+        if($this->cartPaymentProvider->type() == 'IFRAME')
+        {
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
+        }
+
 
 
         return $this->view->setVars([

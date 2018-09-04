@@ -9,9 +9,13 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
+use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\services\PlayService;
 use EuroMillions\web\vo\Order;
+use LegalThings\CloudWatchLogger;
+use Phalcon\Logger;
 
 class NotificationController extends MoneymatrixController
 {
@@ -20,12 +24,19 @@ class NotificationController extends MoneymatrixController
     //TODO: send to queue
     public function notificationAction()
     {
+        $logger = new CloudWatch(new CloudWatchLogger(ConfigGenerator::cloudWatchConfig(
+            'Euromillions', getenv('EM_ENV')
+        )));
         $transactionID = $this->request->get('transaction');
         $status = $this->request->get('status');
         /** @var Transaction $transaction */
         $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
         if($transaction == null)
         {
+            $logger->log(
+                Logger::INFO,
+                'NotificationController:transaction is null with id: ' . $transactionID
+            );
             throw new \Exception();
         }
         $transaction->fromString();
@@ -34,7 +45,15 @@ class NotificationController extends MoneymatrixController
         $order = $result->getValues();
         if($transaction->getStatus() == 'ERROR')
         {
+            $logger->log(
+                Logger::INFO,
+                'ERRORNotificationController:Notification error with transactionID: ' . $transactionID
+            );
             $this->orderService->sendErrorEmail($order,     $transaction->getDate());
+            $logger->log(
+                Logger::INFO,
+                'ERRORNotificationController:sending email ' . $transactionID
+            );
             throw new \Exception();
         }
         $this->paymentProviderService->setEventsManager($this->eventsManager);

@@ -7,4 +7,6 @@ interface IHandlerPaymentGateway
 {
 
     public function call($data);
+
+    public function type();
 }

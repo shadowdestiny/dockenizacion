@@ -29,7 +29,7 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
         $this->setUser($data['user']);
         $this->setLotteryName($data['lotteryName']);
         $this->setStatus(!empty($data['status']) ? $data['status'] : 'SUCCESS');
-        $this->setWithWallet($data['withWallet']);
+        $this->setWithWallet(!empty($data['withWallet']) ? $data['status'] : 0);
 
     }
 

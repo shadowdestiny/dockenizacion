@@ -62,7 +62,11 @@ class OrderService
             if($order->isNextDraw())
             {
                 $order->getPlayConfig()[0]->setLottery($order->getLottery());
+                $this->logger->log(Logger::INFO,
+                    'checkout:User wallet before it was payed=' . $user->getWallet()->getBalance()->getAmount());
                 $user = $this->walletService->payOrder($user,$order);
+                $this->logger->log(Logger::INFO,
+                    'checkout:User it was payed in its wallet=' . $user->getWallet()->getBalance()->getAmount());
                 $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
                 //TODO move to TransactionService
                 $transaction->fromString();
@@ -76,9 +80,16 @@ class OrderService
                     $playConfig->setLottery($order->getLottery());
                     $playConfig->setDiscount(new Discount($order->getPlayConfig()[0]->getFrequency(),$this->playService->retrieveEuromillionsBundlePrice()));
                     $result = $this->playService->validatorResult($lottery,$playConfig,new ActionResult(true, $order->getNextDraw()),$order);
+                    $this->logger->log(Logger::INFO,
+                        'checkout:Validating against lottery provider with status =' . $result->success());
                     if($result->success())
                     {
+                        $this->logger->log(Logger::INFO,
+                            'checkout:Before substract playconfig bet value from wallet =' . $user->getBalance()->getAmount());
                        $this->walletService->extract($user,$order);
+                        $this->logger->log(Logger::INFO,
+                            'checkout:After substract playconfig bet value from wallet =' . $user->getBalance()->getAmount());
+
                     }
                 }
                 //TODO move to TransactionService
@@ -96,11 +107,17 @@ class OrderService
                     'discount' => $order->getDiscount()->getValue(),
                 ];
                 $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                $this->logger->log(Logger::INFO,
+                    'checkout:Transaction TICKET_PURCHASE it was created');
                 $this->playService->sendEmailPurchase($user,$order->getPlayConfig());
+                $this->logger->log(Logger::INFO,
+                    'checkout:Email sent');
             }
         } catch(\Exception $e)
         {
-
+            $this->logger->log(Logger::EMERGENCE,
+                'ERRORcheckout: ' . $e->getMessage());
+            throw new \Exception($e->getMessage());
         }
 
     }

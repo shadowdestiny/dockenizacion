@@ -46,10 +46,13 @@ class CloudWatch extends \Phalcon\Logger\Adapter implements \Phalcon\Logger\Adap
 
     public function log($type, $message = null, array $context = null)
     {
-        $arr = explode(":", $message);
-        $this->cloudWatch->log([
-            $arr[0] => $arr[1]
-        ]);
+        if(getenv('EM_ENV') !== 'vagrant' or getenv('EM_ENV') !== 'development')
+        {
+            $arr = explode(":", $message);
+            $this->cloudWatch->log([
+                $arr[0] => $arr[1]
+            ]);
+        }
     }
 
     /**

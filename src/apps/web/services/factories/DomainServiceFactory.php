@@ -168,7 +168,7 @@ class DomainServiceFactory
             $this->getTransactionService(),
             new CloudWatch(new CloudWatchLogger(
                 ConfigGenerator::cloudWatchConfig(
-                    'Euromillions','orderService'
+                    'Euromillions', getenv('EM_ENV')
                 ))
             )
         );

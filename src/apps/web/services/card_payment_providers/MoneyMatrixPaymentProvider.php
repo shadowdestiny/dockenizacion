@@ -71,4 +71,9 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
         }
 
     }
+
+    public function type()
+    {
+        return "IFRAME";
+    }
 }

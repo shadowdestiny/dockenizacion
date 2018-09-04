@@ -77,7 +77,7 @@ class PaymentProviderService implements EventsAwareInterface
                 } else {
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
                 }
-            } else {
+            } else if(isset($transaction[0]->setAmountAdded)) {
                 $transaction[0]->setAmountAdded($order->getCreditCardCharge()->getFinalAmount()->getAmount());
                 $transaction[0]->setStatus($status);
                 $transaction[0]->setHasFee($order->getCreditCardCharge()->getIsChargeFee());
