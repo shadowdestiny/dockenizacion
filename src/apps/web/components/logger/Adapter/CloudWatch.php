@@ -8,7 +8,6 @@
 
 namespace EuroMillions\web\components\logger\Adapter;
 
-
 use LegalThings\CloudWatchLogger;
 
 class CloudWatch extends \Phalcon\Logger\Adapter implements \Phalcon\Logger\AdapterInterface
@@ -43,6 +42,14 @@ class CloudWatch extends \Phalcon\Logger\Adapter implements \Phalcon\Logger\Adap
     public function logInternal($message, $type, $time, $context = array())
     {
         $this->cloudWatch->log($message);
+    }
+
+    public function log($type, $message = null, array $context = null)
+    {
+        $arr = explode(":", $message);
+        $this->cloudWatch->log([
+            $arr[0] => $arr[1]
+        ]);
     }
 
     /**

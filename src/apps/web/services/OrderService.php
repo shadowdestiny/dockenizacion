@@ -10,12 +10,14 @@ namespace EuroMillions\web\services;
 
 
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
 use Phalcon\Events\EventsAwareInterface;
 use Phalcon\Events\ManagerInterface;
+use Phalcon\Logger;
 
 class OrderService
 {
@@ -27,19 +29,27 @@ class OrderService
 
     protected $transactionService;
 
+    protected $logger;
+
 
     public function __construct(WalletService $walletService,
                                 PlayService $playService,
-                                TransactionService $transactionService)
+                                TransactionService $transactionService,
+                                CloudWatch $logger)
     {
         $this->playService = $playService;
         $this->walletService = $walletService;
         $this->transactionService = $transactionService;
+        $this->logger = $logger;
     }
 
 
     public function checkout($event,$component,array $data)
     {
+
+        $this->logger->log(Logger::INFO,
+            'checkout:New checkout order with transactionID= ' . $data['transactionID']);
+
         /** @var Order $order */
         $order = $data['order'];
         $transactionID = $data['transactionID'];

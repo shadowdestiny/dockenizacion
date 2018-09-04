@@ -2,8 +2,10 @@
 namespace EuroMillions\web\services\factories;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\EmTranslationAdapter;
+use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\repositories\TranslationDetailRepository;
 use EuroMillions\web\services\AuthService;
@@ -37,6 +39,7 @@ use EuroMillions\web\services\UserNotificationsService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\services\WalletService;
+use LegalThings\CloudWatchLogger;
 use Phalcon\Di;
 use Phalcon\DiInterface;
 use EuroMillions\web\services\auth_strategies\WebAuthStorageStrategy;
@@ -162,7 +165,12 @@ class DomainServiceFactory
         return new OrderService(
             $this->getWalletService(),
             $this->getPlayService(),
-            $this->getTransactionService()
+            $this->getTransactionService(),
+            new CloudWatch(new CloudWatchLogger(
+                ConfigGenerator::cloudWatchConfig(
+                    'Euromillions','orderService'
+                ))
+            )
         );
     }
 
