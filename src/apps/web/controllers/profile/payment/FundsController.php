@@ -48,7 +48,7 @@ class FundsController extends AccountController
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user->getUserCurrency());
         $this->tag->prependTitle('Make a Deposit');
 
-        if($this->request->isPost()) {
+        if($this->request->isPost() && $this->authService->getLoggedUser()->getValidated()) {
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
                 $messages = $credit_card_form->getMessages(true);
                 /**
@@ -91,6 +91,10 @@ class FundsController extends AccountController
                     }
                 }
             }
+        }else
+        {
+            $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+            $this->response->redirect('/account/wallet');
         }
 
         $this->view->pick('account/wallet');
