@@ -50,13 +50,21 @@
                 </td>
                 <td class="numbers">
                     {% for play_config in play_configs %}
+                        <?php $lucky = null;?>
+                        {% for lucky_number,badArray in play_config.stars %}
+                            <?php $lucky[] = $lucky_number;?>
+                        {% endfor %}
                         <div class="numbers--row">
                             {% for regular_number,badArray in play_config.numbers %}
                                 <span>{{ regular_number }}</span>
                             {% endfor %}
-                            {% for lucky_number,badArray in play_config.stars %}
-                                <span class="star">{{ lucky_number }}</span>
-                            {% endfor %}
+                            {% if (play_config.lotteryName == 'PowerBall') %}
+                                <span class="star">{{ lucky[1] }}</span>
+                            {% else %}
+                                {% for lucky_number,badArray in play_config.stars %}
+                                    <span class="star">{{ lucky_number }}</span>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </td>

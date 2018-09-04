@@ -42,6 +42,7 @@
                                 <th>Total Bets</th>
                                 <th>Gross Sales</th>
                                 <th>Gross Margin</th>
+                                <th>Total PowerPlay</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -55,6 +56,7 @@
                                     <td>{{ salesData['totalBets'] }}</td>
                                     <td>{{ (salesData['grossSales'] / 100) | number_format (2,',','') }}</td>
                                     <td>{{ (salesData['grossMargin'] / 100) | number_format (2,',','') }}</td>
+                                    <td>{{ salesData['totalPowerplay'] }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>

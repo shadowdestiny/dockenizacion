@@ -193,11 +193,12 @@ class PowerBallService
                         }
                     }
 
-                    $APIPlayConfigs = json_encode($order->getPlayConfig());
-                    $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
+
                     $formPlay = null;
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                     if ($result_payment->success() && $orderIsToNextDraw) {
+                        $APIPlayConfigs = json_encode($order->getPlayConfig());
+                        $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
                         $walletBefore = $user->getWallet();
                         $config = $di->get('config');
                         if ($config->application->send_single_validations) {

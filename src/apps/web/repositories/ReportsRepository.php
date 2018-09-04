@@ -72,11 +72,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('id', 'id');
         $rsm->addScalarResult('draw_date', 'draw_date');
         $rsm->addScalarResult('draw_status', 'draw_status');
-//        $rsm->addScalarResult('count_id', 'count_id');
-//        $rsm->addScalarResult('count_id_3', 'count_id_3');
-//        $rsm->addScalarResult('count_id_05', 'count_id_05');
 
-//        select 'EM' as em, e.id as id, e.draw_date as draw_date, IF(e.draw_date < now(),'Finished','Open') as draw_status, count(b.id) as count_id, count(b.id) * 3.00 as count_id_3, count(b.id) * 0.50 as count_id_05
         return $this->entityManager
             ->createNativeQuery(
                 "select 'PB' as em, e.id as id, e.draw_date as draw_date, IF(date_add(CAST(e.draw_date AS DATETIME), INTERVAL 19 HOUR) < now(),'Finished','Open') as draw_status
@@ -206,9 +202,9 @@ class ReportsRepository implements IReports
     {
         $result = $this->entityManager
             ->createQuery(
-                'SELECT b'
+                'SELECT b, p'
                 . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b INNER JOIN b.playConfig p '
-                . ' WHERE p.user = :user_id AND p.active = :active and p.frequency = 1 AND p.lottery = 1 '
+                . ' WHERE p.user = :user_id AND p.active = :active and p.frequency = 1 AND p.lottery IN (1,3) '
                 . ' GROUP BY p.startDrawDate,p.line.regular_number_one,'
                 . ' p.line.regular_number_two,p.line.regular_number_three, '
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
@@ -235,7 +231,7 @@ class ReportsRepository implements IReports
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
                 . ' p.line.lucky_number_one, p.line.lucky_number_two'
                 . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b JOIN b.playConfig p JOIN b.euromillionsDraw e'
-                . ' WHERE p.user = :user_id AND e.draw_date < :actual_date and p.frequency = 1 AND p.lottery = 1 '
+                . ' WHERE p.user = :user_id AND e.draw_date < :actual_date and p.frequency = 1 AND p.lottery IN (1,3) '
                 . ' ORDER BY p.startDrawDate DESC ')
             ->setParameters(['user_id' => $userId, 'actual_date' => date('Y-m-d')])
             ->getResult();
@@ -283,6 +279,7 @@ class ReportsRepository implements IReports
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('start_draw_date', 'start_draw_date');
         $rsm->addScalarResult('last_draw_date', 'last_draw_date');
+        $rsm->addScalarResult('lottery_id', 'lottery_id');
         $rsm->addScalarResult('line_regular_number_one', 'line_regular_number_one');
         $rsm->addScalarResult('line_regular_number_two', 'line_regular_number_two');
         $rsm->addScalarResult('line_regular_number_three', 'line_regular_number_three');
@@ -293,7 +290,7 @@ class ReportsRepository implements IReports
 
         return $this->entityManager
             ->createNativeQuery(
-                'SELECT p.start_draw_date, p.last_draw_date, p.line_regular_number_one,
+                'SELECT p.start_draw_date, p.last_draw_date, p.lottery_id, p.line_regular_number_one,
                             p.line_regular_number_two,
                             p.line_regular_number_three,
                             p.line_regular_number_four,
@@ -302,7 +299,7 @@ class ReportsRepository implements IReports
                             p.line_lucky_number_two'
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
                 . ' INNER JOIN log_validation_api lva ON lva.bet_id = b.id '
-                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 AND p.lottery_id = 1 '
+                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 AND p.lottery_id IN (1,3) '
                 . ' AND last_draw_date >= "' . $nextDrawDate->format('Y-m-d') . '" AND received >= "' . $receivedDate->format('Y-m-d H:i:s') . '"
                     GROUP BY p.start_draw_date,
                             p.line_regular_number_one,
@@ -321,6 +318,7 @@ class ReportsRepository implements IReports
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('start_draw_date', 'start_draw_date');
         $rsm->addScalarResult('last_draw_date', 'last_draw_date');
+        $rsm->addScalarResult('lottery_id', 'lottery_id');
         $rsm->addScalarResult('line_regular_number_one', 'line_regular_number_one');
         $rsm->addScalarResult('line_regular_number_two', 'line_regular_number_two');
         $rsm->addScalarResult('line_regular_number_three', 'line_regular_number_three');
@@ -331,7 +329,7 @@ class ReportsRepository implements IReports
 
         return $this->entityManager
             ->createNativeQuery(
-                'SELECT p.start_draw_date, p.last_draw_date, p.line_regular_number_one,
+                'SELECT p.start_draw_date, p.last_draw_date, p.lottery_id, p.line_regular_number_one,
                             p.line_regular_number_two,
                             p.line_regular_number_three,
                             p.line_regular_number_four,
@@ -339,7 +337,7 @@ class ReportsRepository implements IReports
                             p.line_lucky_number_one,
                             p.line_lucky_number_two'
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
-                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 0 AND p.frequency > 1 AND p.lottery_id = 1 '
+                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 0 AND p.frequency > 1 AND p.lottery_id IN (1,3) '
                 . '    GROUP BY p.start_draw_date,
                             p.line_regular_number_one,
                             p.line_regular_number_two,
@@ -721,30 +719,56 @@ class ReportsRepository implements IReports
      *
      * @return array
      */
-    public function getPowerBallDrawDetailsBetweenDrawDates($drawDates, $amount)
+    public function getPowerBallDrawDetailsBetweenDrawDates($drawDates, $amount, $amountPowerBall)
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('totalBets', 'totalBets');
         $rsm->addScalarResult('grossSales', 'grossSales');
         $rsm->addScalarResult('grossMargin', 'grossMargin');
 
-        return $this->entityManager
+        $data = $this->entityManager
             ->createNativeQuery('SELECT sum(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) as totalBets, sum(CASE
-                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 350) 
+                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1)) 
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
                                         ELSE 0
                                         END
                                     ) as grossSales, sum(CASE
-                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 350) - (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * '. $amount .')
+                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1)) - (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * '. $amount .')
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - '. $amount .')
                                         ELSE 0
                                         END
                                     ) as grossMargin
-                            FROM transactions
+                            FROM transactions t
                             WHERE (entity_type = "ticket_purchase" || entity_type = "automatic_purchase") and data like "3#%" and
                             date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"
                             ORDER BY date DESC'
                 , $rsm)->getResult();
+
+
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('totalPowerplay', 'totalPowerplay');
+
+        $powerPlay =  $this->entityManager
+            ->createNativeQuery('SELECT sum(p.power_play) as totalPowerplay
+                            FROM transactions t
+                            INNER JOIN playconfig_transaction pt on pt.transactionID = t.id
+                            INNER JOIN play_configs p on p.id = pt.playConfig_id
+                            WHERE (entity_type = "ticket_purchase" || entity_type = "automatic_purchase") and data like "3#%" and
+                            date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"
+                            ORDER BY date DESC'
+                , $rsm)->getResult();
+
+
+        $result = $data[0] + $powerPlay[0];
+        $result['grossMargin'] = $result['grossMargin'] - ($amountPowerBall * (int)$result['totalPowerplay']);
+
+        return $result;
+    }
+
+    public function getPowerPlayDrawDetailsBetweenDrawDates($drawDates, $amount)
+    {
+
     }
 
     /**

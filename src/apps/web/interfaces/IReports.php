@@ -22,7 +22,7 @@ interface IReports
     public function getPowerBallDrawDetailsByIdAndDates($id, $drawDates);
     public function getChristmasDrawDetailsByIdAndDates($id, $drawDates);
     public function getEuromillionsDrawDetailsBetweenDrawDates($drawDates);
-    public function getPowerBallDrawDetailsBetweenDrawDates($drawDates, $amount);
+    public function getPowerBallDrawDetailsBetweenDrawDates($drawDates, $amount, $amountPowerBall);
     public function getChristmasDrawDetailsBetweenDrawDates($drawDates);
     public function getNewRegistrations($data);
     public function getNewDepositors($data);

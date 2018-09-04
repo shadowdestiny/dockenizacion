@@ -128,9 +128,15 @@ class ReportsController extends AdminControllerBase
         $paginatorActives = $this->getPaginatorAsArray(!empty($myGamesActives->result) ? $myGamesActives->result : [], 4, $pageActives);
         $paginatorViewActives = (new PaginationWidgetAdmin($paginatorActives, $this->request->getQuery(), [], 'pageActives'))->render();
 
-        $mySubscriptionActives = $this->reportsService->getSubscriptionsByUserIdActive($user->getId(), $this->reportsService->getNextDateDrawByLottery('Euromillions'));
+        $mySubscriptionActives = $this->reportsService->getSubscriptionsByUserIdActive($user->getId(), $this->reportsService->getNextDateDrawByLottery('EuroMillions'));
+        $pageSubsActives = (!empty($this->request->get('pageSubsActives'))) ? $this->request->get('pageSubsActives') : 1;
+        $paginatorSubsActives = $this->getPaginatorAsArray(!empty($mySubscriptionActives) ? $mySubscriptionActives : [], 4, $pageSubsActives);
+        $paginatorViewSubsActives = (new PaginationWidgetAdmin($paginatorSubsActives, $this->request->getQuery(), [], 'pageSubsActives'))->render();
 
-        $mySubscriptionInactives = $this->reportsService->getSubscriptionsByUserIdInactive($user->getId());
+        $mySubsInactives =  $this->reportsService->getSubscriptionsByUserIdInactive($user->getId());
+        $pageSubsInactives = (!empty($this->request->get('pageSubsInactives'))) ? $this->request->get('pageSubsInactives') : 1;
+        $paginatorSubsInactives = $this->getPaginatorAsArray(!empty($mySubsInactives) ? $mySubsInactives : [], 4, $pageSubsInactives);
+        $paginatorViewSubsInactives = (new PaginationWidgetAdmin($paginatorSubsInactives, $this->request->getQuery(), [], 'pageSubsInactives'))->render();
 
         $myGamesInactives = new PastDrawsCollectionDTO($this->reportsService->getPastGamesWithPrizes($user->getId()));
         $pageInactives = (!empty($this->request->get('pageInactives'))) ? $this->request->get('pageInactives') : 1;
@@ -150,8 +156,8 @@ class ReportsController extends AdminControllerBase
         $this->view->setVars([
             'needReportsMenu' => true,
             'user' => $user,
-            'my_subscription_actives' => $mySubscriptionActives,
-            'my_subscription_inactives' => $mySubscriptionInactives,
+            'my_subscription_actives' => $paginatorSubsActives->getPaginate()->items,
+            'my_subscription_inactives' => $paginatorSubsInactives->getPaginate()->items,
             'my_games_actives' => $paginatorActives->getPaginate()->items,
             'paginator_view_actives' => $paginatorViewActives,
             'my_games_inactives' => $paginatorInactives->getPaginate()->items,
@@ -165,6 +171,8 @@ class ReportsController extends AdminControllerBase
             'lottery' => 'Euromillions',
             'userWithdrawals' => $this->reportsService->getWithdrawalsByUserId($this->request->get('id')),
             'countryList' => $this->countries,
+            'paginator_view_subs_inactive' => $paginatorViewSubsInactives,
+            'paginator_view_subs_active' => $paginatorViewSubsActives,
         ]);
     }
 

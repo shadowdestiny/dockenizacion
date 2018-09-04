@@ -46,9 +46,12 @@ class TransactionRepository extends RepositoryBase
 
         return $this->getEntityManager()
             ->createNativeQuery(
-                'SELECT date, entity_type, data, (wallet_after_uploaded_amount + wallet_after_winnings_amount) as balance, (wallet_before_subscription_amount - wallet_after_subscription_amount) as automaticMovement
-                FROM transactions
-                WHERE entity_type in ("ticket_purchase", "automatic_purchase") and user_id = "' . $userId . '"
+                'SELECT p.lottery_id, date, entity_type, data, (wallet_after_uploaded_amount + wallet_after_winnings_amount) as balance, (wallet_before_subscription_amount - wallet_after_subscription_amount) as automaticMovement
+                FROM transactions t
+                INNER JOIN playconfig_transaction pt on t.id = pt.transactionID
+                INNER JOIN play_configs p on p.id = pt.playConfig_id
+                WHERE entity_type in ("ticket_purchase", "automatic_purchase") and t.user_id = "' . $userId . '"
+                group by t.id
                 order by date desc'
                 , $rsm)->getResult();
     }
