@@ -234,8 +234,20 @@ class PublicSiteControllerBase extends ControllerBase
 
     private function setCurrencyByUrl()
     {
-        if (!$this->authService->isLogged() && $this->currencyUrl != '') {
-            $this->userPreferencesService->setCurrency(new Currency($this->currencyUrl));
+        if (!$this->authService->isLogged() &&  !$this->userPreferencesService->existCurrency())
+        {
+            if($this->languageUrl=='ru')
+            {
+                $this->userPreferencesService->setCurrency(new Currency('RUB'));
+            }
+            elseif ($this->currencyUrl!='')
+            {
+                $this->userPreferencesService->setCurrency(new Currency($this->currencyUrl));
+            }
+            else
+            {
+                $this->userPreferencesService->setCurrency(new Currency('EUR'));
+            }
         }
     }
 

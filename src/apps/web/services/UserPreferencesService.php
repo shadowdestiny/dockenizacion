@@ -24,6 +24,11 @@ class UserPreferencesService
         $this->storageStrategy->setCurrency($currency);
     }
 
+    public function existCurrency()
+    {
+       return  $this->storageStrategy->existCurrency();
+    }
+
     public function getCurrency()
     {
         $currency = $this->storageStrategy->getCurrency();
