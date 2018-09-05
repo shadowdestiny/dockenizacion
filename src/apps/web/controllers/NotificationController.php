@@ -29,6 +29,14 @@ class NotificationController extends MoneymatrixController
         )));
         $transactionID = $this->request->get('transaction');
         $status = $this->request->get('status');
+        if(empty($transactionID) or empty($status))
+        {
+            $logger->log(
+                Logger::ERROR,
+                'NotificationController:params are empty'
+            );
+            throw new \Exception('Params are empty');
+        }
         /** @var Transaction $transaction */
         $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
         if($transaction == null)
