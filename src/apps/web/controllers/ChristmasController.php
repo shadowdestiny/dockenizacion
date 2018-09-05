@@ -4,6 +4,7 @@ namespace EuroMillions\web\controllers;
 
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\vo\CardHolderName;
@@ -91,6 +92,9 @@ class ChristmasController extends PublicSiteControllerBase
         $play_service->saveChristmasPlay($christmasTickets, $user->getId());
 
         $this->tag->prependTitle('Review and Buy');
+        $nextDrawDate = $this->lotteryService->getNextDrawByLottery('Christmas')->returnValues()->getDrawDate();
+        $dayDraw = $this->languageService->translate($nextDrawDate->format('l'));
+        $nextDrawDate = $nextDrawDate->format('d.m.Y');
 
         return $this->view->setVars([
             'wallet_balance' => number_format((float)$wallet_balance->getAmount() / 100, 2, '.', ''),
@@ -111,6 +115,8 @@ class ChristmasController extends PublicSiteControllerBase
             'payTotalWithWallet' => (($total_price - $wallet_balance->getAmount()) / 100 <= 0) ? 1 : 0, // 1 true, 0 false
             'priceWithWallet' => ($total_price - $wallet_balance->getAmount()) / 100,
             'emerchant_data' => $this->getEmerchantData(),
+            'nextDrawDate' => $nextDrawDate,
+            'dayDraw' => $dayDraw,
         ]);
     }
 
@@ -205,14 +211,38 @@ class ChristmasController extends PublicSiteControllerBase
         }
 
         $play_service = $this->domainServiceFactory->getPlayService();
-
+        $nextDrawDate = $this->lotteryService->getNextDrawByLottery('Christmas')->returnValues()->getDrawDate();
+        $dayDraw = $this->languageService->translate($nextDrawDate->format('l'));
         $this->tag->prependTitle('Purchase Confirmation');
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('Christmas'));
+
+        $numbers = preg_replace('/[A-Z,€,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
+
+        $this->view->setVar('milliards', false);
+        $this->view->setVar('trillions', false);
+        if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
+            $numbers = round(($numbers / 1000), 1);
+            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
+            $this->view->setVar('milliards', true);
+        } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
+            $numbers = round(($numbers / 1000000), 1);
+            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
+            $this->view->setVar('trillions', true);
+        } else{
+            $this->view->setVar('milliards', false);
+            $this->view->setVar('trillions', false);
+        }
+        $this->view->setVar('jackpot_value_success', ViewHelper::formatJackpotNoCents($jackpot));
+        $linkPlay = 'link_christmas_play';
 
         return $this->view->setVars([
             'jackpot_value' => '2.3',
             'user' => $user,
             'draw_date_format' => $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('Y-m-d'),
             'christmasTickets' => $play_service->getChristmasPlaysFromTemporarilyStorage($user)->returnValues(),
+            'draw_day' => $dayDraw,
+            'lottery_name' => 'Christmas'
         ]);
     }
 

@@ -281,6 +281,7 @@ class PlayService
                         $this->cardPaymentProvider->idTransaction = $uniqueId;
                         $result_payment = $this->walletService->payWithCreditCardChristmas($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
                     } else {
+                        $uniqueId = null;
                         $result_payment = new ActionResult(true, $order);
                     }
                     $allPlayConfigsChristmas = [];

@@ -32,85 +32,122 @@
 {% endblock %}
 
 {% block bodyClass %}cart order minimal{% endblock %}
-{% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
+{% block header %}
+    {% set activeNav='{"myClass": "order"}'|json_decode %}
+    {% include "_elements/header.volt" %}
+{% endblock %}
 
 {% block body %}
-	<main id="content">
+	<main id="content" class="">
 		<div class="wrapper">
-			<div class="box-basic medium">
-				<h1 class="h1 title yellow res">{{ language.translate("Review and Buy") }}</h1>
-				<div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/{{ language.translate("link_legal_index") }}">{{ language.translate("Terms &amp; Conditions") }}</a></div>
-				<div id="cart-order">
-					<div class="box-order">
-						<div class="box-total-upper cl">
-							<div class="box-top cl">
-								<h1>ORDER SUMMARY</h1>
+			<div class="review_and_pay-section">
+				<section class="section--review-and-pay">
+					<div class="top-row">
+						<h1 class="">{{ language.translate("checkout_head") }}</h1>
+						<p class="">{{ language.translate("terms") }}</a></p>
+					</div>
+				</section>
+                {#<div class="box-top cl">#}
+                {#&#123;&#35;<div class="balance">&#35;&#125;#}
+                {#&#123;&#35;<span class="txt">{{ language.app("Your current account balance:") }}</span>&#35;&#125;#}
+                {#&#123;&#35;<span class="value"><span class="old"><?php echo $currency_symbol ?> <?php echo $wallet_balance ?>.00</span> <span class="new"><?php echo $currency_symbol ?> 14.05</span></span>&#35;&#125;#}
+                {#&#123;&#35;</div>&#35;&#125;#}
+
+                {#<h2 class="h4 sub-txt">{{ language.app("Order Summary") }}</h2>#}
+                {#</div>#}
+				<section class="section--numbers-played">
+					<div class="section--content">
+						<div id="cart-order">
+							<div class="box-order">
+								<div class="box-total-upper cl">
+									<div class="txt-black-upper" >
+											<h1>ORDER SUMMARY</h1>
+										<span class="txt-bold">
+											Christmas Lottery
+										</span>
+										<br>
+										<span class="txt-bold">
+											{{ dayDraw }}, {{ nextDrawDate }}
+										</span>
+									</div>
+
+
+
+									<div class="txt-black-uppers cl" style="padding-left: 650px;">
+										<a href="/{{ language.translate('link_christmas_play') }}" class="btn purple small ui-link">Edit</a>
+									</div>
+								</div>
+
 							</div>
-							<div class="txt-black-upper cl">
-								<a href="/{{ language.translate('link_christmas_play') }}" class="btn purple small ui-link">Edit</a>
+							<div class="box-order">
+                                {% for christmasTicket in christmasTickets %}
+									<div class="row cl">
+										<span class="desc">Numbers </span>
+										<span class="txt-bold" style="font-size: 25px;">
+											{{ christmasTicket.getNumber() }}
+										</span>
+										<span class="txt-bold" style="font-size: 25px; padding-left: 600px;">
+											{{ currency_symbol }} {{ single_bet_price | number_format (2,'.','') }}
+										</span>
+									</div>
+                                {% endfor %}
 							</div>
-							<div class="total">
-								<div class="txt">Total to be paid</div>
-								<div class="val">{{ currency_symbol }} {{ total_price | number_format (2,'.','') }}</div>
+							<div class="box-total cl">
+								<div class="txt-currency desktop">Currencies are just informative, transactions are charged in Euros. This transaction will appear as EuroMillions.com on your bank account statement. Payments and purchases are final and cannot be cancelled or refunded as they will be forwarded to our payment and ticket providers.</div>
+								<div class="total">
+									<div class="txt">Total to be paid</div>
+									<div class="val">{{ currency_symbol }} {{ total_price | number_format (2,'.','') }}</div>
+								</div>
+								<br /><br /><br /><br /><br />
+                                {% if wallet_balance != 0 %}
+									<div class="row cl" style="color: black;">
+										<div class="summary balance-price disabled" style="margin-left: 20px;">{{ currency_symbol }} 0.00</div>
+										<div class="box-wallet cl">
+											<label class="txt" for="pay-wallet">Pay with your Account balance</label>
+											<div class=" ui-checkbox">
+												<input id="pay-wallet" name="pay-wallet" type="checkbox" class="checkbox" />
+											</div>
+										</div>
+									</div>
+                                {% endif %}
 								<div class="box-bottom cl">
 									<a href="javascript:void(0);" data-btn="no-wallet" class="btn blue big buy ui-link">
-										Continue to payment | {{ currency_symbol }} {{ total_price | number_format (2,'.','') }}
+										<span class="cont">Continue</span>
+										<span class="money">{{ currency_symbol }} {{ total_price | number_format (2,'.','') }}</span>
 									</a>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="box-order">
-						{% for christmasTicket in christmasTickets %}
-						<div class="row cl">
-							<span class="desc">Num: </span>
-							<span class="detail">{{ christmasTicket.getNumber() }}</span>
-							<div class="summary">{{ currency_symbol }} {{ single_bet_price | number_format (2,'.','') }}</div>
-						</div>
-						{% endfor %}
-					</div>
-					<div class="box-total cl">
-						<div class="txt-currency desktop">Currencies are just informative, transactions are charged in Euros. This transaction will appear as EuroMillions.com on your bank account statement. Payments and purchases are final and cannot be cancelled or refunded as they will be forwarded to our payment and ticket providers.</div>
-						<div class="total">
-							<div class="txt">Total to be paid</div>
-							<div class="val">{{ currency_symbol }} {{ total_price | number_format (2,'.','') }}</div>
-						</div>
-						<br /><br /><br /><br /><br />
-						{% if wallet_balance != 0 %}
-						<div class="row cl" style="color: black;">
-							<div class="summary balance-price disabled" style="margin-left: 20px;">{{ currency_symbol }} 0.00</div>
-							<div class="box-wallet cl">
-								<label class="txt" for="pay-wallet">Pay with your Account balance</label>
-								<div class=" ui-checkbox">
-									<input id="pay-wallet" name="pay-wallet" type="checkbox" class="checkbox" />
-								</div>
-							</div>
-						</div>
-						{% endif %}
-						<div class="box-bottom cl">
-							<a href="javascript:void(0);" data-btn="no-wallet" class="btn blue big buy ui-link">
-								Continue to payment | {{ currency_symbol }} {{ total_price | number_format (2,'.','') }}
-							</a>
-						</div>
-					</div>
-				</div>
+				</section>
+
+
 				<div class="payment hidden">
-					<form class="box-add-card form-currency" method="post" action="/christmas/payment">
-                        {% set component='{"where": "cart"}'|json_decode %}
-                        {% include "account/_add-card.volt" %}
-						<input type="hidden" id="csid" name="csid"/>
-					</form>
+
+					<section class="section--card--details">
+
+						<div class="top-row">
+							<h1 class="h2">
+                                {{ language.translate("card_subhead") }}
+							</h1>
+						</div>
+						<div class="section--content">
+							<form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}"
+								  method="post"
+								  action="/christmas/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
+                                {% set component='{"where": "cart"}'|json_decode %}
+                                {% include "account/_add-card.volt" %}
+								<input type="hidden" id="csid" name="csid"/>
+							</form>
+						</div>
+					</section>
 				</div>
-				<p>
-				<div class="images-payment-center col4 box-partner">
-					<ul class="no-li inline"  style="float:right">
-						<li><a href="http://www.visaeurope.com/"><svg class="v-visa vector"><use xlink:href="/w/svg/icon.svg#visa"/></svg></a></li>
-						<li><a href="http://www.mastercard.com/eur/"><svg class="v-mastercard vector"><use xlink:href="/w/svg/icon.svg#mastercard"/></svg></a></li>
-						<li><a href="https://ssl.comodo.com/"><img src="/w/svg/comodo.png"/> </a></li>
-					</ul>
-				</div>
+
 			</div>
+
 		</div>
 	</main>
-    {% include "_elements/minimal-footer.volt" %}
+
+
+    {% include "_elements/footer.volt" %}
 {% endblock %}

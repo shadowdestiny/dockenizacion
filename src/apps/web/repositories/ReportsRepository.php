@@ -266,15 +266,22 @@ class ReportsRepository implements IReports
                 , $rsm)->getResult();
     }
 
-    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate)
+    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall)
     {
         $receivedDate = clone $nextDrawDate;
+        $receivedDatePowerBall = clone $nextDrawDatePowerBall;
         if ($receivedDate->format('N') == 5) {
             $receivedDate->modify('-3 days');
         } else {
             $receivedDate->modify('-4 days');
         }
+        if ($receivedDatePowerBall->format('N') == 6) {
+            $receivedDatePowerBall->modify('-3 days');
+        } else {
+            $receivedDatePowerBall->modify('-4 days');
+        }
         $receivedDate->setTime(19, 30, 00);
+        $receivedDatePowerBall->setTime(03, 30, 00);
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('start_draw_date', 'start_draw_date');
@@ -300,7 +307,8 @@ class ReportsRepository implements IReports
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
                 . ' INNER JOIN log_validation_api lva ON lva.bet_id = b.id '
                 . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 AND p.lottery_id IN (1,3) '
-                . ' AND last_draw_date >= "' . $nextDrawDate->format('Y-m-d') . '" AND received >= "' . $receivedDate->format('Y-m-d H:i:s') . '"
+                . ' AND IF (p.lottery_id = 1, "' . $nextDrawDate->format('Y-m-d') . '", "' . $nextDrawDatePowerBall->format('Y-m-d') . '") <= last_draw_date '
+                . ' AND IF (p.lottery_id = 1, "' . $receivedDate->format('Y-m-d H:i:s') . '", "' . $receivedDatePowerBall->format('Y-m-d H:i:s') . '") <= received 
                     GROUP BY p.start_draw_date,
                             p.line_regular_number_one,
                             p.line_regular_number_two,
