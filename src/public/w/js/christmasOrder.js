@@ -36,10 +36,12 @@ $('#pay-wallet').on('click', function(){
             $('.balance-price').text('- ' + currency_symbol + ' ' + total_price);
             $('.box-bottom').show();
             $('.payment').hide();
+            $('.cont').hide();
+            $('.money').hide();
         } else {
             $('.buy').attr('href', 'javascript:void(0);');
             $('.buy').attr('data-btn', 'no-wallet');
-            $('.buy').text('Continue to payment | ' + currency_symbol + ' ' + priceWithWallet.toFixed(2));
+            $('.buy').text('Continue');
             $('.val').text(currency_symbol + ' ' + priceWithWallet.toFixed(2));
             $('.balance-price').text('- ' + currency_symbol + ' ' + wallet_balance);
             $('.submit.big.green').text('Pay ' + currency_symbol + ' ' + priceWithWallet.toFixed(2));
@@ -47,7 +49,8 @@ $('#pay-wallet').on('click', function(){
     } else {
         $('.buy').attr('href', 'javascript:void(0);');
         $('.buy').attr('data-btn', 'no-wallet');
-        $('.buy').text('Continue to payment | ' + currency_symbol + ' ' + total_price);
+        $('.cont').show();
+        $('.money').show();
         $('.val').text(currency_symbol + ' ' + total_price);
         $('.balance-price').text(currency_symbol + ' 0.00');
         $('.submit.big.green').text('Pay ' + currency_symbol + ' ' + total_price);
