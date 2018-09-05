@@ -6,45 +6,78 @@ cart success minimal
 {% include "_elements/jlength.volt" %}
 {% endblock %}
 
-{% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
-{% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
+{% block header %}
+    {% set activeNav='{"myClass": "success"}'|json_decode %}
+    {% include "_elements/header.volt" %}
+{% endblock %}
+{% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>if(window!=top){top.location.href=location.href;}</script>{% endblock %}
 
 {% block body %}
-<main id="content">
     <div class="wrapper">
-        <div class="box-basic medium">
-            <div class="cols">
-                <div class="col7 txt-col">
-                    <h1 class="h1 title yellow">{{ language.translate("Thanks for your order") }}</h1>
-                    <h2 class="h2 sub-title purple">{{ language.translate("You just completed your payment") }}</h2>
+        <div class="thank-you-block">
+            <div class="thank-you-block--top">
+                <h1>{{ language.translate("confirmation_h1") }}</h1>
 
-                    <p>{{ language.translate('We have sent you an email with details of the ticket you played. You can also see the tickets you have played on our <a href="/profile/tickets/games">tickets page</a>') }} </p>
+                <h2>
+                    {{ language.translate("confirmation_head", ['value': lottery_name]) }}
+                </h2>
+                <p>
+                    {{ language.translate("confirmation_subhead") }}
+                </p>
+                {#<div class="countdown">#}
+                {##}
+                {#</div>#}
 
-                    <h2 class="h4">{{ language.translate("In case of winning") }}</h2>
-                    <p>{{ language.translate("We'll contact you at <em>%useremail%</em> be sure to add our email <em>support@euromillions.com</em> to your address book to avoid spam filters.",['useremail' : user.getEmail()]) }}</p>
-
-                </div>
-                <div class="col5 ticket-col">
-                    <div class="bg-ticket">
-                        <div class="results">
-                            <br>
-                            Christmas Tickets
-                            {%  for ticket in christmasTickets %}
-                                <ul class="no-li num">
-                                    <li>{{ ticket.getNumber() }}</li>
-                                </ul>
-                            {% endfor %}
-                            <br>===============================
-                            <br><em class="luck">{{ language.translate("Good luck for your ticket on")}}
-                            <br>{{ draw_date_format }}</em>
-                            <br>===============================
-                            <br><div class="txt-logo">EuroMillions.com</div>
-                        </div>
-                    </div>
+                <div class="btn-row">
+                    <a href="/{{ language.translate('link_christmas_play') }}" class="btn-theme--big">
+                        <span class="resizeme">
+                            {{ language.translate("tickets_play_again") }}
+                        </span>
+                    </a>
                 </div>
             </div>
+
+
+            <div class="thank-you-block--jackpot">
+                <p>
+                    {{ language.translate("confirmation_lines") }} {{ language.translate(draw_day) }}
+                    , {{ draw_date_format }}
+                </p>
+                <h2>
+                    {{ language.translate("tittle") }} {{ jackpot_value_success }} {% if milliards %}
+                        {{ language.translate("billion") }}
+                    {% elseif trillions %}
+                        {{ language.translate("trillion") }}
+                    {% else %}
+                        {{ language.translate("million") }}
+                    {% endif %}
+                </h2>
+            </div>
+            <div class="thank-you-block--rows">
+                <div class="thank-you-block--row">
+                        <br>
+                    <p>Christmas Tickets</p>
+                    {%  for ticket in christmasTickets %}
+                            <p style="font-size: 25px; margin-bottom: 10px;">{{ ticket.getNumber() }}</p>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="thank-you-block--bottom">
+                <p>
+                    {{ language.translate("paragraph1") }}
+                </p>
+                <h3>
+                    {{ language.translate("win_subhead") }}
+                </h3>
+                <p>
+                    {{ language.translate("win_text",['user_email':'support@euromillions.com ']) }}
+                    {#{{ language.translate("win_text") }}#}
+                </p>
+            </div>
+
         </div>
     </div>
-</main>
+
 {% endblock %}
