@@ -93,8 +93,7 @@ class FundsController extends AccountController
             }
         }else
         {
-            $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
-            $this->response->redirect('/account/wallet');
+            $errors[] = $this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend');
         }
 
         $this->view->pick('account/wallet');
