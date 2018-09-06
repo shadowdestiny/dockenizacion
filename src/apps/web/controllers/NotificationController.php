@@ -24,11 +24,14 @@ class NotificationController extends MoneymatrixController
     //TODO: send to queue
     public function notificationAction()
     {
+
+        $transactionID = $this->request->getQuery('transaction');
+        $status = $this->request->getQuery('status');
+
         $logger = new CloudWatch(new CloudWatchLogger(ConfigGenerator::cloudWatchConfig(
             'Euromillions', getenv('EM_ENV')
         )));
-        $transactionID = $this->request->get('transaction');
-        $status = $this->request->get('status');
+
         if(empty($transactionID) or empty($status))
         {
             $logger->log(
@@ -48,9 +51,11 @@ class NotificationController extends MoneymatrixController
             throw new \Exception();
         }
         $transaction->fromString();
+
         $result = $this->cartService->get($transaction->getUser()->getId(),$transaction->getLotteryName(), $transaction->getWithWallet());
         /** @var Order $order */
         $order = $result->getValues();
+
         if($transaction->getStatus() == 'ERROR')
         {
             $logger->log(
@@ -64,10 +69,12 @@ class NotificationController extends MoneymatrixController
             );
             throw new \Exception();
         }
+
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
         $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName())->getValues();
         $order->setNextDraw($nextDrawForOrder);
+
         $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,$status);
     }
 }

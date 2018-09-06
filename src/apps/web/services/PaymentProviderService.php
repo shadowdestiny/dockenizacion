@@ -4,6 +4,8 @@
 namespace EuroMillions\web\services;
 
 
+use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
+use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
@@ -12,9 +14,11 @@ use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
 use Exception;
+use LegalThings\CloudWatchLogger;
 use Money\Money;
 use Phalcon\Events\EventsAwareInterface;
 use Phalcon\Events\ManagerInterface;
+use Phalcon\Logger;
 
 class PaymentProviderService implements EventsAwareInterface
 {
@@ -49,6 +53,7 @@ class PaymentProviderService implements EventsAwareInterface
 
     public function createOrUpdateDepositTransactionWithPendingStatus(Order $order, User $user,Money $amount, $transactionID, $status='PENDING')
     {
+
         try
         {
             $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID);
@@ -77,7 +82,7 @@ class PaymentProviderService implements EventsAwareInterface
                 } else {
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
                 }
-            } else if(isset($transaction[0]->setAmountAdded)) {
+            } else {
                 $transaction[0]->setAmountAdded($order->getCreditCardCharge()->getFinalAmount()->getAmount());
                 $transaction[0]->setStatus($status);
                 $transaction[0]->setHasFee($order->getCreditCardCharge()->getIsChargeFee());
@@ -96,6 +101,7 @@ class PaymentProviderService implements EventsAwareInterface
             }
         } catch( Exception $e )
         {
+
         }
     }
 

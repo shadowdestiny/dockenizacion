@@ -67,7 +67,11 @@ class OrderService
                 $user = $this->walletService->payOrder($user,$order);
                 $this->logger->log(Logger::INFO,
                     'checkout:User it was payed in its wallet=' . $user->getWallet()->getBalance()->getAmount());
-                $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
+                $transactions = $this->transactionService->getTransactionByEmTransactionID($transactionID);
+                if(count($transactions) > 0)
+                {
+                    throw new \Exception('Ticket ');
+                }
                 //TODO move to TransactionService
                 $transaction->fromString();
                 $transaction->setWalletBefore($walletBefore);

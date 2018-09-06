@@ -237,7 +237,7 @@ class CartController extends PublicSiteControllerBase
             /** @var User $user */
             $user = $this->userService->getUser($user_id);
             $lottery = $this->request->getPost("lottery");
-            $isWallet = $this->request->getPost('wallet');
+            $isWallet = $this->request->getPost('wallet') == 'true' ? true : false;
             $transactionID = $this->request->getPost('tsid');
             $cartService = $this->cartService->get($user_id,$lottery);
             /** @var Order $order */
