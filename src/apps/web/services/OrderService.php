@@ -68,16 +68,13 @@ class OrderService
                 $this->logger->log(Logger::INFO,
                     'checkout:User it was payed in its wallet=' . $user->getWallet()->getBalance()->getAmount());
                 $transactions = $this->transactionService->getTransactionByEmTransactionID($transactionID);
-                if(count($transactions) > 0)
-                {
-                    throw new \Exception('Ticket ');
-                }
+
                 //TODO move to TransactionService
-                $transaction->fromString();
-                $transaction->setWalletBefore($walletBefore);
-                $transaction->setWalletAfter($user->getWallet());
-                $transaction->toString();
-                $this->transactionService->updateTransaction($transaction);
+                $transactions[0]->fromString();
+                $transactions[0]->setWalletBefore($walletBefore);
+                $transactions[0]->setWalletAfter($user->getWallet());
+                $transactions[0]->toString();
+                $this->transactionService->updateTransaction($transactions[0]);
                 $walletBefore = $user->getWallet();
                 foreach ($order->getPlayConfig() as $playConfig)
                 {
@@ -120,7 +117,7 @@ class OrderService
         } catch(\Exception $e)
         {
             $this->logger->log(Logger::EMERGENCE,
-                'ERRORcheckout: ' . $e->getMessage());
+                'ERRORcheckout:' . $e->getMessage());
             throw new \Exception($e->getMessage());
         }
 

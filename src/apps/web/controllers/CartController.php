@@ -243,7 +243,16 @@ class CartController extends PublicSiteControllerBase
             /** @var Order $order */
             $order = $cartService->getValues();
             $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(),$order->getLottery(), $order->getNextDraw(),$isWallet);
-            $orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $order->getTotal()->getAmount(), $userCurrency->getName(), $lottery,$isWallet);
+            $orderDataToPaymentProvider = new OrderPaymentProviderDTO( [
+                'user' => $user,
+                'total' => $order->getTotal()->getAmount(),
+                'currency' => $userCurrency->getName(),
+                'lottery' => $lottery,
+                'isWallet' => (bool) $isWallet,
+                'isMobile' => $this->detectDevice()
+            ],
+                $this->di->get('config')
+            );
             $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider,$transactionID);
             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$order->getTotal(),$transactionID);
             $this->cartService->store($order);
@@ -358,7 +367,17 @@ class CartController extends PublicSiteControllerBase
         $currency_symbol = $this->currencyConversionService->getSymbol($wallet_balance, $locale);
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user_currency);
         $this->tag->prependTitle('Review and Buy');
-        $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO($user, $order_eur->getCreditCardCharge()->getFinalAmount()->getAmount(), $user_currency->getName(), $this->lottery,$checked_wallet);
+
+        $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO( [
+                'user' => $user,
+                'total' => $order_eur->getCreditCardCharge()->getFinalAmount()->getAmount(),
+                'currency' => $user_currency->getName(),
+                'lottery' => $this->lottery,
+                'isWallet' => $checked_wallet,
+                'isMobile' => $this->detectDevice()
+             ],
+            $this->di->get('config')
+        );
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$this->orderDataToPaymentProvider);
         if($this->cartPaymentProvider->type() == 'IFRAME')
         {

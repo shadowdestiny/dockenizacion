@@ -7,6 +7,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
+use Phalcon\Config;
 
 class OrderPaymentProviderDTO  extends DTOBase implements IDto
 {
@@ -17,16 +18,24 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
     public $lottery;
     public $transactionID;
     public $isWallet;
+    public $urlEuroMillions;
+    public $notificationEndpoint;
+    public $isMobile;
 
 
-    public function __construct(IUser $user, $total_price, $currency, $lottery, $isWallet = false)
+
+    public function __construct(array $data, Config $config)
     {
+
         /** @var User $user */
-        $this->user = $user;
-        $this->totalPrice = $total_price;
-        $this->currency = $currency;
-        $this->lottery = $lottery;
-        $this->isWallet = $isWallet == 'true' ? true : false;
+        $this->user = $data['user'];
+        $this->totalPrice = $data['total'];
+        $this->currency = $data['currency'];
+        $this->lottery = $data['lottery'];
+        $this->isWallet = $data['isWallet'] == 'true' ? true : false;
+        $this->isMobile = $data['isMobile'] == true ? 'Mobile' : 'Desktop';
+        $this->urlEuroMillions = $config['domain']->url;
+        $this->notificationEndpoint = $config['moneymatrix']->endpoint;
         $this->user->getId();
         $this->exChangeObject();
     }
@@ -50,7 +59,7 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
             "lastName" => $this->user->getSurname(),
             "emailAddress" => $this->user->getEmail()->toNative(),
             "countryCode" => "ES",
-            "CallbackUrl" => "https://rancher-beta.euromillions.com:49167/notification",
+            "CallbackUrl" => $this->notificationEndpoint,
             "ipAddress" => $this->user->getIpAddress()->toNative(),
             "address" => $this->user->getStreet() == null ? "" : $this->user->getStreet(),
             "city" => $this->user->getCity() == null ? "" : $this->user->getCity(),
@@ -61,11 +70,11 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
             "paymentMethod" => "null",
             "amount" =>  number_format($this->totalPrice / 100,2),
             "currency" => 'EUR',
-            "SuccessUrl" => "/paymentmx/success?wallet=".$this->isWallet."&transactionID=".$this->getTransactionID()."&userID=".$this->user->getId()."&lottery=".$this->lottery,
-            "FailUrl" => "http://merchant-site.com/fail.ashx",
-            "CancelUrl" => "http://merchant-site.com/cancel.ashx",
-            "CheckStatusUrl" => "http://merchant-site.com/synch_check.ashx",
-            "channel" => "Desktop",
+            "SuccessUrl" => "https://".$this->urlEuroMillions.'/'.$this->lottery.'/result/success',
+            "FailUrl" => "https://".$this->urlEuroMillions.'/'.$this->lottery.'/result/failure',
+            "CancelUrl" => "https://".$this->urlEuroMillions.'/'.$this->lottery.'/result/canel',
+            "CheckStatusUrl" => "https://".$this->urlEuroMillions.'/'.$this->lottery.'/result/status',
+            "channel" => $this->isMobile,
             "allowPaySolChange" => "true",
             "registrationIpAddress" => $this->user->getIpAddress()->toNative(),
             "registrationDate" => ""
