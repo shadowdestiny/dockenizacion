@@ -49,6 +49,8 @@ $('#pay-wallet').on('click', function(){
     } else {
         $('.buy').attr('href', 'javascript:void(0);');
         $('.buy').attr('data-btn', 'no-wallet');
+        $('.buy').html('<span class="cont">Continue</span><span class="money">' + currency_symbol + ' ' + total_price +' </span>');
+        $('.box-bottom').show();
         $('.cont').show();
         $('.money').show();
         $('.val').text(currency_symbol + ' ' + total_price);
