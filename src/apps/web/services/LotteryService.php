@@ -216,7 +216,7 @@ class LotteryService
         list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         $date = $lottery->getNextDrawDate($now);
         if($showLotteryLocalTime) {
-            if($lottery->getName() !== 'EuroMillions')
+            if($lottery->getName() !== 'EuroMillions' && $lottery->getName() !== 'Christmas')
             {
                 return DateTimeUtil::convertDateTimeBetweenTimeZones($date,'America/New_York','Europe/Madrid');
             }
