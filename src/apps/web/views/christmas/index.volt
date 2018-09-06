@@ -93,7 +93,7 @@
                                     <td class="td-ticket">
                                         <div class="td-ticket--inner">
                                             <div class="christmasTicketImg">
-                                                <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png" />
+                                                <img src="/w/img/christmas-lottery/desktop/ChristmasTicket.png" />
                                                 <span class="christmasTicketTxt">{{ ticket['number'] }}</span>
                                             </div>
                                             <div class="td-ticket-buttons--row">
