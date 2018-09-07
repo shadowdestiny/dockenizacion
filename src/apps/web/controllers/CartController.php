@@ -368,7 +368,8 @@ class CartController extends PublicSiteControllerBase
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user_currency);
         $this->tag->prependTitle('Review and Buy');
 
-        $this->orderDataToPaymentProvider = new OrderPaymentProviderDTO( [
+
+        $orderDataToPaymentProvider = new OrderPaymentProviderDTO( [
                 'user' => $user,
                 'total' => $order_eur->getCreditCardCharge()->getFinalAmount()->getAmount(),
                 'currency' => $user_currency->getName(),
@@ -378,7 +379,7 @@ class CartController extends PublicSiteControllerBase
              ],
             $this->di->get('config')
         );
-        $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$this->orderDataToPaymentProvider);
+        $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider);
         if($this->cartPaymentProvider->type() == 'IFRAME')
         {
             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
