@@ -31,7 +31,32 @@ class NotificationController extends MoneymatrixController
         $logger = new CloudWatch(new CloudWatchLogger(ConfigGenerator::cloudWatchConfig(
             'Euromillions', getenv('EM_ENV')
         )));
+        /** @var Transaction $transaction */
+        $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
+        try
+        {
+            $this->validations($transactionID,$status,$transaction,$logger);
+        } catch (\Exception $e)
+        {
+            throw new \Exception();
+        }
 
+
+        $transaction->fromString();
+        $result = $this->cartService->get($transaction->getUser()->getId(),$transaction->getLotteryName(), $transaction->getWithWallet());
+        /** @var Order $order */
+        $order = $result->getValues();
+        $this->paymentProviderService->setEventsManager($this->eventsManager);
+        $this->eventsManager->attach('orderservice', $this->orderService);
+        $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName())->getValues();
+        $order->setNextDraw($nextDrawForOrder);
+
+        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,$status);
+    }
+
+
+    private function validations($transactionID, $status,Transaction $transaction,CloudWatch $logger)
+    {
         if(empty($transactionID) or empty($status))
         {
             $logger->log(
@@ -40,8 +65,7 @@ class NotificationController extends MoneymatrixController
             );
             throw new \Exception('Params are empty');
         }
-        /** @var Transaction $transaction */
-        $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
+
         if($transaction == null)
         {
             $logger->log(
@@ -50,13 +74,8 @@ class NotificationController extends MoneymatrixController
             );
             throw new \Exception();
         }
-        $transaction->fromString();
 
-        $result = $this->cartService->get($transaction->getUser()->getId(),$transaction->getLotteryName(), $transaction->getWithWallet());
-        /** @var Order $order */
-        $order = $result->getValues();
-
-        if($transaction->getStatus() == 'ERROR')
+        if($status == 'ERROR')
         {
             $logger->log(
                 Logger::INFO,
@@ -70,11 +89,17 @@ class NotificationController extends MoneymatrixController
             throw new \Exception();
         }
 
-        $this->paymentProviderService->setEventsManager($this->eventsManager);
-        $this->eventsManager->attach('orderservice', $this->orderService);
-        $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName())->getValues();
-        $order->setNextDraw($nextDrawForOrder);
+        $transaction->fromString();
+        if($transaction->getStatus() == 'SUCCESS')
+        {
+            $logger->log(
+                Logger::INFO,
+                'ERRORNotificationController:Transaction already in use' . $transactionID
+            );
 
-        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,$status);
+            throw new \Exception();
+        }
+
+
     }
 }
