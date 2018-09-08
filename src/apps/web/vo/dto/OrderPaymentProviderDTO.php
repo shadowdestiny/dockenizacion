@@ -59,7 +59,7 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
             "lastName" => $this->user->getSurname(),
             "emailAddress" => $this->user->getEmail()->toNative(),
             "countryCode" => "ES",
-            "CallbackUrl" => $this->notificationEndpoint,
+            "CallbackUrl" => $this->notificationEndpoint.'/notification',
             "ipAddress" => $this->user->getIpAddress()->toNative(),
             "address" => $this->user->getStreet() == null ? "" : $this->user->getStreet(),
             "city" => $this->user->getCity() == null ? "" : $this->user->getCity(),
