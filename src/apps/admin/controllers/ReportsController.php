@@ -119,6 +119,7 @@ class ReportsController extends AdminControllerBase
         ]);
     }
 
+
     public function playerDetailsAction()
     {
         $user = $this->reportsService->getUserById($this->request->get('id'));
