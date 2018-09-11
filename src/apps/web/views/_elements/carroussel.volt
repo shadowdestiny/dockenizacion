@@ -34,6 +34,24 @@
 
                     </div>
                 </div>
+                <div class="block-carroussel-white block-carroussel">
+                    &nbsp;
+                </div>
+                <div class="block-carroussel-red block-carroussel">
+                    <div class="text-carroussel">
+                        <span class="resizeme">{{ language.translate("carousel_pow_name") }}</span>
+                    </div>
+                    <br />
+                    <div class="text-sub-carroussel">
+                        <div class="texter">
+                            <span class="resizeme"> {{ jackpot_powerball }}{% if milliards %}B {% elseif trillions %}T {% else %}M {% endif %}</span>
+                        </div>
+                        <div class="img-block">
+                            <img class="image-carroussel" src="/w/img/home/starsRed.png">
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
         </div>
