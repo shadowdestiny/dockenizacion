@@ -89,6 +89,27 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return $view;
     }
 
+    protected function configViewMegaMillions()
+    {
+        $view = new Phalcon\Mvc\View();
+        $compiled_path = $this->assetsPath . 'compiled_templates/';
+        $view->setViewsDir($this->appPath . 'megamillions/views/');
+
+        $view->registerEngines(array(
+            ".volt" => function ($view, $di) use ($compiled_path) {
+                $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
+                $volt->setOptions($this->voltConfigByEnvironment($compiled_path));
+                $compiler = $volt->getCompiler();
+                $compiler->addFilter('number_format', 'number_format');
+//                $compiler->addFunction('currency_css', function ($currency) {
+//                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
+//                });
+                return $volt;
+            }
+        ));
+        return $view;
+    }
+
     protected function configRouter()
     {
         $router = new Phalcon\Mvc\Router(false);
@@ -1388,6 +1409,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         //MEGAMILLIONS ROUTES
 
+        //INDEX
+        $router->add("/{lottery:(megamillions)+}", array(
+            "module" => "megamillions",
+            'controller' => 'index',
+            'action' => 'index',
+        ));
+
         //DRAW HISTORY
         $router->add("/{lottery:(megamillions)+}/results/draw-history", array(
             "module" => "web",
@@ -1522,12 +1550,17 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'admin' => [
                 'className' => 'EuroMillions\admin\Module',
                 'path' => '../apps/admin/Module.php',
+            ],
+            'megamillions' => [
+                'className' => 'EuroMillions\megamillions\Module',
+                'path' => '../apps/megamillions/Module.php',
             ]
         ]);
         $di = $application->getDI();
         $eventsManager = new Phalcon\Events\Manager();
         $eventsManager->attach('application:beforeStartModule', function ($event, $application) use ($di) {
             $module_name = $event->getData();
+
             if ($module_name === 'web') {
                 $web_module = $application->getModule($module_name);
                 /** @var ModuleDefinitionInterface $object */
@@ -1541,6 +1574,15 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $admin_module = $application->getModule($module_name);
                 $di->set('view', $this->configView($module_name), true);
                 $object = $di->get($admin_module['className']);
+                $object->registerServices($di);
+            }
+            if ($module_name === 'megamillions') {
+                $web_module = $application->getModule($module_name);
+                /** @var ModuleDefinitionInterface $object */
+                $object = $di->get($web_module['className']);
+                $di->set('language', $this->configLanguage($di), true);
+                $di->set('view', $this->configViewMegaMillions(), true);
+                //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
                 $object->registerServices($di);
             }
         });
