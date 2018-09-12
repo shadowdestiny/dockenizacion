@@ -129,7 +129,7 @@ class ReportsController extends AdminControllerBase
         $paginatorActives = $this->getPaginatorAsArray(!empty($myGamesActives->result) ? $myGamesActives->result : [], 4, $pageActives);
         $paginatorViewActives = (new PaginationWidgetAdmin($paginatorActives, $this->request->getQuery(), [], 'pageActives'))->render();
 
-        $mySubscriptionActives = $this->reportsService->getSubscriptionsByUserIdActive($user->getId(), $this->reportsService->getNextDateDrawByLottery('EuroMillions'));
+        $mySubscriptionActives = $this->reportsService->getSubscriptionsByUserIdActive($user->getId(), $this->reportsService->getNextDateDrawByLottery('EuroMillions'), $this->reportsService->getNextDateDrawByLottery('PowerBall'));
         $pageSubsActives = (!empty($this->request->get('pageSubsActives'))) ? $this->request->get('pageSubsActives') : 1;
         $paginatorSubsActives = $this->getPaginatorAsArray(!empty($mySubscriptionActives) ? $mySubscriptionActives : [], 4, $pageSubsActives);
         $paginatorViewSubsActives = (new PaginationWidgetAdmin($paginatorSubsActives, $this->request->getQuery(), [], 'pageSubsActives'))->render();

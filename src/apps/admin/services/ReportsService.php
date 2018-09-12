@@ -205,9 +205,9 @@ class ReportsService
      *
      * @return mixed
      */
-    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate)
+    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall)
     {
-        $subscriptionsActives = $this->reportsRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate);
+        $subscriptionsActives = $this->reportsRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall);
         foreach ($subscriptionsActives as $subscriptionsActiveKey => $subscriptionsActiveValue) {
             $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
             $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');

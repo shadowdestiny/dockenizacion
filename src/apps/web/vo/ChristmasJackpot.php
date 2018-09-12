@@ -28,7 +28,7 @@ class ChristmasJackpot implements IJackpot
     public function getAmount()
     {
         if (!$this->isValid()) {
-            return "2,3";
+            return "2300000000";
         } else {
             return (string)$this->amount;
         }
