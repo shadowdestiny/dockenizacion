@@ -57,7 +57,6 @@
 
     $(document).on("moneymatrix",{wallet: true},function(e, wallet) {
          if(wallet == 1) wallet = true;
-         console.log(wallet);
          $.post('/cart/iframereload', "tsid="+tsid+"&wallet="+wallet+"&lottery=PowerBall",function(response){
                 let result = JSON.parse(response);
                 $("#iframemx").attr('src',result.cashierUrl);
@@ -87,6 +86,11 @@
     $(this).text('Please wait...');
     $(this).css('pointer-events', 'none');
     }
+        var iframe = $('#iframemx').contents();
+        console.log(iframe);
+        iframe.find(".modal-success").click(function(){
+           alert("test");
+        });
     var value = $(this).data('btn');
     if(value == 'no-wallet') {
     var total_text = '';
@@ -160,6 +164,7 @@
     e.preventDefault();
     }
     });
+
 {% endblock %}
 {% block template_scripts_after %}
     <script src="/w/js/react/cart.js"></script>
@@ -187,7 +192,6 @@
         <span class="type">5 {{ language.app("numbers") }} + 3 {{ language.app("stars") }}</span>
     #}
   {% set cashierURL=cashier.cashierUrl %}
-  <?php echo $cashierURL ?>
     <main id="content" class="">
         <div class="wrapper">
             <div class="review_and_pay-section">
