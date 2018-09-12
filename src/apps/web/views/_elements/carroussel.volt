@@ -134,8 +134,7 @@
         </div>
 
         <div class="grey-box-carroussel grey-box-carroussel--christmas">
-            <div class="grey-box-carroussel--inner" style=""><img
-                        class="image-carroussel image-carroussel--clock" src="./christmas-edit_files/clock.png">
+            <div class="grey-box-carroussel--inner" style=""><img class="image-carroussel image-carroussel--clock" src="/w/img/home/clock.png">
                 <div class="countdownpower" style="">
                     <div class="daypower unit" style="color:black;">
                         <span class="val" style="color:black;">2D</span>
@@ -150,7 +149,7 @@
                     </div>
                 </div>
                 <div class="btn-row" style="">
-                    <a href="https://euromillions.com/powerball/play"
+                    <a href="https://euromillions.com/christmas-lottery/play"
                        class="btn-theme--big image-carroussel ui-link" style="">
                         <span class="resizeme" style="">
                             PLAY NOW                        </span>
