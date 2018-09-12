@@ -222,19 +222,6 @@ function persistRandomNum(line){
 	redrawTotalCost();
 }
 
-
-function isMobile(){
-	try{
-		document.createEvent('TouchEvent');
-		if(varSize > 2){
-			return true;
-		}
-	}catch(e){
-		return false;
-	}
-}
-
-
 function randomCalculation(line, value){
 	var arr = new Array(50);
 	var arr2 = new Array(11);

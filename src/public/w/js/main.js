@@ -140,6 +140,7 @@ function count_down(element,
 }
 
 var varSize = 0
+var varSize = 0
 function checkSize() {
   if ($(".media").width() == "1") {         // max-width: 1200px
     varSize = 1;
@@ -275,10 +276,39 @@ $(function () {
 
 });
 
+function isMobile(){
+    try{
+        document.createEvent('TouchEvent');
+        if(varSize > 2){
+            return true;
+        }
+    }catch(e){
+        return false;
+    }
+}
 
 //v2
 $(document).ready(function () {
 
+    if ($('.top-banner--head').length && $('.home-mobile--h1').length) {
+        if(isMobile())
+        {
+            $('.top-banner--head').remove();
+        }
+        else {
+            $('.home-mobile--h1').remove();
+        }
+    }
+    if ($('.play--h1').length && $('.play-bottom-block--img').length) {
+
+        if(isMobile())
+        {
+            $('.play-bottom-block--img').prev().remove();
+        }
+        else {
+            $('.play--h1').remove();
+        }
+    }
   // FAQ accordion function
 
   if ($('.faq-section .answer').length) {
