@@ -86,11 +86,7 @@
     $(this).text('Please wait...');
     $(this).css('pointer-events', 'none');
     }
-        var iframe = $('#iframemx').contents();
-        console.log(iframe);
-        iframe.find(".modal-success").click(function(){
-           alert("test");
-        });
+
     var value = $(this).data('btn');
     if(value == 'no-wallet') {
     var total_text = '';
