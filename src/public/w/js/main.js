@@ -140,7 +140,7 @@ function count_down(element,
 }
 
 var varSize = 0
-var varSize = 0
+
 function checkSize() {
   if ($(".media").width() == "1") {         // max-width: 1200px
     varSize = 1;
