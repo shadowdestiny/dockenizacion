@@ -56,7 +56,7 @@
                                           style="">€145M </span>
                         </div>
                         <div class="img-block">
-                            <img class="image-carroussel" src="./christmas-edit_files/starsChristmas.png">
+                            <img class="image-carroussel" src="/w/img/home/starsChristmas.png">
                         </div>
                     </div>
                 </div>
