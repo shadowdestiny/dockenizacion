@@ -37,11 +37,6 @@ class IndexController extends PublicSiteControllerBase
         MetaDescriptionTag::setDescription($this->languageService->translate('home_desc'));
     }
 
-    public function notfoundAction()
-    {
-        $this->response->redirect('/error/page404');
-    }
-
     public function billionsAndTrillions($jackpot) {
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));

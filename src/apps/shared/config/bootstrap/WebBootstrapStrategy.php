@@ -148,14 +148,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->notFound(array(
             "module" => "web",
-            "controller" => "index",
-            "action" => "notfound"
-        ));
-
-        $router->add("/error/page404", array(
-            "module" => "web",
-            'controller' => 'error',
-            'action' => 'page404',
+            "controller" => "error",
+            "action" => "page404"
         ));
 
         $router->add("/email-test", array(
