@@ -799,7 +799,8 @@
 
   @media only screen and (min-width: $screen-ipad-v) {
     border-right: 2px solid white;
-    height: 101px;
+    //height: 101px;
+    height: 203px;
   }
 
   &:last-of-type {
@@ -812,6 +813,9 @@
     width: 50%;
     height: 123px;
 
+    @media only screen and (min-width: $screen-ipad-v) {
+      height: 203px;
+    }
     @media only screen and (min-width: $screen-ipad-h) {
       height: 101px;
     }
@@ -917,6 +921,15 @@
   text-align: left;
 
   @media only screen and (min-width: $screen-ipad-v) {
+    padding-top: 18px;
+    height: 58px;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 100%;
+    font-size: 40px;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
     padding-top: 10px;
     height: 30px;
     padding-left: 15px;
@@ -924,6 +937,7 @@
     width: 100%;
     font-size: 17px;
   }
+
 
 }
 
@@ -940,6 +954,13 @@
   top: -9px;
 
   @media only screen and (min-width: $screen-ipad-v) {
+    font-size: 100px;
+    padding-top: 16px;
+    padding-left: 26px;
+    padding-right: 26px;
+    height: 147px;
+  }
+  @media only screen and (min-width: $screen-ipad-h) {
     font-size: 60px;
     padding-top: 0px;
     padding-left: 15px;
@@ -997,6 +1018,15 @@
     text-align: left;
 
     @media only screen and (min-width: $screen-ipad-v) {
+      padding-top: 18px;
+      height: 58px;
+      padding-left: 25px;
+      padding-right: 25px;
+      width: 100%;
+      font-size: 40px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
       padding-top: 10px;
       height: 30px;
       padding-left: 15px;
@@ -1016,6 +1046,13 @@
     width: 100%;
 
     @media only screen and (min-width: $screen-ipad-v) {
+      font-size: 100px;
+      padding-top: 16px;
+      padding-left: 26px;
+      padding-right: 26px;
+      height: 147px;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
       font-size: 60px;
       padding-top: 0px;
       padding-left: 15px;
@@ -1032,7 +1069,8 @@
   height: 25px;
 
   @media only screen and (min-width: $screen-ipad-v) {
-    height: 50px;
+    //height: 50px;
+    height: 80px;
   }
 
 }
@@ -1045,6 +1083,7 @@
 
   @media only screen and (min-width: $screen-ipad-v) {
     border-right: 2px solid white;
+    height: 80px;
   }
 
   &:last-of-type {
@@ -1101,7 +1140,8 @@
   }
 
   @media only screen and (min-width: $screen-ipad-v) {
-    height: 50px;
+    //height: 50px;
+    height: 100px;
     padding-bottom: 0;
     padding-top: 5px;
   }
@@ -1134,11 +1174,16 @@
     @media only screen and (min-width: $screen-ipad-v) {
       float: left;
       font-weight: bold;
-      margin-top: 9px;
-      margin-left: 5px;
+      //margin-top: 9px;
+      //margin-left: 5px;
+
+      margin-top: 26px;
+      margin-left: 25px;
     }
     @media only screen and (min-width: $screen-ipad-h) {
       float: left;
+      margin-top: 9px;
+      margin-left: 5px;
     }
 
     div, span {
@@ -1146,7 +1191,8 @@
       font-weight: bold;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        font-size: 20px;
+        //font-size: 20px;
+        font-size: 24px;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
@@ -1477,18 +1523,27 @@
       overflow: hidden;
 
       &.banner-carroussel {
-        height: 101px;
+        //height: 101px;
+        height: 203px;
       }
     }
 
     @media only screen and (min-width: $screen-ipad-h) {
       height: 101px;
+
+      &.banner-carroussel {
+        height: 101px;
+      }
     }
 
     @media only screen and (min-width: $screen-desktop) {
       //height: 101px;
       height: 203px;
       font-size: 23px;
+
+      &.banner-carroussel {
+        //height: 101px;
+      }
     }
 
     .top-banner--for-only {
