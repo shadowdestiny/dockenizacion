@@ -1407,7 +1407,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        //MEGAMILLIONS ROUTES
+        //*********************MEGAMILLIONS ROUTES***********************************//
 
         //INDEX
         $router->add("/{lottery:(megamillions)+}", array(
@@ -1458,6 +1458,20 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'pastResult',
         ));
 
+        //PLAY PAGES
+
+        $router->add("/{lottery:(megamillions)+}/play", array(
+            "module" => "web",
+            'controller' => 'play',
+            'action' => 'index',
+            'language' => 'en'
+        ));
+
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{play:(jugar|gioca|speel|играть)+}", array(
+            "module" => "web",
+            'controller' => 'play',
+            'action' => 'index',
+        ));
 
 
 //        $router->setDefaults(array(
