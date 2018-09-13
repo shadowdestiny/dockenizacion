@@ -15,6 +15,9 @@
             <div class="wrapper wrapper-top-banner--carousel mobile-2x desktop-3x" id="wrapper-top-banner">
 
                 <div class="block-carroussel-euromillions block-carroussel hide-mobile">
+                    <a href="/{{ language.translate("link_euromillions_play") }}"
+                       class="btn-theme--big--top image-carroussel" style="">
+                    </a>
                     <div class="text-carroussel">
                         <span class="resizeme">{{ language.translate("carousel_em_name") }}</span>
                     </div>
@@ -30,6 +33,9 @@
                 </div>
 
                 <div class="block-carroussel-powerball block-carroussel">
+                    <a href="/{{ language.translate("link_powerball_play") }}"
+                       class="btn-theme--big--top image-carroussel" style="">
+                    </a>
                     <div class="text-carroussel">
                         <span class="resizeme">{{ language.translate("carousel_pow_name") }}</span>
                     </div>
@@ -46,6 +52,9 @@
                 </div>
 
                 <div class="block-carroussel-christmas block-carroussel">
+                    <a href="https://euromillions.com/christmas-lottery/play"
+                       class="btn-theme--big--top image-carroussel ui-link" style="">
+                    </a>
                     <div class="text-carroussel">
                         <span class="resizeme" style="">Christmas Lottery</span>
                     </div>
@@ -56,7 +65,7 @@
                                           style="">€145M </span>
                         </div>
                         <div class="img-block">
-                            <img class="image-carroussel" src="./christmas-edit_files/starsChristmas.png">
+                            <img class="image-carroussel" src="/w/img/home/starsChristmas.png">
                         </div>
                     </div>
                 </div>
@@ -134,8 +143,7 @@
         </div>
 
         <div class="grey-box-carroussel grey-box-carroussel--christmas">
-            <div class="grey-box-carroussel--inner" style=""><img
-                        class="image-carroussel image-carroussel--clock" src="./christmas-edit_files/clock.png">
+            <div class="grey-box-carroussel--inner" style=""><img class="image-carroussel image-carroussel--clock" src="/w/img/home/clock.png">
                 <div class="countdownpower" style="">
                     <div class="daypower unit" style="color:black;">
                         <span class="val" style="color:black;">2D</span>
@@ -150,7 +158,7 @@
                     </div>
                 </div>
                 <div class="btn-row" style="">
-                    <a href="https://euromillions.com/powerball/play"
+                    <a href="https://euromillions.com/christmas-lottery/play"
                        class="btn-theme--big image-carroussel ui-link" style="">
                         <span class="resizeme" style="">
                             PLAY NOW                        </span>
