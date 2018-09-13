@@ -3,13 +3,11 @@
     <div class="top-banner--banner">
         <div class="wrapper">
 
-            <h1 class="top-banner--head">
-                {% if mobile == 1 %}
-                    {{ language.translate("home_mobile_h1") }}
-                {% else %}
-                    {{ language.translate("banner1_h1") }}
-                {% endif %}
-            </h1>
+			{% if mobile != 1 %}
+				<h1 class="top-banner--head">
+					{{ language.translate("banner1_h1") }}
+				</h1>
+            {% endif %}
             <div class="top-banner--subline">
                 {{ language.translate("banner1_subline") }}
             </div>

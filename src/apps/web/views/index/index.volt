@@ -124,14 +124,11 @@
             {% include "_elements/top-nav--mobile.volt" %}
 
             {#{% include "_elements/christmas-lottery-banner-block.volt" %}#}
-
-            <h1 class="home-mobile--h1">
-                {% if mobile == 1 %}
-                    {{ language.translate("home_mobile_h1") }}
-                {% else %}
-                    {{ language.translate("banner1_h1") }}
-                {% endif %}
-            </h1>
+ 			{% if mobile == 1 %}
+				<h1 class="home-mobile--h1">
+						{{ language.translate("home_mobile_h1") }}
+				</h1>
+			{% endif %}
             {% include "_elements/carroussel.volt" %}
             <div class="hiw-block--section">
 

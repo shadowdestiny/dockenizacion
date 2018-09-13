@@ -157,15 +157,11 @@
             </div>
             <div class="wrapper">
 
-
-                <h1 class="play--h1">
-                    {% if mobile == 1 %}
+				{% if mobile == 1 %}
+                	<h1 class="play--h1">
                         {{ language.translate("play_mobile_h1") }}
-                    {% else %}
-                        {{ language.translate("play_h1") }}
-                    {% endif %}
-                </h1>
-
+                	</h1>
+				{% endif %}
 
                 <header>
                     <div class="left">
