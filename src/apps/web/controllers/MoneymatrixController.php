@@ -21,16 +21,15 @@ class MoneymatrixController extends PaymentController
 
     public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
-//        /** @var DomainServiceFactory $domainServiceFactory */
-//        $domainServiceFactory = $dispatcher->getDI()->get('domainServiceFactory');
-//        $user_id = $domainServiceFactory->getAuthService()->getCurrentUser();
-//        $this->insertGoogleAnalyticsCodeViaEnvironment();
-//        if($user_id instanceof GuestUser) {
-//            $this->response->redirect('/sign-in');
-//            return false;
-//        } else {
-//            return true;
-//        }
+        /** @var DomainServiceFactory $domainServiceFactory */
+        $domainServiceFactory = $dispatcher->getDI()->get('domainServiceFactory');
+        $user_id = $domainServiceFactory->getAuthService()->getCurrentUser();
+        if($user_id instanceof GuestUser) {
+            $this->response->redirect('/sign-in');
+            return false;
+        } else {
+            return true;
+        }
     }
 
 

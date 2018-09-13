@@ -153,7 +153,7 @@ class PlayService
                 if ($result_order->success()) {
                     /** @var Order $order */
                     $order = $result_order->getValues();
-                    if (is_null($credit_card) && $withAccountBalance ) {
+                    if (is_null($credit_card) && $withAccountBalance) {
                         if ($order->totalOriginal()->getAmount() > $user->getBalance()->getAmount()) {
                             return new ActionResult(false);
                         }
@@ -251,7 +251,7 @@ class PlayService
     }
 
 
-    public function playWithMoneyMatrix($lotteryName, $transactionID, $userID,$withWallet,$amount)
+    public function playWithMoneyMatrix($lotteryName, $transactionID, $userID, $withWallet, $amount)
     {
         try {
             $di = \Phalcon\Di::getDefault();
@@ -277,27 +277,28 @@ class PlayService
                     $this->entityManager->flush($play_config);
                 }
             }
-            $this->walletService->payWithMoneyMatrix($user,$transactionID,$order,$withWallet,$amount);
+            $this->walletService->payWithMoneyMatrix($user, $transactionID, $order, $withWallet, $amount);
             $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
             if ($result_payment->success() && $orderIsToNextDraw) {
                 $walletBefore = $user->getWallet();
                 $config = $di->get('config');
                 if ($config->application->send_single_validations) {
                     foreach ($order->getPlayConfig() as $play_config) {
-                        $result_validation = $this->validatorResult($lottery,$play_config,$draw,$order);
+                        $result_validation = $this->validatorResult($lottery, $play_config, $draw, $order);
                         if (!$result_validation->success()) {
                             return new ActionResult(false, $result_validation->errorMessage());
                         }
                         if ($order->getHasSubscription()) {
-                            $this->walletService->createSubscriptionTransaction($user,$transactionID,$order);
-                           if ($withWallet) {$order->setAmountWallet($user->getWallet()->getBalance());
-                                $this->walletService->payWithSubscription($user, $play_config,null,$order);
-                                $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config,null,$order);
+                            $this->walletService->createSubscriptionTransaction($user, $transactionID, $order);
+                            if ($withWallet) {
+                                $order->setAmountWallet($user->getWallet()->getBalance());
+                                $this->walletService->payWithSubscription($user, $play_config, null, $order);
+                                $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config, null, $order);
                             } else {
-                               $this->walletService->payWithSubscription($user, $play_config,null,$order);
+                                $this->walletService->payWithSubscription($user, $play_config, null, $order);
                             }
                         } else {
-                            $this->walletService->payWithWallet($user, $play_config,null,$order);
+                            $this->walletService->payWithWallet($user, $play_config, null, $order);
                         }
                     }
                     $numPlayConfigs = count($order->getPlayConfig());
@@ -324,7 +325,7 @@ class PlayService
                     'playConfigs' => array_map(function ($val) {
                         return $val->getId();
                     }, $order->getPlayConfig()),
-                    'discount' =>  $order->getDiscount()->getValue()
+                    'discount' => $order->getDiscount()->getValue()
                 ];
                 $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
                 $this->sendEmailPurchase($user, $order->getPlayConfig());
@@ -332,8 +333,7 @@ class PlayService
             } else {
                 return new ActionResult($result_payment->success(), $order);
             }
-        } catch (Exception $e)
-        {
+        } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
 
@@ -683,14 +683,13 @@ class PlayService
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new ErrorEmailTemplate($emailBaseTemplate, new ErrorDataEmailTemplateStrategy($user, $order, $dateOrder));
-        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
-    public function validatorResult(Lottery $lottery, $play_config,ActionResult $draw, Order $order)
+    public function validatorResult(Lottery $lottery, $play_config, ActionResult $draw, Order $order)
     {
         $lotteryValidator = LotteryValidatorsFactory::create($lottery->getName());
-        if($lottery->getName() == 'EuroMillions')
-        {
+        if ($lottery->getName() == 'EuroMillions') {
             return $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $lotteryValidator);
         }
         $result_validation = json_decode($lotteryValidator->book(json_encode($order->getPlayConfig()))->body);

@@ -7,10 +7,13 @@ use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
+use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\Discount;
+use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\ExpiryDate;
 use Money\Currency;
 use Money\Money;
@@ -96,6 +99,19 @@ class ChristmasController extends PublicSiteControllerBase
         $dayDraw = $this->languageService->translate($nextDrawDate->format('l'));
         $nextDrawDate = $nextDrawDate->format('d.m.Y');
 
+        $playConfigs = $play_service->getChristmasPlaysFromTemporarilyStorage($user)->returnValues();
+        $draw = $this->lotteryService->getNextDateDrawByLottery('Christmas');
+        $order = OrderFactory::create($playConfigs,
+                                      $single_bet_price,
+                                      new Money(0, new Currency('EUR')),
+                                      new Money(0, new Currency('EUR')),
+                                      new Discount(0, 0),
+                                      $this->lotteryService->getLotteryConfigByName('Christmas'),
+                                      $draw,
+                                      $checked_wallet
+        );
+        $this->cartService->store($order);
+
         return $this->view->setVars([
             'wallet_balance' => number_format((float)$wallet_balance->getAmount() / 100, 2, '.', ''),
             'total_price' => number_format((float)$total_price / 100, 2, '.', ''),
@@ -111,7 +127,7 @@ class ChristmasController extends PublicSiteControllerBase
             'email' => $user->getEmail()->toNative(),
             'total_new_payment_gw' => isset($order_eur) ? $order_eur->getTotal()->getAmount() / 100 : '',
             'credit_card_form' => $creditCardForm,
-            'christmasTickets' => $play_service->getChristmasPlaysFromTemporarilyStorage($user)->returnValues(),
+            'christmasTickets' => $playConfigs,
             'payTotalWithWallet' => (($total_price - $wallet_balance->getAmount()) / 100 <= 0) ? 1 : 0, // 1 true, 0 false
             'priceWithWallet' => ($total_price - $wallet_balance->getAmount()) / 100,
             'emerchant_data' => $this->getEmerchantData(),
