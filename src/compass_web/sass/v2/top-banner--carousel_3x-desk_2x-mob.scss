@@ -8,7 +8,7 @@
     background-repeat: no-repeat;
     background-position: 50% 50%;
     -webkit-background-size: cover;
-    background-size: cover; 
+    background-size: cover;
 
     @media only screen and (min-width: $screen-ipad-v) {
       height: 150px;
@@ -61,8 +61,8 @@
       }
     }
 
-    .top-banner--head{
-      color:  #333333;
+    .top-banner--head {
+      color: #333333;
       font-size: 30px;
       font-weight: 900;
       line-height: 58px;
@@ -70,7 +70,7 @@
       text-transform: uppercase;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        color:  #333333;
+        color: #333333;
         font-size: 44px;
         font-weight: 900;
         line-height: 46px;
@@ -79,7 +79,7 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        color:  #333333;
+        color: #333333;
         font-size: 44px;
         font-weight: 900;
         line-height: 46px;
@@ -88,7 +88,7 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        color:  #333333;
+        color: #333333;
         font-size: 33px;
         font-weight: 900;
         line-height: 34px;
@@ -101,8 +101,8 @@
       @include common-headings-style-h1 ();
 
     }
-    .top-banner-play{
-      color:  #333333;
+    .top-banner-play {
+      color: #333333;
       font-size: 30px;
       font-weight: 900;
       line-height: 58px;
@@ -110,7 +110,7 @@
       text-transform: uppercase;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        color:  #333333;
+        color: #333333;
         font-size: 30px;
         font-weight: 900;
         line-height: 58px;
@@ -121,7 +121,7 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        color:  #333333;
+        color: #333333;
         font-size: 33px;
         font-weight: 900;
         line-height: 34px;
@@ -135,7 +135,7 @@
 
       @media only screen and (min-width: $screen-ipad-v) {
         display: block;
-        color:  #333333;
+        color: #333333;
         font-size: 24px;
         font-weight: 700;
         text-align: left;
@@ -146,7 +146,7 @@
 
       @media only screen and (min-width: $screen-ipad-h) {
         display: block;
-        color:  #333333;
+        color: #333333;
         font-size: 24px;
         font-weight: 700;
         text-align: left;
@@ -157,7 +157,7 @@
 
       @media only screen and (min-width: $screen-desktop) {
         display: block;
-        color:  #333333;
+        color: #333333;
         font-size: 18px;
         font-weight: 700;
         text-align: left;
@@ -166,12 +166,12 @@
         padding-bottom: 7px;
       }
     }
-    .top-banner--cost-per-lines{
+    .top-banner--cost-per-lines {
       display: none;
 
       @media only screen and (min-width: $screen-ipad-v) {
         display: block;
-        color:  #333333;
+        color: #333333;
         font-size: 36px;
         font-weight: 700;
         text-align: left;
@@ -184,7 +184,7 @@
 
       @media only screen and (min-width: $screen-desktop) {
         display: block;
-        color:  #333333;
+        color: #333333;
         font-size: 27px;
         font-weight: 700;
         text-align: left;
@@ -195,7 +195,7 @@
 
   .top-banner--bottom-row {
     height: 125px;
-    color:  #ffffff;
+    color: #ffffff;
     font-size: 30px;
     font-weight: 900;
     text-align: center;
@@ -209,7 +209,7 @@
     }
 
     @media only screen and (min-width: $screen-ipad-v) {
-      color:  #ffffff;
+      color: #ffffff;
       font-size: 30px;
       font-weight: 900;
       text-align: center;
@@ -270,7 +270,7 @@
       .countdown {
         div, span {
           font-family: $ff1;
-          color:  #ffffff;
+          color: #ffffff;
           text-transform: uppercase;
           margin-bottom: 3px;
 
@@ -289,7 +289,7 @@
       .countdownpower {
         div, span {
           font-family: $ff1;
-          color:  #ffffff;
+          color: #ffffff;
           text-transform: uppercase;
           margin-bottom: 3px;
 
@@ -307,7 +307,7 @@
       .countdowneuro {
         div, span {
           font-family: $ff1;
-          color:  #ffffff;
+          color: #ffffff;
           text-transform: uppercase;
           margin-bottom: 3px;
 
@@ -325,7 +325,7 @@
 
       @media only screen and (min-width: $screen-ipad-v) {
         font-family: $ff1;
-        color:  #ffffff;
+        color: #ffffff;
         text-align: left;
         text-transform: uppercase;
         margin-bottom: 7px;
@@ -344,7 +344,7 @@
     }
 
     .top-banner--center:before,
-    .top-banner--center:after{
+    .top-banner--center:after {
       display: none;
 
       @media only screen and (min-width: $screen-ipad-v) {
@@ -380,14 +380,14 @@
       top: 0;
     }
 
-    .top-banner--center:before{
+    .top-banner--center:before {
       left: 2px;
     }
-    .top-banner--center:after{
+    .top-banner--center:after {
       right: -1px;
     }
 
-    .top-banner--center{
+    .top-banner--center {
       padding-top: 0px;
       padding-bottom: 16px;
       position: relative;
@@ -477,19 +477,19 @@
 
       }
 
-      .top-banner--for-only{
+      .top-banner--for-only {
         display: block;
         text-align: center;
       }
     }
 
-    .top-banner--center.mobile--only{
+    .top-banner--center.mobile--only {
       @include mobile();
 
       position: relative;
 
       .mobile-row {
-        color:  #f2f2f2;
+        color: #f2f2f2;
         font-size: 34px;
         line-height: 42px;
         text-align: center;
@@ -498,7 +498,7 @@
       }
       .top-banner--for-only {
         width: 300px;
-        margin:auto;
+        margin: auto;
 
         .resizeme {
           overflow: hidden;
@@ -536,7 +536,7 @@
           font-weight: 700;
           padding: 0 40px;
           display: inline-block;
-          width:auto;
+          width: auto;
         }
 
         @media only screen and (min-width: $screen-desktop) {
@@ -551,7 +551,7 @@
         }
       }
 
-      .star--01{
+      .star--01 {
         position: absolute;
         left: 8px;
         bottom: 19px;
@@ -577,7 +577,7 @@
         }
       }
 
-      .star--02{
+      .star--02 {
         position: absolute;
         right: 14px;
         bottom: 18px;
@@ -603,7 +603,7 @@
         }
       }
 
-      .star--03{
+      .star--03 {
         position: absolute;
         right: 2px;
         bottom: 10px;
@@ -630,13 +630,13 @@
       }
     }
 
-    .top-banner--center.desktop--only{
+    .top-banner--center.desktop--only {
       @include desktop--dib();
 
       width: 33.33%;
     }
 
-    .top-banner--left{
+    .top-banner--left {
       display: none;
 
       @media only screen and (min-width: $screen-ipad-v) {
@@ -686,7 +686,7 @@
       }
     }
 
-    .top-banner--right{
+    .top-banner--right {
 
       display: none;
       @media only screen and (min-width: $screen-ipad-v) {
@@ -713,7 +713,7 @@
         .top-banner--for-only {
 
           width: 270px;
-          margin:auto;
+          margin: auto;
           text-align: center;
 
           .countdown {
@@ -744,7 +744,7 @@
               font-weight: 700;
               padding: 0 40px;
               width: 270px;
-              margin:auto;
+              margin: auto;
             }
           }
         }
@@ -794,9 +794,12 @@
   border-right: 1px solid white;
   float: left;
   width: 33.33%;
+  height: 60px;
+  margin-top: 0px;
 
   @media only screen and (min-width: $screen-ipad-v) {
     border-right: 2px solid white;
+    height: 101px;
   }
 
   &:last-of-type {
@@ -807,6 +810,11 @@
 .mobile-2x {
   .block-carroussel {
     width: 50%;
+    height: 123px;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      height: 101px;
+    }
   }
 }
 
@@ -833,6 +841,22 @@
 }
 
 .block-carroussel {
+  position: relative;
+
+  .btn-theme--big--top {
+    display: none;
+
+    @media only screen and (max-width: $screen-ipad-h-pre) {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      display: block;
+      z-index: 1;
+    }
+  }
+
 
   &.hide-mobile {
     display: none;
@@ -853,14 +877,7 @@
   }
 }
 
-.block-carroussel {
-  height: 60px;
-  margin-top: 0px;
 
-  @media only screen and (min-width: $screen-ipad-v) {
-    height: 101px;
-  }
-}
 .block-carroussel-euromillions {
   background-color: #4698e5;
 }
@@ -878,6 +895,7 @@
     margin-right: 0;
   }
 }
+
 .block-carroussel-christmas {
   background-color: #b61c1c;
 
@@ -906,6 +924,7 @@
     width: 100%;
     font-size: 17px;
   }
+
 }
 
 .text-sub-carroussel {
@@ -942,7 +961,7 @@
     }
   }
 
-  .img-block  {
+  .img-block {
     width: 25%;
     float: right;
     text-align: left;
@@ -964,6 +983,50 @@
   }
 }
 
+.mobile-2x {
+  .text-carroussel {
+    float: left;
+    opacity: 1;
+    font-size: 20px;
+    padding-top: 5px;
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+    overflow: hidden;
+    text-align: left;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      padding-top: 10px;
+      height: 30px;
+      padding-left: 15px;
+      padding-right: 25px;
+      width: 100%;
+      font-size: 17px;
+    }
+  }
+  .text-sub-carroussel {
+    float: left;
+    font-size: 50px;
+    padding-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 88px;
+    box-sizing: border-box;
+    width: 100%;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      font-size: 60px;
+      padding-top: 0px;
+      padding-left: 15px;
+      padding-right: 15px;
+      height: 70px;
+      top: 0;
+    }
+  }
+
+}
+
 .grey-blocks--row {
   overflow: hidden;
   height: 25px;
@@ -977,7 +1040,7 @@
 .grey-box-carroussel {
   background-color: #ebeced;
   width: 33.33%;
-  float:left;
+  float: left;
   border-right: 1px solid white;
 
   @media only screen and (min-width: $screen-ipad-v) {
@@ -1093,10 +1156,10 @@
   }
 
   .btn-row {
-    display: none;
+    //display: none;
 
     @media only screen and (min-width: $screen-ipad-h) {
-      margin:auto;
+      margin: auto;
       overflow: hidden;
       height: 30px;
       width: 110px;
@@ -1122,15 +1185,18 @@
     }
   }
   &.grey-box-carroussel {
+    position: relative;
+
     .btn-row {
       .btn-theme--big {
 
         @media only screen and (max-width: $screen-ipad-h-pre) {
           position: absolute;
           top: 0;
-          //width: 33.33%;
+          width: 100%;
           height: 100%;
           opacity: 0;
+          z-index: 1;
         }
       }
     }
@@ -1166,7 +1232,6 @@
   }
 
 }
-
 
 .top-banner-index--section {
   overflow: hidden;
@@ -1236,8 +1301,8 @@
       }
     }
 
-    .top-banner--head{
-      color:  #333333;
+    .top-banner--head {
+      color: #333333;
       font-size: 30px;
       font-weight: 900;
       line-height: 58px;
@@ -1246,7 +1311,7 @@
       display: none;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        color:  #333333;
+        color: #333333;
         font-size: 44px;
         font-weight: 900;
         line-height: 46px;
@@ -1255,7 +1320,7 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        color:  #333333;
+        color: #333333;
         font-size: 44px;
         font-weight: 900;
         line-height: 46px;
@@ -1264,7 +1329,7 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        color:  #333333;
+        color: #333333;
         font-size: 33px;
         font-weight: 900;
         line-height: 34px;
@@ -1276,8 +1341,8 @@
       @include common-headings-style-h1 ();
 
     }
-    .top-banner-play{
-      color:  #333333;
+    .top-banner-play {
+      color: #333333;
       font-size: 30px;
       font-weight: 900;
       line-height: 58px;
@@ -1285,7 +1350,7 @@
       text-transform: uppercase;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        color:  #333333;
+        color: #333333;
         font-size: 30px;
         font-weight: 900;
         line-height: 58px;
@@ -1294,7 +1359,7 @@
       }
 
       @media only screen and (min-width: $screen-desktop) {
-        color:  #333333;
+        color: #333333;
         font-size: 33px;
         font-weight: 900;
         line-height: 34px;
@@ -1309,7 +1374,7 @@
 
       @media only screen and (min-width: $screen-ipad-v) {
         display: block;
-        color:  #333333;
+        color: #333333;
         font-size: 24px;
         font-weight: 700;
         text-align: left;
@@ -1320,7 +1385,7 @@
 
       @media only screen and (min-width: $screen-ipad-h) {
         display: block;
-        color:  #333333;
+        color: #333333;
         font-size: 24px;
         font-weight: 700;
         text-align: left;
@@ -1331,7 +1396,7 @@
 
       @media only screen and (min-width: $screen-desktop) {
         display: block;
-        color:  #333333;
+        color: #333333;
         font-size: 18px;
         font-weight: 700;
         text-align: center;
@@ -1340,13 +1405,13 @@
         padding-bottom: 10px;
       }
     }
-    .top-banner--cost-per-lines{
+    .top-banner--cost-per-lines {
       text-align: center;
       display: none;
 
       @media only screen and (min-width: $screen-ipad-v) {
         display: block;
-        color:  #333333;
+        color: #333333;
         font-size: 36px;
         font-weight: 700;
         text-align: left;
@@ -1359,7 +1424,7 @@
 
       @media only screen and (min-width: $screen-desktop) {
         display: block;
-        color:  #333333;
+        color: #333333;
         font-size: 27px;
         font-weight: 700;
         text-align: center;
@@ -1374,7 +1439,7 @@
     background: -o-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
     background: -ms-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
     background: linear-gradient(90deg, #51a0e9 0%, #1678d3 100%);
-    color:  #ffffff;
+    color: #ffffff;
     font-size: 30px;
     font-weight: 900;
     text-align: center;
@@ -1382,7 +1447,7 @@
     padding-top: 0px;
     overflow: hidden;
     min-height: 107px;
-    height:auto;
+    height: auto;
 
     &.banner-carroussel {
       min-height: 0;
@@ -1394,7 +1459,7 @@
 
     @media only screen and (min-width: $screen-xs) {
       min-height: 123px;
-      height:auto;
+      height: auto;
 
       #wrapper-top-banner {
         margin-bottom: 0;
@@ -1403,7 +1468,7 @@
 
     @media only screen and (min-width: $screen-ipad-v) {
       height: 248px;
-      color:  #ffffff;
+      color: #ffffff;
       font-size: 30px;
       font-weight: 900;
       text-align: center;
@@ -1425,7 +1490,6 @@
       height: 203px;
       font-size: 23px;
     }
-
 
     .top-banner--for-only {
       margin-top: -7px;
@@ -1466,7 +1530,7 @@
 
       div, span {
         font-family: $ff1;
-        color:  #ffffff;
+        color: #ffffff;
         text-transform: uppercase;
         margin-bottom: 7px;
 
@@ -1482,7 +1546,7 @@
 
       @media only screen and (min-width: $screen-ipad-v) {
         font-family: $ff1;
-        color:  #ffffff;
+        color: #ffffff;
         text-align: left;
         text-transform: uppercase;
         margin-bottom: 7px;
@@ -1501,7 +1565,7 @@
     }
 
     .top-banner--center:before,
-    .top-banner--center:after{
+    .top-banner--center:after {
 
       display: none;
 
@@ -1538,14 +1602,14 @@
       top: 0;
     }
 
-    .top-banner--center:before{
+    .top-banner--center:before {
       left: 2px;
     }
-    .top-banner--center:after{
+    .top-banner--center:after {
       right: -1px;
     }
 
-    .top-banner--center{
+    .top-banner--center {
       padding-top: 0px;
       padding-bottom: 16px;
       position: relative;
@@ -1632,19 +1696,19 @@
         }
       }
 
-      .top-banner--for-only{
+      .top-banner--for-only {
         display: block;
         text-align: center;
       }
     }
 
-    .top-banner--center.mobile--only{
+    .top-banner--center.mobile--only {
       @include mobile();
 
       position: relative;
 
       .mobile-row {
-        color:  #f2f2f2;
+        color: #f2f2f2;
         font-size: 34px;
         line-height: 42px;
         text-align: center;
@@ -1676,7 +1740,7 @@
           font-weight: 700;
           padding: 0 40px;
           display: inline-block;
-          width:auto;
+          width: auto;
         }
 
         @media only screen and (min-width: $screen-desktop) {
@@ -1690,7 +1754,7 @@
         }
       }
 
-      .star--01{
+      .star--01 {
         position: absolute;
         left: 8px;
         bottom: 19px;
@@ -1717,7 +1781,7 @@
 
       }
 
-      .star--02{
+      .star--02 {
         position: absolute;
         right: 14px;
         bottom: 18px;
@@ -1743,7 +1807,7 @@
         }
       }
 
-      .star--03{
+      .star--03 {
         position: absolute;
         right: 2px;
         bottom: 10px;
@@ -1771,11 +1835,11 @@
       }
     }
 
-    .top-banner--center.desktop--only{
+    .top-banner--center.desktop--only {
       @include desktop--dib();
     }
 
-    .top-banner--left{
+    .top-banner--left {
       display: none;
 
       @media only screen and (min-width: $screen-ipad-v) {
@@ -1825,7 +1889,7 @@
       }
     }
 
-    .top-banner--right{
+    .top-banner--right {
 
       display: none;
 
