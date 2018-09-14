@@ -143,26 +143,15 @@
         </div>
 
         <div class="grey-box-carroussel grey-box-carroussel--christmas">
-            <div class="grey-box-carroussel--inner" style=""><img class="image-carroussel image-carroussel--clock" src="/w/img/home/clock.png">
-                <div class="countdownpower" style="">
-                    <div class="daypower unit" style="color:black;">
-                        <span class="val" style="color:black;">2D</span>
-                    </div>
-                    <div class="dotspower"></div>
-                    <div class="hourpower unit" style="color:black;">
-                        <span class="val" style="color:black;">12H</span>
-                    </div>
-                    <div class="dotspower" style="color:black;">:</div>
-                    <div class="minutepower unit" style="color:black;">
-                        <span class="val" style="color:black;">45M</span>
-                    </div>
-                </div>
-                <div class="btn-row" style="">
+            <div class="grey-box-carroussel--inner" style="margin-top: 10px;"><img class="image-carroussel image-carroussel--clock" style="margin-top: -10px" src="/w/img/home/clock.png">
+                <div><span class="val" style="color:black;font-weight: bold;margin-left: 13px">{{ next_draw_christmas }}</span>
+                <div class="btn-row" style="margin-top: -10px;">
                     <a href="https://euromillions.com/christmas-lottery/play"
                        class="btn-theme--big image-carroussel ui-link" style="">
                         <span class="resizeme" style="">
                             PLAY NOW                        </span>
                     </a>
+                </div>
                 </div>
             </div>
 
