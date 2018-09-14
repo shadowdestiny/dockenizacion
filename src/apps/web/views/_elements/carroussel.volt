@@ -24,7 +24,7 @@
                     <br />
                     <div class="text-sub-carroussel">
                         <div class="texter">
-                            <span class="resizeme">{{ jackpot_value }}{% if milliards %}B {% elseif trillions %}T {% else %}M {% endif %}</span>
+                            <span class="resizeme">{{ jackpot_value }}{% if milliards_euromillions %}B {% elseif trillions_euromillions %}T {% else %}M {% endif %}</span>
                         </div>
                         <div class="img-block">
                             <img class="image-carroussel" src="/w/img/home/starsBlue.png">
@@ -42,7 +42,7 @@
                     <br />
                     <div class="text-sub-carroussel">
                         <div class="texter">
-                            <span class="resizeme"> {{ jackpot_powerball }}{% if milliards %}B {% elseif trillions %}T {% else %}M {% endif %}</span>
+                            <span class="resizeme"> {{ jackpot_powerball }}{% if milliards_euromillions %}B {% elseif trillions_euromillions %}T {% else %}M {% endif %}</span>
                         </div>
                         <div class="img-block">
                             <img class="image-carroussel" src="/w/img/home/starsRed.png">
@@ -62,7 +62,7 @@
                     <div class="text-sub-carroussel">
                         <div class="texter">
                                     <span class="resizeme"
-                                          style="">€145M </span>
+                                          style="">{{ jackpot_christmas }}{% if milliards_christmas %}B {% elseif trillions_christmas %}T {% else %}M {% endif %} </span>
                         </div>
                         <div class="img-block">
                             <img class="image-carroussel" src="/w/img/home/starsChristmas.png">
