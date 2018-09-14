@@ -1038,7 +1038,8 @@
   .text-sub-carroussel {
     float: left;
     font-size: 50px;
-    padding-top: 0px;
+    //padding-top: 0px;
+    padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
     height: 88px;
@@ -1166,8 +1167,10 @@
 
   .countdowneuro,
   .countdownpower {
-    margin-top: 0px;
-    margin-left: 5px;
+    //margin-top: 0px;
+    //margin-left: 5px;
+    margin-top: 2px;
+    margin-left: 10px;
     float: left;
     font-weight: bold;
 
@@ -1187,7 +1190,7 @@
     }
 
     div, span {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: bold;
 
       @media only screen and (min-width: $screen-ipad-v) {
@@ -1208,6 +1211,7 @@
       margin: auto;
       overflow: hidden;
       height: 30px;
+      //height: 32px;
       width: 110px;
       float: right;
       margin-top: 0px;
@@ -1221,9 +1225,11 @@
 
     .btn-theme--big {
       @media only screen and (min-width: $screen-ipad-h) {
-        position: static;
+        height: 32px;
+        //position: static;
+        position: relative;
         font-size: 13px;
-        height: 100%;
+        //height: 100%;
         width: 100%;
         padding: 0 10px;
         line-height: 32px;
@@ -1235,6 +1241,8 @@
 
     .btn-row {
       .btn-theme--big {
+
+        //padding: 0;
 
         @media only screen and (max-width: $screen-ipad-h-pre) {
           position: absolute;
@@ -1782,8 +1790,11 @@
 
         @media only screen and (min-width: $screen-ipad-v) {
           height: 86px;
-          line-height: 91px;
+          //height: 100px;
+          //line-height: 91px;
+          line-height: 86px;
           font-size: 42px;
+          //font-size: 22px;
           width: 400px;
           margin-right: 0;
         }
