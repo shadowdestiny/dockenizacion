@@ -146,15 +146,7 @@
             <div class="grey-box-carroussel--inner" style=""><img class="image-carroussel image-carroussel--clock" src="/w/img/home/clock.png">
                 <div class="countdownpower" style="">
                     <div class="daypower unit" style="color:black;">
-                        <span class="val" style="color:black;">2D</span>
-                    </div>
-                    <div class="dotspower"></div>
-                    <div class="hourpower unit" style="color:black;">
-                        <span class="val" style="color:black;">12H</span>
-                    </div>
-                    <div class="dotspower" style="color:black;">:</div>
-                    <div class="minutepower unit" style="color:black;">
-                        <span class="val" style="color:black;">45M</span>
+                        <span class="val" style="color:black;">22.12.2018</span>
                     </div>
                 </div>
                 <div class="btn-row" style="">
