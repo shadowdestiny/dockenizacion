@@ -150,10 +150,11 @@
                     </div>
                 </div>
                 <div class="btn-row" style="">
-                    <a href="https://euromillions.com/christmas-lottery/play"
+                    <a href="/{{ language.translate("link_christmas_play") }}"
                        class="btn-theme--big image-carroussel ui-link" style="">
                         <span class="resizeme" style="">
-                            PLAY NOW                        </span>
+                             {{ language.translate("banner1_btn") }}
+                        </span>
                     </a>
                 </div>
             </div>
