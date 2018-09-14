@@ -1038,7 +1038,8 @@
   .text-sub-carroussel {
     float: left;
     font-size: 50px;
-    padding-top: 0px;
+    //padding-top: 0px;
+    padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
     height: 88px;
@@ -1166,8 +1167,10 @@
 
   .countdowneuro,
   .countdownpower {
-    margin-top: 0px;
-    margin-left: 5px;
+    //margin-top: 0px;
+    //margin-left: 5px;
+    margin-top: 2px;
+    margin-left: 10px;
     float: left;
     font-weight: bold;
 
@@ -1187,7 +1190,7 @@
     }
 
     div, span {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: bold;
 
       @media only screen and (min-width: $screen-ipad-v) {
