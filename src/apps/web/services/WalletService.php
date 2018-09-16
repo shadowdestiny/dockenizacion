@@ -512,7 +512,7 @@ class WalletService
         }
 
         $dataTransaction = [
-            'lottery_id' => $order->getLottery() != null ? $order->getLottery()->getId() : 1,
+            'lottery_id' => $order != null && $order->getLottery() != null ? $order->getLottery()->getId() : 1,
             'numBets' => count($user->getPlayConfig()),
             'feeApplied' => $isChargeFee,
             'transactionID' => $uniqueID,
