@@ -188,25 +188,27 @@
                     <div class="result--block--content">
                         {% if euromillions_results is defined %}
                             {% for euromillions_result in euromillions_results %}
-                                <div class="result--line">
-                                    <p>
-                                        {% set dateFormat = language.translate('dateformat') %}
-                                        <?php
-                                            $day = $euromillions_result["draw_date"]->format('l');
-                                            $date = $euromillions_result["draw_date"]->format($dateFormat);
-                                        ?>
-                                        {{ language.translate(day) }}, {{ date }}
-                                    </p>
-                                    <ul class="no-li inline numbers small">
-                                        {% for regular_number in euromillions_result["regular_numbers"] %}
-                                            <li>{{ regular_number }}</li>
-                                        {% endfor %}
-                                        {% for lucky_number in euromillions_result["lucky_numbers"] %}
-                                            <li class="star">{{ lucky_number }}</li>
-                                        {% endfor %}
+                            	{% if not null in euromillions_result["regular_numbers"] %}
+									<div class="result--line">
+											<p>
+												{% set dateFormat = language.translate('dateformat') %}
+												<?php
+													$day = $euromillions_result["draw_date"]->format('l');
+													$date = $euromillions_result["draw_date"]->format($dateFormat);
+												?>
+												{{ language.translate(day) }}, {{ date }}
+											</p>
+											<ul class="no-li inline numbers small">
+												{% for regular_number in euromillions_result["regular_numbers"] %}
+													<li>{{ regular_number }}</li>
+												{% endfor %}
+												{% for lucky_number in euromillions_result["lucky_numbers"] %}
+													<li class="star">{{ lucky_number }}</li>
+												{% endfor %}
 
-                                    </ul>
-                                </div>
+											</ul>
+									</div>
+                                {% endif %}
                             {% endfor %}
                         {% endif %}
                     </div>
