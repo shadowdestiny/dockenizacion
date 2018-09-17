@@ -94,14 +94,15 @@
 
     function showModalTicketClose(){
     $("#closeticket").easyModal({
-    top:100,
+    top:200,
     autoOpen:true,
     overlayOpacity:0.7,
     overlayColor:"#000",
     transitionIn:'animated fadeIn',
     transitionOut:'animated fadeOut',
     overlayClose: false,
-    closeOnEscape: false
+    closeOnEscape: false,
+    zIndex: function (){ return '0';}
     });
     }
 
@@ -221,11 +222,11 @@
                 {% include "_elements/play-bottom-block.volt" %}
             </div>
 
-            <div id="closeticket" class="modal" style="width: 1000px;height: 500px;">
+            <div id="closeticket" class="modal" style="width: {% if mobile == 1 %}250px;{% else %}1000px;{% endif %}height: 500px;">
                 <div style="text-align: center;color:white">
                     It is too late to buy EuroMillions tickets for the draw held in Paris tonight at 20:45 CET.
                     In a few moments you will be able to purchase EuroMillions tickets for the next draw that will take
-                    place on Tuesday.
+                    place on {{ draw_day  }}.
 
                     <br><br>Thank you for your pacience.<br>
 
