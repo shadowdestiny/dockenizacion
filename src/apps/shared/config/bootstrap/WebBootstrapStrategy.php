@@ -1473,7 +1473,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
-
+        include '../../../megamillions/config/routes.php';
 //        $router->setDefaults(array(
 //            "module"     => "web",
 //            'controller' => 'index',

@@ -1,12 +1,13 @@
 <?php
 
-namespace EuroMillions\web\controllers;
+namespace EuroMillions\megamillions\controllers;
 
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
+use EuroMillions\web\controllers\PublicSiteControllerBase;
 
-class PowerballHelpController extends PublicSiteControllerBase
+class HelpController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
