@@ -35,6 +35,58 @@
                     <a href="/{{ language.translate("link_blogindex") }}" class="link-blog">{{ language.translate("gotoindex_btn") }}</a>
                 </div>
             </div>
-        </div>
+
+			<div class="wrapper">
+				<table width="100%" align="center">
+					<tr>
+						<td width="450">
+						{% if not((prev is empty)) %}
+							<a href="/{{ language.translate('link_blogindex') }}/{{ prev.getUrl() }}"  style="text-decoration:none">
+								<strong>{{ language.translate('previous') }} </strong></br>
+								 <table>
+                                 	<tr>
+                                 	{% if mobile != 1 %}
+                                 		<td>
+                                 			<img src="{{ prev.getImage() }}" width="250" />
+                                 		</td>
+                                 	{% endif %}
+                                 		<td class="title-blog" style="vertical-align: middle;">
+                                 			{{ prev.getTitle() }}
+                                 		</td>
+                                    </tr>
+                                  </table>
+							</a>
+						{% endif %}
+						</td>
+						{% if mobile == 1 %}
+							</tr>
+							<tr>
+						{% else %}
+							<td width="60"></td>
+						{% endif %}
+						<td width="450">
+						{% if not((next is empty)) %}
+							<a href="/{{ language.translate('link_blogindex') }}/{{ next.getUrl() }}"  style="text-decoration:none">
+                            	<strong>{{ language.translate('next') }} </strong></br>
+								<table>
+									<tr>
+									 {% if mobile != 1 %}
+									 	<td>
+											<img src="{{ next.getImage() }}" width="250" />
+										</td>
+									 {% endif %}
+										 <td class="title-blog" style="vertical-align: middle;">
+										   {{ next.getTitle() }}
+										</td>
+                               		</tr>
+                               	</table>
+                            </a>
+						{% endif %}
+						</td>
+					</tr>
+				</table>
+			</div>
+			</br></br>
+		</div>
     </main>
 {% endblock %}

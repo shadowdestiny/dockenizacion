@@ -290,25 +290,6 @@ function isMobile(){
 //v2
 $(document).ready(function () {
 
-    if ($('.top-banner--head').length && $('.home-mobile--h1').length) {
-        if(isMobile())
-        {
-            $('.top-banner--head').remove();
-        }
-        else {
-            $('.home-mobile--h1').remove();
-        }
-    }
-    if ($('.play--h1').length && $('.play-bottom-block--img').length) {
-
-        if(isMobile())
-        {
-            $('.play-bottom-block--img').prev().remove();
-        }
-        else {
-            $('.play--h1').remove();
-        }
-    }
   // FAQ accordion function
 
   if ($('.faq-section .answer').length) {

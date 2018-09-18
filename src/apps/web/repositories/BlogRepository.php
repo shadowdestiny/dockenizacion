@@ -57,4 +57,43 @@ class BlogRepository extends RepositoryBase
         $this->getEntityManager()->persist($blog);
         $this->getEntityManager()->flush($blog);
     }
+
+    /**
+     * @param $id
+     *
+     * @param $language
+     *
+     * @param $condition
+     *
+     * @return Blog
+     *
+     */
+
+    public function getNextPrevPost($id, $language, $condition)
+    {
+        $qb = $this->createQueryBuilder('blog');
+        $qb->where('blog.language like :language');
+        if($condition =='next')
+        {
+            $qb->andWhere('blog.id > :identifier')
+                ->orderBy('blog.id', 'asc');
+        }
+        else
+        {
+            $qb->andWhere('blog.id < :identifier')
+                ->orderBy('blog.id', 'desc');
+        }
+        $qb->setParameter('identifier', $id);
+        $qb->setParameter('language', $language);
+
+        $result=  $qb->getQuery()
+                     ->getResult();
+
+        if(!is_null($result))
+        {
+            return $result[0];
+        }
+
+        return null;
+    }
 }
