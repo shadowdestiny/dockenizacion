@@ -188,7 +188,6 @@
                     <div class="result--block--content">
                         {% if euromillions_results is defined %}
                             {% for euromillions_result in euromillions_results %}
-                            	{% if not null in euromillions_result["regular_numbers"] %}
 									<div class="result--line">
 											<p>
 												{% set dateFormat = language.translate('dateformat') %}
@@ -208,7 +207,6 @@
 
 											</ul>
 									</div>
-                                {% endif %}
                             {% endfor %}
                         {% endif %}
                     </div>
