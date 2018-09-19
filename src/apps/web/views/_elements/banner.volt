@@ -54,16 +54,12 @@
                     {{ jackpot_value }}{{ language.translate("million") }}
                 </div>
                 <div class="top-banner--for-only">
-                    <div class="resizeme">
-                        {% include "_elements/countdown--home.volt" %}
-                    </div>
+                    <div class="resizeme">{% include "_elements/countdown--home.volt" %}</div>
                 </div>
 
                 <a href="/{{ language.translate("link_euromillions_play") }}"
                    class="btn-theme--big">
-                        <span class="resizeme">
-                        {{ language.translate("banner1_btn") }}
-                            </span>
+                        <span class="resizeme">{{ language.translate("banner1_btn") }}</span>
                 </a>
 
             </div>
@@ -71,17 +67,13 @@
             <div class="top-banner--right desktop--only">
 
                 <div class="top-banner--for-only">
-                    <div class="resizeme">
-                        {% include "_elements/countdown.volt" %}
-                    </div>
+                    <div class="resizeme">{% include "_elements/countdown.volt" %}</div>
                 </div>
 
                 <div class="btn-row">
                     <a href="/{{ language.translate("link_euromillions_play") }}"
                        class="btn-theme--big">
-                        <span class="resizeme">
-                        {{ language.translate("banner1_btn") }}
-                            </span>
+                        <span class="resizeme">{{ language.translate("banner1_btn") }}</span>
                     </a>
                 </div>
             </div>

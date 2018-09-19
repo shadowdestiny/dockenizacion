@@ -220,25 +220,18 @@ class ChristmasController extends PublicSiteControllerBase
         $numbers = preg_replace('/[A-Z,€,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
 
-        $this->view->setVar('milliards', false);
-        $this->view->setVar('trillions', false);
-        if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
-            $numbers = round(($numbers / 1000), 1);
-            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
-            $this->view->setVar('milliards', true);
-        } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
-            $numbers = round(($numbers / 1000000), 1);
-            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
-            $this->view->setVar('trillions', true);
-        } else{
-            $this->view->setVar('milliards', false);
-            $this->view->setVar('trillions', false);
-        }
+
         $this->view->setVar('jackpot_value_success', ViewHelper::formatJackpotNoCents($jackpot));
         $linkPlay = 'link_christmas_play';
+        $locale = $this->request->getBestLanguage();
+        $user_currency = $user->getUserCurrency();
+
+        $wallet_balance = $this->currencyConversionService->convert($user->getBalance(), $user_currency);
+        $currency_symbol = $this->currencyConversionService->getSymbol($wallet_balance, $locale);
 
         return $this->view->setVars([
-            'jackpot_value' => '2.3',
+            'jackpot_values' => '2.3',
+            'currency_symbol' => $currency_symbol,
             'user' => $user,
             'draw_date_format' => $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('Y-m-d'),
             'christmasTickets' => $play_service->getChristmasPlaysFromTemporarilyStorage($user)->returnValues(),

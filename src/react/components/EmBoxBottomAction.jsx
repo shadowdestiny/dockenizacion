@@ -70,7 +70,7 @@ var EuroMillionsBoxBottomAction = React.createClass({
                     draw_day={this.props.draw_day}
                   />
                 </div>
-                <EuroMillionsAddToCart total_draws={this.props.total_draws} discount_lines={this.props.discount_lines} currency_symbol={this.props.currency_symbol} price={this.props.price} txtNextButton={this.props.txtNextButton} onBtnAddToCartClick={this.addToCart} powerplay={this.props.powerplay} enablePowerPlay={this.props.powerPlayEnabled} lines={this.props.lines}key="2"/>
+                <EuroMillionsAddToCart total_lines={this.props.total_lines} total_draws={this.props.total_draws} discount_lines={this.props.discount_lines} currency_symbol={this.props.currency_symbol} price={this.props.price} txtNextButton={this.props.txtNextButton} onBtnAddToCartClick={this.addToCart} powerplay={this.props.powerplay} enablePowerPlay={this.props.powerPlayEnabled} lines={this.props.lines}key="2"/>
             </div>
         </div>
 

@@ -11,11 +11,16 @@ class IndexController extends PublicSiteControllerBase
     {
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
         $jackpotPowerBall = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
+        $jackpotChristmas = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('Christmas'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
 //        var_dump(ViewHelper::formatJackpotNoCents($jackpot)); die();
-        $textMillions = $this->billionsAndTrillions($jackpot);
+        $this->view->setVar('day_draw_christmas', $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('l'));
+        $this->view->setVar('next_draw_christmas', $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('d.m.Y'));
+        $textMillions = $this->billionsAndTrillions($jackpot, 'euromillions');
+        $textMillionsChristmas = $this->billionsAndTrillions($jackpotChristmas, 'christmas');
         $this->view->setVar('jackpot_millions', ViewHelper::formatMillionsJackpot($jackpot));
         $this->view->setVar('jackpot_powerball', ViewHelper::formatMillionsJackpot($jackpotPowerBall));
+        $this->view->setVar('jackpot_christmas', ViewHelper::formatBillionsJackpot($jackpotChristmas, $this->languageService->getLocale()));
         $time_till_next_draw = $this->lotteryService->getTimeToNextDraw('EuroMillions');
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $last_draw_date = $this->lotteryService->getLastDrawDate('EuroMillions');
@@ -37,24 +42,29 @@ class IndexController extends PublicSiteControllerBase
         MetaDescriptionTag::setDescription($this->languageService->translate('home_desc'));
     }
 
-    public function billionsAndTrillions($jackpot) {
-        $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
+    public function notfoundAction()
+    {
+        $this->response->redirect('/error/page404');
+    }
+
+    public function billionsAndTrillions($jackpot, $lottery) {
+        $numbers = preg_replace('/[^0-9]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $this->view->setVar('milliards', false);
         $this->view->setVar('trillions', false);
         if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
             $numbers = round(($numbers / 1000), 1);
             $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
-            $this->view->setVar('milliards', true);
+            $this->view->setVar('milliards_'.$lottery, true);
             $textMillions = 'billion';
         } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
             $numbers = round(($numbers / 1000000), 1);
             $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
-            $this->view->setVar('trillions', true);
+            $this->view->setVar('trillions_'.$lottery, true);
             $textMillions = 'trillion';
         } else{
-            $this->view->setVar('milliards', false);
-            $this->view->setVar('trillions', false);
+            $this->view->setVar('milliards_'.$lottery, false);
+            $this->view->setVar('trillions_'.$lottery, false);
             $textMillions = 'million';
         }
         return $textMillions;
