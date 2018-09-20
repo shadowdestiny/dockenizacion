@@ -56,9 +56,15 @@ class TransactionService
         return new ActionResult(true, $entity);
     }
 
-    public function getTransactionsDTOByUser(User $user)
+    public function getTransactionsDTOByUser(User $user, $page = null)
     {
-        $result = $this->transactionRepository->findBy(['user' => $user->getId()], ['id' => 'DESC']);
+
+        $result = $this->transactionRepository->getTransactionsDTOByUser($user->getId(), $page);
+        if(!is_null($page))
+        {
+            $totalElements= count($result);
+        }
+
         if (null != $result) {
             $transactionDtoCollection = [];
             /** @var LotteryRepository $lotteryRepository */
@@ -85,6 +91,10 @@ class TransactionService
                 $transactionDTO->pendingBalanceMovement = $this->currencyConversionService->toString($pendingBalanceMovement, $user->getLocale());
                 $transactionDTO->ticketPrice = $this->currencyConversionService->toString($ticketPrice, $user->getLocale());
                 $transactionDtoCollection[] = $transactionDTO;
+            }
+            if(!is_null($page))
+            {
+                return ['transactionDtoCollection' => $transactionDtoCollection, 'totalElements' => $totalElements];
             }
             return $transactionDtoCollection;
         }
