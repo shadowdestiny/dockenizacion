@@ -3,6 +3,7 @@
 namespace EuroMillions\shared\config\bootstrap;
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;
+use EuroMillions\megamillions\config\routes\HowToPlayRoutes;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconCookiesWrapper;
 use EuroMillions\shared\components\PhalconRequestWrapper;
@@ -94,16 +95,16 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $view = new Phalcon\Mvc\View();
         $compiled_path = $this->assetsPath . 'compiled_templates/';
         $view->setViewsDir($this->appPath . 'megamillions/views/');
-
+        $view->setLayoutsDir('shared/views/');
         $view->registerEngines(array(
             ".volt" => function ($view, $di) use ($compiled_path) {
                 $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
                 $volt->setOptions($this->voltConfigByEnvironment($compiled_path));
                 $compiler = $volt->getCompiler();
                 $compiler->addFilter('number_format', 'number_format');
-//                $compiler->addFunction('currency_css', function ($currency) {
-//                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
-//                });
+                $compiler->addFunction('currency_css', function ($currency) {
+                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
+                });
                 return $volt;
             }
         ));
@@ -1473,12 +1474,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
-        include '../../../megamillions/config/routes.php';
-//        $router->setDefaults(array(
-//            "module"     => "web",
-//            'controller' => 'index',
-//            'action'     => 'index'
-//        ));
+        $router->mount(new HowToPlayRoutes());
         $router->removeExtraSlashes(true);
         return $router;
     }

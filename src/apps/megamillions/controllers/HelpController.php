@@ -35,8 +35,7 @@ class HelpController extends PublicSiteControllerBase
         $this->view->setVar('language', $this->languageService->getLocale());
         $this->tag->prependTitle($this->languageService->translate('howto_megam_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('howto_megam_desc'));
-        $this->view->setVar('pageController', 'megamHowto');
-        $this->view->pick('megamillions/howtoplay/index');
+        $this->view->pick('howtoplay/index');
         return $this->view->setVars([
             'price_bet' => (!empty($lottery)) ? $lottery->getSingleBetPrice()->getAmount() / 10000 : "",
             'draw_time' => (!empty($lottery)) ? $lottery->getDrawTime() : '',
