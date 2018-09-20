@@ -95,15 +95,15 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->setDefaultModule('web');
 
 
-        $router->add(
-            "/:controller/:action",
-            array(
-                'module' => 'web',
-                "controller" => 1,
-                "action" => 2
-            )
-        );
-
+//        $router->add(
+//            "/:controller/:action",
+//            array(
+//                'module' => 'web',
+//                "controller" => 1,
+//                "action" => 2
+//            )
+//        );
+//
         $router->add("/test/markUserAsWinner/(.*)/([0-9])/([0-9])", array(
             "module" => "web",
             'controller' => 'test',
@@ -1423,7 +1423,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'numbers',
             'action' => 'pastResult',
         ));
-
 
 
 //        $router->setDefaults(array(
