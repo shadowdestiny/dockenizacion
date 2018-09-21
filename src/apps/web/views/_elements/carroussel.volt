@@ -144,16 +144,17 @@
 
         <div class="grey-box-carroussel grey-box-carroussel--christmas">
             <div class="grey-box-carroussel--inner" style=""><img class="image-carroussel image-carroussel--clock" src="/w/img/home/clock.png">
-                <div class="countdownpower" style="">
+                <div class="christmasdate" style="">
                     <div class="daypower unit" style="color:black;">
                         <span class="val" style="color:black;">22.12.2018</span>
                     </div>
                 </div>
                 <div class="btn-row" style="">
-                    <a href="https://euromillions.com/christmas-lottery/play"
+                    <a href="/{{ language.translate("link_christmas_play") }}"
                        class="btn-theme--big image-carroussel ui-link" style="">
                         <span class="resizeme" style="">
-                            PLAY NOW                        </span>
+                             {{ language.translate("banner1_btn") }}
+                        </span>
                     </a>
                 </div>
             </div>

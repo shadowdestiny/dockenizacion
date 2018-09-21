@@ -14,6 +14,8 @@ class IndexController extends PublicSiteControllerBase
         $jackpotChristmas = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('Christmas'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
 //        var_dump(ViewHelper::formatJackpotNoCents($jackpot)); die();
+        $this->view->setVar('day_draw_christmas', $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('l'));
+        $this->view->setVar('next_draw_christmas', $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('d.m.Y'));
         $textMillions = $this->billionsAndTrillions($jackpot, 'euromillions');
         $textMillionsChristmas = $this->billionsAndTrillions($jackpotChristmas, 'christmas');
         $this->view->setVar('jackpot_millions', ViewHelper::formatMillionsJackpot($jackpot));
