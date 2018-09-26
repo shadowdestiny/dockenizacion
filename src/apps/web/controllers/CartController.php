@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
@@ -375,7 +376,7 @@ class CartController extends PublicSiteControllerBase
                 'currency' => $user_currency->getName(),
                 'lottery' => $this->lottery,
                 'isWallet' => $checked_wallet,
-                'isMobile' => $this->detectDevice()
+                'isMobile' => SiteHelpers::detectDevice()
              ],
             $this->di->get('config')
         );

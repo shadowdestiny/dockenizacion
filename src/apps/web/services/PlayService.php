@@ -18,6 +18,8 @@ use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
+use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
 use EuroMillions\web\services\email_templates_strategies\ErrorDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
@@ -366,7 +368,11 @@ class PlayService
                     $order->addFunds($funds);
                     $order->setAmountWallet($user->getWallet()->getBalance());
                     $draw = $this->lotteryService->getNextDrawByLottery('Christmas');
-
+                    //Workaround temporal
+                    $config = $di->get('config')['wirecard'];
+                    $this->cardPaymentProvider = new WideCardPaymentProvider(new WideCardConfig($config->endpoint,
+                            $config->api_key)
+                    );
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
                         $uniqueId = $this->walletService->getUniqueTransactionId();
