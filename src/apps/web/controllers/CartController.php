@@ -250,7 +250,7 @@ class CartController extends PublicSiteControllerBase
                 'currency' => $userCurrency->getName(),
                 'lottery' => $lottery,
                 'isWallet' => (bool) $isWallet,
-                'isMobile' => $this->detectDevice()
+                'isMobile' => SiteHelpers::detectDevice()
             ],
                 $this->di->get('config')
             );
