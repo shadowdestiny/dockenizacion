@@ -104,6 +104,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 //            )
 //        );
 //
+        $router->add( '/devops/clearapc',
+            [
+                "module" => "web",
+                'controller' => 'devops',
+                'action' => 'clearapc',
+            ]
+        );
+
         $router->add("/test/markUserAsWinner/(.*)/([0-9])/([0-9])", array(
             "module" => "web",
             'controller' => 'test',
