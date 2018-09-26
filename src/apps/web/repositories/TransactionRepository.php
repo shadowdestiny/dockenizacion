@@ -7,6 +7,7 @@ namespace EuroMillions\web\repositories;
 use Doctrine\ORM\Query\ResultSetMapping;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class TransactionRepository extends RepositoryBase
 {
@@ -161,5 +162,25 @@ class TransactionRepository extends RepositoryBase
                       where transactionID is not null and user_id="'.$userId .'" 
                       group by transactionID order by date DESC limit 1;'
                 , $rsm)->getResult();
+    }
+
+    public function getTransactionsDTOByUser($userId, $page = null)
+    {
+
+        if(is_null($page))
+        {
+            return $this->findBy(['user' => $userId], ['id' => 'DESC']);
+        }
+        else
+        {
+            $dql = "SELECT t FROM ".$this->getEntityName()." t Where t.user= :userid order by t.id DESC ";
+            $query = $this->getEntityManager()
+                ->createQuery($dql)
+                ->setParameter('userid', $userId)
+                ->setFirstResult(10 * ($page - 1)) // Offset
+                ->setMaxResults(10); // Limit;
+
+            return new Paginator($query);
+        }
     }
 }

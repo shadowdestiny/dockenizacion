@@ -11,7 +11,7 @@ var EuroMillionsAddToCart = new React.createClass({
         var price = 0;
         if(this.props.price > 0) class_name = class_name + ' active';
         if(this.props.enablePowerPlay) {
-            price = parseFloat(this.props.price) + parseFloat(this.props.powerplay*(this.props.price/3.5));
+            price = parseFloat(this.props.price) + this.props.powerplay*(this.props.total_draws * this.props.total_lines);
             price = price.toFixed(2);
         } else {
             price = this.props.price;

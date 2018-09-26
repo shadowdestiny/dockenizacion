@@ -11,8 +11,10 @@ use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\DepositTransaction;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\SubscriptionPurchaseTransaction;
+use EuroMillions\web\entities\TicketPurchaseTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\WinningsReceivedTransaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\vo\dto\TransactionDTO;
@@ -20,6 +22,7 @@ use EuroMillions\web\vo\Order;
 use Exception;
 use Money\Currency;
 use Money\Money;
+
 
 class TransactionService
 {
@@ -68,9 +71,15 @@ class TransactionService
 
     }
 
-    public function getTransactionsDTOByUser(User $user)
+    public function getTransactionsDTOByUser(User $user, $page = null)
     {
-        $result = $this->transactionRepository->findBy(['user' => $user->getId()], ['id' => 'DESC']);
+
+        $result = $this->transactionRepository->getTransactionsDTOByUser($user->getId(), $page);
+        if(!is_null($page))
+        {
+            $totalElements= count($result);
+        }
+
         if (null != $result) {
             $transactionDtoCollection = [];
             /** @var LotteryRepository $lotteryRepository */
@@ -101,6 +110,10 @@ class TransactionService
                 $transactionDTO->pendingBalanceMovement = $this->currencyConversionService->toString($pendingBalanceMovement, $user->getLocale());
                 $transactionDTO->ticketPrice = $this->currencyConversionService->toString($ticketPrice, $user->getLocale());
                 $transactionDtoCollection[] = $transactionDTO;
+            }
+            if(!is_null($page))
+            {
+                return ['transactionDtoCollection' => $transactionDtoCollection, 'totalElements' => $totalElements];
             }
             return $transactionDtoCollection;
         }
@@ -183,4 +196,6 @@ class TransactionService
             return false;
         }
     }
+
+
 }

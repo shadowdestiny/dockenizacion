@@ -48,4 +48,13 @@ class WebUserPreferencesStorageStrategy implements IUsersPreferencesStorageStrat
     {
         $this->session->set(self::LANGUAGE_VAR, $language);
     }
+
+    public function existCurrency()
+    {
+        if ($this->session->has(self::CURRENCY_VAR)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

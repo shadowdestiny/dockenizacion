@@ -10,4 +10,8 @@ interface IUsersPreferencesStorageStrategy
     public function setCurrency(Currency $currency);
     public function getLanguage();
     public function setLanguage($language);
+    /**
+     * @return Boolean
+     */
+    public function existCurrency();
 }

@@ -499,6 +499,17 @@
             font-size: 30px;
             top: 30px;
           }
+
+
+          @media only screen and (max-width: $screen-ipad-v) {
+            position: absolute;
+            top: 45px;
+            left: auto;
+            width: auto;
+            font-size: 20px;
+            right: 36%;
+          }
+
         }
 
         img {
@@ -681,7 +692,6 @@
               background: rgba(0, 0, 0, 0);
               height: 29px;
               display: inline-block;
-              width: 15px;
               position: relative;
               top: 2px;
             }

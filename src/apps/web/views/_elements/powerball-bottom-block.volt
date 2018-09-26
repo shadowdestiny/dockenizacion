@@ -21,10 +21,11 @@
 
 <div class="box-bottom play-bottom-block--powerplay">
 
-    <h1>
-        {{ language.translate("play_pow_h1") }}
-    </h1>
-
+	{% if mobile != 1 %}
+		<h1>
+			{{ language.translate("play_pow_h1") }}
+		</h1>
+	{% endif %}
     <div class="play-bottom-block--img">
         <img src="/w/img/powerball/play-bottom-powerball.png"/>
     </div>
