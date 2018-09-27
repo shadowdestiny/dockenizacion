@@ -10,17 +10,6 @@
     docker exec {{webserver_container_name}} php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall
   ignore_errors: yes
 
-- name: Run results listener
-  shell: docker exec {{webserver_container_name}} php /var/www/apps/powerball/powerball-cli.php prizes listen &
-
-- name: Run award listener
-  shell: docker exec {{webserver_container_name}} php /var/www/apps/powerball/powerball-cli.php prizes award &
-
-- name: configure cron backup on slave database
-  shell: >
-      docker exec {{database_slave_name}} crontab /var/www/global_config/cron_backup.txt
-  ignore_errors: yes
-
 - name: Insert translation to BBDD
   shell: mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 euromillions < ../src/data/sql/translation_dump.sql
   ignore_errors: yes

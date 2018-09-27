@@ -168,6 +168,10 @@ class PlayService
                         $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
 
                     } else {
+                        if($order->getHasSubscription())
+                        {
+                            $this->walletService->createSubscriptionTransaction($user,$uniqueId,$order);
+                        }
                         $result_payment = new ActionResult(true, $order);
                     }
 

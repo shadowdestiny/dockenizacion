@@ -201,13 +201,7 @@ class ReportsController extends AdminControllerBase
                 header('Content-Disposition: attachment; filename=userDeposits.csv');
                 $fp = fopen('php://output', 'w');
                 foreach ($userDeposits as $userDeposit) {
-                    if ($userDeposit['entity_type'] == 'subscription_purchase') {
-                        $movement = $userDeposit['subsMovement'];
-                    } else {
-                        $movement = $userDeposit['movement'];
-                    }
-
-                    fputcsv($fp, [$userDeposit['date'], $userDeposit['entity_type'], sprintf("%.2f", $movement / 100), sprintf("%.2f", $userDeposit['balance'] / 100)]);
+                    fputcsv($fp, [$userDeposit['date'], $userDeposit['entity_type'], sprintf("%.2f", $userDeposit['movement'] / 100), sprintf("%.2f", $userDeposit['balance'] / 100)]);
                 }
                 fclose($fp);
             }
