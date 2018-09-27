@@ -10,11 +10,13 @@
 
 
     .landing--banner-block {
+      //height: vwm(748);
       height: auto;
       padding-top: vwm(58);
       margin-bottom:vwm(6);
       background-color: #ffd400;
-      background-image: url('../img/landing/orange/headerimage--orange.png');
+      //background-image: url('../img/landing/orange/headerimage--orange.png');
+      background-image: url('../img/landing/orange/headerimage.png');
       -webkit-background-size: vwm(320);
       background-size: vwm(320);
       background-repeat: no-repeat;
@@ -23,12 +25,14 @@
       .landing--banner-block--content {
         background-image: none;
         width: 100%;
+        //height: vwm(690);
         height: auto;
         float: none;
         margin-bottom: 0;
 
 
         .landing--banner-block--content--right {
+          //display: none;
           float: none;
         }
 
