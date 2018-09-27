@@ -112,7 +112,8 @@ class WalletService
             $user->reChargeSubscriptionWallet($order->getCreditCardCharge()->getNetAmount());
             if($order->isIsCheckedWalletBalance())
             {
-                $user->removeWalletToSubscription($order->getUnitPriceSubscription());
+                $toSubstract = $order->getUnitPriceSubscription()->multiply($order->totalPlayConfigs());
+                $user->removeWalletToSubscription($toSubstract);
             }
         } else {
             $user->reChargeWallet($order->getCreditCardCharge()->getNetAmount());

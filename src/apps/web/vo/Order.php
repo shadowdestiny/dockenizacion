@@ -377,4 +377,9 @@ class Order implements \JsonSerializable
         return $this->getLottery()->getSingleBetPrice()->multiply(count($this->getPlayConfig()))->getAmount();
     }
 
+    public function totalPlayConfigs()
+    {
+        return count($this->getPlayConfig());
+    }
+
 }
