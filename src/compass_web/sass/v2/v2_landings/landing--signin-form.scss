@@ -21,7 +21,6 @@
     font-weight: 400;
     margin-bottom: vw(16);
     text-transform: none;
-
   }
 
   form {
@@ -78,17 +77,16 @@
 
     .pass-alert {
       color: #403f3f;
-      font-size: vw(16);
-      line-height: vw(24);
       clear: both;
       font-weight: 600;
+      font-size: vw(16);
+      line-height: vw(24);
       padding-top: vw(20);
       margin-bottom: vw(34);
 
       span {
         position: relative;
         top: vw(2);
-
       }
 
       text-align: center;
@@ -136,7 +134,6 @@
       padding-left: vw(12);
 
       .label {
-
         text-align: left;
       }
 

@@ -1,183 +1,163 @@
 .landing--blue {
-    .landing--arrows {
-        padding-left: vw(20);
+  .landing--arrows {
+    padding-left: vw(20);
 
-        ul {
+    ul {
 
-            background-image: url('../img/landing/blue/arrows.png');
-            background-repeat: no-repeat;
-            -webkit-background-size: contain;
-            background-size: contain;
-            background-position: 0 0;
+      background-image: url('../img/landing/blue/arrows.png');
+      background-repeat: no-repeat;
+      -webkit-background-size: contain;
+      background-size: contain;
+      background-position: 0 0;
 
-            li {
-                text-align: left;
+      li {
+        text-align: left;
 
-                span {
-                    i {
-                        //font-weight: 400;
-                    }
-                }
-                &.li-01 {
-                    padding-left: vw(192);
-                    //background-image: url('../img/landing/blue/arrow-01.svg');
-                    margin-right: vw(-16);
-                }
-                &.li-02 {
-                    padding-left: vw(121);
-                    //background-image: url('../img/landing/blue/arrow-02.svg');
-                    margin-right: vw(-16);
-                }
-                &.li-03 {
-                    padding-left: vw(199);
-                    //background-image: url('../img/landing/blue/arrow-03.svg');
-                }
-            }
+        span {
+          i {
+
+          }
         }
+        &.li-01 {
+          padding-left: vw(192);
+          margin-right: vw(-16);
+        }
+        &.li-02 {
+          padding-left: vw(121);
+          margin-right: vw(-16);
+        }
+        &.li-03 {
+          padding-left: vw(199);
+        }
+      }
     }
+  }
 
-    .landing--banner-block {
-        height:vw(945);
-        margin-bottom: vw(43);
+  .landing--banner-block {
+    height: vw(945);
+    margin-bottom: vw(43);
+    overflow: hidden;
+
+    background-image: url('../img/landing/blue/bg-01.jpg');
+    -webkit-background-size: vw(810);
+    background-size: vw(820);
+    background-repeat: no-repeat;
+    background-position: 100% 0;
+
+    .landing--banner-block--content {
+      background-image: url('../img/landing/blue/bg--blue.svg');
+      -webkit-background-size: vw(1300);
+      background-size: vw(1300);
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      width: vw(1300);
+      height: 100%;
+      float: left;
+
+      .landing--banner-block--title {
+        color: #ffffff;
+        font-size: vw(78);
+        font-weight: 400;
+        line-height: 1;
+        text-align: left;
+        text-shadow: 0px vw(2) vw(1.96) rgba(0, 0, 0, 0.5);
+        text-transform: uppercase;
+        margin-top: vw(26);
+        letter-spacing: vw(-2.4);
+      }
+
+      .landing--banner-block--prize {
+        color: #ffffff;
+        font-size: vw(400);
+        font-weight: 700;
+        line-height: 0.8;
+        text-align: left;
+        text-shadow: 0px vw(2) vw(1.96) rgba(0, 0, 0, 0.5);
+        text-transform: uppercase;
+        margin-bottom: vw(50);
+        position: relative;
+        letter-spacing: vw(-8);
+        left: vw(-14);
+      }
+
+      .landing--banner-block--countdown-block {
         overflow: hidden;
+        margin-bottom: vw(82);
 
-        background-image: url('../img/landing/blue/bg-01.jpg');
-        //-webkit-background-size: contain;
-        //background-size: contain;
-        -webkit-background-size: vw(810);
-        background-size: vw(820);
-        background-repeat: no-repeat;
-        background-position: 100% 0;
-
-        .landing--banner-block--content {
-            background-image: url('../img/landing/blue/bg--blue.svg');
-            //-webkit-background-size: contain;
-            //background-size: contain;
-            -webkit-background-size: vw(1300);
-            background-size: vw(1300);
-            background-repeat: no-repeat;
-            background-position: 0 0;
-            width: vw(1300);
-            height: 100%;
-            float: left;
-
-            .landing--banner-block--title {
-                color:  #ffffff;
-                font-size: vw(78);
-                font-weight: 400;
-                line-height: 1;
-                text-align: left;
-                text-shadow: 0px vw(2) vw(1.96)  rgba(0, 0, 0, 0.5);
-                text-transform: uppercase;
-
-                //margin-top: 13px;
-                //letter-spacing: -1.2px;
-
-                margin-top: vw(26);
-                letter-spacing: vw(-2.4);
-            }
-
-            .landing--banner-block--prize {
-                color:  #ffffff;
-                font-size: vw(400);
-                font-weight: 700;
-                line-height: 0.8;
-                text-align: left;
-                text-shadow: 0px vw(2) vw(1.96) rgba(0, 0, 0, 0.5);
-                text-transform: uppercase;
-                margin-bottom: vw(50);
-
-                position: relative;
-
-                //letter-spacing: -4px;
-                //left: -7px;
-
-                letter-spacing: vw(-8);
-                left: vw(-14);
-            }
-
-            .landing--banner-block--countdown-block {
-                overflow: hidden;
-                margin-bottom: vw(82);
-
-                .lefter {
-                    width:vw(142);
-                    height: vw(142);
-                    background-image: url('../img/landing/blue/clock.svg');
-                    -webkit-background-size: contain;
-                    background-size: contain;
-                    background-repeat: no-repeat;
-                    background-position: 0 0;
-                    float: left;
-                    margin-right: vw(-142);
-                    position: relative;
-                    //top: 5px;
-                    //left: 3px;
-                    top: vw(10);
-                    left: vw(6);
-                }
-                .righter {
-                    overflow: hidden;
-                    float: left;
-                    padding-left: vw(170);
-
-                    .top {
-                        color:  #333333;
-                        font-size: vw(125);
-                        font-weight: 700;
-                        line-height: 0.8;
-                        text-transform: uppercase;
-                        letter-spacing: vw(-2.6);
-                    }
-                    .bottom {
-                        color:  #333333;
-                        font-size: vw(62);
-                        font-weight: 700;
-                        line-height: 0.8;
-                        text-transform: uppercase;
-                        //padding-top: 4px;
-                        //padding-left: 3px;
-                        //letter-spacing: -0.5px;
-                        padding-top: vw(8);
-                        padding-left: vw(6);
-                        letter-spacing: vw(-1);
-                    }
-                }
-            }
-            .landing--banner-block--button-row {
-                overflow: hidden;
-                padding-bottom: vw(60);
-                margin: 0;
-
-                .btn-theme {
-                    margin: 0;
-                    width: vw(608);
-                    height: vw(128);
-                    cursor: pointer;
-                    text-decoration: none;
-                    text-transform: uppercase;
-                    color:  #ffffff!important;
-                    font-size: vw(57);
-                    line-height: vw(125);
-                    font-weight: 700;
-
-                    border-radius: vw(7);
-                    background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
-                    background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
-                    background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
-                    background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
-                    background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
-                    box-shadow: vw(-1) vw(1) vw(2) 0 #000000;
-
-                    border: 0;
-
-                }
-            }
-            .landing--banner-block--star {
-                color:  #000000;
-                font-size: vw(24);
-                font-weight: 500;
-            }
+        .lefter {
+          width: vw(142);
+          height: vw(142);
+          background-image: url('../img/landing/blue/clock.svg');
+          -webkit-background-size: contain;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: 0 0;
+          float: left;
+          margin-right: vw(-142);
+          position: relative;
+          top: vw(10);
+          left: vw(6);
         }
+        .righter {
+          overflow: hidden;
+          float: left;
+          padding-left: vw(170);
+
+          .top {
+            color: #333333;
+            font-size: vw(125);
+            font-weight: 700;
+            line-height: 0.8;
+            text-transform: uppercase;
+            letter-spacing: vw(-2.6);
+          }
+          .bottom {
+            color: #333333;
+            font-size: vw(62);
+            font-weight: 700;
+            line-height: 0.8;
+            text-transform: uppercase;
+            padding-top: vw(8);
+            padding-left: vw(6);
+            letter-spacing: vw(-1);
+          }
+        }
+      }
+      .landing--banner-block--button-row {
+        overflow: hidden;
+        padding-bottom: vw(60);
+        margin: 0;
+
+        .btn-theme {
+          margin: 0;
+          width: vw(608);
+          height: vw(128);
+          cursor: pointer;
+          text-decoration: none;
+          text-transform: uppercase;
+          color: #ffffff !important;
+          font-size: vw(57);
+          line-height: vw(125);
+          font-weight: 700;
+
+          border-radius: vw(7);
+          background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+          background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+          background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+          background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+          background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
+          box-shadow: vw(-1) vw(1) vw(2) 0 #000000;
+
+          border: 0;
+
+        }
+      }
+      .landing--banner-block--star {
+        color: #000000;
+        font-size: vw(24);
+        font-weight: 500;
+      }
     }
+  }
+
 }

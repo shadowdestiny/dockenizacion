@@ -56,7 +56,7 @@
             </div>
 
 
-            <div class="wrapper">
+            <div class="wrapper wrapper--arrows">
                 <div class="landing--arrows">
                     <ul>
                         <li class="li-01"><span><i>1.</i>Join Us</span></li>
