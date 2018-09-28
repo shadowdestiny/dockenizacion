@@ -86,6 +86,9 @@ var CartPage = new React.createClass({
             $('.box-bottom').show();
         }
         this.state.checked_wallet = value;
+        $(document).on("disableiframeclick",{nothing: true},function(e, disabled) {
+            alert(disabled);
+        });
         this.moneyMatrix();
         this.handleUpdatePrice();
     },

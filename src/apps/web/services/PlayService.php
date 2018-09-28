@@ -694,13 +694,38 @@ class PlayService
 
     public function validatorResult(Lottery $lottery, $play_config, ActionResult $draw, Order $order)
     {
-        $lotteryValidator = LotteryValidatorsFactory::create($lottery->getName());
-        if ($lottery->getName() == 'EuroMillions') {
-            return $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $lotteryValidator);
+        //TODO: workaround to avoid calls to lottorisq
+        static $calls=0;
+        static $response = null;
+        $calls++;
+        try
+        {
+            $lotteryValidator = LotteryValidatorsFactory::create($lottery->getName());
+            if ($lottery->getName() == 'EuroMillions')
+            {
+                return $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $lotteryValidator);
+            }
+            if($calls == 1)
+            {
+                $response = json_decode($lotteryValidator->book(json_encode($order->getPlayConfig()))->body);
+                return new ActionResult(true, $response);
+            }
+        }catch(\Exception $e)
+        {
+            return new ActionResult(false);
         }
-        $result_validation = json_decode($lotteryValidator->book(json_encode($order->getPlayConfig()))->body);
-        return $this->betService->validationLottoRisq($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $result_validation->uuid);
+        return new ActionResult(true, $response);
     }
+
+    public function persistBetDistinctEuroMillions($play_config,ActionResult $draw, Order $order, $resultValidation)
+    {
+        if($order->getLottery()->getName() !== 'EuroMillions')
+        {
+            return $this->betService->validationLottoRisq($play_config, $draw->getValues(), $order->getLottery()->getNextDrawDate(), null, $resultValidation->uuid);
+        }
+        return new ActionResult(true);
+    }
+
 
     public function retrieveEuromillionsBundlePrice()
     {

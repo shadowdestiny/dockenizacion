@@ -76,21 +76,23 @@ class OrderService
                 $transactions[0]->toString();
                 $this->transactionService->updateTransaction($transactions[0]);
                 $walletBefore = $user->getWallet();
+
+
                 foreach ($order->getPlayConfig() as $playConfig)
                 {
                     $playConfig->setLottery($order->getLottery());
                     $playConfig->setDiscount(new Discount($order->getPlayConfig()[0]->getFrequency(),$this->playService->retrieveEuromillionsBundlePrice()));
                     $result = $this->playService->validatorResult($lottery,$playConfig,new ActionResult(true, $order->getNextDraw()),$order);
+                    $isBetPersisted = $this->playService->persistBetDistinctEuroMillions($playConfig, new ActionResult(true, $order->getNextDraw()), $order, $result->getValues());
                     $this->logger->log(Logger::INFO,
                         'checkout:Validating against lottery provider with status =' . $result->success());
-                    if($result->success())
+                    if($result->success() && $isBetPersisted->success())
                     {
                         $this->logger->log(Logger::INFO,
                             'checkout:Before substract playconfig bet value from wallet =' . $user->getBalance()->getAmount());
                        $this->walletService->extract($user,$order);
                         $this->logger->log(Logger::INFO,
                             'checkout:After substract playconfig bet value from wallet =' . $user->getBalance()->getAmount());
-
                     }
                 }
                 //TODO move to TransactionService
@@ -128,7 +130,4 @@ class OrderService
         $user = $order->getPlayConfig()[0]->getUser();
         $this->playService->sendErrorEmail($user, $order, $dateOrder);
     }
-
-
-
 }
