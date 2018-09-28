@@ -3,7 +3,10 @@
 //    overflow: hidden!important;
 //}
 //.landing--blue {
-//    display: none;
+    //display: none;
+//}
+//.landing--orange {
+    //display: none;
 //}
 //TODO : remove code above !!!
 
@@ -11,103 +14,35 @@
 
     * {
         font-family: $ff;
-        //font-weight: 400;
     }
 
     .wrapper {
-        //padding: 0 $screen-xxs-wrapper--padding;
-        //width: 100%;
         margin:auto;
-
-        //@media only screen and (min-width: $screen-xs) {
-        //    width: $screen-xs-wrapper;
-        //    max-width: $screen-xs-wrapper;
-        //    margin:auto;
-        //}
-        //
-        //@media only screen and (min-width: $screen-small) {
-        //    width: $screen-ipad-v-wrapper;
-        //    max-width: $screen-ipad-v-wrapper;
-        //    margin:auto;
-        //}
-        //
-        //@media only screen and (min-width: $screen-medium) {
-        //    width: $screen-ipad-h-wrapper;
-        //    max-width: $screen-ipad-h-wrapper;
-        //    margin:auto;
-        //}
-        //
-        //@media only screen and (min-width: $screen-full) {
-        //    width: $screen-desktop-wrapper;
-        //    max-width: $screen-desktop-wrapper;
-        //    margin:auto;
-        //    padding: 0;
-        //}
-        //@media only screen and (min-width: $screen-wide-full) {
-        //    width: $screen-wide-full-wrapper;
-        //    max-width: $screen-wide-full-wrapper;
-        //    margin:auto;
-        //    padding: 0;
-        //}
-
-        //width: $screen-wide-full-wrapper;
-        //max-width: $screen-wide-full-wrapper;
-        //padding: 0 30px;
-
-        //width: vw(1860);
-        //max-width: vw(1860);
         width: 100%;
         max-width: none;
         padding: 0 vw(27);
+
+        @media only screen and (max-width: $screen-pre-desktop) {
+            padding: 0 vwm(8);
+            margin-bottom: 0!important;
+
+            &.wrapper--arrows {
+                display: none;
+            }
+        }
     }
 
 
     .wrapper-small {
-        //padding: 0;
-        //padding: 0 $screen-xxs-wrapper--padding;
-        //width: 100%;
         margin:auto;
-
-        //@media only screen and (min-width: $screen-xs) {
-        //    width: $screen-xs-wrapper;
-        //    max-width: $screen-xs-wrapper;
-        //    margin:auto;
-        //}
-        //
-        //@media only screen and (min-width: $screen-small) {
-        //    width: $screen-ipad-v-wrapper;
-        //    max-width: $screen-ipad-v-wrapper;
-        //    margin:auto;
-        //}
-        //
-        //@media only screen and (min-width: $screen-medium) {
-        //    width: $screen-ipad-h-wrapper;
-        //    max-width: $screen-ipad-h-wrapper;
-        //    margin:auto;
-        //}
-        //
-        //@media only screen and (min-width: $screen-full) {
-        //    width: $screen-desktop-wrapper;
-        //    max-width: $screen-desktop-wrapper;
-        //    margin:auto;
-        //    padding: 0;
-        //}
-        //@media only screen and (min-width: $screen-wide-full) {
-        //    width: $screen-wide-full-wrapper-small;
-        //    max-width: $screen-wide-full-wrapper-small;
-        //    margin:auto;
-        //    padding: 0;
-        //}
-
-        //width: $screen-wide-full-wrapper-small;
-        //max-width: $screen-wide-full-wrapper-small;
-        //padding: 0 45px;
-
-        //width: vw(1860);
-        //max-width: vw(1860);
         width: 100%;
         max-width: none;
         padding: 0 vw(48);
+
+        @media only screen and (max-width: $screen-pre-desktop) {
+            padding: 0 vwm(8);
+            margin-bottom: 0!important;
+        }
     }
 
     .landing--header {
@@ -142,7 +77,6 @@
                 font-weight: 700;
                 text-align: center;
                 height:vw(49);
-                //line-height: 1;
                 line-height: 0.8;
                 width: auto;
                 min-width: vw(109);
@@ -153,13 +87,28 @@
             }
         }
 
+        @media only screen and (max-width: $screen-pre-desktop) {
+            height: vwm(57);
 
+            .landing--top-nav {
+                height: vwm(57);
+
+                .ul-top-nav {
+                    display: none;
+                }
+
+                .logo {
+                    width: vwm(303);
+                    height: vwm(40);
+                    margin-top: vwm(13);
+                }
+            }
+        }
 
     }
 
-
     .landing--arrows {
-        //height: 138px;
+
         height: vw(138);
         margin-bottom: vw(40);
 
@@ -171,7 +120,6 @@
             padding: 0;
 
             li {
-                //height: 138px;
                 height: vw(138);
                 float: left;
                 position: relative;
@@ -182,24 +130,15 @@
                 background-repeat: no-repeat;
 
                 &.li-01 {
-                    //width: vw(637);
                     width: vw(634);
-                    //-webkit-background-size: vw(634);
-                    //background-size: vw(634);
                     padding-top: vw(54);
                 }
                 &.li-02 {
-                    //width: vw(583);
                     width: vw(582);
-                    //-webkit-background-size: vw(582);
-                    //background-size: vw(582);
                     padding-top:vw(34);
                 }
                 &.li-03 {
-                    //width: vw(641);
                     width: vw(640);
-                    //-webkit-background-size: vw(640);
-                    //background-size: vw(640);
                     padding-top: vw(54);
                 }
 
@@ -212,7 +151,6 @@
                     text-transform: uppercase;
                     font-family: $ff;
                     color:  #333333;
-                    //font-size: 48px;
                     font-size: vw(48);
                     font-weight: 700;
                     line-height: 0.85;
@@ -224,6 +162,10 @@
                 }
             }
         }
+
+        @media only screen and (max-width: $screen-pre-desktop) {
+            display: none;
+        }
     }
 
     .landing--disclaimer {
@@ -234,6 +176,10 @@
             font-weight: 400;
             text-align: left;
             line-height: 1.25;
+
+            @media only screen and (max-width: $screen-pre-desktop) {
+                font-size: vwm(14);
+            }
         }
     }
 }

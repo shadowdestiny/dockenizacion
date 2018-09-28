@@ -57,9 +57,12 @@
 
 
 // landing Pages
-@import "v2/v2_landings/landing--variables";
 @import "v2/v2_landings/landing--mixins";
+@import "v2/v2_landings/landing--variables";
 @import "v2/v2_landings/landing--common";
 @import "v2/v2_landings/landing--blue";
+@import "v2/v2_landings/landing--blue--mobile";
 @import "v2/v2_landings/landing--signin-form";
+@import "v2/v2_landings/landing--signin-form--mobile";
 @import "v2/v2_landings/landing--orange";
+@import "v2/v2_landings/landing--orange--mobile";

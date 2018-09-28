@@ -26,6 +26,32 @@
                 <div class="landing--banner-block--content">
                     <div class="wrapper">
 
+
+
+                        <div class="landing--banner-block--content--left">
+                            <div class="landing--banner-block--title">
+                                Win a Huge JACKPOT of
+                            </div>
+                            <div class="landing--banner-block--prize">
+                                45m€
+                            </div>
+                            <div class="landing--banner-block--countdown-block">
+                                <div class="lefter"></div>
+                                <div class="righter">
+                                    <div class="top">
+                                        next draw
+                                    </div>
+                                    <div class="bottom">
+                                        3 days : 22hrs : 45 min
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="landing--banner-block--star">
+                                *Every Friday and Tuesday a new draw to become a millionare
+                            </div>
+                        </div>
+
                         <div class="landing--banner-block--content--right">
                             <div class="landing--signin-form sign-up">
                                 <h1 class="h1 title">Sign up to create your euroMillions.com account</h1>
@@ -335,36 +361,11 @@
                             </div>
                         </div>
 
-                        <div class="landing--banner-block--content--left">
-                            <div class="landing--banner-block--title">
-                                Win a Huge JACKPOT of
-                            </div>
-                            <div class="landing--banner-block--prize">
-                                45m€
-                            </div>
-                            <div class="landing--banner-block--countdown-block">
-                                <div class="lefter"></div>
-                                <div class="righter">
-                                    <div class="top">
-                                        next draw
-                                    </div>
-                                    <div class="bottom">
-                                        3 days : 22hrs : 45 min
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="landing--banner-block--star">
-                                *Every Friday and Tuesday a new draw to become a millionare
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
             </div>
 
-            <div class="wrapper">
+            <div class="wrapper wrapper--arrows">
                 <div class="landing--arrows">
                     <ul>
                         <li class="li-01"><span><i>1.</i>Join Us</span></li>

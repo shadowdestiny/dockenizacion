@@ -4,6 +4,13 @@
   @return $vwSize * 1vw;
 }
 
+@function vwm($size) {
+  $ratioVW: 0.3125; // This is most correct ratio for the responsive
+  $vwSize: $size * $ratioVW;
+  @return $vwSize * 1vw;
+}
+
+
 @mixin selectbox--landing {
 
   position: relative;
