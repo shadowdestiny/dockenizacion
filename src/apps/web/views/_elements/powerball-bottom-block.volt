@@ -27,7 +27,7 @@
 		</h1>
 	{% endif %}
     <div class="play-bottom-block--img">
-        <img src="/w/img/powerball/play-bottom-powerball.png"/>
+        <img src="https://images.euromillions.com/imgs/play-bottom-powerball.png"/>
     </div>
     <div class="play-bottom-block--center">
         <h2>
