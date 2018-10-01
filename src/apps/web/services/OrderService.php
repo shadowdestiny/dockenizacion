@@ -12,6 +12,7 @@ namespace EuroMillions\web\services;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
@@ -31,16 +32,22 @@ class OrderService
 
     protected $logger;
 
+    /** @var IPlayStorageStrategy $redisOrderChecker*/
+    protected $redisOrderChecker;
+
 
     public function __construct(WalletService $walletService,
                                 PlayService $playService,
                                 TransactionService $transactionService,
-                                CloudWatch $logger)
+                                CloudWatch $logger,
+                                IPlayStorageStrategy $redisOrderChecker
+    )
     {
         $this->playService = $playService;
         $this->walletService = $walletService;
         $this->transactionService = $transactionService;
         $this->logger = $logger;
+        $this->redisOrderChecker = $redisOrderChecker;
     }
 
 
@@ -57,6 +64,7 @@ class OrderService
         $user = $order->getPlayConfig()[0]->getUser();
         $walletBefore = $user->getWallet();
         $lottery = $order->getLottery();
+        $this->redisOrderChecker->save($transactionID,$user->getId());
         try
         {
             if($order->isNextDraw())
@@ -76,8 +84,6 @@ class OrderService
                 $transactions[0]->toString();
                 $this->transactionService->updateTransaction($transactions[0]);
                 $walletBefore = $user->getWallet();
-
-
                 foreach ($order->getPlayConfig() as $playConfig)
                 {
                     $playConfig->setLottery($order->getLottery());
@@ -113,16 +119,23 @@ class OrderService
                 $this->logger->log(Logger::INFO,
                     'checkout:Transaction TICKET_PURCHASE it was created');
                 $this->playService->sendEmailPurchase($user,$order->getPlayConfig());
+                $this->redisOrderChecker->delete($user->getId());
                 $this->logger->log(Logger::INFO,
                     'checkout:Email sent');
             }
         } catch(\Exception $e)
         {
+            $this->redisOrderChecker->delete($user->getId());
             $this->logger->log(Logger::EMERGENCE,
                 'ERRORcheckout:' . $e->getMessage());
             throw new \Exception($e->getMessage());
         }
 
+    }
+
+    public function hasOrderProcessing($userId)
+    {
+        return $this->redisOrderChecker->findByKey($userId)->success();
     }
 
     public function sendErrorEmail(Order $order, $dateOrder)

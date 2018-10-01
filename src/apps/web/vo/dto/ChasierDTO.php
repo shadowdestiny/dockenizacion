@@ -19,7 +19,9 @@ class ChasierDTO  extends DTOBase implements IDto
 
     public $transactionID;
 
-    public function __construct(array $data=null, $transactionID=null)
+    public $message;
+
+    public function __construct(array $data=null, $transactionID=null,$message = "")
     {
         if($data == null)
         {
@@ -29,6 +31,7 @@ class ChasierDTO  extends DTOBase implements IDto
             $this->transactionID = $transactionID;
             $this->guard($data);
         }
+        $this->message = $message;
     }
 
 

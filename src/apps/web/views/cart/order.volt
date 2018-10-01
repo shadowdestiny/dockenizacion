@@ -219,7 +219,9 @@
 
 
                 <div class="payment hidden">
-                    {% if cashier.cashierUrl != null %}
+                    {% if cashier.message != "" %}
+                        {% include "cart/loading_order_processing.volt" %}
+                    {% elseif cashier.cashierUrl != null %}
                       {% include "cart/moneymatrix_iframe.volt" %}
                     {% else %}
                     <section class="section--card--details">

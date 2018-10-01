@@ -187,6 +187,7 @@
     {#  Hide this content until we have multiple numbers
         <span class="type">5 {{ language.app("numbers") }} + 3 {{ language.app("stars") }}</span>
     #}
+
   {% set cashierURL=cashier.cashierUrl %}
     <main id="content" class="">
         <div class="wrapper">
@@ -213,7 +214,9 @@
 
 
                 <div class="payment hidden">
-                    {% if cashier.cashierUrl != null %}
+                    {% if cashier.message != "" %}
+                      {% include "cart/loading_order_processing.volt" %}
+                    {% elseif cashier.cashierUrl != null %}
                       {% include "cart/moneymatrix_iframe.volt" %}
                     {% else %}
                     <section class="section--card--details">

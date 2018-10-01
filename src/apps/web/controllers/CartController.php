@@ -387,7 +387,6 @@ class CartController extends PublicSiteControllerBase
         }
 
 
-
         return $this->view->setVars([
             'order' => $play_config_dto,
             'config' => json_encode(

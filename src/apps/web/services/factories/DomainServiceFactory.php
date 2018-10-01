@@ -25,6 +25,7 @@ use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\OrderService;
 use EuroMillions\web\services\PaymentProviderService;
+use EuroMillions\web\services\play_strategies\RedisCheckerOrderStrategy;
 use EuroMillions\web\services\play_strategies\RedisOrderStorageStrategy;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\services\PlayService;
@@ -109,7 +110,7 @@ class DomainServiceFactory
         return new LoggedUserServiceStrategy(
             $this->getCurrencyConversionService(),
             $this->serviceFactory->getEmailService(),
-            new PaymentProviderService($this->getTransactionService()),
+            new PaymentProviderService($this->getTransactionService(),new RedisCheckerOrderStrategy($this->serviceFactory->getDI()->get('redisCache'))),
             $this->getWalletService(),
             $this->entityManager,
             $this->serviceFactory->getLogService()
@@ -170,7 +171,8 @@ class DomainServiceFactory
                 ConfigGenerator::cloudWatchConfig(
                     'Euromillions', getenv('EM_ENV')
                 ))
-            )
+            ),
+            new RedisCheckerOrderStrategy($this->serviceFactory->getDI()->get('redisCache'))
         );
     }
 
@@ -203,7 +205,8 @@ class DomainServiceFactory
     public function getPaymentProviderService()
     {
         return new PaymentProviderService(
-            $this->getTransactionService()
+            $this->getTransactionService(),
+            new RedisCheckerOrderStrategy($this->serviceFactory->getDI()->get('redisCache'))
         );
     }
 

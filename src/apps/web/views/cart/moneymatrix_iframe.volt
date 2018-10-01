@@ -9,3 +9,4 @@
                                 <iframe id="iframemx"  style="position:relative;top:0px;width:100%;height:100vh;" src={{ cashier.cashierUrl}}  ></iframe>
                           </div>
  </section>
+

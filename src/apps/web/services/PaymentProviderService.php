@@ -9,6 +9,7 @@ use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
+use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\vo\dto\ChasierDTO;
 use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\enum\TransactionType;
@@ -29,14 +30,23 @@ class PaymentProviderService implements EventsAwareInterface
     /** @var \Phalcon\Events\Manager */
     protected $_eventsManager;
 
-    public function __construct(TransactionService $transactionService)
+    /** @var IPlayStorageStrategy $redisOrderChecker */
+    protected $redisOrderChecker;
+
+    public function __construct(TransactionService $transactionService, IPlayStorageStrategy $redisOrderChecker)
     {
         $this->transactionService = $transactionService;
+        $this->redisOrderChecker = $redisOrderChecker;
     }
 
     public function getCashierViewDTOFromMoneyMatrix(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData, $transactionID=null)
     {
         try {
+            $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
+            if($hasOrder->success())
+            {
+                return new ChasierDTO(null,null,"Order processing...");
+            }
             if($transactionID == null)
             {
                 $transactionID = $this->transactionService->getUniqueTransactionId();
@@ -53,7 +63,6 @@ class PaymentProviderService implements EventsAwareInterface
 
     public function createOrUpdateDepositTransactionWithPendingStatus(Order $order, User $user,Money $amount, $transactionID, $status='PENDING')
     {
-
         try
         {
             $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID);

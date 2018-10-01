@@ -43,7 +43,11 @@ class PaymentController extends CartController
         }
         $result = $play_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
         $msg = '';
-
+        if($this->orderService->hasOrderProcessing($user_id))
+        {
+            $this->response->redirect('/' . $this->lottery . '/cart/profile');
+            return false;
+        }
         $order_view = true;
         //Payment thru wallet ONLY
         if ($this->request->isGet()) {
