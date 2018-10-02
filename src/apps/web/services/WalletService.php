@@ -524,7 +524,9 @@ class WalletService
             'user' => $user,
             'walletBefore' => $walletBefore,
             'walletAfter' => $user->getWallet(),
-            'now' => new \DateTime()
+            'now' => new \DateTime(),
+            'lotteryName' => $order->getLottery()->getName(),
+            'withWallet' => $order->isIsCheckedWalletBalance()
         ];
         return $dataTransaction;
     }
