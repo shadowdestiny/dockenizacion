@@ -153,11 +153,15 @@
 		amount=parseInt(amount)*100;
 		if(amount>=1200)
 		{
+		    $('#funds-value').attr('readonly', true);
+		    $('.box-wallet').addClass('disabled');
 			$('#money-matrix').hide();
 			$('#loading').show();
 			$.post('/ajax/funds/order', 'amount='+amount,function(response){
 												let result = JSON.parse(response);
 												$('#iframemx').attr('src',result.cashier.cashierUrl);
+												 $('#funds-value').attr('readonly', false);
+												 $('.box-wallet').removeClass('disabled');
 												$('#loading').hide();
 												$('#money-matrix').show();
 										 });

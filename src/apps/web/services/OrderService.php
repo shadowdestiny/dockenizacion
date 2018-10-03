@@ -143,4 +143,41 @@ class OrderService
         $user = $order->getPlayConfig()[0]->getUser();
         $this->playService->sendErrorEmail($user, $order, $dateOrder);
     }
+
+    public function addDepositFounds($event,$component,array $data)
+    {
+        $this->logger->log(Logger::INFO,
+            'checkout:New deposit order with transactionID= ' . $data['transactionID']);
+
+        /** @var Order $order */
+        $order = $data['order'];
+        $transactionID = $data['transactionID'];
+        /** @var User $user */
+        $user = $order->getPlayConfig()[0]->getUser();
+        $walletBefore = $user->getWallet();
+        $this->redisOrderChecker->save($transactionID,$user->getId());
+        try
+        {
+                $order->getPlayConfig()[0]->setLottery($order->getLottery());
+                $this->logger->log(Logger::INFO,
+                    'checkout:User wallet before it was payed=' . $user->getWallet()->getBalance()->getAmount());
+                $user = $this->walletService->payOrder($user,$order);
+                $this->logger->log(Logger::INFO,
+                    'checkout:User it was payed in its wallet=' . $user->getWallet()->getBalance()->getAmount());
+                $transactions = $this->transactionService->getTransactionByEmTransactionID($transactionID);
+
+                $transactions[0]->fromString();
+                $transactions[0]->setWalletBefore($walletBefore);
+                $transactions[0]->setWalletAfter($user->getWallet());
+                $transactions[0]->toString();
+                $this->transactionService->updateTransaction($transactions[0]);
+                $this->redisOrderChecker->delete($user->getId());
+        } catch(\Exception $e)
+        {
+            $this->redisOrderChecker->delete($user->getId());
+            $this->logger->log(Logger::EMERGENCE,
+                'ERRORcheckout:' . $e->getMessage());
+            throw new \Exception($e->getMessage());
+        }
+    }
 }

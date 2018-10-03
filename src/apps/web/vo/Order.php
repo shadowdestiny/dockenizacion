@@ -382,4 +382,9 @@ class Order implements \JsonSerializable
         return count($this->getPlayConfig());
     }
 
+    public function isDepositOrder()
+    {
+        return false;
+    }
+
 }
