@@ -14,10 +14,10 @@ class LandingsController extends PublicSiteControllerBase
 
     public function mainAction()
     {
-        $this->view->pick('_elements/landing--orange');
+        $this->view->pick('_elements/landing--blue');
     }
 
-    public function mainOrangeAction()
+    public function mainorangeAction()
     {
         $this->view->pick('_elements/landing--orange');
     }
