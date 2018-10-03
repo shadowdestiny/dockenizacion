@@ -55,16 +55,14 @@
     //Workaround for moneymatrix
 
     $(document).on("moneymatrix",{wallet: true},function(e, wallet) {
-
         $(document).trigger("disableiframeclick", [ true ]);
-
          if(wallet == 1) wallet = true;
          $.post('/cart/iframereload', "tsid="+tsid+"&wallet="+wallet+"&lottery=EuroMillions",function(response){
                 let result = JSON.parse(response);
                 $("#iframemx").attr('src',result.cashierUrl);
          }
          ).done(function(){
-            $('.box-wallet').on('click');
+            $(document).trigger("disableiframeclick", [ false ]);
          })
         }
     )

@@ -18,6 +18,10 @@ var EmWallet = new React.createClass({
 
     handleClickLabel : function ()
     {
+        if(this.props.moneymatrixiframeloading == true)
+        {
+            return null;
+        }
         var is_checked = this.state.checked;
         var active = is_checked ? false : true;
         this.setState({ checked : active});
@@ -26,6 +30,10 @@ var EmWallet = new React.createClass({
 
     handleChange : function (event)
     {
+        if(this.props.moneymatrixiframeloading == true)
+        {
+            return null;
+        }
         var active = event.target.checked;
         this.setState({ checked : active});
         this.props.checked_callback(active);
@@ -55,7 +63,7 @@ var EmWallet = new React.createClass({
             <div className="row cl">
 
                 <div className={disabled_value}>{total_value}</div>
-                <div className="box-wallet cl">
+                <div className="box-wallet cl disabled">
                     <label onClick={this.handleClickLabel} className="txt">{this.props.txt_payWithBalanceOption}</label>
                     <input id="pay-wallet" onChange={this.handleChange} type="checkbox" className="checkbox" checked={this.state.checked} />
                 </div>
