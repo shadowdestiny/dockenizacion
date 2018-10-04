@@ -50,7 +50,7 @@ var CartPage = new React.createClass({
     shouldComponentUpdate : function (nextProps, nextState)
     {
         if (nextState.mmxloading != this.state.mmxloading) return true;
-        return false;
+        return true;
     },
 
         componentWillMount : function()
