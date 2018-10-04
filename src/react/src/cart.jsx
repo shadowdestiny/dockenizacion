@@ -361,6 +361,7 @@ var CartPage = new React.createClass({
                               classBtn={class_button_payment} text={txt_button_payment} powerplay={this.props.powerplay}
                               total_lines={total_lines}
                               powerplayprice={this.props.powerplayprice}
+                              moneymatrixiframeloading={this.state.mmxloading}
                               total_price={this.props.total}
                               fee={this.props.fee_charge}
                               currency_symbol={this.props.currency_symbol} config={JSON.parse(this.props.config)}/>
