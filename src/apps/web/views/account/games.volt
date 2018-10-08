@@ -21,7 +21,7 @@
             if(lottery == 'EuroMillions') {
                 storageNumbers += '{"numbers":['+playConfig[0]+'],"stars":['+playConfig[1]+']},';
             }
-            if(lottery == 'PowerBall') {
+            if(lottery == 'PowerBall' || lottery == 'MegaMillions') {
                 powerball = playConfig[1].split(",");
                 storageNumbers += '{"numbers":['+playConfig[0]+'],"stars":['+powerball[1]+']},';
             }
@@ -33,6 +33,9 @@
         } else if(lottery == 'PowerBall') {
             localStorage.setItem('pb_bat_line', storageNumbers);
             window.location.href = '/{{ language.translate('link_powerball_play') }}';
+        }else if(lottery == 'MegaMillions'){
+        	localStorage.setItem('mm_bat_line', storageNumbers);
+            window.location.href = '/{{ language.translate('link_megamillions_play') }}';
         }
 
     }
