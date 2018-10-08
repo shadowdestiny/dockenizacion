@@ -214,7 +214,7 @@
 
                 <div class="number-generator--block">
                     <div class="number-generator--block--img">
-                        <img src="/w/img/home/result-block/desktop/number-generator.jpg" alt="Latest News">
+                        <img src="https://images.euromillions.com/imgs/number-generator.jpg" alt="Latest News">
                     </div>
                     <h2 class="number-generator--block--title h2">
                         {{ language.translate("cta1_head") }}
@@ -315,7 +315,7 @@
 		"@type": "Organization",
 		"name": "EuroMillions.com",
 		"url": "{{ language.translate('markup_org_url') }}",
-		"logo": "https://euromillions.com/w/img/logo/v2/logo-desktop.png",
+		"logo": "https://images.euromillions.com/imgs/logo-desktop.png",
 		"contactPoint": [
 			{ "@type": "ContactPoint",
 			"email": "support@euromillions.com",

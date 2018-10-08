@@ -43,7 +43,7 @@
         <nav class="landing--top-nav">
             <div class="wrapper">
                 <a href="/" class="logo logo-desktop-a ui-link" title="Go to Homepage">
-                    <img src="/w/img/logo/v2/logo-desktop.png" alt="Euromillions">
+                    <img src="https://images.euromillions.com/imgs/logo-desktop.png" alt="Euromillions">
                 </a>
                 <ul class="ul-top-nav">
                     <li class="li-sign">

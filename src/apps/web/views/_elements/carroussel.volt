@@ -27,7 +27,7 @@
                             <span class="resizeme">{{ jackpot_value }}{% if milliards_euromillions %}B {% elseif trillions_euromillions %}T {% else %}M {% endif %}</span>
                         </div>
                         <div class="img-block">
-                            <img class="image-carroussel" src="/w/img/home/starsBlue.png">
+                            <img class="image-carroussel" src="https://images.euromillions.com/imgs/starsBlue.png">
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                             <span class="resizeme"> {{ jackpot_powerball }}{% if milliards_euromillions %}B {% elseif trillions_euromillions %}T {% else %}M {% endif %}</span>
                         </div>
                         <div class="img-block">
-                            <img class="image-carroussel" src="/w/img/home/starsRed.png">
+                            <img class="image-carroussel" src="https://images.euromillions.com/imgs/starsRed.png">
                         </div>
 
                     </div>
@@ -65,7 +65,7 @@
                                           style="">{{ jackpot_christmas }}{% if milliards_christmas %}B {% elseif trillions_christmas %}T {% else %}M {% endif %} </span>
                         </div>
                         <div class="img-block">
-                            <img class="image-carroussel" src="/w/img/home/starsChristmas.png">
+                            <img class="image-carroussel" src="https://images.euromillions.com/imgs/starsChristmas.png">
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
     <div class="grey-blocks--row mobile-2x desktop-3x">
 
         <div class="grey-box-carroussel grey-box-carroussel--euromillions hide-mobile">
-            <div class="grey-box-carroussel--inner" style=""><img class="image-carroussel image-carroussel--clock" src="/w/img/home/clock.png">
+            <div class="grey-box-carroussel--inner" style=""><img class="image-carroussel image-carroussel--clock" src="https://images.euromillions.com/imgs/clock.png">
                 <div class="countdowneuro" style="">
                     <div class="dayeuro unit" style="color:black;">
                         <span class="val" style="color:black;">%-d{% if show_s_days == '1' %}D{% else %}D{% endif %}</span>
@@ -110,7 +110,7 @@
         </div>
 
         <div class="grey-box-carroussel grey-box-carroussel--powerball">
-            <div  class="grey-box-carroussel--inner" style=""><img class="image-carroussel image-carroussel--clock" src="/w/img/home/clock.png">
+            <div  class="grey-box-carroussel--inner" style=""><img class="image-carroussel image-carroussel--clock" src="https://images.euromillions.com/imgs/clock.png">
                 <div class="countdownpower" style="">
                     <div class="daypower unit" style="color:black;">
                         <span class="val" style="color:black;">%-d{% if show_p_days == '1' %}D{% else %}D{% endif %}</span>
@@ -143,7 +143,7 @@
         </div>
 
         <div class="grey-box-carroussel grey-box-carroussel--christmas">
-            <div class="grey-box-carroussel--inner" style=""><img class="image-carroussel image-carroussel--clock" src="/w/img/home/clock.png">
+            <div class="grey-box-carroussel--inner" style=""><img class="image-carroussel image-carroussel--clock" src="https://images.euromillions.com/imgs/clock.png">
                 <div class="christmasdate" style="">
                     <div class="daypower unit" style="color:black;">
                         <span class="val" style="color:black;">22.12.2018</span>
