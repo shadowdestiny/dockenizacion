@@ -276,6 +276,8 @@
                                         class="value">{{ wallet.subscriptionBalanceEuromillions}}</span></div>
                             <div class="txt">{{ language.translate("PowerBall") }} <span
                                         class="value">{{ wallet.subscriptionBalancePowerBall}}</span></div>
+                            <div class="txt">{{ language.translate("MegaMillions") }} <span
+                                        class="value">{{ wallet.subscriptionBalanceMegaMillions}}</span></div>
 
                         </div>
                         <div class="box-balance--row  cl">
