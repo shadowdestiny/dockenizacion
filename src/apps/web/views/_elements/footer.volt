@@ -44,6 +44,12 @@
                     <li>
                         <a href="/{{ language.translate('link_christmas_results') }}">{{ language.translate('column2_fourth') }}</a>
                     </li>
+                    <li>
+                        <a href="/{{ language.translate('link_megam_results') }}">{{ language.translate('column2_seventh') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate('link_megam_draw_history') }}">{{ language.translate('column2_eighth') }}</a>
+                    </li>
                 </ul>
             </div>
             <div class="col col20per">
