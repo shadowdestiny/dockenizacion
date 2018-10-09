@@ -17,6 +17,18 @@ use Money\Currency;
 
 class PlayController extends PublicSiteControllerBase
 {
+
+    protected $play_dates;
+    protected $dayOfWeek;
+    protected $draw;
+    protected $currencySymbol;
+    protected $checkOpenTicket;
+    protected $singleBetPrice;
+    protected $singleBetPriceCurrency;
+    protected $betValue;
+    protected $automaticRandom;
+    protected $bundlePriceDTO;
+
     public function indexAction()
     {
         $current_currency = $this->userPreferencesService->getCurrency();
@@ -42,31 +54,29 @@ class PlayController extends PublicSiteControllerBase
             $textMillions = 'million';
         }
         $this->view->setVar('language', $this->languageService->getLocale());
-        $play_dates = $this->lotteryService->getRecurrentDrawDates('Euromillions');
-        $draw = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
+        $this->play_dates = $this->lotteryService->getRecurrentDrawDates('Euromillions');
+        $this->draw = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
         $date_time_util = new DateTimeUtil();
-        $dayOfWeek = $date_time_util->getDayOfWeek($draw);
-        $checkOpenTicket = $date_time_util->checkTimeForClosePlay($draw);
-        $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
-        $automatic_random = $this->request->get('random');
-        $bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO('EuroMillions');
+        $this->dayOfWeek = $date_time_util->getDayOfWeek($this->draw);
+        $this->checkOpenTicket = $date_time_util->checkTimeForClosePlay($this->draw);
+        $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
+        $this->automaticRandom = $this->request->get('random');
+        $this->bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO('EuroMillions');
         if (!$this->authService->isLogged()) {
             $user_currency = $this->userPreferencesService->getCurrency();
-            $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $user_currency);
+            $this->singleBetPriceCurrency = $this->currencyConversionService->convert($this->singleBetPrice, $user_currency);
         } else {
             $current_user_id = $this->authService->getCurrentUser()->getId();
             /** @var User $user */
             $user = $this->userService->getUser($current_user_id);
-            $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
+            $this->singleBetPriceCurrency = $this->currencyConversionService->convert($this->singleBetPrice, new Currency($user->getUserCurrency()->getName()));
         }
 
-        $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
+        $this->currencySymbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $this->tag->prependTitle($this->languageService->translate('play_em_name') . ViewHelper::formatMillionsJackpot($jackpot) . ' ' . $this->languageService->translate($textMillions));
         MetaDescriptionTag::setDescription($this->languageService->translate('play_em_desc'));
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
-        $bet_value = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
-
-
+        $this->betValue = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
     }
 }
