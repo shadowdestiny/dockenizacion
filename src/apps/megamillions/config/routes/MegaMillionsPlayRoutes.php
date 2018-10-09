@@ -24,8 +24,7 @@ class MegaMillionsPlayRoutes extends RouterGroup
         // All the routes start with /megamillions
         $this->setPrefix('/megamillions');
 
-
-        $this->add("/{lottery:(megamillions)+}/play", array(
+        $this->add("/play", array(
             "module" => "megamillions",
             'controller' => 'play',
             'action' => 'index',
