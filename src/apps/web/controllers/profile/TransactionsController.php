@@ -6,8 +6,6 @@ namespace EuroMillions\web\controllers\profile;
 
 use EuroMillions\shared\components\widgets\PaginationWidgetDoctrine;
 use EuroMillions\web\controllers\AccountController;
-use Money\Currency;
-use Money\Money;
 
 class TransactionsController extends AccountController
 {
