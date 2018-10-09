@@ -147,6 +147,26 @@
     checkRadio("#card-list tr, #bank-list tr");
     deleteLnk("#card-list .action a, #bank-list .action a");
     });
+	$('.submit').on('click', function(e){
+
+		var amount=$('#funds-value').val();
+		amount=parseInt(amount)*100;
+		if(amount>=1200)
+		{
+		    $('#funds-value').attr('readonly', true);
+		    $('.box-wallet').addClass('disabled');
+			$('#money-matrix').hide();
+			$('#loading').show();
+			$.post('/ajax/funds/order', 'amount='+amount,function(response){
+												let result = JSON.parse(response);
+												$('#iframemx').attr('src',result.cashier.cashierUrl);
+												 $('#funds-value').attr('readonly', false);
+												 $('.box-wallet').removeClass('disabled');
+												$('#loading').hide();
+												$('#money-matrix').show();
+										 });
+        }
+    });
 {% endblock %}
 {% block template_scripts_after %}
     <script src="/w/js/react/tooltip.js"></script>{% endblock %}
@@ -295,10 +315,9 @@
 
                     </div>
                 </div>
-                <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency"
-                      method="post" action="/addFunds">
+                <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency">
                     {% set component='{"where": "account"}'|json_decode %}
-                    {% include "account/_add-card.volt" %}
+                    {% include "account/_add-money-matrix.volt" %}
                     <input type="hidden" id="csid" name="csid"/>
                 </form>
                 <div class="box-bank {% if which_form != 'withdraw' %}hidden{% endif %}">

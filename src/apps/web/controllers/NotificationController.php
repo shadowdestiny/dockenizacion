@@ -11,9 +11,14 @@ namespace EuroMillions\web\controllers;
 
 use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
+use EuroMillions\web\entities\DepositTransaction;
 use EuroMillions\web\entities\Transaction;
-use EuroMillions\web\services\PlayService;
+use EuroMillions\web\services\factories\OrderFactory;
+use EuroMillions\web\vo\Discount;
+use Money\Currency;
+use Money\Money;
 use EuroMillions\web\vo\Order;
+use EuroMillions\web\entities\PlayConfig;
 use LegalThings\CloudWatchLogger;
 use Phalcon\Logger;
 
@@ -47,11 +52,29 @@ class NotificationController extends MoneymatrixController
         }
 
 
+
+        $transaction->fromString();
+        if($transaction instanceof DepositTransaction)
+        {
+            $playconfig=new PlayConfig();
+            $playconfig->setFrequency(1);
+            $playconfig->setUser($transaction->getUser());
+            $money=new Money(0, new Currency('EUR'));
+            $amount=new Money(intval($transaction->getAmountAdded()), new Currency('EUR'));
+            $order=OrderFactory::create([$playconfig], $money, $money, $money, new Discount(0, []),  $this->lotteryService->getLotteryConfigByName($transaction->getLotteryName()), 'Deposit', $transaction->getWithWallet());
+            $order->addFunds($amount);
+        }else
+        {
+            $result = $this->cartService->get($transaction->getUser()->getId(),$transaction->getLotteryName(), $transaction->getWithWallet());
+            /** @var Order $order */
+            $order = $result->getValues();
+        }
+
+
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
         $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName())->getValues();
         $order->setNextDraw($nextDrawForOrder);
-
         $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,$status);
     }
 

@@ -62,27 +62,14 @@ class OrderService
         $transactionID = $data['transactionID'];
         /** @var User $user */
         $user = $order->getPlayConfig()[0]->getUser();
-        $walletBefore = $user->getWallet();
         $lottery = $order->getLottery();
         $this->redisOrderChecker->save($transactionID,$user->getId());
         try
         {
             if($order->isNextDraw())
             {
-                $order->getPlayConfig()[0]->setLottery($order->getLottery());
-                $this->logger->log(Logger::INFO,
-                    'checkout:User wallet before it was payed=' . $user->getWallet()->getBalance()->getAmount());
-                $user = $this->walletService->payOrder($user,$order);
-                $this->logger->log(Logger::INFO,
-                    'checkout:User it was payed in its wallet=' . $user->getWallet()->getBalance()->getAmount());
-                $transactions = $this->transactionService->getTransactionByEmTransactionID($transactionID);
-
-                //TODO move to TransactionService
-                $transactions[0]->fromString();
-                $transactions[0]->setWalletBefore($walletBefore);
-                $transactions[0]->setWalletAfter($user->getWallet());
-                $transactions[0]->toString();
-                $this->transactionService->updateTransaction($transactions[0]);
+                $walletBefore = $user->getWallet();
+                $user=$this->updateOrderTransaction($user, $order, $transactionID, $walletBefore);
                 $walletBefore = $user->getWallet();
                 foreach ($order->getPlayConfig() as $playConfig)
                 {
@@ -142,5 +129,50 @@ class OrderService
     {
         $user = $order->getPlayConfig()[0]->getUser();
         $this->playService->sendErrorEmail($user, $order, $dateOrder);
+    }
+
+    public function addDepositFounds($event,$component,array $data)
+    {
+        $this->logger->log(Logger::INFO,
+            'checkout:New deposit order with transactionID= ' . $data['transactionID']);
+
+        /** @var Order $order */
+        $order = $data['order'];
+        $transactionID = $data['transactionID'];
+        /** @var User $user */
+        $user = $order->getPlayConfig()[0]->getUser();
+        $this->redisOrderChecker->save($transactionID,$user->getId());
+        try
+        {
+                $walletBefore = $user->getWallet();
+                $user=$this->updateOrderTransaction($user, $order, $transactionID, $walletBefore);
+                $this->redisOrderChecker->delete($user->getId());
+        } catch(\Exception $e)
+        {
+            $this->redisOrderChecker->delete($user->getId());
+            $this->logger->log(Logger::EMERGENCE,
+                'ERRORcheckout:' . $e->getMessage());
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    private function updateOrderTransaction($user, $order, $transactionID, $walletBefore)
+    {
+        $order->getPlayConfig()[0]->setLottery($order->getLottery());
+        $this->logger->log(Logger::INFO,
+            'checkout:User wallet before it was payed=' . $user->getWallet()->getBalance()->getAmount());
+        $user = $this->walletService->payOrder($user,$order);
+        $this->logger->log(Logger::INFO,
+            'checkout:User it was payed in its wallet=' . $user->getWallet()->getBalance()->getAmount());
+        $transactions = $this->transactionService->getTransactionByEmTransactionID($transactionID);
+
+        //TODO move to TransactionService
+        $transactions[0]->fromString();
+        $transactions[0]->setWalletBefore($walletBefore);
+        $transactions[0]->setWalletAfter($user->getWallet());
+        $transactions[0]->toString();
+        $this->transactionService->updateTransaction($transactions[0]);
+
+        return $user;
     }
 }

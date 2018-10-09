@@ -100,11 +100,18 @@ class PaymentProviderService implements EventsAwareInterface
                 $transaction[0]->setWithWallet($order->isIsCheckedWalletBalance() ? 1 :0);
                 $transaction[0]->toString();
                 $this->transactionService->updateTransaction($transaction[0]);
-                if($status == 'SUCCESS')
+                if($status == 'SUCCESS' && !$order->isDepositOrder())
                 {
                     $this->_eventsManager->fire('orderservice:checkout', $this, ["order" => $order,
                                                                                            "transactionID" => $transactionID
                             ]
+                    );
+                }
+                elseif($status == 'SUCCESS' && $order->isDepositOrder())
+                {
+                    $this->_eventsManager->fire('orderservice:addDepositFounds', $this, ["order" => $order,
+                            "transactionID" => $transactionID
+                        ]
                     );
                 }
             }

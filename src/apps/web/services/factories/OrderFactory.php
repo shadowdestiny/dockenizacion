@@ -16,6 +16,7 @@ use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderChristmas;
 use EuroMillions\web\vo\OrderPowerBall;
+use EuroMillions\web\vo\OrderDeposit;
 use Money\Money;
 
 class OrderFactory
@@ -40,12 +41,19 @@ class OrderFactory
             $order->setAmountWallet($user->getWallet()->getBalance());
             return $order;
         }
-        if($lottery->getName() == 'Christmas')
+        elseif($lottery->getName() == 'Christmas')
         {
             $order = new OrderChristmas($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
             $order->setAmountWallet($user->getWallet()->getBalance());
             return $order;
         }
+        elseif($draw == 'Deposit')
+        {
+            $order = new OrderDeposit($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
+            $order->setAmountWallet($user->getWallet()->getBalance());
+            return $order;
+        }
+
         $order = new Order($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
         $order->setAmountWallet($user->getWallet()->getBalance());
         return $order;
