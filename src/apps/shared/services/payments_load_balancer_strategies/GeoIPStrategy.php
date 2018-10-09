@@ -34,7 +34,7 @@ class GeoIPStrategy implements ILoadBalancingPayment
         $this->normalGW = $payments->getItem($params->normal);
         $this->blockedGW = $payments->getItem($params->blocked);
         $this->geoipImpl = $this->geoService($params);
-        $this->blocked_countries = [$params->blocked_countries];
+        $this->blocked_countries = explode(',',$params->blocked_countries);
         $this->makeStrategy();
     }
 
