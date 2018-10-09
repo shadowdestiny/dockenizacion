@@ -79,7 +79,7 @@ class NotificationController extends MoneymatrixController
     }
 
 
-    private function validations($transactionID, $status,Transaction $transaction,CloudWatch $logger, Order $order)
+    private function validations($transactionID, $status,Transaction $transaction,CloudWatch $logger, Order $order=null)
     {
         if(empty($transactionID) or empty($status))
         {
@@ -99,7 +99,7 @@ class NotificationController extends MoneymatrixController
             throw new \Exception();
         }
 
-        if($status == 'ERROR')
+        if($status == 'ERROR' && $order != null)
         {
             $logger->log(
                 Logger::INFO,
