@@ -42,8 +42,6 @@ var EmResumeOrder = new React.createClass({
         } else if(this.props.txt_lottery === 'Powerball') {
             text_weeks = this.props.wednesday + ' & ' + this.props.saturday + ', ' + this.props.txt_since + ' ' + config.startDrawDateFormat + ' ' + this.props.txt_for + config.frequency / 2 + ' ' + this.props.txt_weeks;
         }
-
-
         return (
             <div className="box-order">
                 <div className="box-total-upper cl">

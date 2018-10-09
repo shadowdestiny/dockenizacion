@@ -81,7 +81,7 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
         $this->lines = $this->euroMillionsLinesToJson();
         $this->duration_format = $this->getFormatDuration();
         $this->duration = $this->duration();
-        $this->lotteryName = $this->playConfig[0]->getLottery()->getName();
+        $this->lotteryName = $this->playConfig[0]->getLottery() != null  ? $this->playConfig[0]->getLottery()->getName() : "";
         $this->powerPLay = $this->playConfig[0]->getPowerPlay();
         $this->frequency = $this->playConfig[0]->getFrequency();
         $this->user = $this->playConfig[0]->getUser();

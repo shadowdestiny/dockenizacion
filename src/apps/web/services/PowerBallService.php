@@ -209,8 +209,8 @@ class PowerBallService
                                 }
                                 if ($order->getHasSubscription()) {
                                     if ($isWallet) {
-                                        $this->walletService->paySubscriptionWithWallet($user, $play_config, $lottery->getPowerPlayValue());
-                                        $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue());
+                                        $this->walletService->paySubscriptionWithWallet($user, $play_config, $lottery->getPowerPlayValue(), $order);
+                                        $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue(), $order);
                                     } elseif ($withAccountBalance) {
                                         $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue());
                                         $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config, $lottery->getPowerPlayValue());

@@ -53,18 +53,18 @@
 
 
     //Workaround for moneymatrix
-
+    var disableiframeclick = false;
     $(document).on("moneymatrix",{wallet: true},function(e, wallet) {
-
         $(document).trigger("disableiframeclick", [ true ]);
-
+        disableiframeclick = true;
          if(wallet == 1) wallet = true;
          $.post('/cart/iframereload', "tsid="+tsid+"&wallet="+wallet+"&lottery=EuroMillions",function(response){
                 let result = JSON.parse(response);
                 $("#iframemx").attr('src',result.cashierUrl);
          }
          ).done(function(){
-            $('.box-wallet').on('click');
+            $(document).trigger("disableiframeclick", [ false ]);
+            disableiframeclick = false;
          })
         }
     )
@@ -90,12 +90,16 @@
 
     $(function(){
     $('.buy').on('click',function(){
+    var value = $('.buy').data('btn');
+    if(disableiframeclick == true)
+    {
+        return false;
+    }
     if ($(this).text() == txt_buy_btn) {
     $(this).text('Please wait...');
     $(this).css('pointer-events', 'none');
     }
-    var value = $(this).data('btn');
-    if(value == 'no-wallet') {
+    if($(this).data('btn') == 'no-wallet') {
     var total_text = '';
     if(currency_symbol !== '€'){
     var total_price = accounting.unformat(total_price_in_credit_card_form.slice(1));
@@ -105,20 +109,27 @@
     }
     $('.submit.big.green').text(txt_depositBuy_btn + ' ' + total_price_in_credit_card_form);
     {#$('.submit.big.green').text('Pay ' + total_price_in_credit_card_form + total_text);#}
-    $('.payment').show();
-    $('.box-bottom').hide();
+    if(disableiframeclick == false)
+    {
+
+        $('.payment').show();
+        $('.box-bottom').hide();
+    }
     var $root = $('html, body');
     $root.animate({
     scrollTop: $('#card-number').offset().top
     }, 500);
     $('#card-number').focus();
     } else {
-    $('.payment').hide();
+        $('.payment').hide();
     }
     })
     if(show_form_credit_card) {
-    $('.box-bottom').hide();
-    $('.payment').show();
+    if(disableiframeclick == false)
+    {
+        $('.box-bottom').hide();
+        $('.payment').show();
+    }
     $('#card-number').focus();
     }
     });

@@ -55,12 +55,19 @@
 
     //Workaround for moneymatrix
 
+    var disableiframeclick = false;
     $(document).on("moneymatrix",{wallet: true},function(e, wallet) {
+        $(document).trigger("disableiframeclick", [ true ]);
+        disableiframeclick = true;
          if(wallet == 1) wallet = true;
          $.post('/cart/iframereload', "tsid="+tsid+"&wallet="+wallet+"&lottery=PowerBall",function(response){
                 let result = JSON.parse(response);
                 $("#iframemx").attr('src',result.cashierUrl);
-         });
+         }
+         ).done(function(){
+            $(document).trigger("disableiframeclick", [ false ]);
+            disableiframeclick = false;
+         })
         }
     )
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {
@@ -98,20 +105,27 @@
     }
     $('.submit.big.green').text(txt_depositBuy_btn + ' ' + total_price_in_credit_card_form);
     {#$('.submit.big.green').text('Pay ' + total_price_in_credit_card_form + total_text);#}
-    $('.payment').show();
-    $('.box-bottom').hide();
+    if(disableiframeclick == false)
+    {
+
+        $('.payment').show();
+        $('.box-bottom').hide();
+    }
     var $root = $('html, body');
     $root.animate({
     scrollTop: $('#card-number').offset().top
     }, 500);
     $('#card-number').focus();
     } else {
-    $('.payment').hide();
+        $('.payment').hide();
     }
     })
     if(show_form_credit_card) {
-    $('.box-bottom').hide();
-    $('.payment').show();
+        if(disableiframeclick == false)
+        {
+            $('.box-bottom').hide();
+            $('.payment').show();
+        }
     $('#card-number').focus();
     }
     });

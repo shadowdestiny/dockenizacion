@@ -38,13 +38,19 @@ class NotificationController extends MoneymatrixController
         )));
         /** @var Transaction $transaction */
         $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
+        $transaction->fromString();
+        $result = $this->cartService->get($transaction->getUser()->getId(),$transaction->getLotteryName(), $transaction->getWithWallet());
+        /** @var Order $order */
+        $order = $result->getValues();
+
         try
         {
-            $this->validations($transactionID,$status,$transaction,$logger);
+            $this->validations($transactionID,$status,$transaction,$logger, $order);
         } catch (\Exception $e)
         {
             throw new \Exception();
         }
+
 
 
         $transaction->fromString();
@@ -64,6 +70,7 @@ class NotificationController extends MoneymatrixController
             $order = $result->getValues();
         }
 
+
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
         $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName())->getValues();
@@ -72,7 +79,7 @@ class NotificationController extends MoneymatrixController
     }
 
 
-    private function validations($transactionID, $status,Transaction $transaction,CloudWatch $logger)
+    private function validations($transactionID, $status,Transaction $transaction,CloudWatch $logger, Order $order)
     {
         if(empty($transactionID) or empty($status))
         {
@@ -98,7 +105,8 @@ class NotificationController extends MoneymatrixController
                 Logger::INFO,
                 'ERRORNotificationController:Notification error with transactionID: ' . $transactionID
             );
-            $this->orderService->sendErrorEmail($order,     $transaction->getDate());
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,$status);
+            $this->orderService->sendErrorEmail($order, $transaction->getDate());
             $logger->log(
                 Logger::INFO,
                 'ERRORNotificationController:sending email ' . $transactionID

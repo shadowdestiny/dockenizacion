@@ -18,7 +18,7 @@ class ErrorEmailTemplate extends EmailTemplateDecorator
         $data = $this->emailTemplateDataStrategy->getData();
         $template_id = $data['language']=='ru_RU'? '8169125':'8153316';
         $subject = $data['language']=='ru_RU' ? 'Ваша покупка не обработана правильно':'Your purchase has not been processed correctly';
-        $vars = [
+        return $vars = [
             'template' => $template_id,
 //            'template' => '624539', Old Template
             'subject' => $subject,
@@ -26,7 +26,7 @@ class ErrorEmailTemplate extends EmailTemplateDecorator
                 [
                     [
                         'name' => 'lottery_name',
-                        'content' => $data['lottery'],
+                        'content' => $data['lottery_name'],
                     ],
                     [
                         'name'    => 'user_name',
