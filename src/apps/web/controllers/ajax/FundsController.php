@@ -3,7 +3,7 @@ namespace EuroMillions\web\controllers\ajax;
 
 use EuroMillions\web\controllers\CartController;
 use EuroMillions\web\entities\PlayConfig;
-use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
+use EuroMillions\web\vo\dto\DepositPaymentProviderDTO;
 use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\Discount;
@@ -27,7 +27,7 @@ class FundsController extends CartController
 
 
 
-        $orderDataToPaymentProvider = new OrderPaymentProviderDTO( [
+        $orderDataToPaymentProvider = new DepositPaymentProviderDTO( [
             'user' => $user,
             'total' => $this->request->getPost('amount'),
             'currency' => 'EUR',

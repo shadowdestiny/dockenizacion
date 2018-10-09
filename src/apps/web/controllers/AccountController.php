@@ -190,15 +190,16 @@ class AccountController extends PublicSiteControllerBase
         $view = $type == 'iframe' ? 'account/wallet_iframe' : 'account/wallet';
         $this->tag->prependTitle('My Balance');
         $this->view->pick($view);
-
+        $errors=$this->request->getQuery('failure', null, 'none')!='none'?[$this->request->getQuery('failure')]:[];
+        $success=$this->request->getQuery('success', null, 'none')!='none'?$this->request->getQuery('success'):[];
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,
             'bank_account_form' => $bank_account_form,
             'user' => new UserDTO($user),
             'ratio' => $ratio,
-            'errors' => [],
-            'msg' => [],
+            'errors' => $errors,
+            'msg' => $success,
             'msg_pwd' => null,
             'symbol' => $symbol,
             'credit_card_form' => $credit_card_form,
