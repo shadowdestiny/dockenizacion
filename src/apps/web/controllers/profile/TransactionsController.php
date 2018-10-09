@@ -6,6 +6,8 @@ namespace EuroMillions\web\controllers\profile;
 
 use EuroMillions\shared\components\widgets\PaginationWidgetDoctrine;
 use EuroMillions\web\controllers\AccountController;
+use Money\Currency;
+use Money\Money;
 
 class TransactionsController extends AccountController
 {
@@ -39,7 +41,8 @@ class TransactionsController extends AccountController
         return $this->view->setVars([
             'transactionCollection' => $transactionDtoCollection,
             'page' => $page,
-            'paginator_view' => $paginator_view
+            'paginator_view' => $paginator_view,
+            'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol']
         ]);
     }
 
