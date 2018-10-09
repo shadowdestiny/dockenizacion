@@ -4,6 +4,7 @@ namespace EuroMillions\shared\config\bootstrap;
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;
 use EuroMillions\megamillions\config\routes\HowToPlayRoutes;
+use EuroMillions\megamillions\config\routes\MegaMillionsPlayRoutes;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconCookiesWrapper;
 use EuroMillions\shared\components\PhalconRequestWrapper;
@@ -1459,15 +1460,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'pastResult',
         ));
 
-        //PLAY PAGES
-
-        $router->add("/{lottery:(megamillions)+}/play", array(
-            "module" => "web",
-            'controller' => 'play',
-            'action' => 'index',
-            'language' => 'en'
-        ));
-
         $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{play:(jugar|gioca|speel|играть)+}", array(
             "module" => "web",
             'controller' => 'play',
@@ -1475,6 +1467,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
         $router->mount(new HowToPlayRoutes());
+        $router->mount(new MegaMillionsPlayRoutes());
         $router->removeExtraSlashes(true);
         return $router;
     }
