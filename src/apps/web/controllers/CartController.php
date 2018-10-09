@@ -226,10 +226,6 @@ class CartController extends PublicSiteControllerBase
 
     public function iframeReloadAction()
     {
-        if($this->cartPaymentProvider->type() == 'FORM')
-        {
-            throw new \Exception();
-        }
 
         $this->noRender();
         try {
