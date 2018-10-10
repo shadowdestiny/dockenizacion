@@ -1,5 +1,3 @@
-{# PAGES: Megamillions Play #}
-
 <div class="box-bottom--accordion--megamillions">
     <div class="block--text--accordion">
         <h2>

@@ -10,11 +10,19 @@
 
             <div class="wrapper">
 
-                <div class="content">
+                <h1 class="play--h1">
+                    {% if mobile == 1 %}
+                        {#{{ language.translate("megamillions_mobile_h1") }}#}
+                        Online
+                    {% else %}
+                        {#{{ language.translate("megamillions_h1") }}#}
+                        Online
+                    {% endif %}
+                </h1>
 
-                    {% include "../../shared/views/_elements/_megamillions/megamillions-bottom-block.volt" %}
+                {% include "../../shared/views/_elements/_megamillions/megamillions-header.volt" %}
 
-                </div>
+                {% include "../../shared/views/_elements/_megamillions/megamillions-bottom-block.volt" %}
 
             </div>
 
