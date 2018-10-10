@@ -165,6 +165,7 @@
 												$('#iframemx').attr('src',result.cashier.cashierUrl);
 										 })
 										  .done(function(response) {
+										        console.log('done');
                                                  $('#funds-value').attr('readonly', false);
                                                  $('.box-wallet').removeClass('disabled');
                                                 $('#loading').hide();
