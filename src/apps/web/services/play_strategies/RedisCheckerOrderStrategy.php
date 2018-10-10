@@ -34,6 +34,7 @@ class RedisCheckerOrderStrategy implements IPlayStorageStrategy
     {
         try{
             $this->storage->set($this->getNameKey($userId), $json);
+            $this->storage->expire($this->getNameKey($userId), 600);
             return new ActionResult(true);
         }catch(RedisException $e){
             return new ActionResult(false,'Unable to save data in storage');
