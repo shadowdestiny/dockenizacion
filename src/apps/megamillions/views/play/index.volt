@@ -22,6 +22,8 @@
 
                 {% include "../../shared/views/_elements/_megamillions/megamillions-header.volt" %}
 
+                <div class="gameplay" id="gameplay"></div>
+
                 {% include "../../shared/views/_elements/_megamillions/megamillions-bottom-block.volt" %}
 
             </div>
