@@ -2,6 +2,14 @@
 
 {%block body%}
 
-HERE PUT REACT AND NEW CSS STYLES
+    <div class="wrapper">
+
+        <div class="content">
+
+        {% include "../../shared/views/_elements/_megamillions/megamillions-bottom-block.volt" %}
+
+        </div>
+
+    </div>
 
 {%endblock%}
