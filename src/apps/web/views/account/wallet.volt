@@ -5,6 +5,7 @@
 {% block template_scripts %}
     <script src="/w/js/mobileFix.js"></script>
     <script type="text/javascript" src="/w/js/csid.js" charset="UTF-8"></script>
+    <script>if (window!=top){top.location.href=location.href;}
 {% endblock %}
 {% block template_scripts_code %}
 
