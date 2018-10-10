@@ -69,22 +69,55 @@
 
         {% if component.where == 'account' %}
     </div>
+    {% if mobile != 1 %}
+            <div class="add-funds-block second" style="margin-top: -65px; margin-left: 30px">
+                <h2 class="h3 yellow margin" style="font-family: Roboto,sans-serif;margin-bottom: 10px;">{{ language.translate("deposit_subhead")|upper }}</h2>
+                <div class="div-balance"><strong class="purple" style="color:#f0c11c;">{{ language.translate("deposit_balance") }}</strong> <span
+                            class="value" style="color:#f0c11c;">{{ user_balance }}</span></div>
+                 <div style="margin-left:-42px!important;">
+                <span class="currency" style="color:#f0c11c;font-size: 30px;">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'style':'left:45px;width: 255px !important;','class':'insert input'~form_errors['funds-value']}) }}
+                </div>
+                <div class="notes cl">
+                <div style="margin-left:-35px!important;">
+                    <svg class="ico v-info" style="font-size: 25px;">
+                        <use xlink:href="/w/svg/icon.svg#v-info"></use>
+                    </svg>
+                    <span class="txt"
+                          data-txt='{{ language.translate("deposit_minimum") }} {{ symbol }} {{ site_config.feeLimit }}'>&nbsp;{{ language.translate("Minimum Deposit is ") }} {{ site_config.feeLimit }}</span>
+                 </div>
+                 <div style="margin-left:-25px!important;">
+                    <span class="txt">{{ language.translate("deposit_ccyWarning") }}<br>{{ language.translate("deposit_statement") }}</span>
+                 </div>
+                </div>
+                <br>
+                <div class="div-balance"><strong class="purple charge" style="color:#f0c11c;">{{ language.translate("deposit_total") }}</strong> <span
+                            class="value charge"></span><span class="value convert"></span></div>
+                <div class="box-wallet overview">
+
+                    <label class="label submit btn gray" style="cursor:pointer">
+                        {{ language.translate("deposit_deposit_btn") }}
+                    </label>
+                </div>
+            </div>
+     {% else %}
     <div class="add-funds-block second" style="margin-top: -65px;">
-        <h2 class="h3 yellow margin">{{ language.translate("deposit_subhead") }}</h2>
-        <div class="div-balance"><strong class="purple">{{ language.translate("deposit_balance") }}:</strong> <span
-                    class="value">{{ user_balance }}</span></div>
-        <span class="currency">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'style':'left:45px','class':'insert input'~form_errors['funds-value']}) }}
-        <div class="notes cl">
-            <svg class="ico v-info">
+        <h2 class="h3 yellow margin" style="font-family: Roboto,sans-serif;font-size: 20px;margin-bottom: 15px;">{{ language.translate("deposit_subhead")|upper}}</h2>
+        <div class="div-balance" style="text-align: left;"><strong class="purple" style="color:#f0c11c;">{{ language.translate("deposit_balance") }}</strong> <span
+                    class="value" style="color:#f0c11c;">{{ user_balance }}</span>
+        </div>
+        <div class="div-balance" style="text-align: left;">
+        <span class="currency" style="color:#f0c11c;font-size: 25px;right: 0px;">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'style':'left:30px','class':'insert input'~form_errors['funds-value']}) }}
+        </div>
+        <div class="notes cl" style="text-align: left;">
+            <svg class="ico v-info" style="font-size: 18px;">
                 <use xlink:href="/w/svg/icon.svg#v-info"></use>
             </svg>
             <span class="txt"
                   data-txt='{{ language.translate("deposit_minimum") }} {{ symbol }} {{ site_config.feeLimit }}'>{{ language.translate("Minimum Deposit is ") }} {{ site_config.feeLimit }}</span>
-            <span class="txt">{{ language.translate("deposit_ccyWarning") }}</span>
-            <span class="txt">{{ language.translate("deposit_statement") }}</span>
+            <span class="txt">{{ language.translate("deposit_ccyWarning") }}. {{ language.translate("deposit_statement") }}</span>
         </div>
         <br>
-        <div class="div-balance"><strong class="purple charge">{{ language.translate("deposit_total") }}</strong> <span
+        <div class="div-balance" style="text-align: left;"><strong class="purple charge"  style="color:#f0c11c;">{{ language.translate("deposit_total") }}</strong> <span
                     class="value charge"></span><span class="value convert"></span></div>
         <div class="box-wallet overview">
 
@@ -93,6 +126,7 @@
             </label>
         </div>
     </div>
+    {% endif %}
 	<div id="loading" class="add-funds-block" style="display:none;">
         	<strong>Cargando...</strong>
     </div>

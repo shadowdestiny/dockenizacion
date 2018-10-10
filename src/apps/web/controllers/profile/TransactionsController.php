@@ -39,7 +39,8 @@ class TransactionsController extends AccountController
         return $this->view->setVars([
             'transactionCollection' => $transactionDtoCollection,
             'page' => $page,
-            'paginator_view' => $paginator_view
+            'paginator_view' => $paginator_view,
+            'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol']
         ]);
     }
 
