@@ -1443,6 +1443,20 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
+        //LANDINGS
+
+        $router->add('/landings/euromillions', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "main"
+        ]);
+
+        $router->add('/landings/euromillions_form', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "mainorange"
+        ]);
+
 //        $router->setDefaults(array(
 //            "module"     => "web",
 //            'controller' => 'index',

@@ -36,6 +36,7 @@ class BetService
     private $playConfigRepository;
 
 
+
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
