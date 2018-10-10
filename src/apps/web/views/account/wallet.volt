@@ -142,11 +142,6 @@
     });
 
     $(function(){
-    var redirectFromIframe = '<?php echo $redirectFromIframe; ?>';
-    if(redirectFromIframe)
-    {
-        parent.location.href="/";
-    }
     btnShowHide('.btn.add-funds', '.box-add-card, .back', '.overview-wallet'); {# // Add funds #}
     btnShowHide('.btn.withdraw', '.box-bank, .back', '.overview-wallet'); {# // Withdraw winnings #}
     btnShowHide('.btn.convert', '.box-convert, .back', '.overview-wallet');
