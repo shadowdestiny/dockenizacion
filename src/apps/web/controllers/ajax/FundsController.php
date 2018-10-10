@@ -44,7 +44,11 @@ class FundsController extends CartController
 
         $this->noRender();
 
-        echo json_encode(['cashier' => $cashierViewDTO]);
+        echo json_encode(
+            [
+                'cashier' => $cashierViewDTO
+            ]
+        );
 
     }
 }
