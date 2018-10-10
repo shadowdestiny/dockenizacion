@@ -15,6 +15,7 @@ use EuroMillions\web\entities\DepositTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\Discount;
+use EuroMillions\web\vo\OrderDeposit;
 use Money\Currency;
 use Money\Money;
 use EuroMillions\web\vo\Order;
@@ -54,7 +55,7 @@ class NotificationController extends MoneymatrixController
 
 
         $transaction->fromString();
-        if($transaction instanceof DepositTransaction)
+        if($order instanceof OrderDeposit)
         {
             $playconfig=new PlayConfig();
             $playconfig->setFrequency(1);
