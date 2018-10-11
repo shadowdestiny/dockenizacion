@@ -129,8 +129,21 @@ class ResultTask extends TaskBase
             $dependencies = [];
             $conversionService = $this->domainServiceFactory->getCurrencyConversionService();
             $dependencies['CurrencyConversionService'] = $conversionService;
-            $results = $this->lotteryService->getAllResultFromPowerball(new Curl(), Di::getDefault()->get('config')['lotto_api']);
+            $results = $this->lotteryService->getAllResultFromLottery(new Curl(), Di::getDefault()->get('config')['lotto_api'], 'poweball');
             $this->lotteriesDataService->insertPowerBallData($results->body,$dependencies);
+        } catch (Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function importAllHistoricalDataFromMegamillionsAction()
+    {
+        try {
+            $dependencies = [];
+            $conversionService = $this->domainServiceFactory->getCurrencyConversionService();
+            $dependencies['CurrencyConversionService'] = $conversionService;
+            $results = $this->lotteryService->getAllResultFromLottery(new Curl(), Di::getDefault()->get('config')['megamillions_api'], 'megamillions');
+            $this->lotteriesDataService->insertMegaMillionsData($results->body,$dependencies);
         } catch (Exception $e) {
             throw new \Exception($e->getMessage());
         }
