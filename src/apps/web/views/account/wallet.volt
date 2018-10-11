@@ -5,6 +5,13 @@
 {% block template_scripts %}
     <script src="/w/js/mobileFix.js"></script>
     <script type="text/javascript" src="/w/js/csid.js" charset="UTF-8"></script>
+    <script>
+(function(window) {
+  if (window.location !== window.top.location) {
+    window.top.location = window.location;
+  }
+})(this);
+</script>
 {% endblock %}
 {% block template_scripts_code %}
 
