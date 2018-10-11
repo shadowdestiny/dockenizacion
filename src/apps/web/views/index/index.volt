@@ -116,7 +116,7 @@
     });
 {% endblock %}
 {% block body %}
-    HOOOOOOOOOOLAAAAAAAAAAAA
+    ADIOOOOOOSSS
     <main id="content">
 
         {% include "_elements/banner.volt" %}
