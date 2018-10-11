@@ -7,6 +7,7 @@
     <script type="text/javascript" src="/w/js/csid.js" charset="UTF-8"></script>
 {% endblock %}
 {% block template_scripts_code %}
+
     function deleteLnk(id){
     $(id).click(function(e){
     if($(this).closest('tr').hasClass('active')){
@@ -158,13 +159,17 @@
 			$('#money-matrix').hide();
 			$('#loading').show();
 			$.post('/ajax/funds/order', 'amount='+amount,function(response){
-												let result = JSON.parse(response);
+										        let result = JSON.parse(response);
+										        $("#iframemx").contents().empty();
 												$('#iframemx').attr('src',result.cashier.cashierUrl);
-												 $('#funds-value').attr('readonly', false);
-												 $('.box-wallet').removeClass('disabled');
-												$('#loading').hide();
+										 })
+										  .done(function(response) {
+										        console.log('done');
+                                                 $('#funds-value').attr('readonly', false);
+                                                 $('.box-wallet').removeClass('disabled');
+                                                $('#loading').hide();
 												$('#money-matrix').show();
-										 });
+                                           });
         }
     });
 {% endblock %}
