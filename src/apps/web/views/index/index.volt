@@ -116,7 +116,6 @@
     });
 {% endblock %}
 {% block body %}
-    HOLA JOSE LUIS
     <main id="content">
 
         {% include "_elements/banner.volt" %}
