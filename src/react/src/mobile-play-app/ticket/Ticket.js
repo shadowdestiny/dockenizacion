@@ -15,6 +15,7 @@ import {
   TICKET_MAX_STAR_NUMBER,
   GAME_MODE_EUROMILLIONS,
   GAME_MODE_POWERBALL,
+  GAME_MODE_MEGAMILLIONS,
 } from '../constants'
 
 /**
@@ -50,7 +51,7 @@ export default class Ticket extends Component {
      */
     nextDrawFormat : PropTypes.string,
 
-    gameMode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS]),
+    gameMode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS, GAME_MODE_MEGAMILLIONS]),
   }
 
   constructor (props) {
