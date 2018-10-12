@@ -4,6 +4,10 @@ $megamillions-color--main : #014fa3;
   //.powerball--page {
   //TODO change page style class
 
+  .gameplay {
+    border: 0;
+  }
+
 
   .__react_component_tooltip,
   .__react_component_tooltip.place-top,
@@ -23,10 +27,20 @@ $megamillions-color--main : #014fa3;
     }
   }
 
-  .gameplay--section {
+  .gameplay--section.megamillions-game {
+
+    .h4 {
+      display: block;
+
+      span {
+        color: #2d2d2d;
+      }
+    }
+
 
     .box-lines {
-      margin-bottom: 50px;
+      //margin-bottom: 50px;
+      margin-bottom: 15px;
 
       .line:hover,
       .line {
@@ -41,12 +55,17 @@ $megamillions-color--main : #014fa3;
         }
 
         .powerballlabel {
+          padding-top: 2px;
+
           span {
-            display: inline-block;
             color:  #2d2d2d;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 500;
             line-height: 25px;
+            display: block;
+            float: left;
+            text-transform: capitalize;
+            margin-left: 8px;
           }
 
           select {
@@ -56,8 +75,6 @@ $megamillions-color--main : #014fa3;
             border-color:  $megamillions-color--main;
             border-style: solid;
             background-color:  #ffffff;
-            width: 51px;
-            height: 25px;
             line-height: 25px;
             color:  #2d2d2d;
             //font-size: 18px;
@@ -65,6 +82,10 @@ $megamillions-color--main : #014fa3;
             padding: 0;
             font-weight: 500;
             font-family: $ff1;
+
+            padding-left: 5px;
+            width: 50px;
+            height: 22px;
           }
         }
 
@@ -76,6 +97,9 @@ $megamillions-color--main : #014fa3;
         .gwr{
           border: 1px solid #0250a3;
           background-image: url('../img/megamillions/clear.svg');
+          bottom: -15px;
+          position: relative;
+          left: -30px;
 
           span {
             color: $megamillions-color--main;
@@ -100,13 +124,13 @@ $megamillions-color--main : #014fa3;
     @media only screen and (min-width: $screen-desktop) {
       display: inline-block;
       padding-left: 52px;
-      padding-top: 10px;
+      padding-top: 12px;
     }
   }
 
   .power-play-check {
     color: #333333;
-    font-size: 18px;
+    font-size: 13px;
     font-weight: 700;
     text-transform: uppercase;
     display: inline-block;
@@ -130,11 +154,14 @@ $megamillions-color--main : #014fa3;
   .power-play-check:before {
     display: inline-block;
     content: ' ';
-    width: 30px;
-    height: 30px;
+    //width: 30px;
+    //height: 30px;
+    width: 22px;
+    height: 23px;
     background-color: #f8ce0d;
     border-radius: 4px;
-    margin-right: 11px;
+    //margin-right: 11px;
+    margin-right: 5px;
 
     background-image: url('../svg/check-powerplay.svg');
     background-repeat: no-repeat;
