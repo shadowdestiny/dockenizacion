@@ -1434,30 +1434,30 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         //LAST RESULTS
         $router->add("/{lottery:(megamillions)+}/results", array(
-            "module" => "web",
-            'controller' => 'numbers',
+            "module" => "megamillions",
+            'controller' => 'megamillions-numbers',
             'action' => 'index',
             'language' => 'en'
         ));
 
         $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}", array(
-            "module" => "web",
-            'controller' => 'numbers',
-            'action' => 'index'
+            "module" => "megamillions",
+            'controller' => 'megamillions-numbers',
+            'action' => 'index',
         ));
 
         //PAST DATES
         $router->add("/{lottery:(megamillions)+}/results/draw-history/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
-            "module" => "web",
-            'controller' => 'numbers',
-            'action' => 'pastResult',
+            "module" => "megamillions",
+            'controller' => 'megamillions-numbers',
+            'action' => 'index',
             'language' => 'en'
         ));
 
         $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
-            "module" => "web",
-            'controller' => 'numbers',
-            'action' => 'pastResult',
+            "module" => "megamillions",
+            'controller' => 'megamillions-numbers',
+            'action' => 'index',
         ));
 
         $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{play:(jugar|gioca|speel|играть)+}", array(

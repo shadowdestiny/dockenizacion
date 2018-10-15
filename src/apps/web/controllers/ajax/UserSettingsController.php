@@ -103,6 +103,8 @@ class UserSettingsController extends AjaxControllerBase
                 'powerHowto' => '/powerball/how-to-play',
                 'powerballNumbersIndex' => '/powerball/results',
                 'powerballNumbersPast' => '/powerball/results/draw-history-page',
+                'megamillionsNumbersIndex' => '/megamillions/results',
+                'megamillionsNumbersPast' => '/megamillions/results/draw-history',
             ],
             'ru' => [
                 'index' => '/ru',
@@ -128,6 +130,8 @@ class UserSettingsController extends AjaxControllerBase
                 'powerHowto' => '/ru/powerball/как-играть',
                 'powerballNumbersIndex' => '/ru/powerball/результаты',
                 'powerballNumbersPast' => '/ru/powerball/результаты/история-розыгрышей',
+                'megamillionsNumbersIndex' => '/ru/megamillions/результаты',
+                'megamillionsNumbersPast' => '/ru/megamillions/результаты/история-розыгрышей',
             ],
             'es' => [
                 'index' => '/es',
@@ -153,6 +157,8 @@ class UserSettingsController extends AjaxControllerBase
                 'powerHowto' => '/es/powerball/como-se-juega',
                 'powerballNumbersIndex' => '/es/powerball/resultados',
                 'powerballNumbersPast' => '/es/powerball/resultados/sorteos-anteriores',
+                'megamillionsNumbersIndex' => '/es/megamillions/resultados',
+                'megamillionsNumbersPast' => '/es/megamillions/resultados/sorteos-anteriores',
             ],
             'it' => [
                 'index' => '/it',
@@ -178,6 +184,8 @@ class UserSettingsController extends AjaxControllerBase
                 'powerHowto' => '/it/powerball/come-giocare',
                 'powerballNumbersIndex' => '/it/powerball/estrazioni',
                 'powerballNumbersPast' => '/it/powerball/estrazioni/archivio',
+                'megamillionsNumbersIndex' => '/it/megamillions/estrazioni',
+                'megamillionsNumbersPast' => '/it/megamillions/estrazioni/archivio',
             ],
             'nl' => [
                 'index' => '/nl',
@@ -203,6 +211,8 @@ class UserSettingsController extends AjaxControllerBase
                 'powerHowto' => '/nl/powerball/speluitleg',
                 'powerballNumbersIndex' => '/nl/powerball/uitslagen',
                 'powerballNumbersPast' => '/nl/powerball/uitslagen/trekking-geschiedenis',
+                'megamillionsNumbersIndex' => '/nl/megamillions/uitslagen',
+                'megamillionsNumbersPast' => '/nl/megamillions/uitslagen/trekking-geschiedenis',
             ],
 
         ];
