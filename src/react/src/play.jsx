@@ -15,6 +15,7 @@ const TABLET_LANDSCAPE_WIDTH = 1024
 
 const GAME_MODE_POWERBALL = 'powerball'
 const GAME_MODE_EUROMILLIONS = 'euromillions'
+const GAME_MODE_MEGAMILLIONS = 'megamillions'
 
 var PlayPage = React.createClass({
 
@@ -94,8 +95,9 @@ var PlayPage = React.createClass({
 
     getStorageKey : function () {
       const storageKeys = {
-        [GAME_MODE_POWERBALL] : 'pb_bat_line',
+        [GAME_MODE_POWERBALL] : 'pb_bat_line', // <- typo "bat"
         [GAME_MODE_EUROMILLIONS] : 'bet_line',
+        [GAME_MODE_MEGAMILLIONS] : 'mm_bet_line',
       }
       return storageKeys[this.props.mode]
     },
@@ -105,7 +107,7 @@ var PlayPage = React.createClass({
         var current_lines = this.state.storage;
         var num_valid_lines = 0;
         const { mode } = this.props
-        const maxStars = mode == GAME_MODE_POWERBALL ? 1 : 2
+        const maxStars = mode == GAME_MODE_EUROMILLIONS ? 2 : 1 // MegaMillions and Powerball both have a dropdown with one possible selected number
 
         current_lines.forEach(function(value) {
             if(value.numbers.length == 5 && value.stars.length == maxStars) {
@@ -490,7 +492,7 @@ var PlayPage = React.createClass({
           show_clear_all={this.state.show_clear_all}
           clear_all_btn={this.handlerClearAll}
           translations={__initialState.translations}
-          showPowerPlayCheck={mode == GAME_MODE_POWERBALL}
+          showPowerPlayCheck={mode == GAME_MODE_POWERBALL || mode == GAME_MODE_MEGAMILLIONS}
           enablePowerPlay={this.enablePowerPlay}
           key="2"
         />);
@@ -499,8 +501,14 @@ var PlayPage = React.createClass({
           return <MobilePlayApp {...__initialState} />
         }
 
+        const rootClassNames = {
+          [GAME_MODE_EUROMILLIONS] : 'euromillions-game',
+          [GAME_MODE_POWERBALL]    : 'powerball-game',
+          [GAME_MODE_MEGAMILLIONS] : 'megamillions-game',
+        }
+
         return (
-            <div className={"gameplay--section " + (mode == GAME_MODE_POWERBALL ? 'powerball-game' : 'euromillions-game')}>
+            <div className={"gameplay--section " + rootClassNames[mode]}>
                 {elem}
                 <div className="box-bottom">
                     <div className="wrap">
