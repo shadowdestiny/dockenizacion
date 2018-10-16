@@ -2,11 +2,20 @@
 
 .box-bottom--accordion--megamillions {
   display: block;
-  padding-left: 10px;
-  padding-right: 10px;
+  //padding-left: 10px;
+  //padding-right: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 21px;
+  padding-bottom: 42px;
 
   @media only screen and (min-width: $screen-ipad-v) {
     display: none;
+  }
+
+  .block--text--accordion {
+    margin-top: 0;
+    margin-bottom: 9px;
   }
 }
 

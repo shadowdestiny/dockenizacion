@@ -1,0 +1,53 @@
+// Play page - mobile version
+
+.megamillions--page {
+  @media only screen and (max-width: $width-pre-tablet) {
+    .play-page-mobile {
+
+
+      .ticket-number {
+        margin-right: 8px;
+        margin-bottom: 1px;
+      }
+
+      .btn--pick {
+        margin-bottom: 24px;
+      }
+
+      .draws-section {
+        .section-title {
+          text-transform: none;
+        }
+
+        .section-sub-title {
+          margin-bottom: 24px;
+        }
+
+        .buttons {
+          .bundle-btn {
+            margin-right: 10px;
+
+            &:last-of-type {
+              margin-right: 0;
+            }
+
+            .btn {
+              width: 52px;
+              height: 52px;
+            }
+          }
+        }
+      }
+
+      .price-per-line {
+        margin-bottom: 6px;
+      }
+
+      .buy-for-date {
+        margin-bottom: 3px;
+      }
+
+
+    }
+  }
+}

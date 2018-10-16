@@ -1,11 +1,21 @@
 $megamillions-color--main : #014fa3;
 
 .megamillions--page {
-  //.powerball--page {
-  //TODO change page style class
+
+  .play--h1 {
+    @media only screen and (max-width: $width-pre-tablet) {
+      font-size: 35px;
+      line-height: 38px;
+    }
+  }
 
   .gameplay {
     border: 0;
+
+    @media only screen and (max-width: $width-pre-tablet) {
+      padding-top: 5px;
+      margin-bottom: 0;
+    }
   }
 
 
@@ -142,7 +152,7 @@ $megamillions-color--main : #014fa3;
 
   .power-play-check {
     color: #333333;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 700;
     text-transform: uppercase;
     display: inline-block;
@@ -150,6 +160,12 @@ $megamillions-color--main : #014fa3;
     line-height: 1;
     vertical-align: top;
     cursor: pointer;
+    margin-bottom: 13px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 13px;
+      margin-bottom: 0;
+    }
 
     span {
       display: inline-block;
@@ -166,32 +182,35 @@ $megamillions-color--main : #014fa3;
   .power-play-check:before {
     display: inline-block;
     content: ' ';
-    //width: 30px;
-    //height: 30px;
-    width: 22px;
-    height: 23px;
+    width: 30px;
+    height: 30px;
     background-color: #f8ce0d;
     border-radius: 4px;
-    //margin-right: 11px;
-    margin-right: 5px;
-
+    margin-right: 11px;
     background-image: url('../svg/check-powerplay.svg');
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
     background-position: 0 0;
+
+    @media only screen and (min-width: $screen-desktop) {
+      width: 22px;
+      height: 23px;
+      margin-right: 5px;
+    }
+
   }
   .power-play-check.checked:before {
     background-color: transparent;
   }
 
   .info-icon {
-    //width: 24px;
-    //height: 24px;
+    width: 24px;
+    height: 24px;
     line-height: 15px;
     text-align: center;
     display: inline-block;
-    //margin-left: 8px;
+    margin-left: 8px;
 
     background-image: url('../svg/info.svg');
     background-repeat: no-repeat;
@@ -200,12 +219,16 @@ $megamillions-color--main : #014fa3;
     background-position: 0 0;
 
     position: relative;
-    //top: -6px;
+    top: -4px;
 
-    width: 18px;
-    height: 18px;
-    margin-left: 5px;
-    top: -2px;
+
+
+    @media only screen and (min-width: $screen-desktop) {
+      width: 18px;
+      height: 18px;
+      margin-left: 5px;
+      top: -2px;
+    }
 
 
     span {
@@ -221,7 +244,8 @@ $megamillions-color--main : #014fa3;
     .ticket-number.star {
       border: 0;
       color: #333333;
-      background-color:  #b3d8fa;
+      background-color:  #f4e778;
+      //background-color:  #b3d8fa;
     }
   }
 
