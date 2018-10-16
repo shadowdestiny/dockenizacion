@@ -22,6 +22,7 @@ use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDownData;
 use EuroMillions\web\vo\EuroMillionsJackpot;
 use EuroMillions\web\vo\PowerBallDrawBreakDown;
+use EuroMillions\web\vo\MegaMillionsDrawBreakDown;
 use EuroMillions\web\vo\Raffle;
 use Money\Currency;
 use Money\Money;
@@ -245,6 +246,49 @@ class LotteriesDataService
                         ],
                         PowerBallDrawBreakDown::class
                         );
+                    $this->entityManager->persist($draw);
+                    $this->entityManager->flush();
+                }
+            }
+        } catch ( \Exception $e )
+        {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function insertMegaMillionsData($data,array $dependencies)
+    {
+        try {
+
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => 'MegaMillions']);
+
+            /** @var CurrencyConversionService $currencyConversionService */
+            $currencyConversionService = $dependencies['CurrencyConversionService'];
+
+            try {
+                /** @var EuroMillionsDraw $draw */
+                $draw = $this->lotteryDrawRepository->getLastDraw($lottery);
+            } catch (\Exception $e)
+            {
+                $megaMillionsDraws  = json_decode($data, true);
+                unset($megaMillionsDraws[0]);
+                foreach ($megaMillionsDraws as $megaMillionsDraw) {
+                    $draw = $this->createDraw(new \DateTime($megaMillionsDraw['date']), null, $lottery);
+                    $draw->createResult($megaMillionsDraw['numbers']['main'], [0,$megaMillionsDraw['numbers']['megaball']]);
+                    $jackpotEUR = $currencyConversionService->convert(
+                        new Money((int) $megaMillionsDraw['jackpot']['total'],new Currency('USD') ),
+                        new Currency('EUR')
+                    );
+                    $jack = new Money((int) floor($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
+                    $draw->setJackpot($jack);
+                    $draw->setRaffle(new Raffle($megaMillionsDraw['numbers']['megaplier']));
+                    $draw->createBreakDown([
+                        'prizes' => $megaMillionsDraw['prizes'],
+                        'winners' => $megaMillionsDraw['winners']
+                    ],
+                        MegaMillionsDrawBreakDown::class
+                    );
                     $this->entityManager->persist($draw);
                     $this->entityManager->flush();
                 }
