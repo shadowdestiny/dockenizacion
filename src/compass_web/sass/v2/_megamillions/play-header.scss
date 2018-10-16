@@ -11,7 +11,8 @@
     background: linear-gradient(90deg, #2f75c0 0%, #014fa3 100%);
 
     overflow: hidden;
-    margin-top: 25px;
+    //margin-top: 25px;
+    margin-top: 12px;
 
     @media only screen and (min-width: $screen-ipad-h) {
       margin-top: -283px;
@@ -25,7 +26,7 @@
 
     .left {
       float: left;
-      padding-top: 5px;
+      padding-top: 0px;
       padding-left: 10px;
 
       @media only screen and (min-width: $screen-ipad-v) {
@@ -98,9 +99,10 @@
 
     }
     .right {
-      padding-right: 0;
+      //padding-right: 0;
       float: none;
-      padding-top: 50px;
+      //padding-top: 50px;
+      padding-top: 37px;
       padding-left: 10px;
       padding-right: 10px;
 
@@ -177,7 +179,8 @@
         font-weight: 400;
         font-size: 16px;
         text-align: left;
-        padding-top: 16px;
+        //padding-top: 16px;
+        padding-top: 7px;
         padding-bottom: 4px;
 
         & > * {
