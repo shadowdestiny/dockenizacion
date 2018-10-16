@@ -38,6 +38,18 @@ $megamillions-color--main : #014fa3;
     }
 
 
+    #box-action .box-action {
+      @media only screen and (min-width: $screen-desktop) {
+        margin: 13px 24px 0 15px;
+      }
+
+      li {
+        @media only screen and (min-width: $screen-desktop) {
+          margin: 0 5px 4px 0;
+        }
+      }
+    }
+
     .box-lines {
       //margin-bottom: 50px;
       margin-bottom: 15px;
@@ -174,12 +186,12 @@ $megamillions-color--main : #014fa3;
   }
 
   .info-icon {
-    width: 24px;
-    height: 24px;
+    //width: 24px;
+    //height: 24px;
     line-height: 15px;
     text-align: center;
     display: inline-block;
-    margin-left: 8px;
+    //margin-left: 8px;
 
     background-image: url('../svg/info.svg');
     background-repeat: no-repeat;
@@ -188,7 +200,13 @@ $megamillions-color--main : #014fa3;
     background-position: 0 0;
 
     position: relative;
-    top: -6px;
+    //top: -6px;
+
+    width: 18px;
+    height: 18px;
+    margin-left: 5px;
+    top: -2px;
+
 
     span {
       display: none;
@@ -248,5 +266,4 @@ $megamillions-color--main : #014fa3;
     }
   }
   }
-
 }
