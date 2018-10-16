@@ -278,14 +278,15 @@ $megamillions-color--main : #014fa3;
     }
     .ticket-number.star {
       border-width: 1px;
-      border-color:  #f8ce0d;
+      border-color:  #f4e778;
       border-style: solid;
       background-color:  #ffffff;
       cursor: pointer;
+      color: #333333;
 
       &.selected {
-        background-color:  #f8ce0d;
-        color: #fff;
+        background-color:  #f4e778;
+        color: #333333;
       }
     }
   }
