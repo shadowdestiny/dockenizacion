@@ -22,12 +22,12 @@ use EuroMillions\web\controllers\PublicSiteControllerBase;
 use Money\Currency;
 use Money\Money;
 
-class MegamillionsNumbersController extends PublicSiteControllerBase
+final class MegamillionsNumbersController extends PublicSiteControllerBase
 {
 
     public function indexAction()
     {
-        $date= $this->router->getParams()['date'];
+        $date = $this->request->get('date');
         $lotteryName = 'MegaMillions';
         $date = empty($date) ? $this->lotteryService->getLastDrawDate($lotteryName) : new \DateTime($date);
         $webLanguageStrategy = new WebLanguageStrategy($this->session,$this->di->get('request'));
