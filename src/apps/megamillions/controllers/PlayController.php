@@ -9,7 +9,7 @@
 namespace EuroMillions\megamillions\controllers;
 
 
-class PlayController extends \EuroMillions\shared\controllers\PlayController
+final class PlayController extends \EuroMillions\shared\controllers\PlayController
 {
 
     public function indexAction()

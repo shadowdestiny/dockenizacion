@@ -14,6 +14,9 @@ class LotterySeeder extends AbstractSeed
      */
     public function run()
     {
+        $this->execute('SET FOREIGN_KEY_CHECKS = 0');
+        $this->execute('TRUNCATE TABLE lotteries');
+
         $data = [
             [
                 'name' => 'EuroMillions',
@@ -39,10 +42,20 @@ class LotterySeeder extends AbstractSeed
                 'result_api' => 'Lottorisq',
                 'single_bet_price_amount' => '350',
                 'single_bet_price_currency_name' => 'EUR',
+            ],
+            [
+                'name' => 'MegaMillions',
+                'jackpot_api' => 'Lottorisq',
+                'frequency' => 'w0001001',
+                'draw_time' => '04:30:00',
+                'result_api' => 'Lottorisq',
+                'single_bet_price_amount' => '350',
+                'single_bet_price_currency_name' => 'EUR',
             ]
         ];
         $lotteries = $this->table('lotteries');
         $lotteries->insert($data)
             ->save();
+        $this->execute('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

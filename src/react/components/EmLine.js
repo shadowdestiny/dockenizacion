@@ -7,6 +7,7 @@ var EuroMillionsRandomBtn = require('./EmRandomBtn.js');
 
 const GAME_MODE_POWERBALL = 'powerball'
 const GAME_MODE_EUROMILLIONS = 'euromillions'
+const GAME_MODE_MEGAMILLIONS = 'megamillions'
 
 var EuroMillionsLine = React.createClass({
 
@@ -26,6 +27,11 @@ var EuroMillionsLine = React.createClass({
           numbers = storage.numbers;
           stars   = storage.stars;
         }
+        const numberSets = {
+          [GAME_MODE_EUROMILLIONS] : { maxStars : 1, highestNumber : 69, highestStar : 26 },
+          [GAME_MODE_POWERBALL]    : { maxStars : 2, highestNumber : 50, highestStar : 12 },
+          [GAME_MODE_MEGAMILLIONS] : { maxStars : 1, highestNumber : 70, highestStar : 25 },
+        }
         return {
             isAnimated : false,
             show_btn_clear : showClearBtn,
@@ -33,10 +39,8 @@ var EuroMillionsLine = React.createClass({
                 'numbers': numbers,
                 'stars': stars
             },
-            maxStars      : maxStars || gameMode == GAME_MODE_POWERBALL ? 1 : 2,
             maxNumbers    : 5,
-            highestNumber : gameMode == GAME_MODE_POWERBALL ? 69 : 50,
-            highestStar   : gameMode == GAME_MODE_POWERBALL ? 26 : 12,
+            ...numberSets[gameMode],
         };
     },
 
@@ -176,7 +180,7 @@ var EuroMillionsLine = React.createClass({
         const { lineNumber, gameMode } = this.props
 
         const showStars = gameMode == GAME_MODE_EUROMILLIONS
-        const showDropdown = gameMode == GAME_MODE_POWERBALL
+        const showDropdown = gameMode == GAME_MODE_POWERBALL || gameMode == GAME_MODE_MEGAMILLIONS
 
         var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var num_char_line = '';
