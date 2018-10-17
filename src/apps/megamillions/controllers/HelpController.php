@@ -7,7 +7,7 @@ use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\controllers\PublicSiteControllerBase;
 
-class HelpController extends PublicSiteControllerBase
+final class HelpController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
@@ -18,6 +18,7 @@ class HelpController extends PublicSiteControllerBase
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        ViewHelper::setSemanticJackpotValue($numbers,$letters,$jackpot,$this->languageService->getLocale());
         $this->view->setVar('milliards', false);
         $this->view->setVar('trillions', false);
         if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
