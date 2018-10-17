@@ -128,7 +128,7 @@
     </div>
     {% endif %}
 	<div id="loading" class="add-funds-block" style="display:none;">
-        	<strong>Cargando...</strong>
+        	<strong>{{ language.translate("load_deposit") }}</strong>
     </div>
     <div id="money-matrix" class="add-funds-block" style="display:none;">
     	{% include "cart/moneymatrix_iframe.volt" %}
