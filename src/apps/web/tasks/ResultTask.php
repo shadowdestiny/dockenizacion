@@ -135,20 +135,4 @@ class ResultTask extends TaskBase
             throw new \Exception($e->getMessage());
         }
     }
-
-    public function importAllHistoricalDataFromMegamillionsAction()
-    {
-        try {
-            $dependencies = [];
-            $conversionService = $this->domainServiceFactory->getCurrencyConversionService();
-            $dependencies['CurrencyConversionService'] = $conversionService;
-            $results = $this->lotteryService->getAllResultFromLottery(new Curl(), Di::getDefault()->get('config')['megamillions_api'], 'megamillions');
-            $this->lotteriesDataService->insertMegaMillionsData($results->body,$dependencies);
-        } catch (Exception $e) {
-            throw new \Exception($e->getMessage());
-        }
-    }
-
-
-
 }

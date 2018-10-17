@@ -512,7 +512,7 @@ class LotteryService
             $curl->setOption(CURLOPT_SSL_VERIFYHOST, false);
             $curl->setOption(CURLOPT_SSL_VERIFYPEER, false);
 
-            $result = $curl->get($config->endpoint.'/'.$lotteryName.'/results',
+            $result = $curl->get($config->endpoint.'/results',
                 [],
                 array(
                     "x-api-key: " .$config->api_key,
