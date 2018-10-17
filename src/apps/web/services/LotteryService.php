@@ -111,7 +111,16 @@ class LotteryService
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
         /** @var EuroMillionsJackpot $jackpot_object */
-        $jackpot_object = 'EuroMillions\web\vo\\' . $lotteryName . 'Jackpot';
+        switch($lotteryName)
+        {
+            case 'MegaMillions':
+                $jackpot_object = 'EuroMillions\megamillions\vo\\' . $lotteryName . 'Jackpot';
+                break;
+            default:
+                $jackpot_object = 'EuroMillions\web\vo\\' . $lotteryName . 'Jackpot';
+                break;
+        }
+
         try {
             $next_jackpot = $this->lotteryDrawRepository->getNextJackpot($lottery);
             return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
@@ -303,7 +312,14 @@ class LotteryService
     /** return Class */
     private function getDTO($lotteryName){
 
-        return 'EuroMillions\web\vo\dto\\'.$lotteryName.'DrawDTO';
+        switch($lotteryName)
+        {
+            case 'MegaMillions':
+                return 'EuroMillions\megamillions\vo\dto\\'.$lotteryName.'DrawDTO';
+            default:
+                return 'EuroMillions\web\vo\dto\\'.$lotteryName.'DrawDTO';
+        }
+
     }
 
     public function getDrawsDTO($lotteryName, $limit = 13)
