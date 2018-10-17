@@ -17,7 +17,7 @@ use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\repositories\TranslationDetailRepository;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
-use EuroMillions\web\vo\dto\MegaMillionsDrawBreakDownDTO;
+use EuroMillions\megamillions\vo\dto\MegaMillionsDrawBreakDownDTO;
 use EuroMillions\shared\controllers\PublicSiteControllerBase;
 use Money\Currency;
 use Money\Money;
