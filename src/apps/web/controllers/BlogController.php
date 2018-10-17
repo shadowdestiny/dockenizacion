@@ -5,7 +5,6 @@ namespace EuroMillions\web\controllers;
 use EuroMillions\shared\components\widgets\PaginationWidget;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\entities\Blog;
-use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 class BlogController extends PublicSiteControllerBase
 {

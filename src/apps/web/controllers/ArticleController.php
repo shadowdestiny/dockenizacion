@@ -17,7 +17,6 @@ use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\TransactionService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
-use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 
 //EMTD se hacen llamadas al modelo ya que este controlador es solamente para el SEO

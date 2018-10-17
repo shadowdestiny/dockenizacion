@@ -26,7 +26,6 @@ use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation;
 use Phalcon\Validation\Message;
 use Phalcon\Validation\Validator\Regex;
-use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 class AccountController extends PublicSiteControllerBase
 {

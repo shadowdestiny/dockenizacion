@@ -2,7 +2,7 @@
 
 
 namespace EuroMillions\web\controllers;
-use EuroMillions\shared\controllers\PublicSiteControllerBase;
+
 
 class NewsController extends PublicSiteControllerBase
 {

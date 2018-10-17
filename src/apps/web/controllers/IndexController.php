@@ -4,7 +4,6 @@ namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
-use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 class IndexController extends PublicSiteControllerBase
 {

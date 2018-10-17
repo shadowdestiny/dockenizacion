@@ -4,7 +4,6 @@ namespace EuroMillions\web\controllers;
 use antonienko\PhpTempPrev\FileStrategies\JsonFileStrategy;
 use antonienko\PhpTempPrev\FrameworkStrategies\PhalconStrategy;
 use antonienko\PhpTempPrev\Previewer;
-use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 class DesignTestController extends PublicSiteControllerBase
 {

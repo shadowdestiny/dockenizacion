@@ -11,7 +11,6 @@ use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\Order;
 use Money\Currency;
 use Phalcon\Validation\Message;
-use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 
 //TODO: Extract to new parent class

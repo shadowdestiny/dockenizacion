@@ -10,7 +10,6 @@ use EuroMillions\web\vo\Email;
 use Phalcon\Forms\Element\Text;
 use Captcha\Captcha;
 use EuroMillions\web\components\ReCaptchaWrapper;
-use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 class ContactController extends PublicSiteControllerBase
 {

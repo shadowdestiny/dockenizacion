@@ -1,7 +1,6 @@
 <?php
 namespace EuroMillions\web\controllers;
 
-use EuroMillions\shared\controllers\PublicSiteControllerBase;
 use Doctrine\ORM\Query\ResultSetMapping;
 use EuroMillions\web\components\UserId;
 use EuroMillions\web\entities\Bet;
