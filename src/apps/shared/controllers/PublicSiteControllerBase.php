@@ -1,6 +1,6 @@
 <?php
 
-namespace EuroMillions\web\controllers;
+namespace EuroMillions\shared\controllers;
 
 use EuroMillions\shared\components\widgets\JackpotAndCountDownWidget;
 use EuroMillions\shared\helpers\PaginatedControllerTrait;

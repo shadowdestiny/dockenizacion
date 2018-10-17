@@ -3,7 +3,7 @@
 
 namespace EuroMillions\web\controllers;
 
-
+use EuroMillions\shared\controllers\PublicSiteControllerBase;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\EmailTemplateDecorator;
 use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;

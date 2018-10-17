@@ -6,11 +6,12 @@
  * Time: 11:35
  */
 
-namespace EuroMillions\web\vo\dto;
+namespace EuroMillions\megamillions\vo\dto;
 
 
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use ReflectionClass;
 
 class MegaMillionsDrawBreakDownDTO extends EuroMillionsDrawBreakDownDTO implements IDto

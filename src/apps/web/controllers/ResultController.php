@@ -3,7 +3,7 @@
 
 namespace EuroMillions\web\controllers;
 
-
+use EuroMillions\shared\controllers\PublicSiteControllerBase;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;

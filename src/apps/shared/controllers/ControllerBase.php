@@ -1,5 +1,5 @@
 <?php
-namespace EuroMillions\web\controllers;
+namespace EuroMillions\shared\controllers;
 
 use EuroMillions\shared\dto\RestrictedAccessConfig;
 use EuroMillions\shared\components\restrictedAccessStrategies\RestrictionByIpAndHttpAuth;

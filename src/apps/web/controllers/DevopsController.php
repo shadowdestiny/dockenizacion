@@ -3,6 +3,7 @@
 namespace EuroMillions\web\controllers;
 
 use Doctrine\Common\Cache\RedisCache;
+use EuroMillions\shared\controllers\ControllerBase;
 
 class DevopsController extends ControllerBase
 {

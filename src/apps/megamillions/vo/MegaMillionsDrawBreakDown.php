@@ -6,13 +6,14 @@
  * Time: 02:23 PM
  */
 
-namespace EuroMillions\web\vo;
+namespace EuroMillions\megamillions\vo;
 
 use EuroMillions\web\services\CurrencyConversionService;
 use Money\Currency;
 use Money\Money;
 use Money\UnknownCurrencyException;
 use Phalcon\Di;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 
 class MegaMillionsDrawBreakDown extends EuroMillionsDrawBreakDown
 {

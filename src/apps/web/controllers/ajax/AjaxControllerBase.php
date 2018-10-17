@@ -1,7 +1,7 @@
 <?php
 namespace EuroMillions\web\controllers\ajax;
 
-use EuroMillions\web\controllers\ControllerBase;
+use EuroMillions\shared\controllers\ControllerBase;
 
 class AjaxControllerBase extends ControllerBase
 {

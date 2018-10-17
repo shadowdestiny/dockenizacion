@@ -1,6 +1,7 @@
 <?php
 
 namespace EuroMillions\web\controllers;
+use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 class CurrencyController extends PublicSiteControllerBase
 {

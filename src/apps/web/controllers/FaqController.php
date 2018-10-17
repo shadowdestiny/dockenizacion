@@ -6,6 +6,7 @@ use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 class FaqController extends PublicSiteControllerBase
 {

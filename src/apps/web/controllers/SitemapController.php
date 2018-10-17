@@ -3,7 +3,7 @@
 
 namespace EuroMillions\web\controllers;
 
-
+use EuroMillions\shared\controllers\ControllerBase;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\Article;

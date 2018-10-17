@@ -3,6 +3,7 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 class LegalController extends PublicSiteControllerBase
 {

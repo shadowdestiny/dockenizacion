@@ -3,7 +3,7 @@
 namespace EuroMillions\megamillions\controllers;
 
 
-use EuroMillions\web\controllers\PublicSiteControllerBase;
+use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 class IndexController extends PublicSiteControllerBase
 {

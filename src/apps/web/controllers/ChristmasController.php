@@ -2,6 +2,7 @@
 
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\shared\controllers\PublicSiteControllerBase;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;

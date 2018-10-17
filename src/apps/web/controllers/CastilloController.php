@@ -3,6 +3,7 @@
 namespace EuroMillions\web\controllers;
 
 use Phalcon\Exception;
+use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 class CastilloController extends PublicSiteControllerBase
 {

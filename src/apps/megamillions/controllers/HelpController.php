@@ -5,7 +5,7 @@ namespace EuroMillions\megamillions\controllers;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
-use EuroMillions\web\controllers\PublicSiteControllerBase;
+use EuroMillions\shared\controllers\PublicSiteControllerBase;
 
 class HelpController extends PublicSiteControllerBase
 {

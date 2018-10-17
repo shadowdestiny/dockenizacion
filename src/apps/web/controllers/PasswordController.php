@@ -3,7 +3,7 @@
 
 namespace EuroMillions\web\controllers;
 
-
+use EuroMillions\shared\controllers\PublicSiteControllerBase;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\ResetPasswordForm;

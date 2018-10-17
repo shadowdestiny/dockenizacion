@@ -26,6 +26,7 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\shared\vo\results\ActionResult;
 use Phalcon\Http\Client\Provider\Curl;
 use Phalcon\Validation\Message;
+use EuroMillions\shared\controllers\ControllerBase;
 
 class UserAccessController extends ControllerBase
 {
