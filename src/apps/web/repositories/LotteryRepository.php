@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\repositories;
 
 use Doctrine\ORM\EntityRepository;
@@ -15,8 +16,8 @@ class LotteryRepository extends EntityRepository
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT l'
-                .' FROM '.$this->getEntityName().' l '
-                .' WHERE l.name = :name')
+                . ' FROM ' . $this->getEntityName() . ' l '
+                . ' WHERE l.name = :name')
             ->setMaxResults(1)
             ->setParameters(['name' => $lotteryName])
             ->useResultCache(true, 3600)

@@ -59,7 +59,7 @@ class LotteryDrawRepository extends EntityRepository
             $date = new \DateTime();
         }
         $next_draw_date = $lottery->getNextDrawDate($date);
-        if($lottery->getName() == 'PowerBall') {
+        if($lottery->getName() == 'PowerBall' or $lottery->getName() == 'MegaMillions') {
             $next_draw_date = DateTimeUtil::convertDateTimeBetweenTimeZones($next_draw_date,'America/New_York','Europe/Madrid')->modify('-1 day');
         }
 

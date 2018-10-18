@@ -8,6 +8,6 @@ use EuroMillions\web\controllers\PublicSiteControllerBase;
 final class IndexController extends PublicSiteControllerBase
 {
     public function indexAction() {
-        die('hola');
+
     }
 }
