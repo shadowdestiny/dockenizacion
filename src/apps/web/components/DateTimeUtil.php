@@ -126,8 +126,12 @@ class DateTimeUtil
     }
 
 
-    public static function convertDateTimeBetweenTimeZones(\DateTime $date, $from,$to,$modify ="0")
+    public static function convertDateTimeBetweenTimeZones(\DateTime $date, $from,$to,$lotteryName)
     {
+        if($lotteryName == 'EuroMillions' || $lotteryName == 'Christmas')
+        {
+            return $date;
+        }
         $date = new \DateTime($date->format('Y-m-d H:i:s'), new \DateTimeZone($from));
         $date->setTimezone(new \DateTimeZone($to))->format('Y-m-d H:i:s');;
         return $date;
