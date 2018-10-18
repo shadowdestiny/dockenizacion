@@ -6,7 +6,7 @@
  * Time: 11:34
  */
 
-namespace EuroMillions\web\vo\dto;
+namespace EuroMillions\megamillions\vo\dto;
 
 
 use EuroMillions\web\components\EmTranslationAdapter;

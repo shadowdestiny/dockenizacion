@@ -28,8 +28,8 @@ var EuroMillionsLine = React.createClass({
           stars   = storage.stars;
         }
         const numberSets = {
-          [GAME_MODE_EUROMILLIONS] : { maxStars : 1, highestNumber : 69, highestStar : 26 },
-          [GAME_MODE_POWERBALL]    : { maxStars : 2, highestNumber : 50, highestStar : 12 },
+          [GAME_MODE_POWERBALL]    : { maxStars : 1, highestNumber : 69, highestStar : 26 },
+          [GAME_MODE_EUROMILLIONS] : { maxStars : 2, highestNumber : 50, highestStar : 12 },
           [GAME_MODE_MEGAMILLIONS] : { maxStars : 1, highestNumber : 70, highestStar : 25 },
         }
         return {
@@ -176,7 +176,7 @@ var EuroMillionsLine = React.createClass({
 
     render: function ()
     {
-        const { selectedNumbers } = this.state
+        const { selectedNumbers, maxNumbers, maxStars } = this.state
         const { lineNumber, gameMode } = this.props
 
         const showStars = gameMode == GAME_MODE_EUROMILLIONS
@@ -207,7 +207,7 @@ var EuroMillionsLine = React.createClass({
             <div onLoad={this.count} className={class_name}>
                 <span className="h4 blue center">{this.props.txtLine} {  num_char_line }</span>
                 <div className="line center">
-                    <EuroMillionsCheckMark numbers_length={numbers_length} stars_length={stars_length}/>
+                    <EuroMillionsCheckMark numbers_length={numbers_length} stars_length={stars_length} maxNumbers={maxNumbers} maxStars={maxStars} />
                     <div className="combo cols not">
                         <EuroMillionsRandomBtn line={this.props.lineNumber} onBtnRandomClick={this.handleClickRandom}/>
                     </div>

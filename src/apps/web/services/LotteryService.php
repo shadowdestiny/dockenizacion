@@ -36,8 +36,8 @@ use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\dto\EuroMillionsDrawDTO;
 use EuroMillions\web\vo\dto\PowerBallDrawBreakDownDTO;
 use EuroMillions\web\vo\dto\PowerBallDrawDTO;
-use EuroMillions\web\vo\dto\MegaMillionsDrawDTO;
-use EuroMillions\web\vo\dto\MegaMillionsDrawBreakDownDTO;
+use EuroMillions\megamillions\vo\dto\MegaMillionsDrawDTO;
+use EuroMillions\megamillions\vo\dto\MegaMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsJackpot;
@@ -111,7 +111,16 @@ class LotteryService
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
         /** @var EuroMillionsJackpot $jackpot_object */
-        $jackpot_object = 'EuroMillions\web\vo\\' . $lotteryName . 'Jackpot';
+        switch($lotteryName)
+        {
+            case 'MegaMillions':
+                $jackpot_object = 'EuroMillions\megamillions\vo\\' . $lotteryName . 'Jackpot';
+                break;
+            default:
+                $jackpot_object = 'EuroMillions\web\vo\\' . $lotteryName . 'Jackpot';
+                break;
+        }
+
         try {
             $next_jackpot = $this->lotteryDrawRepository->getNextJackpot($lottery);
             return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
@@ -303,7 +312,14 @@ class LotteryService
     /** return Class */
     private function getDTO($lotteryName){
 
-        return 'EuroMillions\web\vo\dto\\'.$lotteryName.'DrawDTO';
+        switch($lotteryName)
+        {
+            case 'MegaMillions':
+                return 'EuroMillions\megamillions\vo\dto\\'.$lotteryName.'DrawDTO';
+            default:
+                return 'EuroMillions\web\vo\dto\\'.$lotteryName.'DrawDTO';
+        }
+
     }
 
     public function getDrawsDTO($lotteryName, $limit = 13)
@@ -512,7 +528,7 @@ class LotteryService
             $curl->setOption(CURLOPT_SSL_VERIFYHOST, false);
             $curl->setOption(CURLOPT_SSL_VERIFYPEER, false);
 
-            $result = $curl->get($config->endpoint.'/'.$lotteryName.'/results',
+            $result = $curl->get($config->endpoint.'/results',
                 [],
                 array(
                     "x-api-key: " .$config->api_key,
