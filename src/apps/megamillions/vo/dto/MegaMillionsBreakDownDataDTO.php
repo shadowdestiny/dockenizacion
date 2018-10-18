@@ -6,7 +6,7 @@
  * Time: 11:36
  */
 
-namespace EuroMillions\web\vo\dto;
+namespace EuroMillions\megamillions\vo\dto;
 
 
 class MegaMillionsBreakDownDataDTO

@@ -6,8 +6,8 @@
  * Time: 02:28 PM
  */
 
-namespace EuroMillions\web\vo;
-
+namespace EuroMillions\megamillions\vo;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDownData;
 
 class MegaMillionsDrawBreakDownData extends EuroMillionsDrawBreakDownData
 {

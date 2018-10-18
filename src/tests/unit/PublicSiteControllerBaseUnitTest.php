@@ -5,7 +5,7 @@ namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\components\ViewHelper;
-use EuroMillions\web\controllers\PublicSiteControllerBase;
+use EuroMillions\shared\controllers\PublicSiteControllerBase;
 use EuroMillions\web\vo\EuroMillionsJackpot;
 use Money\Currency;
 use Money\Money;

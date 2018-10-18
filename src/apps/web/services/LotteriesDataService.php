@@ -22,7 +22,7 @@ use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDownData;
 use EuroMillions\web\vo\EuroMillionsJackpot;
 use EuroMillions\web\vo\PowerBallDrawBreakDown;
-use EuroMillions\web\vo\MegaMillionsDrawBreakDown;
+use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
 use EuroMillions\web\vo\Raffle;
 use Money\Currency;
 use Money\Money;
