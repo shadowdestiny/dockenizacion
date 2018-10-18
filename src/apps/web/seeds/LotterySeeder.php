@@ -45,10 +45,10 @@ class LotterySeeder extends AbstractSeed
             ],
             [
                 'name' => 'MegaMillions',
-                'jackpot_api' => 'Lottorisq',
+                'jackpot_api' => 'MegaMillions',
                 'frequency' => 'w0010010',
                 'draw_time' => '04:30:00',
-                'result_api' => 'Lottorisq',
+                'result_api' => 'MegaMillions',
                 'single_bet_price_amount' => '350',
                 'single_bet_price_currency_name' => 'EUR',
             ]

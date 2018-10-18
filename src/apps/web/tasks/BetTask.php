@@ -65,7 +65,6 @@ class BetTask extends TaskBase
         /** @var Lottery $lottery */
         foreach ($lotteries as $lottery) {
             if ($lottery->getName() == 'PowerBall') {
-
                 $this->lotteryService->placePowerBallBetForNextDraw($lottery, $date);
             }
         }
