@@ -100,7 +100,7 @@
 </script>
     <main id="content">
 
-        <div class="powerball--result-page--content">
+        <div class="common--result-page--content megamillions--result-page--content">
 
             <div class="banner">
 
