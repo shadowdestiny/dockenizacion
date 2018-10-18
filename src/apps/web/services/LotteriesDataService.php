@@ -68,6 +68,7 @@ class LotteriesDataService
 
     public function updateNextDrawJackpotPowerball($lotteryName, \DateTime $now = null)
     {
+        $jackpot=null;
         try {
             /** @var Lottery $lottery */
             $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
