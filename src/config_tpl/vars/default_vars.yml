@@ -72,8 +72,8 @@ wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 lottorisq_endpoint: 'http://192.168.50.2/powerball'
 lottorisq_apikey: ''
 
-megamillions_endpoint: 'http://192.168.50.3/megamillions'
-megamillions_apikey: ''
+megamillions_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/megamillions'
+megamillions_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
 queue_results_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/results_testing'
 queue_prizes_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/prizes_test'

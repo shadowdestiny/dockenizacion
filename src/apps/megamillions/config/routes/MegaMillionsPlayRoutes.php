@@ -30,7 +30,6 @@ class MegaMillionsPlayRoutes extends RouterGroup
             'action' => 'index',
             'language' => 'en'
         ));
-
     }
 
 }
