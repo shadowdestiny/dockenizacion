@@ -99,7 +99,7 @@
 </script>
     <main id="content">
 
-        <div class="powerball--result-page--content">
+        <div class="common--result-page--content powerball--result-page--content">
 
             <div class="banner">
 

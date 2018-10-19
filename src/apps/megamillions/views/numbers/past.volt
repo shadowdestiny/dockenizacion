@@ -99,13 +99,13 @@
                                     <thead class="thead--powerball">
                                     <tr>
                                         <th class="td-date"><span class="ico-date"></span>{{ language.translate("pastNumbers_date") }}</th>
-                                        <th class="td-ball-numbers--lottery"><span
+                                        <th class="td-ball-numbers--lottery megamillions--lottery-balls"><span
                                                     class="ico-ball"></span>{{ language.translate("resultshist_pow_numbers") }}</th>
-                                        <th class="td-powerball">
+                                        <th class="td-powerball megamillions--megaball">
                                             <span class="ico-ball"></span>
                                                 {{ language.translate("resultshist_megaballnumber") }}
                                         </th>
-                                        <th class="td-powerplay">
+                                        <th class="td-powerplay megamillions--megaplier">
                                             <span class="ico-ball"></span>
                                             Megaplier
                                         </th>

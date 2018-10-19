@@ -1,0 +1,25 @@
+// Megamillions results page
+
+.megamillions--result-page--content {
+  .title-block {
+    background: -webkit-linear-gradient(0deg, #2f75c0 0%, #014fa3 100%);
+    background: -moz-linear-gradient(0deg, #2f75c0 0%, #014fa3 100%);
+    background: -o-linear-gradient(0deg, #2f75c0 0%, #014fa3 100%);
+    background: -ms-linear-gradient(0deg, #2f75c0 0%, #014fa3 100%);
+    background: linear-gradient(90deg, #2f75c0 0%, #014fa3 100%);
+
+    ul{
+      li.star {
+      background-color:  #f4e778;
+
+      &:last-of-type {
+        background-color:  #fcaaaa;
+      }
+
+      span {
+        position: relative;
+      }
+    }
+    }
+  }
+}
