@@ -16,10 +16,10 @@
             <a href="/{{ language.translate('link_megamillions_help') }}" class="a-hiw">
                 {{ language.translate('play_howbtn') }}
             </a>
-            <a href="/{{ language.translate('link_euromillions_results') }}" class="a-results">
+            <a href="/{{ language.translate('link_megamillions_results') }}" class="a-results">
                 {{ language.translate('play_resultsbtn') }}
             </a>
-            <a href="/{{ language.translate('link_euromillions_faq') }}" class="a-faq">
+            <a href="/{{ language.translate('link_megamillions_faq') }}" class="a-faq">
                 {{ language.translate('play_faqbtn') }}
             </a>
         </div>
