@@ -30,6 +30,18 @@ sub vcl_backend_response {
     #
     # Here you clean the response headers, removing silly Set-Cookie headers
     # and other mistakes your backend does.
+
+    # For static content
+    if (bereq.url ~ "\.(jp(e?)g|gif|png|css|js|ico|xml") {
+        #Remove cookies from Backend
+        unset beresp.http.cookie;
+
+        # Set TTL of 1h
+        set beresp.ttl = 1h;
+
+        # Define the default grace period to serve cached content
+        set beresp.grace = 30m;
+    }
 }
 
 sub vcl_deliver {
@@ -37,4 +49,9 @@ sub vcl_deliver {
     # response to the client.
     #
     # You can do accounting or modifying the final object here.
+
+    # Remove unwanted Headers
+    unset resp.http.Server;
+    unset resp.http.Via;
+
 }
