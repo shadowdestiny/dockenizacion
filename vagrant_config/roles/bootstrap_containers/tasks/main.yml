@@ -50,13 +50,9 @@
     name: "{{webserver_container_name}}"
     image: develweb
     state: reloaded
-    ports:
-      - "80:80"
-      - "443:443"
     volumes:
       - /var/www:/var/www
       - /vagrant/src/docker/devel-web/nginxconfig:/etc/nginx/sites-enabled
-      - /vagrant/src/docker/devel-web/certs:/etc/nginx/ssl
     links:
       - develdbmaster:mysql
       - develredis:redis
@@ -64,6 +60,27 @@
       EM_ENV: development
       AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
       AWS_SECRET_ACCESS_KEY: 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
+
+- name: build varnish container
+  docker_image:
+    name: develvarnish
+    path: /vagrant/src/docker/devel-varnish
+    state: build
+
+- name: start varnish container
+  docker:
+    name: develvarnish
+    image: develvarnish
+    state: reloaded
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /vagrant/src/docker/devel-varnish/certs:/etc/nginx/ssl
+    links:
+    - develweb:backend
+    env:
+      EM_ENV: development
 
 - name: Create script with env vars
   shell: docker exec {{webserver_container_name}} printenv | sed 's/^\(.*\)$/export \1/g' | grep EM_ENV > /tmp/project_env.sh
