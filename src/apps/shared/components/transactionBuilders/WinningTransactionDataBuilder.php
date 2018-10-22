@@ -3,9 +3,10 @@
 namespace EuroMillions\shared\components\transactionBuilders;
 
 use EuroMillions\shared\interfaces\IBuildTransactionData;
+use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\shared\vo\Winning;
-use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\Bet;
 use Money\Money;
 
 class WinningTransactionDataBuilder implements IBuildTransactionData
@@ -27,6 +28,11 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
      * @var User
      */
     private $user;
+
+    /**
+     * @var string
+     */
+    private $type;
 
     /**
      * WinningTransactionDataBuilder constructor.
@@ -51,11 +57,11 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
         if($this->winning->greaterThanOrEqualThreshold()){
             $this->user->setWinningAbove($this->winning->getPrice());
             $this->user->setShowModalWinning(1);
+            $this->setType(TransactionType::BIG_WINNING);
         }
         else{
             $this->user->awardPrize($this->winning->getPrice());
-
-
+            $this->setType(TransactionType::WINNINGS_RECEIVED);
         }
     }
 
@@ -64,7 +70,7 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
      */
     public function getData()
     {
-        return [
+        $data = [
             'draw_id' => $this->bet->getEuroMillionsDraw()->getId(),
             'bet_id' => $this->bet->getId(),
             'amount' => $this->amount->getAmount(),
@@ -74,6 +80,28 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
             'state' => 'pending',
             'now' => new \DateTime()
         ];
+
+        if(!$this->winning->greaterThanOrEqualThreshold()) {
+            $data['state'] = '';
+            $data['lottery_id'] = $this->winning->getLotteryId();
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type){
+        $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

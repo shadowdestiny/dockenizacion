@@ -7,7 +7,6 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\components\transactionBuilders\WinningTransactionDataBuilder;
 use EuroMillions\shared\vo\PowerBallPrize;
-use EuroMillions\shared\vo\Wallet;
 use EuroMillions\shared\vo\Winning;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
@@ -148,26 +147,18 @@ class PrizeCheckoutService
         /** @var User $user */
         $user = $this->userRepository->find($scalarValues['userId']);
         try {
-
-            //EMTD WinningVO to avoid this logic
             $current_amount = $amount->getAmount() / 100;
             $price = new Money((int)$current_amount, new Currency('EUR'));
 
             $winning = new Winning($price, $threshold_price, $lotteryId);
             $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount);
             $transactionBuilder->generate();
+            $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
 
             if($transactionBuilder->greaterThanOrEqualThreshold()){
-                $this->storeAwardTransaction($transactionBuilder->getData(), TransactionType::BIG_WINNING);
                 $this->sendBigWinPowerBallEmail($bet, $user, $price, $scalarValues);
             }
             else{
-                $data = $transactionBuilder->getData();
-                $data['walletAfter'] = $user->getWallet();
-                $data['state'] = '';
-                $data['lottery_id'] = $lotteryId;
-
-                $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
                 //TODO: send to new queue
                 $this->sendSmallWinPowerBallEmail($bet, $user, $price, $scalarValues);
             }
@@ -244,7 +235,7 @@ class PrizeCheckoutService
         $this->transactionService->storeTransaction($transactionType, $data);
     }
 
-    /*
+    //TODO: Refactor awardUser() like award() for remove this
     private function prepareDataToTransaction(Bet $bet, User $user, Money $amount)
     {
         return [
@@ -258,7 +249,6 @@ class PrizeCheckoutService
             'now' => new \DateTime()
         ];
     }
-    */
 
     /**
      * @param User $user
