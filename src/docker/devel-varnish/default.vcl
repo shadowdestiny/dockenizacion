@@ -23,6 +23,12 @@ sub vcl_recv {
     #
     # Typically you clean up the request here, removing cookies you don't need,
     # rewriting the request, etc.
+
+    if (req.url ~ "\.(jpg|jpeg|gif|png|css|js|ico|xml|svg)$") {
+        # Remove cookies
+        unset req.http.cookie;
+        return(hash);
+    }
 }
 
 sub vcl_backend_response {
@@ -32,9 +38,10 @@ sub vcl_backend_response {
     # and other mistakes your backend does.
 
     # For static content
-    if (bereq.url ~ "\.(jp(e?)g|gif|png|css|js|ico|xml") {
-        #Remove cookies from Backend
-        unset beresp.http.cookie;
+    if (bereq.url ~ "\.(jpg|jpeg|gif|png|css|js|ico|xml|svg)$") {
+
+        # Remove cookies from Backend
+        unset beresp.http.set-cookie;
 
         # Set TTL of 1h
         set beresp.ttl = 1h;
@@ -53,5 +60,15 @@ sub vcl_deliver {
     # Remove unwanted Headers
     unset resp.http.Server;
     unset resp.http.Via;
+
+    # Only for DEBUG
+    if (obj.hits > 0) {
+        set resp.http.X-Cache = "HIT";
+    } else {
+       set resp.http.X-Cache = "MISS";
+    }
+
+    # Only for DEBUG
+    set resp.http.X-Cache-Hits = obj.hits;
 
 }
