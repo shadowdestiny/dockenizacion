@@ -30,6 +30,7 @@ RUN rm -Rf /etc/nginx/conf.d/* && \
 unlink /etc/nginx/sites-enabled/default && \
 rm -Rf /etc/nginx/sites-available/default && \
 mkdir -p /etc/nginx/ssl/
+ADD ./nginx-custom.conf /etc/nginx/conf.d/nginx-custom.conf
 ADD ./nginx-site.conf /etc/nginx/sites-available/default.conf
 RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 
