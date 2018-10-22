@@ -161,6 +161,10 @@
                 </div>
 
                 <div class="content">
+
+                    <div class="right-section">
+                         {{ jackpot_widget }}
+                    </div>
                     <div class="left-section result-section">
 
                         <div class="box-current-winners--new">
