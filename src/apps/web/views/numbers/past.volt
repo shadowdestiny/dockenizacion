@@ -50,6 +50,19 @@
             <div class="wrapper">
                 <br>
                 <div class="content">
+
+                    <div class="result-header">
+                        <h1 class="h1 title">
+                            {% if mobile == 1 %}
+                                {{ language.translate("resultshist_mobile_h1") }}
+                            {% else %}
+                                {{ language.translate("resultshist_title") }}
+                            {% endif %}
+                        </h1>
+                        <h2 class="h2 purple">{{ language.translate("historyNumbers_title") }}</h2>
+                    </div>
+
+
                     {% include "_elements/section-powerball.volt" %}
 
                     <div class="left-section result-section">
@@ -68,18 +81,9 @@
                         {#</div>#}
                         {#</div>#}
 
-                        <h1 class="h1 title">
-                            {% if mobile == 1 %}
-                                {{ language.translate("resultshist_mobile_h1") }}
-                            {% else %}
-                                {{ language.translate("resultshist_title") }}
-                            {% endif %}
-                        </h1>
+
                         <div class="history-numbers-block">
 
-                            <div class="pad">
-                                <h2 class="h2 purple">{{ language.translate("historyNumbers_title") }}</h2>
-                            </div>
                             <table id="history-numbers" class="ui-responsive table2" data-role="table"
                                    data-mode="reflow">
                                 <thead>

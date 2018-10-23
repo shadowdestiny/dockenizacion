@@ -1,6 +1,17 @@
 // Megamillions results page
 
 .megamillions--result-page--content {
+
+  .top-banner--section {
+    .top-banner--banner {
+      background-image: url("../img/megamillions/results-top-bg.png");
+      background-position: 100% 100%;
+      background-repeat: no-repeat;
+      -webkit-background-size: cover;
+      background-size: cover;
+    }
+  }
+
   .title-block {
     background: -webkit-linear-gradient(0deg, #2f75c0 0%, #014fa3 100%);
     background: -moz-linear-gradient(0deg, #2f75c0 0%, #014fa3 100%);
@@ -21,5 +32,79 @@
       }
     }
     }
+  }
+
+  .bottom--banner {
+    display: none;
+
+    @media only screen and (min-width: $screen-small) {
+      display: block;
+      height: 135px;
+      background-color: #000000;
+      width: 100%;
+
+      margin-top: 80px;
+      margin-bottom: 75px;
+
+      background-image: url("../img/megamillions/results-bottom-bg.png");
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      //-webkit-background-size: 1024px;
+      //background-size: 1024px;
+      -webkit-background-size:contain;
+      background-size:contain;
+
+    }
+  }
+}
+
+.result-page--content--previous-result.megamillions-previous-results {
+  .past-header {
+
+    h1 {
+      color: #f8ce0d;
+      font-size: 24px;
+      font-weight: 900;
+      text-align: left;
+      text-transform: uppercase;
+
+      @include common-headings-style-h1 ();
+
+      margin-bottom: 0;
+
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 36px;
+      }
+    }
+
+    h2 {
+      font-size: 18px;
+      background-color: #f8ce0d;
+      padding: 10px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        background-color: transparent;
+        font-weight: 900;
+        padding: 0;
+        //padding-bottom: 30px;
+        border-bottom: 0;
+      }
+
+      //@include common-headings-style-h2 ();
+
+
+    }
+  }
+
+  .result-section {
+
+    @media only screen and (min-width: $screen-desktop) {
+      padding-right: 310px;
+    }
+
+    .history-numbers-block{
+      border-top: 1px solid #000;
+    }
+
   }
 }
