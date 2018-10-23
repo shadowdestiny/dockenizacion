@@ -28,11 +28,14 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
      * @var User
      */
     private $user;
-
     /**
      * @var string
      */
     private $type;
+    /**
+     * @var array
+     */
+    private $data;
 
     /**
      * WinningTransactionDataBuilder constructor.
@@ -47,6 +50,17 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
         $this->bet = $bet;
         $this->user = $user;
         $this->amount = $amount;
+
+        $this->data = [
+            'draw_id' => $this->bet->getEuroMillionsDraw()->getId(),
+            'bet_id' => $this->bet->getId(),
+            'amount' => $this->amount->getAmount(),
+            'user' => $this->user,
+            'walletBefore' => $this->user->getWallet(),
+            'walletAfter' => $this->user->getWallet(),
+            'state' => 'pending',
+            'now' => new \DateTime()
+        ];
     }
 
     /**
@@ -61,6 +75,9 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
         }
         else{
             $this->user->awardPrize($this->winning->getPrice());
+            $this->data['walletAfter'] = $this->user->getWallet();
+            $this->data['state'] = '';
+            $this->data['lottery_id'] = $this->winning->getLotteryId();
             $this->setType(TransactionType::WINNINGS_RECEIVED);
         }
     }
@@ -70,23 +87,7 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
      */
     public function getData()
     {
-        $data = [
-            'draw_id' => $this->bet->getEuroMillionsDraw()->getId(),
-            'bet_id' => $this->bet->getId(),
-            'amount' => $this->amount->getAmount(),
-            'user' => $this->user,
-            'walletBefore' => $this->user->getWallet(),
-            'walletAfter' => $this->user->getWallet(),
-            'state' => 'pending',
-            'now' => new \DateTime()
-        ];
-
-        if(!$this->winning->greaterThanOrEqualThreshold()) {
-            $data['state'] = '';
-            $data['lottery_id'] = $this->winning->getLotteryId();
-        }
-
-        return $data;
+        return $this->data;
     }
 
     /**

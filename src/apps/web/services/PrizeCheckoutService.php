@@ -180,23 +180,22 @@ class PrizeCheckoutService
         /** @var User $user */
         $user = $this->userRepository->find($scalarValues['userId']);
         try {
-            //EMTD WinningVO to avoid this logic
-            $data = $this->prepareDataToTransaction($bet, $user, $amount);
             $current_amount = $amount->getAmount() / 100;
-            $amount = new Money((int)$current_amount, new Currency('EUR'));
-            if ($amount->greaterThanOrEqual($threshold_price)) {
-                $user->setWinningAbove($amount);
-                $user->setShowModalWinning(1);
-                $this->storeAwardTransaction($data, TransactionType::BIG_WINNING);
-                $this->sendBigWinEmail($bet, $user, $amount, $scalarValues);
-            } else {
-                $user->awardPrize($amount);
-                $data['walletAfter'] = $user->getWallet();
-                $data['state'] = '';
-                $data['lottery_id'] = 1;
-                $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
-                $this->sendSmallWinEmail($bet, $user, $amount, $scalarValues);
+            $price = new Money((int)$current_amount, new Currency('EUR'));
+            $lotteryId = $bet->getPlayConfig()->getLottery()->getId();
+
+            $winning = new Winning($price, $threshold_price, $lotteryId);
+            $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount);
+            $transactionBuilder->generate();
+            $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
+
+            if($transactionBuilder->greaterThanOrEqualThreshold()){
+                $this->sendBigWinEmail($bet, $user, $price, $scalarValues);
             }
+            else{
+                $this->sendSmallWinEmail($bet, $user, $price, $scalarValues);
+            }
+
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
             return new ActionResult(true, $user);
@@ -233,21 +232,6 @@ class PrizeCheckoutService
     private function storeAwardTransaction(array $data, $transactionType)
     {
         $this->transactionService->storeTransaction($transactionType, $data);
-    }
-
-    //TODO: Refactor awardUser() like award() for remove this
-    private function prepareDataToTransaction(Bet $bet, User $user, Money $amount)
-    {
-        return [
-            'draw_id' => $bet->getEuroMillionsDraw()->getId(),
-            'bet_id' => $bet->getId(),
-            'amount' => $amount->getAmount(),
-            'user' => $user,
-            'walletBefore' => $user->getWallet(),
-            'walletAfter' => $user->getWallet(),
-            'state' => 'pending',
-            'now' => new \DateTime()
-        ];
     }
 
     /**
