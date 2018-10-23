@@ -45,6 +45,14 @@ Vagrant.configure(2) do |config|
         ansible.playbook            = "create_config.yml"
     end
 
+    config.vm.provision "shell", inline: <<-SCRIPT
+        cd /var/www/react
+        sudo rm -r node_modules & npm cache clean --force
+        sudo npm -g install webpack
+        sudo npm install --save-dev
+        sudo npm run build
+    SCRIPT
+
     config.vm.network "private_network", ip: "192.168.50.1"
     config.vm.network "forwarded_port", guest: 80, host: 8080
     config.vm.network "forwarded_port", guest: 443, host: 4433
