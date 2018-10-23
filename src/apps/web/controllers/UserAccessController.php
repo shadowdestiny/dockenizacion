@@ -111,7 +111,7 @@ class UserAccessController extends ControllerBase
                     'email' => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     'remember' => $this->request->getPost('remember'),
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], 'string');
 
                 if (!$userCheck['bool']) {
@@ -175,7 +175,7 @@ class UserAccessController extends ControllerBase
                     'email' => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     'country' => $this->request->getPost('country'),
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                     'default_language' => explode('_', $this->languageService->getLocale())[0],
                 ];
 
