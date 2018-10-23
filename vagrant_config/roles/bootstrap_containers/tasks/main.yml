@@ -76,9 +76,9 @@
       - "80:80"
       - "443:443"
     volumes:
-      - /vagrant/src/docker/devel-varnish/certs:/etc/nginx/ssl
+      - /vagrant/src/docker/devel-varnish/nginx/certs:/etc/nginx/ssl
     links:
-    - develweb:backend
+      - develweb:backend
     env:
       EM_ENV: development
 

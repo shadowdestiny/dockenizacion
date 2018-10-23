@@ -4,14 +4,14 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND noninteractive
 
 # Update base image
-# Add sources for latest nginx
+# Add sources for latest nginx and varnish
 # Install software requirements
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     add-apt-repository ppa:nginx/development && \
     apt-get update && \
     apt-get upgrade -y && \
-    apt-get -y install supervisor cron nginx varnish && \
+    apt-get -y install supervisor cron nginx nginx-extras varnish && \
     apt-get remove --purge -y software-properties-common && \
     apt-get autoremove -y && \
     apt-get clean && \
@@ -30,19 +30,20 @@ RUN rm -Rf /etc/nginx/conf.d/* && \
 unlink /etc/nginx/sites-enabled/default && \
 rm -Rf /etc/nginx/sites-available/default && \
 mkdir -p /etc/nginx/ssl/
-ADD ./nginx-custom.conf /etc/nginx/conf.d/nginx-custom.conf
-ADD ./nginx-site.conf /etc/nginx/sites-available/default.conf
+
+COPY ./nginx/nginx-custom.conf /etc/nginx/conf.d/nginx-custom.conf
+COPY ./nginx/nginx-site.conf /etc/nginx/sites-available/default.conf
 RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 
 # varnish conf
-ADD ./default.vcl /etc/varnish/default.vcl
+COPY ./varnish/default.vcl /etc/varnish/default.vcl
 
 # Supervisor Config Files
-ADD ./supervisord_nginx.conf /etc/supervisor/conf.d/supervisord_nginx.conf
-ADD ./supervisord_varnish.conf /etc/supervisor/conf.d/supervisord_varnish.conf
+COPY ./supervisor/supervisord_nginx.conf /etc/supervisor/conf.d/supervisord_nginx.conf
+COPY ./supervisor/supervisord_varnish.conf /etc/supervisor/conf.d/supervisord_varnish.conf
 
 # Start Supervisord
-ADD ./start.sh /start.sh
+COPY ./start.sh /start.sh
 RUN chmod 755 /start.sh
 
 # Expose Ports
