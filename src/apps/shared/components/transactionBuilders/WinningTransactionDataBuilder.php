@@ -66,37 +66,11 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
     }
 
     /**
-     *
-     */
-    public function generate()
-    {
-        if($this->winning->greaterThanOrEqualThreshold()){
-            $this->user->setWinningAbove($this->winning->getPrice());
-            $this->user->setShowModalWinning(1);
-            $this->setType(TransactionType::BIG_WINNING);
-        }
-        else{
-            $this->user->awardPrize($this->winning->getPrice());
-            $this->data['walletAfter'] = $this->user->getWallet();
-            $this->data['state'] = '';
-            $this->data['lottery_id'] = $this->winning->getLotteryId();
-            $this->setType(TransactionType::WINNINGS_RECEIVED);
-        }
-    }
-
-    /**
      * @return array
      */
     public function getData()
     {
         return $this->data;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type){
-        $this->type = $type;
     }
 
     /**
@@ -112,5 +86,24 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
      */
     public function greaterThanOrEqualThreshold(){
         return $this->winning->greaterThanOrEqualThreshold();
+    }
+
+    /**
+     *
+     */
+    private function generate()
+    {
+        if($this->winning->greaterThanOrEqualThreshold()){
+            $this->user->setWinningAbove($this->winning->getPrice());
+            $this->user->setShowModalWinning(1);
+            $this->type = TransactionType::BIG_WINNING;
+        }
+        else{
+            $this->user->awardPrize($this->winning->getPrice());
+            $this->data['walletAfter'] = $this->user->getWallet();
+            $this->data['state'] = '';
+            $this->data['lottery_id'] = $this->winning->getLotteryId();
+            $this->type = TransactionType::WINNINGS_RECEIVED;
+        }
     }
 }

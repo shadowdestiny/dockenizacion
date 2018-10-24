@@ -28,9 +28,6 @@ class WinningTransactionDataBuilderUnitTest extends UnitTestBase
     public function test_generateWinningTransactionsGreaterThanOrEqualThreshold_called_returnGetData()
     {
         $sut = $this->getSut(10000, 1000);
-
-        $sut->generate();
-
         $actual = $sut->getData();
 
         $expected = array(
@@ -52,9 +49,6 @@ class WinningTransactionDataBuilderUnitTest extends UnitTestBase
     public function test_generateWinningTransactionsNotGreaterThanOrEqualThreshold_called_returnGetData()
     {
         $sut = $this->getSut(10000, 100000);
-
-        $sut->generate();
-
         $actual = $sut->getData();
 
         $expected = array(
