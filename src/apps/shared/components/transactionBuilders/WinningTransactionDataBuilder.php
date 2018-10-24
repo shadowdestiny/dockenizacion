@@ -61,6 +61,8 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
             'state' => 'pending',
             'now' => new \DateTime()
         ];
+
+        $this->generate();
     }
 
     /**
