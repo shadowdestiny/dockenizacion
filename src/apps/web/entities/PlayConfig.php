@@ -89,7 +89,6 @@ class PlayConfig extends EntityBase implements IEntity, IEMForm, \JsonSerializab
             $this->setStartDrawDate(new \DateTime($formPlay->startDrawDate));
             $this->setLastDrawDate(new \DateTime($formPlay->lastDrawDate));
             $this->setFrequency((int)$formPlay->frequency);
-
             if(isset($formPlay->powerPlay)) {
                 $this->setPowerPlay($formPlay->powerPlay);
             } else {
@@ -127,7 +126,7 @@ class PlayConfig extends EntityBase implements IEntity, IEMForm, \JsonSerializab
             'frequency' => $this->frequency,
             'euromillions_line' => $lines,
             'user' => ['id' => (string)$this->user->getId()],
-            'powerplay' => $this->powerPlay
+            'powerPlay' => $this->powerPlay
         ];
     }
 

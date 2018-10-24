@@ -11,6 +11,7 @@ use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\entities\PurchaseTransaction;
 use EuroMillions\web\services\TransactionService;
 use EuroMillions\web\vo\enum\TransactionType;
+use EuroMillions\web\entities\DepositTransaction;
 use Prophecy\Argument;
 
 class TransactionServiceUnitTest extends UnitTestBase

@@ -29,11 +29,7 @@
                         {{ userDeposit['entity_type'] }}
                     </td>
                     <td align="center">
-                    {% if userDeposit['entity_type'] == 'subscription_purchase' %}
-                        {{ "%.2f"|format(userDeposit['subsMovement'] / 100 ) }}
-                    {% else %}
                         {{ "%.2f"|format(userDeposit['movement'] / 100 ) }}
-                    {% endif %}
                     </td>
                     <td align="center">
                         {{ "%.2f"|format(userDeposit['balance'] / 100 ) }}

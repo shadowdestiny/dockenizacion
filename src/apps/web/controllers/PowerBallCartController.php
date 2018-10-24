@@ -5,9 +5,11 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
+use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\OrderPowerBall;
 use Money\Currency;
 use Phalcon\Validation\Message;
 
@@ -266,9 +268,9 @@ class PowerBallCartController extends PublicSiteControllerBase
         $user = $this->authService->getCurrentUser();
         $discount = new Discount($result->returnValues()[0]->getFrequency(), $this->domainServiceFactory->getPlayService()->getBundleDataAsArray());
         if ($orderView) {
-            $order = new Order($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount); // order created
-            $order_eur = new Order($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount); //workaround for new payment gateway
-            $this->powerBallCartService->store($order);
+            $order = OrderFactory::create($result, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$this->lottery);
+            $order_eur = OrderFactory::create($result, $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$this->lottery);
+            $this->cartService->store($order);
         }
         /** @var PlayConfig[] $play_config */
         $play_config_collection = $result->returnValues();

@@ -124,14 +124,11 @@
             {% include "_elements/top-nav--mobile.volt" %}
 
             {#{% include "_elements/christmas-lottery-banner-block.volt" %}#}
-
-            <h1 class="home-mobile--h1">
-                {% if mobile == 1 %}
-                    {{ language.translate("home_mobile_h1") }}
-                {% else %}
-                    {{ language.translate("banner1_h1") }}
-                {% endif %}
-            </h1>
+ 			{% if mobile == 1 %}
+				<h1 class="home-mobile--h1">
+						{{ language.translate("home_mobile_h1") }}
+				</h1>
+			{% endif %}
             {% include "_elements/carroussel.volt" %}
             <div class="hiw-block--section">
 
@@ -191,25 +188,25 @@
                     <div class="result--block--content">
                         {% if euromillions_results is defined %}
                             {% for euromillions_result in euromillions_results %}
-                                <div class="result--line">
-                                    <p>
-                                        {% set dateFormat = language.translate('dateformat') %}
-                                        <?php
-                                            $day = $euromillions_result["draw_date"]->format('l');
-                                            $date = $euromillions_result["draw_date"]->format($dateFormat);
-                                        ?>
-                                        {{ language.translate(day) }}, {{ date }}
-                                    </p>
-                                    <ul class="no-li inline numbers small">
-                                        {% for regular_number in euromillions_result["regular_numbers"] %}
-                                            <li>{{ regular_number }}</li>
-                                        {% endfor %}
-                                        {% for lucky_number in euromillions_result["lucky_numbers"] %}
-                                            <li class="star">{{ lucky_number }}</li>
-                                        {% endfor %}
+									<div class="result--line">
+											<p>
+												{% set dateFormat = language.translate('dateformat') %}
+												<?php
+													$day = $euromillions_result["draw_date"]->format('l');
+													$date = $euromillions_result["draw_date"]->format($dateFormat);
+												?>
+												{{ language.translate(day) }}, {{ date }}
+											</p>
+											<ul class="no-li inline numbers small">
+												{% for regular_number in euromillions_result["regular_numbers"] %}
+													<li>{{ regular_number }}</li>
+												{% endfor %}
+												{% for lucky_number in euromillions_result["lucky_numbers"] %}
+													<li class="star">{{ lucky_number }}</li>
+												{% endfor %}
 
-                                    </ul>
-                                </div>
+											</ul>
+									</div>
                             {% endfor %}
                         {% endif %}
                     </div>
@@ -217,7 +214,7 @@
 
                 <div class="number-generator--block">
                     <div class="number-generator--block--img">
-                        <img src="/w/img/home/result-block/desktop/number-generator.jpg" alt="Latest News">
+                        <img src="https://images.euromillions.com/imgs/number-generator.jpg" alt="Latest News">
                     </div>
                     <h2 class="number-generator--block--title h2">
                         {{ language.translate("cta1_head") }}
@@ -318,7 +315,7 @@
 		"@type": "Organization",
 		"name": "EuroMillions.com",
 		"url": "{{ language.translate('markup_org_url') }}",
-		"logo": "https://euromillions.com/w/img/logo/v2/logo-desktop.png",
+		"logo": "https://images.euromillions.com/imgs/logo-desktop.png",
 		"contactPoint": [
 			{ "@type": "ContactPoint",
 			"email": "support@euromillions.com",

@@ -162,13 +162,10 @@ class PowerBallService
                     $discount = $order->getDiscount()->getValue();
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->setLottery($lottery);
-                    $order->setPowerPlayPrice($lottery->getPowerPlayValue());
                     $order->setPowerPlay($powerPlay);
 
                     $order->addFunds($order->getTotal());
                     $order->setAmountWallet($user->getWallet()->getBalance());
-
-
 
                     $draw = $this->lotteryService->getNextDrawByLottery('PowerBall');
                     $uniqueId = $this->walletService->getUniqueTransactionId();
@@ -212,8 +209,8 @@ class PowerBallService
                                 }
                                 if ($order->getHasSubscription()) {
                                     if ($isWallet) {
-                                        $this->walletService->paySubscriptionWithWallet($user, $play_config, $lottery->getPowerPlayValue());
-                                        $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue());
+                                        $this->walletService->paySubscriptionWithWallet($user, $play_config, $lottery->getPowerPlayValue(), $order);
+                                        $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue(), $order);
                                     } elseif ($withAccountBalance) {
                                         $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue());
                                         $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config, $lottery->getPowerPlayValue());
@@ -303,7 +300,7 @@ class PowerBallService
         return $this->lotteryService->getLotteryConfigByName($lottery);
     }
 
-    private function sendEmailPurchase(User $user, $orderLines)
+    public function sendEmailPurchase(User $user, $orderLines)
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new PowerBallPurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));

@@ -105,6 +105,75 @@ class WalletService
         return $payment_result;
     }
 
+    public function payOrder(User $user, Order $order)
+    {
+        if($order->getHasSubscription())
+        {
+            $user->reChargeSubscriptionWallet($order->getCreditCardCharge()->getNetAmount());
+            if($order->isIsCheckedWalletBalance())
+            {
+                $toSubstract = $order->getUnitPriceSubscription()->multiply($order->totalPlayConfigs());
+                $user->removeWalletToSubscription($toSubstract);
+            }
+        } else {
+            $user->reChargeWallet($order->getCreditCardCharge()->getNetAmount());
+        }
+        try
+        {
+            $this->entityManager->persist($user);
+            $this->entityManager->flush($user);
+            return $user;
+        } catch (\Exception $e)
+        {
+        }
+    }
+
+
+
+    public function extract(User $user, Order $order)
+    {
+        if($order->getHasSubscription())
+        {
+            $user->removeSubscriptionWallet($order->getUnitPrice());
+        } else
+        {
+            $user->pay($order->getUnitPrice());
+        }
+        try
+        {
+            $this->entityManager->flush($user);
+        } catch(\Exception $e)
+        {
+
+        }
+
+    }
+
+
+    public function payWithMoneyMatrix(User $user, $transactionID, Order $order, $isWallet,$amount)
+    {
+
+        $creditCardCharge = $order->getCreditCardCharge();
+        try {
+            $walletBefore = $user->getWallet();
+            if (!$order->getHasSubscription()) {
+                $user->reChargeWallet($amount);
+                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $transactionID, $walletBefore,$order);
+                $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
+            } else {
+                $user->reChargeSubscriptionWallet($amount);
+                if ($isWallet) {
+                    $user->removeSubscriptionWithWallet($amount);
+                }
+                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $transactionID, $walletBefore,$order);
+                $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
+            }
+            $this->entityManager->persist($user);
+            $this->entityManager->flush($user);
+        } catch (\Exception $e) {
+        }
+    }
+
     /**
      * @param ICardPaymentProvider $provider
      * @param CreditCard $card
@@ -143,7 +212,6 @@ class WalletService
     public function pay(ICardPaymentProvider $provider, CreditCard $card, CreditCardCharge $creditCardCharge)
     {
         try {
-
             $amount = $creditCardCharge->getFinalAmount();
             return $provider->charge($amount, $card);
         } catch (\Exception $e) {
@@ -177,10 +245,14 @@ class WalletService
     }
 
 
-    public function payWithWallet(User $user, PlayConfig $playConfig, Money $powerPlayValue = null)
+    public function payWithWallet(User $user, PlayConfig $playConfig, Money $powerPlayValue = null, Order $order =null)
     {
         try {
             if ($playConfig->getPowerPlay()) {
+                if($order != null)
+                {
+                    $powerPlayValue = new Money($order->getLottery()->getPowerPlayValue(), new Currency('EUR'));
+                }
                 $price = $powerPlayValue->add($playConfig->getSinglePrice());
                 $user->pay($price);
             } else {
@@ -191,11 +263,14 @@ class WalletService
         }
     }
 
-    public function paySubscriptionWithWallet(User $user, PlayConfig $playConfig, $powerPlayValue = null)
+    public function paySubscriptionWithWallet(User $user, PlayConfig $playConfig, $powerPlayValue = null, Order $order = null)
     {
         try {
             if ($playConfig->getPowerPlay()) {
-                $powerPlayValue = new Money($powerPlayValue, new Currency('EUR'));
+                if($order != null)
+                {
+                    $powerPlayValue = new Money($order->getLottery()->getPowerPlayValue(), new Currency('EUR'));
+                }
                 $price = $playConfig->getSinglePrice()->multiply($playConfig->getFrequency());
                 $powerPlayValue = $powerPlayValue->multiply($playConfig->getFrequency());
                 $price = $price->add($powerPlayValue);
@@ -209,13 +284,15 @@ class WalletService
         }
     }
 
-    public function paySubscriptionWithWalletAndCreditCard(User $user, PlayConfig $playConfig, $powerPlayValue = null)
+    public function paySubscriptionWithWalletAndCreditCard(User $user, PlayConfig $playConfig, $powerPlayValue = null, Order $order = null)
     {
         try {
 
             if ($playConfig->getPowerPlay()) {
-
-                $powerPlayValue = new Money($powerPlayValue, new Currency('EUR'));
+                if($order != null)
+                {
+                    $powerPlayValue = new Money($order->getLottery()->getPowerPlayValue(), new Currency('EUR'));
+                }
                 $price = $playConfig->getSinglePrice()->multiply($playConfig->getFrequency());
                 $powerPlayValue = $powerPlayValue->multiply($playConfig->getFrequency());
                 $price = $price->add($powerPlayValue);
@@ -231,11 +308,14 @@ class WalletService
     }
 
 
-    public function payWithSubscription(User $user, PlayConfig $playConfig, $powerPlayValue = null)
+    public function payWithSubscription(User $user, PlayConfig $playConfig, $powerPlayValue = null, Order $order = null)
     {
         try {
             if ($playConfig->getPowerPlay()) {
-                $powerPlayValue = new Money(150, new Currency('EUR'));
+                if($order != null)
+                {
+                    $powerPlayValue = new Money($order->getLottery()->getPowerPlayValue(), new Currency('EUR'));
+                }
                 $price = $playConfig->getSinglePrice()->add($powerPlayValue);
                 $user->removeSubscriptionWallet($price);
             } else {
@@ -390,6 +470,30 @@ class WalletService
         }
     }
 
+    public function createDepositTransaction(User $user,
+                                                  $uniqueID = null,
+                                                  Order $order)
+    {
+
+        try
+        {
+            $creditCardCharge = $order->getCreditCardCharge();
+
+            $walletBefore = $user->getWallet();
+            $data = $this->buildDepositTransactionData(
+                $user,
+                $creditCardCharge,
+                $uniqueID,
+                $walletBefore,
+                $order
+            );
+            $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $data);
+        }catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
     /**
      * @param User $user
      * @param CreditCardCharge $creditCardCharge
@@ -414,7 +518,7 @@ class WalletService
         }
 
         $dataTransaction = [
-            'lottery_id' => $order ? $order->getLottery()->getId() : 1,
+            'lottery_id' => $order != null && $order->getLottery() != null ? $order->getLottery()->getId() : 1,
             'numBets' => count($user->getPlayConfig()),
             'feeApplied' => $isChargeFee,
             'transactionID' => $uniqueID,
@@ -425,7 +529,9 @@ class WalletService
             'user' => $user,
             'walletBefore' => $walletBefore,
             'walletAfter' => $user->getWallet(),
-            'now' => new \DateTime()
+            'now' => new \DateTime(),
+            'lotteryName' => $order->getLottery()->getName(),
+            'withWallet' => $order->isIsCheckedWalletBalance()
         ];
         return $dataTransaction;
     }

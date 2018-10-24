@@ -45,13 +45,7 @@ cart success minimal
                     , {{ draw_date_format }}
                 </p>
                 <h2>
-                    {{ language.translate("tittle") }} {{ jackpot_value_success }} {% if milliards %}
-                        {{ language.translate("billion") }}
-                    {% elseif trillions %}
-                        {{ language.translate("trillion") }}
-                    {% else %}
-                        {{ language.translate("million") }}
-                    {% endif %}
+                    {{ language.translate("tittle") }} {{ currency_symbol }}{{ jackpot_values }} {{ language.translate("billion") }}
                 </h2>
             </div>
             <div class="thank-you-block--rows">

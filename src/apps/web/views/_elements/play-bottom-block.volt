@@ -21,12 +21,13 @@
 
 <div class="box-bottom play-bottom-block">
 
-    <h1>
-        {{ language.translate("play_h1") }}
-    </h1>
-
+	{% if mobile != 1 %}
+		<h1>
+			{{ language.translate("play_h1") }}
+		</h1>
+	{% endif %}
     <div class="play-bottom-block--img">
-        <img src="/w/img/play/desktop/play-bottom-banner.png"/>
+        <img src="https://images.euromillions.com/imgs/play-bottom-banner.png"/>
     </div>
     <div class="play-bottom-block--center">
         <h2>

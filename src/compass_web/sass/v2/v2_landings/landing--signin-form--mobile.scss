@@ -1,0 +1,146 @@
+//Landing Sign Up form
+
+.landing--signin-form {
+
+  // Mobile version Start
+  @media only screen and (max-width: $screen-pre-desktop) {
+    // *******************
+
+    width: vwm(320);
+    //height: vwm(470);
+    height: auto;
+    //margin: 0 vwm(-8);
+    margin-top: 0;
+    margin-left: vwm(-8);
+    max-width: none;
+    padding: vwm(13) vwm(8);
+    padding-bottom: 0;
+    border-radius: 0;
+    border: none;
+
+
+    h1,
+    .title {
+      font-size: vwm(16);
+      line-height: vwm(20);
+      //margin-bottom: vwm(22);
+      margin-bottom: 0;
+      text-align: left;
+      border-bottom: 1px solid #b7b7b7;
+      padding-bottom: vwm(16);
+    }
+
+    form {
+      .input,
+      input {
+        height: vwm(50);
+        font-size: vwm(16);
+        color: #999999;
+        font-weight: 400;
+      }
+
+      .selectbox {
+        margin-bottom: 0;
+        position: relative;
+        top: vwm(2);
+        left: vwm(-5);
+
+        &::after {
+          position: absolute;
+          right: 0;
+          top: vwm(20);
+          width: vwm(22);
+          height: vwm(13);
+          background-image: url('../img/landing/orange/arrow-down.svg');
+          -webkit-background-size:100%;
+          background-size: 100%;
+          background-repeat: no-repeat;
+        }
+
+        .select,
+        select {
+          height: vwm(50);
+          border: 0;
+          font-size: vwm(16);
+          color: #999999;
+          font-weight: 400;
+          line-height: vwm(20);
+        }
+      }
+
+      .btn-theme--big {
+        height: vwm(54);
+        padding-top: vwm(9);
+        line-height: vwm(40);
+        font-size: vwm(22);
+      }
+
+      .pass-alert {
+        font-size: vwm(16);
+        line-height: vwm(20);
+        padding-top: vwm(28);
+        margin-bottom: vwm(8);
+        padding-left: vwm(29);
+        position: relative;
+        text-align: left;
+
+        span {
+          display: none;
+        }
+
+        &:before {
+          display: block;
+          content: "";
+          position: absolute;
+          width: vwm(23);
+          height: vwm(23);
+          left: vwm(-2);
+          top: vwm(25);
+          background-image: url('../img/landing/orange/info.svg');
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
+          -webkit-background-size: vwm(23);
+          background-size: vwm(23);
+        }
+      }
+
+      .btn-row {
+        height: vwm(66);
+      }
+
+      .txt--already-have-account {
+        margin-bottom: vwm(4);
+        font-size: vwm(16);
+        padding-top: vwm(4);
+        padding-left: 0;
+
+        display: none;
+
+        a {
+
+        }
+      }
+
+      .txt--accept {
+        font-size: vwm(16);
+        padding-left: vwm(12);
+
+        display: none;
+      }
+
+      .input--password ,
+      .input--email {
+        padding-left: 0;
+
+        &::before {
+          display: none;
+        }
+      }
+
+
+    }
+
+    // *******************
+  }
+// Mobile design End
+}

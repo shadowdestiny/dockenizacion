@@ -53,6 +53,7 @@ class LotterySeeder extends AbstractSeed
                 'single_bet_price_currency_name' => 'EUR',
             ]
         ];
+
         $lotteries = $this->table('lotteries');
         $lotteries->insert($data)
             ->save();
