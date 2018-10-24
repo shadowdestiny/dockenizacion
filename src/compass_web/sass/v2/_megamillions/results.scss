@@ -62,27 +62,41 @@
   .past-header {
 
     h1 {
-      color: #f8ce0d;
+      color: #fff;
       font-size: 24px;
       font-weight: 900;
       text-align: left;
       text-transform: uppercase;
 
+      background: -webkit-linear-gradient(0deg, #2f75c0 0%, #014fa3 100%);
+      background: -moz-linear-gradient(0deg, #2f75c0 0%, #014fa3 100%);
+      background: -o-linear-gradient(0deg, #2f75c0 0%, #014fa3 100%);
+      background: -ms-linear-gradient(0deg, #2f75c0 0%, #014fa3 100%);
+      background: linear-gradient(90deg, #2f75c0 0%, #014fa3 100%);
+
       @include common-headings-style-h1 ();
+
+      margin: -10px;
+      padding: 10px;
 
       margin-bottom: 0;
 
       @media only screen and (min-width: $screen-desktop) {
+        color: #f8ce0d;
         font-size: 36px;
+        background: none;
+        padding: 0;
+        margin: 0;
       }
     }
 
     h2 {
       font-size: 18px;
-      background-color: #f8ce0d;
       padding: 10px;
+      display: none;
 
       @media only screen and (min-width: $screen-desktop) {
+        display: block;
         background-color: transparent;
         font-weight: 900;
         padding: 0;
@@ -103,7 +117,9 @@
     }
 
     .history-numbers-block{
-      border-top: 1px solid #000;
+      @media only screen and (min-width: $screen-desktop) {
+        border-top: 1px solid #000;
+      }
     }
 
   }
