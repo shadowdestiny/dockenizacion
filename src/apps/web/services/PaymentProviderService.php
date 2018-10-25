@@ -81,7 +81,10 @@ class PaymentProviderService implements EventsAwareInterface
                 'now' => new \DateTime(),
                 'status' => $status,
                 'lotteryName' => $order->getLottery()->getName(),
-                'withWallet' => $order->isIsCheckedWalletBalance() ? 1: 0
+                'withWallet' => $order->isIsCheckedWalletBalance() ? 1: 0,
+                'accountBankId' => $user->getBankAccount(),
+                'amountWithdrawed' => $amount->getAmount(),
+                'state' => $status
             ];
             if($transaction == null)
             {
