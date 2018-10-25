@@ -156,6 +156,32 @@ class OrderService
         }
     }
 
+    public function withDraw($event,$component,array $data)
+    {
+        $this->logger->log(Logger::INFO,
+            'checkout:New withdraw order with transactionID= ' . $data['transactionID']);
+
+        /** @var Order $order */
+        $order = $data['order'];
+        $transactionID = $data['transactionID'];
+        /** @var User $user */
+        $user = $order->getPlayConfig()[0]->getUser();
+        $this->redisOrderChecker->save($transactionID,$user->getId());
+        try
+        {
+            $user->getWallet()->withdraw();
+            $walletBefore = $user->getWallet();
+            $user=$this->updateOrderTransaction($user, $order, $transactionID, $walletBefore);
+            $this->redisOrderChecker->delete($user->getId());
+        } catch(\Exception $e)
+        {
+            $this->redisOrderChecker->delete($user->getId());
+            $this->logger->log(Logger::EMERGENCE,
+                'ERRORcheckout:' . $e->getMessage());
+            throw new \Exception($e->getMessage());
+        }
+    }
+
     private function sendEmail(User $user, Order $order, $lotteryName)
     {
         if($lotteryName == 'EuroMillions')
@@ -166,7 +192,6 @@ class OrderService
         {
             $this->playService->sendEmailPowerBallPurchase($user,$order->getPlayConfig());
         }
-
     }
 
     private function updateOrderTransaction($user, $order, $transactionID, $walletBefore)

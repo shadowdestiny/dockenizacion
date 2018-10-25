@@ -6,6 +6,7 @@ namespace EuroMillions\web\vo;
 
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\vo\enum\OrderType;
 use Money\Currency;
 use Money\Money;
 
@@ -37,6 +38,7 @@ class Order implements \JsonSerializable
 
     protected $nextDraw;
 
+    protected $orderType;
 
     protected $hasSubscription;
 
@@ -385,6 +387,14 @@ class Order implements \JsonSerializable
     public function isDepositOrder()
     {
         return false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderType()
+    {
+        return OrderType::TICKET_PURCHASE;
     }
 
 }
