@@ -5,6 +5,7 @@ namespace EuroMillions\web\services;
 
 
 use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
+use EuroMillions\shared\components\OrderActionContext;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
@@ -107,6 +108,7 @@ class PaymentProviderService implements EventsAwareInterface
                 $transaction[0]->setWithWallet($order->isIsCheckedWalletBalance() ? 1 :0);
                 $transaction[0]->toString();
                 $this->transactionService->updateTransaction($transaction[0]);
+
                 if($status == 'SUCCESS' && !$order->isDepositOrder())
                 {
                     $this->_eventsManager->fire('orderservice:checkout', $this, ["order" => $order,
