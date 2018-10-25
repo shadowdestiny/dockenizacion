@@ -72,7 +72,7 @@
     {% if mobile != 1 %}
             <div class="add-funds-block second" style="margin-top: -65px; margin-left: 30px">
                 <h2 class="h3 yellow margin" style="font-family: Roboto,sans-serif;margin-bottom: 10px;">{{ language.translate("deposit_subhead")|upper }}</h2>
-                <div class="div-balance"><strong class="purple" style="color:#f0c11c;">{{ language.translate("deposit_balance") }}</strong> <span
+                <div class="div-balance"><strong class="purple" style="color:#333;">{{ language.translate("deposit_balance") }}</strong> <span
                             class="value" style="color:#f0c11c;">{{ user_balance }}</span></div>
                  <div style="margin-left:-42px!important;">
                 <span class="currency" style="color:#f0c11c;font-size: 30px;">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'style':'left:45px;width: 255px !important;','class':'insert input'~form_errors['funds-value']}) }}
@@ -102,7 +102,7 @@
      {% else %}
     <div class="add-funds-block second" style="margin-top: -65px;">
         <h2 class="h3 yellow margin" style="font-family: Roboto,sans-serif;font-size: 20px;margin-bottom: 15px;">{{ language.translate("deposit_subhead")|upper}}</h2>
-        <div class="div-balance" style="text-align: left;"><strong class="purple" style="color:#f0c11c;">{{ language.translate("deposit_balance") }}</strong> <span
+        <div class="div-balance" style="text-align: left;"><strong class="purple" style="color:#333;">{{ language.translate("deposit_balance") }}</strong> <span
                     class="value" style="color:#f0c11c;">{{ user_balance }}</span>
         </div>
         <div class="div-balance" style="text-align: left;">

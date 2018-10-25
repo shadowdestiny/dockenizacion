@@ -81,15 +81,22 @@ class PaymentProviderService implements EventsAwareInterface
                 'now' => new \DateTime(),
                 'status' => $status,
                 'lotteryName' => $order->getLottery()->getName(),
-                'withWallet' => $order->isIsCheckedWalletBalance() ? 1: 0
+                'withWallet' => $order->isIsCheckedWalletBalance() ? 1: 0,
+                'accountBankId' => $user->getBankAccount(),
+                'amountWithdrawed' => $amount->getAmount(),
+                'state' => $status
             ];
             if($transaction == null)
             {
                 if($order->getHasSubscription())
                 {
                     $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
-                } else {
+                } elseif($order->isDepositOrder()){
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
+                }
+                else
+                {
+                    $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $dataTransaction);
                 }
             } else {
                 $transaction[0]->setAmountAdded($order->getCreditCardCharge()->getFinalAmount()->getAmount());
