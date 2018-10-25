@@ -11,7 +11,12 @@ cart success minimal
     {% include "_elements/header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
-{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>if (window!=top){top.location.href=location.href;}
+{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>
+(function(window) {
+  if (window.location !== window.top.location) {
+    window.top.location = window.location;
+  }
+})(this);
 {% if (lottery_name == 'EuroMillions') %}
 localStorage.removeItem('bet_line');
 {%endif%}

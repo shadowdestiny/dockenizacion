@@ -3,13 +3,14 @@ Vagrant.configure(2) do |config|
         v.memory = 2048
         v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
+
     config.vm.box = "ubuntu/trusty64"
         config.vm.provision "shell", inline: <<-SCRIPT
         sudo apt-get install python-software-properties
         sudo add-apt-repository ppa:ondrej/php
         sudo apt-get update
-        sudo apt-get install -y php5.6
-        sudo apt-get remove --purge nodejs
+        sudo apt-get install -y php5.6-cli
+        sudo apt-get install php5.6-apcu --no-install-recommends
         sudo wget https://launchpad.net/~ansible/+archive/ubuntu/ansible-1.9/+files/ansible_1.9.4-1ppa~trusty_all.deb -O /tmp/ansible.deb
         sudo apt-get install -y python-support \
           python-jinja2 \
@@ -23,17 +24,13 @@ Vagrant.configure(2) do |config|
           build-essential
           dpkg -i /tmp/ansible.deb
           rm -f /tmp/ansible.deb
-        sudo service apache2 stop
+
+        sudo apt-get remove --purge nodejs
         curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
         sudo apt-get install -y nodejs
-        sudo apt install php5.6-apcu --no-install-recommends
         sudo curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
         #ansible-galaxy install -r /vagrant/vagrant_config/requirements.yml
     SCRIPT
-
-    config.vm.provision "shell", inline: <<-SCRIPT
-            sudo service apache2 stop
-        SCRIPT
 
     config.vm.provision "ansible_local" do |ansible|
         ansible.playbook    = "/vagrant/vagrant_config/provision.yml"
@@ -55,6 +52,7 @@ Vagrant.configure(2) do |config|
         sudo npm install --save-dev
         sudo npm run build
     SCRIPT
+
     config.vm.network "private_network", ip: "192.168.50.1"
     config.vm.network "forwarded_port", guest: 80, host: 8080
     config.vm.network "forwarded_port", guest: 443, host: 4433

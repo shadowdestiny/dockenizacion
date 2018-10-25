@@ -105,7 +105,7 @@ class OrderService
                 $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
                 $this->logger->log(Logger::INFO,
                     'checkout:Transaction TICKET_PURCHASE it was created');
-                $this->playService->sendEmailPurchase($user,$order->getPlayConfig());
+                $this->sendEmail($user,$order,$lottery->getName());
                 $this->redisOrderChecker->delete($user->getId());
                 $this->logger->log(Logger::INFO,
                     'checkout:Email sent');
@@ -154,6 +154,19 @@ class OrderService
                 'ERRORcheckout:' . $e->getMessage());
             throw new \Exception($e->getMessage());
         }
+    }
+
+    private function sendEmail(User $user, Order $order, $lotteryName)
+    {
+        if($lotteryName == 'EuroMillions')
+        {
+            $this->playService->sendEmailPurchase($user,$order->getPlayConfig());
+        }
+        if($lotteryName == 'PowerBall')
+        {
+            $this->playService->sendEmailPowerBallPurchase($user,$order->getPlayConfig());
+        }
+
     }
 
     private function updateOrderTransaction($user, $order, $transactionID, $walletBefore)
