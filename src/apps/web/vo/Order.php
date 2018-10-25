@@ -387,4 +387,8 @@ class Order implements \JsonSerializable
         return false;
     }
 
+    public function isWithdrawOrder()
+    {
+        return false;
+    }
 }

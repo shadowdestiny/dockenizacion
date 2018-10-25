@@ -88,8 +88,12 @@ class PaymentProviderService implements EventsAwareInterface
                 if($order->getHasSubscription())
                 {
                     $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
-                } else {
+                } elseif($order->isDepositOrder()){
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
+                }
+                else
+                {
+                    $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $dataTransaction);
                 }
             } else {
                 $transaction[0]->setAmountAdded($order->getCreditCardCharge()->getFinalAmount()->getAmount());
