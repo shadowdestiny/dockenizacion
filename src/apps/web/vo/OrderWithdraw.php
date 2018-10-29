@@ -10,10 +10,11 @@ namespace EuroMillions\web\vo;
 
 use EuroMillions\web\entities\Lottery;
 
+use EuroMillions\web\vo\enum\OrderType;
 use Money\Money;
 use Money\Currency;
 
-class WithdrawOrder extends Order
+class OrderWithdraw extends Order
 {
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw)
     {
@@ -24,4 +25,13 @@ class WithdrawOrder extends Order
     {
         return true;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderType()
+    {
+        return OrderType::WINNINGS_WITHDRAW;
+    }
+
 }

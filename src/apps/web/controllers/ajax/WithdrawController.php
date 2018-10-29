@@ -2,6 +2,7 @@
 namespace EuroMillions\web\controllers\ajax;
 
 use EuroMillions\web\controllers\CartController;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\vo\dto\DepositPaymentProviderDTO;
 use EuroMillions\shared\helpers\SiteHelpers;
@@ -24,9 +25,17 @@ class WithdrawController extends CartController
         $money=new Money(0, new Currency('EUR'));
         $amount=new Money(intval($this->request->getPost('amount')), new Currency('EUR'));
 
-        $order=OrderFactory::create([$playconfig], $amount, $money, $money, new Discount(0, []),  $this->lotteryService->getLotteryConfigByName('Euromillions'), 'Withdraw', false);
+        $withdrawLottery = new Lottery();
+        $withdrawLottery->initialize([
+            'id'               => 1,
+            'name'             => 'Withdraw',
+            'active'           => 1,
+            'frequency'        => 'freq',
+            'draw_time'        => 'draw',
+            'single_bet_price' => new Money(23500, new Currency('EUR')),
+        ]);
 
-
+        $order=OrderFactory::create([$playconfig], $amount, $money, $money, new Discount(0, []), $withdrawLottery, 'Withdraw', false);
 
         $orderDataToPaymentProvider = new WithDrawFundsOrderProviderDTO( [
             'user' => $user,

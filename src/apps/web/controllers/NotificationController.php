@@ -10,6 +10,7 @@ namespace EuroMillions\web\controllers;
 
 
 use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
+use EuroMillions\shared\components\OrderNotificationContext;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\DepositTransaction;
 use EuroMillions\web\entities\Lottery;
@@ -59,7 +60,7 @@ class NotificationController extends MoneymatrixController
             $amount=new Money(intval($transaction->getAmountAdded()), new Currency('EUR'));
             $order=OrderFactory::create([$playconfig], $money, $money, $money, new Discount(0, []), $depositLottery , 'Deposit', $transaction->getWithWallet());
             $order->addFunds($amount);
-        }else
+        } else
         {
             $result = $this->cartService->get($transaction->getUser()->getId(),$transaction->getLotteryName(), $transaction->getWithWallet());
             /** @var Order $order */

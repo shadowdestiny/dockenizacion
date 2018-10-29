@@ -21,18 +21,18 @@ class OrderActionContext
     private $strategy;
 
 
-    public function __construct($status, Order $order, \Phalcon\Events\Manager $eventsManager)
+    public function __construct($status, Order $order, $transactionID, \Phalcon\Events\Manager $eventsManager)
     {
         switch($order->getOrderType())
         {
             case OrderType::TICKET_PURCHASE:
-                $this->strategy=new TicketPurchaseOrderAction($status,$order,$eventsManager);
+                $this->strategy=new TicketPurchaseOrderAction($status,$order,$transactionID,$eventsManager);
                 break;
             case OrderType::DEPOSIT:
-                $this->strategy=new DepositOrderAction($status,$order,$eventsManager);
+                $this->strategy=new DepositOrderAction($status,$order,$transactionID,$eventsManager);
                 break;
             case OrderType::WINNINGS_WITHDRAW:
-                $this->strategy=new WithdrawOrderAction($status,$order,$eventsManager);
+                $this->strategy=new WithdrawOrderAction($status,$order,$transactionID,$eventsManager);
                 break;
         }
     }

@@ -117,7 +117,6 @@
 {% endblock %}
 {% block body %}
     <main id="content">
-        HOLA ALDO
         {% include "_elements/banner.volt" %}
 
         <div class="wrapper">

@@ -11,6 +11,7 @@ namespace EuroMillions\web\vo;
 
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\vo\enum\OrderType;
 use Money\Currency;
 use Money\Money;
 
@@ -185,6 +186,14 @@ class OrderPowerBall extends Order
         } else {
             $this->amountWallet = new Money(0, new Currency('EUR'));
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderType()
+    {
+        return OrderType::DEPOSIT;
     }
 
 

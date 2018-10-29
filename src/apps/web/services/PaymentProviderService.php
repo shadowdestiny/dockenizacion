@@ -13,6 +13,7 @@ use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\vo\dto\ChasierDTO;
 use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
+use EuroMillions\web\vo\enum\OrderType;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
 use Exception;
@@ -92,7 +93,7 @@ class PaymentProviderService implements EventsAwareInterface
                 if($order->getHasSubscription())
                 {
                     $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
-                } elseif($order->isDepositOrder()){
+                } elseif($order->getOrderType() == OrderType::DEPOSIT){
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
                 }
                 else
@@ -108,21 +109,8 @@ class PaymentProviderService implements EventsAwareInterface
                 $transaction[0]->setWithWallet($order->isIsCheckedWalletBalance() ? 1 :0);
                 $transaction[0]->toString();
                 $this->transactionService->updateTransaction($transaction[0]);
-
-                if($status == 'SUCCESS' && !$order->isDepositOrder())
-                {
-                    $this->_eventsManager->fire('orderservice:checkout', $this, ["order" => $order,
-                                                                                           "transactionID" => $transactionID
-                            ]
-                    );
-                }
-                elseif($status == 'SUCCESS' && $order->isDepositOrder())
-                {
-                    $this->_eventsManager->fire('orderservice:addDepositFounds', $this, ["order" => $order,
-                            "transactionID" => $transactionID
-                        ]
-                    );
-                }
+                $orderActionContext = new OrderActionContext($status,$order,$transactionID,$this->_eventsManager);
+                $orderActionContext->execute();
             }
         } catch( Exception $e )
         {
