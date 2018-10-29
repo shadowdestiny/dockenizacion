@@ -12,6 +12,7 @@ namespace EuroMillions\shared\components;
 use EuroMillions\shared\components\order_actions\TicketPurchaseOrderAction;
 use EuroMillions\shared\components\order_notifications\DepositOrderNotification;
 use EuroMillions\shared\components\order_notifications\TicketPurchaseOrderNotification;
+use EuroMillions\shared\components\order_notifications\WithdrawOrderNotification;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\services\CartService;
@@ -31,7 +32,7 @@ class OrderNotificationContext
                 $this->strategy=new DepositOrderNotification($transaction);
                 break;
             case 'Withdraw':
-                $this->strategy=null;
+                $this->strategy=new WithdrawOrderNotification($transaction);
                 break;
             default:
                 $this->strategy=new TicketPurchaseOrderNotification($cartService,$transaction, $logger);
