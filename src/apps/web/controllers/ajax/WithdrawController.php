@@ -49,7 +49,6 @@ class WithdrawController extends CartController
         );
 
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider);
-
         $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()), $amount, $cashierViewDTO->transactionID);
 
         $this->noRender();

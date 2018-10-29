@@ -14,7 +14,7 @@ use EuroMillions\web\vo\enum\OrderType;
 use Money\Money;
 use Money\Currency;
 
-class OrderWithdraw extends Order
+class WithdrawOrder extends Order
 {
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw)
     {

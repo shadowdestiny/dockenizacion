@@ -9,6 +9,8 @@
 namespace EuroMillions\web\vo\dto;
 
 
+use EuroMillions\web\vo\enum\MoneyMatrixEndpoint;
+
 class WithDrawFundsOrderProviderDTO extends OrderPaymentProviderDTO
 {
     protected function createDataMoneyMatrix()
@@ -40,5 +42,10 @@ class WithDrawFundsOrderProviderDTO extends OrderPaymentProviderDTO
             "registrationIpAddress" => $this->user->getIpAddress()->toNative(),
             "registrationDate" => ""
         ];
+    }
+
+    public function action()
+    {
+        return MoneyMatrixEndpoint::WITHDRAW;
     }
 }

@@ -55,7 +55,7 @@ class PaymentProviderService implements EventsAwareInterface
             }
             $orderData->setTransactionID($transactionID);
             $orderData->exChangeObject();
-            $response = $paymentMethod->call($orderData->toJson());
+            $response = $paymentMethod->call($orderData->toJson(),$orderData->action());
             return new ChasierDTO(json_decode($response, true),$transactionID);
         } catch (\Exception $e)
         {
@@ -68,6 +68,7 @@ class PaymentProviderService implements EventsAwareInterface
         try
         {
             $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID);
+
             $dataTransaction = [
                 'lottery_id' => $order->getLottery() != null ? $order->getLottery()->getId() : 1,
                 'numBets' => count($order->getPlayConfig()),
