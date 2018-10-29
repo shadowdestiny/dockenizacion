@@ -114,7 +114,6 @@ class PaymentProviderService implements EventsAwareInterface
             }
         } catch( Exception $e )
         {
-
         }
     }
 

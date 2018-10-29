@@ -53,7 +53,6 @@ class NotificationController extends MoneymatrixController
                                                                              $this->orderService,
                                                                              $logger
         );
-
         if($orderNotificationValidator->result())
         {
             $this->paymentProviderService->setEventsManager($this->eventsManager);

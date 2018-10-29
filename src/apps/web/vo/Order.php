@@ -400,7 +400,11 @@ class Order implements \JsonSerializable
      */
     public function getOrderType()
     {
-        return OrderType::DEPOSIT;
+        if(!isset($this->orderType))
+        {
+            return OrderType::DEPOSIT;
+        }
+        return $this->orderType;
     }
 
     /**

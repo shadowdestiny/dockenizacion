@@ -57,7 +57,6 @@ class OrderService
         $this->logger->log(Logger::INFO,
             'checkout:New checkout order with transactionID= ' . $data['transactionID']);
 
-
         /** @var Order $order */
         $order = $data['order'];
         $transactionID = $data['transactionID'];
@@ -67,7 +66,6 @@ class OrderService
         $this->redisOrderChecker->save($transactionID,$user->getId());
         try
         {
-            var_dump(__LINE__);die();
             if($order->isNextDraw())
             {
                 $walletBefore = $user->getWallet();

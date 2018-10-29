@@ -36,7 +36,14 @@ class TicketPurchaseOrderNotification implements IOrderNotificationBuilder
 
     public function giveMeOrder()
     {
-        return $this->order;
+        try
+        {
+            $this->build();
+            return $this->order;
+        }catch(\Exception $e)
+        {
+            return null;
+        }
     }
 
     protected function build()

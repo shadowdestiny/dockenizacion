@@ -15,6 +15,7 @@ use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\services\OrderService;
 use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\vo\Order;
+use Phalcon\Logger;
 
 class TicketPurchaseNotificationValidator implements IValidatorOrderNotifications
 {
@@ -55,6 +56,7 @@ class TicketPurchaseNotificationValidator implements IValidatorOrderNotification
             return true;
         } catch(\Exception $e)
         {
+            var_dump($e->getMessage());die();
             return false;
         }
     }
@@ -62,7 +64,7 @@ class TicketPurchaseNotificationValidator implements IValidatorOrderNotification
 
     private function validateThisNotification()
     {
-        if(empty($this->transaction->getId()) or empty($status))
+        if(empty($this->transaction->getId()) or empty($this->status))
         {
             $this->logger->log(
                 Logger::ERROR,
