@@ -9,6 +9,7 @@
 namespace EuroMillions\shared\components;
 
 
+use EuroMillions\shared\components\validations_order_notifications\FakeNotificationValidator;
 use EuroMillions\shared\components\validations_order_notifications\TicketPurchaseNotificationValidator;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\Transaction;
@@ -34,14 +35,17 @@ class ValidatorOrderNotificationsContext
 
         if($order->getOrderType() == OrderType::TICKET_PURCHASE)
         {
-            $this->strategy = new TicketPurchaseNotificationValidator($order);
+            $this->strategy = new TicketPurchaseNotificationValidator($order, $status,$transaction,$paymentProviderService,$orderService,$logger);
+        } else
+        {
+            $this->strategy = new FakeNotificationValidator();
         }
 
     }
 
     public function result()
     {
-        $this->strategy->validate();
+       return $this->strategy->validate();
     }
 
 }
