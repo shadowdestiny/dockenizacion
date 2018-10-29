@@ -9,7 +9,10 @@
 namespace EuroMillions\shared\interfaces;
 
 
-interface IValidationsOrderNotifications
+interface IValidatorOrderNotifications
 {
+
+    public function validate();
+
 
 }
