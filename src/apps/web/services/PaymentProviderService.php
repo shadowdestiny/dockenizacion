@@ -8,6 +8,7 @@ use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
 use EuroMillions\shared\components\OrderActionContext;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
@@ -69,6 +70,7 @@ class PaymentProviderService implements EventsAwareInterface
         {
             $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID);
 
+            //TODO: David -> with your refactor transaction builder
             $dataTransaction = [
                 'lottery_id' => $order->getLottery() != null ? $order->getLottery()->getId() : 1,
                 'numBets' => count($order->getPlayConfig()),
@@ -89,6 +91,7 @@ class PaymentProviderService implements EventsAwareInterface
                 'amountWithdrawed' => $amount->getAmount(),
                 'state' => $status
             ];
+            //TODO Complexity, a lot of conditionals
             if($transaction == null)
             {
                 if($order->getHasSubscription())
@@ -102,12 +105,19 @@ class PaymentProviderService implements EventsAwareInterface
                     $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $dataTransaction);
                 }
             } else {
-                $transaction[0]->setAmountAdded($order->getCreditCardCharge()->getFinalAmount()->getAmount());
-                $transaction[0]->setStatus($status);
-                $transaction[0]->setHasFee($order->getCreditCardCharge()->getIsChargeFee());
-                $transaction[0]->setLotteryId($order->getLottery()->getId());
+                //TODO Workaround. It should the same way as transaction builder
+                if($transaction instanceof WinningsWithdrawTransaction)
+                {
+                    $transaction[0]->setAmountAdded($order->getCreditCardCharge()->getFinalAmount()->getAmount());
+                    $transaction[0]->setHasFee($order->getCreditCardCharge()->getIsChargeFee());
+                    $transaction[0]->setLotteryId($order->getLottery()->getId());
+                    $transaction[0]->setWithWallet($order->isIsCheckedWalletBalance() ? 1 :0);
+                    $transaction[0]->setStatus($status);
+                } else
+                {
+                    $transaction[0]->setState($status);
+                }
                 $transaction[0]->setLotteryName($order->getLottery()->getName());
-                $transaction[0]->setWithWallet($order->isIsCheckedWalletBalance() ? 1 :0);
                 $transaction[0]->toString();
                 $this->transactionService->updateTransaction($transaction[0]);
                 $orderActionContext = new OrderActionContext($status,$order,$transactionID,$this->_eventsManager);

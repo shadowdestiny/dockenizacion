@@ -22,6 +22,7 @@ class WinningsWithdrawGenerator implements ITransactionGeneratorStrategy
             $winningsWithdrawTransaction->setWalletAfter($data['walletAfter']);
             $winningsWithdrawTransaction->setDate($data['now']);
             $winningsWithdrawTransaction->setUser($data['user']);
+            $winningsWithdrawTransaction->setStatus($data['status']);
             $winningsWithdrawTransaction->setLotteryName($data['lotteryName']);
             $winningsWithdrawTransaction->toString();
         } catch( \Exception $e ) {

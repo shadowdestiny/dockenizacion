@@ -12,6 +12,7 @@ class WinningsWithdrawTransaction extends Transaction implements ITransactionDat
     protected $accountBankId;
     protected $lotteryName;
     protected $state;
+    protected $status;
 
 
     /**
@@ -91,6 +92,22 @@ class WinningsWithdrawTransaction extends Transaction implements ITransactionDat
     public function setLotteryName($lotteryName)
     {
         $this->lotteryName = $lotteryName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
 }

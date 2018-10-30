@@ -48,13 +48,13 @@ class WithdrawOrderNotification implements IOrderNotificationBuilder
             'draw_time'        => 'draw',
             'single_bet_price' => new Money(23500, new Currency('EUR')),
         ]);
-
+        $this->transaction->fromString();
         $playconfig=new PlayConfig();
         $playconfig->setFrequency(1);
         $playconfig->setUser($this->transaction->getUser());
         $money=new Money(0, new Currency('EUR'));
-        $amount=new Money(intval($this->transaction->getAmountAdded()), new Currency('EUR'));
-        $order=OrderFactory::create([$playconfig], $money, $money, $money, new Discount(0, []), $depositLottery , 'Deposit', $this->transaction->getWithWallet());
+        $amount=new Money(intval($this->transaction->getAmountWithdrawed()), new Currency('EUR'));
+        $order=OrderFactory::create([$playconfig], $money, $money, $money, new Discount(0, []), $withdrawLottery , 'Withdraw', 0);
         $order->addFunds($amount);
         $this->order = $order;
     }}
