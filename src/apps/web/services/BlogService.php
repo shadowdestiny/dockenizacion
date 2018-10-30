@@ -56,11 +56,20 @@ class BlogService
      * @param $url
      * @param $language
      *
-     * @return null|object
+     * @return array
      */
     public function getPostByUrlAndLanguage($url, $language)
     {
-        return $this->blogRepository->findOneBy(['url' => $url, 'language' => $language, 'published' => 1]);
+        $prev=$next=null;
+        $present=$this->blogRepository->findOneBy(['url' => $url, 'language' => $language, 'published' => 1]);
+        if(!is_null($present))
+        {
+            $prev=$this->blogRepository->getNextPrevPost($present->getId(), $language, 'prev');
+            $next=$this->blogRepository->getNextPrevPost($present->getId(), $language, 'next');
+        }
+
+
+        return ['present' => $present, 'prev' => $prev, 'next' => $next];
     }
 
 }

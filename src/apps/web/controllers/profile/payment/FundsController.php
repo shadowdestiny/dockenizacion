@@ -8,6 +8,9 @@ use EuroMillions\web\controllers\AccountController;
 use EuroMillions\web\forms\BankAccountForm;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
+use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
+use EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
@@ -65,7 +68,8 @@ class FundsController extends AccountController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date_month.'/'.'20'.$expiry_date_year), new CVV($cvv));
                         $wallet_service = $this->domainServiceFactory->getWalletService();
-                        $payXpertCardPaymentStrategy = $this->di->get('paymentProviderFactory');
+                        //TODO: Workaround to get wirecard instead moneymatrix
+                        $payXpertCardPaymentStrategy = $this->wirecard();//$this->di->get('paymentProviderFactory');
                         $currency_euros_to_payment = $this->currencyConversionService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
                         $credit_card_charge = new CreditCardCharge($currency_euros_to_payment,$this->siteConfigService->getFee(),$this->siteConfigService->getFeeToLimitValue());
                         $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $credit_card_charge);
@@ -112,6 +116,14 @@ class FundsController extends AccountController
             'wallet' => $wallet_dto,
             'show_box_basic' => false,
         ]);
+    }
+
+    protected function wirecard()
+    {
+        $config = $this->di->get('config')['wirecard'];
+        return new  WideCardPaymentProvider(new WideCardConfig($config->endpoint,
+                                                               $config->api_key)
+        );
     }
 
 

@@ -43,7 +43,11 @@ class PaymentController extends CartController
         }
         $result = $play_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
         $msg = '';
-
+        if($this->orderService->hasOrderProcessing($user_id))
+        {
+            $this->response->redirect('/' . $this->lottery . '/cart/profile');
+            return false;
+        }
         $order_view = true;
         //Payment thru wallet ONLY
         if ($this->request->isGet()) {
@@ -85,7 +89,6 @@ class PaymentController extends CartController
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
                         $result = $play_service->play($user_id, $amount, $card, $payWallet, $isWallet);
-
                         return $this->playResult($result);
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();

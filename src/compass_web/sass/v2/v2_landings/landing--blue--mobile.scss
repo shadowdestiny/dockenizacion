@@ -1,0 +1,98 @@
+.landing--blue {
+
+  // Mobile version Start
+  @media only screen and (max-width: $screen-pre-desktop) {
+    // *******************
+
+    width: 100%;
+    max-width: none;
+    margin: auto;
+
+    .landing--banner-block {
+      height: vwm(418);
+      padding-top: vwm(58);
+
+      //background-image: url('../img/landing/blue/headerimage--blue.png');
+      background-image: url('../img/landing/blue/headerimage.png');
+      -webkit-background-size: vwm(320);
+      background-size: vwm(320);
+      background-repeat: no-repeat;
+      background-position: 0 0;
+
+      .landing--banner-block--content {
+        background-image: none;
+        background-color: #1686f8;
+        width: 100%;
+        height: vwm(355);
+        float: none;
+        margin-bottom: vwm(24);
+
+        .landing--banner-block--title {
+          font-size: vwm(22);
+          text-align: center;
+          padding-top: vwm(17);
+        }
+
+        .landing--banner-block--prize {
+          font-size: vwm(104);
+          text-align: center;
+          left: 0;
+          letter-spacing: vwm(-2);
+          padding-top: vwm(3);
+          margin-bottom: vwm(7);
+        }
+
+        .landing--banner-block--countdown-block {
+          margin-bottom: vwm(32);
+          padding-left: vwm(5);
+
+          .lefter {
+            width: vwm(44);
+            height: vwm(44);
+            margin-right: vwm(-44);
+            top: vwm(2);
+            left: vwm(6);
+          }
+          .righter {
+            padding-left: vwm(62);
+
+            .top {
+              font-size: vwm(38);
+            }
+            .bottom {
+              font-size: vwm(19);
+              padding-top: vwm(5);
+            }
+          }
+        }
+
+        .landing--banner-block--button-row {
+          padding-left: vwm(10);
+          padding-bottom: vwm(23);
+
+          .btn-theme {
+            width: vwm(285);
+            height: vwm(57);
+            font-size: vwm(28);
+            line-height: vwm(57);
+            border-radius: vwm(4);
+            box-shadow: vwm(-1) vwm(1) vwm(2) 0 #000000;
+          }
+        }
+
+        .landing--banner-block--star {
+          font-size: vwm(14);
+          line-height: 1.3;
+          text-align: left;
+          padding-left: vwm(11);
+        }
+
+      }
+
+    }
+
+    // *******************
+  }
+  // Mobile design End
+
+}

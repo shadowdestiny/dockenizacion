@@ -227,6 +227,18 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'it',
         ));
 
+        $router->add('/paymentmx/success', array(
+            "module" => "web",
+            "controller" => "moneymatrix",
+            "action" => "success"
+        ));
+
+        $router->add('/paymentmx/notification', array(
+            "module" => "web",
+            "controller" => "notification",
+            "action" => "notification"
+        ));
+
         $router->add("/{lottery:(euromillions)+}/play", array(
             "module" => "web",
             "lottery" => 1,
@@ -1468,6 +1480,26 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->mount(new HowToPlayRoutes());
         $router->mount(new MegaMillionsPlayRoutes());
+
+        //LANDINGS
+
+        $router->add('/landings/euromillions', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "main"
+        ]);
+
+        $router->add('/landings/euromillions_form', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "mainorange"
+        ]);
+
+//        $router->setDefaults(array(
+//            "module"     => "web",
+//            'controller' => 'index',
+//            'action'     => 'index'
+//        ));
         $router->removeExtraSlashes(true);
         return $router;
     }

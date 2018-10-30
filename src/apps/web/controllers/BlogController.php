@@ -31,13 +31,15 @@ class BlogController extends PublicSiteControllerBase
         /** @var Blog $postData */
         $postData = $this->blogService->getPostByUrlAndLanguage($this->router->getParams()[0], $this->router->getParams()['language']);
 
-        if (!empty($postData)) {
-            $this->tag->prependTitle($postData->getTitleTag());
-            MetaDescriptionTag::setDescription($postData->getDescriptionTag());
+        if (!empty($postData['present'])) {
+            $this->tag->prependTitle($postData['present']->getTitleTag());
+            MetaDescriptionTag::setDescription($postData['present']->getDescriptionTag());
 
             return $this->view->setVars([
-                'postData' => $postData,
+                'postData' => $postData['present'],
                 'pageController' => 'blogIndex',
+                'prev' => $postData['prev'],
+                'next' => $postData['next']
             ]);
         }
 

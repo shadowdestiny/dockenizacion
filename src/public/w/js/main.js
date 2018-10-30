@@ -140,6 +140,7 @@ function count_down(element,
 }
 
 var varSize = 0
+
 function checkSize() {
   if ($(".media").width() == "1") {         // max-width: 1200px
     varSize = 1;
@@ -275,6 +276,16 @@ $(function () {
 
 });
 
+function isMobile(){
+    try{
+        document.createEvent('TouchEvent');
+        if(varSize > 2){
+            return true;
+        }
+    }catch(e){
+        return false;
+    }
+}
 
 //v2
 $(document).ready(function () {

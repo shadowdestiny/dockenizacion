@@ -18,6 +18,8 @@ use EuroMillions\web\entities\WinningsReceivedTransaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\vo\dto\TransactionDTO;
+use EuroMillions\web\vo\Order;
+use Exception;
 use Money\Currency;
 use Money\Money;
 
@@ -43,7 +45,7 @@ class TransactionService
         if ($data['now'] == null) {
             $data['now'] = new \DateTime();
         }
-        list($partOne, $partTwo) = explode('_', $transactionType);
+        @list($partOne, $partTwo) = explode('_', $transactionType);
         $class = 'EuroMillions\web\components\transaction\\' . ucfirst($partOne) . ucfirst($partTwo) . 'Generator';
         try {
             /** @var Transaction $entity */
@@ -56,9 +58,28 @@ class TransactionService
         return new ActionResult(true, $entity);
     }
 
-    public function getTransactionsDTOByUser(User $user)
+    public function updateTransaction($entity)
     {
-        $result = $this->transactionRepository->findBy(['user' => $user->getId()], ['id' => 'DESC']);
+        try
+        {
+            $this->entityManager->persist($entity);
+            $this->entityManager->flush();
+        }catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
+
+    }
+
+    public function getTransactionsDTOByUser(User $user, $page = null)
+    {
+
+        $result = $this->transactionRepository->getTransactionsDTOByUser($user->getId(), $page);
+        if(!is_null($page))
+        {
+            $totalElements= count($result);
+        }
+
         if (null != $result) {
             $transactionDtoCollection = [];
             /** @var LotteryRepository $lotteryRepository */
@@ -70,6 +91,10 @@ class TransactionService
                 $transactionDTO->lotteryId = $this->getLotteryName($lotteryRepository,$transaction);
                 //TODO: refactor subscription purchase with wallet
                 if( $transaction instanceof SubscriptionPurchaseTransaction && $transactionDTO->pendingBalanceMovement->getAmount() == 0) {
+                    continue;
+                }
+                if($transaction->checkTransactionType('PENDING'))
+                {
                     continue;
                 }
                 $movement = $this->currencyConversionService->convert($transactionDTO->movement, new Currency('EUR'));
@@ -85,6 +110,10 @@ class TransactionService
                 $transactionDTO->pendingBalanceMovement = $this->currencyConversionService->toString($pendingBalanceMovement, $user->getLocale());
                 $transactionDTO->ticketPrice = $this->currencyConversionService->toString($ticketPrice, $user->getLocale());
                 $transactionDtoCollection[] = $transactionDTO;
+            }
+            if(!is_null($page))
+            {
+                return ['transactionDtoCollection' => $transactionDtoCollection, 'totalElements' => $totalElements];
             }
             return $transactionDtoCollection;
         }
@@ -120,6 +149,17 @@ class TransactionService
         }
     }
 
+    public function getTransactionByEmTransactionID($id)
+    {
+        /** @var Transaction $transactionEntity */
+        $transactionEntity = $this->transactionRepository->findBy(["transactionID" => $id]);
+        if ($transactionEntity != null) {
+            return $transactionEntity;
+        } else {
+            return null;
+        }
+    }
+
     public function getSubscriptionByLotteryAndUserId($lotteryName, $userId)
     {
         try {
@@ -138,7 +178,7 @@ class TransactionService
 
     public function getUniqueTransactionId()
     {
-        return str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+        return str_pad(mt_rand(0, 999999999), 6, '0', STR_PAD_LEFT);
     }
 
     public function getLastId()

@@ -55,15 +55,56 @@
                     {{ language.translate("results_chris_sub") }}
                 </a>
             </li>
+            <li>
+                 <a href="/{{ language.translate('link_lotteries_results') }}">
+                    {{ language.translate("results_all") }}
+                 </a>
+            </li>
         </ul>
     </div>
 
 </li>
 
-<li class="li-help{% if activeNav.myClass == 'help' %} active{% endif %}">
-    <a href="/{{ language.translate("link_euromillions_help") }}">
-        <span class="txt">{{ language.translate("howto_em_sub") }}</span>
+<li class="li-plays{% if activeNav.myClass == 'plays' %} active{% endif %}">
+    <a href="#">
+        <span class="txt">{{ language.translate("play_dropdown") }}</span>
     </a>
+
+    <div class="submenu">
+        <ul>
+            <li>
+                <a href="/{{ language.translate('link_euromillions_play') }}">
+                    {{ language.translate("play_sub") }}
+                </a>
+            </li>
+            <li>
+                <a href="/{{ language.translate('link_euromillions_help') }}">
+                    {{ language.translate("howto_em_sub") }}
+                </a>
+            </li>
+            <li>
+                <a href="/{{ language.translate('link_powerball_play') }}">
+                    {{ language.translate("play_pow_sub") }}
+                </a>
+            </li>
+            <li>
+                <a href="/{{ language.translate('link_powerball_howto') }}">
+                    {{ language.translate("howto_pow_sub") }}
+                </a>
+            </li>
+            <li>
+                <a href="/{{ language.translate('link_christmas_play') }}">
+                    {{ language.translate("playchris_sub") }}
+                </a>
+            </li>
+            <li>
+                 <a href="/{{ language.translate('link_lotteries_play') }}">
+                    {{ language.translate("play_all") }}
+                 </a>
+            </li>
+        </ul>
+    </div>
+
 </li>
 <li class="li-blog{% if activeNav.myClass == 'blog' %} active{% endif %}">
     <a href="/{{ language.translate("link_blogindex") }}">

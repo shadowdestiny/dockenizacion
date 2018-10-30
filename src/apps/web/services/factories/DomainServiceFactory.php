@@ -2,8 +2,10 @@
 namespace EuroMillions\web\services\factories;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\EmTranslationAdapter;
+use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\repositories\TranslationDetailRepository;
 use EuroMillions\web\services\AuthService;
@@ -21,7 +23,9 @@ use EuroMillions\web\services\LoggedAuthServiceStrategy;
 use EuroMillions\web\services\LoggedUserServiceStrategy;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\services\OrderService;
 use EuroMillions\web\services\PaymentProviderService;
+use EuroMillions\web\services\play_strategies\RedisCheckerOrderStrategy;
 use EuroMillions\web\services\play_strategies\RedisOrderStorageStrategy;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\services\PlayService;
@@ -36,6 +40,7 @@ use EuroMillions\web\services\UserNotificationsService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\services\WalletService;
+use LegalThings\CloudWatchLogger;
 use Phalcon\Di;
 use Phalcon\DiInterface;
 use EuroMillions\web\services\auth_strategies\WebAuthStorageStrategy;
@@ -105,7 +110,7 @@ class DomainServiceFactory
         return new LoggedUserServiceStrategy(
             $this->getCurrencyConversionService(),
             $this->serviceFactory->getEmailService(),
-            new PaymentProviderService(),
+            new PaymentProviderService($this->getTransactionService(),new RedisCheckerOrderStrategy($this->serviceFactory->getDI()->get('redisCache'))),
             $this->getWalletService(),
             $this->entityManager,
             $this->serviceFactory->getLogService()
@@ -156,6 +161,21 @@ class DomainServiceFactory
         );
     }
 
+    public function getOrderService()
+    {
+        return new OrderService(
+            $this->getWalletService(),
+            $this->getPlayService(),
+            $this->getTransactionService(),
+            new CloudWatch(new CloudWatchLogger(
+                ConfigGenerator::cloudWatchConfig(
+                    'Euromillions', getenv('EM_ENV')
+                ))
+            ),
+            new RedisCheckerOrderStrategy($this->serviceFactory->getDI()->get('redisCache'))
+        );
+    }
+
     public function getPowerBallService()
     {
         return new PowerBallService(
@@ -182,12 +202,21 @@ class DomainServiceFactory
         );
     }
 
+    public function getPaymentProviderService()
+    {
+        return new PaymentProviderService(
+            $this->getTransactionService(),
+            new RedisCheckerOrderStrategy($this->serviceFactory->getDI()->get('redisCache'))
+        );
+    }
+
     public function getCartService()
     {
         return new CartService(
             $this->entityManager,
             new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache')),
-            new SiteConfigService($this->entityManager,$this->getCurrencyConversionService())
+            new SiteConfigService($this->entityManager,$this->getCurrencyConversionService()),
+            $this->getWalletService()
         );
     }
 

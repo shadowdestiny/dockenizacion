@@ -1,0 +1,154 @@
+.landing--orange {
+
+  .landing--arrows {
+    height: vw(141);
+    padding-left: vw(2);
+    margin-bottom: vw(66);
+
+    ul {
+
+      background-image: url('../img/landing/orange/arrows.png');
+      background-repeat: no-repeat;
+      -webkit-background-size: contain;
+      background-size: contain;
+      background-position: 0 0;
+
+      height: vw(141);
+
+      li {
+        text-align: center;
+        height: vw(141);
+
+        span {
+          text-align: center;
+          line-height: 0.95;
+          font-size: vw(51);
+          letter-spacing: vw(-2);
+
+          i {
+            font-weight: 500;
+          }
+        }
+        &.li-01 {
+          padding-left: vw(10);
+          padding-top: vw(48);
+          width: vw(620);
+          margin-right: vw(8);
+        }
+        &.li-02 {
+          padding-left: vw(16);
+          padding-top: vw(24);
+          width: vw(593);
+          margin-right: vw(-30);
+        }
+        &.li-03 {
+          padding-left: vw(80);
+          padding-top: vw(48);
+          width: vw(638);
+        }
+      }
+    }
+  }
+
+  .landing--banner-block {
+    height: vw(965);
+    margin-bottom: vw(72);
+    overflow: hidden;
+    background-image: url('../img/landing/orange/bg.jpg');
+    -webkit-background-size: contain;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+
+    .landing--banner-block--content {
+      overflow: hidden;
+
+      .landing--banner-block--content--left {
+        padding-left: vw(340);
+        float: left;
+      }
+      .landing--banner-block--content--right {
+        float: right;
+      }
+
+      .landing--banner-block--title {
+        color: #000000;
+        font-size: vw(65.51);
+        font-weight: 700;
+        line-height: 1;
+        text-align: left;
+        padding-top: vw(44);
+        padding-left: vw(8);
+        letter-spacing: vw(-1.4);
+      }
+
+      .landing--banner-block--prize {
+        color: #000000;
+        font-size: vw(316.45);
+        font-weight: 700;
+        line-height: 0.8;
+        text-align: left;
+        text-transform: uppercase;
+        position: relative;
+
+        padding-top: vw(4);
+        letter-spacing: vw(-7);
+        margin-bottom: vw(80);
+      }
+
+      .landing--banner-block--countdown-block {
+        overflow: hidden;
+        margin-bottom: vw(82);
+
+        .lefter {
+          width: vw(104);
+          height: vw(104);
+          background-image: url('../img/landing/orange/timer.png');
+          -webkit-background-size: contain;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: 0 0;
+          float: left;
+          margin-right: vw(-104);
+          position: relative;
+          top: vw(4);
+          left: vw(8);
+        }
+
+        .righter {
+          overflow: hidden;
+          float: left;
+          padding-left: vw(140);
+
+          .top {
+            color: #fff;
+            font-size: vw(92);
+            font-weight: 700;
+            line-height: 0.8;
+            text-transform: uppercase;
+            letter-spacing: vw(-2.6);
+          }
+          .bottom {
+            color: #fff;
+            font-size: vw(41);
+            font-weight: 700;
+            line-height: 0.8;
+            text-transform: uppercase;
+            padding-top: vw(8);
+            padding-left: vw(6);
+            letter-spacing: vw(-1);
+          }
+        }
+      }
+      .landing--banner-block--star {
+        color: #000000;
+        font-size: vw(30);
+        font-weight: 500;
+        width: vw(580);
+        margin-left: vw(144);
+        line-height: 1.2;
+        padding-top: vw(6);
+      }
+    }
+  }
+}

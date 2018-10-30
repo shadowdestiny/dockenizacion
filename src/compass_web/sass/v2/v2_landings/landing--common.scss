@@ -1,0 +1,185 @@
+//body {
+//
+//    overflow: hidden!important;
+//}
+//.landing--blue {
+    //display: none;
+//}
+//.landing--orange {
+    //display: none;
+//}
+//TODO : remove code above !!!
+
+.landing {
+
+    * {
+        font-family: $ff;
+    }
+
+    .wrapper {
+        margin:auto;
+        width: 100%;
+        max-width: none;
+        padding: 0 vw(27);
+
+        @media only screen and (max-width: $screen-pre-desktop) {
+            padding: 0 vwm(8);
+            margin-bottom: 0!important;
+
+            &.wrapper--arrows {
+                display: none;
+            }
+        }
+    }
+
+
+    .wrapper-small {
+        margin:auto;
+        width: 100%;
+        max-width: none;
+        padding: 0 vw(48);
+
+        @media only screen and (max-width: $screen-pre-desktop) {
+            padding: 0 vwm(8);
+            margin-bottom: 0!important;
+        }
+    }
+
+    .landing--header {
+        background-color: #fff;
+        height: vw(99);
+
+        .landing--top-nav {
+            height: vw(99);
+            min-height: vw(99);
+
+            .logo {
+                margin: 0;
+                padding: 0;
+                width: vw(345);
+                height:vw(42);
+                margin-top: vw(27);
+                float: left;
+
+                img{
+                    width: 100%;
+                }
+            }
+            .ul-top-nav{
+                overflow: hidden;
+                padding-top: vw(23);
+                float: right;
+            }
+            .ul-top-nav>li.li-sign .btn-theme {
+                font-family: $ff;
+                color:  #9b9c9b;
+                font-size: vw(17);
+                font-weight: 700;
+                text-align: center;
+                height:vw(49);
+                line-height: 0.8;
+                width: auto;
+                min-width: vw(109);
+                padding: vw(17) vw(22) ;
+                margin-right: 0;
+                margin-left: vw(16);
+                box-sizing: border-box;
+            }
+        }
+
+        @media only screen and (max-width: $screen-pre-desktop) {
+            height: vwm(57);
+
+            .landing--top-nav {
+                height: vwm(57);
+
+                .ul-top-nav {
+                    display: none;
+                }
+
+                .logo {
+                    width: vwm(303);
+                    height: vwm(40);
+                    margin-top: vwm(13);
+                }
+            }
+        }
+
+    }
+
+    .landing--arrows {
+
+        height: vw(138);
+        margin-bottom: vw(40);
+
+        ul {
+            height: vw(138);
+            overflow: hidden;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                height: vw(138);
+                float: left;
+                position: relative;
+                box-sizing: border-box;
+                background-position: 0 0;
+                -webkit-background-size: cover;
+                background-size: cover;
+                background-repeat: no-repeat;
+
+                &.li-01 {
+                    width: vw(634);
+                    padding-top: vw(54);
+                }
+                &.li-02 {
+                    width: vw(582);
+                    padding-top:vw(34);
+                }
+                &.li-03 {
+                    width: vw(640);
+                    padding-top: vw(54);
+                }
+
+                span {
+                    display: block;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    text-align: left;
+                    text-transform: uppercase;
+                    font-family: $ff;
+                    color:  #333333;
+                    font-size: vw(48);
+                    font-weight: 700;
+                    line-height: 0.85;
+
+                    i {
+                        font-style: normal;
+                        font-weight: inherit;
+                    }
+                }
+            }
+        }
+
+        @media only screen and (max-width: $screen-pre-desktop) {
+            display: none;
+        }
+    }
+
+    .landing--disclaimer {
+        p {
+            font-family: $ff;
+            color:  #333333;
+            font-size: vw(16);
+            font-weight: 400;
+            text-align: left;
+            line-height: 1.25;
+
+            @media only screen and (max-width: $screen-pre-desktop) {
+                font-size: vwm(14);
+            }
+        }
+    }
+}

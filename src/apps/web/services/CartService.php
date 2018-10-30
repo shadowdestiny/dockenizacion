@@ -13,6 +13,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
+use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderPowerBall;
@@ -37,13 +38,20 @@ class CartService
     /** @var PlayConfigRepository $playConfigRepository */
     private $playConfigRepository;
 
-    public function __construct(EntityManager $entityManager, IPlayStorageStrategy $orderStorageStrategy, SiteConfigService $siteConfigService)
+    /** @var PlayService $playService */
+    protected $playService;
+
+    public function __construct(EntityManager $entityManager,
+                                IPlayStorageStrategy $orderStorageStrategy,
+                                SiteConfigService $siteConfigService,
+                                WalletService $walletService)
     {
         $this->entityManager = $entityManager;
         $this->orderStorageStrategy = $orderStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
         $this->lotteryRepository = $entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
+        $this->walletService = $walletService;
         $this->siteConfigService = $siteConfigService;
     }
 
@@ -62,7 +70,7 @@ class CartService
         return new ActionResult(false);
     }
 
-    public function get($user_id, $lotteryName)
+    public function get($user_id, $lotteryName,$withWallet = true)
     {
         try {
             /** @var ActionResult $result */
@@ -71,6 +79,7 @@ class CartService
             $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
             if ($result->success()) {
                 $json = json_decode($result->returnValues());
+
                 if (NULL == $json) {
                     return new ActionResult(false);
                 }
@@ -85,21 +94,15 @@ class CartService
                     }
                     $fee = $this->siteConfigService->getFee();
                     $fee_limit = $this->siteConfigService->getFeeToLimitValue();
-
-                    if ($lottery->getName() == 'EuroMillions') {
-                        $order = new Order($bets,
+                    $order = OrderFactory::create(
+                        $bets,
                         $lottery->getSingleBetPrice(),
                         $fee, $fee_limit,
-                        new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
-
-                    } else {
-                        $orderStrategy = "\\EuroMillions\\web\\vo\\" . 'Order' . $lottery->getName();
-                        $order = new $orderStrategy($bets,
-                            $lottery->getSingleBetPrice(),
-                            $fee, $fee_limit,
-                            new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
-                    }
-
+                        new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()),
+                        $lottery,
+                        $result->getValues(),
+                        $withWallet
+                    );
                     if (null !== $order) {
                         return new ActionResult(true, $order);
                     }
@@ -111,6 +114,21 @@ class CartService
             return new ActionResult(false, $r->getMessage());
         }
         return new ActionResult(false);
+    }
+
+    public function checkout($event,$component,Order $order)
+    {
+    }
+
+
+    public function amountCalculateWithCreditCardAndBalance(Money $orderAmount, Money $walletAmount, $isWallet)
+    {
+        if($isWallet == 'false')
+        {
+            return $orderAmount;
+        }
+        $amount = $orderAmount->subtract($walletAmount);
+        return new Money( $amount->getAmount(), new Currency('EUR'));
     }
 
     public function getChristmas($user_id)

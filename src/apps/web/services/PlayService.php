@@ -5,6 +5,9 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\ErrorEmailTemplate;
+use EuroMillions\web\emailTemplates\PowerBallPurchaseConfirmationEmailTemplate;
+use EuroMillions\web\emailTemplates\PowerBallPurchaseSubscriptionConfirmationEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationChristmasEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseSubscriptionConfirmationEmailTemplate;
@@ -17,8 +20,12 @@ use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
+use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
+use EuroMillions\web\services\email_templates_strategies\ErrorDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
+use EuroMillions\web\services\factories\LotteryValidatorsFactory;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\BundlePlayCollectionDTO;
@@ -31,6 +38,7 @@ use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderChristmas;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
+use Exception;
 use Money\Currency;
 use Money\Money;
 
@@ -149,7 +157,7 @@ class PlayService
                 if ($result_order->success()) {
                     /** @var Order $order */
                     $order = $result_order->getValues();
-                    if (is_null($credit_card) && $withAccountBalance ) {
+                    if (is_null($credit_card) && $withAccountBalance) {
                         if ($order->totalOriginal()->getAmount() > $user->getBalance()->getAmount()) {
                             return new ActionResult(false);
                         }
@@ -166,11 +174,13 @@ class PlayService
                         $this->cardPaymentProvider->user($user);
                         $this->cardPaymentProvider->idTransaction = $uniqueId;
                         $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
-
                     } else {
+                        if($order->getHasSubscription())
+                        {
+                            $this->walletService->createSubscriptionTransaction($user,$uniqueId,$order);
+                        }
                         $result_payment = new ActionResult(true, $order);
                     }
-
                     if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var PlayConfig $play_config */
@@ -248,6 +258,96 @@ class PlayService
         return new ActionResult(false);
     }
 
+
+    public function playWithMoneyMatrix($lotteryName, $transactionID, $userID, $withWallet, $amount)
+    {
+        try {
+            $di = \Phalcon\Di::getDefault();
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryService->getLotteryConfigByName($lotteryName);
+            /** @var User $user */
+            $user = $this->userRepository->find(['id' => $userID]);
+            $result_order = $this->cartService->get($userID, $lotteryName);
+            /** @var Order $order */
+            $order = $result_order->getValues();
+            $order->setIsCheckedWalletBalance($withWallet);
+            //$order->addFunds(new Money((int) $amount, new Currency('EUR')));
+            $order->setLottery($lottery);
+            $order->addFunds(null);
+            $order->setAmountWallet($user->getWallet()->getBalance());
+            $draw = $this->lotteryService->getNextDrawByLottery($lotteryName);
+            $result_payment = new ActionResult(true, $order);
+            if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
+                /** @var PlayConfig $play_config */
+                foreach ($order->getPlayConfig() as $play_config) {
+                    $play_config->setLottery($lottery);
+                    $this->playConfigRepository->add($play_config);
+                    $this->entityManager->flush($play_config);
+                }
+            }
+            $this->walletService->payWithMoneyMatrix($user, $transactionID, $order, $withWallet, $amount);
+            $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
+            if ($result_payment->success() && $orderIsToNextDraw) {
+                $walletBefore = $user->getWallet();
+                $config = $di->get('config');
+                if ($config->application->send_single_validations) {
+                    foreach ($order->getPlayConfig() as $play_config) {
+                        $result_validation = $this->validatorResult($lottery, $play_config, $draw, $order);
+                        if (!$result_validation->success()) {
+                            return new ActionResult(false, $result_validation->errorMessage());
+                        }
+                        if ($order->getHasSubscription()) {
+                            $this->walletService->createSubscriptionTransaction($user, $transactionID, $order);
+                            if ($withWallet) {
+                                $order->setAmountWallet($user->getWallet()->getBalance());
+                                $this->walletService->payWithSubscription($user, $play_config, null, $order);
+                                $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config, null, $order);
+                            } else {
+                                $this->walletService->payWithSubscription($user, $play_config, null, $order);
+                            }
+                        } else {
+                            $this->walletService->payWithWallet($user, $play_config, null, $order);
+                        }
+                    }
+                    $numPlayConfigs = count($order->getPlayConfig());
+                } else {
+                    $playConfigs = $order->getPlayConfig();
+                    foreach (array_chunk($playConfigs, self::NUM_BETS_PER_REQUEST) as $playConfigsSplit) {
+                        $result_validation = $this->betService->groupingValidation($playConfigsSplit, $draw->getValues(), $lottery->getNextDrawDate());
+                        if (!$result_validation->success()) {
+                            return new ActionResult(false, $result_validation->errorMessage());
+                        }
+                    }
+                    $this->walletService->payGroupedBetsWithWallet($user, $playConfigs[0]->getLottery()->getSingleBetPrice()->multiply(count($playConfigs)));
+                    $numPlayConfigs = count($playConfigs);
+                }
+
+                $dataTransaction = [
+                    'lottery_id' => $lottery->getId(),
+                    'transactionID' => $transactionID,
+                    'numBets' => count($order->getPlayConfig()),
+                    'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
+                    'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
+                    'walletBefore' => $walletBefore,
+                    'amountWithCreditCard' => 0,
+                    'playConfigs' => array_map(function ($val) {
+                        return $val->getId();
+                    }, $order->getPlayConfig()),
+                    'discount' => $order->getDiscount()->getValue()
+                ];
+                $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                $this->sendEmailPurchase($user, $order->getPlayConfig());
+                return new ActionResult(true, $order);
+            } else {
+                return new ActionResult($result_payment->success(), $order);
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+
+
+    }
+
     /**
      * @param $user_id
      * @param Money $funds
@@ -274,7 +374,11 @@ class PlayService
                     $order->addFunds($funds);
                     $order->setAmountWallet($user->getWallet()->getBalance());
                     $draw = $this->lotteryService->getNextDrawByLottery('Christmas');
-
+                    //Workaround temporal
+                    $config = $di->get('config')['wirecard'];
+                    $this->cardPaymentProvider = new WideCardPaymentProvider(new WideCardConfig($config->endpoint,
+                            $config->api_key)
+                    );
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
                         $uniqueId = $this->walletService->getUniqueTransactionId();
@@ -570,7 +674,7 @@ class PlayService
         return $this->lotteryService->getLotteryConfigByName($lottery);
     }
 
-    private function sendEmailPurchase(User $user, $orderLines)
+    public function sendEmailPurchase(User $user, $orderLines)
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
@@ -587,6 +691,53 @@ class PlayService
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
+    public function sendErrorEmail(User $user, Order $order, $dateOrder)
+    {
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new ErrorEmailTemplate($emailBaseTemplate, new ErrorDataEmailTemplateStrategy($user, $order, $dateOrder));
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    }
+
+    public function validatorResult(Lottery $lottery, $play_config, ActionResult $draw, Order $order)
+    {
+        //TODO: workaround to avoid calls to lottorisq
+        static $calls=0;
+        static $response = null;
+        $calls++;
+        try
+        {
+            $lotteryValidator = LotteryValidatorsFactory::create($lottery->getName());
+            if ($lottery->getName() == 'EuroMillions')
+            {
+                return $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $lotteryValidator);
+            }
+            if($calls == 1)
+            {
+                $response = json_decode($lotteryValidator->book(json_encode($order->getPlayConfig()))->body);
+                return new ActionResult(true, $response);
+            }
+        }catch(\Exception $e)
+        {
+            return new ActionResult(false);
+        }
+        return new ActionResult(true, $response);
+    }
+
+    public function persistBetDistinctEuroMillions($play_config,ActionResult $draw, Order $order, $resultValidation)
+    {
+        if($order->getLottery()->getName() !== 'EuroMillions')
+        {
+            return $this->betService->validationLottoRisq($play_config, $draw->getValues(), $order->getLottery()->getNextDrawDate(), null, $resultValidation->uuid);
+        }
+        return new ActionResult(true);
+    }
+
+
+    public function retrieveEuromillionsBundlePrice()
+    {
+        return $this->playConfigRepository->retrieveEuromillionsBundlePrice();
+    }
+
     private function sendEmailPurchaseChristmas(User $user, $orderLines)
     {
         $emailBaseTemplate = new EmailTemplate();
@@ -596,6 +747,22 @@ class PlayService
 
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
+
+    public function sendEmailPowerBallPurchase(User $user, $orderLines)
+    {
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new PowerBallPurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+        if ($orderLines[0]->getFrequency() >= 4) {
+            $emailTemplate = new PowerballPurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+            $emailTemplate->setDraws($orderLines[0]->getFrequency());
+            $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
+        }
+        $emailTemplate->setLine($orderLines);
+        $emailTemplate->setUser($user);
+
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    }
+
 
 
 }

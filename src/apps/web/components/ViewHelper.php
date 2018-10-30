@@ -35,6 +35,17 @@ class ViewHelper
         return substr($amount, 0, strpos($amount, "."));
     }
 
+    public static function formatBillionsJackpot($amount, $locale)
+    {
+        $currency = mb_substr($amount, 0, 1);
+        $amount = substr($amount, 0, strpos($amount, "."));
+        $amount = preg_replace('/[^0-9]/','',$amount);
+        if($locale != 'es_ES') {
+            $amount = $amount / 1000;
+        }
+        return $currency.$amount;
+    }
+
 
     public static function getNamePaymentType( $nameClass )
     {
