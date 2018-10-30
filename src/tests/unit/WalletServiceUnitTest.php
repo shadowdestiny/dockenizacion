@@ -202,6 +202,44 @@ class WalletServiceUnitTest extends UnitTestBase
         //$this->assertEquals($expected_wallet, $user->getWallet());
     }
 
+
+    /**
+     * method payOrder
+     * when called
+     * should withOrderNoSubscriptionShouldRechargeWallet
+     */
+    public function test_payOrder_called_withOrderNoSubscriptionShouldRechargeWallet()
+    {
+        $expected = Wallet::create(6200,0);
+        $user = UserMother::aUserWith50Eur()->build();
+        $order = OrderMother::aJustOrder()->buildANewWay();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->persist($user)->shouldBeCalled();
+        $entityManager_stub->flush($user)->shouldBeCalled();
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
+        $actual = $sut->payOrder($user,$order);
+        $this->assertEquals($expected,$actual->getWallet());
+    }
+
+    /**
+     * method payOrder
+     * when called
+     * should withSubscriptionShouldRemoveWalletSubscription
+     */
+    public function test_payOrder_called_withSubscriptionShouldRemoveWalletSubscription()
+    {
+        $expected = Wallet::create(0,0,9800);
+        $user = UserMother::aUserWith50EurInItsSubscriptionWallet()->build();
+        $order = OrderMother::aJustOrderWithSubscription()->buildWithWallet();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->persist($user)->shouldBeCalled();
+        $entityManager_stub->flush($user)->shouldBeCalled();
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
+        $actual = $sut->payOrder($user,$order);
+        $this->assertEquals($expected,$actual->getWallet());
+    }
+
+
     /**
      * @param $expected_wallet_amount
      * @param $payment_provider_result
