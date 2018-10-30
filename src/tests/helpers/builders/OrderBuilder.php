@@ -4,6 +4,10 @@
 namespace EuroMillions\tests\helpers\builders;
 
 
+use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
+use EuroMillions\tests\helpers\mothers\LotteryMother;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\vo\Order;
 use Money\Currency;
@@ -26,11 +30,17 @@ class OrderBuilder
     protected $fee_limit_value;
     /** @var  Money $single_bet_price */
     protected $single_bet_price;
+    /** @var Lottery $lottery */
+    protected $lottery;
+    /** @var EuroMillionsDraw $draw */
+    protected $draw;
 
 
     public function __construct()
     {
         $this->playConfig = $this->getPlayConfig();
+        $this->lottery = $this->getLottery();
+        $this->draw = $this->getDraw();
         $this->fee = new Money(self::DEFAULT_FEE, new Currency('EUR'));
         $this->fee_limit_value = new Money(self::DEFAULT_FEE_LIMIT_VALUE, new Currency('EUR'));
         $this->single_bet_price = new Money(self::DEFAULT_SINGLE_BET_PRICE, new Currency('EUR'));
@@ -53,6 +63,16 @@ class OrderBuilder
         return $this;
     }
 
+    private function getLottery()
+    {
+        return $lottery = LotteryMother::anEuroMillions();
+    }
+
+    private function getDraw()
+    {
+        $draw = EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build();
+        return $draw;
+    }
 
     private function getPlayConfig()
     {
@@ -89,6 +109,14 @@ class OrderBuilder
     {
         $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value);
         return $order;
+    }
+
+
+    public function buildANewWay()
+    {
+        $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value,null, false,$this->lottery, $this->draw);
+        return $order;
+
     }
 
 
