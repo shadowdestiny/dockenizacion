@@ -91,6 +91,8 @@ payment_config: 'wirecard,moneymatrix'
 
 controllers_euromillions: 'numbers,powerball-numbers'
 controllers_powerball: 'numbers,powerball-numbers'
+controllers_megamillions: 'megamillions-numbers'
+
 
 file_databasegeoip_path: '/var/www/data/geoipdatabase'
 

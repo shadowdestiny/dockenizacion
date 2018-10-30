@@ -275,18 +275,18 @@ class LotteriesDataService
                 $megaMillionsDraws  = json_decode($data, true);
                 unset($megaMillionsDraws[0]);
                 foreach ($megaMillionsDraws as $megaMillionsDraw) {
-                    $draw = $this->createDraw(new \DateTime($megaMillionsDraw['date']), null, $lottery);
-                    $draw->createResult($megaMillionsDraw['numbers']['main'], [0,$megaMillionsDraw['numbers']['megaball']]);
+                    $draw = $this->createDraw(new \DateTime($megaMillionsDraw['drawDate']), null, $lottery);
+                    $draw->createResult(explode(',',$megaMillionsDraw['resultNumbers']), [0,$megaMillionsDraw['luckyNumber']]);
                     $jackpotEUR = $currencyConversionService->convert(
-                        new Money((int) $megaMillionsDraw['jackpot']['total'],new Currency('USD') ),
+                        new Money((int) $megaMillionsDraw['jackpot']['total'],new Currency($megaMillionsDraw['currency'])),
                         new Currency('EUR')
                     );
                     $jack = new Money((int) floor($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
                     $draw->setJackpot($jack);
-                    $draw->setRaffle(new Raffle($megaMillionsDraw['numbers']['megaplier']));
+                    $draw->setRaffle(new Raffle($megaMillionsDraw['megaplierNumber']));
                     $draw->createBreakDown([
-                        'prizes' => $megaMillionsDraw['prizes'],
-                        'winners' => $megaMillionsDraw['winners']
+                        'prizes' => $megaMillionsDraw['megaMillionsDrawBreakDownDTO']['breakDown']['prizes'],
+                        'winners' => $megaMillionsDraw['megaMillionsDrawBreakDownDTO']['breakDown']['winners']
                     ],
                         MegaMillionsDrawBreakDown::class
                     );
