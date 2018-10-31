@@ -337,6 +337,7 @@
                         <div class="box-balance--row  cl">
                             <div class="txt">{{ language.translate("balance_yourWithdrawable") }} <span
                                         class="value">{{ wallet.wallet_winning_amount }}</span></div>
+                            {% if wallet.hasEnoughWinnings %}
                             <div class="box-btn">
                                 <a href="javascript:void(0)"
                                    class="btn big green withdraw">
@@ -346,6 +347,7 @@
                                     {#Withdraw#}
                                 </a>
                             </div>
+                            {% endif %}
                         </div>
 
 
