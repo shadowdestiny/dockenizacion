@@ -106,7 +106,7 @@ class PaymentProviderService implements EventsAwareInterface
                 }
             } else {
                 //TODO Workaround. It should the same way as transaction builder
-                if($transaction instanceof WinningsWithdrawTransaction)
+                if(!$transaction[0] instanceof WinningsWithdrawTransaction)
                 {
                     $transaction[0]->setAmountAdded($order->getCreditCardCharge()->getFinalAmount()->getAmount());
                     $transaction[0]->setHasFee($order->getCreditCardCharge()->getIsChargeFee());

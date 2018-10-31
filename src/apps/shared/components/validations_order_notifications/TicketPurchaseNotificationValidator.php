@@ -56,7 +56,6 @@ class TicketPurchaseNotificationValidator implements IValidatorOrderNotification
             return true;
         } catch(\Exception $e)
         {
-            var_dump($e->getMessage());die();
             return false;
         }
     }
