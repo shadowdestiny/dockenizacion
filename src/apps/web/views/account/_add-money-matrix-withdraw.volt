@@ -62,5 +62,5 @@
         	<strong>Cargando...</strong>
     </div>
     <div id="money-matrix-withdraw" class="add-funds-block" style="display:none;">
-    	{% include "cart/moneymatrix_iframe.volt" %}
+    	{% include "cart/moneymatrixwithdraw_iframe.volt" %}
     </div>

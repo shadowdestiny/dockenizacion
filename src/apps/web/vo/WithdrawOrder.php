@@ -10,6 +10,7 @@ namespace EuroMillions\web\vo;
 
 use EuroMillions\web\entities\Lottery;
 
+use EuroMillions\web\vo\enum\OrderType;
 use Money\Money;
 use Money\Currency;
 
@@ -24,4 +25,13 @@ class WithdrawOrder extends Order
     {
         return true;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderType()
+    {
+        return OrderType::WINNINGS_WITHDRAW;
+    }
+
 }

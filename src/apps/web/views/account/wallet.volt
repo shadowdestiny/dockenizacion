@@ -171,7 +171,6 @@
 												$('#iframemx').attr('src',result.cashier.cashierUrl);
 										 })
 										  .done(function(response) {
-										        console.log('done');
                                                  $('#funds-value').attr('readonly', false);
                                                  $('.box-wallet').removeClass('disabled');
                                                 $('#loading').hide();
@@ -180,7 +179,6 @@
         }
     });
     $('.submit_withdraw').on('click', function(e){
-
     		var amount=$('.funds-value-withdraw').val();
     		amount=parseInt(amount)*100;
     		if(amount>=2500)
@@ -191,11 +189,10 @@
     			$('#loading-withdraw').show();
     			$.post('/ajax/withdraw/order', 'amount='+amount,function(response){
     										        let result = JSON.parse(response);
-    										        $("#iframemx").contents().empty();
-    												$('#iframemx').attr('src',result.cashier.cashierUrl);
+    										        $("#iframemxwithdraw").contents().empty();
+    												$('#iframemxwithdraw').attr('src',result.cashier.cashierUrl);
     										 })
     										  .done(function(response) {
-    										        console.log('done');
                                                      $('.funds-value-withdraw').attr('readonly', false);
                                                      $('.box-wallet-withdraw').removeClass('disabled');
                                                     $('#loading-withdraw').hide();

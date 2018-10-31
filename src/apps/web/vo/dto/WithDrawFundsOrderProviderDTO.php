@@ -9,6 +9,8 @@
 namespace EuroMillions\web\vo\dto;
 
 
+use EuroMillions\web\vo\enum\MoneyMatrixEndpoint;
+
 class WithDrawFundsOrderProviderDTO extends OrderPaymentProviderDTO
 {
     protected function createDataMoneyMatrix()
@@ -19,7 +21,7 @@ class WithDrawFundsOrderProviderDTO extends OrderPaymentProviderDTO
             "firstName" => $this->user->getName(),
             "lastName" => $this->user->getSurname(),
             "emailAddress" => $this->user->getEmail()->toNative(),
-            "countryCode" => "ES",
+            "countryCode" => strtoupper($this->user->getDefaultLanguage()) == 'EN' ? 'GB' : strtoupper($this->user->getDefaultLanguage()),
             "CallbackUrl" => $this->notificationEndpoint.'/notification',
             "ipAddress" => $this->user->getIpAddress()->toNative(),
             "address" => $this->user->getStreet() == null ? "" : $this->user->getStreet(),
@@ -40,5 +42,10 @@ class WithDrawFundsOrderProviderDTO extends OrderPaymentProviderDTO
             "registrationIpAddress" => $this->user->getIpAddress()->toNative(),
             "registrationDate" => ""
         ];
+    }
+
+    public function action()
+    {
+        return MoneyMatrixEndpoint::WITHDRAW;
     }
 }

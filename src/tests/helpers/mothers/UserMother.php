@@ -41,6 +41,13 @@ class UserMother
             ->withWallet(self::getWallet(5000));
     }
 
+    public static function aUserWith50EurInItsSubscriptionWallet()
+    {
+        return self::getInitializedUser()
+            ->withId(UserBuilder::DEFAULT_ID)
+            ->withSubsriptionWallet(self::getWalletWithSubscription(0,5000));
+    }
+
     public static function aUserWith500Eur()
     {
         return self::getInitializedUser()
@@ -91,4 +98,11 @@ class UserMother
         return new Wallet(new Money($amount, new Currency('EUR')));
     }
 
+    private static function getWalletWithSubscription($amount,$amountSubscription)
+    {
+        return new Wallet(new Money($amount, new Currency('EUR')),
+                          null,
+                          new Money($amountSubscription, new Currency('EUR'))
+            );
+    }
 }

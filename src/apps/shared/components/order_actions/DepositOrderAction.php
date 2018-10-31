@@ -15,22 +15,32 @@ use EuroMillions\web\vo\Order;
 final class DepositOrderAction implements IOrderAction
 {
 
-
     protected $status;
 
     /** @var Order $order */
     protected $order;
 
+    protected $transactionID;
+
     /** @var \Phalcon\Events\Manager $eventsManager */
     protected $eventsManager;
 
-    public function __construct($status, Order $order, \Phalcon\Events\Manager $eventsManager)
+    public function __construct($status, Order $order, $transactionID, \Phalcon\Events\Manager $eventsManager)
     {
-
+        $this->status=$status;
+        $this->order=$order;
+        $this->transactionID=$transactionID;
+        $this->eventsManager=$eventsManager;
     }
 
     public function execute()
     {
-
+        if($this->status == 'SUCCESS')
+        {
+            $this->eventsManager->fire('orderservice:addDepositFounds', $this, ["order" => $this->order,
+                                                                                          "transactionID" => $this->transactionID
+                ]
+            );
+        }
     }
 }

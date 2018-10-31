@@ -20,12 +20,12 @@ class MoneyMatrixGatewayClientWrapper
         $this->curlWrapper = $curlWrapper ? $curlWrapper : new Curl();
     }
 
-    public function send($params) {
+    public function send($params,$action) {
         try {
             /** @var Response  $response */
             $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST,false);
             $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER,false);
-            $response = $this->curlWrapper->post($this->config->getEndpoint().'/deposit',
+            $response = $this->curlWrapper->post($this->config->getEndpoint().'/'.$action,
                 $params,
                 true,
                 array(
