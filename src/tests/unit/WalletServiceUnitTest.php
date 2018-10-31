@@ -241,6 +241,38 @@ class WalletServiceUnitTest extends UnitTestBase
 
 
     /**
+     * method extract
+     * when called
+     * should substractAmountFromUserBalance
+     */
+    public function test_extract_called_substractAmountFromUserBalance()
+    {
+        $expected = Wallet::create(4700,0,0);
+        $user = UserMother::aUserWith50Eur()->build();
+        $order = OrderMother::aJustOrder()->buildANewWay();
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
+        $sut->extract($user,$order);
+        $this->assertEquals($expected,$user->getWallet());
+    }
+
+    /**
+     * method extract
+     * when called
+     * should substractAmountFromSubscriptionUserBalance
+     */
+    public function test_extract_called_substractAmountFromSubscriptionUserBalance()
+    {
+        $expected = Wallet::create(0,0,4700);
+        $user = UserMother::aUserWith50EurInItsSubscriptionWallet()->build();
+        $order = OrderMother::aJustOrderWithSubscription()->buildWithWallet();
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
+        $sut->extract($user,$order);
+        $this->assertEquals($expected,$user->getWallet());
+    }
+
+
+
+    /**
      * @param $expected_wallet_amount
      * @param $payment_provider_result
      */

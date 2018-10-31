@@ -99,6 +99,7 @@ class OrderBuilder
         $bets = [];
         foreach($form_decode->play_config as $bet) {
             $playConfig = new PlayConfig();
+            $playConfig->setLottery(LotteryMother::anEuroMillions());
             $playConfig->formToEntity($user,$bet,$bet->euroMillionsLines);
             $bets[] = $playConfig;
         }
