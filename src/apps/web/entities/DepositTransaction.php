@@ -30,7 +30,6 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
         $this->setLotteryName($data['lotteryName']);
         $this->setStatus(!empty($data['status']) ? $data['status'] : 'SUCCESS');
         $this->setWithWallet(!empty($data['withWallet']) ? $data['status'] : 0);
-
     }
 
     public function toString()

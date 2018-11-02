@@ -11,6 +11,7 @@ namespace EuroMillions\web\vo;
 
 use EuroMillions\web\entities\Lottery;
 
+use EuroMillions\web\vo\enum\OrderType;
 use Money\Money;
 use Money\Currency;
 
@@ -41,4 +42,13 @@ class OrderDeposit extends Order
             $this->amountWallet = new Money(0, new Currency('EUR'));
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderType()
+    {
+        return OrderType::DEPOSIT;
+    }
+
 }

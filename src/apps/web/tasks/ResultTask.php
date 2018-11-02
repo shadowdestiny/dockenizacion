@@ -103,7 +103,7 @@ class ResultTask extends TaskBase
     }
 
 
-    public function startProcessAwardAction()
+    public function startAction()
     {
         try {
             $drawDate = $this->lotteryService->getLastDrawDate('PowerBall');
@@ -120,7 +120,6 @@ class ResultTask extends TaskBase
             ]);
             throw new \Exception($e->getMessage());
         }
-
     }
 
     public function importAllHistoricalDataFromPowerballAction()

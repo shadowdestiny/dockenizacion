@@ -9,12 +9,39 @@
 namespace EuroMillions\megamillions\controllers;
 
 
+use EuroMillions\web\components\DateTimeUtil;
+use EuroMillions\web\components\ViewHelper;
+
 final class PlayController extends \EuroMillions\shared\controllers\PlayController
 {
 
     public function indexAction()
     {
         parent::indexAction();
+        $current_currency = $this->userPreferencesService->getCurrency();
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
+
+        $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('MegaMillions');
+        if (!$this->authService->isLogged()) {
+            $user_currency = $this->userPreferencesService->getCurrency();
+            $this->singleBetPriceCurrency = $this->currencyConversionService->convert($this->singleBetPrice, $user_currency);
+        } else {
+            $current_user_id = $this->authService->getCurrentUser()->getId();
+            /** @var User $user */
+            $user = $this->userService->getUser($current_user_id);
+            $this->singleBetPriceCurrency = $this->currencyConversionService->convert($this->singleBetPrice, new Currency($user->getUserCurrency()->getName()));
+        }
+
+        $this->play_dates = $this->lotteryService->getRecurrentDrawDates('MegaMillions');
+        $this->draw = $this->lotteryService->getNextDateDrawByLottery('MegaMillions');
+        $date_time_util = new DateTimeUtil();
+        $this->dayOfWeek = $date_time_util->getDayOfWeek($this->draw);
+        $this->checkOpenTicket = $date_time_util->checkTimeForClosePlay($this->draw);
+        $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('MegaMillions');
+        $this->automaticRandom = $this->request->get('random');
+        $this->bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO('MegaMillions');
+
         return $this->view->setVars([
             'play_dates' => $this->play_dates,
             'next_draw' => $this->dayOfWeek,

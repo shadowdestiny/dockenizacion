@@ -427,7 +427,11 @@ var PlayPage = React.createClass({
         var betsActive = this.getNumLinesThatAreFilled();
         var total = Number(betsActive * price_bet * numDraws).toFixed(2);
         var show_clear_all = this.checkNumbersOnLineStored() > 0;
-        this.setState( { price : total, show_clear_all : show_clear_all, clear_all : false, random_all : false} );
+        this.setState( { price : total,
+                         how_clear_all : show_clear_all,
+                         clear_all : false,
+                         random_all : false}
+        );
     },
 
     updateTotalByDiscount: function (draws_number, discount)

@@ -45,6 +45,7 @@ class UserBuilder
 
 
 
+
     public static function aUser()
     {
         return new UserBuilder();
@@ -91,6 +92,13 @@ class UserBuilder
         $this->wallet = $wallet;
         return $this;
     }
+
+    public function withSubsriptionWallet(Wallet $wallet)
+    {
+        $this->wallet = $wallet;
+        return $this;
+    }
+
 
     public function withName($name)
     {
