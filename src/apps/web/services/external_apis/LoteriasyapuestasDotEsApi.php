@@ -46,7 +46,6 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
      */
     public function getJackpotForDate($lotteryName, $date)
     {
-        throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the LoteriasyapuestasDotEsApi');
         $response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/botes/.formatoRSS');
         $xml = new \SimpleXMLElement($response->body);
         foreach ($xml->channel->item as $item) {
