@@ -84,6 +84,7 @@ class UserRepository extends RepositoryBase
             'created' => new \DateTime(),
             'ip_address' => new IPAddress($credentials['ipaddress']),
             'default_language' => $credentials['default_language'],
+            'phone_number' => $credentials['phone_number']
         ]);
         $this->add($user);
         $this->getEntityManager()->flush($user);
