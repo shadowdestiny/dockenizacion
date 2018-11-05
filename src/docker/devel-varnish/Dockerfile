@@ -46,6 +46,10 @@ COPY ./supervisor/supervisord_varnish.conf /etc/supervisor/conf.d/supervisord_va
 COPY ./start.sh /start.sh
 RUN chmod 755 /start.sh
 
+# forward request and error nginx logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+	&& ln -sf /dev/stderr /var/log/nginx/error.log
+
 # Expose Ports
 EXPOSE 80
 EXPOSE 443
