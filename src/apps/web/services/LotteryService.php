@@ -527,7 +527,6 @@ class LotteryService
         try {
             $curl->setOption(CURLOPT_SSL_VERIFYHOST, false);
             $curl->setOption(CURLOPT_SSL_VERIFYPEER, false);
-
             $result = $curl->get($config->endpoint.'/results',
                 [],
                 array(

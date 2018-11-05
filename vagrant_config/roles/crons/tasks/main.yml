@@ -7,7 +7,8 @@
     docker exec {{webserver_container_name}} crontab /var/www/global_config/crontab.txt;
     docker exec {{webserver_container_name}} php /var/www/apps/cli.php result importAllHistoricalDataFromPowerball;
     docker exec {{webserver_container_name}} php /var/www/apps/cli.php result updatePowerballResult;
-    docker exec {{webserver_container_name}} php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall
+    docker exec {{webserver_container_name}} php /var/www/apps/megamillions/megamillions-cli.php jackpot updateNextDrawJackpotMegaMillions;
+
   ignore_errors: yes
 
 - name: Insert translation to BBDD

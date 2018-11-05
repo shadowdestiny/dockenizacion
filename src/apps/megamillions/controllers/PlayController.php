@@ -58,6 +58,7 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
             'pageController' => 'euroPlay',
             'next_draw_date_format' => $this->draw->format($this->languageService->translate('dateformat')),
             'draw_day' => $this->languageService->translate($this->draw->format('l')),
+            'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay()
         ]);
     }
 
