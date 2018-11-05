@@ -358,15 +358,6 @@ class WalletService
             $user->setWallet($newWallet);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            $data = [];
-            $data['now'] = new \DateTime();
-            $data['walletBefore'] = $walletBefore;
-            $data['walletAfter'] = $user->getWallet();
-            $data['user'] = $user;
-            $data['accountBankId'] = '1';
-            $data['amountWithdrawed'] = $amount->getAmount();
-            $data['state'] = 'pending';
-            $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $data);
             return new ActionResult(true);
         } catch (\Exception $e) {
             return new ActionResult(false, $e->getMessage());

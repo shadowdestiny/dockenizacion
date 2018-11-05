@@ -14,6 +14,13 @@ class OrderMother
         return self::getInitializedOrder();
     }
 
+    public static function aJustOrderWithSubscription()
+    {
+        return self::getInitializedOrder()
+            ->withSubscription()
+            ->withCheckedWalletBalance();
+    }
+
 
     private static function getInitializedOrder()
     {

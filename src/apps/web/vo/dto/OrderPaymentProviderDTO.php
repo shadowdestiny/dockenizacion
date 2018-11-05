@@ -7,22 +7,30 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
+use EuroMillions\web\vo\enum\MoneyMatrixEndpoint;
 use Phalcon\Config;
 
 class OrderPaymentProviderDTO  extends DTOBase implements IDto
 {
     public $MMdata;
+
     public $user;
+
     public $totalPrice;
+
     public $currency;
+
     public $lottery;
+
     public $transactionID;
+
     public $isWallet;
+
     public $urlEuroMillions;
+
     public $notificationEndpoint;
+
     public $isMobile;
-
-
 
     public function __construct(array $data, Config $config)
     {
@@ -58,7 +66,7 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
             "firstName" => $this->user->getName(),
             "lastName" => $this->user->getSurname(),
             "emailAddress" => $this->user->getEmail()->toNative(),
-            "countryCode" => strtoupper($this->user->getDefaultLanguage()),
+            "countryCode" =>  strtoupper($this->user->getDefaultLanguage()) == 'EN' ? 'GB' : strtoupper($this->user->getDefaultLanguage()),
             "CallbackUrl" => $this->notificationEndpoint.'/notification',
             "ipAddress" => $this->user->getIpAddress()->toNative(),
             "address" => $this->user->getStreet() == null ? "" : $this->user->getStreet(),
@@ -100,6 +108,11 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
     public function toJson()
     {
         return json_encode($this->MMdata);
+    }
+
+    public function action()
+    {
+        return MoneyMatrixEndpoint::DEPOSIT;
     }
 
 }

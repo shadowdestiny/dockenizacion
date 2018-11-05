@@ -6,7 +6,7 @@ namespace EuroMillions\web\interfaces;
 interface IHandlerPaymentGateway
 {
 
-    public function call($data);
+    public function call($data,$action);
 
     public function type();
 }

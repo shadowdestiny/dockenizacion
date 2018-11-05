@@ -156,6 +156,30 @@ class OrderService
         }
     }
 
+    public function withDraw($event,$component,array $data)
+    {
+        /** @var Order $order */
+        $order = $data['order'];
+        $transactionID = $data['transactionID'];
+        $user = $order->getPlayConfig()[0]->getUser();
+        try
+        {
+            $walletBefore = $user->getWallet();
+            $this->walletService->withDraw($user,$order->getCreditCardCharge()->getNetAmount());
+            $transactions = $this->transactionService->getTransactionByEmTransactionID($transactionID);
+            $transactions[0]->fromString();
+            $transactions[0]->setWalletBefore($walletBefore);
+            $transactions[0]->setWalletAfter($user->getWallet());
+            $transactions[0]->toString();
+            $this->transactionService->updateTransaction($transactions[0]);
+
+        }catch(\Exception $e)
+        {
+
+        }
+
+    }
+
     private function sendEmail(User $user, Order $order, $lotteryName)
     {
         if($lotteryName == 'EuroMillions')
@@ -166,7 +190,6 @@ class OrderService
         {
             $this->playService->sendEmailPowerBallPurchase($user,$order->getPlayConfig());
         }
-
     }
 
     private function updateOrderTransaction($user, $order, $transactionID, $walletBefore)

@@ -17,6 +17,7 @@ use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderChristmas;
 use EuroMillions\web\vo\OrderPowerBall;
 use EuroMillions\web\vo\OrderDeposit;
+use EuroMillions\web\vo\WithdrawOrder;
 use Money\Money;
 
 class OrderFactory
@@ -50,6 +51,12 @@ class OrderFactory
         elseif($draw == 'Deposit')
         {
             $order = new OrderDeposit($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
+            $order->setAmountWallet($user->getWallet()->getBalance());
+            return $order;
+        }
+        elseif($draw == 'Withdraw')
+        {
+            $order = new WithdrawOrder($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
             $order->setAmountWallet($user->getWallet()->getBalance());
             return $order;
         }

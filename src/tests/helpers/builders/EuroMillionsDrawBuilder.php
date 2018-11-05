@@ -31,7 +31,7 @@ class EuroMillionsDrawBuilder
     {
         $this->id = self::DEFAULT_ID;
         $this->lottery = LotteryMother::anEuroMillions();
-        $this->draw_date = self::DEFAULT_DRAW_DATE;
+        $this->draw_date = new \DateTime('2016-04-22');
         $this->raffle = RaffleMother::anRaffle();
     }
 

@@ -62,10 +62,10 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
         return $this->config;
     }
 
-    public function call($data)
+    public function call($data,$action)
     {
         try {
-            return $this->gatewayClient->send($data);
+            return $this->gatewayClient->send($data,$action);
         } catch ( \Exception $e ) {
             throw new \Exception($e->getMessage());
         }

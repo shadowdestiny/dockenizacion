@@ -2,16 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: vapdl
- * Date: 09/10/18
- * Time: 06:25 PM
+ * Date: 21/10/18
+ * Time: 09:11 PM
  */
 
 namespace EuroMillions\web\vo\dto;
 
 
-class DepositPaymentProviderDTO extends OrderPaymentProviderDTO
-{
+use EuroMillions\web\vo\enum\MoneyMatrixEndpoint;
 
+class WithDrawFundsOrderProviderDTO extends OrderPaymentProviderDTO
+{
     protected function createDataMoneyMatrix()
     {
         return $this->MMdata = [
@@ -32,8 +33,8 @@ class DepositPaymentProviderDTO extends OrderPaymentProviderDTO
             "paymentMethod" => "null",
             "amount" =>  number_format($this->totalPrice / 100,2),
             "currency" => 'EUR',
-            "SuccessUrl" => "https://".$this->urlEuroMillions.'/account/wallet?success=Deposit executed successfully',
-            "FailUrl" => "https://".$this->urlEuroMillions.'/account/wallet?failure=Deposit fail in execution',
+            "SuccessUrl" => "https://".$this->urlEuroMillions.'/account/wallet?success=WithDraw executed successfully',
+            "FailUrl" => "https://".$this->urlEuroMillions.'/account/wallet?failure=WithDraw fail in execution',
             "CancelUrl" => "https://".$this->urlEuroMillions.'/Euromillions/result/canel',
             "CheckStatusUrl" => "https://".$this->urlEuroMillions.'/Euromillions/result/status',
             "channel" => $this->isMobile,
@@ -43,4 +44,8 @@ class DepositPaymentProviderDTO extends OrderPaymentProviderDTO
         ];
     }
 
+    public function action()
+    {
+        return MoneyMatrixEndpoint::WITHDRAW;
+    }
 }

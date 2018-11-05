@@ -4,7 +4,12 @@
 namespace EuroMillions\tests\helpers\builders;
 
 
+use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
+use EuroMillions\tests\helpers\mothers\LotteryMother;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\Order;
 use Money\Currency;
 use Money\Money;
@@ -26,11 +31,22 @@ class OrderBuilder
     protected $fee_limit_value;
     /** @var  Money $single_bet_price */
     protected $single_bet_price;
+    /** @var Lottery $lottery */
+    protected $lottery;
+    /** @var EuroMillionsDraw $draw */
+    protected $draw;
+
+    protected $isCheckedWalletBalance;
+
 
 
     public function __construct()
     {
         $this->playConfig = $this->getPlayConfig();
+        $this->lottery = $this->getLottery();
+        $this->draw = $this->getDraw();
+        $this->hasSubscription = false;
+        $this->isCheckedWalletBalance = false;
         $this->fee = new Money(self::DEFAULT_FEE, new Currency('EUR'));
         $this->fee_limit_value = new Money(self::DEFAULT_FEE_LIMIT_VALUE, new Currency('EUR'));
         $this->single_bet_price = new Money(self::DEFAULT_SINGLE_BET_PRICE, new Currency('EUR'));
@@ -53,6 +69,28 @@ class OrderBuilder
         return $this;
     }
 
+    public function withSubscription()
+    {
+        $this->playConfig = $this->getPlayConfigWithSubscription();
+        return $this;
+    }
+
+    public function withCheckedWalletBalance()
+    {
+        $this->isCheckedWalletBalance = true;
+        return $this;
+    }
+
+    private function getLottery()
+    {
+        return $lottery = LotteryMother::anEuroMillions();
+    }
+
+    private function getDraw()
+    {
+        $draw = EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build();
+        return $draw;
+    }
 
     private function getPlayConfig()
     {
@@ -61,7 +99,23 @@ class OrderBuilder
         $bets = [];
         foreach($form_decode->play_config as $bet) {
             $playConfig = new PlayConfig();
+            $playConfig->setLottery(LotteryMother::anEuroMillions());
             $playConfig->formToEntity($user,$bet,$bet->euroMillionsLines);
+            $bets[] = $playConfig;
+        }
+        return $bets;
+    }
+
+    private function getPlayConfigWithSubscription()
+    {
+        $user = UserMother::aUserWith50Eur()->build();
+        $form_decode = json_decode(self::DEFAULT_JSON_PLAY);
+        $bets = [];
+        foreach($form_decode->play_config as $bet) {
+            $playConfig = new PlayConfig();
+            $playConfig->formToEntity($user,$bet,$bet->euroMillionsLines);
+            $playConfig->setFrequency(4);
+            $playConfig->setLottery(LotteryMother::anEuroMillions());
             $bets[] = $playConfig;
         }
         return $bets;
@@ -88,6 +142,19 @@ class OrderBuilder
     public function build()
     {
         $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value);
+        return $order;
+    }
+
+
+    public function buildANewWay()
+    {
+        $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value,null, false,$this->lottery, $this->draw);
+        return $order;
+    }
+
+    public function buildWithWallet()
+    {
+        $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value,null, true,$this->lottery, $this->draw);
         return $order;
     }
 
