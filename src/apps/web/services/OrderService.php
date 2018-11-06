@@ -88,27 +88,30 @@ class OrderService
                             'checkout:After substract playconfig bet value from wallet =' . $user->getBalance()->getAmount());
                     }
                 }
-                //TODO move to TransactionService
-                $dataTransaction = [
-                    'lottery_id' => $order->getLottery()->getId(),
-                    'transactionID' => $transactionID,
-                    'numBets' => count($order->getPlayConfig()),
-                    'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                    'amountWithWallet' => $order->amountForTicketPurchaseTransaction(),
-                    'walletBefore' => $walletBefore,
-                    'amountWithCreditCard' => 0,
-                    'playConfigs' => array_map(function ($val) {
-                        return $val->getId();
-                    }, $order->getPlayConfig()),
-                    'discount' => $order->getDiscount()->getValue(),
-                ];
-                $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
-                $this->logger->log(Logger::INFO,
-                    'checkout:Transaction TICKET_PURCHASE it was created');
-                $this->sendEmail($user,$order,$lottery->getName());
+                if($result->success() && $isBetPersisted->success())
+                {
+                    //TODO move to TransactionService
+                    $dataTransaction = [
+                        'lottery_id' => $order->getLottery()->getId(),
+                        'transactionID' => $transactionID,
+                        'numBets' => count($order->getPlayConfig()),
+                        'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
+                        'amountWithWallet' => $order->amountForTicketPurchaseTransaction(),
+                        'walletBefore' => $walletBefore,
+                        'amountWithCreditCard' => 0,
+                        'playConfigs' => array_map(function ($val) {
+                            return $val->getId();
+                        }, $order->getPlayConfig()),
+                        'discount' => $order->getDiscount()->getValue(),
+                    ];
+                    $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                    $this->logger->log(Logger::INFO,
+                        'checkout:Transaction TICKET_PURCHASE it was created');
+                    $this->sendEmail($user,$order,$lottery->getName());
+                    $this->logger->log(Logger::INFO,
+                        'checkout:Email sent');
+                }
                 $this->redisOrderChecker->delete($user->getId());
-                $this->logger->log(Logger::INFO,
-                    'checkout:Email sent');
             }
         } catch(\Exception $e)
         {

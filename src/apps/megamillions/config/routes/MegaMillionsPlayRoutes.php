@@ -30,6 +30,20 @@ class MegaMillionsPlayRoutes extends RouterGroup
             'action' => 'index',
             'language' => 'en'
         ));
+
+        $this->add( '/cart/profile', [
+            "module" => "megamillions",
+            'lottery' => "megamillions",
+            'controller' => 'mega-millions-cart',
+            'action' => 'profile'
+        ]);
+
+        $this->add('/order', [
+            "module" => "megamillions",
+            'lottery' => 'megamillions',
+            'controller' => 'mega-millions-order',
+            'action' => 'order'
+        ]);
     }
 
 }

@@ -11,6 +11,7 @@ namespace EuroMillions\megamillions\controllers;
 
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\ViewHelper;
+use Money\Currency;
 
 final class PlayController extends \EuroMillions\shared\controllers\PlayController
 {
@@ -19,7 +20,7 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
     {
         parent::indexAction();
         $current_currency = $this->userPreferencesService->getCurrency();
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('MegaMillions'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
 
         $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('MegaMillions');

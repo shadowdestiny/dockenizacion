@@ -13,7 +13,6 @@ use EuroMillions\web\vo\PlayFormToStorage;
 class PlayTemporarilyController extends AjaxControllerBase
 {
 
-
     public function temporarilyCartAction()
     {
         $bets = $this->request->getPost('bet');
