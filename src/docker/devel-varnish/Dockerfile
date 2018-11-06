@@ -31,6 +31,10 @@ unlink /etc/nginx/sites-enabled/default && \
 rm -Rf /etc/nginx/sites-available/default && \
 mkdir -p /etc/nginx/ssl/
 
+# copy ssl certs
+COPY nginx/certs /etc/nginx/ssl
+
+# copy config and enable default site
 COPY ./nginx/nginx-custom.conf /etc/nginx/conf.d/nginx-custom.conf
 COPY ./nginx/nginx-site.conf /etc/nginx/sites-available/default.conf
 RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
@@ -38,11 +42,11 @@ RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/defau
 # varnish conf
 COPY ./varnish/default.vcl /etc/varnish/default.vcl
 
-# Supervisor Config Files
+# supervisor config files
 COPY ./supervisor/supervisord_nginx.conf /etc/supervisor/conf.d/supervisord_nginx.conf
 COPY ./supervisor/supervisord_varnish.conf /etc/supervisor/conf.d/supervisord_varnish.conf
 
-# Start Supervisord
+# start supervisord
 COPY ./start.sh /start.sh
 RUN chmod 755 /start.sh
 
@@ -50,7 +54,7 @@ RUN chmod 755 /start.sh
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
-# Expose Ports
+# expose ports
 EXPOSE 80
 EXPOSE 443
 

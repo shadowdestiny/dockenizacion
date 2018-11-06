@@ -1,0 +1,42 @@
+---
+- hosts: localhost
+  tasks:
+    - name: build docker image of devel-phptools
+      shell: docker build --target tools -t devel-phptools:latest {{ playbook_dir }}/../src/docker/devel-phpcron
+
+    - name: run composer install
+      docker_container:
+        name: devel-phptools
+        image: devel-phptools:latest
+        detach: false
+        cleanup: yes
+        state: started
+        command: composer install --no-progress
+        volumes:
+          - "{{ playbook_dir }}/../src:/var/www"
+        env:
+          EM_ENV: development
+          COMPOSER_NO_INTERACTION: 1
+          COMPOSER_ALLOW_SUPERUSER: 1
+
+    - name: initialize test database
+      shell: docker-compose exec -d database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
+
+    - name:
+
+
+# TODO:
+#- name: start compass web container
+#  docker:
+#    name: compassweb
+#    image: antonienko/compass-watch
+#    command: watch --poll /src/compass_web
+#    volumes: /var/www:/src
+
+# TODO:
+#- name: start compass admin container
+#  docker:
+#    name: compasadmin
+#    image: antonienko/compass-watch
+#    command: watch --poll /src/compass_admin
+#    volumes: /var/www:/src
