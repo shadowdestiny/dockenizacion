@@ -28,7 +28,7 @@ file_logs_path: '/var/www/logs/'
 recaptcha_public_key: '6LcDSwwTAAAAABKLpEJyJOhXPoDCOr13Oh_lgf1b'
 recaptcha_private_key: '6LcDSwwTAAAAACxn_ZdCdBJGUHigvsfmKMg334kB'
 
-ips: '192.168.1.102,10.0.2.15,10.0.2.2,62.57.159.66'
+ips: '192.168.1.102,10.0.2.15,10.0.2.2,62.57.159.66,18.203.16.28'
 
 euromillions_retry_validation_time: '19:00'
 
@@ -69,7 +69,7 @@ wirecard_endpoint: 'https://api.euromillions.com/beta/wirecard-payment'
 wirecard_endpoint_withdraw: 'https://api.euromillions.com/beta/withdraw'
 wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
-moneymatrix_endpoint: 'https://rancher-beta.euromillions.com:49167/deposit'
+moneymatrix_endpoint: 'https://rancher-beta.euromillions.com:49167'
 
 
 lottorisq_endpoint: 'http://192.168.50.2/powerball'
