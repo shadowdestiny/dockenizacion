@@ -86,11 +86,11 @@ class ResultTask extends TaskBase
             $breakdown = $this->lotteryService->getLastBreakdown('PowerBall');
             if (!$result['regular_numbers'][0])
             {
-                $this->lotteriesDataService->updateLastDrawResultPowerBall('PowerBall');
+                $this->lotteriesDataService->updateLastDrawResultLottery('PowerBall');
             }
             if(!$breakdown->getCategoryOne()->getName())
             {
-                $this->lotteriesDataService->updateLastBreakDownPowerBall('PowerBall');
+                $this->lotteriesDataService->updateLastBreakDownLottery('PowerBall');
             }
         }catch (\Exception $e)
         {
