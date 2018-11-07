@@ -7,12 +7,13 @@ namespace EuroMillions\web\services\card_payment_providers;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\gcp\GatewayClientGCP;
 use EuroMillions\web\services\card_payment_providers\gcp\GCPConfig;
 use EuroMillions\web\vo\CreditCard;
 use Money\Money;
 
-class GCPCardPaymentProvider implements ICardPaymentProvider
+class GCPCardPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGateway
 {
 
     protected $gatewayClient;
@@ -47,5 +48,15 @@ class GCPCardPaymentProvider implements ICardPaymentProvider
     public function user(User $user)
     {
         $this->gatewayClient->setUser($user);
+    }
+
+    public function call($data, $action)
+    {
+        // TODO: Implement call() method.
+    }
+
+    public function type()
+    {
+        return "IFRAME";
     }
 }
