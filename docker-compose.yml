@@ -39,7 +39,7 @@ services:
 
   php:
     build:
-      context: src/docker/devel-phpcron
+      context: src/docker/devel-php
       target: devel
     image: devel-php:latest
     depends_on:
@@ -57,7 +57,7 @@ services:
 
   phpcron:
     build:
-      context: src/docker/devel-phpcron
+      context: src/docker/devel-php
       target: cron
     image: devel-phpcron:latest
     depends_on:

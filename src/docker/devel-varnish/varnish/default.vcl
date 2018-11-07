@@ -44,10 +44,10 @@ sub vcl_backend_response {
         unset beresp.http.set-cookie;
 
         # Set TTL of 1h
-        set beresp.ttl = 1h;
+        set beresp.ttl = 0s; # Disabled on DEV
 
         # Define the default grace period to serve cached content
-        set beresp.grace = 30m;
+        set beresp.grace = 0s; # Disabled on DEV
     }
 }
 
