@@ -58,7 +58,7 @@ class PaymentProviderService implements EventsAwareInterface
             }
             $orderData->setTransactionID($transactionID);
             $orderData->exChangeObject();
-            $response = $paymentMethod->call($orderData->toJson(),$orderData->action());
+            $response = $paymentMethod->call($orderData->toJson(),$orderData->action(),'post');
             return new ChasierDTO(json_decode($response, true),$transactionID);
         } catch (\Exception $e)
         {
