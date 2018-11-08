@@ -6,7 +6,8 @@ services:
     volumes:
     - "database_volume:/var/lib/mysql"
     networks:
-      - backend
+      backend:
+        ipv4_address: ${EM_DOCKER_DATABASE_IP}
     environment:
       REPLICATION: 'true'
       REPLICATION_NODE: 1
@@ -35,7 +36,7 @@ services:
     networks:
       - backend
     environment:
-      EM_ENV: development
+      EM_ENV: ${EM_ENV}
 
   php:
     build:
@@ -53,7 +54,7 @@ services:
     networks:
       - backend
     environment:
-      EM_ENV: development
+      EM_ENV: ${EM_ENV}
 
   phpcron:
     build:
@@ -71,7 +72,7 @@ services:
     networks:
       - backend
     environment:
-      EM_ENV: development
+      EM_ENV: ${EM_ENV}
 
   varnish:
     build:
@@ -84,16 +85,19 @@ services:
     networks:
       backend: {}
       frontend:
-        ipv4_address: 172.10.10.10
+        ipv4_address: ${EM_DOCKER_VARNISH_IP}
     environment:
-      EM_ENV: development
+      EM_ENV: ${EM_ENV}
 
 volumes:
   database_volume:
 
 networks:
-  backend: {}
+  backend:
+    ipam:
+      config:
+        - subnet: ${EM_DOCKER_BACKEND_SUBNET}
   frontend:
     ipam:
       config:
-        - subnet: 172.10.10.0/24
+        - subnet: ${EM_DOCKER_FRONTEND_SUBNET}
