@@ -14,6 +14,7 @@ use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\vo\dto\ChasierDTO;
 use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
+use EuroMillions\web\vo\dto\WithdrawResponseStatusDTO;
 use EuroMillions\web\vo\enum\OrderType;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
@@ -44,7 +45,8 @@ class PaymentProviderService implements EventsAwareInterface
 
     public function getCashierViewDTOFromMoneyMatrix(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData, $transactionID=null)
     {
-        try {
+        try
+        {
             $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
             if($hasOrder->success())
             {
@@ -61,6 +63,21 @@ class PaymentProviderService implements EventsAwareInterface
         } catch (\Exception $e)
         {
             throw new Exception($e->getMessage());
+        }
+    }
+
+
+    public function withdrawStatus(IHandlerPaymentGateway $paymentMethod, $transactionID)
+    {
+        try
+        {
+            $response = $paymentMethod->call("","withdraw/status/".$transactionID,'get');
+            return new WithdrawResponseStatusDTO(
+                json_decode($response, true)
+            );
+        }catch(\Exception $e)
+        {
+
         }
     }
 
