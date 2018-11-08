@@ -27,7 +27,7 @@ final class MegamillionsNumbersController extends PublicSiteControllerBase
 
     public function indexAction()
     {
-        $date = $this->request->get('date');
+        $date = $this->router->getParams()['date'];
         $lotteryName = 'MegaMillions';
         $date = empty($date) ? $this->lotteryService->getLastDrawDate($lotteryName) : new \DateTime($date);
         $webLanguageStrategy = new WebLanguageStrategy($this->session,$this->di->get('request'));
