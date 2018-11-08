@@ -60,7 +60,7 @@ class LotteryDrawRepository extends EntityRepository
         }
         $next_draw_date = $lottery->getNextDrawDate($date);
 
-        $next_draw_date = DateTimeUtil::convertDateTimeBetweenTimeZones($next_draw_date,'America/New_York','Europe/Madrid')->modify('-1 day');
+        $next_draw_date = DateTimeUtil::convertDateTimeBetweenTimeZones($next_draw_date,'America/New_York','Europe/Madrid', $lottery->getName())->modify('-1 day');
 
         /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
@@ -223,7 +223,7 @@ class LotteryDrawRepository extends EntityRepository
             ->setMaxResults($limit)
 
             ->setParameters(['lottery_name' => $lottery->getName()])
-           // ->useResultCache(true, 3600)
+            ->useResultCache(true, 3600)
             ->getResult();
         if (!count($result)) {
             throw new DataMissingException('Couldn\'t find the results in the database');
