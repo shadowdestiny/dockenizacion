@@ -159,7 +159,20 @@ class LotteriesDataService
             } catch (DataMissingException $e) {
                 $draw = $this->createDraw($last_draw_date, null, $lottery);
             }
-            $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
+            if($lotteryName=='MegaMillions')
+            {
+                $draw->createResult(explode(',', $result['resultNumbers']), [0, $result['luckyNumber']]);
+                $draw->setRaffle(new Raffle($result['megaplierNumber']));
+                $draw->createBreakDown([
+                    'prizes' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['prizes'],
+                    'winners' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['winners']
+                ],
+                    MegaMillionsDrawBreakDown::class
+                );
+            }
+            else{
+                $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
+            }
             if ($draw->getResult()->getRegularNumbers()) {
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();

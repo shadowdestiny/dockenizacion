@@ -70,14 +70,9 @@ class ResultTask extends TaskBase
             $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
             $drawDate = $this->lotteryService->getLastDrawDate('MegaMillions');
             $result = $this->lotteryService->getLastResult('MegaMillions');
-            $breakdown = $this->lotteryService->getLastBreakdown('MegaMillions');
             if (!$result['regular_numbers'][0])
             {
                 $this->lotteriesDataService->updateLastDrawResultLottery('MegaMillions');
-            }
-            if(!$breakdown->getCategoryOne()->getName())
-            {
-                $this->lotteriesDataService->updateLastBreakDownLottery('MegaMillions');
             }
         }catch (\Exception $e)
         {

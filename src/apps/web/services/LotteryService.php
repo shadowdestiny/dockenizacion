@@ -173,7 +173,7 @@ class LotteryService
             /** @var EuroMillionsLine $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
         } catch (DataMissingException $e) {
-//            $lottery_result = $this->lotteriesDataService->updateLastDrawResult($lotteryName);
+            $lottery_result = $this->lotteriesDataService->updateLastDrawResult($lotteryName);
         }
         $result['regular_numbers'] = explode(',', $lottery_result->getRegularNumbers());
         $result['lucky_numbers'] = explode(',', $lottery_result->getLuckyNumbers());
@@ -210,7 +210,7 @@ class LotteryService
             /** @var EuroMillionsDrawBreakDown $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastBreakdown($lottery);
         } catch (DataMissingException $e) {
-//            $lottery_result = $this->lotteriesDataService->updateLastDrawResult($lotteryName);
+            $lottery_result = $this->lotteriesDataService->updateLastDrawResult($lotteryName);
         }
         return $lottery_result;
     }
