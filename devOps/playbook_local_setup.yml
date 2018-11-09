@@ -3,8 +3,42 @@
 
   vars:
     enable_frontend_watchers: false
+    update_geoip_database: false # should update the geoip databases?
 
   pre_tasks:
+  - name: Check if GeoIP IPv4 database exist
+    stat:
+      path: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIP.dat"
+    register: check_geoipv4
+
+  - name: Get GeoIP IPv4 database
+    get_url:
+      url: http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+      dest: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIP.dat.gz"
+    when: not check_geoipv4.stat.exists or update_geoip_database
+
+  - name: Uncompress geoip database
+    shell: gzip -fd GeoIP.dat.gz
+    args:
+      chdir: "{{ playbook_dir }}/../src/data/geoipdatabase"
+    when: not check_geoipv4.stat.exists or update_geoip_database
+
+  - name: Check if GeoIP IPv6 database exist
+    stat:
+      path: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIPv6.dat"
+    register: check_geoipv6
+
+  - name: Get GeoIP IPv6 database
+    get_url:
+      url: http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+      dest: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIPv6.dat.gz"
+    when: not check_geoipv6.stat.exists or update_geoip_database
+
+  - name: Uncompress geoip database
+    shell: gzip -fd GeoIPv6.dat.gz
+    args:
+      chdir: "{{ playbook_dir }}/../src/data/geoipdatabase"
+    when: not check_geoipv6.stat.exists or update_geoip_database
 
   roles:
     - create_config # Creates the configuration files
