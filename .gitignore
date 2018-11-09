@@ -2,6 +2,8 @@
 /src/tests/_output/*
 .vagrant
 .idea
+.env
+*.retry
 phpinfo.php
 src/app/assets/*
 !src/app/assets/README.md

@@ -7,7 +7,7 @@ environments:
     default_database: development
     devel:
         adapter: mysql
-        host: 127.0.0.1
+        host: database
         name: euromillions
         user: root
         pass: 'tpl9'

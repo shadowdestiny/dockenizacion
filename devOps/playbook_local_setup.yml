@@ -1,0 +1,119 @@
+---
+- hosts: localhost
+
+  vars:
+    enable_frontend_watchers: false
+
+  pre_tasks:
+
+  roles:
+    - create_config # Creates the configuration files
+
+  post_tasks:
+    - name: start docker compose
+      docker_service:
+        project_src: "{{ playbook_dir }}/../"
+        build: yes
+        state: present
+        restarted: yes
+
+    - name: build docker image of devel-phptools
+      shell: docker build --target tools -t devel-phptools:latest {{ playbook_dir }}/../src/docker/devel-php
+
+    - name: build docker image of devel-nodejs
+      shell: docker build -t devel-nodejs:latest {{ playbook_dir }}/../src/docker/devel-nodejs
+
+    - name: run composer install
+      docker_container:
+        name: devel-phptools
+        image: devel-phptools:latest
+        detach: false
+        cleanup: yes
+        state: started
+        command: composer install --no-progress
+        volumes:
+          - "{{ playbook_dir }}/../src:/var/www"
+        env:
+          EM_ENV: development
+          COMPOSER_NO_INTERACTION: 1
+          COMPOSER_ALLOW_SUPERUSER: 1
+
+    - name: run react frontend
+      docker_container:
+        name: devel-nodejs
+        image: devel-nodejs:latest
+        detach: false
+        cleanup: yes
+        state: started
+        command: ./provision.sh
+        volumes:
+          - "{{ playbook_dir }}/../src:/var/www"
+        env:
+          EM_ENV: development
+
+    - name: initialize test database
+      shell: docker-compose exec -d database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
+
+    - name: migrate database devel
+      shell: docker-compose exec -T php /var/www/vendor/bin/phinx migrate --configuration="phinx.yml" -e devel
+
+    - name: seed database devel
+      shell: docker-compose exec -T php /var/www/vendor/bin/phinx seed:run --configuration="phinx.yml" -e devel
+      ignore_errors: true
+
+    - name: populate database data
+      shell: docker-compose exec -T database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 --default-character-set=utf8 euromillions < {{ playbook_dir }}/../src/data/sql/translations/all_translations.sql
+
+    # TODO: This is needed?
+    - name: insert translation to BBDD
+      shell: docker-compose exec -T database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 --default-character-set=utf8 euromillions < {{ playbook_dir }}/../src/data/sql/translation_dump.sql
+      ignore_errors: yes
+
+    - name: execute crons for updating jackpots and results
+      shell: >
+        docker-compose exec -T phpcron php /var/www/apps/cli.php jackpot updatePrevious;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php result update;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php jackpot update;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php result importAllHistoricalDataFromPowerball;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php result updatePowerballResult;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall;
+
+    - name: start compass web container
+      docker_container:
+        name: compassweb
+        image: antonienko/compass-watch
+        cleanup: yes
+        state: started
+        command: watch --poll /src/compass_web
+        volumes:
+          - "{{ playbook_dir }}/../src:/src"
+        env:
+          EM_ENV: development
+      when: enable_frontend_watchers
+
+    - name: start compass admin container
+      docker_container:
+        name: compasadmin
+        image: antonienko/compass-watch
+        cleanup: yes
+        state: started
+        command: watch --poll /src/compass_admin
+        volumes:
+          - "{{ playbook_dir }}/../src:/src"
+        env:
+          EM_ENV: development
+      when: enable_frontend_watchers
+
+    - name: start react frontend watcher
+      docker_container:
+        name: react-watcher
+        image: devel-nodejs:latest
+        cleanup: yes
+        state: started
+        working_dir: /var/www/react
+        command: npm run watch
+        volumes:
+        - "{{ playbook_dir }}/../src:/var/www"
+        env:
+          EM_ENV: development
+      when: enable_frontend_watchers
