@@ -40,6 +40,14 @@
       chdir: "{{ playbook_dir }}/../src/data/geoipdatabase"
     when: not check_geoipv6.stat.exists or update_geoip_database
 
+  - name: Set correct permissions on folders where webserver writes on it
+    file:
+      path: "{{ item }}"
+      mode: 0777
+    with_items:
+    - "{{ playbook_dir }}/../src/apps/web/assets"
+    - "{{ playbook_dir }}/../src/apps/web/assets/compiled_templates"
+
   roles:
     - create_config # Creates the configuration files
 
