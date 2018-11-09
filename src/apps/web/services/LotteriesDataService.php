@@ -159,7 +159,20 @@ class LotteriesDataService
             } catch (DataMissingException $e) {
                 $draw = $this->createDraw($last_draw_date, null, $lottery);
             }
-            $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
+            if($lotteryName=='MegaMillions')
+            {
+                $draw->createResult(explode(',', $result['resultNumbers']), [0, $result['luckyNumber']]);
+                $draw->setRaffle(new Raffle($result['megaplierNumber']));
+                $draw->createBreakDown([
+                    'prizes' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['prizes'],
+                    'winners' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['winners']
+                ],
+                    MegaMillionsDrawBreakDown::class
+                );
+            }
+            else{
+                $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
+            }
             if ($draw->getResult()->getRegularNumbers()) {
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();
@@ -186,7 +199,7 @@ class LotteriesDataService
         }
     }
 
-    public function updateLastDrawResultPowerBall($lotteryName)
+    public function updateLastDrawResultLottery($lotteryName)
     {
         try {
             /** @var Lottery $lottery */
@@ -200,14 +213,21 @@ class LotteriesDataService
             } catch (DataMissingException $e) {
                 $draw = $this->createDraw($lastDrawDate, null, $lottery);
             }
-            $draw->createResult($result['numbers']['main'],  [0,$result['numbers']['powerball']]);
-            $draw->setRaffle(new Raffle($result['numbers']['powerplay']));
+            if($lotteryName == 'MegaMillions')
+            {
+                $draw->createResult(explode(',', $result['resultNumbers']),  [0,$result['luckyNumber']]);
+                $draw->setRaffle(new Raffle($result['megaplierNumber']));
+            }else {
+                $draw->createResult($result['numbers']['main'],  [0,$result['numbers']['powerball']]);
+                $draw->setRaffle(new Raffle($result['numbers']['powerplay']));
+            }
             if ($draw->getResult()->getRegularNumbers()) {
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();
-                $this->sendEmailResultsOrigin('Powerball - Lottorisq API');
+                $this->sendEmailResultsOrigin($lotteryName.' - Lottorisq API');
                 return $draw->getResult();
             }
+
         } catch (\Exception $e)
         {
             throw new \Exception($e->getMessage());
@@ -343,7 +363,7 @@ class LotteriesDataService
         }
     }
 
-    public function updateLastBreakDownPowerBall($lotteryName)
+    public function updateLastBreakDownLottery($lotteryName)
     {
         try {
             /** @var Lottery $lottery */
@@ -354,13 +374,29 @@ class LotteriesDataService
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $lastDrawDate]);
             if(!$draw->hasBreakDown()) {
-                $draw->createBreakDown(
-                    [
-                        'prizes' => $result['prizes'],
-                        'winners' => $result['winners']
-                    ],
-                    PowerBallDrawBreakDown::class
-                );
+
+
+                if($lotteryName=='MegaMillions')
+                {
+                    $draw->createBreakDown(
+                        [
+                            'prizes' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['prizes'],
+                            'winners' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['winners']
+                        ],
+                        MegaMillionsDrawBreakDown::class
+                    );
+                }
+                else
+                {
+                    $draw->createBreakDown(
+                        [
+                            'prizes' => $result['prizes'],
+                            'winners' => $result['winners']
+                        ],
+                        PowerBallDrawBreakDown::class
+                    );
+                }
+
                 $this->entityManager->flush();
                 $this->sendEmailResultsOrigin('Loterias y Apuestas Breakdown');
                 return $draw;

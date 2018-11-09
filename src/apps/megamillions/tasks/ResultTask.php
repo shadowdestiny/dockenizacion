@@ -64,6 +64,25 @@ class ResultTask extends TaskBase
         }
     }
 
+    public function updateMegamillionsResultAction(\DateTime $now = null)
+    {
+        try {
+            $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
+            $drawDate = $this->lotteryService->getLastDrawDate('MegaMillions');
+            $result = $this->lotteryService->getLastResult('MegaMillions');
+            if (!$result['regular_numbers'][0])
+            {
+                $this->lotteriesDataService->updateLastDrawResultLottery('MegaMillions');
+            }
+        }catch (\Exception $e)
+        {
+            $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
+                'drawDate' => $drawDate->format('Y-m-d'),
+                'lotteryName' => 'Error'
+            ]);
+            throw new \Exception($e->getMessage());
+        }
+    }
 
 
 }
