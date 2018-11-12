@@ -43,7 +43,7 @@ final class WithdrawOrderAction implements IOrderAction
         $moneyMatrixStatusCode = new MoneyMatrixStatusCode();
         $statusCode = $moneyMatrixStatusCode->getValue($this->statusCode);
 
-        if($statusCode == "CANCELED" || $statusCode == "REJECTED")
+        if($statusCode == "REJECTED")
         {
             $this->eventsManager->fire('orderservice:revertWithdraw',
                 $this,
