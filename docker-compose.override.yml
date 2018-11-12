@@ -1,0 +1,71 @@
+version: '3.4'
+
+services:
+  database:
+    image: rmrbest/percona
+    volumes:
+      - "database_volume:/var/lib/mysql"
+    networks:
+      backend:
+        ipv4_address: ${EM_DOCKER_DATABASE_IP}
+    environment:
+      REPLICATION: 'true'
+      REPLICATION_NODE: 1
+      REPLICATION_SLAVE_USER: slave_db1
+      REPLITACION_SLAVE_PASSWORD: euromillions
+      MYSQL_ROOT_PASSWORD: tpl9
+      MYSQL_USER: euromillions
+      MYSQL_PASSWORD: tpl9
+      MYSQL_DATABASE: euromillions
+
+  web:
+    build:
+      target: devel
+    image: devel-web:latest
+
+  php:
+    build:
+      target: devel
+    image: devel-php:latest
+    depends_on:
+      - redis
+      - database
+    volumes:
+      - "./src:/var/www"
+    links:
+      - redis:redis
+      - database:mysql
+
+  phpcron:
+    image: devel-phpcron:latest
+    links:
+      - redis:redis
+      - database:mysql
+
+  varnish:
+    build:
+      context: src/docker/NEW/varnish
+    image: devel-varnish:latest
+    depends_on:
+    - web
+    links:
+    - web:backend
+    networks:
+      backend: {}
+      frontend:
+        ipv4_address: ${EM_DOCKER_VARNISH_IP}
+    environment:
+      EM_ENV: ${EM_ENV}
+
+volumes:
+  database_volume:
+
+networks:
+  backend:
+    ipam:
+      config:
+        - subnet: ${EM_DOCKER_BACKEND_SUBNET}
+  frontend:
+    ipam:
+      config:
+        - subnet: ${EM_DOCKER_FRONTEND_SUBNET}
