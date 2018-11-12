@@ -60,10 +60,10 @@
         restarted: yes
 
     - name: build docker image of devel-phptools
-      shell: docker build --target tools -t devel-phptools:latest {{ playbook_dir }}/../src/docker/devel-php
+      shell: docker build --target tools -t devel-phptools:latest {{ playbook_dir }}/../src/docker/NEW/php
 
     - name: build docker image of devel-nodejs
-      shell: docker build -t devel-nodejs:latest {{ playbook_dir }}/../src/docker/devel-nodejs
+      shell: docker build -t devel-nodejs:latest {{ playbook_dir }}/../src/docker/NEW/util-nodejs
 
     - name: run composer install
       docker_container:
