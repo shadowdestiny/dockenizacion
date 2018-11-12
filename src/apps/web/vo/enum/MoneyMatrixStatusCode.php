@@ -25,6 +25,11 @@ class MoneyMatrixStatusCode
     ];
 
 
+    public function getList()
+    {
+        return self::$status;
+    }
+
     public function getValue($key)
     {
         return self::$status[$key];

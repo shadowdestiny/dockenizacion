@@ -40,7 +40,10 @@ final class WithdrawOrderAction implements IOrderAction
     public function execute()
     {
 
-        if($this->statusCode == MoneyMatrixStatusCode::CANCELED || $this->statusCode == MoneyMatrixStatusCode::REJECTED)
+        $moneyMatrixStatusCode = new MoneyMatrixStatusCode();
+        $statusCode = $moneyMatrixStatusCode->getValue($this->statusCode);
+
+        if($statusCode == "CANCELED" || $statusCode == "REJECTED")
         {
             $this->eventsManager->fire('orderservice:revertWithdraw',
                 $this,
@@ -51,7 +54,7 @@ final class WithdrawOrderAction implements IOrderAction
             );
         }
 
-        if($this->statusCode == MoneyMatrixStatusCode::PENDING_APPROVAL)
+        if( $statusCode == "PENDING_APPROVAL")
         {
             $this->eventsManager->fire('orderservice:withdraw',
                                                  $this,
