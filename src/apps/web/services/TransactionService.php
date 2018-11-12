@@ -97,7 +97,7 @@ class TransactionService
                 {
                     continue;
                 }
-                if ($transaction instanceof WinningsWithdrawTransaction && $transaction->getState()=='PENDING')
+                if ($transaction instanceof WinningsWithdrawTransaction && ($transaction->getState()=='PENDING' || $transaction->getState()=='PENDING_APPROVAL'))
                 {
                     continue;
                 }

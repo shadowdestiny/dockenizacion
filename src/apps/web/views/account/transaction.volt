@@ -159,7 +159,7 @@
 
                         <td class="type">
                             <p>
-                                {% if transaction.transactionName == 'Winning Withdraw' %} {{ language.translate("transaction_type_withdraw") }}
+                                {% if transaction.transactionName == 'Winning Withdraw' %} {{ language.translate("transaction_type_withdraw") }} ( {{ transaction.status }} )
                                 {% elseif transaction.transactionName == 'Ticket Purchase' %} {{ language.translate("transaction_type_purchase") }}
                                 {% elseif transaction.transactionName == 'Automatic Purchase' %} {{ language.translate("transaction_type_purchase_aut") }}
                                 {% elseif transaction.transactionName == 'Subscription Deposit' %} {{ language.translate("transaction_type_subs_deposit") }}
