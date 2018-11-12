@@ -97,10 +97,6 @@ class TransactionService
                 {
                     continue;
                 }
-                if ($transaction instanceof WinningsWithdrawTransaction && ($transaction->getState()=='PENDING' || $transaction->getState()=='PENDING_APPROVAL'))
-                {
-                    continue;
-                }
                 $movement = $this->currencyConversionService->convert($transactionDTO->movement, new Currency('EUR'));
                 $balance = $this->currencyConversionService->convert($transactionDTO->balance, new Currency('EUR'));
                 $winnings = $this->currencyConversionService->convert($transactionDTO->winnings, new Currency('EUR'));
