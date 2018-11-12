@@ -1,11 +1,13 @@
 <?php
 namespace EuroMillions\web\entities;
 
+use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\PowerBallDrawBreakDown;
 use EuroMillions\web\vo\Raffle;
 use Money\Money;
 
@@ -115,8 +117,30 @@ class EuroMillionsDraw extends EntityBase implements IEntity
         $this->result = new EuroMillionsLine($regular_numbers, $lucky_numbers);
     }
 
-    public function createBreakDown(array $breakDowns, $className = 'EuroMillions\web\vo\EuroMillionsDrawBreakDown')
+    public function createBreakDown(array $result)
     {
+        if ($this->lottery->getName() == 'MegaMillions') {
+            $breakDowns=[
+                'prizes' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['prizes'],
+                'winners' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['winners']
+            ];
+            $className=MegaMillionsDrawBreakDown::class;
+        }
+        else
+        {
+            $breakDowns=[
+                'prizes' => $result['prizes'],
+                'winners' => $result['winners']
+            ];
+
+            if ($this->lottery->getName() == 'PowerBall')
+            {
+                $className=PowerBallDrawBreakDown::class;
+            }
+            else{
+                $className=EuroMillionsDrawBreakDown::class;
+            }
+        }
         $euroMilliosnBreakDownData = new $className($breakDowns);
         $this->setBreakDown($euroMilliosnBreakDownData);
     }
