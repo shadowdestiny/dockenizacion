@@ -87,7 +87,7 @@
         detach: false
         cleanup: yes
         state: started
-        command: ./provision.sh
+        command: ./provision-react.sh
         volumes:
           - "{{ playbook_dir }}/../src:/var/www"
         env:
