@@ -29,7 +29,7 @@ services:
       - backend
       - frontend
     expose:
-      - 80:80
+      - "80:80"
     restart: always
 
   php:
