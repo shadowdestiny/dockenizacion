@@ -20,18 +20,29 @@ class MoneyMatrixGatewayClientWrapper
         $this->curlWrapper = $curlWrapper ? $curlWrapper : new Curl();
     }
 
-    public function send($params,$action) {
+    public function send($params,$action,$method='post') {
         try {
             /** @var Response  $response */
             $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST,false);
             $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER,false);
-            $response = $this->curlWrapper->post($this->config->getEndpoint().'/'.$action,
-                $params,
-                true,
-                array(
-                    "Content-Type: application/json; charset=utf-8",
-                )
-            );
+            if($method == 'get')
+            {
+                $response = $this->curlWrapper->get($this->config->getEndpoint().'/'.$action,
+                    $params,
+                    array(
+                        "Content-Type: application/json; charset=utf-8",
+                    )
+                );
+            } else
+            {
+                $response = $this->curlWrapper->post($this->config->getEndpoint().'/'.$action,
+                    $params,
+                    true,
+                    array(
+                        "Content-Type: application/json; charset=utf-8",
+                    )
+                );
+            }
             return $response->body;
         } catch ( \Exception $e ) {
             throw new \Exception($e->getMessage());

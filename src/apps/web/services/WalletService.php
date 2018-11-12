@@ -365,6 +365,20 @@ class WalletService
         }
     }
 
+    public function addToWithdraw(User $user, Money $amount)
+    {
+        try {
+            $newWallet = $user->getWallet()->award($amount);
+            $user->setWallet($newWallet);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+            return new ActionResult(true);
+        } catch (\Exception $e) {
+            return new ActionResult(false, $e->getMessage());
+            //EMTD Log and warn the admin
+        }
+    }
+
     public function getWalletDTO(User $user)
     {
         if ($user != null) {

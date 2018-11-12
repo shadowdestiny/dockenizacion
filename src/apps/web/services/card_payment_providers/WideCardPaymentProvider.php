@@ -93,7 +93,7 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         return $this->config;
     }
 
-    public function call($data,$action)
+    public function call($data,$action,$method)
     {
         // TODO: Implement call() method.
     }

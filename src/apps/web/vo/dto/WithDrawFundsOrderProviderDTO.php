@@ -36,7 +36,7 @@ class WithDrawFundsOrderProviderDTO extends OrderPaymentProviderDTO
             "SuccessUrl" => "https://".$this->urlEuroMillions.'/account/wallet?success=WithDraw executed successfully',
             "FailUrl" => "https://".$this->urlEuroMillions.'/account/wallet?failure=WithDraw fail in execution',
             "CancelUrl" => "https://".$this->urlEuroMillions.'/Euromillions/result/canel',
-            "CheckStatusUrl" => "https://".$this->urlEuroMillions.'/Euromillions/result/status',
+            "CheckStatusUrl" => $this->config['moneymatrix']->endpoint.'/withdraw/status',
             "channel" => $this->isMobile,
             "allowPaySolChange" => "true",
             "registrationIpAddress" => $this->user->getIpAddress()->toNative(),

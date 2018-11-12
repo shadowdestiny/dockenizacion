@@ -32,6 +32,7 @@ class TransactionDTO extends DTOBase implements IDto
     public $pendingBalanceMovement;
     public $ticketPrice;
     public $lotteryId;
+    public $status;
 
     public function __construct(Transaction $transaction)
     {
@@ -60,7 +61,11 @@ class TransactionDTO extends DTOBase implements IDto
         } else {
             $this->ticketPrice = new Money(0, new Currency('EUR'));
         }
-
+        // more shit
+        if($this->transaction instanceof WinningsWithdrawTransaction)
+        {
+            $this->status = $this->transaction->getState();
+        }
     }
 
     public function getEntityType($transactionType)
