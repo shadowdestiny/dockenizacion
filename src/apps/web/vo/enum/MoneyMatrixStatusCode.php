@@ -9,40 +9,25 @@
 namespace EuroMillions\web\vo\enum;
 
 
-class MoneyMatrixStatusCode extends \SplEnum
+class MoneyMatrixStatusCode
 {
 
-    const SUCCESS = 1;
-
-    const ERROR = 2;
-
-    const PENDING_NOTIFICATION = 3;
-
-    const PENDING_CONFIRMATION = 4;
-
-    const REJECTED = 5;
-
-    const CANCELED = 6;
-
-    const VOIDED = 7;
-
-    const PENDING_APPROVAL = 8;
-
-    const AUTHORIZED = 9;
+    private static $status = [
+        1 => 'SUCCESS',
+        2 => 'ERROR',
+        3 => 'PENDING_NOTIFICATION',
+        4 => 'PENDING_CONFIRMATION',
+        5 => 'REJECTED',
+        6 => 'CANCELED',
+        7 => 'VOIDED',
+        8 => 'PENDING_APPROVAL',
+        9 => 'AUTHORIZED'
+    ];
 
 
     public function getValue($key)
     {
-        $declaredElems = $this->getConstList();
-        if(array_key_exists($key, $declaredElems)){
-            try {
-                $r = new \ReflectionClass($this);
-            } catch (\ReflectionException $e) {
-            }
-            return $r->getConstant($key);
-        }else{
-            return self::__default;
-        }
+        return self::$status[$key];
     }
 
 }
