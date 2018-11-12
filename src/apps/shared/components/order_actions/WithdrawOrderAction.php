@@ -10,6 +10,7 @@ namespace EuroMillions\shared\components\order_actions;
 
 
 use EuroMillions\shared\interfaces\IOrderAction;
+use EuroMillions\web\vo\enum\MoneyMatrixStatusCode;
 use EuroMillions\web\vo\Order;
 
 final class WithdrawOrderAction implements IOrderAction
@@ -25,17 +26,32 @@ final class WithdrawOrderAction implements IOrderAction
     /** @var \Phalcon\Events\Manager $eventsManager */
     protected $eventsManager;
 
-    public function __construct($status, Order $order, $transactionID, \Phalcon\Events\Manager $eventsManager)
+    protected $statusCode;
+
+    public function __construct($status, Order $order, $transactionID, \Phalcon\Events\Manager $eventsManager, $statusCode)
     {
         $this->status=$status;
         $this->order=$order;
         $this->transactionID=$transactionID;
         $this->eventsManager=$eventsManager;
+        $this->statusCode=$statusCode;
     }
 
     public function execute()
     {
-        if($this->status == 'SUCCESS')
+
+        if($this->statusCode == MoneyMatrixStatusCode::CANCELED || $this->statusCode == MoneyMatrixStatusCode::REJECTED)
+        {
+            $this->eventsManager->fire('orderservice:revertWithdraw',
+                $this,
+                [
+                    "order" => $this->order,
+                    "transactionID" => $this->transactionID
+                ]
+            );
+        }
+
+        if($this->statusCode == MoneyMatrixStatusCode::PENDING_APPROVAL)
         {
             $this->eventsManager->fire('orderservice:withdraw',
                                                  $this,

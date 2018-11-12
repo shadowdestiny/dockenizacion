@@ -21,7 +21,7 @@ class OrderActionContext
     private $strategy;
 
 
-    public function __construct($status, Order $order, $transactionID, \Phalcon\Events\Manager $eventsManager)
+    public function __construct($status, Order $order, $transactionID, \Phalcon\Events\Manager $eventsManager, $statusCode='8')
     {
         switch($order->getOrderType())
         {
@@ -32,7 +32,7 @@ class OrderActionContext
                 $this->strategy=new DepositOrderAction($status,$order,$transactionID,$eventsManager);
                 break;
             case OrderType::WINNINGS_WITHDRAW:
-                $this->strategy=new WithdrawOrderAction($status,$order,$transactionID,$eventsManager);
+                $this->strategy=new WithdrawOrderAction($status,$order,$transactionID,$eventsManager, $statusCode);
                 break;
         }
     }

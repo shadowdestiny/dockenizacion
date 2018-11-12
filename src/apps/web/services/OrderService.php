@@ -177,7 +177,29 @@ class OrderService
         {
 
         }
+    }
 
+    public function revertWithdraw($event,$component,array $data)
+    {
+        /** @var Order $order */
+        $order = $data['order'];
+        $transactionID = $data['transactionID'];
+        $user = $order->getPlayConfig()[0]->getUser();
+        try
+        {
+            $walletBefore = $user->getWallet();
+            $this->walletService->addToWithdraw($user,$order->getCreditCardCharge()->getNetAmount());
+            $transactions = $this->transactionService->getTransactionByEmTransactionID($transactionID);
+            $transactions[0]->fromString();
+            $transactions[0]->setWalletBefore($walletBefore);
+            $transactions[0]->setWalletAfter($user->getWallet());
+            $transactions[0]->toString();
+            $this->transactionService->updateTransaction($transactions[0]);
+
+        }catch(\Exception $e)
+        {
+
+        }
     }
 
     private function sendEmail(User $user, Order $order, $lotteryName)
