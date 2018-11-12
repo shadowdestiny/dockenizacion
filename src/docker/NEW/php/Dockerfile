@@ -6,7 +6,7 @@ RUN buildDeps=" \
     libpcre3-dev git \
     " \
     && enableExtensions=" \
-    redis apcu phalcon\
+    spl_types redis apcu phalcon\
     " \
     && installExtensions=" \
     pdo_mysql mysql mysqli dba bcmath bz2 calendar \
@@ -19,6 +19,7 @@ RUN buildDeps=" \
     && docker-php-ext-install -j$(nproc) $installExtensions \
     && pecl install redis-4.1.1 \
     && pecl install apcu-4.0.11 \
+    && pecl install SPL_Types \
     && git clone https://github.com/phalcon/cphalcon.git /tmp/phalcon --branch=phalcon-v2.0.9 \
     && cd /tmp/phalcon/build/; ./install \
     && docker-php-ext-enable $enableExtensions \
@@ -46,7 +47,7 @@ RUN buildDeps=" \
     libpcre3-dev git \
     " \
     && enableExtensions=" \
-    redis apcu phalcon\
+    spl_types redis apcu phalcon\
     " \
     && installExtensions=" \
     pdo_mysql mysql mysqli dba bcmath bz2 calendar \
@@ -59,6 +60,7 @@ RUN buildDeps=" \
     && docker-php-ext-install -j$(nproc) $installExtensions \
     && pecl install redis-4.1.1 \
     && pecl install apcu-4.0.11 \
+    && pecl install SPL_Types \
     && git clone https://github.com/phalcon/cphalcon.git /tmp/phalcon --branch=phalcon-v2.0.9 \
     && cd /tmp/phalcon/build/; ./install \
     && docker-php-ext-enable $enableExtensions \
@@ -92,7 +94,7 @@ RUN buildDeps=" \
     libpcre3-dev git \
     " \
     && enableExtensions=" \
-    redis apcu phalcon\
+    spl_types redis apcu phalcon\
     " \
     && installExtensions=" \
     pdo_mysql mysql mysqli dba bcmath bz2 calendar \
@@ -105,6 +107,7 @@ RUN buildDeps=" \
     && docker-php-ext-install -j$(nproc) $installExtensions \
     && pecl install redis-4.1.1 \
     && pecl install apcu-4.0.11 \
+    && pecl install SPL_Types \
     && git clone https://github.com/phalcon/cphalcon.git /tmp/phalcon --branch=phalcon-v2.0.9 \
     && cd /tmp/phalcon/build/; ./install \
     && docker-php-ext-enable $enableExtensions \
@@ -144,7 +147,7 @@ RUN buildDeps=" \
     libpcre3-dev git \
     " \
     && enableExtensions=" \
-    redis apcu phalcon\
+    spl_types redis apcu phalcon\
     " \
     && installExtensions=" \
     pdo_mysql mysql mysqli dba bcmath bz2 calendar \
@@ -157,6 +160,7 @@ RUN buildDeps=" \
     && docker-php-ext-install -j$(nproc) $installExtensions \
     && pecl install redis-4.1.1 \
     && pecl install apcu-4.0.11 \
+    && pecl install SPL_Types \
     && git clone https://github.com/phalcon/cphalcon.git /tmp/phalcon --branch=phalcon-v2.0.9 \
     && cd /tmp/phalcon/build/; ./install \
     && docker-php-ext-enable $enableExtensions \
