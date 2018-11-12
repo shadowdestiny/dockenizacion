@@ -39,8 +39,6 @@ services:
     depends_on:
       - redis
       - database
-    volumes:
-      - "./src:/var/www"
     links:
       - redis:redis
       - database:mysql

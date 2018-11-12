@@ -30,8 +30,6 @@ services:
     depends_on:
       - redis
       - database
-    volumes:
-      - "./src:/var/www"
     links:
       - redis:redis
       - database:mysql
@@ -47,9 +45,9 @@ services:
       context: src/docker/NEW/varnish
     image: devel-varnish:latest
     depends_on:
-    - web
+      - web
     links:
-    - web:backend
+      - web:backend
     networks:
       backend: {}
       frontend:
