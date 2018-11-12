@@ -16,11 +16,21 @@ services:
       MYSQL_USER: euromillions
       MYSQL_PASSWORD: tpl9
       MYSQL_DATABASE: euromillions
+    restart: always
+
+  redis:
+    restart: always
 
   web:
     build:
       target: staging
     image: staging-web:latest
+    networks:
+      - backend
+      - frontend
+    expose:
+      - 80:80
+    restart: always
 
   php:
     build:
@@ -34,12 +44,14 @@ services:
     links:
       - redis:redis
       - database:mysql
+    restart: always
 
   phpcron:
     image: staging-phpcron:latest
     links:
       - redis:redis
       - database:mysql
+    restart: always
 
 volumes:
   database_volume:
