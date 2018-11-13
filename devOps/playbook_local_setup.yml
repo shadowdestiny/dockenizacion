@@ -45,8 +45,8 @@
       path: "{{ item }}"
       mode: 0777
     with_items:
-    - "{{ playbook_dir }}/../src/apps/web/assets"
-    - "{{ playbook_dir }}/../src/apps/web/assets/compiled_templates"
+      - "{{ playbook_dir }}/../src/apps/web/assets"
+      - "{{ playbook_dir }}/../src/apps/web/assets/compiled_templates"
 
   roles:
     - create_config # Creates the configuration files
@@ -60,10 +60,10 @@
         restarted: yes
 
     - name: build docker image of devel-phptools
-      shell: docker build --target tools -t devel-phptools:latest {{ playbook_dir }}/../src/docker/devel-php
+      shell: docker build --target tools -t devel-phptools:latest {{ playbook_dir }}/../src/docker/NEW/php
 
     - name: build docker image of devel-nodejs
-      shell: docker build -t devel-nodejs:latest {{ playbook_dir }}/../src/docker/devel-nodejs
+      shell: docker build -t devel-nodejs:latest {{ playbook_dir }}/../src/docker/NEW/util-nodejs
 
     - name: run composer install
       docker_container:
@@ -87,7 +87,7 @@
         detach: false
         cleanup: yes
         state: started
-        command: ./provision.sh
+        command: ./provision-react.sh
         volumes:
           - "{{ playbook_dir }}/../src:/var/www"
         env:

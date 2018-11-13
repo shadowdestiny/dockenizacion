@@ -1,0 +1,27 @@
+*/5 * * * * echo Cron is alive > /proc/1/fd/1 2> /proc/1/fd/2
+
+01 * * * 3,6 /usr/local/bin/php /var/www/apps/cli.php jackpot update > /proc/1/fd/1 2> /proc/1/fd/2
+08 * * * 4,7 /usr/local/bin/php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall > /proc/1/fd/1 2> /proc/1/fd/2
+05 * * * 3,6 /usr/local/bin/php /var/www/apps/cli.php result update > /proc/1/fd/1 2> /proc/1/fd/2
+08 * * * 4,7 /usr/local/bin/php /var/www/apps/cli.php result updatePowerballResult > /proc/1/fd/1 2> /proc/1/fd/2
+10 8 * * 4,7 /usr/local/bin/php /var/www/apps/cli.php result startProcessAward > /proc/1/fd/1 2> /proc/1/fd/2
+0 9 * * 3,6 /usr/local/bin/php /var/www/apps/cli.php latestresult resultsReminderWhenPlayed > /proc/1/fd/1 2> /proc/1/fd/2
+0 9 * * 1,4 /usr/local/bin/php /var/www/apps/cli.php jackpot reminderJackpot > /proc/1/fd/1 2> /proc/1/fd/2
+30 4 * * 3,6 /usr/local/bin/php /var/www/apps/cli.php awardprizes checkout > /proc/1/fd/1 2> /proc/1/fd/2
+30 5 * * * /usr/local/bin/php /var/www/apps/cli.php Play-config update > /proc/1/fd/1 2> /proc/1/fd/2
+45 8 * * * /usr/local/bin/php /var/www/apps/cli.php Play-config updatePowerBall > /proc/1/fd/1 2> /proc/1/fd/2
+30 6 * * 3,6 /usr/local/bin/php /var/www/apps/cli.php bet placeBets > /proc/1/fd/1 2> /proc/1/fd/2
+40 6 * * 3,6 /usr/local/bin/php /var/www/apps/cli.php bet placeBets > /proc/1/fd/1 2> /proc/1/fd/2
+50 6 * * 3,6 /usr/local/bin/php /var/www/apps/cli.php bet placeBets > /proc/1/fd/1 2> /proc/1/fd/2
+15 8 * * 4,7 /usr/local/bin/php /var/www/apps/cli.php bet placePowerBallBets > /proc/1/fd/1 2> /proc/1/fd/2
+30 8 * * 4,7 /usr/local/bin/php /var/www/apps/cli.php bet placePowerBallBets > /proc/1/fd/1 2> /proc/1/fd/2
+55 6 * * 3,6 /usr/local/bin/php /var/www/apps/cli.php bet check-automatic-purchase verify > /proc/1/fd/1 2> /proc/1/fd/2
+
+30 0  * * * /usr/local/bin/php /var/www/apps/cli.php clear-cache clear > /proc/1/fd/1 2> /proc/1/fd/2
+
+###### TODO:
+# Disabled for now.....
+#   57 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/pullFromEMDB.sql
+#   58 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/analysisQueries.sql
+#   59 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/Archive.sql
+###### ###### ###### ###### ###### ######

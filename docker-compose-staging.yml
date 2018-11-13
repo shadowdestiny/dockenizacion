@@ -1,0 +1,55 @@
+version: '3.4'
+
+services:
+  database:
+    image: rmrbest/percona
+    volumes:
+      - "database_volume:/var/lib/mysql"
+    networks:
+      - backend
+    environment:
+      REPLICATION: 'true'
+      REPLICATION_NODE: 1
+      REPLICATION_SLAVE_USER: slave_db1
+      REPLITACION_SLAVE_PASSWORD: euromillions
+      MYSQL_ROOT_PASSWORD: tpl9
+      MYSQL_USER: euromillions
+      MYSQL_PASSWORD: tpl9
+      MYSQL_DATABASE: euromillions
+    restart: always
+
+  redis:
+    restart: always
+
+  web:
+    build:
+      target: staging
+    image: staging-web:latest
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "80:80"
+    restart: always
+
+  php:
+    build:
+      target: staging
+    image: staging-php:latest
+    depends_on:
+      - redis
+      - database
+    links:
+      - redis:redis
+      - database:mysql
+    restart: always
+
+  phpcron:
+    image: staging-phpcron:latest
+    links:
+      - redis:redis
+      - database:mysql
+    restart: always
+
+volumes:
+  database_volume:
