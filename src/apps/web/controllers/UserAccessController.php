@@ -171,8 +171,10 @@ class UserAccessController extends ControllerBase
 
                 if(!checkdate($this->request->getPost('month'), $this->request->getPost('day'), $this->request->getPost('year')))
                 {
-                    $errors[] = 'The date is incorrect';
+                    $errors[] = 'The birthdate is incorrect';
                     $form_errors['day'] = ' error';
+                    $form_errors['month'] = ' error';
+                    $form_errors['year'] = ' error';
                 }
 
             } else {
@@ -185,6 +187,7 @@ class UserAccessController extends ControllerBase
                     'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
                     'default_language' => explode('_', $this->languageService->getLocale())[0],
                     'phone_number' => $this->request->getPost('prefix')."-".$this->request->getPost('phone'),
+                    'birth_date' => $this->request->getPost('year').'-'.$this->request->getPost('month').'-'.$this->request->getPost('day')
                 ];
 
                 $register_result = $this->authService->register($credentials);

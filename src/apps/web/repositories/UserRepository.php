@@ -14,6 +14,7 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ValidationToken;
+use EuroMillions\web\vo\Date as tDate;
 use Money\Currency;
 use Phalcon\Forms\Element\Date;
 use Ramsey\Uuid\Uuid;
@@ -84,7 +85,8 @@ class UserRepository extends RepositoryBase
             'created' => new \DateTime(),
             'ip_address' => new IPAddress($credentials['ipaddress']),
             'default_language' => $credentials['default_language'],
-            'phone_number' => $credentials['phone_number']
+            'phone_number' => $credentials['phone_number'],
+            'birth_date' => new tDate($credentials['birth_date'])
         ]);
         $this->add($user);
         $this->getEntityManager()->flush($user);
