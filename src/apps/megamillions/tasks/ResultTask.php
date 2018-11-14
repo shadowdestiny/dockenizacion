@@ -58,7 +58,7 @@ class ResultTask extends TaskBase
             $conversionService = $this->domainServiceFactory->getCurrencyConversionService();
             $dependencies['CurrencyConversionService'] = $conversionService;
             $results = $this->lotteryService->getAllResultFromLottery(new Curl(), Di::getDefault()->get('config')['megamillions_api'], 'megamillions');
-            $this->lotteriesDataService->insertMegaMillionsData($results->body,$dependencies);
+            $this->lotteriesDataService->insertLotteryData($results->body,$dependencies, 'MegaMillions');
         } catch (Exception $e) {
             throw new \Exception($e->getMessage());
         }
@@ -70,9 +70,14 @@ class ResultTask extends TaskBase
             $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
             $drawDate = $this->lotteryService->getLastDrawDate('MegaMillions');
             $result = $this->lotteryService->getLastResult('MegaMillions');
+            $breakdown = $this->lotteryService->getLastBreakdown('MegaMillions');
             if (!$result['regular_numbers'][0])
             {
                 $this->lotteriesDataService->updateLastDrawResultLottery('MegaMillions');
+            }
+            if(!$breakdown->getCategoryOne()->getName())
+            {
+                $this->lotteriesDataService->updateLastBreakDownLottery('MegaMillions');
             }
         }catch (\Exception $e)
         {

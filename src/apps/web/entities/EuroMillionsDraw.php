@@ -120,27 +120,19 @@ class EuroMillionsDraw extends EntityBase implements IEntity
     public function createBreakDown(array $result)
     {
         if ($this->lottery->getName() == 'MegaMillions') {
-            $breakDowns=[
-                'prizes' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['prizes'],
-                'winners' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['winners']
-            ];
             $className=MegaMillionsDrawBreakDown::class;
         }
-        else
+        elseif ($this->lottery->getName() == 'PowerBall')
         {
-            $breakDowns=[
-                'prizes' => $result['prizes'],
-                'winners' => $result['winners']
-            ];
-
-            if ($this->lottery->getName() == 'PowerBall')
-            {
-                $className=PowerBallDrawBreakDown::class;
-            }
-            else{
-                $className=EuroMillionsDrawBreakDown::class;
-            }
+            $className=PowerBallDrawBreakDown::class;
         }
+        else{
+            $className=EuroMillionsDrawBreakDown::class;
+        }
+        $breakDowns=[
+            'prizes' => $result['prizes'],
+            'winners' => $result['winners']
+        ];
         $euroMilliosnBreakDownData = new $className($breakDowns);
         $this->setBreakDown($euroMilliosnBreakDownData);
     }

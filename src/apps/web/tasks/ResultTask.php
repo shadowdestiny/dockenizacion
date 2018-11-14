@@ -129,7 +129,7 @@ class ResultTask extends TaskBase
             $conversionService = $this->domainServiceFactory->getCurrencyConversionService();
             $dependencies['CurrencyConversionService'] = $conversionService;
             $results = $this->lotteryService->getAllResultFromLottery(new Curl(), Di::getDefault()->get('config')['lotto_api'], 'poweball');
-            $this->lotteriesDataService->insertPowerBallData($results->body,$dependencies);
+            $this->lotteriesDataService->insertLotteryData($results->body,$dependencies, 'PowerBall');
         } catch (Exception $e) {
             throw new \Exception($e->getMessage());
         }

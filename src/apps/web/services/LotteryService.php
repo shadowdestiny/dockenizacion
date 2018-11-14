@@ -127,7 +127,7 @@ class LotteryService
         } catch (DataMissingException $e) {
             try {
                 $next_jackpot = ($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
-                    $this->lotteriesDataService->updateNextDrawJackpotPowerball($lotteryName) :
+                    $this->lotteriesDataService->updateNextDrawJackpotLottery($lotteryName) :
                     $this->lotteriesDataService->updateNextDrawJackpot($lotteryName);
                 if ($next_jackpot == null) return $jackpot_object::fromAmountIncludingDecimals(null);
                 return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
@@ -173,7 +173,9 @@ class LotteryService
             /** @var EuroMillionsLine $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
         } catch (DataMissingException $e) {
-            $lottery_result = $this->lotteriesDataService->updateLastDrawResult($lotteryName);
+            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
+                $this->lotteriesDataService->updateLastDrawResultLottery($lotteryName):
+                $this->lotteriesDataService->updateLastDrawResult($lotteryName);
         }
         $result['regular_numbers'] = explode(',', $lottery_result->getRegularNumbers());
         $result['lucky_numbers'] = explode(',', $lottery_result->getLuckyNumbers());
@@ -210,7 +212,9 @@ class LotteryService
             /** @var EuroMillionsDrawBreakDown $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastBreakdown($lottery);
         } catch (DataMissingException $e) {
-            $lottery_result = $this->lotteriesDataService->updateLastDrawResult($lotteryName);
+            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
+                $this->lotteriesDataService->updateLastBreakDownLottery($lotteryName):
+                $this->lotteriesDataService->updateLastBreakDown($lotteryName);
         }
         return $lottery_result;
     }

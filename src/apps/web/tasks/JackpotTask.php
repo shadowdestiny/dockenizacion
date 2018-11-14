@@ -40,7 +40,7 @@ class JackpotTask extends TaskBase
 
     public function updateNextDrawJackpotPowerBallAction()
     {
-        $this->lotteriesDataService->updateNextDrawJackpotPowerball('PowerBall');
+        $this->lotteriesDataService->updateNextDrawJackpotLottery('PowerBall');
     }
 
     public function updatePreviousAction(\DateTime $today = null)
