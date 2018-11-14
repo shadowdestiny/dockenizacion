@@ -4,6 +4,7 @@
 namespace EuroMillions\web\vo\dto;
 
 
+use EuroMillions\web\components\MoneyMatrixStatusCodeTranslation;
 use EuroMillions\web\entities\AutomaticPurchaseTransaction;
 use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\DepositTransaction;
@@ -15,6 +16,7 @@ use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\entities\ManualDepositTransaction;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
+use EuroMillions\web\vo\enum\MoneyMatrixStatusCode;
 use Money\Currency;
 use Money\Money;
 
@@ -64,7 +66,8 @@ class TransactionDTO extends DTOBase implements IDto
         // more shit
         if($this->transaction instanceof WinningsWithdrawTransaction)
         {
-            $this->status = $this->transaction->getState();
+            $statusTranslated = MoneyMatrixStatusCodeTranslation::createStatusCodeTranslation($this->transaction->getState());
+            $this->status = $statusTranslated->getTranslation();
         }
     }
 

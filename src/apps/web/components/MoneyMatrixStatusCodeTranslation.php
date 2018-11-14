@@ -15,22 +15,44 @@ use EuroMillions\web\vo\enum\MoneyMatrixStatusCode;
 final class MoneyMatrixStatusCodeTranslation
 {
 
-    private static $languageService;
+    private $languageService;
 
-    private static  $moneyMatrixStatusCodeEnum;
+    private $translation;
 
-    private function __construct()
+    private function __construct($key)
     {
         /** @var DomainServiceFactory $domainServiceFactory */
-        $domainServiceFactory = \Phalcon\Di::getDefault()->get('domainServiceFactory');
-        $this->languageService = $domainServiceFactory->getLanguageService();
-        $this->moneyMatrixStatusCodeEnum = new MoneyMatrixStatusCode();
+        $domainServiceFactory= \Phalcon\Di::getDefault()->get('domainServiceFactory');
+        $this->languageService= $domainServiceFactory->getLanguageService();
+        if($key == 'SUCCESS')
+        {
+            $this->translation = $this->languageService->translate('withdrawal_accepted');
+        }
+        if($key == 'REJECTED')
+        {
+            $this->translation = $this->languageService->translate('withdrawal_rejected');
+        }
+        if($key == 'CANCELED')
+        {
+            $this->translation = $this->languageService->translate('withdrawal_cancel');
+        }
+        if($key == 'PENDING_APPROVAL')
+        {
+            $this->translation = $this->languageService->translate('withdrawal_pending');
+        }
     }
 
-
-    public static function giveMeStatusTranslated($key)
+    public static function createStatusCodeTranslation($key)
     {
-        self::$moneyMatrixStatusCodeEnum->getValue($key);
+        return new static ($key);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranslation()
+    {
+        return $this->translation;
     }
 
 }
