@@ -50,7 +50,7 @@
         <embedded name="user_currency" class="Money\Currency" use-column-prefix="true" />
         <embedded name="winning_above" class="Money\Money" use-column-prefix="true" />
         <embedded name="ip_address" class="EuroMillions\web\vo\IPAddress" />
-        <embedded name="birth_date" class="EuroMillions\web\vo\Date" />
+        <embedded name="birth_date" class="EuroMillions\web\vo\BirthDate" />
         <one-to-many target-entity="EuroMillions\web\entities\PlayConfig" mapped-by="user" field="playConfig">
         </one-to-many>
 
