@@ -75,7 +75,7 @@ class ResultTask extends TaskBase
             {
                 $this->lotteriesDataService->updateLastDrawResultLottery('MegaMillions');
             }
-            if(!$breakdown->getCategoryOne()->getName())
+            if(!empty($breakdown) && !$breakdown->getCategoryOne()->getName())
             {
                 $this->lotteriesDataService->updateLastBreakDownLottery('MegaMillions');
             }

@@ -98,7 +98,7 @@ class LotteriesDataService
             $this->entityManager->flush();
             //throw new DataMissingException();
         }
-        return $jackpot;
+        return $draw->getJackpot();
     }
 
     public function updateNextDrawJackpot($lotteryName, \DateTime $now = null)
@@ -136,9 +136,8 @@ class LotteriesDataService
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
             //throw new DataMissingException();
-            return $jackpot;
         }
-        return $jackpot;
+        return $draw->getJackpot();
     }
 
     public function updateLastDrawResult($lotteryName, \DateTime $now = null)
@@ -281,7 +280,7 @@ class LotteriesDataService
                 $draw->createBreakDown($result);
                 $this->entityManager->flush();
                 $this->sendEmailResultsOrigin('Loterias y Apuestas Breakdown');
-                return $draw;
+                return $draw->getBreakDown();
 
             } else {
 
@@ -314,9 +313,8 @@ class LotteriesDataService
                 $draw->createBreakDown($result);
                 $this->entityManager->flush();
                 $this->sendEmailResultsOrigin('Loterias y Apuestas Breakdown');
-                return $draw->getBreakDown();
-
             }
+            return $draw->getBreakDown();
         } catch (\Exception $e)
         {
             throw new \Exception($e->getMessage());
