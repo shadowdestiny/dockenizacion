@@ -1,16 +1,15 @@
 Vagrant.configure(2) do |config|
     config.vm.provider "virtualbox" do |v|
         v.memory = 2048
-        v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
 
     config.vm.box = "ubuntu/bionic64"
 
-#    config.vm.provision "shell", inline: <<-SCRIPT
-#       DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get upgrade -y \
-#       && apt-get autoremove \
-#       && apt-get clean && apt-get autoclean
-#    SCRIPT
+    config.vm.provision "shell", inline: <<-SCRIPT
+       DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get upgrade -y \
+       && apt-get autoremove \
+       && apt-get clean && apt-get autoclean
+    SCRIPT
 
     config.vm.provision "ansible_local" do |ansible|
         ansible.playbook        = "devOps/playbook_local_setup.yml"
@@ -29,7 +28,11 @@ Vagrant.configure(2) do |config|
     end
 
     config.vm.network "private_network", ip: "192.168.50.10"
-    #config.vm.synced_folder "src/", "/var/www", owner: "www-data", mount_options: ["dmode=775,fmode=774"]
-    #config.vm.synced_folder "src/", "/var/www", owner: "www-data", mount_options: ["dmode=775,fmode=774"]
 
+    # Enable synced_folder with SMB driver: https://www.vagrantup.com/docs/synced-folders/smb.html
+    config.vm.synced_folder ".", "/vagrant",
+        type: "smb",
+        #smb_username: "your username",
+        #smb_password: "your password",
+        mount_options: ["mfsymlinks"]
 end

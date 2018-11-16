@@ -4,7 +4,7 @@
   vars:
     enable_frontend_watchers: false
     update_geoip_database: false # should update the geoip databases?
-    do_docker_setup: false
+    do_docker_setup: false # should install docker and docker-compose on host?
 
   pre_tasks:
   - name: Check if GeoIP IPv4 database exist
@@ -63,6 +63,13 @@
         build: yes
         state: present
         restarted: yes
+      when: not is_vagrant
+
+    - name: start docker compose (Windows OS Host)
+      shell: docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.vagrant.yml up -d --force-recreate --build
+      args:
+        chdir: "/vagrant"
+      when: is_vagrant
 
     - name: build docker image of devel-phptools
       shell: docker build --target tools -t devel-phptools:latest {{ playbook_dir }}/../src/docker/NEW/php
