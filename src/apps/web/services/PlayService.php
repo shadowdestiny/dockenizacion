@@ -372,6 +372,7 @@ class PlayService
                     $order = new OrderChristmas($resultOrder, $this->lotteryService->getSingleBetPriceByLottery('Christmas'), new Money(0, new Currency('EUR')), new Money(0, new Currency('EUR')), new Discount(0, 0));
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->addFunds($funds);
+                    $order->setLottery($lottery);
                     $order->setAmountWallet($user->getWallet()->getBalance());
                     $draw = $this->lotteryService->getNextDrawByLottery('Christmas');
                     //Workaround temporal

@@ -4,6 +4,7 @@
 namespace EuroMillions\web\vo;
 
 
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use Money\Currency;
 use Money\Money;
@@ -33,6 +34,9 @@ class OrderChristmas implements \JsonSerializable
     private $discount;
 
     private $hasSubscription;
+
+    /** @var Lottery $lottery */
+    private $lottery;
 
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null)
     {
@@ -302,5 +306,21 @@ class OrderChristmas implements \JsonSerializable
     public function setHasSubscription($hasSubscription)
     {
         $this->hasSubscription = $hasSubscription;
+    }
+
+    /**
+     * @return Lottery
+     */
+    public function getLottery()
+    {
+        return $this->lottery;
+    }
+
+    /**
+     * @param Lottery $lottery
+     */
+    public function setLottery($lottery)
+    {
+        $this->lottery = $lottery;
     }
 }

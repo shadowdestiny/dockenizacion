@@ -196,7 +196,7 @@ class WalletService
                 $walletBefore = $user->getWallet();
 
                 $user->reChargeWallet($creditCardCharge->getNetAmount());
-                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore);
+                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore,$order);
                 $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
 
                 $this->entityManager->persist($user);
