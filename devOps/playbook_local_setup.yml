@@ -4,6 +4,7 @@
   vars:
     enable_frontend_watchers: false
     update_geoip_database: false # should update the geoip databases?
+    do_docker_setup: false
 
   pre_tasks:
   - name: Check if GeoIP IPv4 database exist
@@ -47,6 +48,10 @@
     with_items:
       - "{{ playbook_dir }}/../src/apps/web/assets"
       - "{{ playbook_dir }}/../src/apps/web/assets/compiled_templates"
+
+  - include_role:
+      name: docker_setup
+    when: do_docker_setup
 
   roles:
     - create_config # Creates the configuration files
