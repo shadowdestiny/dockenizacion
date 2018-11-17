@@ -19,6 +19,6 @@
 
     {#{% include "_elements/home/banner_old.volt" %}#}
 
-    {% include "_elements/home/banner.volt" %}
+    {% include "_elements/home/jackpot--bar.volt" %}
 
 </div>

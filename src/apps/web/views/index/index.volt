@@ -128,7 +128,9 @@
 						{{ language.translate("home_mobile_h1") }}
 				</h1>
 			{% endif %}
-            {% include "_elements/carroussel.volt" %}
+
+            {#{% include "_elements/carroussel.volt" %}#}
+            {% include "_elements/home/lottery-carousel.volt" %}
 
 
 

@@ -3,6 +3,7 @@ Use next classes please for different jackpots:
 lotteries-jackpot--bar--euromillions
 lotteries-jackpot--bar--megamillions
 lotteries-jackpot--bar--powerball
+lotteries-jackpot--bar--christmas
 #}
 
 <div class="
