@@ -1,0 +1,36 @@
+.lotteries--carrousel--section {
+  overflow: hidden;
+
+  h2 {
+    text-align: center;
+    text-transform: uppercase;
+    color:  #333333;
+    font-size: 24px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      font-size: 24px;
+      line-height: 56px;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      display: none;
+    }
+  }
+
+
+  .lotteries--carrousel {
+    overflow: hidden;
+    width: 300px;
+    height: 114px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      width: 748px;
+      height: 145px;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      width: 960px;
+      height: 145px;
+    }
+
+  }
+
+}

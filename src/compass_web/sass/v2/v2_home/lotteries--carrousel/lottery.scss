@@ -1,0 +1,72 @@
+.lottery-carrousel {
+  width: 143px;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    width: 364px;
+  }
+  @media only screen and (min-width: $screen-ipad-h) {
+    width: 307px;
+  }
+
+  .top-block  {
+    height: 77px;
+    overflow: hidden;
+    text-align: center;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      height: 115px;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {}
+
+    .title {
+      font-size: 12px;
+      line-height: 36px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 26px;
+      }
+      @media only screen and (min-width: $screen-ipad-h) {
+        font-size: 26px;
+        line-height: 36px;
+      }
+    }
+    .value  {
+
+      font-size: 36px;
+      line-height: 36px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 72px;
+      }
+      @media only screen and (min-width: $screen-ipad-h) {
+        font-size: 72px;
+      }
+    }
+  }
+  .bottom-block  {
+    background-color: #E1E1E1;
+    position: relative;
+    height: 37px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      height: 30px;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {}
+
+    .btn-block {
+      position: absolute;
+
+      @media only screen and (min-width: $screen-ipad-v) {}
+      @media only screen and (min-width: $screen-ipad-h) {}
+
+      .lottery-carousel--btn {
+
+        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-h) {}
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $screen-ipad-v) {}
+@media only screen and (min-width: $screen-ipad-h) {}
