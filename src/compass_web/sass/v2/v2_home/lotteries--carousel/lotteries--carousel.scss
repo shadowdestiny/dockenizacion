@@ -1,4 +1,4 @@
-.lotteries--carrousel--section {
+.lotteries--carousel--section {
   overflow: hidden;
 
   h2 {
@@ -17,7 +17,7 @@
   }
 
 
-  .lotteries--carrousel {
+  .lotteries--carousel {
     overflow: hidden;
     width: 300px;
     height: 114px;
@@ -31,6 +31,12 @@
       height: 145px;
     }
 
+    .wrapper {
+      @media only screen and (min-width: $screen-ipad-v) {}
+      @media only screen and (min-width: $screen-ipad-h) {}
+    }
   }
 
 }
+@media only screen and (min-width: $screen-ipad-v) {}
+@media only screen and (min-width: $screen-ipad-h) {}

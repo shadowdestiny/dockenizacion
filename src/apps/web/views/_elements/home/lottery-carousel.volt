@@ -1,9 +1,9 @@
 {#
 Use next classes please for different lottery:
-lottery-carrousel--euromillions
-lottery-carrousel--megamillions
-lottery-carrousel--powerball
-lottery-carrousel--christmas
+lottery-carousel--euromillions
+lottery-carousel--megamillions
+lottery-carousel--powerball
+lottery-carousel--christmas
 #}
 
 <div class="lotteries--carrousel--section" style="">
@@ -16,7 +16,7 @@ lottery-carrousel--christmas
 
         <div class="lotteries--carrousel" style="">
 
-        <div class="item lottery-carrousel lottery-carrousel--powerball">
+        <div class="item lottery-carousel lottery-carousel--powerball">
             <div class="top-block">
                 <div class="title">
                     <span class="resizeme">{{ language.translate("carousel_pow_name") }}</span>
@@ -50,7 +50,7 @@ lottery-carrousel--christmas
 
                 <div class="btn-block">
                     <a href="/{{ language.translate("link_powerball_play") }}"
-                       class="lottery-carrousel--btn" style="">
+                       class="lottery-carousel--btn" style="">
                         <span class="resizeme"  style="">
                             {{ language.translate("banner1_btn") }}
                         </span>
@@ -59,7 +59,7 @@ lottery-carrousel--christmas
 
             </div>
         </div>
-        <div class="item lottery-carrousel lottery-crarrousel--megamillions">
+        <div class="item lottery-carousel lottery-crarrousel--megamillions">
             <div class="top-block">
                 <div class="title">
                     <span class="resizeme" style="">Megamillionsy</span>
@@ -93,7 +93,7 @@ lottery-carrousel--christmas
 
                 <div class="btn-block">
                     <a href="/{{ language.translate("link_powerball_play") }}"
-                       class="lottery-carrousel--btn" style="">
+                       class="lottery-carousel--btn" style="">
                         <span class="resizeme"  style="">
                             Play now
                         </span>
@@ -102,7 +102,7 @@ lottery-carrousel--christmas
 
             </div>
         </div>
-        <div class="item lottery-carrousel lottery-carrousel--christmas">
+        <div class="item lottery-carousel lottery-carousel--christmas">
             <div class="top-block">
                 <div class="title">
                     <span class="resizeme" style="">Christmas Lottery</span>
@@ -122,7 +122,7 @@ lottery-carrousel--christmas
 
                 <div class="btn-block">
                     <a href="/{{ language.translate("link_christmas_play") }}"
-                       class="lottery-carrousel--btn ui-link" style="">
+                       class="lottery-carousel--btn ui-link" style="">
                         <span class="resizeme" style="">
                              {{ language.translate("banner1_btn") }}
                         </span>
@@ -131,7 +131,7 @@ lottery-carrousel--christmas
 
             </div>
         </div>
-        <div class="item lottery-carrousel lottery-carrousel--euromillions">
+        <div class="item lottery-carousel lottery-carousel--euromillions">
             <div class="top-block">
                 <div class="title">
                     <span class="resizeme">{{ language.translate("carousel_em_name") }}</span>
@@ -165,7 +165,7 @@ lottery-carrousel--christmas
 
                 <div class="btn-block">
                     <a href="/{{ language.translate("link_euromillions_play") }}"
-                       class="lottery-carrousel--btn" style="">
+                       class="lottery-carousel--btn" style="">
                         <span class="resizeme"  style="">
                             {{ language.translate("banner1_btn") }}
                         </span>
