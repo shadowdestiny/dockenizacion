@@ -12,31 +12,31 @@ use Money\Money;
 class OrderChristmas extends Order implements \JsonSerializable
 {
     /** @var  Money $total */
-    private $total;
+    protected $total;
     /** @var PlayConfig[] $play_config */
-    private $play_config;
+    protected $play_config;
     /** @var  Money $fee */
-    private $fee;
+    protected $fee;
     /** @var  Money $fee_limit */
-    private $fee_limit;
+    protected $fee_limit;
     /** @var Money $single_bet_price */
-    private $single_bet_price;
-    private $num_lines;
-    private $state;
-    private $funds_amount;
+    protected $single_bet_price;
+    protected $num_lines;
+    protected $state;
+    protected $funds_amount;
     /** @var  CreditCardCharge $credit_card_charge */
-    private $credit_card_charge;
+    protected $credit_card_charge;
     /** @var bool $isCheckedWalletBalance */
-    private $isCheckedWalletBalance;
+    protected $isCheckedWalletBalance;
     /** @var  Money */
-    private $amountWallet;
+    protected $amountWallet;
     /** @var  Discount */
-    private $discount;
+    protected $discount;
 
-    private $hasSubscription;
+    protected $hasSubscription;
 
     /** @var Lottery $lottery */
-    private $lottery;
+    protected $lottery;
 
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null)
     {
@@ -203,14 +203,14 @@ class OrderChristmas extends Order implements \JsonSerializable
      * @param \DateTime $draw_date
      * @return bool
      */
-    public function isNextDraw(\DateTime $draw_date)
+    public function isNextDraw(\DateTime $draw_date = null)
     {
         $play_config = $this->getPlayConfig();
         return $play_config[0]->getStartDrawDate()->getTimestamp() <= $draw_date->getTimestamp();
     }
 
 
-    private function initialize()
+    protected function initialize()
     {
         $this->num_lines = count($this->play_config);
         $this->total = new Money(1, new Currency('EUR'));
