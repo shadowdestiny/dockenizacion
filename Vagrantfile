@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
     end
 
     config.vm.provision "shell", run: "always", inline: <<-SCRIPT
-        sudo vagrant \
+        su vagrant \
         && cd /vagrant \
         && docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.vagrant.yml up -d --build
     SCRIPT
