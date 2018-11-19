@@ -27,6 +27,12 @@ Vagrant.configure(2) do |config|
         }
     end
 
+    config.vm.provision "shell", run: "always", inline: <<-SCRIPT
+        sudo vagrant \
+        && cd /vagrant \
+        && docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.vagrant.yml up -d --build
+    SCRIPT
+
     config.vm.network "private_network", ip: "192.168.50.10"
 
     # Enable synced_folder with SMB driver: https://www.vagrantup.com/docs/synced-folders/smb.html
@@ -34,5 +40,5 @@ Vagrant.configure(2) do |config|
         type: "smb",
         #smb_username: "your username",
         #smb_password: "your password",
-        mount_options: ["mfsymlinks"]
+        mount_options: ["mfsymlinks,file_mode=0776,dir_mode=0777"]
 end
