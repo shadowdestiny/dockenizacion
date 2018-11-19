@@ -7,26 +7,56 @@
 # Instructions
 
 ## Installation of a developer machine
+
 The pre-requisites for installation are:
 
-1. [Vagrant](https://www.vagrantup.com/downloads.html)
-2. [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+### Linux 
+1. [Ansible](https://www.ansible.com/) Version >= 2.7
+2. [Docker](https://docs.docker.com/install/)  Version >= 18.x CE
+3. [Docker Compose](https://docs.docker.com/compose/)
 
-If your are on windows do the following steps:
+On Linux we interact directly with Docker and we use Ansible for provision and configure the localhost machine.
 
-1. Install the [Git Extensions](https://code.google.com/p/gitextensions/)
-2. Add the *bin* folder from the Git Extensions to the path
+***Linux SHOULD BE the main OS for develop this project***  
 
-For all OS
+### Windows OS 
+1. [Vagrant](https://www.vagrantup.com/downloads.html) Version >= 2.2.x
+2. [VirtualBox](https://www.virtualbox.org/wiki/Downloads) Version >= 5.2.22
 
+On Windows we wrap the Ansible / Docker approach for Linux with a Vagrant / Virtualbox machine. With this approach the automation with Ansible works in both
+systems. The Windows OS support is limited and has a lot of inconvenience ( slow, hard to debug code, etc...) 
+
+### Mac OS
+Not tested in this OS.
+
+## Steps for running the development environment:
+
+### For all OS
 1. Clone this repository: `git clone https://github.com/PanamediaSLU/devel-structure.git your-folder` (substitute _your-folder_ with the path you want to clone into)
-2. Go into your folder on a command shell
-3. If you are on mac/unix, execute command: `chmod 755 install-dev-environment.sh`
-4. Execute command: `./install-dev-environment.sh` if you are on mac/unix, or  `install-dev-environment.bat` if you are on Windows
+2. Copy the file .env.dist to .env
+3. Go into your folder on a command shell
+
+### For Linux OS
+
+1. $ ansible-playbook devOps/playbook_local_setup.yml
+2. Edit /etc/hosts file for point dev.euromillions.com to IP defined at .env file with the value of ***EM_DOCKER_VARNISH_IP*** by default 172.10.10.10
+3. You can connect to MySQL database on the ip defined with ***EM_DOCKER_DATABASE_IP***
+4. After first boot, you can do a $ docker-compose -d --build for get the environment running
 
 
-## Restarting the virtual development environment
-After restarting the workstation, or when you want to refresh the environment after pulling changes from github:
+### For Windows OS
 
-1. Execute command  `chmod 755 restart-dev-environment.sh`
-2. Execute command: `./restart-dev-environment.sh`
+1. $ vagrant up
+2. Edit /etc/hosts file for point dev.euromillions.com to the Vagrant IP (192.168.50.10)
+3. Use $ vagrant provision for a full reload of containers
+4. Edit the file 
+
+- On every machine boot, Vagrant will ask for a username/password for mount de Share. This is your Windows user/password. 
+Vagrant needs that info for mount the share inside the guess. 
+We use SMB mount for handle symlinks ( node.js modules uses it for example)
+
+### Variables on devOps/playbook_local_setup.yml
+- ***is_vagrant***: "bool" | In VagrantFile we force to be 'yes' and we can manage conditional task on Windows Hosts.
+- ***enable_frontend_watchers***: "bool" | Set to 'true' for enable the ***watchers containers*** for re-compile css/sass and react files.
+- ***update_geoip_database***: "bool" | Forces the download of  the geoipdatabases even if the files exists.
+- ***do_docker_setup***: "bool" | Set to true if you want to install docker dependencies on the machine. Localhost if you are on Linux or inside the Vagrant if you are on Windows. By default is set to 'true' on Vagrant (Windows Hosts)  
