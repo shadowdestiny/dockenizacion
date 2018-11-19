@@ -9,7 +9,7 @@ use EuroMillions\web\entities\PlayConfig;
 use Money\Currency;
 use Money\Money;
 
-class OrderChristmas implements \JsonSerializable
+class OrderChristmas extends Order implements \JsonSerializable
 {
     /** @var  Money $total */
     private $total;
