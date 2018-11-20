@@ -45,7 +45,7 @@
     }
 
     .owl-stage-outer{
-      overflow-y: visible!important;
+
     }
 
     .owl-nav {
@@ -53,7 +53,9 @@
         position: relative;
         margin-top: 0;
 
+        .owl-prev:hover,
         .owl-prev,
+        .owl-next:hover,
         .owl-next{
           position: absolute;
           width: 20px;
@@ -96,6 +98,7 @@
         }
       }
     }
+
     .owl-dots {
       @media only screen and (min-width: $screen-ipad-v) {
         margin-top: 0!important;
