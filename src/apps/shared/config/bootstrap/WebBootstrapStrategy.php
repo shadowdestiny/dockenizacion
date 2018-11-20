@@ -5,6 +5,7 @@ namespace EuroMillions\shared\config\bootstrap;
 use EuroMillions\admin\services\DomainAdminServiceFactory;
 use EuroMillions\megamillions\config\routes\HowToPlayRoutes;
 use EuroMillions\megamillions\config\routes\MegaMillionsPlayRoutes;
+use EuroMillions\megamillions\config\routes\ResultPurchaseRoutes;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconCookiesWrapper;
 use EuroMillions\shared\components\PhalconRequestWrapper;
@@ -594,7 +595,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        $router->add("/{lottery:(euromillions|powerball)+}/result/success/:params", array(
+        $router->add("/{lottery:(euromillions|powerball|megamillions)+}/result/success/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'result',
@@ -1480,6 +1481,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->mount(new HowToPlayRoutes());
         $router->mount(new MegaMillionsPlayRoutes());
+        $router->mount(new ResultPurchaseRoutes());
 
         //LANDINGS
 

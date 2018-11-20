@@ -61,22 +61,19 @@ class AwsQueueImpl implements IQueue
                 'QueueUrl' => $this->queueUrl
             ]);
 
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
     }
 
     public function deleteMessage($message)
     {
-        try
-        {
+        try {
             $this->sqs->deleteMessage(array(
                 'QueueUrl' => $this->queueUrl,
                 'ReceiptHandle' => $message
             ));
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
     }
