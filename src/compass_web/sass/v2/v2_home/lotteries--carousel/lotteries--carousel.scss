@@ -47,6 +47,105 @@
     .owl-stage-outer{
       overflow-y: visible!important;
     }
+
+    .owl-nav {
+      @media only screen and (min-width: $screen-ipad-h) {
+        position: relative;
+        margin-top: 0;
+
+        .owl-prev,
+        .owl-next{
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          outline: none!important;
+
+          background: none;
+          background-image: url('../img/home/v2/lotteries-carousel/arrow_right.png');
+          background-repeat: no-repeat;
+          -webkit-background-size: 20px;
+          background-size: 20px;
+
+          &.disabled {
+            background: none;
+            background-image: url('../img/home/v2/lotteries-carousel/arrow_left.png');
+            background-repeat: no-repeat;
+            -webkit-background-size: 20px;
+            background-size: 20px;
+          }
+          span {
+            display: none;
+          }
+        }
+
+        .owl-prev{
+          left: 0;
+          transform: rotate(180deg);
+          &.disabled {
+            transform: rotate(0deg);
+          }
+
+        }
+        .owl-next{
+          right: 0;
+          transform: rotate(0deg);
+
+          &.disabled {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+    .owl-dots {
+      @media only screen and (min-width: $screen-ipad-v) {
+        margin-top: 0!important;
+      }
+      @media only screen and (min-width: $screen-ipad-h) {
+
+      }
+
+      .owl-dot {
+        background: none;
+        outline: none!important;
+
+        span {
+          width: 15px;
+          height: 15px;
+
+          background: none;
+          background-image: url('../img/home/v2/lotteries-carousel/dot--clear.svg');
+          background-repeat: no-repeat;
+          -webkit-background-size: 15px;
+          background-size: 15px;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            width: 20px;
+            height: 20px;
+
+            background-image: url('../img/home/v2/lotteries-carousel/dot--clear.svg');
+            background-repeat: no-repeat;
+            -webkit-background-size: 20px;
+            background-size: 20px;
+          }
+          @media only screen and (min-width: $screen-ipad-h) {}
+        }
+
+        &:hover,
+        &.active {
+          background: none;
+
+          span {
+            background: none;
+            background-image: url('../img/home/v2/lotteries-carousel/dot--active.svg');
+
+            @media only screen and (min-width: $screen-ipad-v) {}
+            @media only screen and (min-width: $screen-ipad-h) {}
+          }
+
+        }
+      }
+    }
+
   }
   .wrapper {
     padding: 0;
