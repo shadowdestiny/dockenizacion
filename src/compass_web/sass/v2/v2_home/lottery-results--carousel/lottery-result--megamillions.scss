@@ -1,11 +1,37 @@
 .lottery-results--carousel--section{
   .lottery-results--carousel {
     .lottery-result {
-      &.megamillions {
+      &.lottery-result--megamillions {
         .bottom-block,
         .top-block {
           background-color: #014fa3;
         }
+
+        .center-block {
+          .result-row {
+            .row--results {
+              .ball {
+                color: rgb(1, 79, 163);
+                background-color: transparent;
+                border: 1px solid rgb(1, 79, 163);
+
+                &.star {
+                  color: #fff;
+                  background-color: rgb(255, 206, 5);
+                  border: 1px solid rgb(255, 206, 5);
+
+                  &:last-of-type {
+                    color: rgb(1, 79, 163);
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+
       }
     }
   }

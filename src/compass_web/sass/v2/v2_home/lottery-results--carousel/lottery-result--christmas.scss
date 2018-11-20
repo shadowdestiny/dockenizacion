@@ -1,11 +1,36 @@
 .lottery-results--carousel--section{
   .lottery-results--carousel {
     .lottery-result {
-      &.christmas {
+      &.lottery-result--christmas {
         .bottom-block,
         .top-block {
           background-color: #b61c1c ;
         }
+
+
+        .center-block {
+          .result-row {
+            .row--results {
+              .ball {
+                color: #b61c1c;
+                background-color: transparent;
+                border: 1px solid #b61c1c;
+
+                &.star {
+                  color: #b61c1c;
+                  background-color: #fff;
+                  border: 1px solid #fff;
+
+                  &:last-of-type {
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                  }
+                }
+              }
+            }
+          }
+        }
+
       }
     }
   }

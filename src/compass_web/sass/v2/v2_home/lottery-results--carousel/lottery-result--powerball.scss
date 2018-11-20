@@ -1,13 +1,41 @@
 .lottery-results--carousel--section{
   .lottery-results--carousel {
     .lottery-result {
-      &.powerball {
+
+      &.lottery-result--powerball {
         
         .bottom-block,    
         .top-block {
           background-color: #f31e1e;
         }
+
+        .center-block {
+          .result-row {
+            .row--results {
+              .ball {
+                color: rgb(243, 30, 30);
+                background-color: transparent;
+                border: 1px solid rgb(243, 30, 30);
+                
+                &.star {
+                  color: rgb(243, 30, 30);
+                  background-color: #fff;
+                  border: 1px solid #fff;
+
+                  &:last-of-type {
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+
+
       }
+
     }
   }
 }
