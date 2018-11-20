@@ -31,7 +31,8 @@
   .lotteries--carousel {
     overflow: hidden;
     width: 300px;
-    height: 114px;
+    height: 154px;
+    margin:auto;
 
     @media only screen and (min-width: $screen-ipad-v) {
       width: 748px;
@@ -100,6 +101,8 @@
     }
 
     .owl-dots {
+      //margin-top: -30px!important;
+
       @media only screen and (min-width: $screen-ipad-v) {
         margin-top: 0!important;
       }
