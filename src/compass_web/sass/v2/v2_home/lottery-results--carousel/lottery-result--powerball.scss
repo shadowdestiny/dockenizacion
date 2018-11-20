@@ -1,0 +1,13 @@
+.lottery-results--carousel--section{
+  .lottery-results--carousel {
+    .lottery-result {
+      &.powerball {
+        
+        .bottom-block,    
+        .top-block {
+          background-color: #f31e1e;
+        }
+      }
+    }
+  }
+}

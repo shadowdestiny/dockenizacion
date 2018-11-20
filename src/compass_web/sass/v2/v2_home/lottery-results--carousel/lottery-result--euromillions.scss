@@ -1,0 +1,12 @@
+.lottery-results--carousel--section{
+  .lottery-results--carousel {
+    .lottery-result {
+      &.euromillions {
+        .bottom-block,
+        .top-block {
+          background-color: #4698e5;
+        }
+      }
+    }
+  }
+}

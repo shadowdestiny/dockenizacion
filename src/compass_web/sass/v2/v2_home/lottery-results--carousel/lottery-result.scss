@@ -1,0 +1,72 @@
+.lottery-results--carousel--section{
+  .lottery-results--carousel {
+    .lottery-result {
+
+      width:300px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        width: 363px;
+      }
+      @media only screen and (min-width: $screen-ipad-h) {
+        width: 306px;
+      }
+
+      .top-block {
+        height: 50px;
+        line-height: 48px;
+        font-size: 22px;
+        font-weight: 300;
+        color: #fff;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 0 10px;
+
+        b {
+          font-weight:500;
+        }
+      }
+      .bottom-block {
+        height: 40px;
+        text-align: center;
+        padding: 0 10px;
+
+        a {
+          display: inline-block;
+          line-height:38px;
+          font-weight: 500;
+          font-size: 16px;
+          color: #fff;
+          text-decoration: none;
+          text-transform: uppercase;
+          cursor: pointer;
+
+          &:after {
+            display: inline-block;
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-image: url('../img/home/v2/lottery-results-carousel/arrow_right.png');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            -webkit-background-size: 20px;
+            background-size: 20px;
+            margin-left: 17px;
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              margin-left: 10px;
+            }
+            @media only screen and (min-width: $screen-ipad-h) {}
+
+          }
+        }
+      }
+
+      .center-block {
+
+      }
+
+    }
+  }
+}
+@media only screen and (min-width: $screen-ipad-v) {}
+@media only screen and (min-width: $screen-ipad-h) {}
