@@ -1,6 +1,9 @@
 {% extends "main.volt" %}
 {% block template_css %}
 	<link rel="stylesheet" href="/w/css/home.css">
+	<link rel="stylesheet" href="/w/js/owl-carousel/assets">
+	<link rel="stylesheet" href="/w/js/owl-carousel/assets/owl.carousel.min.css">
+	<link rel="stylesheet" href="/w/js/owl-carousel/assets/owl.theme.default.min.css">
 	<link Rel="Canonical" href="{{ language.translate('canonical_home') }}" />
 {% endblock %}
 
@@ -128,7 +131,12 @@
 						{{ language.translate("home_mobile_h1") }}
 				</h1>
 			{% endif %}
-            {% include "_elements/carroussel.volt" %}
+
+            {#{% include "_elements/carroussel.volt" %}#}
+            {% include "_elements/home/lottery-carousel/_lottery-carousel.volt" %}
+
+
+
             <div class="hiw-block--section">
 
 
@@ -168,6 +176,12 @@
                 </div>
 
             </div>
+
+
+            {% include "_elements/home/lottery-results-carousel/_lottery-results-carousel.volt" %}
+
+
+
             <div class="box-basic box-result">
 
                 <div class="result--block">
