@@ -39,6 +39,7 @@
       //line-height: 36px;
       line-height: 1;
       font-weight: 500;
+      text-transform: uppercase;
 
 
       @media only screen and (min-width: $screen-ipad-v) {
@@ -129,12 +130,12 @@
       left: 16px;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        bottom: -3px;
+        bottom: -2px;
         left: auto;
         right: 30px;
       }
       @media only screen and (min-width: $screen-ipad-h) {
-
+        right: 10px;
       }
 
       .lottery-carousel--btn {
@@ -165,11 +166,11 @@
           font-size: 16px;
         }
         @media only screen and (min-width: $screen-ipad-h) {
-          padding: 0 40px;
-          width: 111px;
-          height: 30px;
-          line-height: 28px;
-          font-size: 16px;
+          //padding: 0 40px;
+          //width: 111px;
+          //height: 30px;
+          //line-height: 28px;
+          //font-size: 16px;
         }
       }
     }

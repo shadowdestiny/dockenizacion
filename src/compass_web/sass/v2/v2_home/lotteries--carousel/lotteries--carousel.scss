@@ -1,6 +1,10 @@
 .lotteries--carousel--section {
   overflow: hidden;
 
+  @media only screen and (min-width: $screen-ipad-h) {
+    padding-top: 40px;
+  }
+
   h2 {
     text-align: center;
     text-transform: uppercase;
@@ -36,7 +40,8 @@
     }
     @media only screen and (min-width: $screen-ipad-h) {
       width: 960px;
-      height: 145px;
+      //height: 145px;
+      height: 215px;
     }
 
     .owl-stage-outer{
