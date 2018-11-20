@@ -66,7 +66,7 @@ class LotteriesDataService
         }
     }
 
-    public function updateNextDrawJackpotPowerball($lotteryName, \DateTime $now = null)
+    public function updateNextDrawJackpotLottery($lotteryName, \DateTime $now = null)
     {
         $jackpot=null;
         try {
@@ -98,7 +98,7 @@ class LotteriesDataService
             $this->entityManager->flush();
             //throw new DataMissingException();
         }
-        return $jackpot;
+        return $draw->getJackpot();
     }
 
     public function updateNextDrawJackpot($lotteryName, \DateTime $now = null)
@@ -136,9 +136,8 @@ class LotteriesDataService
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
             //throw new DataMissingException();
-            return $jackpot;
         }
-        return $jackpot;
+        return $draw->getJackpot();
     }
 
     public function updateLastDrawResult($lotteryName, \DateTime $now = null)
@@ -159,20 +158,8 @@ class LotteriesDataService
             } catch (DataMissingException $e) {
                 $draw = $this->createDraw($last_draw_date, null, $lottery);
             }
-            if($lotteryName=='MegaMillions')
-            {
-                $draw->createResult(explode(',', $result['resultNumbers']), [0, $result['luckyNumber']]);
-                $draw->setRaffle(new Raffle($result['megaplierNumber']));
-                $draw->createBreakDown([
-                    'prizes' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['prizes'],
-                    'winners' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['winners']
-                ],
-                    MegaMillionsDrawBreakDown::class
-                );
-            }
-            else{
                 $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
-            }
+                $draw->createBreakDown($result);
             if ($draw->getResult()->getRegularNumbers()) {
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();
@@ -188,6 +175,7 @@ class LotteriesDataService
                     $draw = $this->createDraw($last_draw_date, null, $lottery);
                 }
                 $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
+                $draw->createBreakDown($result);
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();
                 $this->sendEmailResultsOrigin('Mashape Results');
@@ -213,14 +201,10 @@ class LotteriesDataService
             } catch (DataMissingException $e) {
                 $draw = $this->createDraw($lastDrawDate, null, $lottery);
             }
-            if($lotteryName == 'MegaMillions')
-            {
-                $draw->createResult(explode(',', $result['resultNumbers']),  [0,$result['luckyNumber']]);
-                $draw->setRaffle(new Raffle($result['megaplierNumber']));
-            }else {
-                $draw->createResult($result['numbers']['main'],  [0,$result['numbers']['powerball']]);
-                $draw->setRaffle(new Raffle($result['numbers']['powerplay']));
-            }
+                $draw->createResult($result['numbers']['main'],  [0,$result['numbers'][$lotteryName=='PowerBall'?'powerball':'megaball']]);
+                $draw->setRaffle(new Raffle($result['numbers'][$lotteryName=='PowerBall'?'powerplay':'megaplier']));
+                $draw->createBreakDown($result);
+
             if ($draw->getResult()->getRegularNumbers()) {
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();
@@ -235,12 +219,12 @@ class LotteriesDataService
     }
 
 
-    public function insertPowerBallData($data,array $dependencies)
+    public function insertLotteryData($data,array $dependencies, $lotteryName)
     {
         try {
 
             /** @var Lottery $lottery */
-            $lottery = $this->lotteryRepository->findOneBy(['name' => 'PowerBall']);
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
             /** @var CurrencyConversionService $currencyConversionService */
             $currencyConversionService = $dependencies['CurrencyConversionService'];
 
@@ -249,67 +233,19 @@ class LotteriesDataService
                 $draw = $this->lotteryDrawRepository->getLastDraw($lottery);
             } catch (\Exception $e)
             {
-                $powerBallDraws  = json_decode($data, true);
-                unset($powerBallDraws[0]);
-                foreach ($powerBallDraws as $powerballDraw) {
-                    $draw = $this->createDraw(new \DateTime($powerballDraw['date']), null, $lottery);
-                    $draw->createResult($powerballDraw['numbers']['main'], [0,$powerballDraw['numbers']['powerball']]);
+                $lotteryDraws  = json_decode($data, true);
+                unset($lotteryDraws[0]);
+                foreach ($lotteryDraws as $lotteryDraw) {
+                    $draw = $this->createDraw(new \DateTime($lotteryDraw['date']), null, $lottery);
+                    $draw->createResult($lotteryDraw['numbers']['main'], [0,$lotteryDraw['numbers'][$lotteryName=='PowerBall'?'powerball':'megaball']]);
                     $jackpotEUR = $currencyConversionService->convert(
-                        new Money((int) $powerballDraw['jackpot']['total'],new Currency('USD') ),
+                        new Money((int) $lotteryDraw['jackpot']['total'],new Currency('USD') ),
                         new Currency('EUR')
                     );
                     $jack = new Money((int) floor($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
                     $draw->setJackpot($jack);
-                    $draw->setRaffle(new Raffle($powerballDraw['numbers']['powerplay']));
-                    $draw->createBreakDown([
-                            'prizes' => $powerballDraw['prizes'],
-                            'winners' => $powerballDraw['winners']
-                        ],
-                        PowerBallDrawBreakDown::class
-                        );
-                    $this->entityManager->persist($draw);
-                    $this->entityManager->flush();
-                }
-            }
-        } catch ( \Exception $e )
-        {
-            throw new \Exception($e->getMessage());
-        }
-    }
-
-    public function insertMegaMillionsData($data,array $dependencies)
-    {
-        try {
-
-            /** @var Lottery $lottery */
-            $lottery = $this->lotteryRepository->findOneBy(['name' => 'MegaMillions']);
-
-            /** @var CurrencyConversionService $currencyConversionService */
-            $currencyConversionService = $dependencies['CurrencyConversionService'];
-
-            try {
-                /** @var EuroMillionsDraw $draw */
-                $draw = $this->lotteryDrawRepository->getLastDraw($lottery);
-            } catch (\Exception $e)
-            {
-                $megaMillionsDraws  = json_decode($data, true);
-                unset($megaMillionsDraws[0]);
-                foreach ($megaMillionsDraws as $megaMillionsDraw) {
-                    $draw = $this->createDraw(new \DateTime($megaMillionsDraw['drawDate']), null, $lottery);
-                    $draw->createResult(explode(',',$megaMillionsDraw['resultNumbers']), [0,$megaMillionsDraw['luckyNumber']]);
-                    $jackpotEUR = $currencyConversionService->convert(
-                        new Money((int) $megaMillionsDraw['jackpot']['total'],new Currency($megaMillionsDraw['currency'])),
-                        new Currency('EUR')
-                    );
-                    $jack = new Money((int) floor($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
-                    $draw->setJackpot($jack);
-                    $draw->setRaffle(new Raffle($megaMillionsDraw['megaplierNumber']));
-                    $draw->createBreakDown([
-                        'prizes' => $megaMillionsDraw['megaMillionsDrawBreakDownDTO']['breakDown']['prizes'],
-                        'winners' => $megaMillionsDraw['megaMillionsDrawBreakDownDTO']['breakDown']['winners']
-                    ],
-                        MegaMillionsDrawBreakDown::class
-                    );
+                    $draw->setRaffle(new Raffle($lotteryDraw['numbers'][$lotteryName=='PowerBall'?'powerplay':'megaplier']));
+                    $draw->createBreakDown($lotteryDraw);
                     $this->entityManager->persist($draw);
                     $this->entityManager->flush();
                 }
@@ -344,7 +280,7 @@ class LotteriesDataService
                 $draw->createBreakDown($result);
                 $this->entityManager->flush();
                 $this->sendEmailResultsOrigin('Loterias y Apuestas Breakdown');
-                return $draw;
+                return $draw->getBreakDown();
 
             } else {
 
@@ -355,7 +291,7 @@ class LotteriesDataService
                 $this->entityManager->flush();
                 $this->sendEmailResultsOrigin('Mashape Breakdown');
 
-                return $draw;
+                return $draw->getBreakDown();
             }
 
         } catch (\Exception $e) {
@@ -374,34 +310,11 @@ class LotteriesDataService
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $lastDrawDate]);
             if(!$draw->hasBreakDown()) {
-
-
-                if($lotteryName=='MegaMillions')
-                {
-                    $draw->createBreakDown(
-                        [
-                            'prizes' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['prizes'],
-                            'winners' => $result['megaMillionsDrawBreakDownDTO']['breakDown']['winners']
-                        ],
-                        MegaMillionsDrawBreakDown::class
-                    );
-                }
-                else
-                {
-                    $draw->createBreakDown(
-                        [
-                            'prizes' => $result['prizes'],
-                            'winners' => $result['winners']
-                        ],
-                        PowerBallDrawBreakDown::class
-                    );
-                }
-
+                $draw->createBreakDown($result);
                 $this->entityManager->flush();
                 $this->sendEmailResultsOrigin('Loterias y Apuestas Breakdown');
-                return $draw;
-
             }
+            return $draw->getBreakDown();
         } catch (\Exception $e)
         {
             throw new \Exception($e->getMessage());

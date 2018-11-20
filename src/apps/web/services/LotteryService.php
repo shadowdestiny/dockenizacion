@@ -29,6 +29,7 @@ use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\external_apis\LottorisqApi;
+use EuroMillions\web\services\external_apis\MegaMillionsApi;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationResultsStrategy;
@@ -127,7 +128,7 @@ class LotteryService
         } catch (DataMissingException $e) {
             try {
                 $next_jackpot = ($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
-                    $this->lotteriesDataService->updateNextDrawJackpotPowerball($lotteryName) :
+                    $this->lotteriesDataService->updateNextDrawJackpotLottery($lotteryName) :
                     $this->lotteriesDataService->updateNextDrawJackpot($lotteryName);
                 if ($next_jackpot == null) return $jackpot_object::fromAmountIncludingDecimals(null);
                 return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
@@ -173,7 +174,9 @@ class LotteryService
             /** @var EuroMillionsLine $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
         } catch (DataMissingException $e) {
-            $lottery_result = $this->lotteriesDataService->updateLastDrawResult($lotteryName);
+            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
+                $this->lotteriesDataService->updateLastDrawResultLottery($lotteryName):
+                $this->lotteriesDataService->updateLastDrawResult($lotteryName);
         }
         $result['regular_numbers'] = explode(',', $lottery_result->getRegularNumbers());
         $result['lucky_numbers'] = explode(',', $lottery_result->getLuckyNumbers());
@@ -210,7 +213,9 @@ class LotteryService
             /** @var EuroMillionsDrawBreakDown $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastBreakdown($lottery);
         } catch (DataMissingException $e) {
-            $lottery_result = $this->lotteriesDataService->updateLastDrawResult($lotteryName);
+            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
+                $this->lotteriesDataService->updateLastBreakDownLottery($lotteryName):
+                $this->lotteriesDataService->updateLastBreakDown($lotteryName);
         }
         return $lottery_result;
     }
@@ -468,9 +473,9 @@ class LotteryService
         }
     }
 
-    public function placePowerBallBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
+    public function placeLotteryBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
     {
-        $playConfigs = $this->playConfigRepository->getPowerBallSubscriptionsActives();
+        $playConfigs = $this->playConfigRepository->getLotterySubscriptionsActives($lottery->getId());
 
         if (!is_null($playConfigs)) {
             $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
@@ -485,8 +490,13 @@ class LotteryService
                     if ($playConfig->getUser()->getWallet()->getSubscription()->getAmount() >= $price->getAmount()) {
 
                         $APIPlayConfigs = json_encode([$playConfig]);
-                        $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
-                        $this->betService->validationLottoRisq($playConfig, $euroMillionsDraw, $lottery->getNextDrawDate(), null, $result_validation->uuid);
+                        if($lottery->getName()=='PowerBall')
+                        {
+                            $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
+                        }else{
+                            $result_validation = json_decode((new MegaMillionsApi())->book($APIPlayConfigs)->body);
+                        }
+                        $this->betService->validationLottery($playConfig, $euroMillionsDraw, $lottery->getNextDrawDate(), null, $result_validation->uuid);
                         if ($result_validation->success) {
                             $walletBefore = $playConfig->getUser()->getWallet();
                             $this->walletService->payWithSubscription($playConfig->getUser(), $playConfig);

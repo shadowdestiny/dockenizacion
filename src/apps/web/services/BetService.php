@@ -96,7 +96,7 @@ class BetService
         }
     }
 
-    public function validationLottoRisq(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $dateNextDraw, \DateTime $today = null, $uuid = null)
+    public function validationLottery(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $dateNextDraw, \DateTime $today = null, $uuid = null)
     {
         if (!$today) {
             $today = new \DateTime();

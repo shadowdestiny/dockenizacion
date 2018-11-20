@@ -36,7 +36,7 @@ class JackpotTask extends TaskBase
 
     public function updateNextDrawJackpotMegaMillionsAction()
     {
-        $this->lotteriesDataService->updateNextDrawJackpotPowerball('MegaMillions');
+        $this->lotteriesDataService->updateNextDrawJackpotLottery('MegaMillions');
 
     }
 
@@ -48,7 +48,7 @@ class JackpotTask extends TaskBase
 
         /** @var \DateTime $date */
         $date = $this->lotteryService->getLastDrawDate('MegaMillions', $today);
-        $this->lotteriesDataService->updateNextDrawJackpotPowerball('MegaMillions', $date->sub(new \DateInterval('PT1M')));
+        $this->lotteriesDataService->updateNextDrawJackpotLottery('MegaMillions', $date->sub(new \DateInterval('PT1M')));
     }
 
     public function reminderJackpotAction()

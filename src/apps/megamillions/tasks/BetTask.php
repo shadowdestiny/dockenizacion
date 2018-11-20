@@ -1,8 +1,14 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: vapdl
+ * Date: 14/11/18
+ * Time: 03:44 PM
+ */
 
+namespace EuroMillions\megamillions\tasks;
 
-namespace EuroMillions\web\tasks;
-
+use EuroMillions\web\tasks\TaskBase;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\EmailService;
@@ -10,13 +16,11 @@ use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\services\UserService;
-use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\shared\tasks\BetTask as bt;
 
 class BetTask extends TaskBase
 {
     use bt;
-
     /** @var  LotteryService */
     private $lotteryService;
 
@@ -39,36 +43,8 @@ class BetTask extends TaskBase
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
     }
 
-    public function placeBetsAction($args = null)
+    public function placeMegaMillionsBetsAction($args = null)
     {
-        if (!$args) {
-            $date = new \DateTime();
-        } else {
-            $date = new \DateTime($args[0]);
-        }
-        $lotteries = $this->lotteryService->getLotteriesOrderedByNextDrawDate();
-        /** @var Lottery $lottery */
-        foreach ($lotteries as $lottery) {
-            if ($lottery->getName() == 'EuroMillions') {
-                $this->lotteryService->placeBetForNextDraw($lottery, $date);
-            }
-        }
-    }
-
-    public function placePowerBallBetsAction($args = null)
-    {
-        $this->placeLotteryBets('PowerBall', $args);
-    }
-
-    public function longTermNotificationAction(\DateTime $today = null)
-    {
-        if(!$today) {
-            $today = new \DateTime();
-        }
-        /** @var ActionResult $result_play_config */
-        $result_play_config = $this->playService->getPlayConfigWithLongEnded($today);
-        if($result_play_config->success()) {
-            $this->userService->checkLongTermAndSendNotification($result_play_config->getValues(),$today);
-        }
+        $this->placeLotteryBets('MegaMillions', $args);
     }
 }

@@ -727,7 +727,7 @@ class PlayService
     {
         if($order->getLottery()->getName() !== 'EuroMillions')
         {
-            return $this->betService->validationLottoRisq($play_config, $draw->getValues(), $order->getLottery()->getNextDrawDate(), null, $resultValidation->uuid);
+            return $this->betService->validationLottery($play_config, $draw->getValues(), $order->getLottery()->getNextDrawDate(), null, $resultValidation->uuid);
         }
         return new ActionResult(true);
     }
