@@ -291,8 +291,8 @@ function isMobile(){
 $(document).ready(function () {
 
   // Homepage lottery carousel
-  if ($('.lotteries--carrousel').length) {
-    $('.lotteries--carrousel').owlCarousel({
+  if ($('.lotteries--carousel').length) {
+    $('.lotteries--carousel').owlCarousel({
       items:1,
       dots: true,
       margin:10,

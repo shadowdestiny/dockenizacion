@@ -15,7 +15,7 @@ lottery-carousel--christmas
             EUROPE'S BEST LOTTO
         </h2>
 
-        <div class="lotteries--carrousel owl-carousel owl-theme" style="">
+        <div class="lotteries--carousel owl-carousel owl-theme" style="">
 
         <div class="item lottery-carousel lottery-carousel--powerball">
 

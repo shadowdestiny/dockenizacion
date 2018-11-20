@@ -3,7 +3,8 @@
   height: 114px;
 
   @media only screen and (min-width: $screen-ipad-v) {
-    width: 364px;
+    //width: 364px;
+    width: 354px;
     height: 145px;
   }
   @media only screen and (min-width: $screen-ipad-h) {
@@ -21,14 +22,14 @@
 
     @media only screen and (min-width: $screen-ipad-v) {
       height: 115px;
-      padding-top: 14px;
-      padding-left: 65px;
-      padding-right: 65px;
+      padding-top: 0px;
+      padding-left: 15px;
+      padding-right: 15px;
     }
     @media only screen and (min-width: $screen-ipad-h) {
-      padding-top: 14px;
-      padding-left: 65px;
-      padding-right: 65px;
+      padding-top: 0px;
+      padding-left: 15px;
+      padding-right: 15px;
     }
 
     .title {
@@ -39,9 +40,11 @@
       line-height: 1;
       font-weight: 500;
 
+
       @media only screen and (min-width: $screen-ipad-v) {
         font-size: 26px;
         //line-height: 36px;
+        line-height: 2;
       }
       @media only screen and (min-width: $screen-ipad-h) {
         font-size: 26px;
@@ -83,6 +86,9 @@
       @media only screen and (min-width: $screen-ipad-v) {
         display: block;
 
+        position: relative;
+        top: 6px;
+
         float: left;
         margin-right: 5px;
         margin-left: 25px;
@@ -109,6 +115,7 @@
 
         @media only screen and (min-width: $screen-ipad-v) {
           font-size: 18px;
+          float: left;
         }
         @media only screen and (min-width: $screen-ipad-h) {
 
@@ -122,7 +129,9 @@
       left: 16px;
 
       @media only screen and (min-width: $screen-ipad-v) {
-
+        bottom: -3px;
+        left: auto;
+        right: 30px;
       }
       @media only screen and (min-width: $screen-ipad-h) {
 
