@@ -178,6 +178,10 @@
             </div>
 
 
+            {% include "_elements/home/lottery-results-carousel.volt" %}
+
+
+
             <div class="box-basic box-result">
 
                 <div class="result--block">
