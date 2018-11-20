@@ -133,7 +133,7 @@
 			{% endif %}
 
             {#{% include "_elements/carroussel.volt" %}#}
-            {% include "_elements/home/lottery-carousel.volt" %}
+            {% include "_elements/home/lottery-carousel/_lottery-carousel.volt" %}
 
 
 
@@ -178,7 +178,7 @@
             </div>
 
 
-            {% include "_elements/home/lottery-results-carousel.volt" %}
+            {% include "_elements/home/lottery-results-carousel/_lottery-results-carousel.volt" %}
 
 
 

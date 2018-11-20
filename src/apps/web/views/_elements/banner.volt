@@ -17,8 +17,8 @@
         </div>
     </div>
 
-    {#{% include "_elements/home/banner_old.volt" %}#}
+    {#{% include "_elements/home/banner/banner_old.volt" %}#}
 
-    {% include "_elements/home/jackpot--bar.volt" %}
+    {% include "_elements/home/banner/jackpot--bar.volt" %}
 
 </div>
