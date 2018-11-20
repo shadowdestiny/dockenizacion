@@ -66,7 +66,7 @@
   .bottom-block  {
     background-color: #E1E1E1;
     position: relative;
-    padding-top: 22px;
+    padding-top: 17px;
     height: 37px;
 
     @media only screen and (min-width: $screen-ipad-v) {
@@ -118,6 +118,8 @@
 
     .btn-block {
       position: absolute;
+      bottom: 20px;
+      left: 16px;
 
       @media only screen and (min-width: $screen-ipad-v) {
 
