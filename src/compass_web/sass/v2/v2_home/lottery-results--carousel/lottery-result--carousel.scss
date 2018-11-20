@@ -8,9 +8,11 @@
     overflow: hidden;
     padding-top: 20px;
     line-height: 1;
+    margin-bottom: 14px;
 
     @media only screen and (min-width: $screen-ipad-v) {
       text-align: left;
+      margin-bottom: 20px;
     }
     @media only screen and (min-width: $screen-ipad-h) {
 

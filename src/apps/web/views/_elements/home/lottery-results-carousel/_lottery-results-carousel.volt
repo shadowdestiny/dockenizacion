@@ -14,7 +14,7 @@ lottery-results--christmas
             Lottery results
         </h2>
 
-        <div class="lottery-results--carousel" style="">
+        <div class="lottery-results--carousel owl-carousel owl-theme" style="">
 
             {% include "_elements/home/lottery-results-carousel/euromillions.volt" %}
             {% include "_elements/home/lottery-results-carousel/powerball.volt" %}

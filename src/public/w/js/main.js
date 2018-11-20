@@ -290,7 +290,7 @@ function isMobile(){
 //v2
 $(document).ready(function () {
 
-  // Homepage lottery carousel
+  // Homepage lotteries carousel
   if ($('.lotteries--carousel').length) {
     $('.lotteries--carousel').owlCarousel({
       items:1,
@@ -306,6 +306,32 @@ $(document).ready(function () {
         900:{
           items:3,
           nav:true,
+          loop:false
+        }
+      }
+    });
+  }
+  // Homepage lottery results carousel
+  if ($('.lottery-results--carousel').length) {
+    $('.lottery-results--carousel').owlCarousel({
+      items:1,
+      dots: true,
+      margin:10,
+      responsiveClass:true,
+      responsive:{
+        0:{
+          items:1,
+          nav:false,
+          loop:false
+        },
+        767:{
+          items:2,
+          nav:false,
+          loop:false
+        },
+        900:{
+          items:3,
+          nav:false,
           loop:false
         }
       }
