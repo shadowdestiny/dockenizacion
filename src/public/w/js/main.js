@@ -290,8 +290,16 @@ function isMobile(){
 //v2
 $(document).ready(function () {
 
-  // FAQ accordion function
+  // Homepage lottery carousel
+  if ($('.lotteries--carrousel').length) {
+    $('.lotteries--carrousel').owlCarousel({
+      items:1,
+      nav: true,
+      dots: true
+    });
+  }
 
+  // FAQ accordion function
   if ($('.faq-section .answer').length) {
     $('.faq-section .accordion-block-outer').find('h2').click(function () {
       $(this).parent().toggleClass('expanded');
