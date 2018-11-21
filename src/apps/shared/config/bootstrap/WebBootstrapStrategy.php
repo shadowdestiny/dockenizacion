@@ -241,6 +241,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "action" => "notification"
         ));
 
+        $router->add('/paymentmx/status', array(
+            "module" => "web",
+            "controller" => "notification",
+            "action" => "status"
+        ));
+
+
         $router->add("/{lottery:(euromillions)+}/play", array(
             "module" => "web",
             "lottery" => 1,

@@ -32,6 +32,8 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
 
     public $isMobile;
 
+    protected $config;
+
     public function __construct(array $data, Config $config)
     {
 
@@ -41,9 +43,10 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
         $this->currency = $data['currency'];
         $this->lottery = $data['lottery'];
         $this->isWallet = $data['isWallet'] == 'true' ? true : false;
-        $this->isMobile = $data['isMobile'] == true ? 'Mobile' : 'Desktop';
+        $this->isMobile = $data['isMobile'] == 3 ? 'Desktop' : 'Mobile';
         $this->urlEuroMillions = $config['domain']->url;
         $this->notificationEndpoint = $config['moneymatrix']->endpoint;
+        $this->config = $config;
         $this->user->getId();
         $this->exChangeObject();
     }

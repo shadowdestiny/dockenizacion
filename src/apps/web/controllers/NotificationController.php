@@ -24,6 +24,7 @@ use EuroMillions\web\vo\Order;
 use EuroMillions\web\entities\PlayConfig;
 use LegalThings\CloudWatchLogger;
 use Phalcon\Logger;
+use Phalcon\Mvc\View;
 
 class NotificationController extends MoneymatrixController
 {
@@ -35,6 +36,7 @@ class NotificationController extends MoneymatrixController
 
         $transactionID = $this->request->getQuery('transaction');
         $status = $this->request->getQuery('status');
+        $statusCode = $this->request->getQuery('statusCode');
 
         $logger = new CloudWatch(new CloudWatchLogger(ConfigGenerator::cloudWatchConfig(
             'Euromillions', getenv('EM_ENV')
@@ -59,7 +61,28 @@ class NotificationController extends MoneymatrixController
             $this->eventsManager->attach('orderservice', $this->orderService);
             $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName())->getValues();
             $order->setNextDraw($nextDrawForOrder);
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,$status);
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,$status,$statusCode);
+        }
+    }
+
+
+    public function statusAction()
+    {
+        try
+        {
+            $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+            $this->response->setHeader('Content-type','application/json');
+            $data = $this->request->getJsonRawBody();
+            $response = $this->paymentProviderService->withdrawStatus($this->getDI()->get('paymentProviderFactory'),$data->MerchantReference);
+            echo json_encode($response);
+        } catch(\Exception $e)
+        {
+            $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+            $this->response->setStatusCode(500);
+            $this->response->setHeader('Content-type','application/json');
+            echo json_encode([
+                'Status' => 'Error'
+            ]);
         }
     }
 
