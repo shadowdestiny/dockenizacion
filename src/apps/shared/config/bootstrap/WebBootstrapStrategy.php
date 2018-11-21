@@ -5,6 +5,7 @@ namespace EuroMillions\shared\config\bootstrap;
 use EuroMillions\admin\services\DomainAdminServiceFactory;
 use EuroMillions\megamillions\config\routes\HowToPlayRoutes;
 use EuroMillions\megamillions\config\routes\MegaMillionsPlayRoutes;
+use EuroMillions\megamillions\config\routes\MegaMillionsResultRoutes;
 use EuroMillions\megamillions\config\routes\ResultPurchaseRoutes;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconCookiesWrapper;
@@ -1481,6 +1482,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->mount(new HowToPlayRoutes());
         $router->mount(new MegaMillionsPlayRoutes());
+        $router->mount(new MegaMillionsResultRoutes());
         $router->mount(new ResultPurchaseRoutes());
 
         //LANDINGS

@@ -7,7 +7,7 @@
  */
 
 
-namespace EuroMillions\powerball\tasks;
+namespace EuroMillions\shared\tasks;
 
 
 use EuroMillions\powerball\services\PrizesServices;
@@ -54,7 +54,10 @@ class PrizesTask extends TaskBase
                     foreach($result->get('Messages') as $message)
                     {
                         $body = json_decode($message['Body'], true);
-                        $this->prizeService->calculatePrizeAndInsertMessagesInQueue($body['drawDate'], $body['lotteryName']);
+                        if($body['lotteryName']!='Error')
+                        {
+                            $this->prizeService->calculatePrizeAndInsertMessagesInQueue($body['drawDate'], $body['lotteryName']);
+                        }
                     }
                     $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->deleteMessage(
                         $message['ReceiptHandle']

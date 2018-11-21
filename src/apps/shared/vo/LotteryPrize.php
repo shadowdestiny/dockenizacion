@@ -9,7 +9,7 @@
 namespace EuroMillions\shared\vo;
 
 
-class PowerBallPrize extends Prize
+class LotteryPrize extends Prize
 {
 
 

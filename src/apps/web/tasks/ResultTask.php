@@ -102,23 +102,31 @@ class ResultTask extends TaskBase
         }
     }
 
-
-    public function startAction()
+    /**
+     * @param array $params
+     */
+    public function startAction(array $params)
     {
-        try {
-            $drawDate = $this->lotteryService->getLastDrawDate('PowerBall');
-            $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
-            $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
-                'drawDate' => $drawDate->format('Y-m-d'),
-                'lotteryName' => 'PowerBall'
-            ]);
-        } catch ( \Exception $e)
+        if(isset($params[0]) && in_array($params[0],['MegaMillions', 'PowerBall']))
         {
-            $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
-                'drawDate' => $drawDate->format('Y-m-d'),
-                'lotteryName' => 'Error'
-            ]);
-            throw new \Exception($e->getMessage());
+            try {
+                $drawDate = $this->lotteryService->getLastDrawDate($params[0]);
+                $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
+                $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
+                    'drawDate' => $drawDate->format('Y-m-d'),
+                    'lotteryName' => $params[0]
+                ]);
+            } catch ( \Exception $e)
+            {
+                $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
+                    'drawDate' => $drawDate->format('Y-m-d'),
+                    'lotteryName' => 'Error'
+                ]);
+                throw new \Exception($e->getMessage());
+            }
+        }
+        else{
+            echo("Please, enter a valid param");
         }
     }
 
