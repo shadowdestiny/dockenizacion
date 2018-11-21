@@ -5,6 +5,7 @@ namespace EuroMillions\shared\config\bootstrap;
 use EuroMillions\admin\services\DomainAdminServiceFactory;
 use EuroMillions\megamillions\config\routes\HowToPlayRoutes;
 use EuroMillions\megamillions\config\routes\MegaMillionsPlayRoutes;
+use EuroMillions\megamillions\config\routes\MegaMillionsResultRoutes;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconCookiesWrapper;
 use EuroMillions\shared\components\PhalconRequestWrapper;
@@ -1430,48 +1431,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
-        //DRAW HISTORY
-        $router->add("/{lottery:(megamillions)+}/results/draw-history", array(
-            "module" => "megamillions",
-            'controller' => 'megamillions-numbers',
-            'action' => 'pastList',
-            'language' => 'en'
-        ));
-
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}", array(
-            "module" => "megamillions",
-            'controller' => 'megamillions-numbers',
-            'action' => 'pastList',
-        ));
-
-        //LAST RESULTS
-        $router->add("/{lottery:(megamillions)+}/results", array(
-            "module" => "megamillions",
-            'controller' => 'megamillions-numbers',
-            'action' => 'index',
-            'language' => 'en'
-        ));
-
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}", array(
-            "module" => "megamillions",
-            'controller' => 'megamillions-numbers',
-            'action' => 'index',
-        ));
-
-        //PAST DATES
-        $router->add("/{lottery:(megamillions)+}/results/draw-history/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
-            "module" => "megamillions",
-            'controller' => 'megamillions-numbers',
-            'action' => 'index',
-            'language' => 'en'
-        ));
-
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
-            "module" => "megamillions",
-            'controller' => 'megamillions-numbers',
-            'action' => 'index',
-        ));
-
         $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{play:(jugar|gioca|speel|играть)+}", array(
             "module" => "web",
             'controller' => 'play',
@@ -1480,6 +1439,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->mount(new HowToPlayRoutes());
         $router->mount(new MegaMillionsPlayRoutes());
+        $router->mount(new MegaMillionsResultRoutes());
 
         //LANDINGS
 
