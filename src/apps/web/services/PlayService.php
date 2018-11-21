@@ -4,6 +4,7 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 
+use EuroMillions\shared\vo\RedisOrderKey;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\ErrorEmailTemplate;
 use EuroMillions\web\emailTemplates\PowerBallPurchaseConfirmationEmailTemplate;
@@ -109,10 +110,11 @@ class PlayService
         }
         try {
             /** @var ActionResult $result_find_playstorage */
-            $result_find_playstorage = $this->playStorageStrategy->findByKey($user_id);
+            $lottery = $this->getLottery($lottery);
+            $result_find_playstorage = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user_id, $lottery->getId())->key());
             if ($result_find_playstorage->success()) {
-                $this->playStorageStrategy->save($result_find_playstorage->returnValues(), $current_user_id);
-                $result_save_playstorage = $this->playStorageStrategy->findByKey($current_user_id);
+                $this->playStorageStrategy->save($result_find_playstorage->returnValues(), RedisOrderKey::create($current_user_id, $lottery->getId())->key());
+                $result_save_playstorage = $this->playStorageStrategy->findByKey(RedisOrderKey::create($current_user_id, $lottery->getId())->key());
                 if ($result_save_playstorage->success()) {
                     $form_decode = json_decode($result_find_playstorage->getValues());
                     $bets = [];
@@ -488,7 +490,7 @@ class PlayService
     {
         try {
             /** @var ActionResult $result */
-            $result = $this->playStorageStrategy->findByKey($user->getId());
+            $result = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user->getId(),$this->getLottery($lottery)->getId())->key());
             if ($result->success()) {
                 $form_decode = json_decode($result->returnValues());
                 $bets = [];
