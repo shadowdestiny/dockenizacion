@@ -19,6 +19,7 @@
 end PROD imports-->
 <!--start DEV imports-->
 <script src="/w/js/mobileInit.js"></script>
+<script src="/w/js/owl-carousel/owl.carousel.min.js"></script>
 <script src="/w/js/main.js"></script>
 <!--end DEV imports-->
 <script>

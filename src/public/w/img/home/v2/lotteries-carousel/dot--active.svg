@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+  <defs>
+    <style>
+      .cls-1, .cls-4 {
+        fill: none;
+      }
+
+      .cls-1 {
+        stroke: #a1a1a1;
+      }
+
+      .cls-2 {
+        fill: #e1e1e1;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="Group_5" data-name="Group 5" transform="translate(-446 -812)">
+    <g id="Cercle_big_copy" data-name="Cercle big copy" class="cls-1" transform="translate(446 812)">
+      <circle class="cls-3" cx="10" cy="10" r="10"/>
+      <circle class="cls-4" cx="10" cy="10" r="9.5"/>
+    </g>
+    <circle id="Cercle_small_copy" data-name="Cercle small copy" class="cls-2" cx="5" cy="5" r="5" transform="translate(451 817)"/>
+  </g>
+</svg>
