@@ -60,7 +60,7 @@ class MegaMillionsCartController extends LotteriesCartController
                 }
             }
         }
-        $this->view->pick('powerball/cart/profile');
+        $this->view->pick('cart/profile');
         $this->tag->prependTitle('Log In or Sign Up');
         return $this->view->setVars([
             'which_form'  => 'up',
