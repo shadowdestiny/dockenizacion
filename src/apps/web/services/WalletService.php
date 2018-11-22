@@ -196,7 +196,7 @@ class WalletService
                 $walletBefore = $user->getWallet();
 
                 $user->reChargeWallet($creditCardCharge->getNetAmount());
-                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore);
+                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore,$order);
                 $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
 
                 $this->entityManager->persist($user);
@@ -355,6 +355,20 @@ class WalletService
             if ($newWallet == null) {
                 throw new \Exception('You don\'t have enough winning amount to complete transaction');
             }
+            $user->setWallet($newWallet);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+            return new ActionResult(true);
+        } catch (\Exception $e) {
+            return new ActionResult(false, $e->getMessage());
+            //EMTD Log and warn the admin
+        }
+    }
+
+    public function addToWithdraw(User $user, Money $amount)
+    {
+        try {
+            $newWallet = $user->getWallet()->award($amount);
             $user->setWallet($newWallet);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
