@@ -1,37 +1,15 @@
 version: '3.4'
 
 services:
-#  database:
-#    image: rmrbest/percona
-#    volumes:
-#    - "database_volume:/var/lib/mysql"
-#    networks:
-#      backend:
-#        ipv4_address: ${EM_DOCKER_DATABASE_IP}
-#    environment:
-#      REPLICATION: 'true'
-#      REPLICATION_NODE: 1
-#      REPLICATION_SLAVE_USER: slave_db1
-#      REPLITACION_SLAVE_PASSWORD: euromillions
-#      MYSQL_ROOT_PASSWORD: tpl9
-#      MYSQL_USER: euromillions
-#      MYSQL_PASSWORD: tpl9
-#      MYSQL_DATABASE: euromillions
-
   redis:
     image: redis:latest
     networks:
       - backend
 
   web:
-    build:
-      context: src/docker/NEW/web
-      target: prod
-    image: prod-web:latest
+    image: panamedialottery/euromillions-web:prod
     depends_on:
       - php
-    volumes:
-      - "./src:/var/www"
     links:
       - php:php
     networks:
@@ -40,14 +18,9 @@ services:
       EM_ENV: ${EM_ENV}
 
   php:
-    build:
-      context: src/docker/NEW/php
-      target: prod
-    image: prod-php:latest
+    image: panamedialottery/euromillions-php:prod
     depends_on:
       - redis
-    volumes:
-      - "./src:/var/www"
     links:
       - redis:redis
     networks:
@@ -58,10 +31,7 @@ services:
       AWS_SECRET_ACCESS_KEY: yX6OWDq23bhTWqZUpCl8ih00ubWYRXsmKVsWEWIn
 
   phpcron:
-    build:
-      context: src/docker/NEW/php
-      target: cron
-    image: prod-phpcron:latest
+    image: panamedialottery/euromillions-php:cron
     depends_on:
       - redis
     volumes:
@@ -74,20 +44,6 @@ services:
       EM_ENV: ${EM_ENV}
       AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
       AWS_SECRET_ACCESS_KEY: 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
-
-
-#volumes:
-#  database_volume:
-#
-#networks:
-#  backend:
-#    ipam:
-#      config:
-#        - subnet: ${EM_DOCKER_BACKEND_SUBNET}
-#  frontend:
-#    ipam:
-#      config:
-#        - subnet: ${EM_DOCKER_FRONTEND_SUBNET}
 
 networks:
   backend: {}

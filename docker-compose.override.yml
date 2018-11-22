@@ -20,13 +20,21 @@ services:
 
   web:
     build:
+      context: .
+      dockerfile: devOps/docker/web/Dockerfile
       target: devel
-    image: devel-web:latest
+    image: panamedialottery/euromillions-web:devel
+    volumes:
+      - "./src:/var/www"
 
   php:
     build:
+      context: .
+      dockerfile: devOps/docker/php/Dockerfile
       target: devel
-    image: devel-php:latest
+    image: panamedialottery/euromillions-php:devel
+    volumes:
+      - "./src:/var/www"
     depends_on:
       - redis
       - database
@@ -35,15 +43,20 @@ services:
       - database:mysql
 
   phpcron:
-    image: devel-phpcron:latest
+    build:
+      context: .
+      dockerfile: devOps/docker/php/Dockerfile
+      target: cron
+    image: panamedialottery/euromillions-php:cron
     links:
       - redis:redis
       - database:mysql
 
   varnish:
     build:
-      context: src/docker/NEW/varnish
-    image: devel-varnish:latest
+      context: .
+      dockerfile: devOps/docker/varnish/Dockerfile
+    image: panamedialottery/euromillions-varnish:devel
     depends_on:
       - web
     links:

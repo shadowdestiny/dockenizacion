@@ -56,7 +56,8 @@ Vagrant needs that info for mount the share inside the guess.
 We use SMB mount for handle symlinks ( node.js modules uses it for example)
 
 ### Variables on devOps/playbook_local_setup.yml
-- ***is_vagrant***: "bool" | In VagrantFile we force to be 'yes' and we can manage conditional task on Windows Hosts.
 - ***enable_frontend_watchers***: "bool" | Set to 'true' for enable the ***watchers containers*** for re-compile css/sass and react files.
+- ***enable_frontend_react_build***: "bool" | Set to 'false' for disable the build of react folder on each provision.
+- ***is_vagrant***: "bool" | In VagrantFile we force to be 'yes' and we can manage conditional task on Windows Hosts.
 - ***update_geoip_database***: "bool" | Forces the download of  the geoipdatabases even if the files exists.
 - ***do_docker_setup***: "bool" | Set to true if you want to install docker dependencies on the machine. Localhost if you are on Linux or inside the Vagrant if you are on Windows. By default is set to 'true' on Vagrant (Windows Hosts)  
