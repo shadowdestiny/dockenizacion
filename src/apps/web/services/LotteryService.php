@@ -624,6 +624,15 @@ class LotteryService
         ];
     }
 
+    public function sliderAndBarJackpotHome()
+    {
+        $biggestJackpot = $this->lotteryDrawRepository->giveMeBiggestJackpot();
+        $drawListByHeldDate = $this->lotteryDrawRepository->giveMeLotteriesOrderedByHeldDate();
+
+
+
+    }
+
     /**
      * @param $lotteryName
      * @param \DateTime $today
