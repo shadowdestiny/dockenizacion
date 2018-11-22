@@ -1,0 +1,30 @@
+pipeline {
+    environment {
+        EM_ENVIRONMENT = "staging"
+        BUILD_IMAGE_TAG = "${env.EM_ENVIRONMENT}_${env.BUILD_NUMBER}"
+    }
+    agent {
+        label 'aws-slave'
+    }
+    options {
+        skipStagesAfterUnstable()
+        timeout( time: 1, unit: 'HOURS' )
+    }
+    stages {
+        stage('test') {
+            steps {
+                sh('echo test')
+            }
+        }
+        stage('build') {
+            steps {
+                sh('echo build')
+            }
+        }
+        stage('deploy') {
+            steps {
+                sh('echo deploy')
+            }
+        }
+    }
+}
