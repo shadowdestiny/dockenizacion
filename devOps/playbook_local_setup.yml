@@ -69,7 +69,7 @@
       when: not is_vagrant
 
     - name: start docker compose (Windows OS Host)
-      shell: docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.vagrant.yml up -d --build
+      shell: docker-compose -f docker-compose.yml -f docker-compose.vagrant.yml up -d --build
       args:
         chdir: "/vagrant"
       when: is_vagrant
