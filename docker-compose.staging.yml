@@ -1,12 +1,10 @@
-version: '3.4'
-
+version: '2'
 services:
+
   database:
     image: rmrbest/percona
     volumes:
-      - "database_volume:/var/lib/mysql"
-    networks:
-      - backend
+    - "database_volume:/var/lib/mysql"
     environment:
       REPLICATION: 'true'
       REPLICATION_NODE: 1
@@ -22,18 +20,6 @@ services:
 
   php:
     image: panamedialottery/euromillions-php:staging
-    depends_on:
-      - redis
-      - database
-    links:
-      - redis:redis
-      - database:mysql
-
-  phpcron:
-    image: panamedialottery/euromillions-php:staging
-    links:
-      - redis:redis
-      - database:mysql
 
 volumes:
   database_volume:

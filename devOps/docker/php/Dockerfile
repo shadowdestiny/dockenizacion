@@ -89,6 +89,8 @@ COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
 # set fpm pool config
 COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
 
+COPY ./src .
+
 ################################################################################
 
 FROM base as devel

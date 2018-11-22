@@ -1,5 +1,7 @@
 FROM nginx:stable as base
 
+WORKDIR /var/www
+
 ################################################################################
 
 FROM base as prod
@@ -13,6 +15,10 @@ FROM base as staging
 
 COPY devOps/docker/web/staging/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY devOps/docker/web/staging/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+
+# ssl
+COPY devOps/docker/web/staging/nginx/ssl/nginx.crt /etc/nginx/ssl/nginx.crt
+COPY devOps/docker/web/staging/nginx/ssl/nginx.key /etc/nginx/ssl/nginx.key
 
 ################################################################################
 
