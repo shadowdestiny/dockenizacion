@@ -10,19 +10,25 @@
         }
 
         .center-block {
+          background-color: rgba(243, 30, 30, 0.75);
+
           .result-row {
+            background-color: rgba(243, 30, 30, 0.5);
+
+            &:nth-child(even) {
+              background-color: transparent;
+            }
+
             .row--results {
               .ball {
-                color: rgb(243, 30, 30);
-                background-color: transparent;
-                border: 1px solid rgb(243, 30, 30);
-                
+
                 &.star {
-                  color: rgb(243, 30, 30);
+                  color: rgba(243, 30, 30, 0.75);
                   background-color: #fff;
                   border: 1px solid #fff;
 
                   &:last-of-type {
+                    color: #fff;
                     background-color: transparent;
                     border: 1px solid transparent;
                   }
