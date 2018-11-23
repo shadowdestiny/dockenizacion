@@ -3,6 +3,7 @@
 
 namespace EuroMillions\web\controllers\ajax;
 
+use EuroMillions\shared\vo\RedisOrderKey;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
@@ -41,7 +42,7 @@ class PlayTemporarilyController extends AjaxControllerBase
 
             $playService = $this->domainServiceFactory->getPlayService();
             $current_user = $authService->getCurrentUser();
-            $result = $playService->savePlayFromJson(json_encode($playFormToStorage_collection), $current_user->getId());
+            $result = $playService->savePlayFromJson(json_encode($playFormToStorage_collection), RedisOrderKey::create($current_user->getId(),1)->key());
             if ($result->success()) {
                 echo json_encode(['result' => 'OK', 'url' => '/euromillions/cart/profile']);
             } else {

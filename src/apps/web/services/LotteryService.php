@@ -35,6 +35,7 @@ use EuroMillions\web\services\user_notifications_strategies\UserNotificationAuto
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationResultsStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\dto\EuroMillionsDrawDTO;
+use EuroMillions\web\vo\dto\MainJackpotHomeDTO;
 use EuroMillions\web\vo\dto\PowerBallDrawBreakDownDTO;
 use EuroMillions\web\vo\dto\PowerBallDrawDTO;
 use EuroMillions\megamillions\vo\dto\MegaMillionsDrawDTO;
@@ -622,6 +623,22 @@ class LotteryService
             'playDates' => $playDates,
             'dayOfWeek' => $dayOfWeek,
         ];
+    }
+
+    public function mainJackpotHome()
+    {
+        $biggestJackpot = $this->lotteryDrawRepository->giveMeBiggestJackpot();
+        $biggestJackpot->setDrawDate($this->getNextDateDrawByLottery($biggestJackpot->getLottery()->getName()));
+        return MainJackpotHomeDTO::mainJAckpotHomeDTO($biggestJackpot);
+    }
+
+
+    public function sliderAndBarJackpotHome()
+    {
+        $drawListByHeldDate = $this->lotteryDrawRepository->giveMeLotteriesOrderedByHeldDate();
+
+
+
     }
 
     /**

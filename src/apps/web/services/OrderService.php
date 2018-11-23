@@ -88,30 +88,27 @@ class OrderService
                             'checkout:After substract playconfig bet value from wallet =' . $user->getBalance()->getAmount());
                     }
                 }
-                if($result->success() && $isBetPersisted->success())
-                {
-                    //TODO move to TransactionService
-                    $dataTransaction = [
-                        'lottery_id' => $order->getLottery()->getId(),
-                        'transactionID' => $transactionID,
-                        'numBets' => count($order->getPlayConfig()),
-                        'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                        'amountWithWallet' => $order->amountForTicketPurchaseTransaction(),
-                        'walletBefore' => $walletBefore,
-                        'amountWithCreditCard' => 0,
-                        'playConfigs' => array_map(function ($val) {
-                            return $val->getId();
-                        }, $order->getPlayConfig()),
-                        'discount' => $order->getDiscount()->getValue(),
-                    ];
-                    $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
-                    $this->logger->log(Logger::INFO,
-                        'checkout:Transaction TICKET_PURCHASE it was created');
-                    $this->sendEmail($user,$order,$lottery->getName());
-                    $this->logger->log(Logger::INFO,
-                        'checkout:Email sent');
-                }
+                //TODO move to TransactionService
+                $dataTransaction = [
+                    'lottery_id' => $order->getLottery()->getId(),
+                    'transactionID' => $transactionID,
+                    'numBets' => count($order->getPlayConfig()),
+                    'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
+                    'amountWithWallet' => $order->amountForTicketPurchaseTransaction(),
+                    'walletBefore' => $walletBefore,
+                    'amountWithCreditCard' => 0,
+                    'playConfigs' => array_map(function ($val) {
+                        return $val->getId();
+                    }, $order->getPlayConfig()),
+                    'discount' => $order->getDiscount()->getValue(),
+                ];
+                $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                $this->logger->log(Logger::INFO,
+                    'checkout:Transaction TICKET_PURCHASE it was created');
+                $this->sendEmail($user,$order,$lottery->getName());
                 $this->redisOrderChecker->delete($user->getId());
+                $this->logger->log(Logger::INFO,
+                    'checkout:Email sent');
             }
         } catch(\Exception $e)
         {
@@ -180,7 +177,29 @@ class OrderService
         {
 
         }
+    }
 
+    public function revertWithdraw($event,$component,array $data)
+    {
+        /** @var Order $order */
+        $order = $data['order'];
+        $transactionID = $data['transactionID'];
+        $user = $order->getPlayConfig()[0]->getUser();
+        try
+        {
+            $walletBefore = $user->getWallet();
+            $this->walletService->addToWithdraw($user,$order->getCreditCardCharge()->getNetAmount());
+            $transactions = $this->transactionService->getTransactionByEmTransactionID($transactionID);
+            $transactions[0]->fromString();
+            $transactions[0]->setWalletBefore($walletBefore);
+            $transactions[0]->setWalletAfter($user->getWallet());
+            $transactions[0]->toString();
+            $this->transactionService->updateTransaction($transactions[0]);
+
+        }catch(\Exception $e)
+        {
+
+        }
     }
 
     private function sendEmail(User $user, Order $order, $lotteryName)

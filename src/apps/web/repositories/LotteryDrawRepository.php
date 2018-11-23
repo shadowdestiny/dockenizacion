@@ -241,6 +241,41 @@ class LotteryDrawRepository extends EntityRepository
         return $result;
     }
 
+
+
+    public function giveMeLotteriesOrderedByHeldDate()
+    {
+        /** @var EuroMillionsDraw[] $result */
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT ed'
+                . ' FROM ' . $this->getEntityName() . ' ed JOIN ed.lottery l'
+                . ' WHERE '
+                . ' ed.draw_date > CURRENT_DATE()'
+                . ' order by ed.draw_date DESC')
+            ->useResultCache(true, 3600)
+            ->getResult();
+
+        return $result;
+    }
+
+
+    public function giveMeBiggestJackpot()
+    {
+
+        /** @var EuroMillionsDraw[] $result */
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT ed'
+                . ' FROM ' . $this->getEntityName() . ' ed JOIN ed.lottery l'
+                . ' WHERE '
+                . ' ed.jackpot.amount=(select max(e.jackpot.amount) from '.$this->getEntityName().' e where e.draw_date >= current_date()) '
+                . ' and l.id != 2 ')
+            ->useResultCache(true, 3600)
+            ->getResult();
+        return $result[0];
+    }
+
     /**
      * @param Lottery $lottery
      * @param $draw_date

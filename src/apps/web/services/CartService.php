@@ -6,6 +6,7 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\services\SiteConfigService;
+use EuroMillions\shared\vo\RedisOrderKey;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
@@ -60,7 +61,7 @@ class CartService
         $user_id = $order->getPlayConfig()[0]->getUser()->getId();
         if (null !== $user_id) {
             /** @var ActionResult $result */
-            $result = $this->orderStorageStrategy->save($order->toJsonData(), $user_id);
+            $result = $this->orderStorageStrategy->save($order->toJsonData(), RedisOrderKey::create($user_id,$order->getLottery()->getId())->key());
             if ($result->success()) {
                 return $result;
             } else {
@@ -73,10 +74,10 @@ class CartService
     public function get($user_id, $lotteryName,$withWallet = true)
     {
         try {
-            /** @var ActionResult $result */
-            $result = $this->orderStorageStrategy->findByKey($user_id);
             /** @var Lottery $lottery */
             $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+            /** @var ActionResult $result */
+            $result = $this->orderStorageStrategy->findByKey(RedisOrderKey::create($user_id,$lottery->getId())->key());
             if ($result->success()) {
                 $json = json_decode($result->returnValues());
 
@@ -118,6 +119,7 @@ class CartService
 
     public function checkout($event,$component,Order $order)
     {
+
     }
 
 

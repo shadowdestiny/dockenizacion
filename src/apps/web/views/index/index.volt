@@ -1,7 +1,6 @@
 {% extends "main.volt" %}
 {% block template_css %}
 	<link rel="stylesheet" href="/w/css/home.css">
-	<link rel="stylesheet" href="/w/js/owl-carousel/assets">
 	<link rel="stylesheet" href="/w/js/owl-carousel/assets/owl.carousel.min.css">
 	<link rel="stylesheet" href="/w/js/owl-carousel/assets/owl.theme.default.min.css">
 	<link Rel="Canonical" href="{{ language.translate('canonical_home') }}" />
@@ -133,6 +132,7 @@
 			{% endif %}
 
             {#{% include "_elements/carroussel.volt" %}#}
+
             {% include "_elements/home/lottery-carousel/_lottery-carousel.volt" %}
 
 
