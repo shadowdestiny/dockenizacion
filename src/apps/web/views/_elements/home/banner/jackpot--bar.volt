@@ -8,7 +8,7 @@ lotteries-jackpot--bar--christmas
 
 <div class="
 lotteries-jackpot--bar
-lotteries-jackpot--bar--euromillions
+{{ main_jackpot_home.css }}
 ">
         <div class="wrapper" id="wrapper--lotteries-jackpot--bar">
 
@@ -20,16 +20,13 @@ lotteries-jackpot--bar--euromillions
 
             <div class="top-banner--left desktop--only">
                 <div class="resizeme">
-                    {{ language.translate("banner1_subhead") }}
+                    {{ main_jackpot_home.lotteryName }}
                 </div>
             </div>
 
 
 
             <div class="top-banner--center">
-                {#<div class="resizeme desktop-row--01{% if jackpot_value|length > 4 %}-sm{% endif %}">#}
-                {#{{ jackpot_value }}#}
-                {#</div>#}
                 <div class="resizeme desktop-row--01">
                     {{ jackpot_value }}
                 </div>
@@ -58,7 +55,7 @@ lotteries-jackpot--bar--euromillions
                 </div>
 
                 <div class="btn-row">
-                    <a href="/{{ language.translate("link_euromillions_play") }}"
+                    <a href="/{{ language.translate( main_jackpot_home.link ) }}"
                        class="btn-theme--big">
                         <span class="resizeme">{{ language.translate("banner1_btn") }}</span>
                     </a>

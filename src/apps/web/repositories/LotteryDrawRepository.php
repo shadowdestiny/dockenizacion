@@ -262,14 +262,15 @@ class LotteryDrawRepository extends EntityRepository
 
     public function giveMeBiggestJackpot()
     {
+
+        /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
             ->createQuery(
-                'SELECT MAX(ed.jackpot.amount), ed'
+                'SELECT ed'
                 . ' FROM ' . $this->getEntityName() . ' ed JOIN ed.lottery l'
                 . ' WHERE '
-                . ' ed.draw_date > CURRENT_DATE() and l.id != 2 '
-                . ' order by ed.draw_date DESC')
-            ->setMaxResults(1)
+                . ' ed.jackpot.amount=(select max(e.jackpot.amount) from '.$this->getEntityName().' e where e.draw_date >= current_date()) '
+                . ' and l.id != 2 ')
             ->useResultCache(true, 3600)
             ->getResult();
         return $result[0];
