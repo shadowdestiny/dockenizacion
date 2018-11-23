@@ -280,9 +280,10 @@
           text-align: center;
           //line-height:34px;
           line-height:24px;
+          border-radius: 8px;
 
           span {
-
+            font-weight: 900;
           }
 
           @media only screen and (min-width: $screen-ipad-v) {
