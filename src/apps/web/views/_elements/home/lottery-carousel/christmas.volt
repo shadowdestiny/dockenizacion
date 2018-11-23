@@ -13,7 +13,7 @@
 
         <div class="christmasdate" style="">
             <div class="lottery--countdown daypower unit" style="">
-                <span class="val" style="">22.12.2018</span>
+                <span class="val" style="">22-12-2018</span>
             </div>
         </div>
 
