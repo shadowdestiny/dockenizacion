@@ -54,7 +54,8 @@ lotteries-jackpot--bar--euromillions
                     </div>
                 </div>
                 <div class="top-banner--countdown">
-                    <div class="resizeme">{% include "_elements/countdown.volt" %}</div>
+                    {#<div class="resizeme">{% include "_elements/countdown.volt" %}</div>#}
+                    <div class="resizeme">3<span>D</span>:22<span>H</span>:45<span>M</span></div>
                 </div>
 
                 <div class="btn-row">
