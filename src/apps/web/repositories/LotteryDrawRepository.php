@@ -252,7 +252,7 @@ class LotteryDrawRepository extends EntityRepository
                 . ' FROM ' . $this->getEntityName() . ' ed JOIN ed.lottery l'
                 . ' WHERE '
                 . ' ed.draw_date > CURRENT_DATE()'
-                . ' order by ed.draw_date DESC')
+                . ' order by ed.draw_date ASC')
             ->useResultCache(true, 3600)
             ->getResult();
 

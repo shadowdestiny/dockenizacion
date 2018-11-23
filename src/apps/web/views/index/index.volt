@@ -65,6 +65,8 @@
     count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
     });
 
+
+
     $(function(){
     var html_formatted_offseteuro = [];
     $('.countdowneuro .dotseuro').eq(2).hide();
@@ -85,7 +87,7 @@
     var finish_actioneuro = function(){
     $('.box-next-draw .btn.red').remove();
     }
-    {#alert('patata);#}
+    {#alert('patata);#} {#crack#}
     var dateeuro = '{{ date_draw }}'; {#  To test "2015/11/17 10:49:00"  #}
     var finish_texteuro = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
     count_down(elementeuro,html_formattedeuro,html_formatted_offseteuro, dateeuro,finish_texteuro, finish_actioneuro);
@@ -111,7 +113,7 @@
     var finish_actionpower = function(){
     $('.box-next-draw .btn.red').remove();
     }
-    {#alert('patata);#}
+    {#alert('patata);#} {#crack#}
     var datepower = '{{ date_draw_power }}'; {#  To test "2015/11/17 10:49:00"  #}
     var finish_textpower = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
     count_down(elementpower,html_formattedpower,html_formatted_offsetpower, datepower,finish_textpower, finish_actionpower);
