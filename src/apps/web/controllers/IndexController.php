@@ -10,8 +10,11 @@ class IndexController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
+
         /** @var MainJackpotHomeDTO $mainJackpotHomeDTO */
         $mainJackpotHomeDTO = $this->lotteryService->mainJackpotHome();
+        $euroMillionsDrawJackpotArr = $this->lotteryService->sliderAndBarJackpotHome();
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($mainJackpotHomeDTO->jackpot);
         $jackpotPowerBall = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
         $jackpotChristmas = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('Christmas'));
 //        $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($mainJackpotHomeDTO->jackpotAmount));
@@ -40,7 +43,25 @@ class IndexController extends PublicSiteControllerBase
         $this->view->setVar('show_p_days', (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours'))->format('%a'));
         $this->view->setVar('pageController', 'index');
         $this->view->setVar('main_jackpot_home', $mainJackpotHomeDTO);
-
+        $userPreferenceService = $this->userPreferencesService;
+        $jackpotFunc = function(&$euroMillionsDrawJackpotArr,&$userPreferenceService) {
+            $dtoArr= [];
+            foreach ($euroMillionsDrawJackpotArr as $dto) {
+                $jackpot = $userPreferenceService->getJackpotInMyCurrencyAndMillions($dto->jackpot);;
+                $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
+                $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
+                $params = ViewHelper::setSemanticJackpotValue($numbers, $letters, $jackpot, $this->languageService->getLocale());
+                $size = function($params) {
+                    if($params['milliards']) return 'B';
+                    if($params['trillions']) return 'T';
+                    return 'M';
+                };
+                $dto->jackpot = $params['jackpot_value'].$size($params);
+                array_push($dtoArr,$dto);
+            }
+            return $dtoArr;
+        };
+        $this->view->setVar('slide_jackpot_include', $jackpotFunc($euroMillionsDrawJackpotArr,$userPreferenceService));
         $this->tag->prependTitle($this->languageService->translate('home_name') . ViewHelper::formatMillionsJackpot($jackpot) . ' ' . $this->languageService->translate($textMillions));
         MetaDescriptionTag::setDescription($this->languageService->translate('home_desc'));
     }

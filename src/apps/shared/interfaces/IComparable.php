@@ -11,5 +11,5 @@ namespace EuroMillions\shared\interfaces;
 
 interface IComparable
 {
-    public function compare($object);
+    public function compare(IComparable $object);
 }

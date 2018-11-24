@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnexpectedResultException;
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\shared\interfaces\IComparable;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\EmTranslationAdapter;
@@ -70,6 +71,8 @@ class LotteryService
     /** @var WalletService $walletService */
     private $walletService;
 
+    private $biggestJackpot;
+
     public function __construct(EntityManager $entityManager,
                                 LotteriesDataService $lotteriesDataService,
                                 UserService $userService,
@@ -89,6 +92,7 @@ class LotteryService
         $this->betService = $betService;
         $this->userNotificationsService = $userNotificationsService;
         $this->walletService = $walletService;
+        $this->biggestJackpot = $this->lotteryDrawRepository->giveMeBiggestJackpot();
     }
 
     /**
@@ -627,18 +631,27 @@ class LotteryService
 
     public function mainJackpotHome()
     {
-        $biggestJackpot = $this->lotteryDrawRepository->giveMeBiggestJackpot();
-        $biggestJackpot->setDrawDate($this->getNextDateDrawByLottery($biggestJackpot->getLottery()->getName()));
-        return MainJackpotHomeDTO::mainJAckpotHomeDTO($biggestJackpot);
+        $this->biggestJackpot->setDrawDate($this->getNextDateDrawByLottery($this->biggestJackpot->getLottery()->getName()));
+        return MainJackpotHomeDTO::mainJAckpotHomeDTO($this->biggestJackpot);
     }
 
 
     public function sliderAndBarJackpotHome()
     {
         $drawListByHeldDate = $this->lotteryDrawRepository->giveMeLotteriesOrderedByHeldDate();
-
-
-
+        $slideJackpot = [];
+        foreach ($drawListByHeldDate as $euroMillionsDraw)
+        {
+            $jackpotHome = MainJackpotHomeDTO::mainJAckpotHomeDTO($euroMillionsDraw);
+            $comparator = function(IComparable $a, IComparable $b) {
+                return $a->compare($b);
+            };
+            if(!$comparator($jackpotHome,MainJackpotHomeDTO::mainJAckpotHomeDTO($this->biggestJackpot)))
+            {
+                array_push($slideJackpot,$jackpotHome);
+            }
+        }
+        return $slideJackpot;
     }
 
     /**

@@ -17,14 +17,22 @@ lottery-carousel--christmas
 
         <div class="lotteries--carousel owl-carousel owl-theme" style="">
 
-            {% include "_elements/home/lottery-carousel/euromillions.volt" %}
-            {% include "_elements/home/lottery-carousel/powerball.volt" %}
-            {% include "_elements/home/lottery-carousel/megamillions.volt" %}
+            {% for slide in slide_jackpot_include %}
+               {% if slide.lotteryName == 'EuroMillions' %}
+                    {% set jackpot_value = slide.jackpot %}
+                    {% include "_elements/home/lottery-carousel/euromillions.volt" %}
+                {%  endif %}
+                {% if slide.lotteryName == 'PowerBall' %}
+                    {% set jackpot_value = slide.jackpot %}
+                    {% include "_elements/home/lottery-carousel/powerball.volt" %}
+                {%  endif %}
+                {% if slide.lotteryName == 'MegaMillions' %}
+                    {% set jackpot_value = slide.jackpot %}
+                    {% include "_elements/home/lottery-carousel/megamillions.volt" %}
+                {%  endif %}
+
+            {%  endfor %}
             {% include "_elements/home/lottery-carousel/christmas.volt" %}
-
-
-
-
         </div>
 
     </div>

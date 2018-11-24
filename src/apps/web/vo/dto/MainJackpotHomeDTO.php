@@ -10,6 +10,7 @@ namespace EuroMillions\web\vo\dto;
 
 
 use EuroMillions\megamillions\vo\MegaMillionsJackpot;
+use EuroMillions\shared\interfaces\IComparable;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\interfaces\IJackpot;
@@ -18,7 +19,7 @@ use EuroMillions\web\vo\EuroMillionsJackpot;
 use EuroMillions\web\vo\PowerBallJackpot;
 use Money\Money;
 
-class MainJackpotHomeDTO extends DTOBase implements IDto
+class MainJackpotHomeDTO extends DTOBase implements IDto,IComparable
 {
 
 
@@ -33,6 +34,8 @@ class MainJackpotHomeDTO extends DTOBase implements IDto
 
     public $drawDate;
 
+    public $includeSlide;
+
 
     private function __construct(EuroMillionsDraw $euroMillionsDraw)
     {
@@ -40,8 +43,8 @@ class MainJackpotHomeDTO extends DTOBase implements IDto
         $this->drawDate = $euroMillionsDraw->getDrawDate();
         $this->link = $this->giveMeConfigByLottery()[$this->lotteryName]['link'];
         $this->css = $this->giveMeConfigByLottery()[$this->lotteryName]['css'];
-        $this->jackpot = $this->IJackpot($euroMillionsDraw->getJackpot());
-
+        $this->jackpot = $euroMillionsDraw->getJackpot() instanceof IJackpot ? $euroMillionsDraw->getJackpot() : $this->IJackpot($euroMillionsDraw->getJackpot());
+        $this->includeSlide = $this->giveMeConfigByLottery()[$this->lotteryName]['include'];
     }
 
 
@@ -67,15 +70,19 @@ class MainJackpotHomeDTO extends DTOBase implements IDto
         return [
             'EuroMillions' => [
                     'link' => 'link_euromillions_play',
-                    'css'  => 'lotteries-jackpot--bar--euromillions'
+                    'css'  => 'lotteries-jackpot--bar--euromillions',
+                    'include' => '_elements/home/lottery-carousel/euromillions'
+
             ],
             'PowerBall' => [
                     'link' => 'link_powerball_play',
-                    'css'  => 'lotteries-jackpot--bar--powerball'
+                    'css'  => 'lotteries-jackpot--bar--powerball',
+                    'include' => '_elements/home/lottery-carousel/powerball'
             ],
             'MegaMillions' => [
                     'link' => 'link_megamillions_play',
-                    'css'  => 'lotteries-jackpot--bar--megamillions'
+                    'css'  => 'lotteries-jackpot--bar--megamillions',
+                    'include' => '_elements/home/lottery-carousel/megamillions'
             ]
         ];
     }
@@ -96,4 +103,8 @@ class MainJackpotHomeDTO extends DTOBase implements IDto
         }
     }
 
+    public function compare(IComparable $object)
+    {
+        return $this->lotteryName === $object->lotteryName;
+    }
 }

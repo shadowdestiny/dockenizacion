@@ -4,7 +4,7 @@
             <span class="resizeme" style="">Megamillions</span>
         </div>
         <div class="lottery--value">
-            <span class="resizeme" style="">€149M</span>
+            <span class="resizeme" style="">{{ jackpot_value }}</span>
         </div>
     </div>
     <div class="bottom-block">

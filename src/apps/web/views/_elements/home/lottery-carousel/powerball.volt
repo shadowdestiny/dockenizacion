@@ -6,7 +6,7 @@
         </div>
         <div class="lottery--value">
             {#<span class="resizeme"> {{ jackpot_powerball }}{% if milliards_euromillions %}B {% elseif trillions_euromillions %}T {% else %}M {% endif %}</span>#}
-            <span class="resizeme" style="">€149M</span>
+            <span class="resizeme" style="">{{  jackpot_value }}</span>
         </div>
     </div>
 
