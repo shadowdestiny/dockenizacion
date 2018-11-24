@@ -99,7 +99,7 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
             $this->type = TransactionType::BIG_WINNING;
         }
         else{
-            $this->user->awardPrize($this->winning->getPrice());
+            $this->user->awardPrize($this->winning);
             $this->data['walletAfter'] = $this->user->getWallet();
             $this->data['state'] = '';
             $this->data['lottery_id'] = $this->winning->getLotteryId();
