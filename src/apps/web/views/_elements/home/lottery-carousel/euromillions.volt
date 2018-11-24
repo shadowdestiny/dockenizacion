@@ -12,23 +12,24 @@
         <div class="lottery-carousel--clock"></div>
 
         <div class="lottery--countdown countdowneuro" style="">
-            <div class="dayeuro unit" style="">
-                <span class="val" style="">%-d{% if show_s_days == '1' %}D{% else %}D{% endif %}</span>
-            </div>
-            <div class="dotseuro"></div>
-            <div class="houreuro unit" style="">
-                <span class="val" style="">%-HH</span>
-            </div>
-            <div class="dotseuro" style="">:</div>
-            <div class="minuteeuro unit" style="">
-                <span class="val" style="">%-MM</span>
-            </div>
-            {% if show_s_days == '1' %}
-                <div class="dotseuro" style="">:</div>
-                <div class="secondseuro unit" style="">
-                    <span class="val" style="">%-SS</span>
-                </div>
-            {% endif %}
+            {#<div class="dayeuro unit" style="">#}
+                {#<span class="val" style="">%-d{% if show_s_days == '1' %}D{% else %}D{% endif %}</span>#}
+            {#</div>#}
+            {#<div class="dotseuro"></div>#}
+            {#<div class="houreuro unit" style="">#}
+                {#<span class="val" style="">%-HH</span>#}
+            {#</div>#}
+            {#<div class="dotseuro" style="">:</div>#}
+            {#<div class="minuteeuro unit" style="">#}
+                {#<span class="val" style="">%-MM</span>#}
+            {#</div>#}
+            {#{% if show_s_days == '1' %}#}
+                {#<div class="dotseuro" style="">:</div>#}
+                {#<div class="secondseuro unit" style="">#}
+                    {#<span class="val" style="">%-SS</span>#}
+                {#</div>#}
+            {#{% endif %}#}
+            <div class="resizeme">3<span>D</span> 22<span>H</span>:45<span>M</span></div>
         </div>
 
         <div class="btn-block">
