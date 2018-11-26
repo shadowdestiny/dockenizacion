@@ -1,0 +1,64 @@
+version: '2'
+services:
+
+  redis:
+    scale: 1
+    upgrade_strategy:
+      start_first: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 5000
+      port: 6379
+      unhealthy_threshold: 3
+      initializing_timeout: 10000
+      interval: 2000
+      strategy: none
+      reinitializing_timeout: 1000
+
+  database:
+    scale: 1
+    upgrade_strategy:
+      start_first: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 5000
+      port: 3606
+      unhealthy_threshold: 3
+      initializing_timeout: 10000
+      interval: 2000
+      strategy: none
+      reinitializing_timeout: 1000
+
+  web:
+    scale: 1
+    upgrade_strategy:
+      start_first: true
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 80
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 30000
+      strategy: recreate
+      request_line: GET "/" "HTTP/1.0"
+      reinitializing_timeout: 60000
+
+  php:
+    scale: 1
+    upgrade_strategy:
+      start_first: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 9000
+      unhealthy_threshold: 3
+      initializing_timeout: 10000
+      interval: 2000
+      strategy: recreate
+      reinitializing_timeout: 1000
+
+  phpcron:
+    scale: 1
+    upgrade_strategy:
+      start_first: true

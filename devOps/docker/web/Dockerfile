@@ -1,5 +1,12 @@
 FROM nginx:stable as base
 
+# DEBUG
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get install -y vim \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/*
+############
+
 WORKDIR /var/www
 
 ################################################################################

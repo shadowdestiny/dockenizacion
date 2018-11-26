@@ -28,6 +28,11 @@ RUN buildDeps=" \
     && apt-get purge -y --auto-remove git \
     && rm -rf /tmp/*
 
+# DEBUG
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get install -y vim
+#########
+
 # override default WORKDIR
 WORKDIR /var/www
 
@@ -90,6 +95,8 @@ COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
 COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
 
 COPY ./src .
+
+VOLUME /var/www
 
 ################################################################################
 

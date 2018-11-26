@@ -1,6 +1,8 @@
 <?php
 use EuroMillions\shared\config\bootstrap\Bootstrap;
 
+phpinfo(); die();
+
 $public_path = __DIR__;
 $app_web_path = $public_path . '/../apps/web';
 $app_path = $public_path . '/../apps/';

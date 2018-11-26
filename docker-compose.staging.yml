@@ -2,14 +2,13 @@ version: '2'
 services:
 
   database:
-    image: rmrbest/percona
+    image: mysql:5.6
     volumes:
-    - "database_volume:/var/lib/mysql"
+      - "database_volume:/var/lib/mysql"
+    labels:
+      io.rancher.container.pull_image: always
+      em_container_service: database
     environment:
-      REPLICATION: 'true'
-      REPLICATION_NODE: 1
-      REPLICATION_SLAVE_USER: slave_db1
-      REPLITACION_SLAVE_PASSWORD: euromillions
       MYSQL_ROOT_PASSWORD: tpl9
       MYSQL_USER: euromillions
       MYSQL_PASSWORD: tpl9
@@ -17,9 +16,25 @@ services:
 
   web:
     image: panamedialottery/euromillions-web:staging
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=china
 
   php:
     image: panamedialottery/euromillions-php:staging
+    links:
+      - redis
+      - database
+    depends_on:
+      - redis
+      - database
+
+  phpcron:
+    links:
+      - redis
+      - database
+    depends_on:
+    - redis
+    - database
 
 volumes:
   database_volume:
