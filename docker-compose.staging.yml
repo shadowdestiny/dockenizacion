@@ -1,6 +1,16 @@
 version: '2'
 services:
 
+  loadbalancer:
+    image: rancher/lb-service-haproxy:v0.9.1
+    ports:
+      - 8778:8778/tcp
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=china
+      io.rancher.container.agent.role: environmentAdmin,agent
+      io.rancher.container.agent_service.drain_provider: 'true'
+      io.rancher.container.create_agent: 'true'
+
   web:
     image: panamedialottery/euromillions-web:staging
     labels:
@@ -18,4 +28,4 @@ services:
     links:
       - redis
     depends_on:
-    - redis
+      - redis
