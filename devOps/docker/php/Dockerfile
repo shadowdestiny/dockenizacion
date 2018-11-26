@@ -96,6 +96,8 @@ COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/
 
 COPY ./src .
 
+RUN chown -R www-data:www-data /var/www
+
 VOLUME /var/www
 
 ################################################################################
