@@ -11,6 +11,17 @@ pipeline {
         timeout( time: 1, unit: 'HOURS' )
     }
     stages {
+        stage('pre-build') {
+            sh('wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz ')
+            sh('wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz ')
+
+            sh('gzip -fd GeoIP.dat.gz')
+            sh('gzip -fd GeoIPv6.dat.gz')
+
+            sh('mv GeoIP.dat src/data/geoipdatabase ')
+            sh('mv GeoIPv6.dat src/data/geoipdatabase ')
+
+        }
         stage('test') {
             steps {
                 sh('echo test')
