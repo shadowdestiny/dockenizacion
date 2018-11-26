@@ -640,17 +640,17 @@ class LotteryService
     {
         $drawListByHeldDate = $this->lotteryDrawRepository->giveMeLotteriesOrderedByHeldDate();
         $slideJackpot = [];
-        foreach ($drawListByHeldDate as $euroMillionsDraw)
-        {
-            $jackpotHome = MainJackpotHomeDTO::mainJAckpotHomeDTO($euroMillionsDraw);
+        array_map(function($item) use(&$slideJackpot) {
+            $jackpotHome = MainJackpotHomeDTO::mainJAckpotHomeDTO($item);
             $comparator = function(IComparable $a, IComparable $b) {
                 return $a->compare($b);
             };
             if(!$comparator($jackpotHome,MainJackpotHomeDTO::mainJAckpotHomeDTO($this->biggestJackpot)))
             {
+                $jackpotHome->drawDate = $this->getNextDateDrawByLottery($jackpotHome->lotteryName);
                 array_push($slideJackpot,$jackpotHome);
             }
-        }
+        }, $drawListByHeldDate);
         return $slideJackpot;
     }
 

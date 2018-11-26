@@ -47,7 +47,7 @@ class IndexController extends PublicSiteControllerBase
         $jackpotFunc = function(&$euroMillionsDrawJackpotArr,&$userPreferenceService) {
             $dtoArr= [];
             foreach ($euroMillionsDrawJackpotArr as $dto) {
-                $jackpot = $userPreferenceService->getJackpotInMyCurrencyAndMillions($dto->jackpot);;
+                $jackpot = $userPreferenceService->getJackpotInMyCurrencyAndMillions($dto->jackpot);
                 $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
                 $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
                 $params = ViewHelper::setSemanticJackpotValue($numbers, $letters, $jackpot, $this->languageService->getLocale());
@@ -62,6 +62,16 @@ class IndexController extends PublicSiteControllerBase
             return $dtoArr;
         };
         $this->view->setVar('slide_jackpot_include', $jackpotFunc($euroMillionsDrawJackpotArr,$userPreferenceService));
+        $this->view->setVar('draw_date_slider', call_user_func(function() use ($euroMillionsDrawJackpotArr){
+            $arr = [];
+            array_map(function ($item) use (&$arr){
+                array_push($arr,['name' => $item->lotteryName,
+                                         'date' =>$item->drawDate->modify('-1 hours')->format('Y-m-d H:i:s')
+                                        ]
+                );
+            },$euroMillionsDrawJackpotArr);
+            return json_encode($arr);
+        }));
         $this->tag->prependTitle($this->languageService->translate('home_name') . ViewHelper::formatMillionsJackpot($jackpot) . ' ' . $this->languageService->translate($textMillions));
         MetaDescriptionTag::setDescription($this->languageService->translate('home_desc'));
     }

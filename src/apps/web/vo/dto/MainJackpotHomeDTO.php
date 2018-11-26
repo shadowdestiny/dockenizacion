@@ -36,6 +36,8 @@ class MainJackpotHomeDTO extends DTOBase implements IDto,IComparable
 
     public $includeSlide;
 
+    public $drawDateFormat;
+
 
     private function __construct(EuroMillionsDraw $euroMillionsDraw)
     {
@@ -45,6 +47,7 @@ class MainJackpotHomeDTO extends DTOBase implements IDto,IComparable
         $this->css = $this->giveMeConfigByLottery()[$this->lotteryName]['css'];
         $this->jackpot = $euroMillionsDraw->getJackpot() instanceof IJackpot ? $euroMillionsDraw->getJackpot() : $this->IJackpot($euroMillionsDraw->getJackpot());
         $this->includeSlide = $this->giveMeConfigByLottery()[$this->lotteryName]['include'];
+        $this->drawDateFormat = $euroMillionsDraw->getDrawDate()->format("Y-m-d H:i:s");
     }
 
 

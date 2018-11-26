@@ -14,6 +14,7 @@ use Money\Money;
 class EuroMillionsDraw extends EntityBase implements IEntity
 {
     protected $id;
+
     protected $draw_date;
     /** @var  Money $jackpot */
     protected $jackpot;

@@ -20,14 +20,18 @@ lottery-carousel--christmas
             {% for slide in slide_jackpot_include %}
                {% if slide.lotteryName == 'EuroMillions' %}
                     {% set jackpot_value = slide.jackpot %}
+                    {% set draw_date = slide.drawDateFormat %}
+
                     {% include "_elements/home/lottery-carousel/euromillions.volt" %}
                 {%  endif %}
                 {% if slide.lotteryName == 'PowerBall' %}
                     {% set jackpot_value = slide.jackpot %}
+                    {% set draw_date = slide.drawDateFormat %}
                     {% include "_elements/home/lottery-carousel/powerball.volt" %}
                 {%  endif %}
                 {% if slide.lotteryName == 'MegaMillions' %}
                     {% set jackpot_value = slide.jackpot %}
+                    {% set draw_date = slide.drawDateFormat %}
                     {% include "_elements/home/lottery-carousel/megamillions.volt" %}
                 {%  endif %}
 

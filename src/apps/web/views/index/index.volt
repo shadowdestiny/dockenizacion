@@ -64,59 +64,31 @@
     var finish_text = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
     count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
     });
-
-
-
-    $(function(){
-    var html_formatted_offseteuro = [];
-    $('.countdowneuro .dotseuro').eq(2).hide();
-    $('.countdowneuro .secondseuro').hide();
-    var elementeuro = $('.countdowneuro');
-    var html_formattedeuro = elementeuro.html();
-    $('.countdowneuro .dotseuro').eq(2).show();
-    $('.countdownpeuro .secondseuro').show();
-    $('.countdowneuro .dayeuro').remove();
-    $('.countdownpeuro .dotseuro').eq(0).remove();
-    html_formatted_offseteuro[0] = $('.countdowneuro').html();
-    $('.countdowneuro .houreuro').remove();
-    $('.countdowneuro .dotseuro').eq(0).remove();
-    html_formatted_offseteuro[1] = $('.countdowneuro').html();
-    $('.countdowneuro .minuteeuro').remove();
-    $('.countdowneuro .dotseuro').eq(0).remove();
-    html_formatted_offseteuro[2] = $('.countdowneuro').html();
-    var finish_actioneuro = function(){
-    $('.box-next-draw .btn.red').remove();
+    var drawdateslider =  '{{ draw_date_slider }}';
+    JSON.parse(drawdateslider).forEach(function(item){
+    console.log(item.date);
+    if(item.name == 'EuroMillions')
+    {
+        setCountDownByLottery(item.date,
+        'countdowneuro',
+        'dayeuro',
+        'dotseuro',
+        'minuteeuro',
+        'secondseuro',
+        'houreuro'
+        );
     }
-    {#alert('patata);#} {#crack#}
-    var dateeuro = '{{ date_draw }}'; {#  To test "2015/11/17 10:49:00"  #}
-    var finish_texteuro = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
-    count_down(elementeuro,html_formattedeuro,html_formatted_offseteuro, dateeuro,finish_texteuro, finish_actioneuro);
-    });
-
-    $(function(){
-    var html_formatted_offsetpower = [];
-    $('.countdownpower .dotspower').eq(2).hide();
-    $('.countdownpower .secondspower').hide();
-    var elementpower = $('.countdownpower');
-    var html_formattedpower = elementpower.html();
-    $('.countdownpower .dotspower').eq(2).show();
-    $('.countdownpower .secondspower').show();
-    $('.countdownpower .daypower').remove();
-    $('.countdownpower .dotspower').eq(0).remove();
-    html_formatted_offsetpower[0] = $('.countdownpower').html();
-    $('.countdownpower .hourpower').remove();
-    $('.countdownpower .dotspower').eq(0).remove();
-    html_formatted_offsetpower[1] = $('.countdownpower').html();
-    $('.countdownpower .minutepower').remove();
-    $('.countdownpower .dotspower').eq(0).remove();
-    html_formatted_offsetpower[2] = $('.countdownpower').html();
-    var finish_actionpower = function(){
-    $('.box-next-draw .btn.red').remove();
+    if(item.name == 'PowerBall')
+    {
+        setCountDownByLottery(item.date,
+        'countdownpower',
+        'daypower',
+        'dotspower',
+        'minutepower',
+        'secondspower',
+        'hourpower'
+        );
     }
-    {#alert('patata);#} {#crack#}
-    var datepower = '{{ date_draw_power }}'; {#  To test "2015/11/17 10:49:00"  #}
-    var finish_textpower = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
-    count_down(elementpower,html_formattedpower,html_formatted_offsetpower, datepower,finish_textpower, finish_actionpower);
     });
 {% endblock %}
 {% block body %}
