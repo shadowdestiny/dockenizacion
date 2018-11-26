@@ -20,9 +20,7 @@ pipeline {
             }
             steps {
                script {
-                      DIR_SIZE = sh(returnStdout: true, script: '
-                        rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING ps
-                      ')
+                      DIR_SIZE = sh(returnStdout: true, script: 'rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING ps')
                 }
                 echo "${DIR_SIZE}"
 
