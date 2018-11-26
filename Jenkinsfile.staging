@@ -24,9 +24,17 @@ pipeline {
                     PHPRUNNER_SERVICE_ID = sh(returnStdout: true, script: 'rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING run --name ${RANCHER_STACK_NAME}/phprunner  panamedialottery/euromillions-php:${EM_ENVIRONMENT}')
                 }
 
-                sh('rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING wait "$PHPRUNNER_SERVICE_ID" ')
+                sh('''
+                    echo $PHPRUNNER_SERVICE_ID   TEST WORKING?"
+                    echo test1
+                    echo test 2 \
+                    && echo test 3
+                '''
+                )
 
-                sh('rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING exec "$PHPRUNNER_SERVICE_ID" php -v ')
+                sh("rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING wait $PHPRUNNER_SERVICE_ID ")
+
+                sh("rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING exec $PHPRUNNER_SERVICE_ID php -v ")
 
                 sh("rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING rm $PHPRUNNER_SERVICE_ID ")
 
