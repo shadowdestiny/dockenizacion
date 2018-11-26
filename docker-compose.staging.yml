@@ -1,19 +1,6 @@
 version: '2'
 services:
 
-  database:
-    image: mysql:5.6
-    volumes:
-      - "database_volume:/var/lib/mysql"
-    labels:
-      io.rancher.container.pull_image: always
-      em_container_service: database
-    environment:
-      MYSQL_ROOT_PASSWORD: tpl9
-      MYSQL_USER: euromillions
-      MYSQL_PASSWORD: tpl9
-      MYSQL_DATABASE: euromillions
-
   web:
     image: panamedialottery/euromillions-web:staging
     labels:
@@ -26,15 +13,9 @@ services:
       - database
     depends_on:
       - redis
-      - database
 
   phpcron:
     links:
       - redis
-      - database
     depends_on:
     - redis
-    - database
-
-volumes:
-  database_volume:

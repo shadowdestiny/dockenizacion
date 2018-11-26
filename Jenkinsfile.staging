@@ -37,8 +37,26 @@ pipeline {
             }
         }
         stage('deploy') {
+            environment {
+                RANCHER_ENV_URL_DCORTO = "http://34.247.7.73:8080/v2-beta/projects/1a2494"
+                RANCHER_ENV_KEY_DCORTO = credentials('RANCHER_ENV_KEY_DCORTO')
+                RANCHER_ENV_SECRET_DCORTO = credentials('RANCHER_ENV_SECRET_DCORTO')
+            }
             steps {
                 sh('echo deploy')
+
+                sh('sudo docker tag panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG} panamedialottery/euromillions-php:cron')
+                sh('sudo docker push panamedialottery/euromillions-php:cron')
+
+                sh('sudo docker tag panamedialottery/euromillions-php:${BUILD_IMAGE_TAG} panamedialottery/euromillions-php:${EM_ENVIRONMENT}')
+                sh('sudo docker push panamedialottery/euromillions-php:${EM_ENVIRONMENT}')
+
+                sh('sudo docker tag panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
+                sh('sudo docker push panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
+
+                //sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml up -d -p -u')
+                //sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml up -d -p -u --force-upgrade web php phpcron')
+                //sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml up -d -c')
             }
         }
     }
