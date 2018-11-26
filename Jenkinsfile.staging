@@ -14,8 +14,9 @@ pipeline {
         stage('pre-build') {
             steps {
 
-                phpRunnerServiceId = sh(returnStdout: true, script: "rancher ps").trim()
-                println phpRunnerServiceId
+                sh(returnStdout: true, script: "rancher ps").trim()
+                //phpRunnerServiceId = sh(returnStdout: true, script: "rancher ps").trim()
+                //println phpRunnerServiceId
 
                 sh('thisWillFail')
 
