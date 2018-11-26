@@ -25,9 +25,11 @@ pipeline {
                 }
 
                 sh('''
-                    echo "$PHPRUNNER_SERVICE_ID   TEST WORKING?"
+                    echo "${PHPRUNNER_SERVICE_ID}   TEST WORKING?"
                     echo "test1"
+                    echo "${PHPRUNNER_SERVICE_ID}"
                     echo "test 2"
+                    echo "\$PHPRUNNER_SERVICE_ID"
                     echo "test 3"
                 '''
                 )
