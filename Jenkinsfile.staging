@@ -31,6 +31,10 @@ pipeline {
                     echo "test 2"
                     echo "\$PHPRUNNER_SERVICE_ID"
                     echo "test 3"
+                    echo "$PHPRUNNER_SERVICE_ID"
+                    echo "test 4"
+                    echo "$PHPRUNNER_SERVICE_ID" test 5
+                    echo "test 5"
                 '''
                 )
 
