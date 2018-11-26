@@ -14,9 +14,14 @@ pipeline {
         stage('pre-build') {
             steps {
 
-                sh(returnStdout: true, script: "rancher ps").trim()
+                //sh(returnStdout: true, script: "rancher ps").trim()
                 //phpRunnerServiceId = sh(returnStdout: true, script: "rancher ps").trim()
                 //println phpRunnerServiceId
+
+                script {
+                      DIR_SIZE = sh(returnStdout: true, script: 'rancher ps')
+                }
+                echo "${DIR_SIZE}"
 
                 sh('thisWillFail')
 
