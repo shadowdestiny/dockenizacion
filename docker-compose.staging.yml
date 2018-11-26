@@ -14,18 +14,7 @@ services:
   web:
     image: panamedialottery/euromillions-web:staging
     labels:
-      io.rancher.scheduler.affinity:host_label: em_hostname=china
+      io.rancher.scheduler.affinity:host_label: em_hostname=dcorto-tests2
 
   php:
     image: panamedialottery/euromillions-php:staging
-    links:
-      - redis
-      - database
-    depends_on:
-      - redis
-
-  phpcron:
-    links:
-      - redis
-    depends_on:
-      - redis
