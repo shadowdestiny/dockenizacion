@@ -12,7 +12,7 @@ pipeline {
     }
     stages {
         stage('pre-build') {
-            enviroment {
+            environment {
                 RANCHER_API_URL_STAGING = "http://34.247.7.73:8080/v2-beta/schemas"
                 RANCHER_API_ENVIRONMENT_STAGING = "1a2494"
                 RANCHER_API_ACCESS_KEY_STAGING = credentials('RANCHER_API_ACCESS_KEY_STAGING')
