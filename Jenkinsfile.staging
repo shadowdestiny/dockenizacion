@@ -54,9 +54,9 @@ pipeline {
                 sh('sudo docker tag panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
                 sh('sudo docker push panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
 
-                //sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging up -d -p -u')
-                //sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging up -d -p -u --force-upgrade web php phpcron')
-                //sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging up -d -c')
+                sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging up -d -p -u')
+                sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging up -d -p -u --force-upgrade web php phpcron')
+                sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging up -d -c')
             }
         }
     }
