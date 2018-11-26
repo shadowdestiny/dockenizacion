@@ -14,26 +14,14 @@ pipeline {
         stage('pre-build') {
             enviroment {
                 RANCHER_API_URL_STAGING = "http://34.247.7.73:8080/v2-beta/schemas"
-                RANCHER_API_ENVIRONMENT_STAGING = credentials('RANCHER_API_ENVIRONMENT_STAGING')
+                RANCHER_API_ENVIRONMENT_STAGING = "1a2494"
                 RANCHER_API_ACCESS_KEY_STAGING = credentials('RANCHER_API_ACCESS_KEY_STAGING')
                 RANCHER_API_SECRET_KEY_STAGING = credentials('RANCHER_API_SECRET_KEY_STAGING')
             }
             steps {
-
-                //sh(returnStdout: true, script: "rancher ps").trim()
-                //phpRunnerServiceId = sh(returnStdout: true, script: "rancher ps").trim()
-                //println phpRunnerServiceId
-
-
-
-
-
-                script {
+               script {
                       DIR_SIZE = sh(returnStdout: true, script: '
-
-                      rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING ps
-
-
+                        rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING ps
                       ')
                 }
                 echo "${DIR_SIZE}"
