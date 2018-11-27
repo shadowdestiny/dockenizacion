@@ -55,16 +55,14 @@ pipeline {
         */
         stage('build') {
             /*
-            environment {
-                DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
-                DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
-                DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
-            }
+
             */
             parallel {
-                stage('Test On Windows') {
+                stage('Build frontend') {
                     steps {
-                        sh('echo run-tests.bat')
+                        sh('sudo docker build -t panamedialottery/euromillions-util-nodejs devOps/docker/util-nodejs')
+                        sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-util-nodejs ./provision-react.sh')
+                        sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-util-nodejs ./provision-grunt.sh')
                     }
                     post {
                         always {
@@ -72,14 +70,46 @@ pipeline {
                         }
                     }
                 }
-                stage('Test On Linux') {
+                stage('Build cron') {
+                    environment {
+                        DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
+                        DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
+                        DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
+                    }
                     steps {
-                        sh('echo run-tests.sh')
+                        sh('sudo docker build -t panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG} -f devOps/docker/php/Dockerfile --target cron .')
+                        sh('sudo docker push panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG}')
                     }
                     post {
                         always {
                            echo 'I succeeeded!'
                         }
+                    }
+                }
+
+                stage('Composer and Build php') {
+                    environment {
+                        DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
+                        DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
+                        DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
+                    }
+                    steps {
+                        sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-php:tools composer install --no-progress --no-dev --optimize-autoloader')
+
+                        sh('sudo docker build -t panamedialottery/euromillions-php:${BUILD_IMAGE_TAG} -f devOps/docker/php/Dockerfile --target staging .')
+                        sh('sudo docker push panamedialottery/euromillions-php:${BUILD_IMAGE_TAG}')
+                    }
+                }
+
+                stage('Web Build') {
+                    environment {
+                        DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
+                        DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
+                        DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
+                    }
+                    steps {
+                        sh('sudo docker build -t panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} -f devOps/docker/web/Dockerfile --target staging .')
+                        sh('sudo docker push panamedialottery/euromillions-web:${BUILD_IMAGE_TAG}')
                     }
                 }
             }
@@ -90,20 +120,13 @@ pipeline {
 
                 sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
 
-                sh('sudo docker build -t panamedialottery/euromillions-util-nodejs devOps/docker/util-nodejs')
-                sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-util-nodejs ./provision-react.sh')
-                sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-util-nodejs ./provision-grunt.sh')
 
-                sh('sudo docker build -t panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG} -f devOps/docker/php/Dockerfile --target cron .')
-                sh('sudo docker push panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG}')
 
-                sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-php:tools composer install --no-progress --no-dev --optimize-autoloader')
 
-                sh('sudo docker build -t panamedialottery/euromillions-php:${BUILD_IMAGE_TAG} -f devOps/docker/php/Dockerfile --target staging .')
-                sh('sudo docker push panamedialottery/euromillions-php:${BUILD_IMAGE_TAG}')
 
-                sh('sudo docker build -t panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} -f devOps/docker/web/Dockerfile --target staging .')
-                sh('sudo docker push panamedialottery/euromillions-web:${BUILD_IMAGE_TAG}')
+
+
+
             }
             */
         }
