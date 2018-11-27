@@ -1,0 +1,47 @@
+version: '2'
+services:
+
+  redis:
+    image: redis:latest
+    labels:
+      io.rancher.container.pull_image: always
+      em_container_service: redis
+
+  web:
+    image: panamedialottery/euromillions-web:prod
+    volumes_from:
+      - php
+    depends_on:
+      - php
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: php, phpcron
+      em_container_service: web
+    environment:
+      EM_ENV: ${EM_ENV}
+
+  php:
+    image: panamedialottery/euromillions-php:prod
+    depends_on:
+      - redis
+    labels:
+      io.rancher.container.pull_image: always
+      em_container_service: php
+    environment:
+      EM_ENV: ${EM_ENV}
+      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
+      AWS_SECRET_ACCESS_KEY: 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
+
+  phpcron:
+    image: panamedialottery/euromillions-php:cron
+    volumes_from:
+      - php
+    depends_on:
+      - redis
+    labels:
+      io.rancher.container.pull_image: always
+      em_container_service: phpcron
+    environment:
+      EM_ENV: ${EM_ENV}
+      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
+      AWS_SECRET_ACCESS_KEY: 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

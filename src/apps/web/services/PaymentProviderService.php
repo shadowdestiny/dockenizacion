@@ -15,6 +15,7 @@ use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\vo\dto\ChasierDTO;
 use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\dto\WithdrawResponseStatusDTO;
+use EuroMillions\web\vo\enum\MoneyMatrixStatusCode;
 use EuroMillions\web\vo\enum\OrderType;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
@@ -81,7 +82,7 @@ class PaymentProviderService implements EventsAwareInterface
         }
     }
 
-    public function createOrUpdateDepositTransactionWithPendingStatus(Order $order, User $user,Money $amount, $transactionID, $status='PENDING')
+    public function createOrUpdateDepositTransactionWithPendingStatus(Order $order, User $user,Money $amount, $transactionID, $status='PENDING', $statusCode='8')
     {
         try
         {
@@ -132,12 +133,13 @@ class PaymentProviderService implements EventsAwareInterface
                     $transaction[0]->setStatus($status);
                 } else
                 {
-                    $transaction[0]->setState($status);
+                    $moneyMatrixStatus = new MoneyMatrixStatusCode();
+                    $transaction[0]->setState($moneyMatrixStatus->getValue($statusCode));
                 }
                 $transaction[0]->setLotteryName($order->getLottery()->getName());
                 $transaction[0]->toString();
                 $this->transactionService->updateTransaction($transaction[0]);
-                $orderActionContext = new OrderActionContext($status,$order,$transactionID,$this->_eventsManager);
+                $orderActionContext = new OrderActionContext($status,$order,$transactionID,$this->_eventsManager, $statusCode);
                 $orderActionContext->execute();
             }
         } catch( Exception $e )

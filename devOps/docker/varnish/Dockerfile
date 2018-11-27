@@ -32,22 +32,22 @@ rm -Rf /etc/nginx/sites-available/default && \
 mkdir -p /etc/nginx/ssl/
 
 # copy ssl certs
-COPY nginx/certs /etc/nginx/ssl
+COPY devOps/docker/varnish/nginx/certs /etc/nginx/ssl
 
 # copy config and enable default site
-COPY ./nginx/nginx-custom.conf /etc/nginx/conf.d/nginx-custom.conf
-COPY ./nginx/nginx-site.conf /etc/nginx/sites-available/default.conf
+COPY devOps/docker/varnish/nginx/nginx-custom.conf /etc/nginx/conf.d/nginx-custom.conf
+COPY devOps/docker/varnish/nginx/nginx-site.conf /etc/nginx/sites-available/default.conf
 RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 
 # varnish conf
-COPY ./varnish/default.vcl /etc/varnish/default.vcl
+COPY devOps/docker/varnish/varnish/default.vcl /etc/varnish/default.vcl
 
 # supervisor config files
-COPY ./supervisor/supervisord_nginx.conf /etc/supervisor/conf.d/supervisord_nginx.conf
-COPY ./supervisor/supervisord_varnish.conf /etc/supervisor/conf.d/supervisord_varnish.conf
+COPY devOps/docker/varnish/supervisor/supervisord_nginx.conf /etc/supervisor/conf.d/supervisord_nginx.conf
+COPY devOps/docker/varnish/supervisor/supervisord_varnish.conf /etc/supervisor/conf.d/supervisord_varnish.conf
 
 # start supervisord
-COPY ./start.sh /start.sh
+COPY devOps/docker/varnish/start.sh /start.sh
 RUN chmod 755 /start.sh
 
 # forward request and error nginx logs to docker log collector

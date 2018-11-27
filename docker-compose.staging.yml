@@ -1,0 +1,20 @@
+version: '2'
+services:
+
+  loadbalancer:
+    image: rancher/lb-service-haproxy:v0.9.1
+    ports:
+      - 8081:8081/tcp
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=dcorto-tests2
+      io.rancher.container.agent.role: environmentAdmin,agent
+      io.rancher.container.agent_service.drain_provider: 'true'
+      io.rancher.container.create_agent: 'true'
+
+  web:
+    image: panamedialottery/euromillions-web:staging
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=dcorto-tests2
+
+  php:
+    image: panamedialottery/euromillions-php:staging

@@ -2,8 +2,9 @@
 - hosts: localhost
 
   vars:
-    is_vagrant: false # overwritten via Vagrantfile for Windows OS Hosts
     enable_frontend_watchers: false
+    enable_frontend_react_build: true
+    is_vagrant: false # overwritten via Vagrantfile for Windows OS Hosts
     update_geoip_database: false # should update the geoip databases?
     do_docker_setup: false # should install docker and docker-compose on host?
 
@@ -68,21 +69,21 @@
       when: not is_vagrant
 
     - name: start docker compose (Windows OS Host)
-      shell: docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.vagrant.yml up -d --build
+      shell: docker-compose -f docker-compose.yml -f docker-compose.vagrant.yml up -d --build
       args:
         chdir: "/vagrant"
       when: is_vagrant
 
-    - name: build docker image of devel-phptools
-      shell: docker build --target tools -t devel-phptools:latest {{ playbook_dir }}/../src/docker/NEW/php
+    - name: build docker image of euromillions-php:tools
+      shell: docker build --target tools -f {{ playbook_dir }}/docker/php/Dockerfile -t euromillions-php:tools {{ playbook_dir }}/../
 
-    - name: build docker image of devel-nodejs
-      shell: docker build -t devel-nodejs:latest {{ playbook_dir }}/../src/docker/NEW/util-nodejs
+    - name: build docker image of euromillions-util-nodejs
+      shell: docker build -t euromillions-util-nodejs {{ playbook_dir }}/docker/util-nodejs
 
     - name: run composer install
       docker_container:
-        name: devel-phptools
-        image: devel-phptools:latest
+        name: euromillions-php:tools
+        image: euromillions-php:tools
         detach: false
         cleanup: yes
         state: started
@@ -96,8 +97,8 @@
 
     - name: run react frontend
       docker_container:
-        name: devel-nodejs
-        image: devel-nodejs:latest
+        name: euromillions-util-nodejs
+        image: euromillions-util-nodejs
         detach: false
         cleanup: yes
         state: started
@@ -106,6 +107,7 @@
           - "{{ playbook_dir }}/../src:/var/www"
         env:
           EM_ENV: development
+      when: enable_frontend_react_build
 
     - name: initialize test database
       shell: docker-compose exec -d database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
@@ -153,6 +155,7 @@
         cleanup: yes
         state: started
         command: watch --poll /src/compass_web
+        user: 1000:1000
         volumes:
           - "{{ playbook_dir }}/../src:/src"
         env:
@@ -166,6 +169,7 @@
         cleanup: yes
         state: started
         command: watch --poll /src/compass_admin
+        user: 1000:1000
         volumes:
           - "{{ playbook_dir }}/../src:/src"
         env:
@@ -174,8 +178,8 @@
 
     - name: start react frontend watcher
       docker_container:
-        name: react-watcher
-        image: devel-nodejs:latest
+        name: euromillions-react-watcher
+        image: euromillions-util-nodejs:devel
         cleanup: yes
         state: started
         working_dir: /var/www/react
