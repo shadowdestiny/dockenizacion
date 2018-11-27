@@ -21,7 +21,6 @@ lottery-carousel--christmas
                {% if slide.lotteryName == 'EuroMillions' %}
                     {% set jackpot_value = slide.jackpot %}
                     {% set draw_date = slide.drawDateFormat %}
-
                     {% include "_elements/home/lottery-carousel/euromillions.volt" %}
                 {%  endif %}
                 {% if slide.lotteryName == 'PowerBall' %}

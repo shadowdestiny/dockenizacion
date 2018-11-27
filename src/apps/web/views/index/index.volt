@@ -66,29 +66,39 @@
     });
     var drawdateslider =  '{{ draw_date_slider }}';
     JSON.parse(drawdateslider).forEach(function(item){
-    console.log(item.date);
-    if(item.name == 'EuroMillions')
-    {
-        setCountDownByLottery(item.date,
-        'countdowneuro',
-        'dayeuro',
-        'dotseuro',
-        'minuteeuro',
-        'secondseuro',
-        'houreuro'
-        );
-    }
-    if(item.name == 'PowerBall')
-    {
-        setCountDownByLottery(item.date,
-        'countdownpower',
-        'daypower',
-        'dotspower',
-        'minutepower',
-        'secondspower',
-        'hourpower'
-        );
-    }
+        if(item.name == 'EuroMillions')
+        {
+            setCountDownByLottery(item.date,
+            'countdowneuro',
+            'dayeuro',
+            'dotseuro',
+            'minuteeuro',
+            'secondseuro',
+            'houreuro'
+            );
+        }
+        if(item.name == 'PowerBall')
+        {
+            setCountDownByLottery(item.date,
+            'countdownpower',
+            'daypower',
+            'dotspower',
+            'minutepower',
+            'secondspower',
+            'hourpower'
+            );
+        }
+        if(item.name == 'MegaMillions')
+        {
+            setCountDownByLottery(item.date,
+            'countdownmega',
+            'daymega',
+            'dotsmega',
+            'minutemega',
+            'secondsmega',
+            'hourmega'
+            );
+        }
     });
 {% endblock %}
 {% block body %}

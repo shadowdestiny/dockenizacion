@@ -248,7 +248,7 @@ class LotteryDrawRepository extends EntityRepository
         /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
             ->createQuery(
-                'SELECT l,ed'
+                'SELECT ed'
                 . ' FROM ' . $this->getEntityName() . ' ed JOIN ed.lottery l'
                 . ' WHERE '
                 . ' ed.draw_date >= CURRENT_DATE()'
