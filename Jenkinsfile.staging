@@ -117,15 +117,14 @@ pipeline {
                     PHPRUNNER_SERVICE_ID = sh(returnStdout: true, script: "rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING run --name ${RANCHER_STACK_NAME}/phprunner --pull panamedialottery/euromillions-php:${EM_ENVIRONMENT}").trim()
                 }
                 sh("""
-                    echo ${RANCHER_CMD_BASE};
-                    rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING wait ${PHPRUNNER_SERVICE_ID}
-                    script --return --quiet --command \"rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING exec ${PHPRUNNER_SERVICE_ID} vendor/bin/phinx migrate --configuration="phinx.yml" -e staging \"
+                    ${RANCHER_CMD_BASE} wait ${PHPRUNNER_SERVICE_ID}
+                    script --return --quiet --command \"${RANCHER_CMD_BASE} exec ${PHPRUNNER_SERVICE_ID} vendor/bin/phinx migrate --configuration="phinx.yml" -e staging \"
                 """)
             }
             post {
                 always {
                     sh("""
-                        rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING rm ${PHPRUNNER_SERVICE_ID}
+                        ${RANCHER_CMD_BASE} rm ${PHPRUNNER_SERVICE_ID}
                     """)
                 }
             }
