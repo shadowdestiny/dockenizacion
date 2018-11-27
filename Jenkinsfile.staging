@@ -54,12 +54,13 @@ pipeline {
         }
         */
         stage('build') {
+            /*
             environment {
                 DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
                 DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
                 DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
             }
-
+            */
             parallel {
                 stage('Test On Windows') {
                     steps {
