@@ -70,7 +70,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Build cron') {
+                stage('Cron Build') {
                     environment {
                         DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
                         DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
@@ -87,7 +87,7 @@ pipeline {
                     }
                 }
 
-                stage('Composer and Build php') {
+                stage('Composer and PHP Build') {
                     environment {
                         DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
                         DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
