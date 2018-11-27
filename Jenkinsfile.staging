@@ -108,7 +108,7 @@ pipeline {
                 RANCHER_API_ENVIRONMENT_STAGING = "1a2494"
                 RANCHER_API_ACCESS_KEY_STAGING = credentials('RANCHER_API_ACCESS_KEY_STAGING')
                 RANCHER_API_SECRET_KEY_STAGING = credentials('RANCHER_API_SECRET_KEY_STAGING')
-                RANCHER_CMD_BASE = "rancher -url ${env.RANCHER_API_URL_STAGING} --env ${env.RANCHER_API_ENVIRONMENT_STAGING} --access-key ${env.RANCHER_API_ACCESS_KEY_STAGING} --secret-key ${env.RANCHER_API_SECRET_KEY_STAGING}
+                RANCHER_CMD_BASE = "rancher -url ${env.RANCHER_API_URL_STAGING} --env ${env.RANCHER_API_ENVIRONMENT_STAGING} --access-key ${env.RANCHER_API_ACCESS_KEY_STAGING} --secret-key ${env.RANCHER_API_SECRET_KEY_STAGING}"
             }
             steps {
                 script {
