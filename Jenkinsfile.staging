@@ -22,6 +22,17 @@ pipeline {
 
                 sh('mv GeoIP.dat src/data/geoipdatabase ')
                 sh('mv GeoIPv6.dat src/data/geoipdatabase ')
+
+                sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
+                sh('sudo docker pull panamedialottery/euromillions-php:tools')
+
+                sh('sudo docker build --target tools -f devOps/docker/php/Dockerfile -t panamedialottery/euromillions-php:tools .')
+                sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-php:tools composer install --no-progress')
+
+                sh('sudo docker-compose -p test -f docker-compose.test.yml build')
+                sh('sudo docker-compose -p test -f docker-compose.test.yml up -d')
+                sh('sudo docker-compose -p test -f docker-compose.test.yml exec php ./vendor/bin/phpunit -c tests/phpunit.xml')
+                sh('sudo docker-compose -p test -f docker-compose.test.yml down')
             }
         }
         stage('test') {
@@ -39,13 +50,11 @@ pipeline {
                 sh('echo build')
 
                 sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
-
                 sh('sudo docker pull panamedialottery/euromillions-php:tools')
 
-                sh('sudo docker build --target tools -f devOps/docker/php/Dockerfile -t panamedialottery/euromillions-php:tools .')
                 sh('sudo docker build -t panamedialottery/euromillions-util-nodejs devOps/docker/util-nodejs')
 
-                sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-php:tools composer install --no-progress')
+                sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-php:tools composer install --no-progress --no-dev --optimize-autoloader')
                 sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-util-nodejs ./provision-react.sh')
                 sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-util-nodejs ./provision-grunt.sh')
 
@@ -97,7 +106,7 @@ pipeline {
                     export PHPRUNNER_SERVICE_ID=$PHPRUNNER_SERVICE_ID
                     echo "esto es un test ${PHPRUNNER_SERVICE_ID} <--- hola?"
                     rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING wait ${PHPRUNNER_SERVICE_ID}
-                    script --return --quiet --command \"rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING exec ${PHPRUNNER_SERVICE_ID} php -v \"
+                    script --return --quiet --command \"rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING exec ${PHPRUNNER_SERVICE_ID} vendor/bin/phinx migrate --configuration="phinx.yml" -e staging \"
                     rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING rm ${PHPRUNNER_SERVICE_ID}
                 """)
             }
