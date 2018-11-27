@@ -85,6 +85,7 @@ pipeline {
                 RANCHER_ENV_URL_DCORTO = "http://34.247.7.73:8080/v2-beta/projects/1a2494"
                 RANCHER_ENV_KEY_DCORTO = credentials('RANCHER_ENV_KEY_DCORTO')
                 RANCHER_ENV_SECRET_DCORTO = credentials('RANCHER_ENV_SECRET_DCORTO')
+                RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging"
             }
             steps {
                 sh('echo deploy')
@@ -98,9 +99,9 @@ pipeline {
                 sh('sudo docker tag panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
                 sh('sudo docker push panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
 
-                sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging up -d -p -u')
-                sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging up -d -p -u --force-upgrade web php phpcron')
-                sh('rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging up -d -c')
+                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
+                sh('${RANCHER_COMPOSE_CMD_BASE} -d -p -u --force-upgrade web php phpcron')
+                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
             }
         }
         */
@@ -114,7 +115,7 @@ pipeline {
             }
             steps {
                 script {
-                    PHPRUNNER_SERVICE_ID = sh(returnStdout: true, script: "rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING run --name ${RANCHER_STACK_NAME}/phprunner --pull panamedialottery/euromillions-php:${EM_ENVIRONMENT}").trim()
+                    PHPRUNNER_SERVICE_ID = sh(returnStdout: true, script: "${RANCHER_CMD_BASE} run --name ${RANCHER_STACK_NAME}/phprunner --pull panamedialottery/euromillions-php:${EM_ENVIRONMENT}").trim()
                 }
                 sh("""
                     ${RANCHER_CMD_BASE} wait ${PHPRUNNER_SERVICE_ID}
