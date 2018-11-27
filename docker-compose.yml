@@ -25,11 +25,11 @@ services:
       - backend
 
   web:
-#    build:
-#      context: .
-#      dockerfile: devOps/docker/web/Dockerfile
-#      target: devel
-    image: panamedialottery/euromillions-web:staging
+    build:
+      context: .
+      dockerfile: devOps/docker/web/Dockerfile
+      target: devel
+    image: panamedialottery/euromillions-web:devel
     volumes:
       - "./src:/var/www"
     depends_on:
@@ -42,11 +42,11 @@ services:
       EM_ENV: ${EM_ENV}
 
   php:
-#    build:
-#      context: .
-#      dockerfile: devOps/docker/php/Dockerfile
-#      target: devel
-    image: panamedialottery/euromillions-php:staging
+    build:
+      context: .
+      dockerfile: devOps/docker/php/Dockerfile
+      target: devel
+    image: panamedialottery/euromillions-php:devel
     volumes:
       - "./src:/var/www"
     depends_on:
@@ -63,10 +63,10 @@ services:
       AWS_SECRET_ACCESS_KEY: yX6OWDq23bhTWqZUpCl8ih00ubWYRXsmKVsWEWIn
 
   phpcron:
-#    build:
-#      context: .
-#      dockerfile: devOps/docker/php/Dockerfile
-#      target: cron
+    build:
+      context: .
+      dockerfile: devOps/docker/php/Dockerfile
+      target: cron
     image: panamedialottery/euromillions-php:cron
     volumes:
       - "./src:/var/www"

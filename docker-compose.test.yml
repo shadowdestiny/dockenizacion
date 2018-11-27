@@ -1,0 +1,49 @@
+# This docker-compose.yml is for test environment only.
+version: '3.4'
+
+services:
+
+  redis:
+    image: redis:latest
+
+  database:
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: tpl9
+      MYSQL_USER: euromillions
+      MYSQL_PASSWORD: tpl9
+      MYSQL_DATABASE: euromillions
+
+#  web:
+#    build:
+#      context: .
+#      dockerfile: devOps/docker/web/Dockerfile
+#      target: prod
+#    volumes:
+#      - "./src:/var/www"
+#    depends_on:
+#      - php
+#    links:
+#      - php:php
+#    networks:
+#      - backend
+#    environment:
+#      EM_ENV: vagrant
+
+  php:
+    build:
+      context: .
+      dockerfile: devOps/docker/php/Dockerfile
+      target: tools
+    volumes:
+      - "./src:/var/www"
+    depends_on:
+      - redis
+      - database
+    links:
+      - redis
+      - database
+    environment:
+      EM_ENV: vagrant
+      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
+      AWS_SECRET_ACCESS_KEY: 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
