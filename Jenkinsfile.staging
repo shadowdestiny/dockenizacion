@@ -107,6 +107,7 @@ pipeline {
                     PHPRUNNER_SERVICE_ID = sh(returnStdout: true, script: "rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING run --name ${RANCHER_STACK_NAME}/phprunner --pull panamedialottery/euromillions-php:${EM_ENVIRONMENT}").trim()
                 }
                 sh("""
+                    export PHPRUNNER_SERVICE_ID=$PHPRUNNER_SERVICE_ID
                     rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING wait ${PHPRUNNER_SERVICE_ID}
                     script --return --quiet --command \"rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING exec ${PHPRUNNER_SERVICE_ID} vendor/bin/phinx migrate --configuration="phinx.yml" -e staging \"
                     rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING rm ${PHPRUNNER_SERVICE_ID}
@@ -121,7 +122,7 @@ pipeline {
             // Shutdown test
             sh('sudo docker-compose -p test -f docker-compose.test.yml down')
 
-            echo ${PHPRUNNER_SERVICE_ID}
+            echo '${PHPRUNNER_SERVICE_ID}'
         }
         success {
             echo 'I succeeeded!'
