@@ -40,7 +40,7 @@ pipeline {
 
                 sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
 
-                sh('sudo docker pull panamedialottery/euromillions-php:base')
+                sh('sudo docker pull panamedialottery/euromillions-php:tools')
 
                 sh('sudo docker build --target tools -f devOps/docker/php/Dockerfile -t panamedialottery/euromillions-php:tools .')
                 sh('sudo docker build -t panamedialottery/euromillions-util-nodejs devOps/docker/util-nodejs')

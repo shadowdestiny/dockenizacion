@@ -43,7 +43,9 @@ COPY devOps/docker/php/cron/euromillions.crons /etc/cron.d/euromillions.crons
 
 RUN apt-get update && apt-get install -y cron \
     && chmod -v +x /run-cron.sh \
-    && crontab /etc/cron.d/euromillions.crons
+    && crontab /etc/cron.d/euromillions.crons \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/*
 
 CMD ["/run-cron.sh"]
 
