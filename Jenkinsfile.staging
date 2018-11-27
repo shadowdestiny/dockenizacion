@@ -2,6 +2,9 @@ pipeline {
     environment {
         EM_ENVIRONMENT = "staging"
         BUILD_IMAGE_TAG = "${env.EM_ENVIRONMENT}_${env.BUILD_NUMBER}"
+        DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
+        DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
+        DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
         RANCHER_STACK_NAME = "euromillions-staging"
     }
     agent {
@@ -12,7 +15,6 @@ pipeline {
         timeout( time: 1, unit: 'HOURS' )
     }
     stages {
-        /*
         stage('pre-build') {
             steps {
                 sh('wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz ')
@@ -26,11 +28,6 @@ pipeline {
             }
         }
         stage('test') {
-            environment {
-                DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
-                DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
-                DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
-            }
             steps {
                 sh('echo test')
 
@@ -52,11 +49,7 @@ pipeline {
             }
 
         }
-        */
         stage('build') {
-            /*
-
-            */
             parallel {
                 stage('Build frontend') {
                     steps {
@@ -64,71 +57,35 @@ pipeline {
                         sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-util-nodejs ./provision-react.sh')
                         sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-util-nodejs ./provision-grunt.sh')
                     }
-                    post {
-                        always {
-                           echo 'I succeeeded!'
-                        }
-                    }
                 }
-                stage('Cron Build') {
-                    environment {
-                        DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
-                        DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
-                        DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
-                    }
+                stage('Build cron') {
                     steps {
                         sh('sudo docker build -t panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG} -f devOps/docker/php/Dockerfile --target cron .')
+                        sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
                         sh('sudo docker push panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG}')
-                    }
-                    post {
-                        always {
-                           echo 'I succeeeded!'
-                        }
                     }
                 }
 
-                stage('Composer and PHP Build') {
-                    environment {
-                        DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
-                        DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
-                        DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
-                    }
+                stage('Build php') {
                     steps {
                         sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-php:tools composer install --no-progress --no-dev --optimize-autoloader')
 
                         sh('sudo docker build -t panamedialottery/euromillions-php:${BUILD_IMAGE_TAG} -f devOps/docker/php/Dockerfile --target staging .')
+
+                        sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
                         sh('sudo docker push panamedialottery/euromillions-php:${BUILD_IMAGE_TAG}')
                     }
                 }
 
-                stage('Web Build') {
-                    environment {
-                        DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
-                        DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
-                        DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
-                    }
+                stage('Build web') {
                     steps {
                         sh('sudo docker build -t panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} -f devOps/docker/web/Dockerfile --target staging .')
+
+                        sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
                         sh('sudo docker push panamedialottery/euromillions-web:${BUILD_IMAGE_TAG}')
                     }
                 }
             }
-
-            /*
-            steps {
-                sh('echo build')
-
-                sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
-
-
-
-
-
-
-
-
-            }
-            */
         }
         /*
         stage('deploy') {
