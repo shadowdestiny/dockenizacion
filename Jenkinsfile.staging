@@ -38,6 +38,13 @@ pipeline {
             steps {
                 sh('echo test')
             }
+            post {
+                always {
+                    echo '????¿¿¿¿'
+                    // Shutdown test
+                    sh('sudo docker-compose -p test -f docker-compose.test.yml down')
+                }
+            }
         }
         stage('build') {
             environment {
@@ -87,11 +94,11 @@ pipeline {
 
             echo "${PHPRUNNER_SERVICE_ID}"
 
-            if (PHPRUNNER_SERVICE_ID) { // Shutdown phprunner container
-                sh("""
-                    rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING rm ${PHPRUNNER_SERVICE_ID}
-                """)
-            }
+
+            sh("""
+                rancher -url $RANCHER_API_URL_STAGING --env $RANCHER_API_ENVIRONMENT_STAGING --access-key $RANCHER_API_ACCESS_KEY_STAGING --secret-key $RANCHER_API_SECRET_KEY_STAGING rm ${PHPRUNNER_SERVICE_ID}
+            """)
+
         }
         success {
             echo 'I succeeeded!'
