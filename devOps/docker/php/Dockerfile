@@ -28,11 +28,6 @@ RUN buildDeps=" \
     && apt-get purge -y --auto-remove git \
     && rm -rf /tmp/*
 
-# DEBUG
-RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y vim
-#########
-
 # override default WORKDIR
 WORKDIR /var/www
 
