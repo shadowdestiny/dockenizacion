@@ -443,6 +443,22 @@ $(document).ready(function () {
     });
   }
 
+    $( "#sign-up-form" ).on('change', '#country', function() {
+        $.ajax({
+            url:'https://restcountries.eu/rest/v2/name/'+$("#country option:selected").text()+'?fullText=true',
+            type:'get',
+            dataType:"json",
+            success:function(json){
+                $("#prefix").html('<option value="">Prefix</option>');
+                $.each(json[0].callingCodes, function( index, value ) {
+                    $("#prefix").append('<option value="'+value+'" selected="selected">'+value+'</option>');
+                });
+            },
+            error:function (xhr, status, errorThrown){
+               //Manage Errors
+                },
+            });
+    });
 });
 
 //*************** Font resize Start ***************************
