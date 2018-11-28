@@ -26,8 +26,7 @@ services:
 
   web:
     build:
-      context: .
-      dockerfile: devOps/docker/web/Dockerfile
+      context: devOps/docker/web
       target: devel
     image: panamedialottery/euromillions-web:devel
     volumes:
@@ -84,9 +83,7 @@ services:
       AWS_SECRET_ACCESS_KEY: yX6OWDq23bhTWqZUpCl8ih00ubWYRXsmKVsWEWIn
 
   varnish:
-    build:
-      context: .
-      dockerfile: devOps/docker/varnish/Dockerfile
+    build: devOps/docker/varnish
     image: panamedialottery/euromillions-varnish:devel
     depends_on:
       - web
