@@ -75,15 +75,15 @@
       when: is_vagrant
 
     - name: build docker image of euromillions-php:tools
-      shell: docker build --target tools -f {{ playbook_dir }}/docker/php/Dockerfile -t euromillions-php:tools {{ playbook_dir }}/../
+      shell: docker build --target tools -f {{ playbook_dir }}/docker/php/Dockerfile -t euromillions-php-tools {{ playbook_dir }}/../
 
     - name: build docker image of euromillions-util-nodejs
       shell: docker build -t euromillions-util-nodejs {{ playbook_dir }}/docker/util-nodejs
 
     - name: run composer install
       docker_container:
-        name: euromillions-php:tools
-        image: euromillions-php:tools
+        name: euromillions-php-tools
+        image: euromillions-php-tools
         detach: false
         cleanup: yes
         state: started
@@ -145,12 +145,13 @@
         docker-compose exec -T phpcron php /var/www/apps/cli.php result importAllHistoricalDataFromPowerball;
         docker-compose exec -T phpcron php /var/www/apps/cli.php result updatePowerballResult;
         docker-compose exec -T phpcron php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php clear-cache clear;
       args:
         chdir: "{{ playbook_dir }}/../"
 
     - name: start compass web container
       docker_container:
-        name: compassweb
+        name: euromillions-compassweb-watcher
         image: antonienko/compass-watch
         cleanup: yes
         state: started
@@ -164,7 +165,7 @@
 
     - name: start compass admin container
       docker_container:
-        name: compasadmin
+        name: euromillions-compassadmin-watcher
         image: antonienko/compass-watch
         cleanup: yes
         state: started
