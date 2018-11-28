@@ -112,7 +112,7 @@ pipeline {
                 sh('sudo docker push panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
 
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
-                sh('${RANCHER_COMPOSE_CMD_BASE} -d -p -u --force-upgrade web php phpcron')
+                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
             }
         }
