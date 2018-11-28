@@ -65,7 +65,7 @@ pipeline {
                         sh('sudo docker push panamedialottery/euromillions-web:${BUILD_IMAGE_TAG}')
                     }
                 }
-                stage('build euromillions-util-nodejs image') {
+                stage('build util-nodejs image') {
                     steps {
                         sh('sudo docker build -t panamedialottery/euromillions-util-nodejs devOps/docker/util-nodejs')
                     }
