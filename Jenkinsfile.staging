@@ -47,8 +47,8 @@ pipeline {
                     sh('sudo docker-compose -p test -f docker-compose.test.yml down')
                 }
             }
-
         }
+        /*
         stage('build') {
             parallel {
                 stage('build frontend') {
@@ -90,7 +90,6 @@ pipeline {
                 sh('sudo docker push panamedialottery/euromillions-php:${BUILD_IMAGE_TAG}')
             }
         }
-        /*
         stage('deploy') {
             environment {
                 RANCHER_ENV_URL_DCORTO = "http://34.247.7.73:8080/v2-beta/projects/1a2494"
@@ -115,8 +114,6 @@ pipeline {
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
             }
         }
-        */
-        /*
         stage('post-deploy') {
              environment {
                 RANCHER_API_URL_STAGING = "http://34.247.7.73:8080/v2-beta/schemas"
