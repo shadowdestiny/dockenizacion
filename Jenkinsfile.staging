@@ -51,7 +51,6 @@ pipeline {
                 }
             }
         }
-        /*
         stage('build') {
             parallel {
                 stage('build frontend') {
@@ -142,6 +141,5 @@ pipeline {
                 }
             }
         }
-        */
     }
 }
