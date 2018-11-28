@@ -69,11 +69,15 @@ pipeline {
                 }
 
                 stage('run composer php') {
-                    sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-php:tools composer install --no-progress --no-dev --optimize-autoloader')
+                    steps {
+                        sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-php:tools composer install --no-progress --no-dev --optimize-autoloader')
+                    }
                 }
 
-                stage('build nodejs utils') {
-                    sh('sudo docker build -t panamedialottery/euromillions-util-nodejs devOps/docker/util-nodejs')
+                stage('build euromillions-util-nodejs') {
+                    steps {
+                        sh('sudo docker build -t panamedialottery/euromillions-util-nodejs devOps/docker/util-nodejs')
+                    }
                 }
             }
         }
@@ -97,30 +101,29 @@ pipeline {
                 RANCHER_ENV_SECRET_DCORTO = credentials('RANCHER_ENV_SECRET_DCORTO')
                 RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging"
             }
-            steps {
-                sh('echo deploy')
 
-                parallel {
-                    stage('tag & push php cron') {
-                        steps {
-                            sh('sudo docker tag panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG} panamedialottery/euromillions-php:cron')
-                            sh('sudo docker push panamedialottery/euromillions-php:cron')
-                        }
-                    }
-                    stage('tag & push php') {
-                        steps {
-                            sh('sudo docker tag panamedialottery/euromillions-php:${BUILD_IMAGE_TAG} panamedialottery/euromillions-php:${EM_ENVIRONMENT}')
-                            sh('sudo docker push panamedialottery/euromillions-php:${EM_ENVIRONMENT}')
-                        }
-                    }
-                    stage('tag & push web') {
-                        steps {
-                            sh('sudo docker tag panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
-                            sh('sudo docker push panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
-                        }
+            parallel {
+                stage('tag & push php cron') {
+                    steps {
+                        sh('sudo docker tag panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG} panamedialottery/euromillions-php:cron')
+                        sh('sudo docker push panamedialottery/euromillions-php:cron')
                     }
                 }
+                stage('tag & push php') {
+                    steps {
+                        sh('sudo docker tag panamedialottery/euromillions-php:${BUILD_IMAGE_TAG} panamedialottery/euromillions-php:${EM_ENVIRONMENT}')
+                        sh('sudo docker push panamedialottery/euromillions-php:${EM_ENVIRONMENT}')
+                    }
+                }
+                stage('tag & push web') {
+                    steps {
+                        sh('sudo docker tag panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
+                        sh('sudo docker push panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
+                    }
+                }
+            }
 
+            steps {
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
