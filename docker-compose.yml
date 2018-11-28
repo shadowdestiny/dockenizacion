@@ -3,17 +3,13 @@ version: '3.4'
 
 services:
   database:
-    image: rmrbest/percona
+    image: mysql:5.6
     volumes:
       - "database_volume:/var/lib/mysql"
     networks:
       backend:
         ipv4_address: ${EM_DOCKER_DATABASE_IP}
     environment:
-      REPLICATION: 'true'
-      REPLICATION_NODE: 1
-      REPLICATION_SLAVE_USER: slave_db1
-      REPLITACION_SLAVE_PASSWORD: euromillions
       MYSQL_ROOT_PASSWORD: tpl9
       MYSQL_USER: euromillions
       MYSQL_PASSWORD: tpl9
