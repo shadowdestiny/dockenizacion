@@ -15,6 +15,7 @@ use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Digit;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 use Phalcon\Validation\Validator\StringLength;
 
@@ -53,7 +54,8 @@ class SignUpForm extends Form
 
         $email = new Email('email', array(
             'placeholder' => $translationAdapter->query('signup_email'),
-            'id' => 'email-sign-up'
+            'id' => 'email-sign-up',
+            'style' => 'width: 100%;',
         ));
         $email->addValidators(array(
             new PresenceOf(array(
@@ -68,7 +70,8 @@ class SignUpForm extends Form
 
         $password = new Password('password', array(
             'placeholder' => $translationAdapter->query('signup_password'),
-            'id' => 'password-sign-up'
+            'id' => 'password-sign-up',
+            'style' => 'width: 100%;',
         ));
 
         $password->addValidator(new PresenceOf(array(
@@ -92,7 +95,8 @@ class SignUpForm extends Form
 
         $this->add($password);
         $password_confirm = new Password('confirm_password', array(
-            'placeholder' => $translationAdapter->query('signup_confirmPassword')
+            'placeholder' => $translationAdapter->query('signup_confirmPassword'),
+            'style' => 'width: 100%;',
         ));
         $password_confirm->addValidator(new PresenceOf(array(
             'message' => $translationAdapter->query('signup_msg_error_confirmPass')
@@ -118,6 +122,7 @@ class SignUpForm extends Form
             [
                 'useEmpty' => true,
                 'emptyText' => $translationAdapter->query('signup_countrySelect'),
+                'style' => 'width: 100%;',
             ]
         );
 
@@ -129,6 +134,93 @@ class SignUpForm extends Form
 
         $this->add($country);
 
+        $day = new Select(
+            'day',
+            [1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10,11=>11,12=>12,13=>13,14=>14,15=>15,16=>16,17=>17,18=>18,19=>19,20=>20,21=>21,22=>22,23=>23,24=>24,25=>25,26=>26,27=>27,28=>28,29=>29,30=>30,31=>31],
+            [
+                'useEmpty' => true,
+                'emptyText' => 'day',
+                'style' => 'width: 30%;',
+            ]
+        );
+
+        $day->addValidators(array(
+            new PresenceOf(array(
+                'message' => $translationAdapter->query('signup_msg_error_day')
+            )),
+        ));
+
+        $this->add($day);
+
+        $month = new Select(
+            'month',
+            ['01'=>'January', '02'=>'February', '03'=>'March', '04'=>'April', '05'=>'May', '06'=>'June', '07'=>'July', '08'=>'August', '09'=>'September', '10'=>'October', '11'=>'November', '12'=>'December'],
+            [
+                'useEmpty' => true,
+                'emptyText' => 'month',
+                'style' => 'width: 36%;',
+            ]
+        );
+
+        $month->addValidators(array(
+            new PresenceOf(array(
+                'message' => $translationAdapter->query('signup_msg_error_month')
+            )),
+        ));
+
+        $this->add($month);
+
+        $year = new Select(
+            'year',
+            $this->getYears()
+            ,[
+                'useEmpty' => true,
+                'emptyText' => 'year',
+                'style' => 'width: 30%;',
+            ]
+        );
+
+        $year->addValidators(array(
+            new PresenceOf(array(
+                'message' => $translationAdapter->query('signup_msg_error_year')
+            )),
+        ));
+
+        $this->add($year);
+
+        $prefix = new Select(
+            'prefix',
+            [],
+            [
+                'useEmpty' => true,
+                'emptyText' => 'Prefix',
+                'style' => 'width: 30%;',
+            ]
+        );
+
+        $prefix->addValidators(array(
+            new PresenceOf(array(
+                'message' => $translationAdapter->query('signup_msg_error_prefix')
+            )),
+        ));
+
+        $this->add($prefix);
+
+        $phone = new Text('phone', [
+            'placeholder' => 'Phone Number',
+            'style' => 'width: 68%;',
+        ]);
+
+        $phone->addValidators(array(
+            new PresenceOf(array(
+                'message' => $translationAdapter->query('signup_msg_error_phone')
+            )),
+            new Digit(array(
+                    "message" => ":field must be numeric",
+            ))
+        ));
+
+        $this->add($phone);
 
         $csrf = new Hidden('csrf');
         $csrf->addValidator(new Identical(array(
@@ -136,5 +228,16 @@ class SignUpForm extends Form
             'message' => 'Cross scripting protection. Reload the page.'
         )));
         $this->add($csrf);
+    }
+
+    private function getYears()
+    {
+        $year=date('Y');
+        $years=[];
+        for($i=($year-100); $i<=($year-18); $i++)
+        {
+            $years[$i]= $i;
+        }
+        return $years;
     }
 }

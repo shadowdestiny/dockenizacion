@@ -158,7 +158,7 @@ class UserAccessController extends ControllerBase
         $url_redirect = $this->session->get('original_referer');
 
         if ($this->request->isPost()) {
-            if ($sign_up_form->isValid($this->request->getPost()) === false) {
+            if ($sign_up_form->isValid($this->request->getPost()) === false || checkdate($this->request->getPost('month'), $this->request->getPost('day'), $this->request->getPost('year'))===false) {
                 $messages = $sign_up_form->getMessages(true);
                 /**
                  * @var string $field
@@ -168,6 +168,15 @@ class UserAccessController extends ControllerBase
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
                 }
+
+                if(!checkdate($this->request->getPost('month'), $this->request->getPost('day'), $this->request->getPost('year')))
+                {
+                    $errors[] = 'The birthdate is incorrect';
+                    $form_errors['day'] = ' error';
+                    $form_errors['month'] = ' error';
+                    $form_errors['year'] = ' error';
+                }
+
             } else {
                 $credentials = [
                     'name' => $this->request->getPost('name'),
@@ -177,6 +186,8 @@ class UserAccessController extends ControllerBase
                     'country' => $this->request->getPost('country'),
                     'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                     'default_language' => explode('_', $this->languageService->getLocale())[0],
+                    'phone_number' => $this->request->getPost('prefix')."-".$this->request->getPost('phone'),
+                    'birth_date' => $this->request->getPost('year').'-'.$this->request->getPost('month').'-'.$this->request->getPost('day')
                 ];
 
                 $register_result = $this->authService->register($credentials);
@@ -327,6 +338,7 @@ class UserAccessController extends ControllerBase
         sort($countries);
         //key+1, select element from phalcon need index 0 to set empty value
         $countries = array_combine(range(1, count($countries)), array_values($countries));
+        $countries = array_diff($countries, array('Afghanistan', 'Belarus', 'Bosnia and Herzegovina', 'Cuba', 'Eritrea', 'Ethiopia', 'Guyana', 'Haiti', 'Iran', 'Iraq', 'Laos', 'Liberia', 'Libya', 'Myanmar', 'Nauru', 'North Korea', 'Papua New Guinea', 'Puerto Rico', 'Vanuatu', 'Yemen', 'Somalia', 'Sudan', 'Suriname', 'Syria', 'Uganda', 'United States', 'United States Virgin Islands', 'United States Minor Outlying Islands'));
         return new SignUpForm(null, ['countries' => $countries]);
     }
 
