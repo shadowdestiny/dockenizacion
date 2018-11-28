@@ -1,0 +1,14 @@
+FROM panamedialottery/euromillions-base-php as base
+
+# override default WORKDIR
+WORKDIR /var/www
+
+################################################################################
+
+FROM base as devel
+
+# set php.ini
+COPY php-devel/php.ini $PHP_INI_DIR/php.ini
+
+# set fpm pool config
+COPY php-devel/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
