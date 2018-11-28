@@ -1,5 +1,7 @@
 FROM nginx:stable as base
 
+COPY devOps/docker/web/shared.conf /etc/nginx/shared.conf
+
 WORKDIR /var/www
 
 ################################################################################
