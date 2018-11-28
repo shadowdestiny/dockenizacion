@@ -42,8 +42,8 @@ services:
 
   php:
     build:
-      context: .
-      dockerfile: devOps/docker/php/Dockerfile
+      context: devOps/docker/php
+      dockerfile: Dockerfile-devel
       target: devel
     image: panamedialottery/euromillions-php:devel
     volumes:

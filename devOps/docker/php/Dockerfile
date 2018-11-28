@@ -81,6 +81,12 @@ COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
 # set fpm pool config
 COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
 
+COPY ./src .
+
+RUN chown -R www-data:www-data /var/www
+
+VOLUME /var/www
+
 ################################################################################
 
 FROM base as staging
@@ -96,13 +102,3 @@ COPY ./src .
 RUN chown -R www-data:www-data /var/www
 
 VOLUME /var/www
-
-################################################################################
-
-FROM base as devel
-
-# set php.ini
-COPY devOps/docker/php/php-devel/php.ini $PHP_INI_DIR/php.ini
-
-# set fpm pool config
-COPY devOps/docker/php/php-devel/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
