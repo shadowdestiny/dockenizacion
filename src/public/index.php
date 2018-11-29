@@ -1,8 +1,6 @@
 <?php
 use EuroMillions\shared\config\bootstrap\Bootstrap;
 
-//phpinfo(); die();
-
 $public_path = __DIR__;
 $app_web_path = $public_path . '/../apps/web';
 $app_path = $public_path . '/../apps/';
@@ -22,6 +20,5 @@ try {
 } catch (\Exception $e) {
    // header('Location: https://www.euromillions.com/error/page404'); //EMTD enable for live environment.
     echo "PhalconException: ", $e->getMessage(), " at file ", $e->getFile(), " line ", $e->getLine();
-    //echo "<br><pre>", var_dump($e->getTrace()), "</pre>";
-    echo "<br><pre>", $e->getTrace(), "</pre>";
+    echo "<br><pre>", var_dump($e->getTrace()), "</pre>";
 }
