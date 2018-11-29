@@ -106,9 +106,21 @@ services:
       dockerfile: devOps/docker/php/Dockerfile
       target: tools
     image: euromillions-util-php:devel
+    depends_on:
+      - redis
+      - database
+    links:
+      - redis:redis
+      - database:mysql
     command: sleep infinity
     volumes:
       - "./src:/var/www"
+    networks:
+      - backend
+    environment:
+      EM_ENV: ${EM_ENV}
+      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
+      AWS_SECRET_ACCESS_KEY: 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
 
 volumes:
   database_volume:
