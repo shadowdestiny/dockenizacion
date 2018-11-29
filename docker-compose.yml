@@ -3,17 +3,13 @@ version: '3.4'
 
 services:
   database:
-    image: rmrbest/percona
+    image: mysql:5.6
     volumes:
       - "database_volume:/var/lib/mysql"
     networks:
       backend:
         ipv4_address: ${EM_DOCKER_DATABASE_IP}
     environment:
-      REPLICATION: 'true'
-      REPLICATION_NODE: 1
-      REPLICATION_SLAVE_USER: slave_db1
-      REPLITACION_SLAVE_PASSWORD: euromillions
       MYSQL_ROOT_PASSWORD: tpl9
       MYSQL_USER: euromillions
       MYSQL_PASSWORD: tpl9
@@ -95,6 +91,24 @@ services:
         ipv4_address: ${EM_DOCKER_VARNISH_IP}
     environment:
       EM_ENV: ${EM_ENV}
+
+  util-nodejs:
+    build: devOps/docker/util-nodejs
+    image: euromillions-util-nodejs:devel
+    command: sleep infinity
+    working_dir: "/var/www"
+    volumes:
+      - "./src:/var/www"
+
+  util-php:
+    build:
+      context: .
+      dockerfile: devOps/docker/php/Dockerfile
+      target: tools
+    image: euromillions-util-php:devel
+    command: sleep infinity
+    volumes:
+      - "./src:/var/www"
 
 volumes:
   database_volume:

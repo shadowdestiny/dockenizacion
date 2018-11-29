@@ -2,8 +2,6 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/PanamediaSLU/euromillions/badges/coverage.png?b=master&s=3c7cc5d1328fe1325537b9689787b961203b8455)](https://scrutinizer-ci.com/g/PanamediaSLU/euromillions/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PanamediaSLU/euromillions/badges/quality-score.png?b=master&s=30e09efd0c8f4d9cbd919fd3c9d4614a1244620a)](https://scrutinizer-ci.com/g/PanamediaSLU/euromillions/?branch=master)
 
-# TODO: This README is not updated! 
-
 # Instructions
 
 ## Installation of a developer machine
