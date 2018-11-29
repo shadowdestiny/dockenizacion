@@ -92,6 +92,24 @@ services:
     environment:
       EM_ENV: ${EM_ENV}
 
+  util-nodejs:
+    build: devOps/docker/util-nodejs
+    image: euromillions-util-nodejs:devel
+    command: sleep infinity
+    working_dir: "/var/www"
+    volumes:
+      - "./src:/var/www"
+
+  util-php:
+    build:
+      context: .
+      dockerfile: devOps/docker/php/Dockerfile
+      target: tools
+    image: euromillions-util-php:devel
+    command: sleep infinity
+    volumes:
+      - "./src:/var/www"
+
 volumes:
   database_volume:
 
