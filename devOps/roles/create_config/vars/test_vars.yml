@@ -1,5 +1,5 @@
 ---
-env: 'vagrant'
+env: 'test'
 display_errors: '1'
 display_startup_errors: '1'
 
