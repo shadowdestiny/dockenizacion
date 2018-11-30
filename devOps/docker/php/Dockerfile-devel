@@ -7,6 +7,9 @@ WORKDIR /var/www
 
 FROM base as devel
 
+RUN pecl install xdebug-2.5.5 \
+    && docker-php-ext-enable xdebug
+
 # set php.ini
 COPY php-devel/php.ini $PHP_INI_DIR/php.ini
 
