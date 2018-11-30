@@ -15,14 +15,8 @@ lottery-results--christmas
         </h2>
 
         <div class="lottery-results--carousel owl-carousel owl-theme" style="">
-
-            {% include "_elements/home/lottery-results-carousel/euromillions.volt" %}
-            {% include "_elements/home/lottery-results-carousel/powerball.volt" %}
-            {% include "_elements/home/lottery-results-carousel/megamillions.volt" %}
-            {% include "_elements/home/lottery-results-carousel/christmas.volt" %}
-
-
-</div>
+                {{result_widget}}
+        </div>
 
     </div>
 
