@@ -153,6 +153,7 @@ class PrizeCheckoutService
             $price = new Money((int)$current_amount, new Currency('EUR'));
 
             $winning = new Winning($price, $threshold_price, $lotteryId);
+            $user->awardPrize($winning);
             $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount);
             $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
 
@@ -186,6 +187,7 @@ class PrizeCheckoutService
             $lotteryId = $bet->getPlayConfig()->getLottery()->getId();
 
             $winning = new Winning($price, $threshold_price, $lotteryId);
+            $user->awardPrize($winning);
             $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount);
             $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
 

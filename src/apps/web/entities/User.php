@@ -4,6 +4,7 @@ namespace EuroMillions\web\entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use EuroMillions\shared\vo\Wallet;
+use EuroMillions\shared\vo\Winning;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\vo\Email;
@@ -330,10 +331,12 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
         $this->wallet = $this->wallet->pay($amount);
     }
 
-    public function awardPrize(Money $amount)
-    {
-        $this->wallet = $this->wallet->award($amount);
-        $this->setShowModalWinning(true);
+    public function awardPrize(Winning $winning)
+    {  if(!$winning->greaterThanOrEqualThreshold())
+        {
+            $this->wallet = $this->wallet->award($winning->getPrice());
+            $this->setShowModalWinning(true);
+        }
     }
 
     public function reChargeWallet(Money $amount)
