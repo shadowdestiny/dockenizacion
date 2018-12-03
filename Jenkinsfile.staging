@@ -35,8 +35,9 @@ pipeline {
 
 
                 sh('ansible-playbook devOps/playbook_ci.yml')
+
+                sh "exit 1"
             }
-            error('Aborting the build.')
         }
         stage('test') {
             steps {
