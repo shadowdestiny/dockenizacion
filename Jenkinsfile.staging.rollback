@@ -32,11 +32,13 @@ pipeline {
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
             }
         }
+        post {
+            failure {
+                sh('${RANCHER_COMPOSE_CMD_BASE} up --rollback')
+            }
+        }
     }
     post {
-        failure {
-            sh('${RANCHER_COMPOSE_CMD_BASE} up --rollback')
-        }
         always {
             deleteDir() /* clean up our workspace */
         }
