@@ -13,6 +13,9 @@ use EuroMillions\web\vo\PlayFormToStorage;
 
 class PowerBallPlayTemporarilyController extends AjaxControllerBase
 {
+
+    protected $result;
+
     public function temporarilyCartAction()
     {
         $powerPlay = $this->request->getPost('power_play');
@@ -42,19 +45,25 @@ class PowerBallPlayTemporarilyController extends AjaxControllerBase
 
         $playService = $this->domainServiceFactory->getPlayService();
         $current_user = $authService->getCurrentUser();
-        $result = $playService->savePlayFromJson(json_encode($playFormToStorage_collection),RedisOrderKey::create($current_user->getId(),3)->key());
-        if($result->success()) {
-            echo json_encode(['result'=>'OK', 'url' => '/powerball/cart/profile']);
+        $this->result = $playService->savePlayFromJson(json_encode($playFormToStorage_collection),RedisOrderKey::create($current_user->getId(),3)->key());
+        $this->redirectResult();
+    }
+
+    protected function redirectResult($lotteryName='powerball')
+    {
+        if($this->result->success()) {
+            echo json_encode(['result'=>'OK', 'url' => '/'.$lotteryName.'/cart/profile']);
         } else {
-            echo json_encode(['result'=> $result->errorMessage()]);
+            echo json_encode(['result'=> $this->result->errorMessage()]);
         }
     }
+
 
     /**
      * @param $bets
      * @return array EuroMillionsLine
      */
-    private function create($numbers)
+    protected function create($numbers)
     {
 
         /**
