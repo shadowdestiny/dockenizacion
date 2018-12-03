@@ -34,11 +34,11 @@ pipeline {
         }
     }
     post {
-        always {
-            deleteDir() /* clean up our workspace */
-        }
         failure {
             sh('${RANCHER_COMPOSE_CMD_BASE} up --rollback')
+        }
+        always {
+            deleteDir() /* clean up our workspace */
         }
         /*
         success {
