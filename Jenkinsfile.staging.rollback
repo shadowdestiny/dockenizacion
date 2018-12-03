@@ -23,7 +23,7 @@ pipeline {
         stage('setup') {
             steps {
                  script {
-                    assert '42'.isNumber()
+                    assert ${params.BUILD_TARGET}.isNumber()
                  }
             }
         }
