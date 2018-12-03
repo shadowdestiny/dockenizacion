@@ -117,7 +117,7 @@ pipeline {
 
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
-                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
+                //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
             }
         }
         stage('post-deploy') {
