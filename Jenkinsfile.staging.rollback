@@ -20,19 +20,15 @@ pipeline {
             string(name: 'BUILD_TARGET', defaultValue: '', description: 'Enter the BUILD number to rollback')
         }
     stages {
-        stage('setup') {
-            steps {
-                 script {
-                    def build_target     = params.BUILD_TARGET
-                    assert build_target.isNumber()
-                 }
-            }
-        }
         stage('rollback') {
             environment {
                 BUILD_TAG_TARGET = "${env.EM_ENVIRONMENT}_${params.BUILD_TARGET}"
             }
             steps {
+                script {
+                    def build_target = params.BUILD_TARGET
+                    assert build_target.isNumber()
+                }
                 echo "${params.BUILD_TARGET} World!"
 
                 echo "${BUILD_TAG_TARGET} <<-- build tag"
