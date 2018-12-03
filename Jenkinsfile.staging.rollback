@@ -25,18 +25,15 @@ pipeline {
                 BUILD_TAG_TARGET = "${env.EM_ENVIRONMENT}_${params.BUILD_TARGET}"
             }
             steps {
+
                 script {
                     def build_target = params.BUILD_TARGET
                     assert build_target.isNumber()
                 }
-                echo "${params.BUILD_TARGET} World!"
 
-                echo "${BUILD_TAG_TARGET} <<-- build tag"
+                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
 
-
-
-                //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
-                //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
+                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
             }
         }
     }
