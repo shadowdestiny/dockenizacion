@@ -22,14 +22,14 @@ pipeline {
         timeout( time: 1, unit: 'HOURS' )
     }
     parameters {
-            string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
+            string(name: 'BUILD_TARGET', defaultValue: '', description: 'Enter the BUILD number')
         }
     stages {
         stage('rollback') {
             steps {
-                echo "${params.Greeting} World!"
-                //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
-                //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
+                echo "${params.BUILD_TARGET} World!"
+                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
+                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
             }
         }
     }
