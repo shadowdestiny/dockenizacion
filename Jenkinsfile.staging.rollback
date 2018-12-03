@@ -27,7 +27,7 @@ pipeline {
     stages {
         stage('rollback') {
             environment {
-                BUILD_TAG_TARGET = "${params.BUILD_TARGET}"
+                BUILD_TAG_TARGET = "${env.EM_ENVIRONMENT}_${params.BUILD_TARGET}"
             }
             steps {
                 echo "${params.BUILD_TARGET} World!"
