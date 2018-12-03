@@ -26,8 +26,11 @@ pipeline {
             }
             steps {
                 echo "${params.BUILD_TARGET} World!"
-                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
-                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
+
+                echo "${BUILD_TAG_TARGET} <<-- build tag"
+
+                //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
+                //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
             }
         }
     }
