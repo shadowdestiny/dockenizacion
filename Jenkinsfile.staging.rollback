@@ -29,6 +29,8 @@ pipeline {
 
                 echo "${BUILD_TAG_TARGET} <<-- build tag"
 
+                assert '42'.isNumber()
+
                 //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
                 //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
             }
