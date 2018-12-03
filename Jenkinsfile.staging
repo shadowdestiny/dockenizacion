@@ -2,10 +2,17 @@ pipeline {
     environment {
         EM_ENVIRONMENT = "staging"
         BUILD_IMAGE_TAG = "${env.EM_ENVIRONMENT}_${env.BUILD_NUMBER}"
+
         DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
         DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
         DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
+
         RANCHER_STACK_NAME = "euromillions-staging"
+
+        RANCHER_ENV_URL_DCORTO = "http://34.247.7.73:8080/v2-beta/projects/1a2494"
+        RANCHER_ENV_KEY_DCORTO = credentials('RANCHER_ENV_KEY_DCORTO')
+        RANCHER_ENV_SECRET_DCORTO = credentials('RANCHER_ENV_SECRET_DCORTO')
+        RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging"
     }
     agent {
         label 'aws-slave'
@@ -99,12 +106,6 @@ pipeline {
             }
         }
         stage('deploy') {
-            environment {
-                RANCHER_ENV_URL_DCORTO = "http://34.247.7.73:8080/v2-beta/projects/1a2494"
-                RANCHER_ENV_KEY_DCORTO = credentials('RANCHER_ENV_KEY_DCORTO')
-                RANCHER_ENV_SECRET_DCORTO = credentials('RANCHER_ENV_SECRET_DCORTO')
-                RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging"
-            }
             steps {
                 sh('sudo docker tag panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG} panamedialottery/euromillions-php:cron')
                 sh('sudo docker push panamedialottery/euromillions-php:cron')
@@ -117,7 +118,6 @@ pipeline {
 
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
-                //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
             }
         }
         stage('post-deploy') {
@@ -142,6 +142,10 @@ pipeline {
                     sh("""
                         ${RANCHER_CMD_BASE} rm ${PHPRUNNER_SERVICE_ID}
                     """)
+                }
+                success {
+                    // Confirm the deploy on Rancher Node
+                    sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
                 }
             }
         }
