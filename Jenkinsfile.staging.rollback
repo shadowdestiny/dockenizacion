@@ -1,11 +1,6 @@
 pipeline {
     environment {
         EM_ENVIRONMENT = "staging"
-        BUILD_IMAGE_TAG = "${env.EM_ENVIRONMENT}_${env.BUILD_NUMBER}"
-
-        DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
-        DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
-        DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
 
         RANCHER_STACK_NAME = "euromillions-staging"
 
@@ -22,7 +17,7 @@ pipeline {
         timeout( time: 1, unit: 'HOURS' )
     }
     parameters {
-            string(name: 'BUILD_TARGET', defaultValue: '', description: 'Enter the BUILD number')
+            string(name: 'BUILD_TARGET', defaultValue: '', description: 'Enter the BUILD number to rollback')
         }
     stages {
         stage('rollback') {
@@ -40,16 +35,5 @@ pipeline {
         always {
             deleteDir() /* clean up our workspace */
         }
-        /*
-        success {
-            echo 'I succeeeded!'
-        }
-        unstable {
-            echo 'I am unstable :/'
-        }
-        changed {
-            echo 'Things were different before...'
-        }
-        */
     }
 }
