@@ -268,9 +268,10 @@ class LotteryDrawRepository extends EntityRepository
             ->createQuery(
                 'SELECT ed'
                 . ' FROM ' . $this->getEntityName() . ' ed JOIN ed.lottery l'
-                . ' WHERE '
-                . ' ed.jackpot.amount=(select max(e.jackpot.amount) from '.$this->getEntityName().' e where e.draw_date >= current_date()) '
-                . ' and l.id != 2 ')
+                . ' WHERE ed.draw_date >= current_date()'
+                . ' AND l.id != 2 '
+                . ' ORDER BY ed.jackpot.amount DESC')
+            ->setMaxResults(1)
             ->useResultCache(true, 3600)
             ->getResult();
         return $result[0];
