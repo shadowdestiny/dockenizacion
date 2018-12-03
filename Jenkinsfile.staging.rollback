@@ -1,0 +1,56 @@
+pipeline {
+    environment {
+        EM_ENVIRONMENT = "staging"
+        BUILD_IMAGE_TAG = "${env.EM_ENVIRONMENT}_${env.BUILD_NUMBER}"
+
+        DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
+        DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
+        DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
+
+        RANCHER_STACK_NAME = "euromillions-staging"
+
+        RANCHER_ENV_URL_DCORTO = "http://34.247.7.73:8080/v2-beta/projects/1a2494"
+        RANCHER_ENV_KEY_DCORTO = credentials('RANCHER_ENV_KEY_DCORTO')
+        RANCHER_ENV_SECRET_DCORTO = credentials('RANCHER_ENV_SECRET_DCORTO')
+        RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -f docker-compose.rollback.yml -r rancher-compose.staging.yml -e .env.staging"
+    }
+    agent {
+        label 'aws-slave'
+    }
+    options {
+        skipStagesAfterUnstable()
+        timeout( time: 1, unit: 'HOURS' )
+    }
+    parameters {
+            string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
+        }
+    stages {
+        stage('rollback') {
+            steps {
+                echo "${params.Greeting} World!"
+                //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
+                //sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
+            }
+        }
+    }
+    post {
+        always {
+            deleteDir() /* clean up our workspace */
+        }
+        /*
+        success {
+            echo 'I succeeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+
+        }
+        changed {
+            echo 'Things were different before...'
+        }
+        */
+    }
+}
