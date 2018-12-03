@@ -33,7 +33,7 @@
             {#{% else %}#}
             {#{{ language.translate("million") }}#}
             {#{% endif %}#}
-            €149 Million
+            {{ jackpot_value }}
         </div>
         <div class="bottom resizeme">
             {#{{ language.translate('shortInstruction') }}#}
