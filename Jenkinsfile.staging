@@ -35,11 +35,6 @@ pipeline {
 
                 sh('mv GeoIP.dat src/data/geoipdatabase ')
                 sh('mv GeoIPv6.dat src/data/geoipdatabase ')
-
-                sh('echo ${ANSIBLE_VAULT_PASSWORD} > .ansible_vault_file')
-                sh('ansible-playbook --vault-password-file=.ansible_vault_file devOps/playbook_ci.yml ')
-
-                sh "exit 1"
             }
         }
         stage('test') {
