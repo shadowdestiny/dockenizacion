@@ -32,7 +32,11 @@ pipeline {
 
                 sh('mv GeoIP.dat src/data/geoipdatabase ')
                 sh('mv GeoIPv6.dat src/data/geoipdatabase ')
+
+
+                sh('ansible-playbook devOps/playbook_ci.yml')
             }
+            error('Aborting the build.')
         }
         stage('test') {
             steps {
