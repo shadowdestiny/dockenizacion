@@ -1,6 +1,9 @@
 ---
 - hosts: localhost
 
+  vars_files:
+    - secure.yml
+
   vars:
     enable_frontend_watchers: false
     enable_frontend_react_build: true
