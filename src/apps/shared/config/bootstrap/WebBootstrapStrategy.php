@@ -7,6 +7,10 @@ use EuroMillions\megamillions\config\routes\HowToPlayRoutes;
 use EuroMillions\megamillions\config\routes\MegaMillionsPlayRoutes;
 use EuroMillions\megamillions\config\routes\MegaMillionsResultRoutes;
 use EuroMillions\megamillions\config\routes\ResultPurchaseRoutes;
+use EuroMillions\eurojackpot\config\routes\HowToPlayRoutes as HowToPlayRoutesEuroJackpot;
+use EuroMillions\eurojackpot\config\routes\EuroJackpotPlayRoutes;
+use EuroMillions\eurojackpot\config\routes\EuroJackpotResultRoutes;
+use EuroMillions\eurojackpot\config\routes\ResultPurchaseRoutes as ResultPurchaseRoutesEuroJackpot;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconCookiesWrapper;
 use EuroMillions\shared\components\PhalconRequestWrapper;
@@ -98,6 +102,27 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $view = new Phalcon\Mvc\View();
         $compiled_path = $this->assetsPath . 'compiled_templates/';
         $view->setViewsDir($this->appPath . 'megamillions/views/');
+        $view->setLayoutsDir('shared/views/');
+        $view->registerEngines(array(
+            ".volt" => function ($view, $di) use ($compiled_path) {
+                $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
+                $volt->setOptions($this->voltConfigByEnvironment($compiled_path));
+                $compiler = $volt->getCompiler();
+                $compiler->addFilter('number_format', 'number_format');
+                $compiler->addFunction('currency_css', function ($currency) {
+                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
+                });
+                return $volt;
+            }
+        ));
+        return $view;
+    }
+
+    protected function configViewEuroJackpot()
+    {
+        $view = new Phalcon\Mvc\View();
+        $compiled_path = $this->assetsPath . 'compiled_templates/';
+        $view->setViewsDir($this->appPath . 'eurojackpot/views/');
         $view->setLayoutsDir('shared/views/');
         $view->registerEngines(array(
             ".volt" => function ($view, $di) use ($compiled_path) {
@@ -1492,6 +1517,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->mount(new MegaMillionsResultRoutes());
         $router->mount(new ResultPurchaseRoutes());
 
+        $router->mount(new HowToPlayRoutesEuroJackpot());
+        $router->mount(new EuroJackpotPlayRoutes());
+        $router->mount(new EuroJackpotResultRoutes());
+        $router->mount(new ResultPurchaseRoutesEuroJackpot());
+
         //LANDINGS
 
         $router->add('/landings/euromillions', [
@@ -1600,6 +1630,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'megamillions' => [
                 'className' => 'EuroMillions\megamillions\Module',
                 'path' => '../apps/megamillions/Module.php',
+            ],
+            'eurojackpot' => [
+                'className' => 'EuroMillions\eurojackpot\Module',
+                'path' => '../apps/eurojackpot/Module.php',
             ]
         ]);
         $di = $application->getDI();
@@ -1628,6 +1662,15 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $object = $di->get($web_module['className']);
                 $di->set('language', $this->configLanguage($di), true);
                 $di->set('view', $this->configViewMegaMillions(), true);
+                //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
+                $object->registerServices($di);
+            }
+            if ($module_name === 'eurojackpot') {
+                $web_module = $application->getModule($module_name);
+                /** @var ModuleDefinitionInterface $object */
+                $object = $di->get($web_module['className']);
+                $di->set('language', $this->configLanguage($di), true);
+                $di->set('view', $this->configViewEuroJackpot(), true);
                 //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
                 $object->registerServices($di);
             }

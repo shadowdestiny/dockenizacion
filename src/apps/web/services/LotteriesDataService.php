@@ -201,8 +201,11 @@ class LotteriesDataService
             } catch (DataMissingException $e) {
                 $draw = $this->createDraw($lastDrawDate, null, $lottery);
             }
-                $draw->createResult($result['numbers']['main'],  [0,$result['numbers'][$lotteryName=='PowerBall'?'powerball':'megaball']]);
-                $draw->setRaffle(new Raffle($result['numbers'][$lotteryName=='PowerBall'?'powerplay':'megaplier']));
+                $draw->createResult($result['numbers']['main'],  $lotteryName=='EuroJackpot'?$result['numbers']['euro']:[0,$result['numbers'][$lotteryName=='PowerBall'?'powerball':'megaball']]);
+                if($lotteryName!='EuroJackpot')
+                {
+                    $draw->setRaffle(new Raffle($result['numbers'][$lotteryName=='PowerBall'?'powerplay':'megaplier']));
+                }
                 $draw->createBreakDown($result);
 
             if ($draw->getResult()->getRegularNumbers()) {
@@ -237,14 +240,17 @@ class LotteriesDataService
                 unset($lotteryDraws[0]);
                 foreach ($lotteryDraws as $lotteryDraw) {
                     $draw = $this->createDraw(new \DateTime($lotteryDraw['date']), null, $lottery);
-                    $draw->createResult($lotteryDraw['numbers']['main'], [0,$lotteryDraw['numbers'][$lotteryName=='PowerBall'?'powerball':'megaball']]);
+                    $draw->createResult($lotteryDraw['numbers']['main'], $lotteryName=='EuroJackpot'?$lotteryDraw['numbers']['euro']:[0,$lotteryDraw['numbers'][$lotteryName=='PowerBall'?'powerball':'megaball']]);
                     $jackpotEUR = $currencyConversionService->convert(
-                        new Money((int) $lotteryDraw['jackpot']['total'],new Currency('USD') ),
+                        new Money((int) $lotteryDraw['jackpot']['total'],new Currency($lotteryDraw['currency']) ),
                         new Currency('EUR')
                     );
                     $jack = new Money((int) floor($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
                     $draw->setJackpot($jack);
-                    $draw->setRaffle(new Raffle($lotteryDraw['numbers'][$lotteryName=='PowerBall'?'powerplay':'megaplier']));
+                    if($lotteryName!='EuroJackpot')
+                    {
+                        $draw->setRaffle(new Raffle($lotteryDraw['numbers'][$lotteryName=='PowerBall'?'powerplay':'megaplier']));
+                    }
                     $draw->createBreakDown($lotteryDraw);
                     $this->entityManager->persist($draw);
                     $this->entityManager->flush();

@@ -119,6 +119,9 @@ class LotteryService
         /** @var EuroMillionsJackpot $jackpot_object */
         switch($lotteryName)
         {
+            case 'EuroJackpot':
+                $jackpot_object = 'EuroMillions\eurojackpot\vo\\' . $lotteryName . 'Jackpot';
+                break;
             case 'MegaMillions':
                 $jackpot_object = 'EuroMillions\megamillions\vo\\' . $lotteryName . 'Jackpot';
                 break;
@@ -132,7 +135,7 @@ class LotteryService
             return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
         } catch (DataMissingException $e) {
             try {
-                $next_jackpot = ($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
+                $next_jackpot = ($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions' || $lotteryName == 'EuroJackpot') ?
                     $this->lotteriesDataService->updateNextDrawJackpotLottery($lotteryName) :
                     $this->lotteriesDataService->updateNextDrawJackpot($lotteryName);
                 if ($next_jackpot == null) return $jackpot_object::fromAmountIncludingDecimals(null);
@@ -179,7 +182,7 @@ class LotteryService
             /** @var EuroMillionsLine $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
         } catch (DataMissingException $e) {
-            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
+            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions' || $lotteryName == 'EuroJackpot') ?
                 $this->lotteriesDataService->updateLastDrawResultLottery($lotteryName):
                 $this->lotteriesDataService->updateLastDrawResult($lotteryName);
         }
@@ -219,7 +222,7 @@ class LotteryService
             /** @var EuroMillionsDrawBreakDown $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastBreakdown($lottery);
         } catch (DataMissingException $e) {
-            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
+            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions'|| $lotteryName == 'EuroJackpot') ?
                 $this->lotteriesDataService->updateLastBreakDownLottery($lotteryName):
                 $this->lotteriesDataService->updateLastBreakDown($lotteryName);
         }
@@ -325,6 +328,8 @@ class LotteryService
 
         switch($lotteryName)
         {
+            case 'EuroJackpot':
+                return 'EuroMillions\eurojackpot\vo\dto\\'.$lotteryName.'DrawDTO';
             case 'MegaMillions':
                 return 'EuroMillions\megamillions\vo\dto\\'.$lotteryName.'DrawDTO';
             default:
