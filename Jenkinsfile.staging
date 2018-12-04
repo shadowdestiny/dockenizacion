@@ -13,9 +13,6 @@ pipeline {
         RANCHER_ENV_KEY_DCORTO = credentials('RANCHER_ENV_KEY_DCORTO')
         RANCHER_ENV_SECRET_DCORTO = credentials('RANCHER_ENV_SECRET_DCORTO')
         RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging"
-
-
-        ANSIBLE_VAULT_PASSWORD = credentials('test_ansible')
     }
     agent {
         label 'aws-slave'
