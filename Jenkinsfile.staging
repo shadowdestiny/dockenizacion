@@ -24,7 +24,7 @@ pipeline {
     stages {
         stage('pre-build') {
             steps {
-               sh('devOps/ci/pre_build.sh')
+               sh('chmod +x devOps/ci/pre_build.sh; devOps/ci/pre_build.sh')
             }
         }
         stage('test') {
