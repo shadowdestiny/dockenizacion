@@ -29,15 +29,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
-                sh('sudo docker pull panamedialottery/euromillions-php:tools')
-
-                sh('sudo docker build --target tools -f devOps/docker/php/Dockerfile -t panamedialottery/euromillions-php:tools .')
-                sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-php:tools composer install --no-progress')
-
-                sh('sudo docker-compose -p test -f docker-compose.test.yml build')
-                sh('sudo docker-compose -p test -f docker-compose.test.yml up -d')
-                sh('sudo docker-compose -p test -f docker-compose.test.yml exec -T php ./vendor/bin/phpunit --log-junit tests/junit.xml -c tests/phpunit.xml')
+                sh('chmod +x devOps/ci/test.sh; devOps/ci/test.sh')
             }
             post {
                 always {
@@ -100,15 +92,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh('sudo docker tag panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG} panamedialottery/euromillions-php:cron')
-                sh('sudo docker push panamedialottery/euromillions-php:cron')
-
-                sh('sudo docker tag panamedialottery/euromillions-php:${BUILD_IMAGE_TAG} panamedialottery/euromillions-php:${EM_ENVIRONMENT}')
-                sh('sudo docker push panamedialottery/euromillions-php:${EM_ENVIRONMENT}')
-
-                sh('sudo docker tag panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
-                sh('sudo docker push panamedialottery/euromillions-web:${EM_ENVIRONMENT}')
-
+                sh('chmod +x devOps/ci/deploy.sh; devOps/ci/deploy.sh')
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
             }
@@ -145,22 +129,7 @@ pipeline {
     }
     post {
         always {
-            deleteDir() /* clean up our workspace */
+            deleteDir()
         }
-        /*
-        success {
-            echo 'I succeeeded!'
-        }
-        unstable {
-            echo 'I am unstable :/'
-        }
-        failure {
-            echo 'I failed :('
-
-        }
-        changed {
-            echo 'Things were different before...'
-        }
-        */
     }
 }
