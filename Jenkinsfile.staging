@@ -121,7 +121,7 @@ pipeline {
                     """)
                 }
                 success {
-                    // Confirm the deploy on Rancher Node
+                    // Confirm the deploy on Rancher
                     sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
                 }
             }
