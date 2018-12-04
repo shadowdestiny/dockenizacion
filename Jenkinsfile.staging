@@ -24,14 +24,7 @@ pipeline {
     stages {
         stage('pre-build') {
             steps {
-                sh('wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz ')
-                sh('wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz ')
-
-                sh('gzip -fd GeoIP.dat.gz ')
-                sh('gzip -fd GeoIPv6.dat.gz ')
-
-                sh('mv GeoIP.dat src/data/geoipdatabase ')
-                sh('mv GeoIPv6.dat src/data/geoipdatabase ')
+               sh('devOps/ci/pre_build.sh')
             }
         }
         stage('test') {
