@@ -26,14 +26,13 @@
     </div>
     <div class="right">
         <div class="top resizeme">
-            {#{{ jackpot_value }} {% if milliards %}#}
-            {#{{ language.translate("billion") }}#}
-            {#{% elseif trillions %}#}
-            {#{{ language.translate("trillion") }}#}
-            {#{% else %}#}
-            {#{{ language.translate("million") }}#}
-            {#{% endif %}#}
-            €149 Million
+            {{ jackpot_value_mega }}{% if milliards %}
+            {{ language.translate("billion") }}
+            {% elseif trillions %}
+            {{ language.translate("trillion") }}
+            {% else %}
+            {{ language.translate("million") }}
+            {% endif %}
         </div>
         <div class="bottom resizeme">
             {#{{ language.translate('shortInstruction') }}#}
