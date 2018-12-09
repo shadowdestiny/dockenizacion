@@ -38,7 +38,8 @@
     var friday = '{{ language.translate('friday') }}';
     var wednesday = '{{ language.translate('wednesday') }}';
     var saturday = '{{ language.translate('saturday') }}';
-    var powerball = true;
+    var powerball = false;
+    var megamillions = true;
     var powerplay = <?php echo $power_play; ?>;
     var powerplayprice = <?php echo $power_play_price; ?>;
     var txt_lottery = '<?php echo $lottery_name; ?>';
@@ -221,7 +222,7 @@
                         <div class="section--content">
                             <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}"
                                   method="post"
-                                  action="/powerball/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
+                                  action="/megamillions/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
                                 {% set component='{"where": "cart"}'|json_decode %}
                                 {% include "../../shared/views/account/_add-card.volt" %}
                                 <input type="hidden" id="csid" name="csid"/>

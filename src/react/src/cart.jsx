@@ -279,9 +279,14 @@ var CartPage = new React.createClass({
             data_btn = 'no-wallet';
         } else if(powerball === true) {
             txt_button_payment = this.props.txt_buy_btn;
-            href_payment = '/powerball/payment/payment?method=wallet&charge='+this.state.fund_value;
+            href_payment = '/powerball/payment/payment?method=wallet&charge=' + this.state.fund_value;
             data_btn = 'wallet';
             price_txt_btn = this.state.total;
+        } else if(megamillions === true) {
+                txt_button_payment = this.props.txt_buy_btn;
+                href_payment = '/megamillions/payment/payment?method=wallet&charge='+this.state.fund_value;
+                data_btn = 'wallet';
+                price_txt_btn = this.state.total;
         } else {
             txt_button_payment = this.props.txt_buy_btn;
             href_payment = '/euromillions/payment/payment?method=wallet&charge='+this.state.fund_value;
@@ -553,6 +558,7 @@ ReactDOM.render(<CartPage total={total_price}
                           powerplay={powerplay}
                           powerplayprice={powerplayprice}
                           powerball={powerball}
+                          megamillions={megamillions}
                           txt_lottery={txt_lottery}
                           playingPP={playingPP}
                           txt_for={txt_for}

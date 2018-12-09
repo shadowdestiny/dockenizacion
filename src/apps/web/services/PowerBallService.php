@@ -22,6 +22,7 @@ use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\external_apis\LottorisqApi;
+use EuroMillions\web\services\external_apis\MegaMillionsApi;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Discount;
@@ -138,20 +139,20 @@ class PowerBallService
      * @param bool $withAccountBalance
      * @return ActionResult
      */
-    public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null)
+    public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, $lotteryName = "PowerBall")
     {
         if ($user_id) {
             try {
-
                 $di = \Phalcon\Di::getDefault();
                 /** @var Lottery $lottery */
-                $lottery = $this->lotteryService->getLotteryConfigByName('PowerBall');
+                $lottery = $this->lotteryService->getLotteryConfigByName($lotteryName);
 
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
                 $powerPlay = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user_id,$lottery->getId())->key());
+
                 $powerPlay = (int)json_decode($powerPlay->returnValues())->play_config[0]->powerPlay;
-                $result_order = $this->cartService->get($user_id, $lottery->getName());
+                $result_order = $this->cartService->get($user_id, $lottery->getName(),$isWallet);
 
                 if ($result_order->success()) {
                     /** @var Order $order */
@@ -165,16 +166,15 @@ class PowerBallService
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->setLottery($lottery);
                     $order->setPowerPlay($powerPlay);
-
                     $order->addFunds($order->getTotal());
                     $order->setAmountWallet($user->getWallet()->getBalance());
-
-                    $draw = $this->lotteryService->getNextDrawByLottery('PowerBall');
+                    $draw = $this->lotteryService->getNextDrawByLottery($lotteryName);
                     $uniqueId = $this->walletService->getUniqueTransactionId();
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
                         $this->cardPaymentProvider->idTransaction = $uniqueId;
                         $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
+
                     } else {
                         if($order->getHasSubscription())
                         {
@@ -200,7 +200,12 @@ class PowerBallService
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                     if ($result_payment->success() && $orderIsToNextDraw) {
                         $APIPlayConfigs = json_encode($order->getPlayConfig());
-                        $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
+                        if($lottery->getName()== 'PowerBall')
+                        {
+                            $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
+                        }else{
+                            $result_validation = json_decode((new MegaMillionsApi())->book($APIPlayConfigs)->body);
+                        }
                         $walletBefore = $user->getWallet();
                         $config = $di->get('config');
                         if ($config->application->send_single_validations) {
@@ -220,8 +225,7 @@ class PowerBallService
                                         $this->walletService->payWithSubscription($user, $play_config, $lottery->getPowerPlayValue());
                                     }
                                 } else {
-                                    $powerPlayValue = new Money($lottery->getPowerPlayValue(), new Currency('EUR'));
-                                    $this->walletService->payWithWallet($user, $play_config, $powerPlayValue);
+                                    $this->walletService->payWithWallet($user, $play_config, new Money($lottery->getPowerPlayValue(), new Currency('EUR')));
                                 }
                             }
                             $numPlayConfigs = count($order->getPlayConfig());
@@ -243,7 +247,7 @@ class PowerBallService
                         }
 
                         $dataTransaction = [
-                            'lottery_id' => 3,
+                            'lottery_id' => $lottery->getId(),
                             'transactionID' => $uniqueId,
                             'numBets' => count($order->getPlayConfig()),
                             'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
@@ -258,7 +262,6 @@ class PowerBallService
 
                         $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
                         $this->sendEmailPurchase($user, $order->getPlayConfig());
-
                         return new ActionResult(true, $order);
                     } else {
                         return new ActionResult($result_payment->success(), $order);

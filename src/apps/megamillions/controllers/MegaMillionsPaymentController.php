@@ -1,15 +1,17 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: victor
- * Date: 27/03/18
- * Time: 12:30
+ * User: rmrbest
+ * Date: 8/12/18
+ * Time: 23:25
  */
 
-namespace EuroMillions\web\controllers;
+namespace EuroMillions\megamillions\controllers;
+
 
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\ViewHelper;
+use EuroMillions\web\controllers\PowerBallPaymentController;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\vo\CardHolderName;
@@ -20,7 +22,7 @@ use EuroMillions\web\vo\ExpiryDate;
 use Money\Currency;
 use Money\Money;
 
-class PowerBallPaymentController extends CartController
+class MegaMillionsPaymentController extends PowerBallPaymentController
 {
     public function paymentAction()
     {
@@ -43,7 +45,7 @@ class PowerBallPaymentController extends CartController
             $this->response->redirect('/' . $this->lottery . '/cart/profile');
             return false;
         }
-        $result = $powerball_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
+        $result = $powerball_service->getPlaysFromTemporarilyStorage($user, 'megamillions');
         $msg = '';
 
         $order_view = true;
@@ -56,9 +58,8 @@ class PowerBallPaymentController extends CartController
                 try {
                     $card = null;
                     $amount = new Money((int)$charge, new Currency('EUR'));
-                    var_dump($result->getValues());die();
-                    $result = $powerball_service->play($user_id, $amount, $card, true, $isWallet,$result->getValues()[0]->getLottery()->getName());
-                    return $this->playResult($result,'powerball');
+                    $result = $powerball_service->play($user_id, $amount, $card, true, $isWallet, 'MegaMillions');
+                    return $this->playResult($result,$result->getValues()->getLottery()->getName());
                 } catch (\Exception $e) {
                     $errors[] = $e->getMessage();
                 }
@@ -87,9 +88,8 @@ class PowerBallPaymentController extends CartController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
-
-                        $result = $powerball_service->play($user_id, $amount, $card, $payWallet, $isWallet,$result->getValues()[0]->getLottery()->getName());
-                        return $this->playResult($result,'powerball');
+                        $result = $powerball_service->play($user_id, $amount, $card, $payWallet, $isWallet,'MegaMillions');
+                        return $this->playResult($result,$result->getValues()->getLottery()->getName());
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
