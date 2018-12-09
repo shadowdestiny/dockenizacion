@@ -42,6 +42,7 @@ class LotterySeeder extends AbstractSeed
                 'result_api' => 'Lottorisq',
                 'single_bet_price_amount' => '350',
                 'single_bet_price_currency_name' => 'EUR',
+                'time_zone' => 'America/New_York'
             ],
             [
                 'name' => 'MegaMillions',
