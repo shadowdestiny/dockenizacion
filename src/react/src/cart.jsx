@@ -250,6 +250,7 @@ var CartPage = new React.createClass({
                 powerplay={this.props.powerplay}
                 powerplayprice={this.props.powerplayprice}
                 powerball={this.props.powerball}
+                megamillions={this.props.megamillions}
                 playingPP={this.props.playingPP}
 
             />);
