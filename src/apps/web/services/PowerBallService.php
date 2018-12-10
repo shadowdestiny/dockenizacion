@@ -8,6 +8,8 @@ use EuroMillions\shared\vo\RedisOrderKey;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\PowerBallPurchaseConfirmationEmailTemplate;
 use EuroMillions\web\emailTemplates\PowerBallPurchaseSubscriptionConfirmationEmailTemplate;
+use EuroMillions\megamillions\emailTemplates\MegaMillionsPurchaseConfirmationEmailTemplate;
+use EuroMillions\megamillions\emailTemplates\MegaMillionsPurchaseSubscriptionConfirmationEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationChristmasEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseSubscriptionConfirmationEmailTemplate;
@@ -261,7 +263,7 @@ class PowerBallService
                         ];
 
                         $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
-                        $this->sendEmailPurchase($user, $order->getPlayConfig());
+                        $this->sendEmailPurchase($user, $order->getPlayConfig(), $order->getLottery()->getName());
                         return new ActionResult(true, $order);
                     } else {
                         return new ActionResult($result_payment->success(), $order);
@@ -305,12 +307,15 @@ class PowerBallService
         return $this->lotteryService->getLotteryConfigByName($lottery);
     }
 
-    public function sendEmailPurchase(User $user, $orderLines)
+    public function sendEmailPurchase(User $user, $orderLines, $lotteryName)
     {
+        $path=($lotteryName=='MegaMillions'?'megamillions':'web');
+        $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseConfirmationEmailTemplate";
         $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new PowerBallPurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+        $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
         if ($orderLines[0]->getFrequency() >= 4) {
-            $emailTemplate = new PowerballPurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+            $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseSubscriptionConfirmationEmailTemplate";
+            $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
             $emailTemplate->setDraws($orderLines[0]->getFrequency());
             $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
         }
