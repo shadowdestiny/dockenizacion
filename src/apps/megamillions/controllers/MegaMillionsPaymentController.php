@@ -89,7 +89,7 @@ class MegaMillionsPaymentController extends PowerBallPaymentController
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
                         $result = $powerball_service->play($user_id, $amount, $card, $payWallet, $isWallet,'MegaMillions');
-                        return $this->playResult($result,$result->getValues()->getLottery()->getName());
+                        return $this->playResult($result, 'megamillions');
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
