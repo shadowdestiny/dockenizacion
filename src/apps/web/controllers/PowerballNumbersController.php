@@ -73,7 +73,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
     {
 
         $webLanguageStrategy = new WebLanguageStrategy($this->session,$this->di->get('request'));
-        $result = $this->lotteryService->getPowerBallDrawsDTO('PowerBall', 1000, $webLanguageStrategy);
+        $result = $this->lotteryService->getLotteryDrawsDTO('PowerBall', 1000, $webLanguageStrategy);
         if (!$result->success()) {
             return $this->view->setVars([
                 'error' => $result->errorMessage()

@@ -1,0 +1,19 @@
+// Photoshop Colors
+$lotteries-euromillions--start : #7ebcfe;
+$lotteries-euromillions--end : #014fa3;
+
+// Corrections Collors
+$lotteries-euromillions--start : #8bbeef;
+$lotteries-euromillions--end : #4a9ae6;
+
+.lottery-carousel--euromillions {
+  .top-block {
+
+    background: -webkit-linear-gradient(90deg, $lotteries-euromillions--start 0%, $lotteries-euromillions--end 100%);
+    background: -moz-linear-gradient(90deg, $lotteries-euromillions--start 0%, $lotteries-euromillions--end 100%);
+    background: -o-linear-gradient(90deg, $lotteries-euromillions--start 0%, $lotteries-euromillions--end 100%);
+    background: -ms-linear-gradient(90deg, $lotteries-euromillions--start 0%, $lotteries-euromillions--end 100%);
+    background: linear-gradient(0deg, $lotteries-euromillions--start 0%, $lotteries-euromillions--end  100%);
+
+  }
+}

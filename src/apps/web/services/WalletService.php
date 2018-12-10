@@ -358,20 +358,15 @@ class WalletService
             $user->setWallet($newWallet);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            return new ActionResult(true);
-        } catch (\Exception $e) {
-            return new ActionResult(false, $e->getMessage());
-            //EMTD Log and warn the admin
-        }
-    }
-
-    public function addToWithdraw(User $user, Money $amount)
-    {
-        try {
-            $newWallet = $user->getWallet()->award($amount);
-            $user->setWallet($newWallet);
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
+            $data = [];
+            $data['now'] = new \DateTime();
+            $data['walletBefore'] = $walletBefore;
+            $data['walletAfter'] = $user->getWallet();
+            $data['user'] = $user;
+            $data['accountBankId'] = '1';
+            $data['amountWithdrawed'] = $amount->getAmount();
+            $data['state'] = 'pending';
+            $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $data);
             return new ActionResult(true);
         } catch (\Exception $e) {
             return new ActionResult(false, $e->getMessage());
@@ -406,6 +401,10 @@ class WalletService
                     $this->transactionService->getSubscriptionByLotteryAndUserId('PowerBall', $user->getId()),
                     $user->getUserCurrency()
                 ), $user->getLocale());
+                $amountSubscriptionBalanceMegaMillions = $this->currencyConversionService->toString( $this->currencyConversionService->convert(
+                    $this->transactionService->getSubscriptionByLotteryAndUserId('MegaMillions', $user->getId()),
+                    $user->getUserCurrency()
+                ), $user->getLocale());
                 $wallet_dto = new WalletDTO([
                     'amountBalance' => $amount_balance,
                     'amountWinnings' => $amount_winnings,
@@ -414,6 +413,7 @@ class WalletService
                     'currentWinningConvert' => $current_winnnings_convert,
                     'amountSubscriptionBalanceEuroMillions' => $amountSubscriptionBalanceEuroMillions,
                     'amountSubscriptionBalancePowerBall' => $amountSubscriptionBalancePowerBall,
+                    'amountSubscriptionBalanceMegaMillions' => $amountSubscriptionBalanceMegaMillions,
                 ]);
                 $balance = $this->currencyConversionService->toString($wallet->getBalance(), $user->getLocale());
                 $winnings = $this->currencyConversionService->toString($wallet->getWithdrawable(), $user->getLocale());

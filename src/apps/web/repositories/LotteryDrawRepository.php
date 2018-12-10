@@ -59,9 +59,6 @@ class LotteryDrawRepository extends EntityRepository
             $date = new \DateTime();
         }
         $next_draw_date = $lottery->getNextDrawDate($date);
-        if($lottery->getName() == 'PowerBall') {
-            $next_draw_date = DateTimeUtil::convertDateTimeBetweenTimeZones($next_draw_date,'America/New_York','Europe/Madrid')->modify('-1 day');
-        }
 
         /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
@@ -242,6 +239,42 @@ class LotteryDrawRepository extends EntityRepository
             throw new DataMissingException('Cannot find last draw on database.');
         }
         return $result;
+    }
+
+
+
+    public function giveMeLotteriesOrderedByHeldDate()
+    {
+        /** @var EuroMillionsDraw[] $result */
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT ed'
+                . ' FROM ' . $this->getEntityName() . ' ed JOIN ed.lottery l'
+                . ' WHERE '
+                . ' ed.draw_date >= CURRENT_DATE()'
+                . ' and l.id != 2'
+                . ' order by ed.draw_date ASC')
+            ->useResultCache(true, 3600)
+            ->getResult();
+        return $result;
+    }
+
+
+    public function giveMeBiggestJackpot()
+    {
+
+        /** @var EuroMillionsDraw[] $result */
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT ed'
+                . ' FROM ' . $this->getEntityName() . ' ed JOIN ed.lottery l'
+                . ' WHERE ed.draw_date >= current_date()'
+                . ' AND l.id != 2 '
+                . ' ORDER BY ed.jackpot.amount DESC')
+            ->setMaxResults(1)
+            ->useResultCache(true, 3600)
+            ->getResult();
+        return $result[0];
     }
 
     /**

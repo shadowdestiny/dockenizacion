@@ -42,6 +42,7 @@
     var wednesday = '{{ language.translate('wednesday') }}';
     var saturday = '{{ language.translate('saturday') }}';
     var powerball = true;
+    var megamillions = false;
     var powerplay = <?php echo $power_play; ?>;
     var powerplayprice = <?php echo $power_play_price; ?>;
     var txt_lottery = '<?php echo $lottery_name; ?>';

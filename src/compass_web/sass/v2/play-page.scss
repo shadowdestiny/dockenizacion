@@ -2,6 +2,13 @@
 
 .play--page {
 
+  &.powerball--page{
+    .line .v-checkmark {
+      color: #fcc;
+      opacity: 1;
+    }
+  }
+
   .banner {
     //display: none;
 

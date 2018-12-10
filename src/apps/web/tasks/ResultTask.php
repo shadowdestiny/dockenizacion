@@ -86,11 +86,11 @@ class ResultTask extends TaskBase
             $breakdown = $this->lotteryService->getLastBreakdown('PowerBall');
             if (!$result['regular_numbers'][0])
             {
-                $this->lotteriesDataService->updateLastDrawResultPowerBall('PowerBall');
+                $this->lotteriesDataService->updateLastDrawResultLottery('PowerBall');
             }
             if(!$breakdown->getCategoryOne()->getName())
             {
-                $this->lotteriesDataService->updateLastBreakDownPowerBall('PowerBall');
+                $this->lotteriesDataService->updateLastBreakDownLottery('PowerBall');
             }
         }catch (\Exception $e)
         {
@@ -102,25 +102,32 @@ class ResultTask extends TaskBase
         }
     }
 
-
-    public function startProcessAwardAction()
+    /**
+     * @param array $params
+     */
+    public function startAction(array $params)
     {
-        try {
-            $drawDate = $this->lotteryService->getLastDrawDate('PowerBall');
-            $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
-            $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
-                'drawDate' => $drawDate->format('Y-m-d'),
-                'lotteryName' => 'PowerBall'
-            ]);
-        } catch ( \Exception $e)
+        if(isset($params[0]) && in_array($params[0],['MegaMillions', 'PowerBall']))
         {
-            $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
-                'drawDate' => $drawDate->format('Y-m-d'),
-                'lotteryName' => 'Error'
-            ]);
-            throw new \Exception($e->getMessage());
+            try {
+                $drawDate = $this->lotteryService->getLastDrawDate($params[0]);
+                $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
+                $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
+                    'drawDate' => $drawDate->format('Y-m-d'),
+                    'lotteryName' => $params[0]
+                ]);
+            } catch ( \Exception $e)
+            {
+                $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
+                    'drawDate' => $drawDate->format('Y-m-d'),
+                    'lotteryName' => 'Error'
+                ]);
+                throw new \Exception($e->getMessage());
+            }
         }
-
+        else{
+            echo("Please, enter a valid param");
+        }
     }
 
     public function importAllHistoricalDataFromPowerballAction()
@@ -129,13 +136,10 @@ class ResultTask extends TaskBase
             $dependencies = [];
             $conversionService = $this->domainServiceFactory->getCurrencyConversionService();
             $dependencies['CurrencyConversionService'] = $conversionService;
-            $results = $this->lotteryService->getAllResultFromPowerball(new Curl(), Di::getDefault()->get('config')['lotto_api']);
-            $this->lotteriesDataService->insertPowerBallData($results->body,$dependencies);
+            $results = $this->lotteryService->getAllResultFromLottery(new Curl(), Di::getDefault()->get('config')['lotto_api'], 'poweball');
+            $this->lotteriesDataService->insertLotteryData($results->body,$dependencies, 'PowerBall');
         } catch (Exception $e) {
             throw new \Exception($e->getMessage());
         }
     }
-
-
-
 }

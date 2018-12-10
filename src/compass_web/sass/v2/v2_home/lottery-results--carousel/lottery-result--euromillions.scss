@@ -1,0 +1,36 @@
+.lottery-results--carousel--section{
+  .lottery-results--carousel {
+    .lottery-result {
+      &.lottery-result--euromillions {
+
+        .bottom-block,
+        .top-block {
+          background-color: #4698e5;
+        }
+
+        .center-block {
+          background-color: rgba(70, 152, 229, 0.75);
+
+          .result-row {
+            background-color: rgba(70, 152, 229, 0.5);
+
+            &:nth-child(even) {
+               background-color: transparent;
+             }
+
+            .row--results {
+              .ball {
+
+                &.star {
+                  background-color: #ffce05;
+                  border: 1px solid #ffce05;
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+}

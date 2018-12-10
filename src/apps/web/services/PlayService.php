@@ -154,7 +154,7 @@ class PlayService
                 $lottery = $this->lotteryService->getLotteryConfigByName('EuroMillions');
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
-                $result_order = $this->cartService->get($user_id, $lottery->getName());
+                $result_order = $this->cartService->get($user_id, $lottery->getName(),$isWallet);
                 $numPlayConfigs = 0;
                 if ($result_order->success()) {
                     /** @var Order $order */
@@ -730,7 +730,7 @@ class PlayService
     {
         if($order->getLottery()->getName() !== 'EuroMillions')
         {
-            return $this->betService->validationLottoRisq($play_config, $draw->getValues(), $order->getLottery()->getNextDrawDate(), null, $resultValidation->uuid);
+            return $this->betService->validationLottery($play_config, $draw->getValues(), $order->getLottery()->getNextDrawDate(), null, $resultValidation->uuid);
         }
         return new ActionResult(true);
     }

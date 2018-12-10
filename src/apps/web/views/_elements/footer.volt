@@ -68,6 +68,12 @@
                     <li>
                        <a href="/{{ language.translate('link_powerball_draw_history') }}">{{ language.translate('column2_sixth') }}</a>
                     </li>
+                    <li>
+                        <a href="/{{ language.translate('link_megam_results') }}">{{ language.translate('column2_seventh') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate('link_megam_draw_history') }}">{{ language.translate('column2_eighth') }}</a>
+                    </li>
                 </ul>
             </div>
             <div class="col col20per">

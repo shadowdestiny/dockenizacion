@@ -22,6 +22,7 @@ class PaymentController extends CartController
 
     public function paymentAction()
     {
+
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
         $funds_value = $this->request->getPost('funds');

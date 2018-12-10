@@ -98,13 +98,13 @@ class PlayConfigRepository extends RepositoryBase
         return $result;
     }
 
-    public function getPowerBallSubscriptionsActives()
+    public function getLotterySubscriptionsActives($lotteryId)
     {
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
-                . ' WHERE p.active = 1 AND p.lottery = 3 AND p.frequency > 1')
+                . ' WHERE p.active = 1 AND p.lottery = '.$lotteryId.' AND p.frequency > 1')
             ->getResult();
 
         return $result;

@@ -41,6 +41,16 @@
                 </a>
             </li>
             <li>
+                <a href="/{{ language.translate('link_megam_results') }}">
+                    {{ language.translate("results_megam_sub") }}
+                </a>
+             </li>
+             <li>
+                <a href="/{{ language.translate('link_megam_draw_history') }}">
+                     {{ language.translate("results_megamhistory") }}
+                </a>
+            </li>
+            <li>
                 <a href="/{{ language.translate('link_christmas_results') }}">
                     {{ language.translate("results_chris_sub") }}
                 </a>

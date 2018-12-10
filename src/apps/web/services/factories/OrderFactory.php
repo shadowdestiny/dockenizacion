@@ -9,6 +9,7 @@
 namespace EuroMillions\web\services\factories;
 
 
+use EuroMillions\megamillions\vo\OrderMegaMillions;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\User;
@@ -45,6 +46,12 @@ class OrderFactory
         elseif($lottery->getName() == 'Christmas')
         {
             $order = new OrderChristmas($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
+            $order->setAmountWallet($user->getWallet()->getBalance());
+            return $order;
+        }
+        elseif($lottery->getName() == 'MegaMillions')
+        {
+            $order = new OrderMegaMillions($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
             $order->setAmountWallet($user->getWallet()->getBalance());
             return $order;
         }
