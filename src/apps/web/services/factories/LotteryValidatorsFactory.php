@@ -21,9 +21,8 @@ class LotteryValidatorsFactory
         {
             return new LotteryValidationCastilloApi();
         }
-        if($lotteryName == 'PowerBall')
-        {
-            return new LottorisqApi();
-        }
+
+        return new LottorisqApi();
+
     }
 }

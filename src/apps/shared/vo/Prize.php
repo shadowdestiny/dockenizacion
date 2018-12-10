@@ -11,7 +11,7 @@ namespace EuroMillions\shared\vo;
 
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 
-class Prize
+abstract class Prize
 {
 
 
@@ -36,11 +36,6 @@ class Prize
         return $this->prize;
     }
 
-
-
-    protected function setPrize()
-    {
-
-    }
+    abstract protected function setPrize();
 
 }

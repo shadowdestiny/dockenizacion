@@ -13,12 +13,14 @@
 <!--start PROD imports
 <script src="/w/js/dist/main.min.js"></script>
 <script src="/w/js/dist/mobileInit.min.js"></script>
+<script src="/w/js/owl-carousel/owl.carousel.js"></script>
 {%  if ga_code is defined %}
 <script src="/w/js/vendor/ganalytics.min.js"></script>
 {% endif %}
 end PROD imports-->
 <!--start DEV imports-->
 <script src="/w/js/mobileInit.js"></script>
+<script src="/w/js/owl-carousel/owl.carousel.min.js"></script>
 <script src="/w/js/main.js"></script>
 <!--end DEV imports-->
 <script>

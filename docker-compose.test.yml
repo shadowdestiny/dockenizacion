@@ -28,7 +28,7 @@ services:
 #    networks:
 #      - backend
 #    environment:
-#      EM_ENV: vagrant
+#      EM_ENV: test
 
   php:
     build:
@@ -44,6 +44,6 @@ services:
       - redis
       - database
     environment:
-      EM_ENV: vagrant
+      EM_ENV: test
       AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
       AWS_SECRET_ACCESS_KEY: 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

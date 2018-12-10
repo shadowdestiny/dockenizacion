@@ -234,7 +234,6 @@ class Order implements \JsonSerializable
         } else {
             $this->total = new Money((int)(round($this->single_bet_price->getAmount() / (($this->discount->getValue() / 100) + 1)) * ($this->play_config[0]->getFrequency())) * $this->num_lines, new Currency('EUR'));
         }
-
         $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
     }
 

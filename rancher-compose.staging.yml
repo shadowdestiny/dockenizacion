@@ -7,7 +7,7 @@ services:
     lb_config:
       certs: []
       config: timeout server 5m
-      default_cert: beta.euromillions.com
+      default_cert: "*.euromillions.com"
       port_rules:
       - priority: 1
         protocol: https

@@ -14,19 +14,20 @@ class PlayController extends PublicSiteControllerBase
     {
         $current_currency = $this->userPreferencesService->getCurrency();
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
-        $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
+        $this->view->setVar('jackpot_value_em', ViewHelper::formatJackpotNoCents($jackpot));
+
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $this->view->setVar('milliards', false);
         $this->view->setVar('trillions', false);
         if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
             $numbers = round(($numbers / 1000), 1);
-            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
+            $this->view->setVar('jackpot_value_em', $letters . ' ' . $numbers);
             $this->view->setVar('milliards', true);
             $textMillions = 'billion';
         } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
             $numbers = round(($numbers / 1000000), 1);
-            $this->view->setVar('jackpot_value', $letters . ' ' . $numbers);
+            $this->view->setVar('jackpot_value_em', $letters . ' ' . $numbers);
             $this->view->setVar('trillions', true);
             $textMillions = 'trillion';
         } else{
@@ -77,5 +78,6 @@ class PlayController extends PublicSiteControllerBase
             'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
             'draw_day' => $this->languageService->translate($draw->format('l')),
         ]);
+
     }
 }

@@ -43,7 +43,6 @@ class PowerBallPaymentController extends CartController
             $this->response->redirect('/' . $this->lottery . '/cart/profile');
             return false;
         }
-
         $result = $powerball_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
         $msg = '';
 
@@ -57,8 +56,9 @@ class PowerBallPaymentController extends CartController
                 try {
                     $card = null;
                     $amount = new Money((int)$charge, new Currency('EUR'));
-                    $result = $powerball_service->play($user_id, $amount, $card, true, $isWallet);
-                    return $this->playResult($result);
+                    var_dump($result->getValues());die();
+                    $result = $powerball_service->play($user_id, $amount, $card, true, $isWallet,$result->getValues()[0]->getLottery()->getName());
+                    return $this->playResult($result,'powerball');
                 } catch (\Exception $e) {
                     $errors[] = $e->getMessage();
                 }
@@ -87,8 +87,9 @@ class PowerBallPaymentController extends CartController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
-                        $result = $powerball_service->play($user_id, $amount, $card, $payWallet, $isWallet);
-                        return $this->playResult($result);
+
+                        $result = $powerball_service->play($user_id, $amount, $card, $payWallet, $isWallet,$result->getValues()[0]->getLottery()->getName());
+                        return $this->playResult($result,'powerball');
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
@@ -107,13 +108,13 @@ class PowerBallPaymentController extends CartController
      * @param ActionResult $result
      * @return bool
      */
-    protected function playResult(ActionResult $result)
+    protected function playResult(ActionResult $result, $lotteryName='powerball')
     {
         if ($result->success()) {
-            $this->response->redirect('/' . $this->lottery . '/result/success/'.$this->lottery);
+            $this->response->redirect('/' . mb_strtolower($lotteryName) . '/result/success/'.mb_strtolower($lotteryName));
             return false;
         } else {
-            $this->response->redirect('/' . $this->lottery . '/result/failure');
+            $this->response->redirect('/' . mb_strtolower($lotteryName) . '/result/failure');
             return false;
         }
     }

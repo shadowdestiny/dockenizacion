@@ -18,6 +18,7 @@ class WalletDTO
     public $hasEnoughWinnings;
     public $subscriptionBalanceEuromillions;
     public $subscriptionBalancePowerBall;
+    public $subscriptionBalanceMegaMillions;
     private $limitWithdrawWinning;
 
 
@@ -29,6 +30,7 @@ class WalletDTO
         $this->current_winnings = $data['currentWinningConvert']->isZero() ? '' : $data['currentWinningConvert'];
         $this->subscriptionBalanceEuromillions =$data['amountSubscriptionBalanceEuroMillions'];
         $this->subscriptionBalancePowerBall= $data['amountSubscriptionBalancePowerBall'];
+        $this->subscriptionBalanceMegaMillions= $data['amountSubscriptionBalanceMegaMillions'];
         $this->limitWithdrawWinning = new Money((int) 2500, new Currency('EUR'));
         $this->checkLaterSubscriptionsWithoutRelations();
     }
@@ -150,14 +152,31 @@ class WalletDTO
         $this->subscriptionBalancePowerBall = $subscriptionBalancePowerBall;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSubscriptionBalanceMegaMillions()
+    {
+        return $this->subscriptionBalanceMegaMillions;
+    }
+
+    /**
+     * @param mixed $subscriptionBalanceMegaMillions
+     */
+    public function setSubscriptionBalanceMegaMillions($subscriptionBalanceMegaMillions)
+    {
+        $this->subscriptionBalanceMegaMillions = $subscriptionBalanceMegaMillions;
+    }
+
     private function checkLaterSubscriptionsWithoutRelations()
     {
         $euroMillionsSubscription = str_replace(['€','.'],"", $this->subscriptionBalanceEuromillions);
         $this->subscriptionBalanceEuromillions = ((int) $euroMillionsSubscription > 0) ?
             $this->subscriptionBalanceEuromillions : $this->wallet_subscription_amount;
         $powerBallSubscription = str_replace(['€','.'],"", $this->subscriptionBalancePowerBall);
+        $megaMillionsSubscription = str_replace(['€','.'],"", $this->subscriptionBalanceMegaMillions);
         $walletSubscriptionBalance = str_replace(['€','.',','],"", $this->wallet_subscription_amount);
-        $sumLotteries = $euroMillionsSubscription + $powerBallSubscription;
+        $sumLotteries = $euroMillionsSubscription + $powerBallSubscription + $megaMillionsSubscription;
         if($sumLotteries !== $walletSubscriptionBalance)
         {
             $substractBalances = $walletSubscriptionBalance - $sumLotteries;

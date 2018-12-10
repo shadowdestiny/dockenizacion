@@ -1,0 +1,11 @@
+version: '2'
+services:
+
+  web:
+    image: panamedialottery/euromillions-web:${BUILD_TAG_TARGET}
+
+  php:
+    image: panamedialottery/euromillions-php:${BUILD_TAG_TARGET}
+
+  phpcron:
+    image: panamedialottery/euromillions-php:cron_${BUILD_TAG_TARGET}

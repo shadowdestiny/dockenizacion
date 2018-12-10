@@ -34,6 +34,8 @@ class NotificationController extends MoneymatrixController
     public function notificationAction()
     {
 
+
+        error_log(print_r($this->request->getJsonRawBody(true), TRUE),0);
         $transactionID = $this->request->getQuery('transaction');
         $status = $this->request->getQuery('status');
         $statusCode = $this->request->getQuery('statusCode');

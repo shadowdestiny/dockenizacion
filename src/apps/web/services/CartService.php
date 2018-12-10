@@ -71,7 +71,7 @@ class CartService
         return new ActionResult(false);
     }
 
-    public function get($user_id, $lotteryName,$withWallet = true)
+    public function get($user_id, $lotteryName,$withWallet = false)
     {
         try {
             /** @var Lottery $lottery */

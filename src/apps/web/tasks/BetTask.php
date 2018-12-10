@@ -11,10 +11,12 @@ use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\services\UserService;
 use EuroMillions\shared\vo\results\ActionResult;
-
+use EuroMillions\shared\tasks\BetTask as bt;
 
 class BetTask extends TaskBase
 {
+    use bt;
+
     /** @var  LotteryService */
     private $lotteryService;
 
@@ -55,22 +57,8 @@ class BetTask extends TaskBase
 
     public function placePowerBallBetsAction($args = null)
     {
-        if (!$args) {
-            $date = new \DateTime();
-        } else {
-            $date = new \DateTime($args[0]);
-        }
-
-        $lotteries = $this->lotteryService->getLotteriesOrderedByNextDrawDate();
-        /** @var Lottery $lottery */
-        foreach ($lotteries as $lottery) {
-            if ($lottery->getName() == 'PowerBall') {
-
-                $this->lotteryService->placePowerBallBetForNextDraw($lottery, $date);
-            }
-        }
+        $this->placeLotteryBets('PowerBall', $args);
     }
-
 
     public function longTermNotificationAction(\DateTime $today = null)
     {

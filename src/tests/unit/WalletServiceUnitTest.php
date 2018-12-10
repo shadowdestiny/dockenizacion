@@ -125,6 +125,20 @@ class WalletServiceUnitTest extends UnitTestBase
         $this->assertNull($actual);
     }
 
+
+    /**
+     * method payOrder
+     * when called
+     * should returnUserWithItsNewBalanceAdded
+     */
+    public function test_payOrder_called_returnUserWithItsNewBalanceAdded()
+    {
+        $this->markTestSkipped('payOrder skipped');
+        $user = UserMother::aUserWith50Eur()->build();
+        $expected_wallet = Wallet::create(4750);
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
+    }
+
     /**
      * method payWithWallet
      * when called

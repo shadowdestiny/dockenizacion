@@ -150,8 +150,8 @@ class Lottery extends EntityBase implements IEntity
         $days_to_check = 7;
         while ($days_to_check) {
             if (1 == (int)$configParams[$weekday_index] && ($days_to_check < 7 || $hourCondition($hour))) {
-                if($this->getName() == 'PowerBall') {
-                    return DateTimeUtil::convertDateTimeBetweenTimeZones($result_date,'Europe/Madrid','America/New_York');
+                if($this->getName() == 'PowerBall' || $this->getName() == 'MegaMillions') {
+                    return DateTimeUtil::convertDateTimeBetweenTimeZones($result_date,'Europe/Madrid','America/New_York', $this->getName());
                 } else {
                     return $result_date;
                 }

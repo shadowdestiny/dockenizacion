@@ -30,10 +30,11 @@
                             <?php $lucky = explode(',', $play_config->lines['bets']['lucky']);?>
                             <div class="numbers--row">
                             {% if (play_config.powerPLay) %}PowerPlay{% endif %}
+                            {% if (play_config.powerPLay)  and (play_config.lotteryName == 'MegaMillions')%}MegaMillions{% endif %}
                             {% for regular_number in regular %}
                                 <span>{{ regular_number }}</span>
                             {% endfor %}
-                            {% if (play_config.lotteryName == 'PowerBall') %}
+                            {% if (play_config.lotteryName == 'PowerBall') or (play_config.lotteryName == 'MegaMillions')%}
                                 <span class="star">{{ lucky[1] }}</span>
                             {% else %}
                                 {% for lucky_number in lucky %}

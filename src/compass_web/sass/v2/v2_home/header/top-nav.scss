@@ -1,0 +1,20 @@
+.ul-top-nav>li.li-sign .btn-theme {
+  @media only screen and (min-width: $screen-ipad-h) {
+    color: #fff!important;
+  }
+}
+
+
+#li-currency--desktop .currency--symbol {
+  @media only screen and (min-width: $screen-ipad-h) {
+    color: #fff!important;
+  }
+}
+
+.social.social--top{
+  [class*=" icon-"]:before, [class^=icon-]:before {
+    @media only screen and (min-width: $screen-ipad-h) {
+      color: #fff!important;
+    }
+  }
+}

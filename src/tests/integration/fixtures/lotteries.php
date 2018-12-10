@@ -17,5 +17,22 @@ return [
             'jackpot_api' => 'LottorisApi',
             'draw_time' => '09:00:00'
         ],
+        [
+            'id'   => 4,
+            'name' => 'MegaMillions',
+            'active' => 1,
+            'frequency' => 'w0100100',
+            'jackpot_api' => 'LottorisApi',
+            'draw_time' => '20:00:00'
+        ],
+        [
+            'id'   => 2,
+            'name' => 'Christmas',
+            'active' => 1,
+            'frequency' => 'w0010010',
+            'jackpot_api' => 'LottorisApi',
+            'draw_time' => '09:00:00'
+        ],
+
   ]
 ];
