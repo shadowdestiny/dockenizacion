@@ -4,10 +4,7 @@
   with_items:
     - default_vars
     - development_vars
-- name: create template for environment
-  template: src=config_tpl.j2 dest={{ playbook_dir }}/../src/apps/shared/config/development_config.ini
-  ignore_errors: yes
 
 - name: create template for environment
-  template: src=config_tpl.j2 dest={{ playbook_dir }}/../src/apps/shared/config/staging_config.ini
+  template: src=config_tpl.j2 dest={{ playbook_dir }}/../src/apps/shared/config/development_config.ini
   ignore_errors: yes
