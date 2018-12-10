@@ -1640,7 +1640,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         $di = parent::dependencyInjector();
         $environment = $di->get('environmentDetector');
-        if ($environment->get() !== 'development' || $environment->get() !== 'vagrant') {
+        if ($environment->get() !== 'development' || $environment->get() !== 'test') {
             return [
                 "compiledPath" => $compiled_path,
                 "compiledExtension" => ".compiled",
