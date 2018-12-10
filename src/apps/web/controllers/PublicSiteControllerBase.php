@@ -3,6 +3,7 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\shared\components\widgets\JackpotAndCountDownWidget;
+use EuroMillions\shared\components\widgets\LotteryResultsListWidget;
 use EuroMillions\shared\helpers\PaginatedControllerTrait;
 use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\shared\services\SiteConfigService;
@@ -119,6 +120,7 @@ class PublicSiteControllerBase extends ControllerBase
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
+        $this->setResultWidget();
         $this->setJackpotWidget();
         $this->checkAuth();
         $this->setCurrencyByUrl();
@@ -178,6 +180,22 @@ class PublicSiteControllerBase extends ControllerBase
             }
         }
         $this->view->setVar('jackpot_widget', $widgetArr);
+    }
+
+    protected function setResultWidget()
+    {
+        $controllerWidgetForLotteries = $this->di->get('config')['result_widget'];
+        $widgetArr = null;
+        foreach($controllerWidgetForLotteries as $lottery => $controllers)
+        {
+            foreach(explode(',',$controllers) as $controller) {
+                if($this->dispatcher->getControllerName() ==  $controller)
+                {
+                    $widgetArr .= (new LotteryResultsListWidget($lottery))->render();
+                }
+            }
+        }
+        $this->view->setVar('result_widget', $widgetArr);
     }
 
     protected function setTopNavValues()
