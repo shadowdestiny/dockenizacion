@@ -25,6 +25,8 @@ pipeline {
                 BUILD_TAG_TARGET = "${env.EM_ENVIRONMENT}_${params.BUILD_TARGET}"
             }
             steps {
+                // send build started notifications
+                slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
 
                 script {
                     def build_target = params.BUILD_TARGET
@@ -40,6 +42,13 @@ pipeline {
     post {
         always {
             deleteDir() /* clean up our workspace */
+        }
+        success {
+            slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
+
+        failure {
+            slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
         }
     }
 }
