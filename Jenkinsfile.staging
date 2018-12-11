@@ -24,7 +24,10 @@ pipeline {
     stages {
         stage('pre-build') {
             steps {
-               sh('chmod +x devOps/ci/pre_build.sh; devOps/ci/pre_build.sh')
+                // send build started notifications
+                slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+
+                sh('chmod +x devOps/ci/pre_build.sh; devOps/ci/pre_build.sh')
             }
         }
         stage('test') {
@@ -130,6 +133,13 @@ pipeline {
     post {
         always {
             deleteDir()
+        }
+        success {
+            slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
+
+        failure {
+            slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
         }
     }
 }
