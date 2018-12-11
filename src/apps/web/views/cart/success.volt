@@ -155,6 +155,8 @@ function numCharLine($line){
                             {% endfor %}
                             {% if (lottery_name == 'PowerBall') %}
                             <li class="star_red"><?php echo sprintf("%02s", $lucky_arr[1]);?></li>
+                            {% elseif (lottery_name == 'MegaMillions') %}
+                            <li class="star_blue" style="color:white;"><?php echo sprintf("%02s", $lucky_arr[1]);?></li>
                             {% else %}
                                 {% for lucky_number in lucky_arr %}
                                     <li class="star"><?php echo sprintf("%02s", $lucky_number);?></li>
