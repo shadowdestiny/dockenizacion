@@ -312,7 +312,7 @@ class WalletService
     {
         try {
             if ($playConfig->getPowerPlay()) {
-                $powerPlayValue = new Money($order->getLottery()->getPowerPlayValue(), new Currency('EUR'));
+                $powerPlayValue = new Money($playConfig->getLottery()->getPowerPlayValue(), new Currency('EUR'));
                 $price = $playConfig->getSinglePrice()->add($powerPlayValue);
                 $user->removeSubscriptionWallet($price);
             } else {
