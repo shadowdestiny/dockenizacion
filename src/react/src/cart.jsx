@@ -551,6 +551,7 @@ ReactDOM.render(<CartPage total={total_price}
                           txt_buy_btn={txt_buy_btn} txt_checkout_fee={txt_checkout_fee} txt_edit={txt_edit}
                           txt_link_play={txt_link_play}
                           txt_link_powerball={txt_link_powerball}
+                          txt_link_megamillions={txt_link_megamillions}
                           txt_line={txt_line}
                           tuesday={tuesday}
                           friday={friday}
