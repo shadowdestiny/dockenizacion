@@ -69,11 +69,11 @@ wirecard_endpoint: 'https://api.euromillions.com/beta/wirecard-payment'
 wirecard_endpoint_withdraw: 'https://api.euromillions.com/beta/withdraw'
 wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
-moneymatrix_endpoint: 'https://rancher-beta.euromillions.com:49167'
+moneymatrix_endpoint: 'https://rancher-beta.euromillions.com:49167/deposit'
 
 
-lottorisq_endpoint: 'http://192.168.50.2/powerball'
-lottorisq_apikey: ''
+lottorisq_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball'
+lottorisq_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
 megamillions_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/megamillions'
 megamillions_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
@@ -93,15 +93,18 @@ controllers_euromillions: 'numbers,powerball-numbers'
 controllers_powerball: 'numbers,powerball-numbers'
 controllers_megamillions: 'megamillions-numbers'
 
+controllers_result_euromillions: 'index'
+controllers_result_powerball: 'index'
+controllers_result_megamillions: 'index'
 
 file_databasegeoip_path: '/var/www/data/geoipdatabase'
 
-geoip_normal : 'MoneyMatrixPaymentStrategy'
-geoip_blocked: 'WideCardPaymentStrategy'
+geoip_normal : 'WideCardPaymentStrategy'
+geoip_blocked: 'MoneyMatrixPaymentStrategy'
 geoip_geoip: 'GeoIPService'
 geoip_geoIpImpl: 'MaxMindWrapper'
 geoip_database_path: '/var/www/data/geoipdatabase'
-geoip_blocked_countries: 'ES'
+geoip_blocked_countries: 'FR'
 
 payment_balancing: 'GeoIPStrategy'
 payment_balancing_dependencies: 'geoip_strategy'
