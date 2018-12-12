@@ -8,6 +8,11 @@
         <span class="txt">{{ language.translate("playpowerball") }}</span>
     </a>
 </li>
+<li class="li-play-megamillions{% if activeNav.myClass == 'megamillions' %} active{% endif %}">
+    <a href="/{{ language.translate("link_megamillions_play") }}">
+        <span class="txt">{{ language.translate("playmegamillions") }}</span>
+    </a>
+</li>
 <li class="li-christmas{% if activeNav.myClass == 'christmas' %} active{% endif %}">
     <a href="/{{ language.translate("link_christmas_play") }}">
         <span class="txt">{{ language.translate("playchris_sub") }}</span>
@@ -26,18 +31,8 @@
                 </a>
             </li>
             <li>
-                <a href="/{{ language.translate('link_euromillions_draw_history') }}">
-                    {{ language.translate("results_emhistory") }}
-                </a>
-            </li>
-            <li>
                 <a href="/{{ language.translate('link_powerball_results') }}">
                     {{ language.translate("results_pow_sub") }}
-                </a>
-            </li>
-            <li>
-                <a href="/{{ language.translate('link_powerball_draw_history') }}">
-                    {{ language.translate("results_powhistory") }}
                 </a>
             </li>
             <li>
@@ -45,20 +40,10 @@
                     {{ language.translate("results_megam_sub") }}
                 </a>
              </li>
-             <li>
-                <a href="/{{ language.translate('link_megam_draw_history') }}">
-                     {{ language.translate("results_megamhistory") }}
-                </a>
-            </li>
             <li>
                 <a href="/{{ language.translate('link_christmas_results') }}">
                     {{ language.translate("results_chris_sub") }}
                 </a>
-            </li>
-            <li>
-                 <a href="/{{ language.translate('link_lotteries_results') }}">
-                    {{ language.translate("results_all") }}
-                 </a>
             </li>
         </ul>
     </div>
