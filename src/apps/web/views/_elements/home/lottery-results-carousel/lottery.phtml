@@ -6,7 +6,7 @@
     </div>
     <div class="center-block">
         <?php foreach($lotteryResults as $result) {?>
-            <div class="result-row" style="cursor: pointer;" onclick="window.location='<?= mb_strtolower($lotteryName) ?>/results/draw-history-page/<?= $result["draw_date"]->format('Y-m-d')?>'">
+            <div class="result-row" style="cursor: pointer;" onclick="window.location='<?= $link ?>/<?= $result["draw_date"]->format('Y-m-d')?>'">
                 <div class="row--date">
                    <?=
                         $day[$result["draw_date"]->format('l')].' '. $result["draw_date"]->format('d-m-Y');
@@ -36,6 +36,6 @@
         <?php } ?>
     </div>
     <div class="bottom-block">
-        <a href="/<?= mb_strtolower($lotteryName) ?>/results/draw-history" class="bottom-block-link"><?= $checkMoreResults ?></a>
+        <a href="/<?= $link ?>" class="bottom-block-link"><?= $checkMoreResults ?></a>
     </div>
 </div>

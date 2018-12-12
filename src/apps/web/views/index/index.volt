@@ -163,29 +163,6 @@
 
 
             {% include "_elements/home/lottery-results-carousel/_lottery-results-carousel.volt" %}
-
-
-
-            <div class="box-basic box-result">
-
-                    <div class="number-generator--block--img">
-                        <img src="https://images.euromillions.com/imgs/number-generator.jpg" alt="Latest News">
-                    </div>
-                    <h2 class="number-generator--block--title h2">
-                        {{ language.translate("cta1_head") }}
-                    </h2>
-                    <h3 class="number-generator--block--subtitle">
-                        {{ language.translate("cta1_subhead") }}
-                    </h3>
-                    <div class="number-generator--block--body">
-                        {{ language.translate("cta1_text") }}
-                    </div>
-
-                    <div class="number-generator--block--button--block">
-                        <a href="{{ language.translate("link_euromillions_play") }}"
-                           class="number-generator--block--button btn-theme--big"><span class="resizeme">{{ language.translate("cta1_btn") }}</span></a>
-                    </div>
-            </div>
         </div>
 
         <div class="wrapper">
