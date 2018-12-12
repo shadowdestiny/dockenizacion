@@ -146,14 +146,6 @@
 
         </div>
 
-
-
-
-        {#TODO: remove temp files please#}
-        {% include "_elements/_temp_megamillions-results.volt" %}
-        {% include "_elements/_temp_megamillions-history.volt" %}
-
-
     </main>
 
 {% endblock %}
