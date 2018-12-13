@@ -153,8 +153,10 @@ class PrizeCheckoutService
             $price = new Money((int)$current_amount, new Currency('EUR'));
 
             $winning = new Winning($price, $threshold_price, $lotteryId);
+            //TODO refactor to move
+            $userWalletBefore= $user->getWallet();
             $user->awardPrize($winning);
-            $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount);
+            $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount, $userWalletBefore);
             $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
 
             if($transactionBuilder->greaterThanOrEqualThreshold()){
@@ -187,8 +189,9 @@ class PrizeCheckoutService
             $lotteryId = $bet->getPlayConfig()->getLottery()->getId();
 
             $winning = new Winning($price, $threshold_price, $lotteryId);
+            $userWalletBefore= $user->getWallet();
             $user->awardPrize($winning);
-            $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount);
+            $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount,$userWalletBefore);
             $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
 
             if($transactionBuilder->greaterThanOrEqualThreshold()){

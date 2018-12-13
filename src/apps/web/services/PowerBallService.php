@@ -154,6 +154,7 @@ class PowerBallService
                 $powerPlay = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user_id,$lottery->getId())->key());
 
                 $powerPlay = (int)json_decode($powerPlay->returnValues())->play_config[0]->powerPlay;
+
                 $result_order = $this->cartService->get($user_id, $lottery->getName(),$isWallet);
 
                 if ($result_order->success()) {
