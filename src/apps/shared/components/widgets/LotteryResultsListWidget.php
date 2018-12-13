@@ -79,6 +79,6 @@ class LotteryResultsListWidget extends \Phalcon\Mvc\User\Component
 
     private function prepareLinks()
     {
-        return $this->translationAdapter->query('link_'.mb_strtolower($this->lotteryName).'_draw_history');
+        return $this->translationAdapter->query('link_'.($this->lotteryName=='MegaMillions'?'megam':mb_strtolower($this->lotteryName)).'_draw_history');
     }
 }
