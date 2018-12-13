@@ -23,8 +23,8 @@
                     {% for i in 1..my_subscription_inactive['lines'] %}
                         <div class="numbers--row">
                             {#{{ dump(my_subscription_active) }}#}
-                            {% if (my_subscription_inactive[i-1]['powerplay']) %}PowerPlay{% endif %}
-                            {% if (my_subscription_inactive[i-1]['powerplay']) and (my_subscription_inactive['name'] == 'MegaMillions')%}MegaMillions{% endif %}
+                            {% if (my_subscription_inactive[i-1]['powerplay']) and (my_subscription_inactive['name'] == 'PowerBall')%}PowerPlay{% endif %}
+                            {% if (my_subscription_inactive[i-1]['powerplay']) and (my_subscription_inactive['name'] == 'MegaMillions')%}MegaPlier{% endif %}
                             <span>{{ my_subscription_inactive[i-1]['line_regular_number_one'] }}</span>
                             <span>{{ my_subscription_inactive[i-1]['line_regular_number_two'] }}</span>
                             <span>{{ my_subscription_inactive[i-1]['line_regular_number_three'] }}</span>
