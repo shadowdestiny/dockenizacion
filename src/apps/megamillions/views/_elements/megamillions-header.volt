@@ -13,7 +13,7 @@
             About the megamillions lottery
         </div>
         <div class="bottom">
-            <a href="/{{ language.translate('link_megamillions_help') }}" class="a-hiw">
+            <a href="/{{ language.translate('link_megamillions_howto') }}" class="a-hiw">
                 {{ language.translate('play_howbtn') }}
             </a>
             <a href="/{{ language.translate('link_megamillions_results') }}" class="a-results">
@@ -35,8 +35,7 @@
             {% endif %}
         </div>
         <div class="bottom resizeme">
-            {#{{ language.translate('shortInstruction') }}#}
-            Pick 5 numbers and 1 stars per line
+            {{ language.translate('megam_instruction') }}
         </div>
     </div>
 </header>

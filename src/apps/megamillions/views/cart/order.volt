@@ -33,6 +33,7 @@
     var txt_edit = "{{ language.translate("edit_btn") }}";
     var txt_link_play = "{{ language.translate("link_euromillions_play") }}";
     var txt_link_powerball = "{{ language.translate("link_powerball_play") }}";
+    var txt_link_megamillions = "{{ language.translate("link_megamillions_play") }}";
     var txt_line = '{{ language.translate('line_x') }}';
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';
@@ -50,7 +51,6 @@
     var cashier = null;
     var tsid = '<?php echo $cashier->transactionID; ?>';
 
-    console.log(total_price);
     //Workaround for moneymatrix
 
     var disableiframeclick = false;

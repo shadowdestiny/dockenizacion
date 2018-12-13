@@ -56,8 +56,8 @@ final class MegamillionsNumbersController extends PublicSiteControllerBase
         //$breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $breakDownDTO = new MegaMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
-        $this->tag->prependTitle($this->languageService->translate('results_pow_name'));
-        MetaDescriptionTag::setDescription($this->languageService->translate('results_pow_desc'));
+        $this->tag->prependTitle($this->languageService->translate('results_meg_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('results_meg_desc'));
         $this->view->pick('numbers/index');
 
         return $this->view->setVars([
@@ -105,8 +105,8 @@ final class MegamillionsNumbersController extends PublicSiteControllerBase
             $this->view->setVar('trillions', false);
         }
         $this->view->setVar('language', $this->languageService->getLocale());
-        $this->tag->prependTitle($this->languageService->translate('resultshist_pow_name'));
-        MetaDescriptionTag::setDescription($this->languageService->translate('resultshist_pow_desc'));
+        $this->tag->prependTitle($this->languageService->translate('resultshist_meg_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('resultshist_meg_desc'));
 
         $this->view->pick('numbers/past');
 

@@ -78,8 +78,8 @@
             mobTicketRandomizeBtn : '{{ language.translate("Play_randomize") }}',
             mobTicketClearBtn     : '{{ language.translate('clear_btn') }}',
             mobTicketSubmitBtn    : '{{ language.translate("Play_donebtn") }}',
-            powerPlayCheck        : '{{ language.translate("mega_play_checkbox") }}',
-            powerPlayInfo         : '{{ language.translate("mega_play_info") }}',
+            powerPlayCheck        : '{{ language.translate("select_megaplier") }}',
+            powerPlayInfo         : '{{ language.translate("megaplier_info") }}',
             powerballLabel        : '{{ language.translate("megaball") }}',
         }
     };
@@ -145,14 +145,6 @@
             </div>
 
         </div>
-
-
-
-
-        {#TODO: remove temp files please#}
-        {% include "_elements/_temp_megamillions-results.volt" %}
-        {% include "_elements/_temp_megamillions-history.volt" %}
-
 
     </main>
 

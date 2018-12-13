@@ -165,11 +165,12 @@ class PowerBallService
                             return new ActionResult(false);
                         }
                     }
+
                     $discount = $order->getDiscount()->getValue();
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->setLottery($lottery);
                     $order->setPowerPlay($powerPlay);
-                    $order->addFunds($order->getTotal());
+                    //$order->addFunds($order->getTotal());
                     $order->setAmountWallet($user->getWallet()->getBalance());
                     $draw = $this->lotteryService->getNextDrawByLottery($lotteryName);
                     $uniqueId = $this->walletService->getUniqueTransactionId();

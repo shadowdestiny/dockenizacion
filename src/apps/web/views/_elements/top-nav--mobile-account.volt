@@ -34,6 +34,7 @@
                     </strong>
                     <a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate("playeuromillions") }}</a>
                     <a href="/{{ language.translate("link_powerball_play") }}">{{ language.translate("playpowerball") }}</a>
+                    <a href="/{{ language.translate("link_megamillions_play") }}">{{ language.translate("playmegamillions") }}</a>
                     <a href="/{{ language.translate('link_christmas_play') }}">{{ language.translate("playchris_sub") }}</a>
                     <a href="/{{ language.translate('link_lotteries_play') }}">{{ language.translate("play_all") }}</a>
                     <a href="/{{ language.translate('link_euromillions_help') }}">{{ language.translate("howto_em_sub") }}</a>
@@ -44,13 +45,9 @@
                     {{ language.translate("results_dropdown") }}<br />
                     </strong>
                     <a href="/{{ language.translate('link_euromillions_results') }}">{{ language.translate("results_em_sub") }}</a>
-                    <a href="/{{ language.translate('link_euromillions_draw_history') }}">{{ language.translate("results_emhistory") }}</a>
                     <a href="/{{ language.translate('link_powerball_results') }}">{{ language.translate("results_pow_sub") }}</a>
-                    <a href="/{{ language.translate('link_powerball_draw_history') }}">{{ language.translate("results_powhistory") }}</a>
                     <a href="/{{ language.translate('link_megam_results') }}">{{ language.translate("results_megam_sub") }}</a>
-                    <a href="/{{ language.translate('link_megam_draw_history') }}">{{ language.translate("results_megamhistory") }}</a>
                     <a href="/{{ language.translate('link_christmas_results') }}">{{ language.translate("results_chris_sub") }}</a>
-                    <a href="/{{ language.translate('link_lotteries_results') }}">{{ language.translate("results_all") }}</a>
                 </li>
                 <li>
                     <a href="/{{ language.translate('link_blogindex') }}">{{ language.translate("blogindex") }}</a>
