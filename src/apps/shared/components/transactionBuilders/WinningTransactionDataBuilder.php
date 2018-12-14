@@ -3,6 +3,7 @@
 namespace EuroMillions\shared\components\transactionBuilders;
 
 use EuroMillions\shared\interfaces\IBuildTransactionData;
+use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\shared\vo\Winning;
 use EuroMillions\web\entities\User;
@@ -44,7 +45,7 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
      * @param User $user
      * @param Money $amount
      */
-    public function __construct(Winning $winning, Bet $bet, User $user, Money $amount)
+    public function __construct(Winning $winning, Bet $bet, User $user, Money $amount, Wallet $userWalletBefore)
     {
         $this->winning = $winning;
         $this->bet = $bet;
@@ -56,7 +57,7 @@ class WinningTransactionDataBuilder implements IBuildTransactionData
             'bet_id' => $this->bet->getId(),
             'amount' => $this->amount->getAmount(),
             'user' => $this->user,
-            'walletBefore' => $this->user->getWallet(),
+            'walletBefore' => $userWalletBefore,
             'walletAfter' => $this->user->getWallet(),
             'state' => 'pending',
             'now' => new \DateTime()
