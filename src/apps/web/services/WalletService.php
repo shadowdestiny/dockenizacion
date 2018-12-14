@@ -527,8 +527,8 @@ class WalletService
             'walletBefore' => $walletBefore,
             'walletAfter' => $user->getWallet(),
             'now' => new \DateTime(),
-            'lotteryName' => $order->getLottery()->getName(),
-            'withWallet' => $order->isIsCheckedWalletBalance()
+            'lotteryName' =>  $order != null && $order->getLottery() != null ? $order->getLottery()->getName() : '',
+            'withWallet' => $order != null ? $order->isIsCheckedWalletBalance() : ''
         ];
         return $dataTransaction;
     }
