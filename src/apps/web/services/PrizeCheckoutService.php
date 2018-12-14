@@ -6,6 +6,7 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\megamillions\emailTemplates\WinEmailMegaMillionsAboveTemplate;
+use EuroMillions\megamillions\emailTemplates\WinEmailMegaMillionsTemplate;
 use EuroMillions\shared\components\transactionBuilders\WinningTransactionDataBuilder;
 use EuroMillions\shared\vo\LotteryPrize;
 use EuroMillions\shared\vo\Winning;
@@ -272,7 +273,7 @@ class PrizeCheckoutService
         $emailBaseTemplate = new EmailTemplate();
         if($bet->getPlayConfig()->getLottery()->getName()=='MegaMillions')
         {
-            $emailTemplate = new WinEmailMegaMillionsAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+            $emailTemplate = new WinEmailMegaMillionsTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
         }else{
             $emailTemplate = new WinEmailPowerBallTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
         }

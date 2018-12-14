@@ -118,7 +118,7 @@ class PowerBallService
                     foreach ($form_decode->play_config as $bet) {
                         $playConfig = new PlayConfig();
                         $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines);
-                        $playConfig->setLottery($this->getLottery($lottery));
+                        $playConfig->setLottery($lottery);
                         $playConfig->setDiscount(new Discount($bet->frequency, $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
                         $bets[] = $playConfig;
                     }
