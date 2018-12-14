@@ -115,7 +115,10 @@
     }
 
 {% endblock %}
-
+{% block header %}
+    {% set activeNav='{"myClass": "megamillions"}'|json_decode %}
+    {% include "../../shared/views/_elements/header.volt" %}
+{% endblock %}
 {% block body %}
 
     <main id="content">
