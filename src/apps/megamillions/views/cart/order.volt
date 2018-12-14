@@ -45,6 +45,7 @@
     var powerplayprice = <?php echo $power_play_price; ?>;
     var txt_lottery = '<?php echo $lottery_name; ?>';
     var playingPP = '{{ language.translate('checkout_powerplay') }}';
+    var playingMM = '{{ language.translate('checkout_megaplier') }}';
     var txt_for = '{{ language.translate('subs_for') }}';
     var txt_since = '{{ language.translate('subs_since') }}';
     var txt_weeks = '{{ language.translate('subs_weeks') }}';

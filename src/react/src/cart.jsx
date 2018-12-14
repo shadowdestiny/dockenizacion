@@ -252,6 +252,7 @@ var CartPage = new React.createClass({
                 powerball={this.props.powerball}
                 megamillions={this.props.megamillions}
                 playingPP={this.props.playingPP}
+                playingMM={this.props.playingMM}
 
             />);
         }
@@ -564,6 +565,7 @@ ReactDOM.render(<CartPage total={total_price}
                           megamillions={megamillions}
                           txt_lottery={txt_lottery}
                           playingPP={playingPP}
+                          playingMM={playingMM}
                           txt_for={txt_for}
                           txt_since={txt_since}
                           txt_weeks={txt_weeks}
