@@ -171,14 +171,14 @@
 
                             <h1 class="winners--h1">
                                 {% if mobile == 1 %}
-                                    {{ language.translate("results_meg_mobile_h1") }}
+                                    {{ language.translate("results_megam_mobile_h1") }}
                                 {% else %}
-                                    {{ language.translate("results_meg_h1") }}
+                                    {{ language.translate("results_megam_h1") }}
                                 {% endif %}
                             </h1>
 
                             <h2 class="h2">
-                                {{ language.translate("results_meg_h2") }}
+                                {{ language.translate("results_megam_h2") }}
                             </h2>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
                                    data-mode="reflow">
@@ -310,9 +310,9 @@
 
                                 <div class="previous-results--btn">
 
-                                    <a href="/{{ language.translate("link_megamillions_draw_history") }}" class="btn-theme--big">
+                                    <a href="/{{ language.translate("link_megam_draw_history") }}" class="btn-theme--big">
                                         <span class="resizeme">
-                                            {{ language.translate("meghistory_btn") }}
+                                            {{ language.translate("megamhistory_btn") }}
                                         </span>
                                     </a>
 
@@ -327,10 +327,10 @@
 
                 <div class="block--text--accordion">
                     <h2>
-                        {{ language.translate("resultsmeg_h2") }}
+                        {{ language.translate("resultsmegam_h2") }}
                     </h2>
                     <p>
-                        {{ language.translate("resultsmeg_text") }}
+                        {{ language.translate("resultsmegam_text") }}
                     </p>
                 </div>
 
