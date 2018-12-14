@@ -8,6 +8,7 @@ use EuroMillions\web\services\BetService;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\tasks\TaskBase;
 
 class PlayConfigTask extends TaskBase
 {
