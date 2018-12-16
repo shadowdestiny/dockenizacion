@@ -681,7 +681,7 @@ class LotteryService
      * @param $lotteryName
      * @return Lottery
      */
-    private function getLotteryByName($lotteryName)
+    public function getLotteryByName($lotteryName)
     {
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
