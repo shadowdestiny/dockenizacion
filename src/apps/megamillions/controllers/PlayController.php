@@ -13,6 +13,7 @@ use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\ViewHelper;
 use function GuzzleHttp\Psr7\str;
 use Money\Currency;
+use EuroMillions\web\components\tags\MetaDescriptionTag;
 
 final class PlayController extends \EuroMillions\shared\controllers\PlayController
 {
@@ -53,6 +54,9 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('MegaMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
         $this->betValue = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
+
+        $this->tag->prependTitle($this->languageService->translate('play_megam_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('play_megam_desc'));
 
         return $this->view->setVars([
             'play_dates' => $this->play_dates,
