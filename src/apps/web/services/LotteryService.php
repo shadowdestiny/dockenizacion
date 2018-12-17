@@ -516,7 +516,7 @@ class LotteryService
                             ];
                             $this->walletService->purchaseTransactionGrouped($playConfig->getUser(), TransactionType::AUTOMATIC_PURCHASE, $dataTransaction);
                             try {
-                                $this->sendPowerBallEmailPurchase($playConfig->getUser(), $playConfig);
+                                $this->sendLotteryEmailPurchase($playConfig->getUser(), $playConfig, $lottery->getName());
                             } catch (\Exception $e) {
                                 echo $e->getMessage();
                             }
@@ -748,12 +748,15 @@ class LotteryService
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
-    private function sendPowerBallEmailPurchase(User $user, PlayConfig $playConfig)
+    private function sendLotteryEmailPurchase(User $user, PlayConfig $playConfig, $lotteryName)
     {
+        $path=($lotteryName=='MegaMillions'?'megamillions':'web');
+        $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseConfirmationEmailTemplate";
         $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new PowerBallPurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
+        $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
         if ($playConfig->getFrequency() >= 4) {
-            $emailTemplate = new PowerballPurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
+            $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseSubscriptionConfirmationEmailTemplate";
+            $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
             $emailTemplate->setDraws($playConfig->getFrequency());
             $emailTemplate->setStartingDate($playConfig->getStartDrawDate()->format('d-m-Y'));
         }
