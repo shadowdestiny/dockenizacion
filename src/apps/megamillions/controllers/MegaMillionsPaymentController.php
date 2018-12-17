@@ -114,7 +114,7 @@ class MegaMillionsPaymentController extends PowerBallPaymentController
             $this->response->redirect('/' . mb_strtolower($lotteryName) . '/result/success/'.mb_strtolower($lotteryName));
             return false;
         } else {
-            $this->response->redirect('/' . mb_strtolower($lotteryName) . '/result/failure');
+            $this->response->redirect('/euromillions/result/failure');
             return false;
         }
     }
