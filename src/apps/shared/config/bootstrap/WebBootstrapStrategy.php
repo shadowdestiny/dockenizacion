@@ -558,7 +558,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        $router->add("/{lottery:(euromillions|powerball)+}/cart/login", array(
+        $router->add("/{lottery:(euromillions|powerball|megamillions)+}/cart/login", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'cart',
@@ -1482,7 +1482,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
         $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{play:(jugar|gioca|speel|играть)+}", array(
-            "module" => "web",
+            "module" => "megamillions",
             'controller' => 'play',
             'action' => 'index',
         ));

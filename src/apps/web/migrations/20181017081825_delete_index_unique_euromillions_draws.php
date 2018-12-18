@@ -27,6 +27,6 @@ class DeleteIndexUniqueEuromillionsDraws extends AbstractMigration
      */
     public function change()
     {
-        $this->execute('ALTER TABLE `euromillions`.`euromillions_draws` DROP INDEX `UNIQ_79652A5B38C98BF` ;');
+        //$this->execute('ALTER TABLE `euromillions`.`euromillions_draws` DROP INDEX `UNIQ_79652A5B38C98BF` ;');
     }
 }

@@ -51,4 +51,27 @@ class MegaMillionsPurchaseConfirmationEmailTemplate extends PowerBallPurchaseCon
 
         return $vars;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLine()
+    {
+        $lines = [];
+        /** @var PlayConfig $line */
+        foreach($this->line as $line) {
+            $play = [];
+            foreach($line->getLine()->getRegularNumbersArray() as $balls) {
+                $play['regular_numbers'][]['number'] = $balls;
+            }
+            $lucky = $line->getLine()->getLuckyNumbersArray();
+            $play['lucky_numbers'][]['number'] = $lucky[1];
+//            foreach($line->getLine()->getLuckyNumbersArray() as $stars) {
+//                $play['lucky_numbers'][]['number'] = $stars;
+//            }
+            $play['power_play'] = $line->getPowerPlay() ? 'MegaPlier' : null;
+            array_push($lines,$play);
+        }
+        return $lines;
+    }
 }

@@ -6,6 +6,7 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\megamillions\emailTemplates\WinEmailMegaMillionsAboveTemplate;
+use EuroMillions\megamillions\emailTemplates\WinEmailMegaMillionsTemplate;
 use EuroMillions\shared\components\transactionBuilders\WinningTransactionDataBuilder;
 use EuroMillions\shared\vo\LotteryPrize;
 use EuroMillions\shared\vo\Winning;
@@ -107,7 +108,7 @@ class PrizeCheckoutService
 
             $resultAwarded = $this->betRepository->getMatchesPlayConfigAndUserFromLotteryByDrawDate($date, $lottery->getId());
             /** @var EuroMillionsDraw $draw */
-            $draw = $this->lotteryDrawRepository->findOneBy(['draw_date' => new \DateTime($date)]);
+            $draw = $this->lotteryDrawRepository->findOneBy(['draw_date' => new \DateTime($date), 'lottery' => $lottery->getId()]);
             if(count($resultAwarded) > 0) {
                 foreach($resultAwarded as $k => $result)
                 {
@@ -153,8 +154,10 @@ class PrizeCheckoutService
             $price = new Money((int)$current_amount, new Currency('EUR'));
 
             $winning = new Winning($price, $threshold_price, $lotteryId);
+            //TODO refactor to move
+            $userWalletBefore= $user->getWallet();
             $user->awardPrize($winning);
-            $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount);
+            $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount, $userWalletBefore);
             $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
 
             if($transactionBuilder->greaterThanOrEqualThreshold()){
@@ -187,8 +190,9 @@ class PrizeCheckoutService
             $lotteryId = $bet->getPlayConfig()->getLottery()->getId();
 
             $winning = new Winning($price, $threshold_price, $lotteryId);
+            $userWalletBefore= $user->getWallet();
             $user->awardPrize($winning);
-            $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount);
+            $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount,$userWalletBefore);
             $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
 
             if($transactionBuilder->greaterThanOrEqualThreshold()){
@@ -269,7 +273,7 @@ class PrizeCheckoutService
         $emailBaseTemplate = new EmailTemplate();
         if($bet->getPlayConfig()->getLottery()->getName()=='MegaMillions')
         {
-            $emailTemplate = new WinEmailMegaMillionsAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+            $emailTemplate = new WinEmailMegaMillionsTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
         }else{
             $emailTemplate = new WinEmailPowerBallTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
         }

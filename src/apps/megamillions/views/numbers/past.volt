@@ -70,14 +70,14 @@
                         {#</div>#}
                         <h1 class="h1 title">
                             {% if mobile == 1 %}
-                                {{ language.translate("resultshist_pow_mobile_h1") }}
+                                {{ language.translate("resultshist_meg_mobile_h1") }}
                             {% else %}
                                 {{ language.translate("resultshist_meg_h1") }}
                             {% endif %}
                         </h1>
                         <div class="history-numbers-block">
                             <div class="pad">
-                                <h2 class="h2 purple">{{ language.translate("resultshist_pow_h2") }}</h2>
+                                <h2 class="h2 purple">{{ language.translate("resultshist_meg_h2") }}</h2>
                             </div>
                             <table id="history-numbers" class="ui-responsive table2" data-role="table"
                                    data-mode="reflow" style="margin-top:-20px">
@@ -87,7 +87,7 @@
                                         <th class="td-powerball" style="width:40%">
                                         </th>
                                         <th class="td-powerball" style="width:40%">
-                                                {{ language.translate("resultshist_powerballnumber") }}
+                                                {{ language.translate("resultshist_megaballnumber") }}
                                         </th>
                                         <th class="td-powerplay">
                                             <span class="ico-ball"></span>
@@ -100,7 +100,7 @@
                                     <tr>
                                         <th class="td-date"><span class="ico-date"></span>{{ language.translate("pastNumbers_date") }}</th>
                                         <th class="td-ball-numbers--lottery megamillions--lottery-balls"><span
-                                                    class="ico-ball"></span>{{ language.translate("resultshist_pow_numbers") }}</th>
+                                                    class="ico-ball"></span>{{ language.translate("resultshist_meg_numbers") }}</th>
                                         <th class="td-powerball megamillions--megaball">
                                             <span class="ico-ball"></span>
                                                 {{ language.translate("resultshist_megaballnumber") }}
@@ -115,7 +115,7 @@
                                 <tbody>
                                 {% for draw in list_draws %}
                                     <tr class="more" style="cursor: pointer"
-                                        onclick="document.location='/megamillions/results/draw-history/{{ draw.drawDateParam }}'">
+                                        onclick="document.location='/{{ language.translate('link_megam_draw_history') }}/{{ draw.drawDateParam }}'">
                                         <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
                                         <td class="td-ball-numbers">{{ draw.resultNumbers }}</td>
                                         <td class="td-powerball">{{ draw.luckyNumber }}</td>

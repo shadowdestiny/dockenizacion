@@ -47,7 +47,7 @@ class OrderMegaMillions extends Order
         }
         if($this->powerPlay)
         {
-            $powerPlayValue = $this->lottery->getPowerPlayValue()->multiply(count($this->play_config));
+            $powerPlayValue = (new Money($this->lottery->getPowerPlayValue(), new Currency('EUR')))->multiply(count($this->play_config));
             if($this->getHasSubscription())
             {
                 $powerPlayValue = $powerPlayValue->multiply($this->play_config[0]->getFrequency());

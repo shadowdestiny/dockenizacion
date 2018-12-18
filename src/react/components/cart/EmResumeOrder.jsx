@@ -30,11 +30,14 @@ var EmResumeOrder = new React.createClass({
             day = this.props.saturday;
         }
 
-        if(this.props.txt_lottery === 'Powerball') {
+        if(this.props.txt_lottery === 'Megamillions') {
+            txt_link_play = "/" + this.props.txt_link_megamillions;
+        } else if(this.props.txt_lottery === 'Powerball') {
             txt_link_play = "/" + this.props.txt_link_powerball;
         } else {
             txt_link_play = "/" + this.props.txt_link_play;
         }
+
         if(config.frequency == 1) {
             text_weeks = day + ', ' + config.startDrawDateFormat;
         } else if(this.props.txt_lottery === 'Euromillions') {

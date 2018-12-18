@@ -5,7 +5,7 @@
     <style>.laurel {
         display: none;
     }</style><![endif]-->
-    <link Rel="Canonical" href="{{ language.translate('canonical_powerball_results') }}"/>
+    <link Rel="Canonical" href="{{ language.translate('canonical_megamillions_results') }}"/>
 {% endblock %}
 {% block bodyClass %}
     numbers
@@ -171,14 +171,14 @@
 
                             <h1 class="winners--h1">
                                 {% if mobile == 1 %}
-                                    {{ language.translate("results_pow_mobile_h1") }}
+                                    {{ language.translate("results_megam_mobile_h1") }}
                                 {% else %}
-                                    {{ language.translate("results_pow_h1") }}
+                                    {{ language.translate("results_megam_h1") }}
                                 {% endif %}
                             </h1>
 
                             <h2 class="h2">
-                                {{ language.translate("results_pow_h2") }}
+                                {{ language.translate("results_megam_h2") }}
                             </h2>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
                                    data-mode="reflow">
@@ -191,8 +191,8 @@
                                     <td class="td-ball td-head">{{ language.translate("prizePool_matches") }}</td>
                                     <td class="td-winners td-head">{{ language.translate("prizePool_winners") }}</td>
                                     <td class="td-prize td-head">{{ language.translate("prizePool_prize") }}</td>
-                                    <td class="td-winners--powerplay td-head">Megaplier winners</td>
-                                    <td class="td-prize--powerplay td-head">Megaplier prizes</td>
+                                    <td class="td-winners--powerplay td-head">{{ language.translate("megaplier_winners") }}</td>
+                                    <td class="td-prize--powerplay td-head">{{ language.translate("megaplier_prizes") }}</td>
 
                                 </tr>
                                 {% for i,line in break_downs %}
@@ -250,8 +250,8 @@
                                 <tbody>
                                 <tr>
                                     <td class="td-ball td-head">{{ language.translate("prizePool_matches") }}</td>
-                                    <td class="td-winners--powerplay td-head">{{ language.translate("powerplay_winners") }}</td>
-                                    <td class="td-prize--powerplay td-head">{{ language.translate("powerplay_prizes") }}</td>
+                                    <td class="td-winners--powerplay td-head">{{ language.translate("megaplier_winners") }}</td>
+                                    <td class="td-prize--powerplay td-head">{{ language.translate("megaplier_prizes") }}</td>
 
                                 </tr>
                                 {% for i,line in break_downs %}
@@ -298,7 +298,7 @@
                                     <label for="see">
                                         <input id="powerPlayCheck" type="checkbox" onClick="showPowerPlay();"/>
 
-                                        {{ language.translate("powerplay_show") }}
+                                        {{ language.translate("megaplier_show") }}
 
                                     </label>
                                 </form>
@@ -310,9 +310,9 @@
 
                                 <div class="previous-results--btn">
 
-                                    <a href="/megamillions/results/draw-history" class="btn-theme--big">
+                                    <a href="/{{ language.translate("link_megam_draw_history") }}" class="btn-theme--big">
                                         <span class="resizeme">
-                                            {{ language.translate("powhistory_btn") }}
+                                            {{ language.translate("megamhistory_btn") }}
                                         </span>
                                     </a>
 
@@ -327,10 +327,10 @@
 
                 <div class="block--text--accordion">
                     <h2>
-                        {{ language.translate("resultspow_h2") }}
+                        {{ language.translate("resultsmegam_h2") }}
                     </h2>
                     <p>
-                        {{ language.translate("resultspow_text") }}
+                        {{ language.translate("resultsmegam_text") }}
                     </p>
                 </div>
 
