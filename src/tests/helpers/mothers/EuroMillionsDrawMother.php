@@ -35,5 +35,7 @@ class EuroMillionsDrawMother
         $line = EuroMillionsLineMother::anEuroMillionsLine();
         return EuroMillionsDrawBuilder::aDraw()->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
+
+
 }
 

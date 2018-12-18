@@ -4,6 +4,7 @@ namespace EuroMillions\tests\helpers\builders;
 use EuroMillions\tests\helpers\mothers\LotteryMother;
 use EuroMillions\tests\helpers\mothers\RaffleMother;
 use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Raffle;
@@ -38,6 +39,12 @@ class EuroMillionsDrawBuilder
     public function withJackpot(Money $jackpot)
     {
         $this->jackpot = $jackpot;
+        return $this;
+    }
+
+    public function withLottery(Lottery $lottery)
+    {
+        $this->lottery= $lottery;
         return $this;
     }
 
