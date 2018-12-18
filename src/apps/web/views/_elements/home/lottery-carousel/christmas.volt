@@ -5,7 +5,7 @@
         </div>
         <div class="lottery--value">
             {#<span class="resizeme" style="">{{ jackpot_christmas }}{% if milliards_christmas %}B {% elseif trillions_christmas %}T {% else %}M {% endif %} </span>#}
-            <span class="resizeme" style="">€149M</span>
+            <span class="resizeme" style="">€2.3B</span>
         </div>
     </div>
     <div class="bottom-block">

@@ -22,11 +22,11 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
     {
         parent::indexAction();
         $current_currency = $this->userPreferencesService->getCurrency();
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('MegaMillions'));
-        $this->view->setVar('jackpot_value_mega', ViewHelper::formatJackpotNoCents($jackpot));
-        $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
-        $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
-        $jackpotSymbol = ViewHelper::setSemanticJackpotValue($numbers,$letters,$jackpot,$this->languageService->getLocale());
+        $this->jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('MegaMillions'));
+        $this->view->setVar('jackpot_value_mega', ViewHelper::formatJackpotNoCents($this->jackpot));
+        $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($this->jackpot));
+        $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($this->jackpot));
+        $jackpotSymbol = ViewHelper::setSemanticJackpotValue($numbers,$letters,$this->jackpot,$this->languageService->getLocale());
         $this->view->setVar('jackpot_value_mega', $jackpotSymbol['jackpot_value']);
         $this->view->setVar('milliards', $jackpotSymbol['milliards']);
         $this->view->setVar('trillions', $jackpotSymbol['trillions']);
