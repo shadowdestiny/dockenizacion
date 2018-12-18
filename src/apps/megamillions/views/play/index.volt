@@ -131,11 +131,7 @@
 
                 <h1 class="play--h1">
                     {% if mobile == 1 %}
-                        {#{{ language.translate("megamillions_mobile_h1") }}#}
-                        Online
-                    {% else %}
-                        {#{{ language.translate("megamillions_h1") }}#}
-                        Online
+                        {{ language.translate("play_megam_mobile_h1") }}
                     {% endif %}
                 </h1>
 
