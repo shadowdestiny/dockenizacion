@@ -8,7 +8,7 @@ paths:
 settings:
     bootstrap: _bootstrap.php
     colors: true
-    memory_limit: 2048M
+    memory_limit: 1024M
     error_level: "E_ALL"
 extensions:
     enabled:
@@ -20,8 +20,6 @@ modules:
             user: 'root'
             password: 'tpl9'
             dump: tests/_data/dump.sql
-            populate: true # load dump before all tests
-            cleanup: true # load dump for each test
 coverage:
   enabled: true
   whitelist:
