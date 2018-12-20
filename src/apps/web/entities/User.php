@@ -12,6 +12,7 @@ use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\RememberToken;
 use EuroMillions\web\vo\ValidationToken;
+use EuroMillions\web\vo\BirthDate;
 use Money\Currency as MoneyCurrency;
 use Money\Money;
 use Money\UnknownCurrencyException;
@@ -40,6 +41,8 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $zip;
     protected $city;
     protected $phone_number;
+    /**@var BirthDate */
+    protected $birth_date;
     protected $jackpotReminder;
     protected $threshold;
     protected $userNotification;
@@ -243,6 +246,16 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function setPhoneNumber($phone_number)
     {
         $this->phone_number = $phone_number;
+    }
+
+    public function getBirthDate()
+    {
+        return $this->birth_date;
+    }
+
+    public function setBirthDate(BirthDate $birth_date)
+    {
+        $this->birth_date = $birth_date;
     }
 
     /**

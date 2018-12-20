@@ -14,7 +14,7 @@ use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use Money\Currency;
 
-abstract class PlayController extends PublicSiteControllerBase
+class PlayController extends PublicSiteControllerBase
 {
 
     protected $play_dates;

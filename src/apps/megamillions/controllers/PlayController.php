@@ -11,6 +11,7 @@ namespace EuroMillions\megamillions\controllers;
 
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\ViewHelper;
+use function GuzzleHttp\Psr7\str;
 use Money\Currency;
 
 final class PlayController extends \EuroMillions\shared\controllers\PlayController
@@ -41,10 +42,11 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         }
 
         $this->play_dates = $this->lotteryService->getRecurrentDrawDates('MegaMillions');
-        $this->draw = $this->lotteryService->getNextDateDrawByLottery('MegaMillions');
+        $this->draw = $this->lotteryService->getNextDateDrawByLottery('MegaMillions',null,false);
+        $dateTimeToClose =  $this->lotteryService->getNextDateDrawByLottery('MegaMillions',null,true);
         $date_time_util = new DateTimeUtil();
         $this->dayOfWeek = $date_time_util->getDayOfWeek($this->draw);
-        $this->checkOpenTicket = $date_time_util->checkTimeForClosePlay($this->draw);
+        $this->checkOpenTicket = $date_time_util->checkTimeForClosePlay($dateTimeToClose);
         $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('MegaMillions');
         $this->automaticRandom = $this->request->get('random');
         $this->bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO('MegaMillions');
@@ -65,7 +67,7 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
             'discount_lines' => json_encode($this->bundlePriceDTO),
             'draws_number' => $this->bundlePriceDTO->bundlePlayDTOActive->getDraws(),
             'discount' => $this->bundlePriceDTO->bundlePlayDTOActive->getDiscount(),
-            'pageController' => 'euroPlay',
+            'pageController' => 'megaPlay',
             'next_draw_date_format' => $this->draw->format($this->languageService->translate('dateformat')),
             'draw_day' => $this->languageService->translate($this->draw->format('l')),
             'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay()

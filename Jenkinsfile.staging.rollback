@@ -1,0 +1,54 @@
+pipeline {
+    environment {
+        EM_ENVIRONMENT = "staging"
+
+        RANCHER_STACK_NAME = "euromillions-staging"
+
+        RANCHER_ENV_URL_DCORTO = "http://34.247.7.73:8080/v2-beta/projects/1a2494"
+        RANCHER_ENV_KEY_DCORTO = credentials('RANCHER_ENV_KEY_DCORTO')
+        RANCHER_ENV_SECRET_DCORTO = credentials('RANCHER_ENV_SECRET_DCORTO')
+        RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL_DCORTO --access-key $RANCHER_ENV_KEY_DCORTO --secret-key $RANCHER_ENV_SECRET_DCORTO -p euromillions-staging -f docker-compose.prod.yml -f docker-compose.staging.yml -f docker-compose.rollback.yml -r rancher-compose.staging.yml -e .env.staging"
+    }
+    agent {
+        label 'aws-slave'
+    }
+    options {
+        skipStagesAfterUnstable()
+        timeout( time: 1, unit: 'HOURS' )
+    }
+    parameters {
+            string(name: 'BUILD_TARGET', defaultValue: '', description: 'Enter the BUILD number to rollback')
+        }
+    stages {
+        stage('rollback') {
+            environment {
+                BUILD_TAG_TARGET = "${env.EM_ENVIRONMENT}_${params.BUILD_TARGET}"
+            }
+            steps {
+                // send build started notifications
+                slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+
+                script {
+                    def build_target = params.BUILD_TARGET
+                    assert build_target.isNumber()
+                }
+
+                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
+
+                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
+            }
+        }
+    }
+    post {
+        always {
+            deleteDir() /* clean up our workspace */
+        }
+        success {
+            slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
+
+        failure {
+            slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
+    }
+}

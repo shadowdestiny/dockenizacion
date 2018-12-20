@@ -33,23 +33,25 @@
     var txt_edit = "{{ language.translate("edit_btn") }}";
     var txt_link_play = "{{ language.translate("link_euromillions_play") }}";
     var txt_link_powerball = "{{ language.translate("link_powerball_play") }}";
+    var txt_link_megamillions = "{{ language.translate("link_megamillions_play") }}";
     var txt_line = '{{ language.translate('line_x') }}';
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';
     var wednesday = '{{ language.translate('wednesday') }}';
     var saturday = '{{ language.translate('saturday') }}';
-    var powerball = true;
+    var powerball = false;
+    var megamillions = true;
     var powerplay = <?php echo $power_play; ?>;
     var powerplayprice = <?php echo $power_play_price; ?>;
     var txt_lottery = '<?php echo $lottery_name; ?>';
     var playingPP = '{{ language.translate('checkout_powerplay') }}';
+    var playingMM = '{{ language.translate('checkout_megaplier') }}';
     var txt_for = '{{ language.translate('subs_for') }}';
     var txt_since = '{{ language.translate('subs_since') }}';
     var txt_weeks = '{{ language.translate('subs_weeks') }}';
     var cashier = null;
     var tsid = '<?php echo $cashier->transactionID; ?>';
 
-    console.log(total_price);
     //Workaround for moneymatrix
 
     var disableiframeclick = false;
@@ -221,7 +223,7 @@
                         <div class="section--content">
                             <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}"
                                   method="post"
-                                  action="/powerball/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
+                                  action="/megamillions/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
                                 {% set component='{"where": "cart"}'|json_decode %}
                                 {% include "../../shared/views/account/_add-card.volt" %}
                                 <input type="hidden" id="csid" name="csid"/>
