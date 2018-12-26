@@ -60,9 +60,7 @@ class LotteryDrawRepository extends EntityRepository
         }
 
         $next_draw_date = $lottery->getNextDrawDate($date);
-        if($lottery->getName() == 'PowerBall' or $lottery->getName() == 'MegaMillions') {
-            $next_draw_date = DateTimeUtil::convertDateTimeBetweenTimeZones($next_draw_date,'America/New_York','Europe/Madrid', $lottery->getName())->modify('-1 day');
-        }
+
         /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
             ->createQuery(
