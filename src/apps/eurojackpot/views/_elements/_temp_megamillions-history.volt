@@ -1,4 +1,4 @@
-<div class="result-page--content--previous-result megamillions-previous-results">
+<div class="result-page--content--previous-result eurojackpot-previous-results">
     {#<div class="banner"></div>#}
     <div class="wrapper">
         <br>

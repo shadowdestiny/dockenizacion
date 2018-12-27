@@ -120,9 +120,9 @@
 
     <main id="content">
 
-        <div class="megamillions--page">
+        <div class="eurojackpot--page">
 
-            <div class="top-banner--megamillions"></div>
+            <div class="top-banner--eurojackpot"></div>
 
             <div class="wrapper">
 
