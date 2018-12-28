@@ -72,7 +72,7 @@
                             {% if mobile == 1 %}
                                 {{ language.translate("resultshist_pow_mobile_h1") }}
                             {% else %}
-                                {{ language.translate("resultshist_meg_h1") }}
+                                {{ language.translate("EURO JACKPOT HISTORY: ALL PAST RESULTS") }}
                             {% endif %}
                         </h1>
                         <div class="history-numbers-block">
@@ -87,11 +87,7 @@
                                         <th class="td-powerball" style="width:40%">
                                         </th>
                                         <th class="td-powerball" style="width:40%">
-                                                {{ language.translate("resultshist_powerballnumber") }}
-                                        </th>
-                                        <th class="td-powerplay">
-                                            <span class="ico-ball"></span>
-                                            Megaplier
+                                                {{ language.translate("Lucky Numbers") }}
                                         </th>
                                     </tr>
                                     </thead>
@@ -103,11 +99,7 @@
                                                     class="ico-ball"></span>{{ language.translate("resultshist_pow_numbers") }}</th>
                                         <th class="td-powerball megamillions--megaball">
                                             <span class="ico-ball"></span>
-                                                {{ language.translate("resultshist_megaballnumber") }}
-                                        </th>
-                                        <th class="td-powerplay megamillions--megaplier">
-                                            <span class="ico-ball"></span>
-                                            Megaplier
+                                                {{ language.translate("Lucky Numbers") }}
                                         </th>
                                     </tr>
                                     </thead>
@@ -119,7 +111,6 @@
                                         <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
                                         <td class="td-ball-numbers">{{ draw.resultNumbers }}</td>
                                         <td class="td-powerball">{{ draw.luckyNumber }}</td>
-                                        <td class="td-powerplay">{{ draw.megaplierNumber }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

@@ -963,6 +963,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'en',
         ));
 
+        $router->add("/{lottery:(eurojackpot)+}/results/draw-history-page", array(
+            "module" => "eurojackpot",
+            'lottery' => 1,
+            'controller' => 'euro-jackpot-numbers',
+            'action' => 'pastList',
+            'language' => 'en',
+        ));
+
         $router->add("/евромиллионы/результаты/история-розыгрышей", array(
             "module" => "web",
             'lottery' => 1,
