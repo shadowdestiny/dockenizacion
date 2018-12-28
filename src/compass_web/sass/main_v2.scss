@@ -100,4 +100,12 @@
 @import "v2/v2_home/lottery-results--carousel/lottery-result--euromillions";
 @import "v2/v2_home/lottery-results--carousel/lottery-result--megamillions";
 @import "v2/v2_home/lottery-results--carousel/lottery-result--powerball";
-@import "v2/v2_home/lottery-results--carousel/lottery-result--eurojackpot";
+
+// Eurojackpot Start
+@import "v2/_eurojackpot/eurojackpot";
+@import "v2/_eurojackpot/play-bottom-block";
+@import "v2/_eurojackpot/top-banner";
+@import "v2/_eurojackpot/play-header";
+@import "v2/_eurojackpot/play-page-mobile";
+@import "v2/_eurojackpot/results";
+// Eurojackpot End
