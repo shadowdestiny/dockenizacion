@@ -64,6 +64,8 @@ class LotteryResultsListWidget extends \Phalcon\Mvc\User\Component
                 return 'lottery-result--powerball';
             case 'Christmas'   :
                 return 'lottery-result--christmas';
+            case 'EuroJackpot'   :
+                return 'lottery-result--christmas';
         }
     }
 
