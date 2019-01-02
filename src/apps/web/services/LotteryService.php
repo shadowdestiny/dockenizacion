@@ -431,6 +431,11 @@ class LotteryService
 
     }
 
+    public function getLastDrawDataWithBreakDownByDate($lotteryName, \DateTime $today)
+    {
+        return $this->getBreakDown($lotteryName, $today, 'getLastBreakDownDataLottery');
+    }
+
     public function placeBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
     {
         $playConfigs = $this->playConfigRepository->getEuromillionsSubscriptionsActives();
@@ -672,14 +677,11 @@ class LotteryService
         $lottery = $this->getLotteryByName($lotteryName);
         if (null !== $lottery) {
             $emBreakDownData = $this->lotteryDrawRepository->$method($lottery, $today);
-            if (null !== $emBreakDownData) {
-                return new ActionResult(true, $emBreakDownData);
-            } else {
-                return new ActionResult(false);
-            }
-        } else {
-            return new ActionResult(false);
+            return (null !== $emBreakDownData) ?
+                new ActionResult(true, $emBreakDownData) :
+                new ActionResult(false);
         }
+        return new ActionResult(false);
     }
 
     /**
