@@ -29,7 +29,17 @@ final class MegamillionsNumbersController extends PublicSiteControllerBase
     {
         $date = $this->router->getParams()['date'];
         $lotteryName = 'MegaMillions';
-        $date = empty($date) ? $this->lotteryService->getLastDrawDate($lotteryName) : new \DateTime($date);
+        if(empty($date))
+        {
+            $this->tag->prependTitle($this->languageService->translate('results_megam_name '));
+            MetaDescriptionTag::setDescription($this->languageService->translate('results_megam_desc'));
+            $date = $this->lotteryService->getLastDrawDate($lotteryName);
+        }else{
+            $this->tag->prependTitle($this->languageService->translate('resultsdate_megam_name'));
+            MetaDescriptionTag::setDescription($this->languageService->translate(' resultsdate_megam_desc'));
+            $date = new \DateTime($date);
+        }
+
         $webLanguageStrategy = new WebLanguageStrategy($this->session,$this->di->get('request'));
         $result = $this->lotteryService->getLotteryDrawsDTO('MegaMillions', 1000, $webLanguageStrategy);
         $draw_result = $this->lotteryService->getLastDrawWithBreakDownByDate($lotteryName, $date);
@@ -56,8 +66,6 @@ final class MegamillionsNumbersController extends PublicSiteControllerBase
         //$breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $breakDownDTO = new MegaMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
-        $this->tag->prependTitle($this->languageService->translate('results_meg_name'));
-        MetaDescriptionTag::setDescription($this->languageService->translate('results_meg_desc'));
         $this->view->pick('numbers/index');
 
         return $this->view->setVars([
@@ -105,8 +113,8 @@ final class MegamillionsNumbersController extends PublicSiteControllerBase
             $this->view->setVar('trillions', false);
         }
         $this->view->setVar('language', $this->languageService->getLocale());
-        $this->tag->prependTitle($this->languageService->translate('resultshist_meg_name'));
-        MetaDescriptionTag::setDescription($this->languageService->translate('resultshist_meg_desc'));
+        $this->tag->prependTitle($this->languageService->translate('resultshist_megam_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('resultshist_megam_desc'));
 
         $this->view->pick('numbers/past');
 

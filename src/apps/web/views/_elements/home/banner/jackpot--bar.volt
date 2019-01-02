@@ -14,7 +14,7 @@ lotteries-jackpot--bar
 
             <div class="top-banner--top mobile--only">
                 <div class="resizeme">
-                    {{ language.translate("banner1_subhead") }}
+                    {{ main_jackpot_home.lotteryName }}
                 </div>
             </div>
 

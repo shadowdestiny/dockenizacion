@@ -85,7 +85,7 @@
     };
 
     if(openTicket){
-    showModalTicketClose();
+        showModalTicketClose();
     }
 
     function showModalTicketClose(){
@@ -120,7 +120,11 @@
     {% include "../../shared/views/_elements/header.volt" %}
 {% endblock %}
 {% block body %}
-
+    {% if flash.has('error')  %}
+        <div style="font-family: Work Sans,sans-serif;color: #2d2d2d;font-size: 12px;font-weight: 400;padding: 20px !important;background-color: #eae8e8;border: 1;text-transform: none;">
+            {{ flash.output() }}
+        </div>
+    {% endif %}
     <main id="content">
 
         <div class="megamillions--page">
@@ -131,11 +135,7 @@
 
                 <h1 class="play--h1">
                     {% if mobile == 1 %}
-                        {#{{ language.translate("megamillions_mobile_h1") }}#}
-                        Online
-                    {% else %}
-                        {#{{ language.translate("megamillions_h1") }}#}
-                        Online
+                        {{ language.translate("play_megam_mobile_h1") }}
                     {% endif %}
                 </h1>
 
@@ -145,6 +145,28 @@
 
                 {% include "_elements/megamillions-bottom-block.volt" %}
 
+            </div>
+            <div id="closeticket" class="modal" style="width: 1000px;height: 500px;">
+                <div style="text-align: center;color:white">
+                    It is too late to buy MegaMillions tickets for the draw held in Paris tonight at 20:45 CET.
+                    In a few moments you will be able to purchase MegaMillions tickets for the next draw that will take
+                    place on Tuesday.
+
+                    <br><br>Thank you for your pacience.<br>
+
+                    The EuroMillions.com Support Team
+                </div>
+            </div>
+            <div id="closeticketbylimitbet" class="modal" style="width: 1000px;height: 500px;">
+                <div style="text-align: center;color:white">
+                    It is too late to buy MegaMillions tickets for the draw held in Paris tonight at 20:45 CET.
+                    You can be able to purchase MegaMillions tickets for the next draw accessing again to <a href="/">Euromillions.com</a>
+                    .
+
+                    <br><br>Thank you for your pacience.<br>
+
+                    The EuroMillions.com Support Team
+                </div>
             </div>
 
         </div>
