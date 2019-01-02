@@ -1,0 +1,7 @@
+version: '3.4'
+
+services:
+  varnish:
+    ports:
+    - 80:80
+    - 443:443

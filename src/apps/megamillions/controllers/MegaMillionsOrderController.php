@@ -26,7 +26,7 @@ class MegaMillionsOrderController extends CartController
         $msg = '';
         $errors = [];
         if(!empty($user_id)) {
-            $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id,$this->lottery);
+            $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id,'MegaMillions');
             $user = $this->userService->getUser($current_user_id);
         } else {
             /** @var User $user */
@@ -36,7 +36,7 @@ class MegaMillionsOrderController extends CartController
                 return false;
             }
 
-            $result = $play_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
+            $result = $play_service->getPlaysFromTemporarilyStorage($user, 'MegaMillions');
         }
         if(!$result->success()) {
             $this->response->redirect('/'.$this->lottery.'/play');

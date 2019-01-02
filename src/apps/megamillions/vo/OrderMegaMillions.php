@@ -28,7 +28,7 @@ class OrderMegaMillions extends Order
     {
 
         $this->powerPlay = (int)$play_config[0]->getPowerPlay();
-        $this->powerPlayPrice = new Money($lottery->getPowerPlayValue(), new Currency('EUR'));
+        $this->powerPlayPrice = $lottery->getPowerPlayValue();
         parent::__construct($play_config, $single_bet_price, $fee, $fee_limit, $discount, $withWallet, $lottery,$draw);
     }
 

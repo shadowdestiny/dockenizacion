@@ -250,7 +250,9 @@ var CartPage = new React.createClass({
                 powerplay={this.props.powerplay}
                 powerplayprice={this.props.powerplayprice}
                 powerball={this.props.powerball}
+                megamillions={this.props.megamillions}
                 playingPP={this.props.playingPP}
+                playingMM={this.props.playingMM}
 
             />);
         }
@@ -279,9 +281,14 @@ var CartPage = new React.createClass({
             data_btn = 'no-wallet';
         } else if(powerball === true) {
             txt_button_payment = this.props.txt_buy_btn;
-            href_payment = '/powerball/payment/payment?method=wallet&charge='+this.state.fund_value;
+            href_payment = '/powerball/payment/payment?method=wallet&charge=' + this.state.fund_value;
             data_btn = 'wallet';
             price_txt_btn = this.state.total;
+        } else if(megamillions === true) {
+                txt_button_payment = this.props.txt_buy_btn;
+                href_payment = '/megamillions/payment/payment?method=wallet&charge='+this.state.fund_value;
+                data_btn = 'wallet';
+                price_txt_btn = this.state.total;
         } else {
             txt_button_payment = this.props.txt_buy_btn;
             href_payment = '/euromillions/payment/payment?method=wallet&charge='+this.state.fund_value;
@@ -333,6 +340,7 @@ var CartPage = new React.createClass({
                                txt_draws={this.props.txt_draws} txt_on={this.props.txt_on} txt_total={this.props.txt_total}
                                txt_edit={this.props.txt_edit} txt_link_play={this.props.txt_link_play}
                                txt_link_powerball={this.props.txt_link_powerball}
+                               txt_link_megamillions={this.props.txt_link_megamillions}
                                txt_line={this.props.txt_line}
                                tuesday={this.props.tuesday}
                                friday={this.props.friday}
@@ -545,6 +553,7 @@ ReactDOM.render(<CartPage total={total_price}
                           txt_buy_btn={txt_buy_btn} txt_checkout_fee={txt_checkout_fee} txt_edit={txt_edit}
                           txt_link_play={txt_link_play}
                           txt_link_powerball={txt_link_powerball}
+                          txt_link_megamillions={txt_link_megamillions}
                           txt_line={txt_line}
                           tuesday={tuesday}
                           friday={friday}
@@ -553,8 +562,10 @@ ReactDOM.render(<CartPage total={total_price}
                           powerplay={powerplay}
                           powerplayprice={powerplayprice}
                           powerball={powerball}
+                          megamillions={megamillions}
                           txt_lottery={txt_lottery}
                           playingPP={playingPP}
+                          playingMM={playingMM}
                           txt_for={txt_for}
                           txt_since={txt_since}
                           txt_weeks={txt_weeks}

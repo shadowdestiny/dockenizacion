@@ -118,7 +118,7 @@ class CartController extends PublicSiteControllerBase
                     'password' => $this->request->getPost('password'),
                     'email'    => $this->request->getPost('email'),
                     'country'  => $this->request->getPost('country'),
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
                     $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
@@ -173,7 +173,7 @@ class CartController extends PublicSiteControllerBase
                     'email'    => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     false,
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], 'string');
 
                 if (!$userCheck['bool']) {
@@ -250,10 +250,10 @@ class CartController extends PublicSiteControllerBase
             ],
                 $this->di->get('config')
             );
-            $this->paymentProviderService->setEventsManager($this->eventsManager);
-            $this->eventsManager->attach('orderservice', $this->orderService);
+//            $this->paymentProviderService->setEventsManager($this->eventsManager);
+//            $this->eventsManager->attach('orderservice', $this->orderService);
             $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider,$transactionID);
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$order->getTotal(),$transactionID);
+            //$this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$order->getTotal(),$transactionID);
             $this->cartService->store($order);
             echo json_encode($cashierViewDTO);
         } catch (\Exception $e)
@@ -381,7 +381,7 @@ class CartController extends PublicSiteControllerBase
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider);
         if($this->cartPaymentProvider->type() == 'IFRAME' && $cashierViewDTO->transactionID != null)
         {
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
+           //$this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
         }
 
 

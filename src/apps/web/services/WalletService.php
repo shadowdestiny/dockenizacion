@@ -312,10 +312,7 @@ class WalletService
     {
         try {
             if ($playConfig->getPowerPlay()) {
-                if($order != null)
-                {
-                    $powerPlayValue = new Money($order->getLottery()->getPowerPlayValue(), new Currency('EUR'));
-                }
+                $powerPlayValue = new Money($playConfig->getLottery()->getPowerPlayValue(), new Currency('EUR'));
                 $price = $playConfig->getSinglePrice()->add($powerPlayValue);
                 $user->removeSubscriptionWallet($price);
             } else {
@@ -530,8 +527,8 @@ class WalletService
             'walletBefore' => $walletBefore,
             'walletAfter' => $user->getWallet(),
             'now' => new \DateTime(),
-            'lotteryName' => $order->getLottery()->getName(),
-            'withWallet' => $order->isIsCheckedWalletBalance()
+            'lotteryName' =>  $order != null && $order->getLottery() != null ? $order->getLottery()->getName() : '',
+            'withWallet' => $order != null ? $order->isIsCheckedWalletBalance() : ''
         ];
         return $dataTransaction;
     }

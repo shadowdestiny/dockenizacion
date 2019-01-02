@@ -107,7 +107,7 @@ class EmailController extends PublicSiteControllerBase
     public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
         $config = $dispatcher->getDI()->get('config')['ips'];
-        $ipClient = $this->request->getClientAddress();
+        $ipClient = $this->request->getClientAddress(true);
         if(!in_array($ipClient,explode(',',$config['ips']))){
             $this->response->redirect('/');
         }

@@ -1,61 +1,44 @@
 Vagrant.configure(2) do |config|
     config.vm.provider "virtualbox" do |v|
         v.memory = 2048
-        v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
 
-    config.vm.box = "ubuntu/trusty64"
-        config.vm.provision "shell", inline: <<-SCRIPT
-        sudo apt-get install python-software-properties
-        sudo add-apt-repository ppa:ondrej/php
-        sudo apt-get update
-        sudo apt-get install -y php5.6-cli
-        sudo apt-get install php5.6-apcu --no-install-recommends
-        sudo wget https://launchpad.net/~ansible/+archive/ubuntu/ansible-1.9/+files/ansible_1.9.4-1ppa~trusty_all.deb -O /tmp/ansible.deb
-        sudo apt-get install -y python-support \
-          python-jinja2 \
-          python-yaml \
-          python-paramiko \
-          python-httplib2 \
-          gzip \
-          git \
-          libpcre3-dev \
-          python-crypto sshpass
-          build-essential
-          dpkg -i /tmp/ansible.deb
-          rm -f /tmp/ansible.deb
+    config.vm.box = "ubuntu/bionic64"
 
-        sudo apt-get remove --purge nodejs
-        curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-        sudo apt-get install -y nodejs
-        sudo curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-        #ansible-galaxy install -r /vagrant/vagrant_config/requirements.yml
+    config.vm.provision "shell", inline: <<-SCRIPT
+       DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get upgrade -y \
+       && apt-get autoremove \
+       && apt-get clean && apt-get autoclean
     SCRIPT
 
     config.vm.provision "ansible_local" do |ansible|
-        ansible.playbook    = "/vagrant/vagrant_config/provision.yml"
+        ansible.playbook        = "devOps/playbook_local_setup.yml"
+        ansible.limit           = "all"
+        ansible.install_mode    = "pip"
+        ansible.version         = "2.7.0"
+
+        ansible.groups = {
+            'localhost' => ['default']
+        }
+
+        ansible.extra_vars = {
+          do_docker_setup: true,
+          is_vagrant: true
+        }
     end
 
-    config.vm.provision "ansible_local", run: "always" do |ansible|
-        ansible.playbook    = "/vagrant/vagrant_config/bootstrap.yml"
-    end
-
-    config.vm.provision "ansible_local", run: "always" do |ansible|
-        ansible.provisioning_path   = "/vagrant/src/config_tpl"
-        ansible.playbook            = "create_config.yml"
-    end
-
-    config.vm.provision "shell", inline: <<-SCRIPT
-        cd /var/www/react
-        sudo rm -r node_modules & npm cache clean --force
-        sudo npm -g install webpack
-        sudo npm install --save-dev
-        sudo npm run build
+    config.vm.provision "shell", run: "always", inline: <<-SCRIPT
+        su vagrant \
+        && cd /vagrant \
+        && docker-compose -f docker-compose.yml -f docker-compose.vagrant.yml up -d --build
     SCRIPT
 
-    config.vm.network "private_network", ip: "192.168.50.1"
-    config.vm.network "forwarded_port", guest: 80, host: 8080
-    config.vm.network "forwarded_port", guest: 443, host: 4433
-    config.vm.network "forwarded_port", guest: 3306, host: 33060
-    config.vm.synced_folder "src/", "/var/www", owner: "www-data", mount_options: ["dmode=775,fmode=774"]
+    config.vm.network "private_network", ip: "192.168.50.10"
+
+    # Enable synced_folder with SMB driver: https://www.vagrantup.com/docs/synced-folders/smb.html
+    config.vm.synced_folder ".", "/vagrant",
+        type: "smb",
+        #smb_username: "your username",
+        #smb_password: "your password",
+        mount_options: ["mfsymlinks,file_mode=0776,dir_mode=0777"]
 end

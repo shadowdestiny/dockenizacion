@@ -42,6 +42,7 @@ class UserBuilder
     private $playConfig;
     private $winning_above;
     private $ip_address;
+    private $show_modal_winning;
 
 
 
@@ -61,6 +62,7 @@ class UserBuilder
         $this->user_currency = new Currency(self::DEFAULT_USER_CURRENCY);
         $this->winning_above = new Money((int) 0, new Currency(self::DEFAULT_USER_CURRENCY));
         $this->ip_address = new IPAddress(self::DEFAULT_IP_ADDRESS);
+        $this->show_modal_winning= 1;
     }
 
     /**
@@ -119,6 +121,12 @@ class UserBuilder
     public function withPlayConfigsCollection(array $playConfigMother)
     {
         $this->playConfig = new ArrayCollection($playConfigMother);
+        return $this;
+    }
+
+    public function withWinningAbove(Money $amount)
+    {
+        $this->winning_above= $amount;
         return $this;
     }
 

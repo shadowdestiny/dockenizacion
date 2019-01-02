@@ -120,9 +120,9 @@
 
     <main id="content">
 
-        <div class="megamillions--page">
+        <div class="eurojackpot--page">
 
-            <div class="top-banner--megamillions"></div>
+            <div class="top-banner--eurojackpot"></div>
 
             <div class="wrapper">
 
@@ -136,11 +136,11 @@
                     {% endif %}
                 </h1>
 
-                {% include "_elements/megamillions-header.volt" %}
+                {% include "_elements/eurojackpot-header.volt" %}
 
                 <div class="gameplay" id="gameplay"></div>
 
-                {% include "_elements/megamillions-bottom-block.volt" %}
+                {% include "_elements/eurojackpot-bottom-block.volt" %}
 
             </div>
 
@@ -150,8 +150,8 @@
 
 
         {#TODO: remove temp files please#}
-        {% include "_elements/_temp_megamillions-results.volt" %}
-        {% include "_elements/_temp_megamillions-history.volt" %}
+        {% include "_elements/_temp_eurojackpot-results.volt" %}
+        {% include "_elements/_temp_eurojackpot-history.volt" %}
 
 
     </main>

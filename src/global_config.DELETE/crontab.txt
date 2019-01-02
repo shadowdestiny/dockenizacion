@@ -1,0 +1,26 @@
+01 * * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php jackpot update
+08 * * * 4,7 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall
+07 * * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/megamillions/megamillions-cli.php jackpot updateNextDrawJackpotMegaMillions
+05 * * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php result update
+05 * * * 4,7 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php result updatePowerballResult
+15 7 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/megamillions/megamillions-cli.php result updateMegamillionsResult
+06 * * * 4,7 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php result start PowerBall
+30 7 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php result start MegaMillions
+0 9 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php latestresult resultsReminderWhenPlayed
+0 9 * * 1,4 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php jackpot reminderJackpot
+30 4 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php awardprizes checkout
+30 5 * * * . /tmp/project_env.sh;/usr/bin/php /var/www/apps/shared/shared-cli.php Play-config updateLottery now EuroMillions
+45 8 * * * . /tmp/project_env.sh;/usr/bin/php /var/www/apps/shared/shared-cli.php Play-config updateLottery now PowerBall
+09 * * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/shared/shared-cli.php Play-config updateLottery now MegaMillions
+57 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/pullFromEMDB.sql
+58 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/analysisQueries.sql
+59 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/Archive.sql
+30 0  * * * . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php clear-cache clear
+30 6 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php bet placeBets
+40 6 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php bet placeBets
+50 6 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php bet placeBets
+15 8 * * 4,7 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php bet placePowerBallBets
+30 8 * * 4,7 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php bet placePowerBallBets
+30 8 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/megamillions/megamillions-cli.php bet placeMegaMillionsBets
+55 6 * * 3,6 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php check-automatic-purchase verify
+
