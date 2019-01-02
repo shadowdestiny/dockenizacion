@@ -55,6 +55,6 @@ class EuroJackpotDrawDTO extends DTOBase implements IDto
         $this->drawDate = $this->emTranslationAdapter->query($date->format('l'));
         $this->drawDateTranslate = $date->format($this->emTranslationAdapter->query('dateformat'));
         $this->drawDateParam = $date->format('Y-m-d');
-        $this->euroJackpotDrawBreakDownDTO = new euroJackpotDrawBreakDownDTO($this->euromillionsDraw->getBreakDown());
+        $this->euroJackpotDrawBreakDownDTO = new EuroJackpotDrawBreakDownDTO($this->euromillionsDraw->getBreakDown());
     }
 }
