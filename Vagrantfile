@@ -30,7 +30,7 @@ Vagrant.configure(2) do |config|
     config.vm.provision "shell", run: "always", inline: <<-SCRIPT
         su vagrant \
         && cd /vagrant \
-        && docker-compose -f docker-compose.yml -f docker-compose.vagrant.yml up -d --build
+        && docker-compose -f docker-compose.yml -f docker-compose.vagrant.yml up -d
     SCRIPT
 
     config.vm.network "private_network", ip: "192.168.50.10"
