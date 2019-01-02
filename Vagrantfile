@@ -7,7 +7,7 @@ Vagrant.configure(2) do |config|
 
     config.vm.provision "shell", inline: <<-SCRIPT
        DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get upgrade -y \
-       && apt-get autoremove \
+       && apt-get autoremove -y \
        && apt-get clean && apt-get autoclean
     SCRIPT
 
