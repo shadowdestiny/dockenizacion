@@ -47,6 +47,7 @@
                 <li><a href="/admin/reports/businessReportsActivity">Activity</a></li>
                 <li><a href="/admin/reports/salesDraw">Sales Draw<br />Euromillions</a></li>
                 <li><a href="/admin/reports/salesDrawPowerBall">Sales Draw<br />PowerBall</a></li>
+                <li><a href="/admin/reports/salesDrawMegaMillions">Sales Draw<br />MegaMillions</a></li>
                 <li><a href="/admin/reports/salesDrawChristmas">Sales Draw<br />Christmas</a></li>
                 <li><a href="/admin/reports/playersReports">Players Reports</a></li>
                 <!-- li><a href="/admin/reports/salesDraw">Sales Draw</a></li>

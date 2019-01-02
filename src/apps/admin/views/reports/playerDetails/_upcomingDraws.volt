@@ -41,7 +41,7 @@
                     {% for regular_number in regular  %}
                         <span class="num">{{ regular_number }}</span>
                     {% endfor %}
-                    {% if lottery === 'PowerBall' %}
+                    {% if lottery === 'PowerBall' or lottery === 'MegaMillions'%}
                         <span class="num yellow">{{ lucky[1] }}</span>
                     {% else %}
                         {% for lucky_number in lucky  %}
