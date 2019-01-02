@@ -557,8 +557,22 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'payment',
         ));
 
+        $router->add("/{lottery:(megamillions)+}/payment", array(
+            "module" => "megamillions",
+            'lottery' => 4,
+            'controller' => 'mega-millions-payment',
+            'action' => 'payment',
+        ));
 
-        $router->add("/{lottery:(euromillions|powerball)+}/cart/login", array(
+        $router->add("/{lottery:(megamillions)+}/payment/payment(.*?)", array(
+            "module" => "megamillions",
+            'lottery' => 4,
+            'controller' => 'mega-millions-payment',
+            'action' => 'payment',
+        ));
+
+
+        $router->add("/{lottery:(euromillions|powerball|megamillions)+}/cart/login", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'cart',
@@ -1482,7 +1496,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
         $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{play:(jugar|gioca|speel|играть)+}", array(
-            "module" => "web",
+            "module" => "megamillions",
             'controller' => 'play',
             'action' => 'index',
         ));

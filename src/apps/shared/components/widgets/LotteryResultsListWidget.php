@@ -34,7 +34,7 @@ class LotteryResultsListWidget extends \Phalcon\Mvc\User\Component
     {
         try {
             $this->getView();
-            return $this->getView()->render('_elements/home/lottery-results-carousel/lottery', ['lotteryResults' => $this->lotteryResults, 'lotteryClass' => $this->prepareClass(), 'lotteryName' => $this->lotteryName , 'checkMoreResults' => $this->prepareLastResults(), 'day' => $this->prepareWeekDays()]);
+            return $this->getView()->render('_elements/home/lottery-results-carousel/lottery', ['lotteryResults' => $this->lotteryResults, 'lotteryClass' => $this->prepareClass(), 'lotteryName' => $this->lotteryName , 'checkMoreResults' => $this->prepareLastResults(), 'day' => $this->prepareWeekDays(), 'link' => $this->prepareLinks()]);
         } catch (\Exception $exc) {
         }
     }
@@ -75,5 +75,10 @@ class LotteryResultsListWidget extends \Phalcon\Mvc\User\Component
     private function prepareWeekDays()
     {
         return ['Monday' => $this->translationAdapter->query('Monday'), 'Tuesday' => $this->translationAdapter->query('Tuesday'), 'Wednesday' => $this->translationAdapter->query('Wednesday'), 'Thursday' => $this->translationAdapter->query('Thursday'), 'Friday' => $this->translationAdapter->query('Friday'), 'Saturday' => $this->translationAdapter->query('Saturday'), 'Sunday' => $this->translationAdapter->query('Sunday')];
+    }
+
+    private function prepareLinks()
+    {
+        return $this->translationAdapter->query('link_'.($this->lotteryName=='MegaMillions'?'megam':mb_strtolower($this->lotteryName)).'_draw_history');
     }
 }

@@ -14,7 +14,7 @@ use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use Money\Currency;
 
-abstract class PlayController extends PublicSiteControllerBase
+class PlayController extends PublicSiteControllerBase
 {
 
     protected $play_dates;
@@ -31,10 +31,10 @@ abstract class PlayController extends PublicSiteControllerBase
     public function indexAction()
     {
         $current_currency = $this->userPreferencesService->getCurrency();
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
-        $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
-        $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
-        $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
+        $this->jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($this->jackpot));
+        $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($this->jackpot));
+        $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($this->jackpot));
         $this->view->setVar('milliards', false);
         $this->view->setVar('trillions', false);
         if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
@@ -72,7 +72,7 @@ abstract class PlayController extends PublicSiteControllerBase
         }
 
         $this->currencySymbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
-        $this->tag->prependTitle($this->languageService->translate('play_em_name') . ViewHelper::formatMillionsJackpot($jackpot) . ' ' . $this->languageService->translate($textMillions));
+        $this->tag->prependTitle($this->languageService->translate('play_em_name') . ViewHelper::formatMillionsJackpot($this->jackpot) . ' ' . $this->languageService->translate($textMillions));
         MetaDescriptionTag::setDescription($this->languageService->translate('play_em_desc'));
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);

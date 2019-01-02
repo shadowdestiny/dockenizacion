@@ -13,8 +13,8 @@ final class HelpController extends PublicSiteControllerBase
     {
         $config = $this->di->get('config');
         /** @var ActionResult $result */
-        $lottery = $this->lotteryService->getLotteryConfigByName('EuroMillions');
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $lottery = $this->lotteryService->getLotteryConfigByName('MegaMillions');
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('MegaMillions'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
@@ -42,7 +42,7 @@ final class HelpController extends PublicSiteControllerBase
             'draw_time' => (!empty($lottery)) ? $lottery->getDrawTime() : '',
             'email_support' => $config->email_support['email'],
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
-            'pageController' => 'powerHowto',
+            'pageController' => 'megaHowto',
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
         ]);
     }

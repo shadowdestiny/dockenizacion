@@ -12,17 +12,23 @@ class PastDrawsCollectionDTO extends DTOBase implements IDto
 
     public $result;
 
-    public function __construct(array $result)
+    public function __construct(array $playConfigs, $tickets=0)
     {
-        $this->result = $result;
-        $this->exChangeObject();
+        $this->playConfigs = $playConfigs;
+        $this->exChangeObject($tickets);
     }
 
-    public function exChangeObject()
-    {
-        $this->result = $this->createCollectionByDate();
-    }
 
+    public function exChangeObject($tickets=0)
+    {
+        if($tickets)
+        {
+            $this->result = $this->createCollectionByLottery();
+        }else{
+            $this->result = $this->createCollectionByDate();
+        }
+
+    }
     public function toArray()
     {
         throw new \Exception('Method not implemented');
@@ -38,6 +44,18 @@ class PastDrawsCollectionDTO extends DTOBase implements IDto
             }
         }
         return $collection;
+    }
+
+    private function createCollectionByLottery()
+    {
+        $result = [];
+        if($this->playConfigs) {
+            /** @var PlayConfig $playConfig */
+            foreach($this->playConfigs as $playConfig) {
+                $result[$playConfig->getLottery()->getName()][$playConfig->getStartDrawDate()->format('Y-m-d')][] = new PlayConfigCollectionDTO([$playConfig], new Money((int) 250, new Currency('EUR')));
+            }
+        }
+        return $result;
     }
 
 }

@@ -34,19 +34,7 @@ class ResultPurchaseRoutes extends RouterGroup
             'language' => 'en'
         ));
 
-        $this->add("/payment", array(
-            "module" => "megamillions",
-            'lottery' => 4,
-            'controller' => 'mega-millions-payment',
-            'action' => 'payment',
-        ));
 
-        $this->add("/payment/payment(.*?)", array(
-            "module" => "megamillions",
-            'lottery' => 4,
-            'controller' => 'mega-millions-payment',
-            'action' => 'payment',
-        ));
 
     }
 

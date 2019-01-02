@@ -109,20 +109,11 @@ pipeline {
                 RANCHER_CMD_BASE = "rancher -url ${env.RANCHER_API_URL_STAGING} --env ${env.RANCHER_TARGET_ENVIRONMENT} --access-key ${env.RANCHER_API_ACCESS_KEY} --secret-key ${env.RANCHER_API_SECRET_KEY}"
             }
             steps {
-                script {
-                    PHPRUNNER_SERVICE_ID = sh(returnStdout: true, script: "${RANCHER_CMD_BASE} run --name ${RANCHER_STACK_NAME}/phprunner --pull panamedialottery/euromillions-php:${EM_ENVIRONMENT}").trim()
-                }
-                sh("""
-                    ${RANCHER_CMD_BASE} wait ${PHPRUNNER_SERVICE_ID}
-                    script --return --quiet --command \"${RANCHER_CMD_BASE} exec ${PHPRUNNER_SERVICE_ID} vendor/bin/phinx migrate --configuration="phinx.yml" -e staging \"
-                """)
+                sh('${RANCHER_CMD_BASE} wait euromillions-staging/web')
+                sh('${RANCHER_CMD_BASE} exec euromillions-staging-web-php-1 vendor/doctrine/orm/bin/doctrine orm:generate-proxies')
+                sh('${RANCHER_CMD_BASE} exec euromillions-staging-web-php-1 vendor/bin/phinx migrate --configuration="phinx.yml" -e staging')
             }
             post {
-                always {
-                    sh("""
-                        ${RANCHER_CMD_BASE} rm ${PHPRUNNER_SERVICE_ID}
-                    """)
-                }
                 success {
                     // Confirm the deploy on Rancher
                     sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')

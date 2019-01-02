@@ -15,8 +15,19 @@ class BirthDate extends StringLiteral
 {
     public function __construct($value)
     {
-        Assertion::notEmpty($value);
-        Assertion::date($value,'Y-m-d');
-        parent::__construct($value);
+
+        $dateValue = $this->prepareDateValue($value);
+        Assertion::notEmpty($dateValue);
+        Assertion::date($dateValue,'Y-m-d');
+        parent::__construct($dateValue);
+    }
+
+    private function prepareDateValue($value)
+    {
+        $day = explode('-',$value);
+        if((int) $day[2] < 9 )
+        {
+            return $day[0].'-'.$day[1].'-'.'0'.$day[2];
+        }
     }
 }

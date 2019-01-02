@@ -15,7 +15,7 @@ class MegaMillionsResultRoutes extends RouterGroup
     {
 
         //DRAW HISTORY
-        $this->add("/{lottery:(megamillions)+}/results/draw-history", array(
+        $this->add("/{lottery:(megamillions)+}/results/draw-history-page", array(
             "module" => "megamillions",
             'controller' => 'megamillions-numbers',
             'action' => 'pastList',
@@ -43,7 +43,7 @@ class MegaMillionsResultRoutes extends RouterGroup
         ));
 
         //PAST DATES
-        $this->add("/{lottery:(megamillions)+}/results/draw-history/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
+        $this->add("/{lottery:(megamillions)+}/results/draw-history-page/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
             "module" => "megamillions",
             'controller' => 'megamillions-numbers',
             'action' => 'index',

@@ -60,8 +60,8 @@ services:
 
   phpcron:
     build:
-      context: .
-      dockerfile: devOps/docker/php/Dockerfile
+      context: devOps/docker/php
+      dockerfile: Dockerfile-devel
       target: cron
     image: panamedialottery/euromillions-php:cron
     volumes:
@@ -103,8 +103,8 @@ services:
 
   util-php:
     build:
-      context: .
-      dockerfile: devOps/docker/php/Dockerfile
+      context: devOps/docker/php
+      dockerfile: Dockerfile-devel
       target: tools
     image: euromillions-util-php:devel
     depends_on:
