@@ -75,7 +75,7 @@
       when: is_vagrant
 
     - name: build docker image of euromillions-php:tools
-      shell: docker build --target tools -f {{ playbook_dir }}/docker/php/Dockerfile -t euromillions-php-tools {{ playbook_dir }}/../
+      shell: docker build --target tools -f {{ playbook_dir }}/docker/php/Dockerfile-devel -t euromillions-php-tools {{ playbook_dir }}/docker/php
 
     - name: build docker image of euromillions-util-nodejs
       shell: docker build -t euromillions-util-nodejs {{ playbook_dir }}/docker/util-nodejs
