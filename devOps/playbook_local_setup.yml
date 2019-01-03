@@ -2,8 +2,7 @@
 - hosts: localhost
 
   vars:
-    enable_frontend_watchers: false
-    enable_frontend_react_build: true
+    enable_frontend_react_build: false
     is_vagrant: false # overwritten via Vagrantfile for Windows OS Hosts
     update_geoip_database: false # should update the geoip databases?
     do_docker_setup: false # should install docker and docker-compose on host?
@@ -52,6 +51,13 @@
       - "{{ playbook_dir }}/../src/apps/web/assets/compiled_templates"
     when: not is_vagrant
 
+  - name: Auto cd in /vagrant (Windows OS Host)
+    lineinfile:
+      line: 'cd /vagrant'
+      dest: /home/vagrant/.bashrc
+      state: present
+    when: is_vagrant
+
   - include_role:
       name: docker_setup
     when: do_docker_setup
@@ -95,32 +101,18 @@
           COMPOSER_NO_INTERACTION: 1
           COMPOSER_ALLOW_SUPERUSER: 1
 
-    - name: run react frontend
-      docker_container:
-        name: euromillions-util-nodejs
-        image: euromillions-util-nodejs
-        detach: false
-        cleanup: yes
-        state: started
-        command: ./provision-react.sh
-        volumes:
-          - "{{ playbook_dir }}/../src:/var/www"
-        env:
-          EM_ENV: development
-      when: enable_frontend_react_build
-
     - name: initialize test database
       shell: docker-compose exec -d database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
       args:
         chdir: "{{ playbook_dir }}/../"
 
     - name: migrate database devel
-      shell: docker-compose exec -T php /var/www/vendor/bin/phinx migrate --configuration="phinx.yml" -e devel
+      shell: docker-compose run -T php /var/www/vendor/bin/phinx migrate --configuration="phinx.yml" -e devel
       args:
         chdir: "{{ playbook_dir }}/../"
 
     - name: seed database devel
-      shell: docker-compose exec -T php /var/www/vendor/bin/phinx seed:run --configuration="phinx.yml" -e devel
+      shell: docker-compose run -T php /var/www/vendor/bin/phinx seed:run --configuration="phinx.yml" -e devel
       args:
         chdir: "{{ playbook_dir }}/../"
       ignore_errors: true
@@ -145,49 +137,23 @@
         docker-compose exec -T phpcron php /var/www/apps/cli.php result importAllHistoricalDataFromPowerball;
         docker-compose exec -T phpcron php /var/www/apps/cli.php result updatePowerballResult;
         docker-compose exec -T phpcron php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall;
+        docker-compose exec -T phpcron php /var/www/apps/megamillions/megamillions-cli.php result importAllHistoricalDataFromMegamillions;
         docker-compose exec -T phpcron php /var/www/apps/megamillions/megamillions-cli.php jackpot updateNextDrawJackpotMegaMillions;
         docker-compose exec -T phpcron php /var/www/apps/cli.php clear-cache clear;
+        docker-compose exec -u www-data -T php php /var/www/apps/cli.php clear-cache clear;
       args:
         chdir: "{{ playbook_dir }}/../"
 
-    - name: start compass web container
+    - name: run react frontend
       docker_container:
-        name: euromillions-compassweb-watcher
-        image: antonienko/compass-watch
+        name: euromillions-util-nodejs
+        image: euromillions-util-nodejs
+        detach: false
         cleanup: yes
         state: started
-        command: watch --poll /src/compass_web
-        user: 1000:1000
-        volumes:
-          - "{{ playbook_dir }}/../src:/src"
-        env:
-          EM_ENV: development
-      when: enable_frontend_watchers
-
-    - name: start compass admin container
-      docker_container:
-        name: euromillions-compassadmin-watcher
-        image: antonienko/compass-watch
-        cleanup: yes
-        state: started
-        command: watch --poll /src/compass_admin
-        user: 1000:1000
-        volumes:
-          - "{{ playbook_dir }}/../src:/src"
-        env:
-          EM_ENV: development
-      when: enable_frontend_watchers
-
-    - name: start react frontend watcher
-      docker_container:
-        name: euromillions-react-watcher
-        image: euromillions-util-nodejs:devel
-        cleanup: yes
-        state: started
-        working_dir: /var/www/react
-        command: npm run watch
+        command: ./provision-react.sh
         volumes:
         - "{{ playbook_dir }}/../src:/var/www"
         env:
           EM_ENV: development
-      when: enable_frontend_watchers
+      when: enable_frontend_react_build

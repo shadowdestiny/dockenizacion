@@ -1,6 +1,6 @@
 Vagrant.configure(2) do |config|
     config.vm.provider "virtualbox" do |v|
-        v.memory = 2048
+        v.memory = 3048
     end
 
     config.vm.box = "ubuntu/bionic64"
@@ -16,11 +16,11 @@ Vagrant.configure(2) do |config|
         ansible.limit           = "all"
         ansible.install_mode    = "pip"
         ansible.version         = "2.7.0"
-
+        ansible.become          = true
+        ansible.become_user     = "vagrant"
         ansible.groups = {
             'localhost' => ['default']
         }
-
         ansible.extra_vars = {
           do_docker_setup: true,
           is_vagrant: true

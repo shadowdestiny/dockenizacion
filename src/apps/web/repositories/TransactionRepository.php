@@ -111,7 +111,7 @@ class TransactionRepository extends RepositoryBase
             ->createNativeQuery(
                 'SELECT *
                 FROM transactions
-                WHERE entity_type = "winnings_received" and DATE_FORMAT(date,\'%Y-%m-%d\') = "' . $date . '"
+                WHERE entity_type = "winnings_received" AND DATE_FORMAT(date,\'%Y-%m-%d\') = "' . $date . '" 
                 order by date desc'
                 , $rsm)->getResult();
     }

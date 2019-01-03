@@ -158,8 +158,7 @@ class LotteriesDataService
             } catch (DataMissingException $e) {
                 $draw = $this->createDraw($last_draw_date, null, $lottery);
             }
-                $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
-                $draw->createBreakDown($result);
+            $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
             if ($draw->getResult()->getRegularNumbers()) {
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();
@@ -175,7 +174,6 @@ class LotteriesDataService
                     $draw = $this->createDraw($last_draw_date, null, $lottery);
                 }
                 $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
-                $draw->createBreakDown($result);
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();
                 $this->sendEmailResultsOrigin('Mashape Results');
@@ -281,7 +279,6 @@ class LotteriesDataService
             $result = $result_api->getResultBreakDownForDate($lotteryName, $last_draw_date->format('Y-m-d'));
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
-
             if (!$draw->getBreakDown()->getCategoryOne()->getName() && $result['category_one'][0]) {
                 $draw->createBreakDown($result);
                 $this->entityManager->flush();

@@ -129,7 +129,7 @@ class BetRepository extends RepositoryBase
                 INNER JOIN play_configs p ON b.playConfig_id=p.id
                 INNER JOIN euromillions_draws e on e.id=b.euromillions_draw_id
                 INNER JOIN users u ON u.id = p.user_id
-                WHERE p.active=1 and e.draw_date = ?
+                WHERE p.active=1 and e.draw_date = ? and p.lottery_id=1
                 having (cnt=5 and cnt_lucky=2) OR (cnt=5 and cnt_lucky=1) OR (cnt=5 and cnt_lucky=0)
                 OR (cnt=4 and cnt_lucky=2) OR (cnt=4 and cnt_lucky=1) OR (cnt=4 and cnt_lucky=0)
                 OR (cnt=3 and cnt_lucky=2) OR (cnt=2 and cnt_lucky=2) OR (cnt=3 and cnt_lucky=1)

@@ -58,6 +58,7 @@ class LotteryDrawRepository extends EntityRepository
         if (!$date) {
             $date = new \DateTime();
         }
+
         $next_draw_date = $lottery->getNextDrawDate($date);
 
         /** @var EuroMillionsDraw[] $result */
