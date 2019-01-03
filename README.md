@@ -79,4 +79,12 @@ This command will run 3 Docker containers:
 
 You can view their logs via **$ docker log -f <container-name>**
 
+### Compile all SASS files
 
+On the root of the project you can run:
+
+```
+docker run --rm -v $(pwd)/src:/src antonienko/compass-watch compile --force /src/compass_web
+```
+
+This will compile all .scss files on /src/compass_web
