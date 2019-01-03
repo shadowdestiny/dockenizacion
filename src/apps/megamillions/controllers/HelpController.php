@@ -13,8 +13,8 @@ final class HelpController extends PublicSiteControllerBase
     {
         $config = $this->di->get('config');
         /** @var ActionResult $result */
-        $lottery = $this->lotteryService->getLotteryConfigByName('EuroMillions');
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $lottery = $this->lotteryService->getLotteryConfigByName('MegaMillions');
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('MegaMillions'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));

@@ -14,7 +14,7 @@ use Phalcon\Mvc\View;
 class AdminControllerBase extends Controller
 {
 
-    const ALLOW_IPS = ['62.57.159.66', '88.15.234.137'];
+    const ALLOW_IPS = ['62.57.159.66', '88.15.234.137','80.28.218.1'];
 
     use PaginatedControllerTrait;
     /** @var  DomainAdminServiceFactory */

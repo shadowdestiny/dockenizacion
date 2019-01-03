@@ -23,4 +23,31 @@ class LotteryMother
         return $lottery;
     }
 
+    public static function aPowerBall()
+    {
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 3,
+            'name'      => 'PowerBall',
+            'frequency' => 'w0001001',
+            'draw_time' => '03:30:00',
+            'single_bet_price' => new Money((int) 350, new Currency('EUR'))
+        ]);
+        return $lottery;
+    }
+
+    public static function aMegaMillions()
+    {
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 4,
+            'name'      => 'MegaMillions',
+            'frequency' => 'w0001001',
+            'draw_time' => '03:30:00',
+            'single_bet_price' => new Money((int) 350, new Currency('EUR'))
+        ]);
+        return $lottery;
+    }
+
+
 }

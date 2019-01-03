@@ -8,13 +8,14 @@ interface IReports
 {
     public function getSalesDraw();
     public function getSalesDrawPowerBall();
+    public function getSalesDrawMegaMillions();
     public function getSalesDrawChristmas();
     public function getMonthlySales();
     public function getCustomersData();
     public function getUsersByReportsPlayersQuery($sql);
     public function getUserAndDataFromTransactionsBetweenDates($dateFrom, $dateTo);
     public function getActivePlayConfigsByUser($userId);
-    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall);
+    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions);
     public function getSubscriptionsByUserIdInactive($userId);
     public function getPastGamesWithPrizes($userId);
     public function getActiveChristmasByUser($userId);
@@ -23,6 +24,7 @@ interface IReports
     public function getChristmasDrawDetailsByIdAndDates($id, $drawDates);
     public function getEuromillionsDrawDetailsBetweenDrawDates($drawDates);
     public function getPowerBallDrawDetailsBetweenDrawDates($drawDates, $amount, $amountPowerBall);
+    public function getMegaMillionsDrawDetailsBetweenDrawDates($drawDates, $amount, $amountMegaBall);
     public function getChristmasDrawDetailsBetweenDrawDates($drawDates);
     public function getNewRegistrations($data);
     public function getNewDepositors($data);

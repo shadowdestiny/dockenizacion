@@ -12,7 +12,6 @@ EuroMillions\web\entities\EuroMillionsDraw:
   fields:
     draw_date:
       type: date
-      unique: true
   manyToOne:
     lottery:
       targetEntity: \EuroMillions\web\entities\Lottery

@@ -61,11 +61,28 @@ class HomepageCest
     }
 
 
+
+
     private function setEuroMillionsDraw(FunctionalTester $I)
     {
         $I->haveInDatabase(
             'euromillions_draws',
                     \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build()->toArray()
         );
+        $I->haveInDatabase(
+            'euromillions_draws',
+                    \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->withLottery(
+                        \EuroMillions\tests\helpers\mothers\LotteryMother::aPowerBall()
+            )->withJackpot(new Money(4000000000, new Currency('EUR')))
+            ->build()->toArray()
+        );
+        $I->haveInDatabase(
+            'euromillions_draws',
+            \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->withLottery(
+                \EuroMillions\tests\helpers\mothers\LotteryMother::aMegaMillions()
+            )->withJackpot(new Money(5000000000, new Currency('EUR')))
+                ->build()->toArray()
+        );
+
     }
 }

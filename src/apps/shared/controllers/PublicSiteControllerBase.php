@@ -71,6 +71,8 @@ class PublicSiteControllerBase extends ControllerBase
 
     protected $currencyUrl;
 
+    protected $jackpot;
+
     public function initialize(LotteryService $lotteryService = null,
                                LanguageService $languageService = null,
                                CurrencyService $currencyService = null,

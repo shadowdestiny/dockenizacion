@@ -1,0 +1,42 @@
+---
+- hosts: localhost
+
+  tasks:
+    - name: start compass web container
+      docker_container:
+        name: euromillions-compassweb-watcher
+        image: antonienko/compass-watch
+        cleanup: yes
+        state: started
+        command: watch --poll /src/compass_web
+        user: 1000:1000
+        volumes:
+          - "{{ playbook_dir }}/../src:/src"
+        env:
+          EM_ENV: development
+
+    - name: start compass admin container
+      docker_container:
+        name: euromillions-compassadmin-watcher
+        image: antonienko/compass-watch
+        cleanup: yes
+        state: started
+        command: watch --poll /src/compass_admin
+        user: 1000:1000
+        volumes:
+          - "{{ playbook_dir }}/../src:/src"
+        env:
+          EM_ENV: development
+
+    - name: start react frontend watcher
+      docker_container:
+        name: euromillions-react-watcher
+        image: euromillions-util-nodejs:devel
+        cleanup: yes
+        state: started
+        working_dir: /var/www/react
+        command: npm run watch
+        volumes:
+        - "{{ playbook_dir }}/../src:/var/www"
+        env:
+          EM_ENV: development
