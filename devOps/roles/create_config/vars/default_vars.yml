@@ -71,12 +71,14 @@ wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
 moneymatrix_endpoint: 'https://rancher-beta.euromillions.com:49167/deposit'
 
-
 lottorisq_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball'
 lottorisq_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
 megamillions_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/megamillions'
 megamillions_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
+
+eurojackpot_endpoint: 'http://192.168.50.4/eurojackpot' #TODO: Change for a staging value (create the api service)
+eurojackpot_apikey: ''
 
 queue_results_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/results_testing'
 queue_prizes_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/prizes_test'
@@ -96,6 +98,7 @@ controllers_megamillions: 'megamillions-numbers'
 controllers_result_euromillions: 'index'
 controllers_result_powerball: 'index'
 controllers_result_megamillions: 'index'
+controllers_result_eurojackpot: 'index'
 
 file_databasegeoip_path: '/var/www/data/geoipdatabase'
 
