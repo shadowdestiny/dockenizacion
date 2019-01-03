@@ -39,7 +39,7 @@ class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
             {
 
                 $methodName = $this->mappingMethodName($k);
-                $euroMillionsDrawBreakDown = new euroJackpotDrawBreakDownData();
+                $euroMillionsDrawBreakDown = new EuroJackpotDrawBreakDownData();
                 $euroMillionsDrawBreakDown->setName($k);
 
                 $euroMillionsDrawBreakDown->setLotteryPrize($this->currencyConversion(

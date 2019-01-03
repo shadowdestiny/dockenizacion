@@ -1,13 +1,12 @@
 <?php
 namespace EuroMillions\web\repositories;
 
-use Doctrine\ORM\EntityRepository;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\exceptions\DataMissingException;
 
-class LotteryDrawRepository extends EntityRepository
+class LotteryDrawRepository extends RepositoryBase
 {
     public function getLastJackpot($lotteryName, $date = null)
     {
@@ -293,9 +292,25 @@ class LotteryDrawRepository extends EntityRepository
                 . ' WHERE l.name = :lottery_name AND ld.draw_date = :date')
             ->setMaxResults(1)
             ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $draw_date->format('Y-m-d')])
-            ->useResultCache(true, 3600)
+            ->useResultCache($this->isCacheEnabled(), 3600)
             ->getResult();
-        return $result[0];
+        return isset($result[0]) ? $result[0] : null;
+    }
+
+    /**
+     * @param Lottery $lottery
+     * @param DateTime $date
+     * @return EuroMillionsDraw
+     */
+    public function getLastBreakDownDataLottery(Lottery $lottery, \DateTime $date = null)
+    {
+        if (!$date) {
+            $date = new \DateTime();
+        }
+
+        $draw_date = $lottery->getLastDrawDate($date);
+        
+        return $this->getBreakDown($lottery, $draw_date);
     }
 
 }
