@@ -45,6 +45,16 @@
                     {{ language.translate("results_chris_sub") }}
                 </a>
             </li>
+            <li>
+                <a href="/{{ language.translate('eurojackpot/results') }}">
+                    {{ language.translate("Eurojackpot results") }}
+                </a>
+            </li>
+            <li>
+                <a href="/{{ language.translate('eurojackpot/results/draw-history') }}">
+                    {{ language.translate("Eurojackpot history") }}
+                </a>
+            </li>
         </ul>
     </div>
 
