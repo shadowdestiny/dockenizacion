@@ -1,13 +1,13 @@
 Vagrant.configure(2) do |config|
     config.vm.provider "virtualbox" do |v|
-        v.memory = 2048
+        v.memory = 3048
     end
 
     config.vm.box = "ubuntu/bionic64"
 
     config.vm.provision "shell", inline: <<-SCRIPT
        DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get upgrade -y \
-       && apt-get autoremove \
+       && apt-get autoremove -y \
        && apt-get clean && apt-get autoclean
     SCRIPT
 
@@ -16,7 +16,8 @@ Vagrant.configure(2) do |config|
         ansible.limit           = "all"
         ansible.install_mode    = "pip"
         ansible.version         = "2.7.0"
-
+        ansible.become          = true
+        ansible.become_user     = "vagrant"
         ansible.groups = {
             'localhost' => ['default']
         }
@@ -30,7 +31,7 @@ Vagrant.configure(2) do |config|
     config.vm.provision "shell", run: "always", inline: <<-SCRIPT
         su vagrant \
         && cd /vagrant \
-        && docker-compose -f docker-compose.yml -f docker-compose.vagrant.yml up -d --build
+        && docker-compose -f docker-compose.yml -f docker-compose.vagrant.yml up -d
     SCRIPT
 
     config.vm.network "private_network", ip: "192.168.50.10"
