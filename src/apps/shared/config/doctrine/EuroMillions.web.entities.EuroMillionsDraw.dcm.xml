@@ -15,7 +15,7 @@
                 <option name="unsigned">true</option>
             </options>
         </id>
-        <field name="draw_date" type="date" unique="true"/>
+        <field name="draw_date" type="date"/>
         <embedded name="result" class="EuroMillions\web\vo\EuroMillionsLine"/>
         <embedded name="jackpot" class="Money\Money"/>
         <embedded name="break_down" class="EuroMillions\web\vo\EuroMillionsDrawBreakDown"/>
