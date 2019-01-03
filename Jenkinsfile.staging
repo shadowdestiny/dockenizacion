@@ -99,6 +99,12 @@ pipeline {
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
             }
+            post {
+                success {
+                    // Confirm the deploy on Rancher
+                    sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
+                }
+            }
         }
         stage('post-deploy') {
              environment {
@@ -111,12 +117,6 @@ pipeline {
             steps {
                 sh('${RANCHER_CMD_BASE} exec euromillions-staging-web-php-1 vendor/doctrine/orm/bin/doctrine orm:generate-proxies')
                 sh('${RANCHER_CMD_BASE} exec euromillions-staging-web-php-1 vendor/bin/phinx migrate --configuration="phinx.yml" -e staging')
-            }
-            post {
-                success {
-                    // Confirm the deploy on Rancher
-                    sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
-                }
             }
         }
     }
