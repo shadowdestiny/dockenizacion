@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
-wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+#wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+wget https://s3-eu-west-1.amazonaws.com/geoip-euromillions-hotfix/GeoIP.dat.gz
+
+#wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+wget https://s3-eu-west-1.amazonaws.com/geoip-euromillions-hotfix/GeoIPv6.dat.gz
 
 gzip -fd GeoIP.dat.gz
 gzip -fd GeoIPv6.dat.gz
