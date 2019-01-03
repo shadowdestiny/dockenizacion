@@ -53,6 +53,10 @@ COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
 # set fpm pool config
 COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
 
+# set post-deploy script
+COPY devOps/docker/php/php-prod/post-deploy.sh /post-deploy.sh
+RUN chmod 700 /post-deploy.sh
+
 COPY ./src .
 
 RUN chown -R www-data:www-data /var/www
@@ -68,6 +72,10 @@ COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
 
 # set fpm pool config
 COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
+
+# set post-deploy script
+COPY devOps/docker/php/php-staging/post-deploy.sh /post-deploy.sh
+RUN chmod 700 /post-deploy.sh
 
 COPY ./src .
 
