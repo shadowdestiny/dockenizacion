@@ -152,8 +152,10 @@
         docker-compose exec -T phpcron php /var/www/apps/cli.php result importAllHistoricalDataFromPowerball;
         docker-compose exec -T phpcron php /var/www/apps/cli.php result updatePowerballResult;
         docker-compose exec -T phpcron php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall;
+        docker-compose exec -T phpcron php /var/www/apps/megamillions/megamillions-cli.php result importAllHistoricalDataFromMegamillions;
         docker-compose exec -T phpcron php /var/www/apps/megamillions/megamillions-cli.php jackpot updateNextDrawJackpotMegaMillions;
         docker-compose exec -T phpcron php /var/www/apps/cli.php clear-cache clear;
+        docker-compose exec -u www-data -T php php /var/www/apps/cli.php clear-cache clear;
       args:
         chdir: "{{ playbook_dir }}/../"
 
