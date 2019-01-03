@@ -109,7 +109,6 @@ pipeline {
                 RANCHER_CMD_BASE = "rancher -url ${env.RANCHER_API_URL_STAGING} --env ${env.RANCHER_TARGET_ENVIRONMENT} --access-key ${env.RANCHER_API_ACCESS_KEY} --secret-key ${env.RANCHER_API_SECRET_KEY}"
             }
             steps {
-                sh('${RANCHER_CMD_BASE} wait euromillions-staging/web')
                 sh('${RANCHER_CMD_BASE} exec euromillions-staging-web-php-1 vendor/doctrine/orm/bin/doctrine orm:generate-proxies')
                 sh('${RANCHER_CMD_BASE} exec euromillions-staging-web-php-1 vendor/bin/phinx migrate --configuration="phinx.yml" -e staging')
             }
