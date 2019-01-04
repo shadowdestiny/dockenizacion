@@ -4,6 +4,7 @@ services:
   redis:
     image: redis:latest
     labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
       io.rancher.container.pull_image: always
       em_container_service: redis
 
@@ -14,6 +15,7 @@ services:
     depends_on:
       - php
     labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
       io.rancher.container.pull_image: always
       io.rancher.sidekicks: php, phpcron
       em_container_service: web
