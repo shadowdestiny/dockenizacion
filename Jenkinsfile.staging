@@ -81,7 +81,7 @@ pipeline {
                 }
                 stage('composer php'){
                     steps{
-                        sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-php:tools composer install --no-progress --no-dev --optimize-autoloader')
+                        sh('sudo docker run --rm -v $(pwd)/src:/var/www -v /tmp:/tmp -e "COMPOSER_HOME=/tmp/composer_home" panamedialottery/euromillions-php:tools composer install --no-progress --no-dev --optimize-autoloader')
                     }
                 }
             }
