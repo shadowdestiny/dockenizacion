@@ -71,12 +71,12 @@ pipeline {
             parallel {
                 stage('build react'){
                     steps{
-                        sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-util-nodejs ./provision-react.sh')
+                        sh('sudo docker run --rm -v $(pwd)/src:/var/www -v /tmp:/tmp -e "NPM_CONFIG_CACHE=/tmp/npm_cache" panamedialottery/euromillions-util-nodejs ./provision-react.sh')
                     }
                 }
                 stage('build grunt'){
                     steps{
-                        sh('sudo docker run --rm -v $(pwd)/src:/var/www panamedialottery/euromillions-util-nodejs ./provision-grunt.sh')
+                        sh('sudo docker run --rm -v $(pwd)/src:/var/www -v /tmp:/tmp -e "NPM_CONFIG_CACHE=/tmp/npm_cache" panamedialottery/euromillions-util-nodejs ./provision-grunt.sh')
                     }
                 }
                 stage('composer php'){
