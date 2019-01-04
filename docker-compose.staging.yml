@@ -12,6 +12,10 @@ services:
       io.rancher.container.agent_service.drain_provider: 'true'
       io.rancher.container.create_agent: 'true'
 
+  redis:
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
+
   web:
     image: panamedialottery/euromillions-web:staging
     labels:
@@ -20,6 +24,6 @@ services:
   php:
     image: panamedialottery/euromillions-php:staging
 
-  redis:
-    labels:
-      io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
+  phpcron:
+    image: panamedialottery/euromillions-php:cron_staging
+

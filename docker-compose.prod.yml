@@ -35,7 +35,7 @@ services:
       AWS_SECRET_ACCESS_KEY: yX6OWDq23bhTWqZUpCl8ih00ubWYRXsmKVsWEWIn
 
   phpcron:
-    image: panamedialottery/euromillions-php:cron
+    image: panamedialottery/euromillions-php:cron_prod
     volumes_from:
       - php
     depends_on:
