@@ -2,10 +2,11 @@
 
 namespace EuroMillions\web\entities;
 
-use antonienko\PositiveModulus\PositiveModulus;
-use EuroMillions\web\components\DateTimeUtil;
-use EuroMillions\web\interfaces\IEntity;
 use Money\Money;
+use EuroMillions\web\interfaces\IEntity;
+use EuroMillions\web\components\DateTimeUtil;
+use antonienko\PositiveModulus\PositiveModulus;
+use EuroMillions\shared\exceptions\NotDrawFound;
 
 class Lottery extends EntityBase implements IEntity
 {
@@ -134,11 +135,9 @@ class Lottery extends EntityBase implements IEntity
     protected function getDrawFromDaily(\DateTime $date, $iterationMethod, callable $hourCondition)
     {
         $hour = $date->format("H:i:s");
-        if ($hourCondition($hour)) {
-            return $this->getDateWithDrawTime($date);
-        } else {
-            return $this->getDateWithDrawTime($date->$iterationMethod(new \DateInterval('P1D')));
-        }
+        return $hourCondition($hour) ?
+            $this->getDateWithDrawTime($date) :
+            $this->getDateWithDrawTime($date->$iterationMethod(new \DateInterval('P1D')));
     }
 
     protected function getDrawFromWeekly($configParams, \DateTime $date, $iterationMethod, $increment, callable $hourCondition)
@@ -148,20 +147,19 @@ class Lottery extends EntityBase implements IEntity
         $hour = $date->format("H:i:s");
         $one_day = new \DateInterval('P1D');
         $days_to_check = 7;
+        
         while ($days_to_check) {
-            if (1 == (int)$configParams[$weekday_index] && ($days_to_check < 7 || $hourCondition($hour))) {
-                if($this->getName() == 'PowerBall' || $this->getName() == 'MegaMillions') {
-                    return DateTimeUtil::convertDateTimeBetweenTimeZones($result_date,'Europe/Madrid','America/New_York', $this->getName());
-                } else {
-                    return $result_date;
-                }
-            } else {
-                $result_date = $result_date->$iterationMethod($one_day);
-                $weekday_index = PositiveModulus::calc($weekday_index + $increment, 7);
+            if (1 === (int)$configParams[$weekday_index] && ($days_to_check < 7 || $hourCondition($hour))) {
+                return ($this->getName() == 'PowerBall' || $this->getName() == 'MegaMillions') ?
+                    DateTimeUtil::convertDateTimeBetweenTimeZones($result_date,'Europe/Madrid','America/New_York', $this->getName()) :
+                    $result_date;
             }
+            $result_date = $result_date->$iterationMethod($one_day);
+            $weekday_index = PositiveModulus::calc($weekday_index + $increment, 7);
             $days_to_check--;
         }
-        return false; //throw instead?
+        
+        throw new NotDrawFound('Couldn\'t find the draw');
     }
 
     protected function getNextDrawFromMonthly($configParams, \DateTime $date)
@@ -178,13 +176,11 @@ class Lottery extends EntityBase implements IEntity
                 )
             ) {
                 return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, 'm', $configParams);
-            } else {
-                return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, '03', $configParams);
             }
-        } else {
-            $next_month = $date->add(new \DateInterval('P1M'));
-            return $this->getDateWithSpecificMonthAndDayAndDrawTime($next_month, 'm', $configParams);
+            return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, '03', $configParams);
         }
+        $next_month = $date->add(new \DateInterval('P1M'));
+        return $this->getDateWithSpecificMonthAndDayAndDrawTime($next_month, 'm', $configParams);    
     }
 
     protected function getLastDrawFromMonthly($configParams, \DateTime $date)
@@ -195,19 +191,18 @@ class Lottery extends EntityBase implements IEntity
         $month = $date->format("m");
         if ($day_of_month > (int)$configParams || ($day_of_month == (int)$configParams) && $hour > $this->draw_time) {
             return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, 'm', $configParams);
-        } else {
-            if ($month != 3
-                || ($month == 3 &&
-                    ($configParams <= 28) ||
-                    ($configParams == 29 && $leap_year)
-                )
-            ) {
-                $previous_month = $date->sub(new \DateInterval('P1M'));
-                return $this->getDateWithSpecificMonthAndDayAndDrawTime($previous_month, 'm', $configParams);
-            } else {
-                return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, '01', $configParams);
-            }
         }
+
+        if ($month != 3
+            || ($month == 3 &&
+                ($configParams <= 28) ||
+                ($configParams == 29 && $leap_year)
+            )
+        ) {
+            $previous_month = $date->sub(new \DateInterval('P1M'));
+            return $this->getDateWithSpecificMonthAndDayAndDrawTime($previous_month, 'm', $configParams);
+        } 
+        return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, '01', $configParams);
     }
 
     protected function getDrawFromYearly($configParams, \DateTime $date, $iterationMethod, callable $hourCondition, callable $monthDayCondition)
@@ -220,9 +215,8 @@ class Lottery extends EntityBase implements IEntity
             ($month_day == $configParams && $hourCondition($hour)) || $monthDayCondition($month_day)
         ) {
             return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, $draw_month, $draw_day);
-        } else {
-            return $this->getDateWithSpecificMonthAndDayAndDrawTime($date->$iterationMethod(new \DateInterval('P1Y')), $draw_month, $draw_day);
         }
+        return $this->getDateWithSpecificMonthAndDayAndDrawTime($date->$iterationMethod(new \DateInterval('P1Y')), $draw_month, $draw_day);
     }
 
     protected function getDrawFromYearlyChristmas($configParams, \DateTime $date, $iterationMethod, callable $hourCondition, callable $monthDayCondition)
@@ -263,26 +257,31 @@ class Lottery extends EntityBase implements IEntity
         if (!$now) {
             $now = new \DateTime();
         }
-        $strategy = substr($this->frequency, 0, 1);
-        switch ($strategy) {
-            case 'y':
-                return $this->getDrawFromYearly($config_params, $now, $iteration_method, $hourCondition, $monthDayConfition);
-                break;
-            case 'm':
-                $function_name = $function . "Monthly";
-                return $this->$function_name($config_params, $now);
-                break;
-            case 'w':
-                return $this->getDrawFromWeekly($config_params, $now, $iteration_method, $increment, $hourCondition);
-                break;
-            case 'd':
-                return $this->getDrawFromDaily($now, $iteration_method, $hourCondition);
-                break;
-            case 'c':
-                return $this->getDrawFromYearlyChristmas($config_params, $now, $iteration_method, $hourCondition, $monthDayConfition);
-                break;
-            default:
-                return false; //throw instead?
+        try {
+            $strategy = substr($this->frequency, 0, 1);
+            switch ($strategy) {
+                case 'y':
+                    return $this->getDrawFromYearly($config_params, $now, $iteration_method, $hourCondition, $monthDayConfition);
+                    break;
+                case 'm':
+                    $function_name = $function . "Monthly";
+                    return $this->$function_name($config_params, $now);
+                    break;
+                case 'w':
+                    return $this->getDrawFromWeekly($config_params, $now, $iteration_method, $increment, $hourCondition);
+                    break;
+                case 'd':
+                    return $this->getDrawFromDaily($now, $iteration_method, $hourCondition);
+                    break;
+                case 'c':
+                    return $this->getDrawFromYearlyChristmas($config_params, $now, $iteration_method, $hourCondition, $monthDayConfition);
+                    break;
+                default:
+                    throw new NotDrawFound('Couldn\'t find the draw');
+            }
+        
+        } catch (NotDrawFound $e) {
+            throw new NotDrawFound('Couldn\'t find the draw');
         }
     }
 

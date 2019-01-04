@@ -239,16 +239,22 @@ class LotteriesDataService
                 $lotteryDraws  = json_decode($data, true);
                 unset($lotteryDraws[0]);
                 foreach ($lotteryDraws as $lotteryDraw) {
+
+                    $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => (new \DateTime($lotteryDraw['date']))]);
+
+                    if ($draw) {
+                        continue;
+                    }
+
                     $draw = $this->createDraw(new \DateTime($lotteryDraw['date']), null, $lottery);
                     $draw->createResult($lotteryDraw['numbers']['main'], $lotteryName=='EuroJackpot'?$lotteryDraw['numbers']['euro']:[0,$lotteryDraw['numbers'][$lotteryName=='PowerBall'?'powerball':'megaball']]);
                     $jackpotEUR = $currencyConversionService->convert(
-                        new Money((int) $lotteryDraw['jackpot']['total'],new Currency($lotteryDraw['currency']) ),
+                        new Money((int) $lotteryDraw['jackpot']['total'], new Currency($lotteryDraw['currency']) ),
                         new Currency('EUR')
                     );
                     $jack = new Money((int) floor($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
                     $draw->setJackpot($jack);
-                    if($lotteryName!='EuroJackpot')
-                    {
+                    if ($lotteryName != 'EuroJackpot') {
                         $draw->setRaffle(new Raffle($lotteryDraw['numbers'][$lotteryName=='PowerBall'?'powerplay':'megaplier']));
                     }
                     $draw->createBreakDown($lotteryDraw);
