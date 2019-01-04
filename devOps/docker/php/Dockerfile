@@ -57,9 +57,8 @@ COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/
 COPY devOps/docker/php/php-prod/post-deploy.sh /post-deploy.sh
 RUN chmod 700 /post-deploy.sh
 
-COPY ./src .
-
-RUN chown -R www-data:www-data /var/www
+COPY --chown=www-data:www-data ./src .
+#RUN chown -R www-data:www-data /var/www
 
 VOLUME /var/www
 
@@ -77,8 +76,7 @@ COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/
 COPY devOps/docker/php/php-staging/post-deploy.sh /post-deploy.sh
 RUN chmod 700 /post-deploy.sh
 
-COPY ./src .
-
-RUN chown -R www-data:www-data /var/www
+COPY --chown=www-data:www-data ./src .
+#RUN chown -R www-data:www-data /var/www
 
 VOLUME /var/www
