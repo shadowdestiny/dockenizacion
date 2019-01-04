@@ -99,7 +99,7 @@ class ControllerBase extends Controller
     {
         $config = $this->di->get('config');
         $geoip = new MaxMindWrapper($config->geoip->database_files_path);
-        if($geoip->isIpForbidden($this->request->getClientAddress())) {
+        if($geoip->isIpForbidden($this->request->getClientAddress(true))) {
             $this->view->pick('/landings/restricted');
         }
     }
