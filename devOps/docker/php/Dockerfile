@@ -45,7 +45,16 @@ USER ${user}
 
 ################################################################################
 
-FROM base as prod
+FROM base as common-tasks-onbuild
+
+COPY --chown=www-data:www-data ./src .
+#RUN chown -R www-data:www-data /var/www
+
+VOLUME /var/www
+
+################################################################################
+
+FROM common-tasks-onbuild as prod
 
 # set php.ini
 COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
@@ -57,14 +66,9 @@ COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/
 COPY devOps/docker/php/php-prod/post-deploy.sh /post-deploy.sh
 RUN chmod 700 /post-deploy.sh
 
-COPY --chown=www-data:www-data ./src .
-#RUN chown -R www-data:www-data /var/www
-
-VOLUME /var/www
-
 ################################################################################
 
-FROM base as staging
+FROM common-tasks-onbuild as staging
 
 # set php.ini
 COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
@@ -75,8 +79,3 @@ COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/
 # set post-deploy script
 COPY devOps/docker/php/php-staging/post-deploy.sh /post-deploy.sh
 RUN chmod 700 /post-deploy.sh
-
-COPY --chown=www-data:www-data ./src .
-#RUN chown -R www-data:www-data /var/www
-
-VOLUME /var/www
