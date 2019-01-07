@@ -9,12 +9,13 @@
   file: src=/var/www/vendor/bin/doctrine dest=/usr/local/bin/doctrine state=link mode="u+x,g+x,o+x"
 
 - name: Get GeoIP IPv4 database
-  shell: wget -nc http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+  shell: wget -nc https://s3-eu-west-1.amazonaws.com/geoip-euromillions-hotfix/GeoIP.dat.gz
   args:
     chdir: /var/www/data/geoipdatabase
 
 - name: Get GeoIP IPv6 database
-  shell: wget -nc http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+  shell: wget -nc https://s3-eu-west-1.amazonaws.com/geoip-euromillions-hotfix/GeoIPv6.dat.gz
+
   args:
     chdir: /var/www/data/geoipdatabase
 
