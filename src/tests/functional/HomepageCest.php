@@ -1,5 +1,8 @@
 <?php
 
+use Money\Currency;
+use Money\Money;
+
 
 /**
  * Class HomepageCest
@@ -8,6 +11,36 @@ class HomepageCest
 {
     public function _before(FunctionalTester $I)
     {
+        $I->haveInDatabase(
+            'euromillions_draws',
+            \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()
+                ->withId(3)
+                ->withDrawDate(new \DateTime('2019-01-08'))
+                ->withRaffle(new \EuroMillions\web\vo\Raffle('ABC'))
+                ->build()->toArray()
+        );
+        $I->haveInDatabase(
+            'euromillions_draws',
+            \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->withLottery(
+                \EuroMillions\tests\helpers\mothers\LotteryMother::aPowerBall()
+            )
+                ->withId(4)
+                ->withDrawDate(new \DateTime('2019-01-10'))
+                ->withRaffle(new \EuroMillions\web\vo\Raffle('ABC'))
+                ->withJackpot(new Money(4000000000, new Currency('EUR')))
+                ->build()->toArray()
+        );
+        $I->haveInDatabase(
+            'euromillions_draws',
+            \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->withLottery(
+                \EuroMillions\tests\helpers\mothers\LotteryMother::aMegaMillions()
+            )
+                ->withId(5)
+                ->withRaffle(new \EuroMillions\web\vo\Raffle('ABC'))
+                ->withDrawDate(new \DateTime('2019-01-09'))
+                ->withJackpot(new Money(5000000000, new Currency('EUR')))
+                ->build()->toArray()
+        );
         $I->amOnPage('/');
     }
 
@@ -61,28 +94,29 @@ class HomepageCest
     }
 
 
-
-
-    private function setEuroMillionsDraw(FunctionalTester $I)
+    /**
+     * @group home
+     * @param FunctionalTester $I
+     */
+    public function megaMillionsAsMainJackpot(FunctionalTester $I)
     {
-        $I->haveInDatabase(
-            'euromillions_draws',
-                    \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build()->toArray()
-        );
-        $I->haveInDatabase(
-            'euromillions_draws',
-                    \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->withLottery(
-                        \EuroMillions\tests\helpers\mothers\LotteryMother::aPowerBall()
-            )->withJackpot(new Money(4000000000, new Currency('EUR')))
-            ->build()->toArray()
-        );
-        $I->haveInDatabase(
-            'euromillions_draws',
-            \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->withLottery(
-                \EuroMillions\tests\helpers\mothers\LotteryMother::aMegaMillions()
-            )->withJackpot(new Money(5000000000, new Currency('EUR')))
-                ->build()->toArray()
-        );
-
+        $I->wantTo('MegaMillions jackpot as main jackpot');
+        $jackpot = $I->grabTextFrom('.desktop-row--01');
+        $jackpot_number = (int)str_replace(['.',',','€'],'', $jackpot);
+        $I->assertEquals(50, $jackpot_number);
     }
+
+    /**
+     * @group home
+     * @param FunctionalTester $I
+     */
+    public function jackpotOrderedByHeldDate(FunctionalTester $I)
+    {
+        $I->wantTo('It should show euromillions as first position');
+        $lottery = $I->grabTextFrom('.title .resizeme');
+        $I->assertEquals('carousel_em_name',$lottery);
+    }
+
+
+
 }
