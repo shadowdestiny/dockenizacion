@@ -100,6 +100,36 @@ class Lottery extends EntityBase implements IEntity
         return $this->single_bet_price;
     }
 
+    public function isEuroJackpot()
+    {
+        return $this->name == 'EuroJackpot';
+    }
+
+    public function isPowerBall()
+    {
+        return $this->name == 'PowerBall';
+    }
+
+    public function isEuroMillions()
+    {
+        return $this->name == 'EuroMillions';
+    }
+
+    public function isChristmas()
+    {
+        return $this->name == 'Christmas';
+    }
+
+    public function isMegaMillions()
+    {
+        return $this->name == 'MegaMillions';
+    }
+
+    public function isNotEuroJackpot()
+    {
+        return !$this->isEuroJackpot();
+    }
+
     /**
      * @param \DateTime $now
      * @return \DateTime
@@ -150,8 +180,8 @@ class Lottery extends EntityBase implements IEntity
         
         while ($days_to_check) {
             if (1 === (int)$configParams[$weekday_index] && ($days_to_check < 7 || $hourCondition($hour))) {
-                return ($this->getName() == 'PowerBall' || $this->getName() == 'MegaMillions') ?
-                    DateTimeUtil::convertDateTimeBetweenTimeZones($result_date,'Europe/Madrid','America/New_York', $this->getName()) :
+                return ($this->isPowerBall() || $this->isMegaMillions()) ?
+                    DateTimeUtil::convertDateTimeBetweenTimeZones($result_date, 'Europe/Madrid', 'America/New_York', $this->getName()) :
                     $result_date;
             }
             $result_date = $result_date->$iterationMethod($one_day);

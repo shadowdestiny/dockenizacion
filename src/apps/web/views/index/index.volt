@@ -99,6 +99,17 @@
             'hourmega'
             );
         }
+        if(item.name == 'EuroJackpot')
+        {
+            setCountDownByLottery(item.date,
+            'countdowneuro',
+            'dayeuro',
+            'dotseuro',
+            'minuteeuro',
+            'secondseuro',
+            'houreuro'
+            );
+        }
     });
 {% endblock %}
 {% block body %}

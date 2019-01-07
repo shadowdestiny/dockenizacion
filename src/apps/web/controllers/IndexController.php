@@ -16,12 +16,15 @@ class IndexController extends PublicSiteControllerBase
         $euroMillionsDrawJackpotArr = $this->lotteryService->sliderAndBarJackpotHome();
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($mainJackpotHomeDTO->jackpot);
         $jackpotChristmas = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('Christmas'));
+        $jackpotEuroJackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroJackpot'));
         $this->view->setVar('day_draw_christmas', $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('l'));
         $this->view->setVar('next_draw_christmas', $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('d.m.Y'));
         $textMillions = $this->billionsAndTrillions($jackpot, strtolower($mainJackpotHomeDTO->lotteryName));
         $textMillionsChristmas = $this->billionsAndTrillions($jackpotChristmas, 'christmas');
+        $textMillionsEuroJackpot = $this->billionsAndTrillions($jackpotEuroJackpot, 'eurojackpot');
         $this->view->setVar('jackpot_millions', ViewHelper::formatMillionsJackpot($jackpot));
         $this->view->setVar('jackpot_christmas', ViewHelper::formatBillionsJackpot($jackpotChristmas, $this->languageService->getLocale()));
+        $this->view->setVar('jackpot_eurojackpot', ViewHelper::formatMillionsJackpot($jackpotEuroJackpot));
         $time_till_next_draw = $this->lotteryService->getTimeToNextDraw('EuroMillions');
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $last_draw_date = $this->lotteryService->getLastDrawDate('EuroMillions');
@@ -37,6 +40,7 @@ class IndexController extends PublicSiteControllerBase
         $this->view->setVar('last_draw_date', $last_draw_date->format('l, F j, Y'));
         $this->view->setVar('show_s_days', (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'));
         $this->view->setVar('show_p_days', (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours'))->format('%a'));
+        $this->view->setVar('show_ej_days', (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroJackpot')->modify('-1 hours'))->format('%a'));
         $this->view->setVar('pageController', 'index');
         $this->view->setVar('main_jackpot_home', $mainJackpotHomeDTO);
         $userPreferenceService = $this->userPreferencesService;
