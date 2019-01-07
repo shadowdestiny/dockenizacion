@@ -22,7 +22,7 @@ class LotteryDrawRepository extends RepositoryBase
                 . ' ORDER BY ld.draw_date DESC')
             ->setMaxResults(1)
             ->setParameters(['lottery_name' => $lotteryName, 'date' => $date])
-            ->useResultCache(true, 3600)
+            ->useResultCache($this->isCacheEnabled(), 3600)
             ->getResult();
         return $result[0]->getJackpot();
     }
@@ -41,7 +41,7 @@ class LotteryDrawRepository extends RepositoryBase
                 . ' ORDER BY ld.draw_date DESC')
             ->setMaxResults(1)
             ->setParameters(['lottery_name' => $lotteryName, 'date' => $date])
-            ->useResultCache(true)
+            ->useResultCache($this->isCacheEnabled())
             ->getResult();
         return $result[0]->getRaffle();
     }
@@ -69,7 +69,7 @@ class LotteryDrawRepository extends RepositoryBase
                 . ' ORDER BY ld.draw_date ASC')
             ->setMaxResults(1)
             ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $next_draw_date->format('Y-m-d'), 'time' => $next_draw_date->format("H:i:s")])
-            ->useResultCache(true)
+            ->useResultCache($this->isCacheEnabled())
             ->getResult();
         if (!count($result)) {
             throw new DataMissingException('Couldn\'t find the next draw row in the database');
@@ -116,7 +116,7 @@ class LotteryDrawRepository extends RepositoryBase
                 . ' WHERE l.name = :lottery_name AND ld.draw_date = :date')
             ->setMaxResults(1)
             ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $draw_date->format('Y-m-d')])
-            ->useResultCache(true, 3600)
+            ->useResultCache($this->isCacheEnabled(), 3600)
             ->getResult();
         if (!count($result)) {
             throw new DataMissingException('Couldn\'t find the last result in the database');
@@ -135,7 +135,7 @@ class LotteryDrawRepository extends RepositoryBase
                 . ' ORDER BY ld.draw_date DESC')
             ->setMaxResults(6)
             ->setParameters(['lottery_name' => $lottery->getName()])
-            ->useResultCache(true)
+            ->useResultCache($this->isCacheEnabled())
             ->getResult();
         if (!count($result)) {
             throw new DataMissingException('Couldn\'t find the last result in the database');
@@ -158,7 +158,7 @@ class LotteryDrawRepository extends RepositoryBase
                 . ' WHERE l.name = :lottery_name AND ld.draw_date = :date')
             ->setMaxResults(1)
             ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $draw_date->format('Y-m-d')])
-            ->useResultCache(true, 3600)
+            ->useResultCache($this->isCacheEnabled(), 3600)
             ->getResult();
         if (!count($result)) {
             throw new DataMissingException('Couldn\'t find the last result in the database');
@@ -184,7 +184,7 @@ class LotteryDrawRepository extends RepositoryBase
                 . ' FROM ' . $this->getEntityName() . ' ld JOIN ld.lottery l'
                 . ' WHERE l.name = :lottery_name AND ld.draw_date = :date')
             ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $date->format('Y-m-d')])
-            ->useResultCache(true, 3600)
+            ->useResultCache($this->isCacheEnabled(), 3600)
             ->getResult();
 
         return (!empty($result)) ? $result[0] : [];
@@ -221,7 +221,7 @@ class LotteryDrawRepository extends RepositoryBase
             ->setMaxResults($limit)
 
             ->setParameters(['lottery_name' => $lottery->getName()])
-            ->useResultCache(true, 3600)
+            ->useResultCache($this->isCacheEnabled(), 3600)
             ->getResult();
         if (!count($result)) {
             throw new DataMissingException('Couldn\'t find the results in the database');
@@ -254,7 +254,7 @@ class LotteryDrawRepository extends RepositoryBase
                 . ' ed.draw_date >= CURRENT_DATE()'
                 . ' and l.id != 2'
                 . ' order by ed.draw_date ASC')
-            ->useResultCache(true, 3600)
+            ->useResultCache($this->isCacheEnabled(), 3600)
             ->getResult();
         return $result;
     }
@@ -272,9 +272,9 @@ class LotteryDrawRepository extends RepositoryBase
                 . ' AND l.id != 2 '
                 . ' ORDER BY ed.jackpot.amount DESC')
             ->setMaxResults(1)
-            ->useResultCache(true, 3600)
+            ->useResultCache($this->isCacheEnabled(), 3600)
             ->getResult();
-        return $result[0];
+        return isset($result[0]) ? $result[0] : null;
     }
 
     /**
