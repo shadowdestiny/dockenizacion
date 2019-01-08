@@ -11,3 +11,7 @@ gzip -fd GeoIPv6.dat.gz
 
 mv GeoIP.dat ${WORKSPACE}/src/data/geoipdatabase
 mv GeoIPv6.dat ${WORKSPACE}/src/data/geoipdatabase
+
+# Temporal hack for deploy in both infrastructures ( old and new )
+mv ${WORKSPACE}/src/phinx_new_infra.yml ${WORKSPACE}/src/phinx.yml
+mv ${WORKSPACE}/src/apps/shared/config/staging_config_new_infra.ini ${WORKSPACE}/src/apps/shared/config/staging_config.ini
