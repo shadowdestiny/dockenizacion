@@ -42,6 +42,12 @@ class EuroMillionsDrawBuilder
         return $this;
     }
 
+    public function withDrawDate(\DateTime $dateTime)
+    {
+        $this->draw_date= $dateTime;
+        return $this;
+    }
+
     public function withLottery(Lottery $lottery)
     {
         $this->lottery= $lottery;
@@ -57,6 +63,12 @@ class EuroMillionsDrawBuilder
     public function withResult(EuroMillionsLine $result)
     {
         $this->result = $result;
+        return $this;
+    }
+
+    public function withId($id)
+    {
+        $this->id= $id;
         return $this;
     }
 
