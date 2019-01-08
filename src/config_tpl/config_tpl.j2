@@ -109,6 +109,10 @@ endpoint={{ moneymatrix_endpoint }}
 endpoint= {{ lottorisq_endpoint }}
 api_key={{ lottorisq_apikey }}
 
+[megamillions_api]
+endpoint= {{ megamillions_endpoint }}
+api_key={{ megamillions_apikey }}
+
 [aws]
 queue_results_endpoint={{ queue_results_endpoint }}
 queue_prizes_endpoint= {{ queue_prizes_endpoint }}
@@ -134,6 +138,12 @@ dependencies={{payment_balancing_dependencies}}
 [jackpot_widget]
 EuroMillions={{ controllers_euromillions }}
 PowerBall={{ controllers_powerball }}
+MegaMillions= {{ controllers_megamillions }}
+
+[result_widget]
+EuroMillions={{ controllers_result_euromillions }}
+PowerBall={{ controllers_result_powerball }}
+MegaMillions={{ controllers_result_megamillions }}
 
 [geoip]
 database_files_path={{ file_databasegeoip_path }}

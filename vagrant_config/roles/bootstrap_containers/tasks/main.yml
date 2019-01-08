@@ -1,32 +1,13 @@
 ---
-
-- name: build phpserver container
-  docker_image:
-    name: develphpserver
-    path: /vagrant/src/docker/devel-php
-    state: build
-
-- name: build webserver container
-  docker_image:
-    name: develwebserver
-    path: /vagrant/src/docker/devel-web
-    state: build
-
-- name: build varnish container
-  docker_image:
-    name: develvarnish
-    path: /vagrant/src/docker/devel-varnish
-    state: build
-
 - name: start database container
   docker:
     name: develdbmaster
     image: rmrbest/percona
     state: reloaded
     ports:
-      - "3306:3306"
+    - "3306:3306"
     volumes:
-      - /home/vagrant/mysqldata:/var/lib/mysql
+    - /home/vagrant/mysqldata:/var/lib/mysql
     env:
       REPLICATION: true
       REPLICATION_NODE: 1
@@ -36,59 +17,6 @@
       MYSQL_USER: euromillions
       MYSQL_PASSWORD: tpl9
       MYSQL_DATABASE: euromillions
-
-- name: start redis container
-  docker:
-    name: develredis
-    image: redis
-    ports:
-      - "6379:6379"
-
-- name: start phpserver container
-  docker:
-    name: "{{phpserver_container_name}}"
-    image: develphpserver
-    state: reloaded
-    volumes:
-      - /var/www:/var/www
-    links:
-      - develdbmaster:mysql
-      - develredis:redis
-    env:
-      EM_ENV: development
-      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
-      AWS_SECRET_ACCESS_KEY: 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
-
-- name: start webserver container
-  docker:
-    name: "{{webserver_container_name}}"
-    image: develwebserver
-    state: reloaded
-    volumes:
-      - /var/www:/var/www
-    links:
-      - develphpserver:php
-    env:
-      EM_ENV: development
-#    ports:
-#      - "80:80"
-#      - "443:443"
-
-- name: start varnish container
-  docker:
-    name: develvarnish
-    image: develvarnish
-    state: reloaded
-#    state: stopped
-    volumes:
-      - /vagrant/src/docker/devel-varnish/nginx/certs:/etc/nginx/ssl
-    links:
-      - develwebserver:backend
-    env:
-      EM_ENV: development
-    ports:
-      - "80:80"
-      - "443:443"
 
 - name: start compass web container
   docker:
@@ -103,6 +31,39 @@
     image: antonienko/compass-watch
     command: watch --poll /src/compass_admin
     volumes: /var/www:/src
+
+- name: start redis container
+  docker:
+    name: develredis
+    image: redis
+    ports:
+    - "6379:6379"
+
+- name: build web container
+  docker_image:
+    name: develweb
+    path: /vagrant/src/docker/devel-web
+    state: build
+
+- name: start web container
+  docker:
+    name: "{{webserver_container_name}}"
+    image: develweb
+    state: reloaded
+    ports:
+    - "80:80"
+    - "443:443"
+    volumes:
+    - /var/www:/var/www
+    - /vagrant/src/docker/devel-web/nginxconfig:/etc/nginx/sites-enabled
+    - /vagrant/src/docker/devel-web/certs:/etc/nginx/ssl
+    links:
+    - develdbmaster:mysql
+    - develredis:redis
+    env:
+      EM_ENV: development
+      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
+      AWS_SECRET_ACCESS_KEY: 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
 
 - name: Create script with env vars
   shell: docker exec {{webserver_container_name}} printenv | sed 's/^\(.*\)$/export \1/g' | grep EM_ENV > /tmp/project_env.sh
