@@ -46,7 +46,7 @@
                 </a>
             </li>
             <li>
-                <a href="/{{ language.translate('link_christmas_results') }}">
+                <a href="/{{ language.translate('link_eurojackpot_results') }}">
                     EUROJACKPOT RESULTS
                 </a>
             </li>
