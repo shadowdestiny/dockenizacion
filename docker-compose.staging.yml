@@ -26,4 +26,5 @@ services:
 
   phpcron:
     image: panamedialottery/euromillions-php:cron_staging
-
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
