@@ -24,6 +24,16 @@ On Linux we interact directly with Docker and we use Ansible for provision and c
 On Windows we wrap the Ansible / Docker approach for Linux with a Vagrant / Virtualbox machine. With this approach the automation with Ansible works in both
 systems. The Windows OS support is limited and has a lot of inconvenience ( slow, hard to debug code, etc...) 
 
+Important: Git must be configured for checkout files as LF. If not sure you can run this commands (on the repository folder) if you have already cloned the repository:
+
+```
+git config core.eol lf
+git config core.autocrlf input
+
+git rm -rf --cached . 
+git reset --hard HEAD
+```
+
 ### Mac OS
 Not tested in this OS.
 
@@ -41,7 +51,6 @@ Not tested in this OS.
 2. Edit /etc/hosts file for point dev.euromillions.com to IP defined at .env file with the value of ***EM_DOCKER_VARNISH_IP*** by default 172.10.10.10
 3. You can connect to MySQL database on the ip defined with ***EM_DOCKER_DATABASE_IP***
 4. After first boot, you can do a $ docker-compose -d --build for get the environment running
-
 
 ### For Windows OS
 
