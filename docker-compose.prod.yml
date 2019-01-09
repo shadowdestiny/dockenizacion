@@ -26,8 +26,8 @@ services:
     image: panamedialottery/euromillions-php:prod
     depends_on:
       - redis
-#    volumes:
-#      - "php_tmp_volume:/tmp"
+    volumes:
+      - "php_tmp_volume:/tmp"
     labels:
       io.rancher.container.pull_image: always
       em_container_service: php
