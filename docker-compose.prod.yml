@@ -17,7 +17,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
       io.rancher.container.pull_image: always
-      io.rancher.sidekicks: php, phpcron
+      io.rancher.sidekicks: php
       em_container_service: web
     environment:
       EM_ENV: ${EM_ENV}
