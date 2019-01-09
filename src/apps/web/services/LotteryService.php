@@ -202,7 +202,7 @@ class LotteryService
                 $result[$cont - 1]['regular_numbers'] = explode(',', $lottery_result->getResult()->getRegularNumbers());
                 $result[$cont - 1]['lucky_numbers'] = explode(',', $lottery_result->getResult()->getLuckyNumbers());
                 $result[$cont - 1]['draw_date'] = $lottery_result->getDrawDate();
-                $result[$cont - 1]['raffle'] = $lottery_result->getRaffle()->getValue();
+                $result[$cont - 1]['raffle'] = !empty($lottery_result->getRaffle()) ? $lottery_result->getRaffle()->getValue() : "";
             }
             $cont++;
         }

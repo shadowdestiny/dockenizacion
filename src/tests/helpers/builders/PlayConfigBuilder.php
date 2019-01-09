@@ -123,7 +123,7 @@ class PlayConfigBuilder
             'draw_time' => '20:00:00',
             'single_bet_price' => new Money( 250, new Currency('EUR')),
         ]);
-        return $lottery;
+        return $lottery->getId();
     }
 
     /**

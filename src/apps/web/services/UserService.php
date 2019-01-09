@@ -495,9 +495,11 @@ class UserService
         $contLines = 0;
         $lastDrawDate = '';
         $startDrawDate = '';
+        $lotteryName = '';
         foreach ($subscriptionsActives as $subscriptionsActiveKey => $subscriptionsActiveValue) {
             if ($lastDrawDate == $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] &&
-                $startDrawDate == $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date']) {
+                $startDrawDate == $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] &&
+                $lotteryName == $subscriptionsActives[$subscriptionsActiveKey]['name']) {
                 $subscriptionsActivesPresenter[$cont]['lines'] = $contLines+1;
                 $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_one'] = $subscriptionsActiveValue['line_regular_number_one'];
                 $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_two'] = $subscriptionsActiveValue['line_regular_number_two'];
@@ -528,6 +530,7 @@ class UserService
             }
             $lastDrawDate = $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'];
             $startDrawDate = $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'];
+            $lotteryName = $subscriptionsActives[$subscriptionsActiveKey]['name'];
         }
 
         return $subscriptionsActivesPresenter;

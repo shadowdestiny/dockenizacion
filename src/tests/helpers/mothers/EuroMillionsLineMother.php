@@ -24,4 +24,22 @@ class EuroMillionsLineMother
         );
     }
 
+    public static function anPowerBallLine()
+    {
+        return new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(26),
+                new EuroMillionsRegularNumber(28),
+                new EuroMillionsRegularNumber(59),
+                new EuroMillionsRegularNumber(62),
+            ],
+            [
+                new EuroMillionsLuckyNumber(0),
+                new EuroMillionsLuckyNumber(2),
+            ]
+        );
+
+    }
+
 }
