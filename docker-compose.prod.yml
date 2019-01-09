@@ -38,9 +38,12 @@ services:
 
   phpcron:
     image: panamedialottery/euromillions-php:cron_prod
+    volumes:
+      - "php_tmp_volume:/tmp"
     depends_on:
       - redis
     labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
       io.rancher.container.pull_image: always
       em_container_service: phpcron
     environment:
