@@ -30,7 +30,7 @@ services:
     depends_on:
       - redis
     volumes:
-      - "php_tmp_volume:/tmp"
+      - "/tmp/php_tmp_volume:/tmp"
     labels:
       io.rancher.container.pull_image: always
       em_container_service: php
@@ -56,5 +56,5 @@ services:
       AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
       AWS_SECRET_ACCESS_KEY: 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
 
-volumes:
-  php_tmp_volume: {}
+#volumes:
+#  php_tmp_volume: {}
