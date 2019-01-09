@@ -168,17 +168,17 @@
                                             <td class="td-ball">
                                                 <span>
                                                 {#TODO : Add real variables here#}
-                                                    {{ break_downs[name]['name'] }} {{ language.translate("prizePool_ball") }} + {{ break_downs[name]['name'] }} {{ language.translate("prizePool_star") }}
+                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("prizePool_ball") }} + {{ break_downs[name]['stars_corrected'] }} {{ language.translate("prizePool_star") }}
                                                 </span>
                                             </td>
                                             <td class="td-winners">
                                                 <span>
-                                                {{ break_downs[name]['winnersEuroJackpot'] }}x
+                                                {{ break_downs[name]['winners'] }}x
                                                 </span>
                                             </td>
                                             <td class="td-prize">
                                                 <span>
-                                                {{ symbol }} {{ break_downs[name]['EuroJackpotPrize'] | number_format(2, '.', ',') }}
+                                                {{ symbol }} {{ (break_downs[name]['lottery_prize']/100) | number_format(2, '.', ',') }}
                                                 </span>
                                             </td>
                                         {% endif %}
