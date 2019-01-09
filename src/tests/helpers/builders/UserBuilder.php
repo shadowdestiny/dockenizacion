@@ -6,6 +6,7 @@ use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\BirthDate;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
@@ -42,6 +43,7 @@ class UserBuilder
     private $playConfig;
     private $winning_above;
     private $ip_address;
+    private $birth_date;
     private $show_modal_winning;
 
 
@@ -62,6 +64,7 @@ class UserBuilder
         $this->user_currency = new Currency(self::DEFAULT_USER_CURRENCY);
         $this->winning_above = new Money((int) 0, new Currency(self::DEFAULT_USER_CURRENCY));
         $this->ip_address = new IPAddress(self::DEFAULT_IP_ADDRESS);
+        $this->birth_date = new BirthDate('2000-10-10');
         $this->show_modal_winning= 1;
     }
 
