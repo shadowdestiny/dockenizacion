@@ -19,9 +19,7 @@ services:
   web:
     image: panamedialottery/euromillions-web:staging
     labels:
-      io.rancher.scheduler.affinity:host_label: em_node_env=staging
-      #io.rancher.scheduler.affinity:host_label_soft: em_hostname=staging-01
-      io.rancher.scheduler.affinity:host_label_ne: em_hostname=staging-02
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
 
   php:
     image: panamedialottery/euromillions-php:staging
@@ -29,4 +27,4 @@ services:
   phpcron:
     image: panamedialottery/euromillions-php:cron_staging
     labels:
-      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-01

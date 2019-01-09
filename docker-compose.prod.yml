@@ -7,6 +7,7 @@ services:
       io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
       io.rancher.container.pull_image: always
       em_container_service: redis
+    mem_reservation: 51200 #in Bytes (50MB)
 
   web:
     image: panamedialottery/euromillions-web:prod
@@ -19,6 +20,8 @@ services:
       io.rancher.container.pull_image: always
       io.rancher.sidekicks: php
       em_container_service: web
+    mem_reservation: 51200 #in Bytes (50MB)
+    mem_limit: 262144 #in Bytes (256MB)
     environment:
       EM_ENV: ${EM_ENV}
 
@@ -31,6 +34,8 @@ services:
     labels:
       io.rancher.container.pull_image: always
       em_container_service: php
+    mem_reservation: 262144 #in Bytes (256MB)
+    mem_limit: 1048576 #in Bytes (1024MB)
     environment:
       EM_ENV: ${EM_ENV}
       AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
@@ -44,10 +49,12 @@ services:
       io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
       io.rancher.container.pull_image: always
       em_container_service: phpcron
+    mem_reservation: 262144 #in Bytes (256MB)
+    mem_limit: 1048576 #in Bytes (1024MB)
     environment:
       EM_ENV: ${EM_ENV}
       AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
       AWS_SECRET_ACCESS_KEY: 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
 
 volumes:
-  php_tmp_volume:
+  php_tmp_volume: {}
