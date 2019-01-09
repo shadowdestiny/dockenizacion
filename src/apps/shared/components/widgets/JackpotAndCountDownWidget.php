@@ -157,6 +157,11 @@ class JackpotAndCountDownWidget extends \Phalcon\Mvc\User\Component
         {
             return $this->translationAdapter->query('link_megamillions_play');
         }
+
+        if($this->lottery->getName() == 'EuroJackpot')
+        {
+            return $this->translationAdapter->query('link_eurojackpot_play');
+        }
     }
 
     protected function getTitle()
@@ -173,6 +178,10 @@ class JackpotAndCountDownWidget extends \Phalcon\Mvc\User\Component
         {
             return $this->translationAdapter->query('megjackpot_estimate');
         }
+        if($this->lottery->getName() == 'EuroJackpot')
+        {
+            return $this->translationAdapter->query('eurjackpot_estimate');
+        }
     }
 
     protected function getCornerCss()
@@ -186,6 +195,10 @@ class JackpotAndCountDownWidget extends \Phalcon\Mvc\User\Component
             return "corner-powerball";
         }
         if($this->lottery->getName() == 'EuroMillions')
+        {
+            return "corner";
+        }
+        if($this->lottery->getName() == 'EuroJackpot')
         {
             return "corner";
         }
