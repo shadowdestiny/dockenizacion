@@ -323,7 +323,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="box-balance--row  cl" style="height:267px">
+                        <div class="box-balance--row  cl" style="height:355px">
                             <div class="txt">{{ language.translate("balance_yourSubscription") }} </div>
                             <div class="txt">{{ language.translate("EuroMillions") }} <span
                                         class="value">{{ wallet.subscriptionBalanceEuromillions}}</span></div>
@@ -331,6 +331,14 @@
                                         class="value">{{ wallet.subscriptionBalancePowerBall}}</span></div>
                             <div class="txt">{{ language.translate("MegaMillions") }} <span
                                         class="value">{{ wallet.subscriptionBalanceMegaMillions}}</span></div>
+                             <div class="txt">
+                                {{ language.translate("MegaMillions") }}
+                                <span class="value">{{ wallet.subscriptionBalanceMegaMillions}}</span>
+                             </div>
+                            <div class="txt">
+                                 EuroJackpot
+                                 <span class="value">{{ wallet.subscriptionBalanceEuroJackpot}}</span>
+                            </div>
 
                         </div>
                         <div class="box-balance--row  cl">
