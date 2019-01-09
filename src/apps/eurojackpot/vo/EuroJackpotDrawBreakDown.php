@@ -14,6 +14,7 @@ use Money\Money;
 use Money\UnknownCurrencyException;
 use Phalcon\Di;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\shared\helpers\StringHelper;
 
 class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
 {
@@ -44,7 +45,7 @@ class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
 
                 $euroMillionsDrawBreakDown->setLotteryPrize($this->currencyConversion(
                     new Money((int) str_replace('.','', $data),
-                        new Currency('USD'))
+                        new Currency('EUR'))
                 )
                 );
                 $euroMillionsDrawBreakDown->setWinners($this->breakdown['winners'][$k]);
@@ -59,8 +60,9 @@ class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
     private function mappingMethodName($key)
     {
         $mappingArray = [
-            'match-1-2' => 'setCategoryTwelve',
-            'match-2-1' => 'setCategoryEleven',
+            'match-1-2' => 'setCategoryEleven',
+            'match-2' => 'setCategoryThirteen',
+            'match-2-1' => 'setCategoryTwelve',
             'match-2-2' => 'setCategoryTen',
             'match-3' => 'setCategoryNine',
             'match-3-1' => 'setCategoryEight',
@@ -82,9 +84,10 @@ class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
             /** @var CurrencyConversionService $currencyConversion */
             $currencyConversion = Di::getDefault()->get('domainServiceFactory')->getCurrencyConversionService();
             $moneyConverted = $currencyConversion->convert($money, new Currency('EUR'));
-            return new Money((int) $moneyConverted->getAmount() * 100, new Currency('EUR'));
+            return new Money((int) $moneyConverted->getAmount(), new Currency('EUR'));
         } catch (UnknownCurrencyException $e) {
             return null;
         }
     }
+
 }

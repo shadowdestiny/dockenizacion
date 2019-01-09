@@ -109,8 +109,8 @@
                                     <tr class="more" style="cursor: pointer"
                                         onclick="document.location='/eurojackpot/results/draw-history/{{ draw.drawDateParam }}'">
                                         <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
-                                        <td class="td-ball-numbers">{{ draw.resultNumbers }}</td>
-                                        <td class="td-powerball">{{ draw.luckyNumber }}</td>
+                                        <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
+                                        <td class="td-powerball">{{ draw.luckyNumbers }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

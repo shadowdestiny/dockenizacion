@@ -313,6 +313,11 @@ class LotteryService
                 //TODO please, we need move results, jackpot from Draws to another service. Inject this depencencies for example
                 /** @var EuroMillionsDraw[] $euroMillionsDraws */
                 foreach ($euroMillionsDraws as $euroMillionsDraw) {
+                    if ($lottery->isEuroJackpot()) {
+                        $euromillionsBreakDownDataDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
+                        $drawsDTO[] = new EuroMillionsDrawDTO($euromillionsBreakDownDataDTO, $euroMillionsDraw);
+                        continue;
+                    }
                     $drawsDTO[] = new $drawDtoObject($euroMillionsDraw, $emTranslationAdapter);
                 }
                 return new ActionResult(true, $drawsDTO);
