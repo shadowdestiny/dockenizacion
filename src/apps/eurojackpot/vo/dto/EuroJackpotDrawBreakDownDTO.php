@@ -94,38 +94,74 @@ class EuroJackpotDrawBreakDownDTO extends EuroMillionsDrawBreakDownDTO implement
         return [
             'lineOne' => [
                 'name' => 5,
-                'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategoryTwo()->getWinners(),
-                'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategoryTwo()->getLotteryPrize()->getAmount(),
+                'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategoryOne()->getWinners(),
+                'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategoryOne()->getLotteryPrize()->getAmount(),
                 'showEuroJackpot' => true
             ],
             'lineTwo' => [
+                'name' => 5,
+                'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategoryTwo()->getWinners(),
+                'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategoryTwo()->getLotteryPrize()->getAmount(),
+                'showEuroJackpot' => false
+            ],
+            'lineThree' => [
                 'name' => 5,
                 'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategoryThree()->getWinners(),
                 'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategoryThree()->getLotteryPrize()->getAmount(),
                 'showEuroJackpot' => false
             ],
-            'lineThree' => [
+            'lineFour' => [
+                'name' => 4,
+                'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategoryFour()->getWinners(),
+                'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategoryFour()->getLotteryPrize()->getAmount(),
+                'showEuroJackpot' => true
+            ],
+            'lineFive' => [
+                'name' => 4,
+                'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategoryFive()->getWinners(),
+                'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategoryFive()->getLotteryPrize()->getAmount(),
+                'showEuroJackpot' => true
+            ],
+            'lineSix' => [
                 'name' => 4,
                 'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategorySix()->getWinners(),
                 'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategorySix()->getLotteryPrize()->getAmount(),
                 'showEuroJackpot' => true
             ],
-            'lineFour' => [
+            'lineSeven' => [
                 'name' => 3,
                 'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategorySeven()->getWinners(),
                 'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategorySeven()->getLotteryPrize()->getAmount(),
                 'showEuroJackpot' => false
             ],
-            'lineFive' => [
+            'lineEight' => [
+                'name' => 3,
+                'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategoryEight()->getWinners(),
+                'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategoryEight()->getLotteryPrize()->getAmount(),
+                'showEuroJackpot' => true
+            ],
+            'lineNine' => [
+                'name' => 3,
+                'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategoryNine()->getWinners(),
+                'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategoryNine()->getLotteryPrize()->getAmount(),
+                'showEuroJackpot' => false
+            ],
+            'lineTen' => [
                 'name' => 2,
                 'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategoryTen()->getWinners(),
                 'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategoryTen()->getLotteryPrize()->getAmount(),
-                'showEuroJackpot' => true
+                'showEuroJackpot' => false
             ],
-            'lineSix' => [
+            'lineEleven' => [
                 'name' => 2,
                 'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategoryEleven()->getWinners(),
                 'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategoryEleven()->getLotteryPrize()->getAmount(),
+                'showEuroJackpot' => false
+            ],
+            'lineTwelve' => [
+                'name' => 1,
+                'winnersEuroJackpot' => $this->euroMillionsDrawBreakDown->getCategoryTwelve()->getWinners(),
+                'euroJackpotPrize' => $this->euroMillionsDrawBreakDown->getCategoryTwelve()->getLotteryPrize()->getAmount(),
                 'showEuroJackpot' => false
             ],
         ];
