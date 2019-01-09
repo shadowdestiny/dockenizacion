@@ -38,8 +38,6 @@ services:
 
   phpcron:
     image: panamedialottery/euromillions-php:cron_prod
-    volumes_from:
-      - php
     depends_on:
       - redis
     labels:
