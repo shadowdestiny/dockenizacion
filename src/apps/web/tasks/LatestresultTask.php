@@ -39,7 +39,7 @@ class LatestresultTask extends TaskBase
 
     public function resultsReminderWhenPlayedAction( $args = null, IEmailTemplateDataStrategy $IEmailTemplateDataStrategy = null)
     {
-        if(null != $args) {
+         if(null != $args) {
             $drawDate = new \DateTime($args[0]);
         } else {
             /** @var EuroMillionsDraw $draw */

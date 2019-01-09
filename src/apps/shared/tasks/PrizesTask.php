@@ -45,31 +45,13 @@ class PrizesTask extends TaskBase
         $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
         $backOff = null;
         try {
-            while(true)
+            while(true && getenv( 'EM_ENV' !== 'vagrant'))
             {
-                $result = $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->receiveMessage();
-                if(count($result->get('Messages')) > 0)
-                {
-                    $backOff = 0;
-                    foreach($result->get('Messages') as $message)
-                    {
-                        $body = json_decode($message['Body'], true);
-                        if($body['lotteryName']!='Error')
-                        {
-                            $this->prizeService->calculatePrizeAndInsertMessagesInQueue($body['drawDate'], $body['lotteryName']);
-                        }
-                    }
-                    $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->deleteMessage(
-                        $message['ReceiptHandle']
-                    );
-                } else {
-                    unset($result);
-                    $backOff += 1;
-                    if ($backOff > self::BACKOFF_MAX) {
-                        $backOff = self::BACKOFF_MAX;
-                    }
-                    sleep($backOff);
-                }
+                $this->createPrizes($resultConfigQueue,$backOff);
+            }
+            if(getenv('EM_ENV') == 'vagrant')
+            {
+                $this->createPrizes($resultConfigQueue,$backOff);
             }
         }catch(\Exception $e)
         {
@@ -84,39 +66,79 @@ class PrizesTask extends TaskBase
         {
             $backOff = null;
             $prizeConfigQueue = $this->di->get('config')['aws']['queue_prizes_endpoint'];
-            while(true)
+            while(true && getenv( 'EM_ENV' !== 'vagrant'))
             {
-                $result = $this->serviceFactory->getCloudService($prizeConfigQueue)->cloud()->queue()->receiveMessage();
-                if(count($result->get('Messages')) > 0)
-                {
-                    $backOff = 0;
-                    foreach($result->get('Messages') as $message)
-                    {
-                        $body = json_decode($message['Body'], true);
-                        $amount = new Money((int) $body['prize'], new Currency('EUR'));
-                        $this->prizeService->award($body['betId'], $amount, [
-                            'matches' => ['cnt' => $body['cnt'],
-                                          'cnt_lucky' => $body['cnt_lucky']
-                            ],
-                            'userId' => $body['userId']
-                        ]);
-                    }
-                    $this->serviceFactory->getCloudService($prizeConfigQueue)->cloud()->queue()->deleteMessage(
-                        $message['ReceiptHandle']
-                    );
-                } else {
-                    unset($result);
-                    $backOff += 1;
-                    if ($backOff > self::BACKOFF_MAX) {
-                        $backOff = self::BACKOFF_MAX;
-                    }
-                    sleep($backOff);
-                }
+                $this->awardPrize($prizeConfigQueue,$backOff);
             }
+            if(getenv('EM_ENV') == 'vagrant')
+            {
+                $this->awardPrize($prizeConfigQueue,$backOff);
+            }
+
         } catch(\Exception $e)
         {
 
             throw new \Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $resultConfigQueue
+     * @throws \Exception
+     */
+    public function createPrizes($resultConfigQueue,$backOff)
+    {
+        $result = $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->receiveMessage();
+        if (count($result->get('Messages')) > 0) {
+            $backOff = 0;
+            foreach ($result->get('Messages') as $message) {
+                $body = json_decode($message['Body'], true);
+                if ($body['lotteryName'] != 'Error') {
+                    $this->prizeService->calculatePrizeAndInsertMessagesInQueue($body['drawDate'], $body['lotteryName']);
+                }
+            }
+            $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->deleteMessage(
+                $message['ReceiptHandle']
+            );
+        } else {
+            unset($result);
+            $backOff += 1;
+            if ($backOff > self::BACKOFF_MAX) {
+                $backOff = self::BACKOFF_MAX;
+            }
+            sleep($backOff);
+        }
+    }
+
+    /**
+     * @param $prizeConfigQueue
+     * @throws \Money\UnknownCurrencyException
+     */
+    public function awardPrize($prizeConfigQueue,$backOff)
+    {
+        $result = $this->serviceFactory->getCloudService($prizeConfigQueue)->cloud()->queue()->receiveMessage();
+        if (count($result->get('Messages')) > 0) {
+            $backOff = 0;
+            foreach ($result->get('Messages') as $message) {
+                $body = json_decode($message['Body'], true);
+                $amount = new Money((int)$body['prize'], new Currency('EUR'));
+                $this->prizeService->award($body['betId'], $amount, [
+                        'matches' => ['cnt' => $body['cnt'],
+                                      'cnt_lucky' => $body['cnt_lucky']
+                    ],
+                    'userId' => $body['userId']
+                ]);
+            }
+            $this->serviceFactory->getCloudService($prizeConfigQueue)->cloud()->queue()->deleteMessage(
+                $message['ReceiptHandle']
+            );
+        } else {
+            unset($result);
+            $backOff += 1;
+            if ($backOff > self::BACKOFF_MAX) {
+                $backOff = self::BACKOFF_MAX;
+            }
+            sleep($backOff);
         }
     }
 

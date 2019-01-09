@@ -39,7 +39,26 @@ class EuroMillionsLineMother
                 new EuroMillionsLuckyNumber(2),
             ]
         );
-
     }
+
+    public static function anOtherPowerBallLine()
+    {
+        return new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(1),
+                new EuroMillionsRegularNumber(26),
+                new EuroMillionsRegularNumber(28),
+                new EuroMillionsRegularNumber(30),
+                new EuroMillionsRegularNumber(40),
+            ],
+            [
+                new EuroMillionsLuckyNumber(0),
+                new EuroMillionsLuckyNumber(2),
+            ]
+        );
+    }
+
+
+
 
 }

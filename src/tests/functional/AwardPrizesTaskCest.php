@@ -58,7 +58,7 @@ class AwardprizesTaskCest
         /** @var \EuroMillions\web\entities\User $user */
         $user = UserMother::aUserWith50Eur()->build();
         $playConfig = PlayConfigMother::aPlayConfigSetForUser($user)
-            ->withLine(EuroMillionsLineMother::anPowerBallLine())
+            ->withLine(EuroMillionsLineMother::anOtherPowerBallLine())
             ->withLottery($powerBallLottery)
             ->withStartDrawDate(new DateTime('2020-01-01'))
             ->withLastDrawDate(new DateTime('2020-05-01'))
@@ -74,8 +74,9 @@ class AwardprizesTaskCest
         $I->haveInDatabase('bets', $bet_array);
         $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php result start PowerBall 2020-01-09');
         $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes listen');
+        $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes award');
         $winning = $I->grabColumnFromDatabase('users', 'wallet_winnings_amount', [ 'id' => $user->getId()]);
-        $I->assertEquals(5700,$winning);
+        $I->assertEquals(5611,$winning[0]);
     }
 
 

@@ -104,6 +104,7 @@ class EuroMillionsDrawMother
             new PowerBallDrawBreakDown(json_decode(self::$powerBallJsonResult, TRUE));
         $line = EuroMillionsLineMother::anPowerBallLine();
         return EuroMillionsDrawBuilder::aDraw()
+            ->withLottery(LotteryMother::aPowerBall())
             ->withDrawDate(new \DateTime('2020-01-09'))
             ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
