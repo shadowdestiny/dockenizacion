@@ -5,24 +5,6 @@ WORKDIR /var/www
 
 ################################################################################
 
-FROM base as cron
-
-# set php.ini
-COPY devOps/docker/php/cron/php.ini $PHP_INI_DIR/php.ini
-
-COPY devOps/docker/php/cron/run-cron.sh /run-cron.sh
-COPY devOps/docker/php/cron/euromillions.crons /etc/cron.d/euromillions.crons
-
-RUN apt-get update && apt-get install -y cron \
-    && chmod -v +x /run-cron.sh \
-    && crontab /etc/cron.d/euromillions.crons \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /tmp/*
-
-CMD ["/run-cron.sh"]
-
-################################################################################
-
 FROM base as tools
 
 # set php.ini
@@ -51,6 +33,24 @@ COPY --chown=www-data:www-data ./src .
 #RUN chown -R www-data:www-data /var/www
 
 VOLUME /var/www
+
+################################################################################
+
+FROM common-tasks-onbuild as cron
+
+# set php.ini
+COPY devOps/docker/php/cron/php.ini $PHP_INI_DIR/php.ini
+
+COPY devOps/docker/php/cron/run-cron.sh /run-cron.sh
+COPY devOps/docker/php/cron/euromillions.crons /etc/cron.d/euromillions.crons
+
+RUN apt-get update && apt-get install -y cron \
+    && chmod -v +x /run-cron.sh \
+    && crontab /etc/cron.d/euromillions.crons \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/*
+
+CMD ["/run-cron.sh"]
 
 ################################################################################
 
