@@ -14,11 +14,9 @@ class EuroJackpotResultRoutes extends RouterGroup
     public function initialize()
     {
 
-        
-
         $this->add("/{language:(es|it|nl|ru)+}/{lottery:(eurojackpot)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}", array(
             "module" => "eurojackpot",
-            'controller' => 'eurojackpot-numbers',
+            'controller' => 'euro-jackpot-numbers',
             'action' => 'pastList',
         ));
 
@@ -32,7 +30,7 @@ class EuroJackpotResultRoutes extends RouterGroup
 
         $this->add("/{language:(es|it|nl|ru)+}/{lottery:(eurojackpot)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}", array(
             "module" => "eurojackpot",
-            'controller' => 'eurojackpot-numbers',
+            'controller' => 'euro-jackpot-numbers',
             'action' => 'index',
         ));
 
@@ -47,7 +45,7 @@ class EuroJackpotResultRoutes extends RouterGroup
         */
         $this->add("/{language:(es|it|nl|ru)+}/{lottery:(eurojackpot)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
             "module" => "eurojackpot",
-            'controller' => 'eurojackpot-numbers',
+            'controller' => 'euro-jackpot-numbers',
             'action' => 'index',
         ));
 

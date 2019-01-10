@@ -331,10 +331,6 @@
                                         class="value">{{ wallet.subscriptionBalancePowerBall}}</span></div>
                             <div class="txt">{{ language.translate("MegaMillions") }} <span
                                         class="value">{{ wallet.subscriptionBalanceMegaMillions}}</span></div>
-                             <div class="txt">
-                                {{ language.translate("MegaMillions") }}
-                                <span class="value">{{ wallet.subscriptionBalanceMegaMillions}}</span>
-                             </div>
                             <div class="txt">
                                  EuroJackpot
                                  <span class="value">{{ wallet.subscriptionBalanceEuroJackpot}}</span>
