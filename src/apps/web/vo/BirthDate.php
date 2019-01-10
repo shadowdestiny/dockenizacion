@@ -29,5 +29,6 @@ class BirthDate extends StringLiteral
         {
             return $day[0].'-'.$day[1].'-'.'0'.$day[2];
         }
+        return $day[0].'-'.$day[1].'-'.$day[2];
     }
 }
