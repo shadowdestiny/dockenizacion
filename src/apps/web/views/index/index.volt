@@ -102,12 +102,12 @@
         if(item.name == 'EuroJackpot')
         {
             setCountDownByLottery(item.date,
-            'countdowneuro',
-            'dayeuro',
-            'dotseuro',
-            'minuteeuro',
-            'secondseuro',
-            'houreuro'
+            'countdowneuroj',
+            'dayeuroj',
+            'dotseuroj',
+            'minuteeuroj',
+            'secondseuroj',
+            'houreuroj'
             );
         }
     });
