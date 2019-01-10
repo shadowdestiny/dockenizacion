@@ -139,6 +139,10 @@ class EuroMillionsDraw extends EntityBase implements IEntity
         elseif ($this->lottery->getName() == 'EuroJackpot')
         {
             $className=EuroJackpotDrawBreakDown::class;
+            $breakDowns=[
+                'prizes' => $result['prizes'],
+                'winners' => $result['winners']
+            ];
         }
         else{
             $className=EuroMillionsDrawBreakDown::class;
