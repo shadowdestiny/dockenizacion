@@ -77,8 +77,8 @@ lottorisq_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 megamillions_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/megamillions'
 megamillions_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
-eurojackpot_endpoint: 'http://192.168.50.4/eurojackpot' #TODO: Change for a staging value (create the api service)
-eurojackpot_apikey: ''
+eurojackpot_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/eurojackpot'
+eurojackpot_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
 queue_results_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/results_testing'
 queue_prizes_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/prizes_test'
