@@ -35,7 +35,7 @@ class AdminControllerBase extends Controller
 
     public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher) {
        if($this->di->get('environmentDetector')->get() === 'production' ) {
-         if(!in_array($this->request->getClientAddress(), self::ALLOW_IPS)){
+         if(!in_array($this->request->getClientAddress(true), self::ALLOW_IPS)){
              die('You have not access');
          }
        }

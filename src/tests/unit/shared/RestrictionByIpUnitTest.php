@@ -43,7 +43,7 @@ class RestrictionByIpUnitTest extends UnitTestBase
     public function test_isRestricted_clientIpIsNotOnAllowedIps_returnTrue()
     {
         $this->restrictedAccessConfig_double->getAllowedIps()->willReturn(['10.0.0.1']);
-        $this->request_double->getClientAddress()->willReturn('10.0.0.2');
+        $this->request_double->getClientAddress(true)->willReturn('10.0.0.2');
         $sut = $this->getSut();
         $actual = $sut->isRestricted($this->request_double->reveal(),$this->restrictedAccessConfig_double->reveal());
         $this->assertTrue($actual);
@@ -57,7 +57,7 @@ class RestrictionByIpUnitTest extends UnitTestBase
     public function test_isRestricted_clientIpIsOnAllowedIps_returnFalse()
     {
         $this->restrictedAccessConfig_double->getAllowedIps()->willReturn(['10.0.0.1']);
-        $this->request_double->getClientAddress()->willReturn('10.0.0.1');
+        $this->request_double->getClientAddress(true)->willReturn('10.0.0.1');
         $sut = $this->getSut();
         $actual = $sut->isRestricted($this->request_double->reveal(),$this->restrictedAccessConfig_double->reveal());
         $this->assertFalse($actual);

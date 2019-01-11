@@ -11,7 +11,7 @@ class RestrictionByIp implements IRestrictedAccessStrategy
     {
         $allowed_ips = $restrictedAccessConfig->getAllowedIps();
         if (count($allowed_ips)) {
-            return !in_array($request->getClientAddress(), $allowed_ips, false);
+            return !in_array($request->getClientAddress(true), $allowed_ips, false);
         } else {
             return false;
         }

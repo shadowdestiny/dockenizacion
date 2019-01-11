@@ -5,18 +5,20 @@ paths:
 environments:
     default_migration_table: phinxlog
     default_database: development
+
     devel:
         adapter: mysql
-        host: 127.0.0.1
+        host: database
         name: euromillions
         user: root
         pass: 'tpl9'
         port: 3306
         charset: utf8
-    vagrant:
+
+    test:
         adapter: mysql
-        host: 127.0.0.1
-        name: euromillions_test
+        host: database
+        name: euromillions
         user: root
         pass: 'tpl9'
         port: 3306

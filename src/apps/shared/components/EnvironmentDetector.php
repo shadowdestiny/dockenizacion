@@ -9,7 +9,7 @@ class EnvironmentDetector
     protected $var_name;
     
     const ENVIRONMENT_VARNAME = 'EM_ENV';
-    const DEFAULT_ENV = 'vagrant';
+    const DEFAULT_ENV = 'development';
     private $valid_environments;
 
     public function __construct($varName = null)
@@ -18,7 +18,7 @@ class EnvironmentDetector
         $this->valid_environments = [
             'scrutinizer',
             'shippable',
-            'vagrant',
+            'test',
             'development',
             'staging',
             'production',

@@ -78,7 +78,12 @@ class GeoIPStrategy implements ILoadBalancingPayment
         }
         else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
         {
-            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+            if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') > 0) {
+                $ip_list = explode(",",$_SERVER['HTTP_X_FORWARDED_FOR']);
+                return trim($ip_list[0]);
+            } else {
+                return $_SERVER['HTTP_X_FORWARDED_FOR'];
+            }
         }
         else
         {

@@ -1,0 +1,161 @@
+---
+- hosts: localhost
+
+  vars:
+    enable_frontend_react_build: false
+    is_vagrant: false # overwritten via Vagrantfile for Windows OS Hosts
+    update_geoip_database: false # should update the geoip databases?
+    do_docker_setup: false # should install docker and docker-compose on host?
+
+  pre_tasks:
+  - name: Check if GeoIP IPv4 database exist
+    stat:
+      path: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIP.dat"
+    register: check_geoipv4
+
+  - name: Get GeoIP IPv4 database
+    get_url:
+      #url: http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+      url: https://s3-eu-west-1.amazonaws.com/geoip-euromillions-hotfix/GeoIP.dat.gz
+      dest: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIP.dat.gz"
+    when: not check_geoipv4.stat.exists or update_geoip_database
+
+  - name: Uncompress geoip database
+    shell: gzip -fd GeoIP.dat.gz
+    args:
+      chdir: "{{ playbook_dir }}/../src/data/geoipdatabase"
+    when: not check_geoipv4.stat.exists or update_geoip_database
+
+  - name: Check if GeoIP IPv6 database exist
+    stat:
+      path: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIPv6.dat"
+    register: check_geoipv6
+
+  - name: Get GeoIP IPv6 database
+    get_url:
+      #url: http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+      url: https://s3-eu-west-1.amazonaws.com/geoip-euromillions-hotfix/GeoIPv6.dat.gz
+      dest: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIPv6.dat.gz"
+    when: not check_geoipv6.stat.exists or update_geoip_database
+
+  - name: Uncompress geoip database
+    shell: gzip -fd GeoIPv6.dat.gz
+    args:
+      chdir: "{{ playbook_dir }}/../src/data/geoipdatabase"
+    when: not check_geoipv6.stat.exists or update_geoip_database
+
+  - name: Set correct permissions on folders where webserver writes on it
+    file:
+      path: "{{ item }}"
+      mode: 0777
+    with_items:
+      - "{{ playbook_dir }}/../src/apps/web/assets"
+      - "{{ playbook_dir }}/../src/apps/web/assets/compiled_templates"
+    when: not is_vagrant
+
+  - name: Auto cd in /vagrant (Windows OS Host)
+    lineinfile:
+      line: 'cd /vagrant'
+      dest: /home/vagrant/.bashrc
+      state: present
+    when: is_vagrant
+
+  - include_role:
+      name: docker_setup
+    when: do_docker_setup
+
+  roles:
+    - create_config # Creates the configuration files
+
+  post_tasks:
+    - name: start docker compose
+      docker_service:
+        project_src: "{{ playbook_dir }}/../"
+        build: yes
+        state: present
+        restarted: yes
+      when: not is_vagrant
+
+    - name: start docker compose (Windows OS Host)
+      shell: docker-compose -f docker-compose.yml -f docker-compose.vagrant.yml up -d --build
+      args:
+        chdir: "/vagrant"
+      when: is_vagrant
+
+    - name: build docker image of euromillions-php:tools
+      shell: docker build --target tools -f {{ playbook_dir }}/docker/php/Dockerfile-devel -t euromillions-php-tools {{ playbook_dir }}/docker/php
+
+    - name: build docker image of euromillions-util-nodejs
+      shell: docker build -t euromillions-util-nodejs {{ playbook_dir }}/docker/util-nodejs
+
+    - name: run composer install
+      docker_container:
+        name: euromillions-php-tools
+        image: euromillions-php-tools
+        detach: false
+        cleanup: yes
+        state: started
+        command: composer install --no-progress
+        volumes:
+          - "{{ playbook_dir }}/../src:/var/www"
+        env:
+          EM_ENV: development
+          COMPOSER_NO_INTERACTION: 1
+          COMPOSER_ALLOW_SUPERUSER: 1
+
+    - name: initialize test database
+      shell: docker-compose exec -d database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
+      args:
+        chdir: "{{ playbook_dir }}/../"
+
+    - name: migrate database devel
+      shell: docker-compose run -T php /var/www/vendor/bin/phinx migrate --configuration="phinx.yml" -e devel
+      args:
+        chdir: "{{ playbook_dir }}/../"
+
+    - name: seed database devel
+      shell: docker-compose run -T php /var/www/vendor/bin/phinx seed:run --configuration="phinx.yml" -e devel
+      args:
+        chdir: "{{ playbook_dir }}/../"
+      ignore_errors: true
+
+    - name: populate database data
+      shell: docker-compose exec -T database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 --default-character-set=utf8 euromillions < {{ playbook_dir }}/../src/data/sql/translations/all_translations.sql
+      args:
+        chdir: "{{ playbook_dir }}/../"
+
+    # TODO: This is needed?
+    - name: insert translation to BBDD
+      shell: docker-compose exec -T database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 --default-character-set=utf8 euromillions < {{ playbook_dir }}/../src/data/sql/translation_dump.sql
+      args:
+        chdir: "{{ playbook_dir }}/../"
+      ignore_errors: yes
+
+    - name: execute crons for updating jackpots and results
+      shell: >
+        docker-compose exec -T phpcron php /var/www/apps/cli.php jackpot updatePrevious;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php result update;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php jackpot update;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php result importAllHistoricalDataFromPowerball;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php result updatePowerballResult;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall;
+        docker-compose exec -T phpcron php /var/www/apps/megamillions/megamillions-cli.php result importAllHistoricalDataFromMegamillions;
+        docker-compose exec -T phpcron php /var/www/apps/megamillions/megamillions-cli.php jackpot updateNextDrawJackpotMegaMillions;
+        docker-compose exec -T phpcron php /var/www/apps/cli.php clear-cache clear;
+        docker-compose exec -u www-data -T php php /var/www/apps/cli.php clear-cache clear;
+      args:
+        chdir: "{{ playbook_dir }}/../"
+
+    - name: run react frontend
+      docker_container:
+        name: euromillions-util-nodejs
+        image: euromillions-util-nodejs
+        detach: false
+        cleanup: yes
+        state: started
+        command: ./provision-react.sh
+        volumes:
+        - "{{ playbook_dir }}/../src:/var/www"
+        env:
+          EM_ENV: development
+      when: enable_frontend_react_build
