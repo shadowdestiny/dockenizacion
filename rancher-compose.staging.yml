@@ -59,7 +59,7 @@ services:
       reinitializing_timeout: 60000
 
   php:
-    scale: 1
+    scale: 2
     upgrade_strategy:
       start_first: true
     health_check:
