@@ -70,6 +70,8 @@ RUN chmod 700 /post-deploy.sh
 
 FROM common-tasks-onbuild as staging
 
+RUN docker-php-ext-install opcache
+
 # set php.ini
 COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
 
