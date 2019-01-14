@@ -56,11 +56,17 @@ CMD ["/run-cron.sh"]
 
 FROM common-tasks-onbuild as prod
 
+#TODO: move on build stage
+RUN docker-php-ext-install opcache
+
 # set php.ini
-COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
+COPY devOps/docker/php/php-prod/php.ini $PHP_INI_DIR/php.ini
 
 # set fpm pool config
-COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
+COPY devOps/docker/php/php-prod/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
+
+# set opcache.ini
+COPY devOps/docker/php/php-prod/opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
 
 # set post-deploy script
 COPY devOps/docker/php/php-prod/post-deploy.sh /post-deploy.sh
@@ -70,6 +76,7 @@ RUN chmod 700 /post-deploy.sh
 
 FROM common-tasks-onbuild as staging
 
+#TODO: move on build stage
 RUN docker-php-ext-install opcache
 
 # set php.ini
@@ -77,6 +84,9 @@ COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
 
 # set fpm pool config
 COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
+
+# set opcache.ini
+COPY devOps/docker/php/php-staging/opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
 
 # set post-deploy script
 COPY devOps/docker/php/php-staging/post-deploy.sh /post-deploy.sh
