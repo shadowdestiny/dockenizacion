@@ -44,7 +44,7 @@ services:
       reinitializing_timeout: 1000
 
   web:
-    scale: 2
+    scale: 1
     upgrade_strategy:
       start_first: true
     health_check:
@@ -59,7 +59,7 @@ services:
       reinitializing_timeout: 60000
 
   php:
-    scale: 2
+    scale: 1
     upgrade_strategy:
       start_first: true
     health_check:
