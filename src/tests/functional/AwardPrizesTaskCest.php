@@ -75,8 +75,7 @@ class AwardprizesTaskCest
         $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php result start PowerBall 2020-01-09');
         $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes listen');
         $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes award');
-        $winning = $I->grabColumnFromDatabase('users', 'wallet_winnings_amount', [ 'id' => $user->getId()]);
-        $I->assertEquals(5611,$winning[0]);
+        $I->canSeeInDatabase('transactions',['entity_type' => 'winnings_received']);
     }
 
 

@@ -15,7 +15,7 @@ class HomepageCest
             'euromillions_draws',
             \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()
                 ->withId(3)
-                ->withDrawDate(new \DateTime('2019-01-08'))
+                ->withDrawDate(new \DateTime('2020-01-10'))
                 ->withRaffle(new \EuroMillions\web\vo\Raffle('ABC'))
                 ->build()->toArray()
         );
@@ -25,7 +25,7 @@ class HomepageCest
                 \EuroMillions\tests\helpers\mothers\LotteryMother::aPowerBall()
             )
                 ->withId(4)
-                ->withDrawDate(new \DateTime('2019-01-10'))
+                ->withDrawDate(new \DateTime('2020-01-12'))
                 ->withRaffle(new \EuroMillions\web\vo\Raffle('ABC'))
                 ->withJackpot(new Money(4000000000, new Currency('EUR')))
                 ->build()->toArray()
@@ -37,7 +37,7 @@ class HomepageCest
             )
                 ->withId(5)
                 ->withRaffle(new \EuroMillions\web\vo\Raffle('ABC'))
-                ->withDrawDate(new \DateTime('2019-01-09'))
+                ->withDrawDate(new \DateTime('2020-01-11'))
                 ->withJackpot(new Money(5000000000, new Currency('EUR')))
                 ->build()->toArray()
         );

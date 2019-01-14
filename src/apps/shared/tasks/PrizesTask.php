@@ -45,11 +45,11 @@ class PrizesTask extends TaskBase
         $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
         $backOff = null;
         try {
-            while(true && getenv( 'EM_ENV' !== 'vagrant'))
+            while(true && getenv( 'EM_ENV' !== 'test'))
             {
                 $this->createPrizes($resultConfigQueue,$backOff);
             }
-            if(getenv('EM_ENV') == 'vagrant')
+            if(getenv('EM_ENV') == 'test')
             {
                 $this->createPrizes($resultConfigQueue,$backOff);
             }
@@ -66,11 +66,11 @@ class PrizesTask extends TaskBase
         {
             $backOff = null;
             $prizeConfigQueue = $this->di->get('config')['aws']['queue_prizes_endpoint'];
-            while(true && getenv( 'EM_ENV' !== 'vagrant'))
+            while(true && getenv( 'EM_ENV' !== 'test'))
             {
                 $this->awardPrize($prizeConfigQueue,$backOff);
             }
-            if(getenv('EM_ENV') == 'vagrant')
+            if(getenv('EM_ENV') == 'test')
             {
                 $this->awardPrize($prizeConfigQueue,$backOff);
             }
