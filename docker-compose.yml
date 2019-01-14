@@ -14,8 +14,6 @@ services:
       MYSQL_USER: euromillions
       MYSQL_PASSWORD: tpl9
       MYSQL_DATABASE: euromillions
-    ports:
-      - 3306:3306
 
   redis:
     image: redis:latest
@@ -94,9 +92,7 @@ services:
         ipv4_address: ${EM_DOCKER_VARNISH_IP}
     environment:
       EM_ENV: ${EM_ENV}
-    ports:
-      - 8000:80
-      - 4430:443
+
 
   util-nodejs:
     build: devOps/docker/util-nodejs
