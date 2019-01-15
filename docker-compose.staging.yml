@@ -19,32 +19,32 @@ services:
   web:
     image: panamedialottery/euromillions-web:staging
     labels:
-      io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
-      #io.rancher.scheduler.affinity:host_label: em_service=euromillions-web
-      #io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        fluentd-async-connect: '1'
-        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'
+#      io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
+      io.rancher.scheduler.affinity:host_label: em_service=euromillions-web
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+#    logging:
+#      driver: fluentd
+#      options:
+#        fluentd-address: localhost:24224
+#        fluentd-async-connect: '1'
+#        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'
 
   php:
     image: panamedialottery/euromillions-php:staging
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        fluentd-async-connect: '1'
-        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'
+#    logging:
+#      driver: fluentd
+#      options:
+#        fluentd-address: localhost:24224
+#        fluentd-async-connect: '1'
+#        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'
 
   phpcron:
     image: panamedialottery/euromillions-php:cron_staging
     labels:
       io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        fluentd-async-connect: '1'
-        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'
+#    logging:
+#      driver: fluentd
+#      options:
+#        fluentd-address: localhost:24224
+#        fluentd-async-connect: '1'
+#        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'

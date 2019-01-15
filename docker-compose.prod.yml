@@ -30,7 +30,7 @@ services:
     depends_on:
       - redis
     volumes:
-      - "/tmp:/tmp"
+      - "/mnt/nfs/php_tmp:/tmp"
     labels:
       io.rancher.container.pull_image: always
       em_container_service: php
