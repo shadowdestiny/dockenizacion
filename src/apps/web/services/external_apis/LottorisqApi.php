@@ -42,10 +42,9 @@ class LottorisqApi implements IResultApi, IJackpotApi, IBookApi
             $date = (new \DateTime())->format('Y-m-d');
         }
         try {
-            $toCurrent = $lotteryName == 'EuroJackpot' ? (new Currency('EUR')) : (new Currency('USD'));
             $drawBody = $this->sendCurl('/results'.'/'.$date);
             $draw = json_decode($drawBody, true);
-            $currency = $this->currencyConversionService->convert(new Money((int) $draw['jackpot']['total'], $toCurrent),
+            $currency = $this->currencyConversionService->convert(new Money((int) $draw['jackpot']['total'], new Currency('USD')),
                 new Currency('EUR'));
             return new Money((int) floor($currency->getAmount() / 1000000) * 100000000, new Currency('EUR'));
         } catch (\Exception $e)
@@ -98,7 +97,7 @@ class LottorisqApi implements IResultApi, IJackpotApi, IBookApi
     /**
      * @return string
      */
-    private function sendCurl($endpoint)
+    protected function sendCurl($endpoint)
     {
         $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST, false);
         $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, false);
