@@ -19,7 +19,7 @@ class LotteryRepository extends RepositoryBase
                 . ' WHERE l.name = :name')
             ->setMaxResults(1)
             ->setParameters(['name' => $lotteryName])
-            ->useResultCache($this->isCacheEnabled(), 3600)
+            ->useResultCache(true, 3600)
             ->getResult();
         return !empty($result) ? $result[0] : null;
     }
