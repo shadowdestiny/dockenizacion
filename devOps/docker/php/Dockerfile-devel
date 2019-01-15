@@ -88,6 +88,3 @@ COPY php-devel/php.ini $PHP_INI_DIR/php.ini
 
 # set fpm pool config
 COPY php-devel/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
-
-# set opcache.ini
-COPY php-devel/opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
