@@ -32,12 +32,29 @@
         <svg class="ico v-info">
             <use xlink:href="/w/svg/icon.svg#v-info"></use>
         </svg>
-        </span>{{ language.translate("signup_passwordLenght") }}</div>
-
+        </span>{{ language.translate("signup_passwordLenght") }}
+    </div>
+    <div style="font-size:14px; font-family: Work Sans,sans-serif; color: #999;">
+        Date of Birth
+    </div>
+    <div class="selectbox">
+        {{ signupform.render('day', {'class':'select'~form_errors['day']}) }}
+        {{ signupform.render('month', {'class':'select'~form_errors['month']}) }}
+        {{ signupform.render('year', {'class':'select'~form_errors['year']}) }}
+    </div>
+    <div style="font-size:14px; font-family: Work Sans,sans-serif; color: #999;">
+        Country of Residence
+    </div>
     <div class="selectbox">
         {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}
     </div>
-
+    <div style="font-size:14px; font-family: Work Sans,sans-serif; color: #999;">
+        Phone number
+    </div>
+    <div class="selectbox">
+        {{ signupform.render('prefix', {'class':'select'~form_errors['country']}) }}
+        {{ signupform.render('phone', {'class':'input'~form_errors['name']}) }}
+    </div>
     <div class="cl btn-row">
         <input id="goSignUp" type="submit" class="hidden2"/>
         {% if signIn.myClass == 'sign-in' %}
