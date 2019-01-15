@@ -1,4 +1,37 @@
-FROM panamedialottery/euromillions-base-php as base
+ARG PHP_VERSION=5.6.38
+
+FROM php:${PHP_VERSION}-fpm-jessie as base
+#FROM panamedialottery/euromillions-base-php as base
+
+ARG PHALCON_BRANCH=phalcon-v2.0.9
+
+RUN buildDeps=" \
+    gcc g++ libxslt1-dev libxml2-dev libmcrypt-dev libtidy-dev libfreetype6-dev \
+    libjpeg62-turbo-dev libpng-dev libbz2-dev zlib1g-dev libicu-dev \
+    libpcre3-dev git \
+    " \
+    && enableExtensions=" \
+    spl_types redis apcu phalcon\
+    " \
+    && installExtensions=" \
+    pdo_mysql mysql mysqli dba bcmath bz2 calendar \
+    exif gettext gd intl mcrypt tidy \
+    xsl xmlrpc pcntl shmop soap sockets \
+    sysvmsg sysvsem sysvshm wddx zip opcache \
+    " \
+    && apt-get update && apt-get upgrade -y \
+    && apt-get install -y $buildDeps --no-install-recommends \
+    && docker-php-ext-install -j$(nproc) $installExtensions \
+    && pecl install redis-4.1.1 \
+    && pecl install apcu-4.0.11 \
+    && pecl install SPL_Types \
+    && git clone https://github.com/phalcon/cphalcon.git /tmp/phalcon --branch=${PHALCON_BRANCH} \
+    && cd /tmp/phalcon/build/; ./install \
+    && docker-php-ext-enable $enableExtensions \
+    && apt-get install -y pwgen \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get purge -y --auto-remove git \
+    && rm -rf /tmp/*
 
 # override default WORKDIR
 WORKDIR /var/www
@@ -56,17 +89,11 @@ CMD ["/run-cron.sh"]
 
 FROM common-tasks-onbuild as prod
 
-#TODO: move on build stage
-RUN docker-php-ext-install opcache
-
 # set php.ini
 COPY devOps/docker/php/php-prod/php.ini $PHP_INI_DIR/php.ini
 
 # set fpm pool config
 COPY devOps/docker/php/php-prod/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
-
-# set opcache.ini
-COPY devOps/docker/php/php-prod/opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
 
 # set post-deploy script
 COPY devOps/docker/php/php-prod/post-deploy.sh /post-deploy.sh
@@ -76,17 +103,11 @@ RUN chmod 700 /post-deploy.sh
 
 FROM common-tasks-onbuild as staging
 
-#TODO: move on build stage
-RUN docker-php-ext-install opcache
-
 # set php.ini
 COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
 
 # set fpm pool config
 COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
-
-# set opcache.ini
-COPY devOps/docker/php/php-staging/opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
 
 # set post-deploy script
 COPY devOps/docker/php/php-staging/post-deploy.sh /post-deploy.sh
