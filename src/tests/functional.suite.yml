@@ -10,7 +10,7 @@ modules:
             host: redis
             port: 6379
             database: 0
-            cleanup: true
+            cleanupBefore: 'test'
         - Phalcon2:
             bootstrap: 'public/index-test.php'
             cleanup: true
