@@ -40,6 +40,7 @@ class PlayConfigBuilder
         $this->startDrawDate = new \DateTime('2015-09-10');
         $this->lastDrawDate = new \DateTime('2015-09-30');
         $this->active = 1;
+        $this->frequency= 1;
         $this->lottery = $this->getLottery();
         $this->power_play = 0;
         $this->discount = new Discount(0,[]);
@@ -59,6 +60,12 @@ class PlayConfigBuilder
     public function withId( $id )
     {
         $this->id = $id;
+        return $this;
+    }
+
+    public function withFrequency($frequency)
+    {
+        $this->frequency= $frequency;
         return $this;
     }
 

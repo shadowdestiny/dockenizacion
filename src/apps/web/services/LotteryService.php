@@ -190,20 +190,20 @@ class LotteryService
 
     public function getLastFiveResults($lotteryName)
     {
+        $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
+        $nextDraw = $this->lotteryDrawRepository->getNextDraw($lottery);
         $lottery_results = $this->lotteryDrawRepository->getLastSixResults(
-            $this->lotteryRepository->getLotteryByName($lotteryName)
+            $lottery, !is_array($nextDraw) ? $nextDraw->getDrawDate() : new \DateTime()
         );
 
         $result = [];
         $cont = 0;
         /** @var EuroMillionsDraw $lottery_result */
         foreach ($lottery_results as $lottery_result) {
-            if ($cont != 0) {
-                $result[$cont - 1]['regular_numbers'] = explode(',', $lottery_result->getResult()->getRegularNumbers());
-                $result[$cont - 1]['lucky_numbers'] = explode(',', $lottery_result->getResult()->getLuckyNumbers());
-                $result[$cont - 1]['draw_date'] = $lottery_result->getDrawDate();
-                $result[$cont - 1]['raffle'] = !empty($lottery_result->getRaffle()) ? $lottery_result->getRaffle()->getValue() : "";
-            }
+            $result[$cont - 1]['regular_numbers'] = explode(',', $lottery_result->getResult()->getRegularNumbers());
+            $result[$cont - 1]['lucky_numbers'] = explode(',', $lottery_result->getResult()->getLuckyNumbers());
+            $result[$cont - 1]['draw_date'] = $lottery_result->getDrawDate();
+            $result[$cont - 1]['raffle'] = !empty($lottery_result->getRaffle()) ? $lottery_result->getRaffle()->getValue() : "";
             $cont++;
         }
 

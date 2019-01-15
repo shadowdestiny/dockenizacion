@@ -20,6 +20,7 @@ modules:
             user: 'euromillions'
             password: 'tpl9'
             dump: tests/_data/dump.sql
+            clean: true
 coverage:
   enabled: true
   whitelist:
