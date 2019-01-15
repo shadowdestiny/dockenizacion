@@ -118,5 +118,17 @@ class HomepageCest
     }
 
 
+    /**
+     * @group home
+     * @param FunctionalTester $I
+     */
+    public function euromillionsNextDrawResultsShouldNotBeShowedEmpty(FunctionalTester $I)
+    {
+        $I->wantTo('Euromillions new draw it should not be showed in carrousel results');
+        $result = $I->grabTextFrom('.lottery-result--euromillions .row--results .ball');
+        var_dump($result);
+    }
+
+
 
 }

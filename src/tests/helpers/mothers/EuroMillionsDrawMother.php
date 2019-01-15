@@ -97,15 +97,20 @@ class EuroMillionsDrawMother
         return EuroMillionsDrawBuilder::aDraw()->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
 
-    public static function anPowerBallDrawWithJackpotAndBreakDown()
+    public static function anPowerBallDrawWithJackpotAndBreakDown(\DateTime $date = null)
     {
+        if($date == null)
+        {
+            $date= new \DateTime('2020-01-09');
+        }
         $jackpot = new Money(5000000000, new Currency('EUR'));
         $breakDown =
             new PowerBallDrawBreakDown(json_decode(self::$powerBallJsonResult, TRUE));
         $line = EuroMillionsLineMother::anPowerBallLine();
         return EuroMillionsDrawBuilder::aDraw()
             ->withLottery(LotteryMother::aPowerBall())
-            ->withDrawDate(new \DateTime('2020-01-09'))
+            ->withId(3)
+            ->withDrawDate($date)
             ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
 
