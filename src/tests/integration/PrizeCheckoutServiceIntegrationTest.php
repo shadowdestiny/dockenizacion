@@ -28,9 +28,9 @@ class PrizeCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
     protected function getFixtures()
     {
         return [
+            'lotteries',
             'users',
             'play_configs',
-            'lotteries',
             'euromillions_draws',
         ];
     }

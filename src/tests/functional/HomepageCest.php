@@ -162,9 +162,8 @@ class HomepageCest
      */
     public function euromillionsAndPowerBallAndMegaMillionsWithNewNextDrawTheCarrouselResultsShouldNotBeShowedEmpty(FunctionalTester $I)
     {
-
-        $I->wantTo('Euromillions with new draw it should not be showed in carrousel results');
-        $I->canSee('1 19 31 39 48','.lottery-result--euromillions .row--results');
+      //  $I->wantTo('Euromillions with new draw it should not be showed in carrousel results');
+      //  $I->canSee('1 19 31 39 48','.lottery-result--euromillions .row--results');
         $I->wantTo('Powerball with new draw it should not be showed in carrousel results');
         $I->canSee('1 2 3 4 5 2','.lottery-result--powerball .row--results');
         $I->wantTo('MegaMillions with new draw it should not be showed in carrousel results');

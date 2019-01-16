@@ -1,37 +1,4 @@
-ARG PHP_VERSION=5.6.38
-
-FROM php:${PHP_VERSION}-fpm-jessie as base
-#FROM panamedialottery/euromillions-base-php as base
-
-ARG PHALCON_BRANCH=phalcon-v2.0.9
-
-RUN buildDeps=" \
-    gcc g++ libxslt1-dev libxml2-dev libmcrypt-dev libtidy-dev libfreetype6-dev \
-    libjpeg62-turbo-dev libpng-dev libbz2-dev zlib1g-dev libicu-dev \
-    libpcre3-dev git \
-    " \
-    && enableExtensions=" \
-    spl_types redis apcu phalcon\
-    " \
-    && installExtensions=" \
-    pdo_mysql mysql mysqli dba bcmath bz2 calendar \
-    exif gettext gd intl mcrypt tidy \
-    xsl xmlrpc pcntl shmop soap sockets \
-    sysvmsg sysvsem sysvshm wddx zip opcache \
-    " \
-    && apt-get update && apt-get upgrade -y \
-    && apt-get install -y $buildDeps --no-install-recommends \
-    && docker-php-ext-install -j$(nproc) $installExtensions \
-    && pecl install redis-4.1.1 \
-    && pecl install apcu-4.0.11 \
-    && pecl install SPL_Types \
-    && git clone https://github.com/phalcon/cphalcon.git /tmp/phalcon --branch=${PHALCON_BRANCH} \
-    && cd /tmp/phalcon/build/; ./install \
-    && docker-php-ext-enable $enableExtensions \
-    && apt-get install -y pwgen \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get purge -y --auto-remove git \
-    && rm -rf /tmp/*
+FROM panamedialottery/euromillions-base-php:prod_staging as base
 
 # override default WORKDIR
 WORKDIR /var/www
@@ -74,16 +41,19 @@ FROM common-tasks-onbuild as cron
 # set php.ini
 COPY devOps/docker/php/cron/php.ini $PHP_INI_DIR/php.ini
 
-COPY devOps/docker/php/cron/run-cron.sh /run-cron.sh
+COPY devOps/docker/php/cron/entrypoint.sh /entrypoint.sh
 COPY devOps/docker/php/cron/euromillions.crons /etc/cron.d/euromillions.crons
 
-RUN apt-get update && apt-get install -y cron \
-    && chmod -v +x /run-cron.sh \
+RUN apt-get update && apt-get install -y cron supervisor \
+    && chmod -v +x /entrypoint.sh \
     && crontab /etc/cron.d/euromillions.crons \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*
 
-CMD ["/run-cron.sh"]
+COPY devOps/docker/php/cron/supervisord.conf /etc/supervisor/supervisord.conf
+COPY devOps/docker/php/cron/supervisor/services.conf /etc/supervisor/conf.d/services.conf
+
+CMD ["/entrypoint.sh"]
 
 ################################################################################
 
