@@ -1,7 +1,7 @@
 ARG PHP_VERSION=5.6.38
 
-#FROM php:${PHP_VERSION}-fpm-jessie as base
-FROM panamedialottery/euromillions-base-php as base
+FROM php:${PHP_VERSION}-fpm-jessie as base
+#FROM panamedialottery/euromillions-base-php as base
 
 ARG PHALCON_BRANCH=phalcon-v2.0.9
 
