@@ -55,7 +55,7 @@ pipeline {
                 }
                 stage('build web image') {
                     steps {
-                        sh('sudo docker build -t panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} --target staging devOps/docker/web')
+                        sh('sudo docker build -t panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} --target prod devOps/docker/web')
                         sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
                         sh('sudo docker push panamedialottery/euromillions-web:${BUILD_IMAGE_TAG}')
                     }
@@ -88,7 +88,7 @@ pipeline {
         }
         stage('build php image') {
             steps {
-                sh('sudo docker build -t panamedialottery/euromillions-php:${BUILD_IMAGE_TAG} -f devOps/docker/php/Dockerfile --target staging .')
+                sh('sudo docker build -t panamedialottery/euromillions-php:${BUILD_IMAGE_TAG} -f devOps/docker/php/Dockerfile --target prod .')
                 sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
                 sh('sudo docker push panamedialottery/euromillions-php:${BUILD_IMAGE_TAG}')
             }

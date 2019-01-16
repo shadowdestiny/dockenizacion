@@ -74,16 +74,19 @@ FROM common-tasks-onbuild as cron
 # set php.ini
 COPY devOps/docker/php/cron/php.ini $PHP_INI_DIR/php.ini
 
-COPY devOps/docker/php/cron/run-cron.sh /run-cron.sh
+COPY devOps/docker/php/cron/entrypoint.sh /entrypoint.sh
 COPY devOps/docker/php/cron/euromillions.crons /etc/cron.d/euromillions.crons
 
-RUN apt-get update && apt-get install -y cron \
-    && chmod -v +x /run-cron.sh \
+RUN apt-get update && apt-get install -y cron supervisor \
+    && chmod -v +x /entrypoint.sh \
     && crontab /etc/cron.d/euromillions.crons \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*
 
-CMD ["/run-cron.sh"]
+COPY devOps/docker/php/cron/supervisord.conf /etc/supervisor/supervisord.conf
+COPY devOps/docker/php/cron/supervisor/services.conf /etc/supervisor/conf.d/services.conf
+
+CMD ["/entrypoint.sh"]
 
 ################################################################################
 
