@@ -7,6 +7,8 @@ use EuroMillions\shared\helpers\HeaderControllerTrait;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\web\components\TrackingCodesHelper;
+use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\forms\SignInForm;
@@ -195,18 +197,10 @@ class UserAccessController extends ControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
-                    echo "
-                    <script src='/w/js/vendor/ganalytics.min.js'></script>
-                    <script>
-                        ga('send', 'event', 'Button', 'Register');
-                    </script>
-                    ";
-
-                    $randomNumber = time() . mt_rand(1000, 9999999);
-                    $currentPage = substr($_SERVER["REQUEST_URI"], 0, 255);
-                    $curl = new Curl();
-                    $curl->get('https://ads.trafficjunky.net/tj_ads_pt?a=1000153071&member_id=1000848161&cb=' . $randomNumber . '&epu=' . $currentPage . '&cti=' . $register_result->getValues()->getEmail()->toNative() . '&ctv=1&ctd=signup');
-
+                    TrackingCodesHelper::setAllTrackingCodesWhenUserIsRegistered([
+                            'register_result' => $register_result
+                        ]
+                    );
                     return $this->response->redirect('/');
                 }
             }
