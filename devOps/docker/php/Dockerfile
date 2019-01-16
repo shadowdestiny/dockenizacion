@@ -1,4 +1,4 @@
-FROM panamedialottery/euromillions-base-php as base
+FROM panamedialottery/euromillions-base-php:prod_staging as base
 
 # override default WORKDIR
 WORKDIR /var/www
