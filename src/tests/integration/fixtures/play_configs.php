@@ -15,8 +15,9 @@ return [
             'line_regular_number_five' => 40,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
-            'frequency' => 4
-
+            'frequency' => 4,
+            'discount_value' => 0,
+            'power_play' => 0
         ],
         [
             'id' => '2',
@@ -32,7 +33,10 @@ return [
             'line_regular_number_five' => 40,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
-            'frequency' => 4
+            'frequency' => 4,
+            'discount_value' => 0,
+            'power_play' => 0
+
 
         ],
         [
@@ -49,7 +53,10 @@ return [
             'line_regular_number_five' => 15,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
-            'frequency' => 4
+            'frequency' => 4,
+            'discount_value' => 0,
+            'power_play' => 0
+
         ],
         [
             'id' => '7',
@@ -65,7 +72,10 @@ return [
             'line_regular_number_five' => 15,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
-            'frequency' => 4
+            'frequency' => 4,
+            'discount_value' => 0,
+            'power_play' => 0
+
         ],
         [
             'id' => '4',
@@ -81,7 +91,10 @@ return [
             'line_regular_number_five' => 40,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
-            'frequency' => 4
+            'frequency' => 4,
+            'discount_value' => 0,
+            'power_play' => 0
+
 
         ],
         [
@@ -98,7 +111,10 @@ return [
             'line_regular_number_five' => 40,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
-            'frequency' => 4
+            'frequency' => 4,
+            'discount_value' => 0,
+            'power_play' => 0
+
         ],
         [
             'id' => '6',
@@ -114,7 +130,10 @@ return [
             'line_regular_number_five' => 40,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
-            'frequency' => 4
+            'frequency' => 4,
+            'discount_value' => 0,
+            'power_play' => 0
+
         ],
         [
             'id' => '8',
@@ -130,7 +149,10 @@ return [
             'line_regular_number_five' => 15,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 8,
-            'frequency' => 4
+            'frequency' => 4,
+            'discount_value' => 0,
+            'power_play' => 0
+
         ],
         [
             'id' => '9',
@@ -146,7 +168,10 @@ return [
             'line_regular_number_five' => 15,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 8,
-            'frequency' => 4
+            'frequency' => 4,
+            'discount_value' => 0,
+            'power_play' => 0
+
         ],
         [
             'id' => '10',
@@ -162,7 +187,10 @@ return [
             'line_regular_number_five' => 15,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 8,
-            'frequency' => 4
+            'frequency' => 4,
+            'discount_value' => 0,
+            'power_play' => 0
+
         ],
         [
             'id' => '11',
@@ -178,7 +206,10 @@ return [
             'line_regular_number_five' => 15,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 8,
-            'frequency' => 4
+            'frequency' => 4,
+            'discount_value' => 0,
+            'power_play' => 0
+
         ],
     ]
 ];

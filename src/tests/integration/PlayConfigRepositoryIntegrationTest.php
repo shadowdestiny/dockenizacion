@@ -71,6 +71,8 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     }
 
 
+
+
     /**
      * method getPlayConfigsByUser
      * when called
@@ -138,6 +140,10 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertEquals(0, count($actual));
     }
 
+
+
+
+
     /**
      * method updateToInactives
      * when called
@@ -149,6 +155,8 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $actual = $this->sut->updateToInactives($date);
         $this->assertEquals(6, $actual);
     }
+
+
 
     private function exerciseAdd($user, $euroMillionsLine)
     {
