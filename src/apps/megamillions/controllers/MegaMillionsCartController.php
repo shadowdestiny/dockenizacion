@@ -50,6 +50,8 @@ class MegaMillionsCartController extends LotteriesCartController
                     'password' => $this->request->getPost('password'),
                     'email'    => $this->request->getPost('email'),
                     'country'  => $this->request->getPost('country'),
+                    'phone_number' => $this->request->getPost('prefix')."-".$this->request->getPost('phone'),
+                    'birth_date' => $this->request->getPost('year').'-'.$this->request->getPost('month').'-'.$this->request->getPost('day'),
                     'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
@@ -60,6 +62,7 @@ class MegaMillionsCartController extends LotteriesCartController
                 }
             }
         }
+
         $this->view->pick('cart/profile');
         $this->tag->prependTitle('Log In or Sign Up');
         return $this->view->setVars([
@@ -73,6 +76,32 @@ class MegaMillionsCartController extends LotteriesCartController
             'action' => $action,
             'params' => json_encode($params),
         ]);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getErrorsArray()
+    {
+        $form_errors = [
+            'email'            => '',
+            'password'         => '',
+            'name'             => '',
+            'surname'          => '',
+            'confirm_password' => '',
+            'country'          => '',
+            'card-number' => '',
+            'card-holder' => '',
+            'card-cvv' => '',
+            'expiry-date-month' => '',
+            'expiry-date-year' => '',
+            'accept' => '',
+            'day' => '',
+            'month' => '',
+            'year' => '',
+        ];
+
+        return $form_errors;
     }
 
 
