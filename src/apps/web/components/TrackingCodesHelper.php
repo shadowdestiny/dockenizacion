@@ -47,4 +47,21 @@ EOF;
         $curl = new Curl();
         $curl->get('https://ads.trafficjunky.net/tj_ads_pt?a=1000153071&member_id=1000848161&cb=' . $randomNumber . '&epu=' . $currentPage . '&cti=' . $register_result->getValues()->getEmail()->toNative() . '&ctv=1&ctd=signup');
     }
+
+    public static function trackingAffiliatePlatformCodeWhenPurchaseIsSuccessfully($orderTotal,$orderId,$lotteryName)
+    {
+        $code= <<<EOF
+        <script type="text/javascript">
+            PostAffTracker.setAccountId('default1');
+            var sale = PostAffTracker.createSale();
+            sale.setTotalCost($orderTotal);
+            sale.setOrderID($orderId);
+            sale.setProductID($lotteryName);
+            PostAffTracker.register();
+        </script>
+EOF;
+        echo $code;
+
+    }
+
 }

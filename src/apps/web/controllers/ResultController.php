@@ -5,6 +5,7 @@ namespace EuroMillions\web\controllers;
 
 
 use EuroMillions\web\components\DateTimeUtil;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\dto\OrderDTO;
@@ -53,7 +54,7 @@ class ResultController extends PublicSiteControllerBase
         $currentPage = substr($_SERVER["REQUEST_URI"], 0, 255);
         $userEmail = $this->authService->getCurrentUser()->getEmail()->toNative();
         $linkPlay = 'link_'.$lotteryName.'_play';
-
+        TrackingCodesHelper::trackingAffiliatePlatformCodeWhenPurchaseIsSuccessfully($order_dto->getTotal(),'',strtolower($lotteryName));
         return $this->view->setVars([
             'order' => $order_dto,
             'lottery_name' => $lotteryName,
