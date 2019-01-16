@@ -35,4 +35,3 @@ end PROD imports-->
     var show_modal = '<?php echo !empty($show_modal_winning) ? 1 : 0; ?>';
 </script>
 <script src="/w/js/vendor/jquery.mobile.custom.min.js"></script>
-<script type="text/javascript" id="pap_x2s6df8d" src="https://euromillions.postaffiliatepro.com/scripts/l2w6yjua0"></script>

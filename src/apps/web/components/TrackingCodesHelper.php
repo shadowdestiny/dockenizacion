@@ -20,6 +20,7 @@ class TrackingCodesHelper
     public static function trackingAffiliatePlatformCodeWhenUserIsRegistered()
     {
         $code = <<<EOF
+        <script type="text/javascript" id="pap_x2s6df8d" src="https://euromillions.postaffiliatepro.com/scripts/l2w6yjua0"></script>
         <script type="text/javascript">
             PostAffTracker.setAccountId('default1');
             var sale = PostAffTracker.createAction('register');
@@ -51,6 +52,7 @@ EOF;
     public static function trackingAffiliatePlatformCodeWhenPurchaseIsSuccessfully($orderTotal,$orderId,$lotteryName)
     {
         $code= <<<EOF
+        <script type="text/javascript" id="pap_x2s6df8d" src="https://euromillions.postaffiliatepro.com/scripts/l2w6yjua0"></script>
         <script type="text/javascript">
             PostAffTracker.setAccountId('default1');
             var sale = PostAffTracker.createSale();
@@ -60,8 +62,21 @@ EOF;
             PostAffTracker.register();
         </script>
 EOF;
-        echo $code;
+        return $code;
+    }
 
+    public static function trackingAffiliatePlatformCodeWhenAnUserAccessSite()
+    {
+        $code= <<<EOF
+        <script type="text/javascript" id="pap_x2s6df8d" src="https://euromillions.postaffiliatepro.com/scripts/l2w6yjua0"></script>
+        <script type="text/javascript">
+            PostAffTracker.setAccountId('default1');
+            try {
+                PostAffTracker.track();
+            } catch (err) { }
+        </script>
+EOF;
+        return $code;
     }
 
 }
