@@ -58,7 +58,7 @@ EOF;
             var sale = PostAffTracker.createSale();
             sale.setTotalCost($orderTotal);
             sale.setOrderID($orderId);
-            sale.setProductID($lotteryName);
+            sale.setProductID("$lotteryName");
             PostAffTracker.register();
         </script>
 EOF;
