@@ -1436,46 +1436,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'en',
         ));
 
-        $router->add("/eurojackpot/how-to-play", array(
-            "module" => "web",
-            'lottery' => 4,
-            'controller' => 'euro-jackpot-help',
-            'action' => 'index',
-            'language' => 'en',
-        ));
-
-        $router->add("/eurojackpot/como-se-juega", array(
-            "module" => "web",
-            'lottery' => 4,
-            'controller' => 'euro-jackpot-help',
-            'action' => 'index',
-            'language' => 'es',
-        ));
-
-        $router->add("/eurojackpot/come-giocare", array(
-            "module" => "web",
-            'lottery' => 4,
-            'controller' => 'euro-jackpot-help',
-            'action' => 'index',
-            'language' => 'it',
-        ));
-
-        $router->add("/eurojackpot/speluitleg", array(
-            "module" => "web",
-            'lottery' => 4,
-            'controller' => 'euro-jackpot-help',
-            'action' => 'index',
-            'language' => 'nl',
-        ));
-
-        $router->add("/eurojackpot/как-играть", array(
-            "module" => "web",
-            'lottery' => 4,
-            'controller' => 'euro-jackpot-help',
-            'action' => 'index',
-            'language' => 'ru',
-        ));
-
         $router->add("/ru/powerball/как-играть", array(
             "module" => "web",
             'lottery' => 3,
