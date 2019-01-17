@@ -4,6 +4,8 @@
 namespace EuroMillions\web\components;
 
 
+use Gpf_Api_Session;
+use Pap_Api_ClickTracker;
 use Phalcon\Http\Client\Provider\Curl;
 
 class TrackingCodesHelper
@@ -19,15 +21,22 @@ class TrackingCodesHelper
 
     public static function trackingAffiliatePlatformCodeWhenUserIsRegistered()
     {
-        $code = <<<EOF
-        <script type="text/javascript" id="pap_x2s6df8d" src="https://euromillions.postaffiliatepro.com/scripts/l2w6yjua0"></script>
-        <script type="text/javascript">
-            PostAffTracker.setAccountId('default1');
-            var sale = PostAffTracker.createAction('register');
-            PostAffTracker.register();
-        </script>
-EOF;
-        echo $code;
+        include 'PapApi.class.php';
+        // init session for PAP
+        $session = new Gpf_Api_Session("https://euromillions.postaffiliatepro.com/scripts/l2w6yjua0");
+
+        // register click
+        $clickTracker = new Pap_Api_ClickTracker($session);
+
+        $clickTracker->setAccountId('default1');
+        $clickTracker->createAction('register');
+        try {
+            $clickTracker->track();
+            $clickTracker->saveCookies();
+            var_dump($clickTracker);die();
+        } catch (\Exception $e) {
+
+        }
     }
 
     public static function trackingGoogleAnalyticsCodeWhenUserIsRegistered()
