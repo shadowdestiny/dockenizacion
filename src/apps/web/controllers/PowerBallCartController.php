@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
@@ -193,15 +194,7 @@ class PowerBallCartController extends PublicSiteControllerBase
      */
     private function getSignUpForm()
     {
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        //key+1, select element from phalcon need index 0 to set empty value
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
-        //Workaround for Russian -> if we pass Russian to endpoint api, it return a 404, instead, we should call with Russian Federation
-        $countries[180] = 'Russian Federation';
-        $countries = array_diff($countries, array('Afghanistan', 'Belarus', 'Bosnia and Herzegovina', 'Cuba', 'Eritrea', 'Ethiopia', 'Guyana', 'Haiti', 'Iran', 'Iraq', 'Laos', 'Liberia', 'Libya', 'Myanmar', 'Nauru', 'North Korea', 'Papua New Guinea', 'Puerto Rico', 'Vanuatu', 'Yemen', 'Somalia', 'Sudan', 'Suriname', 'Syria', 'Uganda', 'United States', 'United States Virgin Islands', 'United States Minor Outlying Islands'));
-        return new SignUpForm(null, ['countries' => $countries]);
+        return SiteHelpers::getSignUpForm();
     }
 
     /**
