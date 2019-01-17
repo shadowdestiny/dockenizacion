@@ -9,9 +9,9 @@ pipeline {
 
         RANCHER_STACK_NAME = "euromillions-prod"
 
-        RANCHER_ENV_URL = "http://34.247.7.73:8080/v2-beta/projects/1a7" //TODO: Change it for prod!
-        RANCHER_ENV_KEY = credentials('RANCHER_ENV_KEY_STAGING') //TODO: Change credentials for prod!
-        RANCHER_ENV_SECRET = credentials('RANCHER_ENV_SECRET_STAGING') //TODO: Change credentials it for prod!
+        RANCHER_ENV_URL = "http://34.247.7.73:8080/v2-beta/projects/1a15"
+        RANCHER_ENV_KEY = credentials('RANCHER_ENV_KEY_PROD')
+        RANCHER_ENV_SECRET = credentials('RANCHER_ENV_SECRET_PROD')
         RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL --access-key $RANCHER_ENV_KEY --secret-key $RANCHER_ENV_SECRET -p ${RANCHER_STACK_NAME} -f docker-compose.prod.yml -r rancher-compose.prod.yml -e .env.prod"
     }
     agent {
@@ -108,11 +108,11 @@ pipeline {
         }
         stage('post-deploy') {
              environment {
-                RANCHER_API_URL_STAGING = "http://34.247.7.73:8080/v2-beta/schemas"
-                RANCHER_TARGET_ENVIRONMENT = "1a7" //TODO: Change it for prod!
-                RANCHER_API_ACCESS_KEY = credentials('RANCHER_API_ACCESS_KEY_STAGING') //TODO: Change credentials for prod!
-                RANCHER_API_SECRET_KEY = credentials('RANCHER_API_SECRET_KEY_STAGING') //TODO: Change credentials for prod!
-                RANCHER_CMD_BASE = "rancher -url ${env.RANCHER_API_URL_STAGING} --env ${env.RANCHER_TARGET_ENVIRONMENT} --access-key ${env.RANCHER_API_ACCESS_KEY} --secret-key ${env.RANCHER_API_SECRET_KEY}"
+                RANCHER_API_URL = "http://34.247.7.73:8080/v2-beta/schemas"
+                RANCHER_TARGET_ENVIRONMENT = "1a15"
+                RANCHER_API_ACCESS_KEY = credentials('RANCHER_API_ACCESS_KEY_PROD')
+                RANCHER_API_SECRET_KEY = credentials('RANCHER_API_SECRET_KEY_PROD')
+                RANCHER_CMD_BASE = "rancher -url ${env.RANCHER_API_URL} --env ${env.RANCHER_TARGET_ENVIRONMENT} --access-key ${env.RANCHER_API_ACCESS_KEY} --secret-key ${env.RANCHER_API_SECRET_KEY}"
             }
             steps {
                 sh("""
