@@ -33,7 +33,6 @@ class TrackingCodesHelper
         try {
             $clickTracker->track();
             $clickTracker->saveCookies();
-            var_dump($clickTracker);die();
         } catch (\Exception $e) {
 
         }
