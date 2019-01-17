@@ -4,9 +4,10 @@ services:
   redis:
     image: redis:latest
     labels:
-      io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
+      io.rancher.scheduler.affinity:host_label: em_hostname=prod-04
       io.rancher.container.pull_image: always
       em_container_service: redis
+      em_service: euromillions-web
     mem_reservation: 52428800 #50MB
 
   web:
@@ -16,10 +17,12 @@ services:
     depends_on:
       - php
     labels:
-      io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
+      io.rancher.scheduler.affinity:host_label: em_service=euromillions-web
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.pull_image: always
       io.rancher.sidekicks: php
       em_container_service: web
+      em_service: euromillions-web
     mem_reservation: 52428800 #50MB
     mem_limit: 268435456 #256MB
     environment:
@@ -34,6 +37,7 @@ services:
     labels:
       io.rancher.container.pull_image: always
       em_container_service: php
+      em_service: euromillions-web
     mem_reservation: 268435456 #256MB
     mem_limit: 1073741824 #1024MB
     environment:
@@ -46,9 +50,10 @@ services:
     depends_on:
       - redis
     labels:
-      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+      io.rancher.scheduler.affinity:host_label: em_hostname=prod-04
       io.rancher.container.pull_image: always
       em_container_service: phpcron
+      em_service: euromillions-web
     mem_reservation: 268435456 #256MB
     mem_limit: 1073741824 #1024MB
     environment:
