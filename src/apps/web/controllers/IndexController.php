@@ -3,6 +3,7 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\vo\dto\MainJackpotHomeDTO;
 
@@ -70,6 +71,7 @@ class IndexController extends PublicSiteControllerBase
         }));
         $this->tag->prependTitle($this->languageService->translate('home_name') . ViewHelper::formatMillionsJackpot($jackpot) . ' ' . $this->languageService->translate($textMillions));
         MetaDescriptionTag::setDescription($this->languageService->translate('home_desc'));
+        $this->view->setVar('tracking',TrackingCodesHelper::trackingAffiliatePlatformCodeWhenAnUserAccessSite());
     }
 
     public function notfoundAction()

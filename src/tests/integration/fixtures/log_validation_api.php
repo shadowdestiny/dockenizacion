@@ -8,6 +8,7 @@ return [
             'received' => '2015-11-11 09:46:37',
             'id_ticket' => 12345678901,
             'bet_id' => 1,
+            'uuid' => '123456'
         ],
         [
             'id_provider' => 1,
@@ -15,6 +16,7 @@ return [
             'response' => 'XML',
             'received' => '2015-11-11 09:46:37',
             'id_ticket' => 123456,
+            'uuid' => '123456'
         ],
 
     ]
