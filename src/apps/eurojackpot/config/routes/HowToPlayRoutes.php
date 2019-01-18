@@ -25,9 +25,9 @@ class HowToPlayRoutes extends RouterGroup
         );
 
         // All the routes start with /eurojackpot
-        $this->setPrefix('/eurojackpot');
+        //$this->setPrefix('/eurojackpot'); #validate this, since it affects the prefixes that have a name at the beginning
 
-        $this->add("/help",
+        $this->add("/eurojackpot/help",
             array(
                 'controller' => 'help',
                 'action' => 'index',
@@ -35,32 +35,40 @@ class HowToPlayRoutes extends RouterGroup
             )
         );
 
-        $this->add("/ru/eurojackpot/как-играть", array(
-            'lottery' => 3,
+        //*********************EUROJACKPOT ROUTES***********************************//
+        $this->add("/eurojackpot/how-to-play", array(
+            'lottery' => 5,
             'controller' => 'help',
             'action' => 'index',
-            'language' => 'ru',
+            'language' => 'en',
         ));
 
         $this->add("/es/eurojackpot/como-se-juega", array(
-            'lottery' => 3,
+            'lottery' => 5,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'es',
         ));
 
         $this->add("/it/eurojackpot/come-giocare", array(
-            'lottery' => 3,
+            'lottery' => 5,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'it',
         ));
 
         $this->add("/nl/eurojackpot/speluitleg", array(
-            'lottery' => 3,
+            'lottery' => 5,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'nl',
+        ));
+
+        $this->add("/ru/eurojackpot/как-играть", array(
+            'lottery' => 5,
+            'controller' => 'help',
+            'action' => 'index',
+            'language' => 'ru',
         ));
 
     }

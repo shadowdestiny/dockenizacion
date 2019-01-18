@@ -17,7 +17,8 @@ $eurojackpot->add(
     )
 );
 
-$eurojackpot->add("/eurojackpot/how-to-play", array(
+#Validate this call and these settings are in the HotToPlayRoutes class
+/*$eurojackpot->add("/eurojackpot/how-to-play", array(
     "module" => "eurojackpot",
     'lottery' => 3,
     'controller' => 'help',
@@ -55,6 +56,6 @@ $eurojackpot->add("/nl/eurojackpot/speluitleg", array(
     'controller' => 'eurojackpot-help',
     'action' => 'index',
     'language' => 'nl',
-));
+));*/
 
 $router->mount($eurojackpot);
