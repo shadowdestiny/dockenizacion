@@ -3,6 +3,7 @@ namespace EuroMillions\web\controllers;
 
 use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\shared\services\SiteConfigService;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
@@ -124,6 +125,7 @@ class CartController extends PublicSiteControllerBase
                 ], $user->getId());
                 if($result->success()){
                     $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                    TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered();
                     $this->response->redirect('/'.$this->lottery.'/play');
                     //$this->response->redirect('/'.$this->lottery.'/order');
                 }else{
@@ -271,12 +273,7 @@ class CartController extends PublicSiteControllerBase
      */
     private function getSignUpForm()
     {
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        //key+1, select element from phalcon need index 0 to set empty value
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
-        return new SignUpForm(null, ['countries' => $countries]);
+        return SiteHelpers::getSignUpForm();
     }
 
     /**
