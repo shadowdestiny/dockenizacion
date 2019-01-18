@@ -197,10 +197,7 @@ class UserAccessController extends ControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
-                    TrackingCodesHelper::setAllTrackingCodesWhenUserIsRegistered([
-                            'register_result' => $register_result
-                        ]
-                    );
+                    TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered();
                     return $this->response->redirect('/');
                 }
             }
