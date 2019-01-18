@@ -16,6 +16,7 @@ const TABLET_LANDSCAPE_WIDTH = 1024
 const GAME_MODE_POWERBALL = 'powerball'
 const GAME_MODE_EUROMILLIONS = 'euromillions'
 const GAME_MODE_MEGAMILLIONS = 'megamillions'
+const GAME_MODE_EUROJACKPOT = 'eurojackpot'
 
 var PlayPage = React.createClass({
 
@@ -98,6 +99,7 @@ var PlayPage = React.createClass({
         [GAME_MODE_POWERBALL] : 'pb_bat_line', // <- typo "bat"
         [GAME_MODE_EUROMILLIONS] : 'bet_line',
         [GAME_MODE_MEGAMILLIONS] : 'mm_bet_line',
+        [GAME_MODE_EUROJACKPOT] : 'ej_bet_line',
       }
       return storageKeys[this.props.mode]
     },
@@ -509,6 +511,7 @@ var PlayPage = React.createClass({
           [GAME_MODE_EUROMILLIONS] : 'euromillions-game',
           [GAME_MODE_POWERBALL]    : 'powerball-game',
           [GAME_MODE_MEGAMILLIONS] : 'megamillions-game',
+          [GAME_MODE_EUROJACKPOT] : 'eurojackpot-game',
         }
 
         return (

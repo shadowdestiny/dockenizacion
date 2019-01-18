@@ -140,9 +140,9 @@
                 </div>
 
                 <div class="content">
-
-                    {% include "../../shared/views/_elements/section-powerball.volt" %}
-
+                    <div class="right-section">
+                        {{ jackpot_widget }}
+                    </div>
                     <div class="left-section result-section">
 
                         <div class="box-current-winners--new">
