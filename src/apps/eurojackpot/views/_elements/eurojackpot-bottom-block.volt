@@ -2,7 +2,7 @@
     <div class="block--text--accordion">
         <h2>
             {#{{ language.translate("play_megamillions_firstH2") }}#}
-            Play Powerball
+            Eurojackpot - lorem ipsum
         </h2>
         <p>
             {#{{ language.translate("play_megamillions_text1") }}#}
@@ -12,7 +12,7 @@
     <div class="block--text--accordion">
         <h2>
             {#{{ language.translate("play_megamillions_secondH2") }}#}
-            Jackpots and Odds
+            Eurojackpot - lorem ipsum
         </h2>
         <p>
             {#{{ language.translate("play_megamillions_text2") }}#}
@@ -23,18 +23,13 @@
 
 <div class="box-bottom play-bottom-block--eurojackpot">
 
-    <h1>
-        {#{{ language.translate("play_megamillions_h1") }}#}
-        Play Megamillions online
-    </h1>
-
     <div class="play-bottom-block--img">
         <img src="/w/img/eurojackpot/play-bottom-eurojackpot.png"/>
     </div>
     <div class="play-bottom-block--center">
         <h2>
             {#{{ language.translate("play_megamillions_firstH2") }}#}
-            about megamillions
+            Eurojackpot - lorem ipsum
         </h2>
 
         <p>
@@ -46,7 +41,7 @@
     <div class="play-bottom-block--right">
         <h2>
             {#{{ language.translate("play_megamillions_secondH2") }}#}
-            jackpots and odds
+            Eurojackpot - lorem ipsum
         </h2>
 
         <p>

@@ -26,17 +26,18 @@
     </div>
     <div class="right">
         <div class="top resizeme">
-            {{ jackpot_value_mega }}{% if milliards %}
-            {{ language.translate("billion") }}
-            {% elseif trillions %}
-            {{ language.translate("trillion") }}
-            {% else %}
-            {{ language.translate("million") }}
-            {% endif %}
+            {#{{ jackpot_value_mega }}{% if milliards %}#}
+            {#{{ language.translate("billion") }}#}
+            {#{% elseif trillions %}#}
+            {#{{ language.translate("trillion") }}#}
+            {#{% else %}#}
+            {#{{ language.translate("million") }}#}
+            {#{% endif %}#}
+            €28 millions
         </div>
         <div class="bottom resizeme">
             {#{{ language.translate('shortInstruction') }}#}
-            Pick 5 numbers and 1 stars per line
+            Play EuroJackpot: pick 5 numbers and 2 suns
         </div>
     </div>
 </header>
