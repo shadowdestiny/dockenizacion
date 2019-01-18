@@ -24,24 +24,6 @@ environments:
         port: 3306
         charset: utf8
 
-    shippable:
-        adapter: mysql
-        host: localhost
-        name: euromillions_test
-        user: root
-        pass: ''
-        port: 3306
-        charset: utf8
-
-    scrutinizer:
-        adapter: mysql
-        host: localhost
-        name: euromillions_test
-        user: root
-        pass: ''
-        port: 3306
-        charset: utf8
-
     staging:
         adapter: mysql
         host: mysql
