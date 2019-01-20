@@ -56,6 +56,7 @@ class UserBuilder
 
     public function __construct()
     {
+        $this->id = self::DEFAULT_ID;
         $this->email = new Email(self::DEFAULT_EMAIL);
         $this->password = new Password(self::DEFAULT_PASSWORD, new NullPasswordHasher());
         $this->wallet = new Wallet();
