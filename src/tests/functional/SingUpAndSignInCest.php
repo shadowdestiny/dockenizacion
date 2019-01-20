@@ -9,6 +9,7 @@
 namespace EuroMillions\tests\functional;
 
 
+use Doctrine\ORM\Query\Expr\Func;
 use EuroMillions\tests\helpers\mothers\UserMother;
 use FunctionalTester;
 use Money\Currency;
@@ -92,6 +93,32 @@ class SingUpAndSignInCest
     public function _after(FunctionalTester $I)
     {
 
+    }
+
+    /**
+     * @group signup
+     * @param FunctionalTester $I
+     */
+    public function canSeeUserRegisteredWhenFillSignUpForm(FunctionalTester $I)
+    {
+        $I->amOnPage('/sign-up');
+        $I->submitForm(
+          '#goSignUp', [
+              'name' => 'Test',
+              'surname' => 'Test1',
+              'email' => 'test@euromillions.com',
+              'password' => '123456',
+              'confirm_password' => '123456',
+              'day' => '29',
+              'month' => '10',
+              'year' => '1980',
+              'country' => '204',
+              'prefix' => '34',
+              'phone' => '600000000',
+              'accept' => true
+            ]
+        );
+        $I->canSeeInDatabase('users', ['email' => 'test@euromillions.com']);
     }
 
     /**
