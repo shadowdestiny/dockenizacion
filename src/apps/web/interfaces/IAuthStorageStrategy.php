@@ -15,6 +15,18 @@ interface IAuthStorageStrategy
     public function setCurrentUserId($userId);
 
     /**
+     * @param $userId
+     * @return void
+     */
+    public function setCurrentUserLogged($userId);
+
+    /**
+     * @param $userId
+     * @return void
+     */
+    public function removeCurrentUserLogged($userId);
+
+    /**
      * @param User $user
      * @return void
      */

@@ -11,6 +11,7 @@ use Phalcon\Session\AdapterInterface;
 class WebAuthStorageStrategy implements IAuthStorageStrategy
 {
     const CURRENT_USER_VAR = 'EM_current_user';
+    const CURRENT_USER_LOGGED = 'EM_logged_user';
     const GUEST_USER_EXPIRATION = 2592000; //(86400 * 30) = 30 days
     const REMEMBER_ME_EXPIRATION = 691200; //(86400 * 8) = 8 days
     const REMEMBER_USERID_VAR = 'EM_RMU';
@@ -55,6 +56,7 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
     {
         $this->session->set(self::CURRENT_USER_VAR, (string)$userId);
         $this->cookieManager->set(self::CURRENT_USER_VAR, (string)$userId, time()+self::GUEST_USER_EXPIRATION);
+
     }
 
     public function removeCurrentUser()
@@ -90,5 +92,20 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
     public function hasRemember()
     {
         return $this->cookieManager->has(self::REMEMBER_USERID_VAR);
+    }
+
+    public function setCurrentUserLogged($userId)
+    {
+        $this->session->set(self::CURRENT_USER_LOGGED, (string) $userId);
+        $this->cookieManager->set(self::CURRENT_USER_LOGGED, (string)$userId, time()+self::GUEST_USER_EXPIRATION);
+    }
+
+    /**
+     * @param $userId
+     * @return void
+     */
+    public function removeCurrentUserLogged($userId)
+    {
+        $this->cookieManager->set(self::CURRENT_USER_LOGGED, (string)$userId, time()-self::GUEST_USER_EXPIRATION);
     }
 }
