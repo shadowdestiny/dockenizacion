@@ -12,6 +12,54 @@
     }
   }
 
+  .result-section .box-current-winners--new {
+    background: #e1e1e1;
+  }
+
+  //$screen-ipad-v-pre
+
+  .result-section .previous-results--common-row {
+    @media only screen and (min-width: $screen-ipad-v) {
+      text-align: left;
+    }
+  }
+
+
+  .result-section .previous-results--common-row .previous-results .previous-results--title {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 22px;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      font-size: 26px;
+    }
+  }
+
+  .result-section .previous-results--common-row .previous-results .previous-results--selectboxes .selectbox select {
+    background-color: #fff;
+    position: relative;
+    z-index: 1;
+  }
+
+  .result-section .box-current-winners--new tbody {
+    .td-ball {
+      width: 40%;
+    }
+    .td-winners {
+      text-align: center;
+    }
+    .td-winners.td-head {
+      @media only screen and (max-width: $screen-ipad-v-pre) {
+        opacity: 1;
+        position: relative;
+        top: 24px;
+      }
+    }
+
+  }
+
+
+
   .title-block {
     background: -webkit-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
     background: -moz-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
@@ -19,12 +67,59 @@
     background: -ms-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
     background: linear-gradient(0deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
 
+    @media only screen and (max-width: $screen-ipad-v-pre) {
+      padding: 10px;
+      text-align: center;
+      height: 84px;
+
+      h3.h2.mobile--only {
+        font-weight: 400;
+        color: #fff;
+        text-align: center;
+      }
+
+    }
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      padding: 46px 42px 0 28px
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      padding: 43px 50px 0 50px;
+    }
+
+    h3.h2.desktop--only {
+      font-weight: 400;
+    }
+
     ul{
+
+      li {
+        background-color: transparent;
+        border: 1px solid white;
+
+        @media only screen and (max-width: $screen-ipad-v-pre) {
+          float: none;
+          display: inline-block;
+        }
+
+        span {
+          color: #fff;
+        }
+      }
+
       li.star {
-      background-color:  #f4e778;
+        background-color:  #fff;
+
+        span {
+          color: #CD9617;
+        }
 
       &:last-of-type {
-        background-color:  #fcaaaa;
+        background-color:  #fff;
+
+        span {
+          color: #CD9617;
+        }
       }
 
       span {
@@ -32,6 +127,9 @@
       }
     }
     }
+
+
+
   }
 
   .bottom--banner {
@@ -43,8 +141,8 @@
       background-color: #000000;
       width: 100%;
 
-      margin-top: 80px;
-      margin-bottom: 75px;
+      margin-top: 10px;
+      margin-bottom: 10px;
 
       background-image: url("../img/eurojackpot/results-bottom-bg.png");
       background-repeat: no-repeat;
@@ -53,10 +151,46 @@
       //background-size: 1024px;
       -webkit-background-size:contain;
       background-size:contain;
+      clear: both;
 
     }
+    @media only screen and (min-width: $screen-desktop) {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .block--text--accordion h2 {
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin-bottom: 20px;
+    }
+  }
+
+}
+
+
+
+.eurojackpot--result-page--content .result-section .box-current-winners--new .winners--h1,
+.eurojackpot--result-page--content .result-section .box-current-winners--new .h2,
+.eurojackpot--result-page--content .result-section .previous-results--common-row .previous-results .previous-results--title {
+  @media only screen and (max-width: $screen-ipad-v-pre) {
+    text-align: center;
+    line-height: 1.2;
+    padding: 10px 0;
   }
 }
+
+.eurojackpot--result-page--content .result-section .box-current-winners--new .winners--h1 {
+  @media only screen and (max-width: $screen-ipad-v-pre) {
+    font-weight: 600;
+  }
+}
+.eurojackpot--result-page--content .result-section .previous-results--common-row .previous-results .previous-results--title {
+  @media only screen and (max-width: $screen-ipad-v-pre) {
+    padding-bottom: 0;
+  }
+}
+
 
 .result-page--content--previous-result.eurojackpot-previous-results {
   .past-header {

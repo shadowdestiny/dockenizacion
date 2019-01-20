@@ -129,10 +129,10 @@
                 <h1 class="play--h1">
                     {% if mobile == 1 %}
                         {#{{ language.translate("megamillions_mobile_h1") }}#}
-                        Online
+                        Play EuroJackpot
                     {% else %}
                         {#{{ language.translate("megamillions_h1") }}#}
-                        Online
+                        Play EuroJackpot Online
                     {% endif %}
                 </h1>
 
