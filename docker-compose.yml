@@ -5,10 +5,33 @@ services:
   database:
     image: mysql:5.6
     volumes:
-      - "database_volume:/var/lib/mysql"
+      - "database_master_volume:/var/lib/mysql"
+      - "database_master_logs_volume:/var/log/mysql"
+      - "./devOps/docker/database/devel/master/em_master.cnf:/etc/mysql/conf.d/em_master.cnf"
+      - "./devOps/docker/database/devel/master/setup_master.sh:/docker-entrypoint-initdb.d/setup_master.sh"
     networks:
       backend:
         ipv4_address: ${EM_DOCKER_DATABASE_IP}
+    environment:
+      MYSQL_ROOT_PASSWORD: tpl9
+      MYSQL_USER: euromillions
+      MYSQL_PASSWORD: tpl9
+      MYSQL_DATABASE: euromillions
+
+  read-database:
+    image: mysql:5.6
+    volumes:
+      - "database_slave_volume:/var/lib/mysql"
+      - "database_slave_logs_volume:/var/log/mysql"
+      - "./devOps/docker/database/devel/slave/em_slave.cnf:/etc/mysql/conf.d/em_slave.cnf"
+      - "./devOps/docker/database/devel/slave/setup_slave.sh:/docker-entrypoint-initdb.d/setup_slave.sh"
+    depends_on:
+      - database
+    links:
+      - database:master
+    networks:
+      backend:
+        ipv4_address: ${EM_DOCKER_DATABASE_SLAVE_IP}
     environment:
       MYSQL_ROOT_PASSWORD: tpl9
       MYSQL_USER: euromillions
@@ -50,6 +73,7 @@ services:
     links:
       - redis:redis
       - database:mysql
+      - read-database:mysql-read
     networks:
       - backend
     environment:
@@ -124,7 +148,10 @@ services:
       AWS_SECRET_ACCESS_KEY: yX6OWDq23bhTWqZUpCl8ih00ubWYRXsmKVsWEWIn
 
 volumes:
-  database_volume:
+  database_master_volume:
+  database_master_logs_volume:
+  database_slave_volume:
+  database_slave_logs_volume:
 
 networks:
   backend:
