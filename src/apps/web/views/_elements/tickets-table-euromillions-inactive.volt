@@ -7,7 +7,7 @@
             <td class="date-to">{{ language.translate("tickets_play_again") }}</td>
             <td class="numbers">{{ language.translate("tickets_SubsPast_numbers") }}</td>
         </tr>
-        {% for name,results in my_games_inactives.result %}
+        {% for name,results in my_games_inactives %}
             {% for date,play_configs in results %}
                 <tr>
                     <td class="lottery">
@@ -24,18 +24,18 @@
                         {% for bet in play_configs %}
                             {% set numbers_inactives = '' %}
                             {% set stars_inactives = '' %}
-                            {% for bet_number,value in bet.numbers %}
+                            {% for bet_number,value in bet.regular_numbers %}
                                 {% if loop.last %}
-                                    {% set numbers_inactives = numbers_inactives ~ bet_number ~ '.' %}
+                                    {% set numbers_inactives = numbers_inactives ~ value ~ '.' %}
                                 {% else %}
-                                    {% set numbers_inactives = numbers_inactives ~ bet_number ~ ',' %}
+                                    {% set numbers_inactives = numbers_inactives ~ value ~ ',' %}
                                 {% endif %}
                             {% endfor %}
-                            {% for bet_star,value in bet.stars %}
+                            {% for bet_star,value in bet.lucky_numbers %}
                                 {% if loop.last %}
-                                    {% set stars_inactives = stars_inactives ~ bet_star %}
+                                    {% set stars_inactives = stars_inactives ~ value %}
                                 {% else %}
-                                    {% set stars_inactives = stars_inactives ~ bet_star ~ ',' %}
+                                    {% set stars_inactives = stars_inactives ~ value ~ ',' %}
                                 {% endif %}
                             {% endfor %}
                             {% if loop.last %}
@@ -51,18 +51,18 @@
                     <td class="numbers">
                         {% for play_config in play_configs %}
                             <?php $lucky = null;?>
-                            {% for lucky_number,badArray in play_config.stars %}
-                                <?php $lucky[] = $lucky_number;?>
+                            {% for lucky_number,badArray in play_config.lucky_numbers %}
+                                <?php $lucky[] = $badArray;?>
                             {% endfor %}
                             <div class="numbers--row">
-                                {% for regular_number,badArray in play_config.numbers %}
-                                    <span>{{ regular_number }}</span>
+                                {% for regular_number,badArray in play_config.regular_numbers %}
+                                    <span>{{ badArray }}</span>
                                 {% endfor %}
                                 {% if (play_config.lotteryName == 'PowerBall') or  (play_config.lotteryName == 'MegaMillions')%}
                                     <span class="star">{{ lucky[1] }}</span>
                                 {% else %}
-                                    {% for lucky_number,badArray in play_config.stars %}
-                                        <span class="star">{{ lucky_number }}</span>
+                                    {% for lucky_number,badArray in play_config.lucky_numbers %}
+                                        <span class="star">{{ badArray }}</span>
                                     {% endfor %}
                                 {% endif %}
                             </div>
