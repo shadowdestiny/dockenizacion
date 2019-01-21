@@ -20,12 +20,6 @@
       text-align: left;
       text-transform: uppercase;
 
-      //background: -webkit-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
-      //background: -moz-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
-      //background: -o-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
-      //background: -ms-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
-      //background: linear-gradient(0deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
-
       @include common-headings-style-h1 ();
 
       //margin: -10px;
@@ -40,7 +34,9 @@
         margin: 0;
         margin-bottom: 12px;
       }
-      @media only screen and (min-width: $screen-desktop) {}
+      @media only screen and (min-width: $screen-desktop) {
+        margin-bottom: 6px;
+      }
     }
 
     h2 {
@@ -61,11 +57,9 @@
         font-weight: 900;
         border-bottom: 0;
         font-size: 26px;
-        padding: 10px 15px;
-      }
-      @media only screen and (min-width: $screen-desktop) {
-        background-color: transparent;
         padding: 0;
+        padding-bottom: 14px;
+        background-color: transparent;
       }
 
     }
@@ -202,13 +196,13 @@
             padding: 16px;
 
             &.td-date {
-              width: 33.33%;
+              width: 43.33%;
               padding-left: 23px;
               font-size: 17px;
             }
             &.td-ball-numbers {
               text-align: center;
-              width: 33.33%;
+              width: 23.33%;
               font-size: 17px;
             }
             &.td-ball-suns {

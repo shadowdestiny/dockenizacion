@@ -98,23 +98,66 @@
 
                     <table id="history-numbers" class="ui-responsive table2 ui-table ui-table-reflow" data-role="table" data-mode="reflow" style="">
                         <thead class="thead--eurojackpot">
-                        <tr>
+                        <tr class="tr--desktop">
                             <th class="td-date" data-colstart="1"><span class="ico-date"></span>Date</th>
                             <th class="td-ball-numbers--lottery eurojackpot--lottery-balls" data-colstart="2"><span class="ico-ball"></span>Lottery balls</th>
-                            <th class="td-sun" data-colstart="3">
+                            <th class="td-ball-suns" data-colstart="3">
                                 <span class="ico-sun"></span>
                                 Suns
-
+                            </th>
+                        </tr>
+                        <tr class="tr--mobile">
+                            <th class="td-date">Date</th>
+                            <th class="td-ball-suns">
+                                Result
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr class="" style="cursor: pointer" onclick="document.location='#'">
+                            <td class="td-balls--mobile">6-8-20-52-66-<span class="suns">12-7</span></td>
                             <td class="td-date">Saturday, 20.10.2018</td>
                             <td class="td-ball-numbers">6,8,20,52,66</td>
                             <td class="td-ball-suns">12,7</td>
-                            <td class="td-balls--mobile">6-8-20-52-66-<span class="suns">12-7</span></td>
+
 
                                 </b></td>
+                        </tr>
+                        <tr class="" style="cursor: pointer" onclick="document.location='#'">
+                            <td class="td-balls--mobile">6-8-20-52-66-<span class="suns">12-7</span></td>
+                            <td class="td-date">Saturday, 20.10.2018</td>
+                            <td class="td-ball-numbers">6,8,20,52,66</td>
+                            <td class="td-ball-suns">12,7</td>
+
+
+                            </b></td>
+                        </tr>
+                        <tr class="" style="cursor: pointer" onclick="document.location='#'">
+                            <td class="td-balls--mobile">6-8-20-52-66-<span class="suns">12-7</span></td>
+                            <td class="td-date">Saturday, 20.10.2018</td>
+                            <td class="td-ball-numbers">6,8,20,52,66</td>
+                            <td class="td-ball-suns">12,7</td>
+
+
+                            </b></td>
+                        </tr>
+                        <tr class="" style="cursor: pointer" onclick="document.location='#'">
+                            <td class="td-balls--mobile">6-8-20-52-66-<span class="suns">12-7</span></td>
+                            <td class="td-date">Saturday, 20.10.2018</td>
+                            <td class="td-ball-numbers">6,8,20,52,66</td>
+                            <td class="td-ball-suns">12,7</td>
+
+
+                            </b></td>
+                        </tr>
+                        <tr class="" style="cursor: pointer" onclick="document.location='#'">
+                            <td class="td-balls--mobile">6-8-20-52-66-<span class="suns">12-7</span></td>
+                            <td class="td-date">Saturday, 20.10.2018</td>
+                            <td class="td-ball-numbers">6,8,20,52,66</td>
+                            <td class="td-ball-suns">12,7</td>
+
+
+                            </b></td>
                         </tr>
 
 

@@ -119,7 +119,6 @@
 {% block body %}
 
     <main id="content">
-
         <div class="eurojackpot--page">
 
             <div class="top-banner--eurojackpot"></div>
@@ -129,29 +128,52 @@
                 <h1 class="play--h1">
                     {% if mobile == 1 %}
                         {#{{ language.translate("megamillions_mobile_h1") }}#}
-                        Play EuroJackpot
+                        Online
                     {% else %}
                         {#{{ language.translate("megamillions_h1") }}#}
-                        Play EuroJackpot Online
+                        Online
                     {% endif %}
                 </h1>
 
-                {% include "_elements/eurojackpot-header.volt" %}
+                {% include "_elements/ej/eurojackpot-header.volt" %}
 
                 <div class="gameplay" id="gameplay"></div>
 
-                {% include "_elements/eurojackpot-bottom-block.volt" %}
+                {% include "_elements/ej/eurojackpot-bottom-block.volt" %}
 
             </div>
 
+            <div id="closeticket" class="modal" style="width: 1000px;height: 500px;">
+                <div style="text-align: center;color:white">
+                    It is too late to buy Powerball tickets for the draw held in Paris tonight at 20:45 CET.
+                    In a few moments you will be able to purchase Powerball tickets for the next draw that will take
+                    place on Tuesday.
+
+                    <br><br>Thank you for your pacience.<br>
+
+                    The EuroMillions.com Support Team
+                </div>
+            </div>
+            <div id="closeticketbylimitbet" class="modal" style="width: 1000px;height: 500px;">
+                <div style="text-align: center;color:white">
+                    It is too late to buy Powerball tickets for the draw held in Paris tonight at 20:45 CET.
+                    You can be able to purchase Powerball tickets for the next draw accessing again to <a href="/">Euromillions.com</a>
+                    .
+
+                    <br><br>Thank you for your pacience.<br>
+
+                    The EuroMillions.com Support Team
+                </div>
+            </div>
         </div>
 
 
 
+        {#TODO: this block is the Results page - paste it in right place please #}
+        {% include "_elements/ej/eurojackpot-results.volt" %}
 
-        {#TODO: remove temp files please#}
-        {% include "_elements/_temp_eurojackpot-results.volt" %}
-        {% include "_elements/_temp_eurojackpot-history.volt" %}
+        {#TODO: this block is the History page - paste it in right place please #}
+        {% include "_elements/ej/eurojackpot-history.volt" %}
 
 
     </main>
