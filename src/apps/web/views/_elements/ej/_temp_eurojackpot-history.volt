@@ -6,11 +6,12 @@
 
             <div class="past-header">
                 <h1 class="h1 title">
-                    Megamillions history: all past results
+                    Eurojackpot draw history
                 </h1>
-                <h2 class="h2 purple">Check the winning numbers of any previous draw</h2>
+                <h2 class="h2 purple">All the lottery results history</h2>
             </div>
 
+            {#TODO: remove this right section#}
             <div class="right-section">
 
                 <div id="widgetEuroMillions" class="section-powerball">
@@ -90,90 +91,33 @@
                 </script>
             </div>
 
+
+
             <div class="left-section result-section">
                 <div class="history-numbers-block">
 
                     <table id="history-numbers" class="ui-responsive table2 ui-table ui-table-reflow" data-role="table" data-mode="reflow" style="">
-                        <thead class="thead--powerball">
+                        <thead class="thead--eurojackpot">
                         <tr>
-                            <th class="td-date" data-colstart="1"><span class="ico-date"></span>Results Date</th>
-                            <th class="td-ball-numbers--lottery megamillions--lottery-balls" data-colstart="2"><span class="ico-ball"></span>Lottery balls</th>
-                            <th class="td-powerball megamillions--megaball" data-colstart="3">
-                                <span class="ico-ball"></span>
-                                Megaball                                     </th>
-                            <th class="td-powerplay megamillions--megaplier" data-colstart="4">
-                                <span class="ico-ball"></span>
-                                Megaplier
-                            </th>
+                            <th class="td-date" data-colstart="1"><span class="ico-date"></span>Date</th>
+                            <th class="td-ball-numbers--lottery eurojackpot--lottery-balls" data-colstart="2"><span class="ico-ball"></span>Lottery balls</th>
+                            <th class="td-sun" data-colstart="3">
+                                <span class="ico-sun"></span>
+                                Suns
+
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="" style="cursor: pointer" onclick="document.location='/powerball/results/draw-history-page/2018-10-20'">
-                            <td class="td-date"><b class="ui-table-cell-label"><span class="ico-date"></span>Results Date</b>Saturday, 20.10.2018</td>
-                            <td class="td-ball-numbers"><b class="ui-table-cell-label"><span class="ico-ball"></span>Numbers</b>,,,,</td>
-                            <td class="td-powerball"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerball number                                        </b>,</td>
-                            <td class="td-powerplay"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerplay
+                        <tr class="" style="cursor: pointer" onclick="document.location='#'">
+                            <td class="td-date">Saturday, 20.10.2018</td>
+                            <td class="td-ball-numbers">6,8,20,52,66</td>
+                            <td class="td-ball-suns">12,7</td>
+                            <td class="td-balls--mobile">6-8-20-52-66-<span class="suns">12-7</span></td>
+
                                 </b></td>
                         </tr>
-                        <tr class="" style="cursor: pointer" onclick="document.location='/powerball/results/draw-history-page/2018-10-17'">
-                            <td class="td-date"><b class="ui-table-cell-label"><span class="ico-date"></span>Results Date</b>Wednesday, 17.10.2018</td>
-                            <td class="td-ball-numbers"><b class="ui-table-cell-label"><span class="ico-ball"></span>Numbers</b>,,,,</td>
-                            <td class="td-powerball"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerball number                                        </b>,</td>
-                            <td class="td-powerplay"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerplay
-                                </b></td>
-                        </tr>
-                        <tr class="" style="cursor: pointer" onclick="document.location='/powerball/results/draw-history-page/2018-10-13'">
-                            <td class="td-date"><b class="ui-table-cell-label"><span class="ico-date"></span>Results Date</b>Saturday, 13.10.2018</td>
-                            <td class="td-ball-numbers"><b class="ui-table-cell-label"><span class="ico-ball"></span>Numbers</b>,,,,</td>
-                            <td class="td-powerball"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerball number                                        </b>,</td>
-                            <td class="td-powerplay"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerplay
-                                </b></td>
-                        </tr>
-                        <tr class="" style="cursor: pointer" onclick="document.location='/powerball/results/draw-history-page/2018-10-10'">
-                            <td class="td-date"><b class="ui-table-cell-label"><span class="ico-date"></span>Results Date</b>Wednesday, 10.10.2018</td>
-                            <td class="td-ball-numbers"><b class="ui-table-cell-label"><span class="ico-ball"></span>Numbers</b>,,,,</td>
-                            <td class="td-powerball"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerball number                                        </b>,</td>
-                            <td class="td-powerplay"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerplay
-                                </b></td>
-                        </tr>
-                        <tr class="" style="cursor: pointer" onclick="document.location='/powerball/results/draw-history-page/2018-08-01'">
-                            <td class="td-date"><b class="ui-table-cell-label"><span class="ico-date"></span>Results Date</b>Wednesday, 01.08.2018</td>
-                            <td class="td-ball-numbers"><b class="ui-table-cell-label"><span class="ico-ball"></span>Numbers</b>,,,,</td>
-                            <td class="td-powerball"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerball number                                        </b>,</td>
-                            <td class="td-powerplay"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerplay
-                                </b></td>
-                        </tr>
-                        <tr class="" style="cursor: pointer" onclick="document.location='/powerball/results/draw-history-page/2018-07-28'">
-                            <td class="td-date"><b class="ui-table-cell-label"><span class="ico-date"></span>Results Date</b>Saturday, 28.07.2018</td>
-                            <td class="td-ball-numbers"><b class="ui-table-cell-label"><span class="ico-ball"></span>Numbers</b>,,,,</td>
-                            <td class="td-powerball"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerball number                                        </b>,</td>
-                            <td class="td-powerplay"><b class="ui-table-cell-label">
-                                    <span class="ico-ball"></span>
-                                    Powerplay
-                                </b></td>
-                        </tr>
+
+
                         </tbody>
 
 
