@@ -271,12 +271,7 @@ class CartController extends PublicSiteControllerBase
      */
     private function getSignUpForm()
     {
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        //key+1, select element from phalcon need index 0 to set empty value
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
-        return new SignUpForm(null, ['countries' => $countries]);
+        return SiteHelpers::getSignUpForm();
     }
 
     /**
