@@ -4,6 +4,7 @@ display_errors={{ display_errors }}
 display_startup_errors={{ display_startup_errors }}
 env={{ env }}
 send_single_validations={{ send_single_validations }}
+db_master_slave_enabled = {{ db_master_slave_enabled }}
 
 [database]
 adapter={{ database_adapter }}
@@ -13,6 +14,13 @@ password={{ database_pass }}
 dbname={{ database_name }}
 original_db_name={{ original_database_name }}
 is_dev_mode={{ is_development_mode }}
+
+[database_slave]
+adapter={{ database_adapter }}
+host={{ database_host }}
+username={{ database_user }}
+password={{ database_pass }}
+dbname={{ database_slave_name }}
 
 [domain]
 url={{ domain_url }}

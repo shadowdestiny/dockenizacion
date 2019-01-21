@@ -76,8 +76,8 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
         $this->startDrawDate = $start->format('Y M j');
         $this->startDrawDateTime = $start;
         $this->lines = $this->euroMillionsLinesToJson();
-        $this->regular_numbers = [];
-        $this->lucky_numbers = [];
+        $this->regular_numbers = $this->playConfig[0]->getLine()->getRegularNumbersArray();
+        $this->lucky_numbers = $this->playConfig[0]->getLine()->getLuckyNumbersArray();
         $this->lines = $this->euroMillionsLinesToJson();
         $this->duration_format = $this->getFormatDuration();
         $this->duration = $this->duration();
@@ -98,8 +98,8 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
         $this->lastDrawDate = $last->format('Y-m-d');
         $this->startDrawDate = $start->format('Y M j');
         $this->lines = $this->euroMillionsLine($key);
-        $this->regular_numbers = [];
-        $this->lucky_numbers = [];
+        $this->regular_numbers = $this->playConfig[$key]->getLine()->getRegularNumbersArray();
+        $this->lucky_numbers = $this->playConfig[$key]->getLine()->getLuckyNumbersArray();
         $this->lines = $this->euroMillionsLine($key);
         $this->duration_format = $this->getFormatDuration();
         $this->duration = $this->duration();
