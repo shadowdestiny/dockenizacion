@@ -3,6 +3,7 @@ namespace EuroMillions\web\controllers;
 
 use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\shared\services\SiteConfigService;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
@@ -122,6 +123,7 @@ class CartController extends PublicSiteControllerBase
                 ], $user->getId());
                 if($result->success()){
                     $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                    TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered();
                     $this->response->redirect('/'.$this->lottery.'/play');
                     //$this->response->redirect('/'.$this->lottery.'/order');
                 }else{

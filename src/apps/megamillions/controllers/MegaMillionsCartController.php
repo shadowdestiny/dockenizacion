@@ -10,6 +10,7 @@ namespace EuroMillions\megamillions\controllers;
 
 
 use EuroMillions\shared\controllers\LotteriesCartController;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\forms\SignInForm;
 
 class MegaMillionsCartController extends LotteriesCartController
@@ -54,6 +55,7 @@ class MegaMillionsCartController extends LotteriesCartController
                 ], $user->getId());
                 if($result->success()){
                     $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                    TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered();
                     $this->response->redirect('/'.$this->lottery.'/play');
                 }else{
                     $errors [] = $result->errorMessage();

@@ -3,5 +3,4 @@
 # copy all container environment to file for crontab reads it
 env > /etc/environment
 
-# Run cron on foreground
-cron -f
+/usr/bin/supervisord -c /etc/supervisor/supervisord.conf

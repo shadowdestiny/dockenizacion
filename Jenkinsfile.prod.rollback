@@ -1,13 +1,13 @@
 pipeline {
     environment {
-        EM_ENVIRONMENT = "staging"
+        EM_ENVIRONMENT = "prod"
 
-        RANCHER_STACK_NAME = "euromillions-staging"
+        RANCHER_STACK_NAME = "euromillions-prod"
 
-        RANCHER_ENV_URL = "http://34.247.7.73:8080/v2-beta/projects/1a7"
-        RANCHER_ENV_KEY = credentials('RANCHER_ENV_KEY_STAGING')
-        RANCHER_ENV_SECRET = credentials('RANCHER_ENV_SECRET_STAGING')
-        RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL --access-key $RANCHER_ENV_KEY --secret-key $RANCHER_ENV_SECRET -p ${RANCHER_STACK_NAME} -f docker-compose.prod.yml -f docker-compose.staging.yml -f docker-compose.rollback.yml -r rancher-compose.staging.yml -e .env.staging"
+        RANCHER_ENV_URL = "http://34.247.7.73:8080/v2-beta/projects/1a15"
+        RANCHER_ENV_KEY = credentials('RANCHER_ENV_KEY_PROD')
+        RANCHER_ENV_SECRET = credentials('RANCHER_ENV_SECRET_PROD')
+        RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL --access-key $RANCHER_ENV_KEY --secret-key $RANCHER_ENV_SECRET -p ${RANCHER_STACK_NAME} -f docker-compose.prod.yml -f docker-compose.rollback.yml -r rancher-compose.prod.yml -e .env.prod"
     }
     agent {
         label 'aws-slave'

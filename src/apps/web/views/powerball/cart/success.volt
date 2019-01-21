@@ -39,6 +39,7 @@ cart success minimal
     count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
     });
 {% endblock %}
+{{ tracking }}
 {% block body %}
 
 {%  set lines = order.lines|json_decode %}

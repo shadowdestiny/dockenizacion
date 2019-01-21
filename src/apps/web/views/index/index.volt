@@ -259,4 +259,5 @@
 		"https://www.linkedin.com/company/euromillions-com"
 	]}
 </script>
+    {{ tracking }}
 {% endblock %}

@@ -2,6 +2,7 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\shared\helpers\SiteHelpers;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
@@ -89,6 +90,7 @@ class PowerBallCartController extends PublicSiteControllerBase
                 ], $user->getId());
                 if($result->success()){
                     $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                    TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered();
                     $this->response->redirect('/'.$this->lottery.'/play');
                 }else{
                     $errors [] = $result->errorMessage();

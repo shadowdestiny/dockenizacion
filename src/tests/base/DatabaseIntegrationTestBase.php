@@ -60,11 +60,9 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
         }
         return $this->pdo;
     }
+
     protected function setUp()
     {
-
-        $this->markTestSkipped('This test don\'t works anymore :( | Fix it? ');
-
         $conn = $this->getPDO();
         $conn->query("set foreign_key_checks=0");
         parent::setUp();

@@ -1,14 +1,23 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: rmrbest
+ * Date: 20/01/19
+ * Time: 11:09
+ */
 
+namespace EuroMillions\tests\functional;
+
+
+use Doctrine\ORM\Query\Expr\Func;
+use EuroMillions\tests\helpers\mothers\UserMother;
+use FunctionalTester;
 use Money\Currency;
 use Money\Money;
 
-
-/**
- * Class HomepageCest
- */
-class HomepageCest
+class SingUpAndSignInCest
 {
+
     public function _before(FunctionalTester $I)
     {
         $I->haveInDatabase(
@@ -79,7 +88,6 @@ class HomepageCest
                 ->withRaffle(new \EuroMillions\web\vo\Raffle('ABC'))
                 ->build()->toArray()
         );
-        $I->amOnPage('/');
     }
 
     public function _after(FunctionalTester $I)
@@ -88,88 +96,55 @@ class HomepageCest
     }
 
     /**
-     * @group buy
+     * @group signup
      * @param FunctionalTester $I
      */
-    public function seePage(FunctionalTester $I)
+    public function canSeeUserRegisteredWhenFillSignUpForm(FunctionalTester $I)
     {
-        $I->wantTo('Ensure that frontpage works even if crons did not');
-        $I->canSee('banner1_btn', 'span');
+        $I->amOnPage('/sign-up');
+        $I->submitForm(
+          '#goSignUp', [
+              'name' => 'Test',
+              'surname' => 'Test1',
+              'email' => 'test@euromillions.com',
+              'password' => '123456',
+              'confirm_password' => '123456',
+              'day' => '29',
+              'month' => '10',
+              'year' => '1980',
+              'country' => '204',
+              'prefix' => '34',
+              'phone' => '600000000',
+              'accept' => true
+            ]
+        );
+        $I->canSeeInDatabase('users', ['email' => 'test@euromillions.com']);
     }
 
     /**
-     * @group buy
+     * @group signup
      * @param FunctionalTester $I
      */
-    public function playButton(FunctionalTester $I)
+    public function canSeeLoggedCookieWhenSubmitLoginForm(FunctionalTester $I)
     {
-        $I->wantTo('Be able to play');
-        $I->canSeeLink('banner1_btn', '/euromillions/play');
+        $user = UserMother::aJustRegisteredUser()->build();
+        $I->haveInDatabase('users',
+                                  $user->toArray()
+        );
+        $I->amOnPage('/sign-in');
+        $I->fillField(['name' => 'email'], 'nonexisting@email.com');
+        $I->fillField(['name' => 'password'], 'Password01');
+        $I->click('.submit-row');
+        $I->haveInSession('EM_logged_user', $user->getId());
+
     }
 
     /**
-     * @group buy
+     * @group signup
      * @param FunctionalTester $I
      */
-    public function jackpotDisplayed(FunctionalTester $I)
+    public function canNotSeeLoggedCookieWhenLogoutClick(FunctionalTester $I)
     {
-        $I->wantTo('Be informed of the jackpot');
-        $jackpot = $I->grabTextFrom('.desktop-row--01');
-        $jackpot_number = (int)str_replace(['.',',','€'],'', $jackpot);
-        $I->expect('The Jackpot would be greather or equal than 15M euros');
-        $I->assertGreaterThanOrEqual(15, $jackpot_number);
     }
-
-    /**
-     * @group buy
-     * @param FunctionalTester $I
-     */
-    public function goToPlayPage(FunctionalTester $I)
-    {
-        $I->wantTo('Go to the play page');
-        $I->click('banner1_btn','.btn-theme--big .resizeme');
-        $I->canSee('pick 5 numbers and 2 stars');
-    }
-
-
-    /**
-     * @group home
-     * @param FunctionalTester $I
-     */
-    public function megaMillionsAsMainJackpot(FunctionalTester $I)
-    {
-        $I->wantTo('MegaMillions jackpot as main jackpot');
-        $jackpot = $I->grabTextFrom('.desktop-row--01');
-        $jackpot_number = (int)str_replace(['.',',','€'],'', $jackpot);
-        $I->assertEquals(50, $jackpot_number);
-    }
-
-    /**
-     * @group home
-     * @param FunctionalTester $I
-     */
-    public function jackpotOrderedByHeldDate(FunctionalTester $I)
-    {
-        $I->wantTo('It should show euromillions as first position');
-        $lottery = $I->grabTextFrom('.title .resizeme');
-        $I->assertEquals('carousel_em_name',$lottery);
-    }
-
-
-    /**
-     * @group home
-     * @param FunctionalTester $I
-     */
-    public function euromillionsAndPowerBallAndMegaMillionsWithNewNextDrawTheCarrouselResultsShouldNotBeShowedEmpty(FunctionalTester $I)
-    {
-      //  $I->wantTo('Euromillions with new draw it should not be showed in carrousel results');
-      //  $I->canSee('1 19 31 39 48','.lottery-result--euromillions .row--results');
-        $I->wantTo('Powerball with new draw it should not be showed in carrousel results');
-        $I->canSee('1 2 3 4 5 2','.lottery-result--powerball .row--results');
-        $I->wantTo('MegaMillions with new draw it should not be showed in carrousel results');
-        $I->canSee('1 2 3 4 5 2','.lottery-result--megamillions .row--results');
-    }
-
-
 
 }

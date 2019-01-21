@@ -108,11 +108,11 @@ pipeline {
         }
         stage('post-deploy') {
              environment {
-                RANCHER_API_URL_STAGING = "http://34.247.7.73:8080/v2-beta/schemas"
+                RANCHER_API_URL = "http://34.247.7.73:8080/v2-beta/schemas"
                 RANCHER_TARGET_ENVIRONMENT = "1a7"
                 RANCHER_API_ACCESS_KEY = credentials('RANCHER_API_ACCESS_KEY_STAGING')
                 RANCHER_API_SECRET_KEY = credentials('RANCHER_API_SECRET_KEY_STAGING')
-                RANCHER_CMD_BASE = "rancher -url ${env.RANCHER_API_URL_STAGING} --env ${env.RANCHER_TARGET_ENVIRONMENT} --access-key ${env.RANCHER_API_ACCESS_KEY} --secret-key ${env.RANCHER_API_SECRET_KEY}"
+                RANCHER_CMD_BASE = "rancher -url ${env.RANCHER_API_URL} --env ${env.RANCHER_TARGET_ENVIRONMENT} --access-key ${env.RANCHER_API_ACCESS_KEY} --secret-key ${env.RANCHER_API_SECRET_KEY}"
             }
             steps {
                 sh("""
