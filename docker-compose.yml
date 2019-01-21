@@ -33,9 +33,9 @@ services:
       backend:
         ipv4_address: ${EM_DOCKER_DATABASE_SLAVE_IP}
     environment:
-      MYSQL_ROOT_PASSWORD: tpl9
+      MYSQL_ROOT_PASSWORD: tpl9_slave
       MYSQL_USER: euromillions
-      MYSQL_PASSWORD: tpl9
+      MYSQL_PASSWORD: tpl9_slave
       MYSQL_DATABASE: euromillions
 
   redis:
