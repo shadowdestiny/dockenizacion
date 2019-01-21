@@ -1,0 +1,214 @@
+.result-page--content--previous-result.eurojackpot-previous-results {
+
+  //.wrapper {
+  //  @media only screen and (max-width: $screen-ipad-v--pre) {
+  //    padding: 0;
+  //  }
+  //}
+
+  .result-section .history-numbers-block {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .past-header {
+
+    h1 {
+      color: #ffce05;
+      font-size: 18px;
+      font-weight: 900;
+      text-align: left;
+      text-transform: uppercase;
+
+      //background: -webkit-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
+      //background: -moz-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
+      //background: -o-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
+      //background: -ms-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
+      //background: linear-gradient(0deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
+
+      @include common-headings-style-h1 ();
+
+      //margin: -10px;
+      padding: 10px;
+      padding-left: 0;
+
+      margin-bottom: 0;
+
+      @media only screen and (min-width: $screen-desktop) {}
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 32px;
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    h2 {
+      font-size: 21px;
+      padding: 4px 7px;
+      //display: none;
+      background-color: #ffce05;
+      margin-bottom: 12px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        display: block;
+
+        font-weight: 900;
+        border-bottom: 0;
+        font-size: 26px;
+        padding: 10px 15px;
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        background-color: transparent;
+        padding: 0;
+      }
+
+    }
+  }
+
+  .result-section {
+
+    @media only screen and (min-width: $screen-desktop) {
+      padding-right: 310px;
+    }
+
+    .history-numbers-block {
+      @media only screen and (min-width: $screen-desktop) {
+        border-top: 1px solid #000;
+      }
+    }
+
+  }
+
+
+  .thead--eurojackpot {
+
+  }
+
+  .result-section #history-numbers thead th.td-ball-numbers--lottery.eurojackpot--lottery-balls {
+    .ico-ball {
+      background-color: #fff;
+    }
+  }
+
+  .result-section #history-numbers thead th.td-sun {
+    .ico-sun {
+      display: inline-block;
+      margin-right: 9px;
+      width: 26px;
+      height: 26px;
+      border: 2px solid #333;
+      border-radius: 50%;
+      background-color: #cd9617;
+      position: relative;
+      bottom: -9px;
+    }
+  }
+
+  .result-section #history-numbers thead {
+
+
+    .tr--desktop {
+      display: block;
+
+      @media only screen and (max-width: $screen-ipad-v-pre) {
+        display: none;
+      }
+    }
+    .tr--mobile {
+      display: none;
+      padding: 0;
+      padding-bottom: 8px;
+
+      @media only screen and (max-width: $screen-ipad-v-pre) {
+        display: block;
+      }
+
+      .td-ball-suns,
+      .td-date {
+        text-align: left;
+        font-weight: bold;
+        font-size: 18px;
+        color: #333333;
+        display: block!important;
+        width: 50%;
+        float: left;
+        padding: 0 10px;
+      }
+      .td-ball-suns {
+        text-align: right;
+      }
+    }
+
+    @media only screen and (max-width: $screen-ipad-v-pre) {
+      display: block;
+
+      tr {
+        background-color: #fff;
+      }
+
+    }
+  }
+
+  .history-numbers-block {
+    .table2 {
+      tr {
+
+        padding: 18px 11px;
+
+        @media only screen and (max-width: $screen-ipad-v-pre) {
+          td{
+            width: 50%!important;
+            //float: none!important;
+            text-align: left;
+            //display: table-cell!important;
+          }
+        }
+        @media only screen and (min-width: $screen-ipad-v) {
+
+        }
+
+
+
+        .td-ball-numbers {
+          width: auto;
+          float: left;
+          text-align: left;
+        }
+
+
+        .td-ball-suns,
+        .td-ball-numbers{
+          display: none!important;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            display: table-cell!important;
+          }
+        }
+        .td-date {
+          margin-bottom: 0;
+        }
+        .td-balls--mobile {
+          display: block!important;
+          text-align: right;
+          font-size: 14px;
+          color: #333333;
+          font-weight: 700;
+          float: right;
+
+          .suns {
+            color: #cd9617;
+          }
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            display: none!important;
+          }
+        }
+
+
+      }
+    }
+  }
+
+}
+
