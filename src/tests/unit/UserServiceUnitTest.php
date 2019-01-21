@@ -2,7 +2,7 @@
 namespace EuroMillions\tests\unit;
 
 use EuroMillions\shared\vo\Wallet;
-use EuroMillions\tests\helpers\mothers\PlayConfigMother;
+use EuroMillions\tests\helpers\mothers\BetMother;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\Bet;
@@ -509,18 +509,12 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getMyInactivePlays_calledUserWithPastGames_returnActionResultTrue()
     {
-        $user= $this->getUser();
-        list($playConfig,$eurmillionsDraw)= $this->getPlayConfigAndEuroMillionsDraw();
+        $bet= BetMother::aSingleBet();
         $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush($user)->shouldNotBeCalled();
-        $entityManager_stub->flush($playConfig)->shouldNotBeCalled();
-        $entityManager_stub->flush($eurmillionsDraw)->shouldNotBeCalled();
-        $bet=new Bet($playConfig, $eurmillionsDraw);
-        $entityManager_stub->flush($bet)->shouldNotBeCalled();
-        var_dump($bet);
+        $entityManager_stub->flush($bet);
         $sut= $this->getSut();
         $expected= new ActionResult(true, []);
-        $this->assertEquals($expected->success(),$sut->getMyInactivePlays($user->getId())->success());
+        $this->assertEquals($expected->success(),$sut->getMyInactivePlays('9098299B-14AC-4124-8DB0-19571EDABE55')->success());
     }
 
     private function getPlayConfigAndEuroMillionsDraw()
