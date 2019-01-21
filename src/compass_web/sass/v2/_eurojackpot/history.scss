@@ -34,13 +34,13 @@
 
       margin-bottom: 0;
 
-      @media only screen and (min-width: $screen-desktop) {}
-
       @media only screen and (min-width: $screen-ipad-v) {
         font-size: 32px;
         padding: 0;
         margin: 0;
+        margin-bottom: 12px;
       }
+      @media only screen and (min-width: $screen-desktop) {}
     }
 
     h2 {
@@ -50,6 +50,11 @@
       background-color: #ffce05;
       margin-bottom: 12px;
 
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 26px;
+        padding: 5px 20px 8px 20px;
+        margin-bottom: 0;
+      }
       @media only screen and (min-width: $screen-desktop) {
         display: block;
 
@@ -81,17 +86,14 @@
   }
 
 
-  .thead--eurojackpot {
-
-  }
-
   .result-section #history-numbers thead th.td-ball-numbers--lottery.eurojackpot--lottery-balls {
     .ico-ball {
       background-color: #fff;
+      bottom: -6px;
     }
   }
 
-  .result-section #history-numbers thead th.td-sun {
+  .result-section #history-numbers thead th.td-ball-suns {
     .ico-sun {
       display: inline-block;
       margin-right: 9px;
@@ -101,7 +103,7 @@
       border-radius: 50%;
       background-color: #cd9617;
       position: relative;
-      bottom: -9px;
+      bottom: -6px;
     }
   }
 
@@ -109,10 +111,16 @@
 
 
     .tr--desktop {
-      display: block;
+      display: table-row;
+      background-color: transparent;
+      padding: 6px 20px;
 
       @media only screen and (max-width: $screen-ipad-v-pre) {
         display: none;
+      }
+
+      td {
+        background-color: transparent;
       }
     }
     .tr--mobile {
@@ -150,30 +158,70 @@
     }
   }
 
+  .result-section #history-numbers thead th {
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      font-size: 20px;
+      font-weight: 700;
+      padding: 14px 20px;
+      width: 33.33%;
+
+      .ico-date {
+        margin-right: 7px;
+        bottom: -6px;
+      }
+
+      &.td-ball-numbers--lottery {
+        text-align: center;
+      }
+      &.td-ball-suns {
+        text-align: right;
+      }
+    }
+
+  }
+
   .history-numbers-block {
     .table2 {
+
+
       tr {
 
         padding: 18px 11px;
 
         @media only screen and (max-width: $screen-ipad-v-pre) {
+
           td{
             width: 50%!important;
-            //float: none!important;
             text-align: left;
-            //display: table-cell!important;
           }
         }
-        @media only screen and (min-width: $screen-ipad-v) {
 
+        @media only screen and (min-width: $screen-ipad-v) {
+          td {
+            padding: 16px;
+
+            &.td-date {
+              width: 33.33%;
+              padding-left: 23px;
+              font-size: 17px;
+            }
+            &.td-ball-numbers {
+              text-align: center;
+              width: 33.33%;
+              font-size: 17px;
+            }
+            &.td-ball-suns {
+              text-align: right;
+              width: 33.33%;
+              font-size: 17px;
+            }
+          }
         }
 
-
-
         .td-ball-numbers {
-          width: auto;
-          float: left;
-          text-align: left;
+          //float: left;
+          //text-align: left;
         }
 
 
