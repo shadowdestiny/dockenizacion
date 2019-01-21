@@ -486,7 +486,8 @@ class UserServiceUnitTest extends UnitTestBase
     {
        $sut= $this->getSut();
        $expected = new ActionResult(false);
-       $this->assertEquals($expected, $sut->getMyInactivePlays(null));
+       $actual = $sut->getMyInactivePlays(null);
+       $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -499,7 +500,8 @@ class UserServiceUnitTest extends UnitTestBase
         $user= $this->getUser();
         $sut= $this->getSut();
         $expected= new ActionResult(false, 'You don\'t have games');
-        $this->assertEquals($expected, $sut->getMyInactivePlays($user->getId()));
+        $actual = $sut->getMyInactivePlays($user->getId());
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -509,12 +511,12 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getMyInactivePlays_calledUserWithPastGames_returnActionResultTrue()
     {
-        $bet= BetMother::aSingleBet();
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush($bet);
-        $sut= $this->getSut();
+        $userId = '9098299B-14AC-4124-8DB0-19571EDABE55';
         $expected= new ActionResult(true, []);
-        $this->assertEquals($expected->success(),$sut->getMyInactivePlays('9098299B-14AC-4124-8DB0-19571EDABE55')->success());
+        $this->betRepository_double->getPastGamesWithPrizes($userId)->willReturn(['anything']);
+        $sut= $this->getSut();
+        $actual = $sut->getMyInactivePlays($userId);
+        $this->assertEquals($expected->success(),$actual->success());
     }
 
     private function getPlayConfigAndEuroMillionsDraw()
