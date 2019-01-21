@@ -14,6 +14,38 @@
 
   .result-section .box-current-winners--new {
     background: #e1e1e1;
+
+    padding: 12px 10px 5px 10px;
+
+    .winners--h1 {
+      font-size: 27px;
+    }
+
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      padding:  17px 43px 5px 42px;
+
+      .winners--h1 {
+        margin-bottom: 2px;
+        font-size: 31px;
+      }
+      .h2 {
+        margin-bottom: 7px;
+        font-size: 27px;
+      }
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      padding: 23px 10px 5px 24px;
+
+      .winners--h1 {
+        margin-bottom: 7px;
+        //font-size: 44px;
+      }
+      .h2 {
+        margin-bottom: 7px;
+        //font-size: 22px;
+      }
+    }
   }
 
   //$screen-ipad-v-pre
@@ -22,6 +54,29 @@
     @media only screen and (min-width: $screen-ipad-v) {
       text-align: left;
     }
+
+    .previous-results {
+      @media only screen and (max-width: $screen-ipad-h-pre) {
+        padding: 17px 3px 0 3px;
+      }
+
+      .previous-results--title {
+        @media only screen and (max-width: $screen-ipad-h-pre) {
+          font-size: 25px;
+          padding-bottom: 10px;
+        }
+      }
+
+      .previous-results--selectboxes .selectbox select {
+        @media only screen and (max-width: $screen-ipad-h-pre) {
+          padding-left: 7px;
+          padding-right: 30px;
+        }
+      }
+
+    }
+
+
   }
 
 
@@ -42,6 +97,14 @@
   }
 
   .result-section .box-current-winners--new tbody {
+
+    .td-head {
+      @media only screen and (max-width: $screen-ipad-h-pre) {
+        //font-size: 21px;
+        font-size: 17px;
+      }
+    }
+
     .td-ball {
       width: 20%;
 
@@ -62,6 +125,11 @@
 
   }
 
+  .result-section .previous-results--common-row {
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin-bottom: 0;
+    }
+  }
   .result-section .previous-results--common-row .previous-results .previous-results--button {
 
     @media only screen and (min-width: $screen-ipad-v) {
@@ -79,7 +147,7 @@
 
 
     @media only screen and (min-width: $screen-ipad-v) {
-      padding-top: 80px;
+      padding-top: 56px;
       width: 120px;
     }
     @media only screen and (min-width: $screen-ipad-h) {
@@ -94,7 +162,6 @@
     }
   }
 
-
   .title-block {
     background: -webkit-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
     background: -moz-linear-gradient(90deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
@@ -103,7 +170,7 @@
     background: linear-gradient(0deg, #fead00 0%, #ffc74d 0%, #af7800 100%);
 
     @media only screen and (max-width: $screen-ipad-v-pre) {
-      padding: 10px;
+      padding: 6px;
       text-align: center;
       height: 84px;
 
@@ -111,22 +178,46 @@
         font-weight: 400;
         color: #fff;
         text-align: center;
+        font-size: 26px;
       }
 
     }
 
     @media only screen and (min-width: $screen-ipad-v) {
-      padding: 46px 42px 0 28px
+      height: 100px;
+      top: -268px;
+      margin-bottom: -248px;
+      padding: 22px 27px 0 36px;
     }
     @media only screen and (min-width: $screen-desktop) {
-      padding: 43px 50px 0 50px;
+      //padding: 43px 50px 0 50px;
+
+      height: 150px;
+      top: -152px;
+      margin-bottom: -131px;
+      padding: 47px 80px 0 81px;
     }
 
     h3.h2.desktop--only {
       font-weight: 400;
+      font-size: 27px;
+      margin-top: -4px;
+    }
+
+    h3.desktop--only {
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 27px;
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 22px;
+      }
     }
 
     ul{
+
+      @media only screen and (max-width: $screen-ipad-v-pre) {
+        padding-top: 4px;
+      }
 
       li {
         background-color: transparent;
@@ -135,7 +226,22 @@
         @media only screen and (max-width: $screen-ipad-v-pre) {
           float: none;
           display: inline-block;
+          font-size: 16px;
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          margin-left: 2px;
         }
+
+        @media only screen and (max-width: $screen-desktop--pre) {}
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 56px;
+          height: 56px;
+          line-height: 55px;
+          font-size: 33px;
+          margin-left: 8px;
+        }
+
 
         span {
           color: #fff;
