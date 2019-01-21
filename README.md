@@ -36,7 +36,7 @@ Not tested in this OS.
 ## Steps for running the development environment:
 
 ### For all OS
-1. Clone this repository: `git clone https://github.com/PanamediaSLU/devel-structure.git your-folder` (substitute _your-folder_ with the path you want to clone into)
+1. Clone this repository: `git clone https://github.com/PanamediaSLU/euromillions your-folder` (substitute _your-folder_ with the path you want to clone into)
 2. Copy the file .env.dist to .env
 3. Go into your folder on a command shell
 4. Set variable **'enable_frontend_react_build'** to **'true'** for the first run on file devOps/playbook_local_setup.yml 
@@ -46,7 +46,7 @@ Not tested in this OS.
 1. Run **$ ansible-playbook devOps/playbook_local_setup.yml**
 2. Edit /etc/hosts file for point dev.euromillions.com to IP defined at .env file with the value of ***EM_DOCKER_VARNISH_IP*** by default 172.10.10.10
 3. You can connect to MySQL database on the ip defined with ***EM_DOCKER_DATABASE_IP***
-4. After first boot, you can do a $ docker-compose -d --build for get the environment running
+4. After first boot, you can do a $ docker-compose up -d --build for get the environment running
 
 ### For Windows OS
 
