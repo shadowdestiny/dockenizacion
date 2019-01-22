@@ -3,6 +3,7 @@ use EuroMillions\tests\helpers\builders\UserBuilder;
 use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
 use EuroMillions\tests\helpers\mothers\EuroMillionsLineMother;
 use EuroMillions\tests\helpers\mothers\PlayConfigMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\entities\Bet;
 
 /**
@@ -17,6 +18,40 @@ class AccountCest
 
     public function _before(FunctionalTester $I)
     {
+        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::anEuroMillions();
+
+        $I->haveInDatabase(
+            'lotteries',
+            $this->lottery->toArray()
+        );
+
+        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::aMegaMillions();
+
+        $I->haveInDatabase(
+            'lotteries',
+            $this->lottery->toArray()
+        );
+
+        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::aPowerBall();
+
+        $I->haveInDatabase(
+            'lotteries',
+            $this->lottery->toArray()
+        );
+
+        $I->haveInDatabase(
+            'languages',
+            ['id'   => 1,
+                'ccode' => 'en',
+                'active' => true,
+                'defaultLocale' => 'en_US']
+        );
+
+        $I->haveInDatabase(
+            'currencies',
+            ['code' => 'EUR', 'name' => 'Euro', 'order' => '1']
+        );
+
         $this->draw = \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()
             ->withId(1)
             ->withDrawDate(new \DateTime('2020-01-10'))
@@ -188,7 +223,24 @@ class AccountCest
         $I->amOnPage('/profile/tickets/games');
     }
 
+    /**
+     * functionalcase seeWithdrawPageWithOutMoneyMatrix
+     * @param FunctionalTester $I
+     */
+    public function seeWithdrawPageWithOutMoneyMatrix(FunctionalTester $I)
+    {
+        $user = UserMother::aUserWith40EurWinnings()->withId('9098299B-14AC-4124-8DB0-19571EDABE54')->build();
+        $I->haveInDatabase(
+            'users',
+            $user->toArray()
+        );
+        $I->haveInSession('EM_current_user', $user->getId());
+        $I->amOnPage('/account/wallet');
+        $I->canSee('Your withdrawable balance');
+        $I->click(['class' => 'withdraw']);
+        $I->canSeeElement('input', ['name' => 'add-bank-name']);
 
+     }
 
     private function preparePastTicketsToPaginate(FunctionalTester $I)
     {
