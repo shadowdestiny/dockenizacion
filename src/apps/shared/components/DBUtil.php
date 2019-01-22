@@ -25,6 +25,7 @@ class DBUtil
                     'user' => $appConfig['database']['username'],
                     'password' => $appConfig['database']['password'],
                     'dbname' => $appConfig['database']['dbname'],
+                    'charset' => 'utf8',
 
                 ],
                 'slaves' => self::getSlavesFromConfigFile($appConfig)
@@ -36,7 +37,7 @@ class DBUtil
                 'user' => $appConfig['database']['username'],
                 'password' => $appConfig['database']['password'],
                 'dbname' => $appConfig['database']['dbname'],
-                'charset' => 'utf8'
+                'charset' => 'utf8',
             ];
         }
 
@@ -57,6 +58,7 @@ class DBUtil
             $slave['user'] = $username[$index];
             $slave['password'] = $password[$index];
             $slave['dbname'] = $dbname[$index];
+            $slave['charset'] = 'utf8';
 
             $slaves[] = $slave;
         }

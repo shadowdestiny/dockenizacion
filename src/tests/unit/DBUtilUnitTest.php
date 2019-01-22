@@ -23,7 +23,7 @@ class DBUtilUnitTest extends UnitTestBase
             'user' => 'username_database',
             'password' => 'password_database',
             'dbname' => 'dbname_database',
-            'charset' => 'utf8',
+            'charset' => 'utf8'
        ];
 
        $this->setAppConfigNoSlaveEnabled();
@@ -60,12 +60,14 @@ class DBUtilUnitTest extends UnitTestBase
                 'user' => 'username_database_slave1',
                 'password' => 'password_database_slave1',
                 'dbname' => 'dbname_database_slave1',
+                'charset' => 'utf8'
             ],
             [
                 'host' => 'host_database_slave2',
                 'user' => 'username_database_slave2',
                 'password' => 'password_database_slave2',
                 'dbname' => 'dbname_database_slave2',
+                'charset' => 'utf8'
             ]
         ];
 
