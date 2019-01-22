@@ -11,8 +11,11 @@ database_user: ''
 database_pass: ''
 database_name: 'euromillions'
 original_database_name: 'euromillions'
+database_slave_host: ''
+database_slave_user: ''
+database_slave_pass: ''
+database_slave_name: ''
 is_development_mode: 'true'
-database_slave: 'euromillions_slave'
 
 domain_url: 'localhost:443/'
 

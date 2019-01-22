@@ -70,6 +70,7 @@ services:
     depends_on:
       - redis
       - database
+      - read-database
     links:
       - redis:redis
       - database:mysql
@@ -93,9 +94,11 @@ services:
     depends_on:
       - redis
       - database
+      - read-database
     links:
       - redis:redis
       - database:mysql
+      - read-database:mysql-read
     networks:
       - backend
     environment:
@@ -134,9 +137,11 @@ services:
     depends_on:
       - redis
       - database
+      - read-database
     links:
       - redis:redis
       - database:mysql
+      - read-database:mysql-read
     command: sleep infinity
     volumes:
       - "./src:/var/www"

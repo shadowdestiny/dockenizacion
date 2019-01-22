@@ -2,7 +2,14 @@
 env: 'development'
 display_errors: '1'
 display_startup_errors: '1'
+db_master_slave_enabled: '1'
 
 database_user: 'root'
 database_pass: 'tpl9'
+
+database_slave_host: 'mysql-read'
+database_slave_user: 'root'
+database_slave_pass: 'tpl9_slave'
+database_slave_name: 'euromillions'
+
 is_development_mode: 'true'

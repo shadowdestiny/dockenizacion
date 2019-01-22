@@ -27,14 +27,7 @@ class DBUtil
                     'dbname' => $appConfig['database']['dbname'],
 
                 ],
-                'slaves' => [
-                    [
-                        'host' => $appConfig['database_slave']['host'],
-                        'user' => $appConfig['database_slave']['username'],
-                        'password' => $appConfig['database_slave']['password'],
-                        'dbname' => $appConfig['database_slave']['dbname'],
-                    ]
-                ]
+                'slaves' => self::getSlavesFromConfigFile($appConfig)
             ];
         } else {
             $conn = [
@@ -49,6 +42,26 @@ class DBUtil
 
         return $conn;
 
+    }
+
+    private static function getSlavesFromConfigFile($appConfig){
+        $slaves = [];
+
+        $hosts = explode(',', $appConfig['database_slave']['host']);
+        $username = explode(',', $appConfig['database_slave']['username']);
+        $password = explode(',', $appConfig['database_slave']['password']);
+        $dbname = explode(',', $appConfig['database_slave']['dbname']);
+
+        foreach ($hosts as $index => $host) {
+            $slave['host'] = $host;
+            $slave['user'] = $username[$index];
+            $slave['password'] = $password[$index];
+            $slave['dbname'] = $dbname[$index];
+
+            $slaves[] = $slave;
+        }
+
+        return $slaves;
     }
 
 
