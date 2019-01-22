@@ -46,8 +46,8 @@ class LotteryMother
             'name'      => 'MegaMillions',
             'frequency' => 'w0001001',
             'draw_time' => '03:30:00',
-            'active' => 1,
-            'single_bet_price' => new Money((int) 350, new Currency('EUR'))
+            'single_bet_price' => new Money((int) 350, new Currency('EUR')),
+            'active' => 0
         ]);
         return $lottery;
     }

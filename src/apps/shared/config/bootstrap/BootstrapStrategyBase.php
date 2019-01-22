@@ -7,6 +7,7 @@ use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Events;
 use EuroMillions\admin\services\DomainAdminServiceFactory;
+use EuroMillions\shared\components\DBUtil;
 use EuroMillions\shared\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -105,14 +106,7 @@ abstract class BootstrapStrategyBase
         $redis_cache->setRedis($redis);
         $redis_cache->setNamespace('result_');
         $config->setResultCacheImpl($redis_cache);
-        $conn = [
-            'host' => $appConfig['database']['host'],
-            'driver' => 'pdo_mysql',
-            'user' => $appConfig['database']['username'],
-            'password' => $appConfig['database']['password'],
-            'dbname' => $appConfig['database']['dbname'],
-            'charset' => 'utf8'
-        ];
+        $conn = DBUtil::configConnection($appConfig);
         $eventManager = new EventManager();
         $eventManager->addEventSubscriber(new PlayConfigTransactionEventSubscriber());
         $em = EntityManager::create($conn, $config, $eventManager);
