@@ -689,7 +689,7 @@
               background-size: 30px;
             }
           }
-          @mixin icon_result_right($className:'star',$img: '../img/home/result-block/desktop/star.svg'){
+          @mixin icon_result_right($className:'star',$img: '../img/home/result-block/desktop/star.svg',$fontColor:#333){
             li.#{$className} {
               background-image: url($img);
               background-repeat: no-repeat;
@@ -697,7 +697,7 @@
               -webkit-background-size: 37px;
               background-size: 37px;
               text-indent: 0;
-              color: #333;
+              color: $fontColor;
               width: 37px;
               height: 37px;
               margin-left: 11px;
@@ -714,7 +714,7 @@
                 -webkit-background-size: 30px;
                 background-size: 30px;
                 text-indent: 0;
-                color: #333;
+                color: $fontColor;
                 width: 30px;
                 height: 30px;
                 margin-left: 0px;
@@ -732,7 +732,7 @@
                 -webkit-background-size: 60px;
                 background-size: 60px;
                 text-indent: 0;
-                color: #333;
+                color: $fontColor;
                 width: 60px;
                 height: 56px;
                 margin-left: 20px;
@@ -751,7 +751,7 @@
                 background-size: 47px;
 
                 text-indent: 0;
-                color:  #333333;
+                color: $fontColor;
 
                 position: static;
                 padding-top: 0;
@@ -770,7 +770,7 @@
                 -webkit-background-size: 47px;
                 background-size: 38px;
                 text-indent: 0;
-                color: #333;
+                color: $fontColor;
                 position: static;
                 padding-top: 0;
                 width: 38px;
@@ -784,7 +784,7 @@
 
           $ellipse_eurojackpot : 'ellipse_eurojackpot';
           @include icon_result_right();
-          @include icon_result_right($ellipse_eurojackpot,'../img/home/result-block/desktop/ellipse_eurojackpot.svg');
+          @include icon_result_right($ellipse_eurojackpot,'../img/home/result-block/desktop/ellipse_eurojackpot.svg','#fff');
 
           li.star_red {
             background-image: url('../img/home/result-block/desktop/ellipse_red.svg');
