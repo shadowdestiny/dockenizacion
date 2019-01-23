@@ -33,7 +33,8 @@ class PostMarkWrapper implements IMailServiceApi
         $attachments = null
     )
     {
-        $this->postMark->sendEmailWithTemplate($from,$to,$templateId,$templateModel,$inlineCss,$tag,$trackOpens,$replyTo,$cc,$bcc,$headers,$attachments);
+        //TODO: Rollback this line after tests.
+        //$this->postMark->sendEmailWithTemplate($from,$to,$templateId,$templateModel,$inlineCss,$tag,$trackOpens,$replyTo,$cc,$bcc,$headers,$attachments);
     }
 
     public function send(
