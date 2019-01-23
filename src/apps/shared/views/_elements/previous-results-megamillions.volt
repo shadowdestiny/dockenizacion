@@ -1,5 +1,5 @@
 <div class="previous-results">
-    <div class="previous-results--title">hola
+    <div class="previous-results--title">
         {{ language.translate("pastNumbers_megam_head") }}
     </div>
     <form action="" class="previous-results--selectboxes">
