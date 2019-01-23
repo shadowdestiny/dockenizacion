@@ -89,4 +89,8 @@ class MegamillionsCartProfileCest
         $I->click('#go');
         $I->haveInSession('EM_logged_user', $user->getId());
     }
+
+
+
+
 }

@@ -101,6 +101,7 @@
         }
     });
 {% endblock %}
+
 {% block body %}
     <main id="content">
         {% include "_elements/banner.volt" %}
@@ -259,5 +260,4 @@
 		"https://www.linkedin.com/company/euromillions-com"
 	]}
 </script>
-    {{ tracking }}
 {% endblock %}

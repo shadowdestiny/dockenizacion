@@ -21,21 +21,14 @@ class TrackingCodesHelper
 
     public static function trackingAffiliatePlatformCodeWhenUserIsRegistered()
     {
-        include 'PapApi.class.php';
-        // init session for PAP
-        $session = new Gpf_Api_Session("https://euromillions.postaffiliatepro.com/scripts/l2w6yjua0");
-
-        // register click
-        $clickTracker = new Pap_Api_ClickTracker($session);
-
-        $clickTracker->setAccountId('default1');
-        $clickTracker->createAction('register');
-        try {
-            $clickTracker->track();
-            $clickTracker->saveCookies();
-        } catch (\Exception $e) {
-
-        }
+        $code = <<<EOF
+        <script type="text/javascript">
+            PostAffTracker.setAccountId('default1');
+            var sale = PostAffTracker.createAction('register');
+            PostAffTracker.register();
+        </script>
+EOF;
+        return $code;
     }
 
     public static function trackingGoogleAnalyticsCodeWhenUserIsRegistered()

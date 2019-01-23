@@ -10,6 +10,7 @@ namespace EuroMillions\shared\controllers;
 
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use Money\Currency;
@@ -77,5 +78,10 @@ class PlayController extends PublicSiteControllerBase
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
         $this->betValue = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
+
+        if($this->request->get('register'))
+        {
+            $this->view->setVar('register', TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered());
+        }
     }
 }

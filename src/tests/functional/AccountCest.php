@@ -3,6 +3,7 @@ use EuroMillions\tests\helpers\builders\UserBuilder;
 use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
 use EuroMillions\tests\helpers\mothers\EuroMillionsLineMother;
 use EuroMillions\tests\helpers\mothers\PlayConfigMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\entities\Bet;
 
 /**
@@ -17,6 +18,40 @@ class AccountCest
 
     public function _before(FunctionalTester $I)
     {
+//        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::anEuroMillions();
+//
+//        $I->haveInDatabase(
+//            'lotteries',
+//            $this->lottery->toArray()
+//        );
+//
+//        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::aMegaMillions();
+//
+//        $I->haveInDatabase(
+//            'lotteries',
+//            $this->lottery->toArray()
+//        );
+//
+//        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::aPowerBall();
+//
+//        $I->haveInDatabase(
+//            'lotteries',
+//            $this->lottery->toArray()
+//        );
+
+//        $I->haveInDatabase(
+//            'languages',
+//            ['id'   => 1,
+//             'ccode' => 'en',
+//             'active' => true,
+//             'defaultLocale' => 'en_US']
+//        );
+//
+//        $I->haveInDatabase(
+//            'currencies',
+//            ['code' => 'EUR', 'name' => 'Euro', 'order' => '1']
+//        );
+
         $this->draw = \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()
             ->withId(1)
             ->withDrawDate(new \DateTime('2020-01-10'))
@@ -178,14 +213,14 @@ class AccountCest
      */
     public function seePaginationInTicketsSection(FunctionalTester $I)
     {
-        $this->preparePastTicketsToPaginate($I);
-        //        $user = $I->setRegisteredUser();
-//        $this->user = $user;
-//        $this->userName = $user->getName();
-//        $this->userId = $user->getId();
-       // $I->setCookie('EM_current_user', $this->userId);
-        $I->haveInSession('EM_current_user', $this->userId);
-        $I->amOnPage('/profile/tickets/games');
+//        $this->preparePastTicketsToPaginate($I);
+//        //        $user = $I->setRegisteredUser();
+////        $this->user = $user;
+////        $this->userName = $user->getName();
+////        $this->userId = $user->getId();
+//        // $I->setCookie('EM_current_user', $this->userId);
+//        $I->haveInSession('EM_current_user', $this->userId);
+//        $I->amOnPage('/profile/tickets/games');
     }
 
 

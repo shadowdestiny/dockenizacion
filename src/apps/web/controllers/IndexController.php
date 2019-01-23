@@ -71,7 +71,11 @@ class IndexController extends PublicSiteControllerBase
         }));
         $this->tag->prependTitle($this->languageService->translate('home_name') . ViewHelper::formatMillionsJackpot($jackpot) . ' ' . $this->languageService->translate($textMillions));
         MetaDescriptionTag::setDescription($this->languageService->translate('home_desc'));
-        $this->view->setVar('tracking',TrackingCodesHelper::trackingAffiliatePlatformCodeWhenAnUserAccessSite());
+        if($this->request->get('register'))
+        {
+            $this->view->setVar('register', TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered());
+        }
+
     }
 
     public function notfoundAction()
