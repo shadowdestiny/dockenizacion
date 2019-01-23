@@ -135,11 +135,11 @@
                     {% endif %}
                 </h1>
 
-                {% include "_elements/ej/eurojackpot-header.volt" %}
+                {% include "_elements/eurojackpot-header.volt" %}
 
                 <div class="gameplay" id="gameplay"></div>
 
-                {% include "_elements/ej/eurojackpot-bottom-block.volt" %}
+                {% include "_elements/eurojackpot-bottom-block.volt" %}
 
             </div>
 
@@ -170,10 +170,10 @@
 
 
         {#TODO: this block is the Results page - paste it in right place please #}
-        {% include "_elements/ej/eurojackpot-results.volt" %}
+        {% include "_elements/eurojackpot-results.volt" %}
 
         {#TODO: this block is the History page - paste it in right place please #}
-        {% include "_elements/ej/eurojackpot-history.volt" %}
+        {% include "_elements/eurojackpot-history.volt" %}
 
 
     </main>
