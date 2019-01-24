@@ -52,7 +52,7 @@
     {# end of block with deprecated vars #}
 
     var __initialState = {
-        mode            : 'megamillions',
+        mode            : 'eurojackpot',
         nextDrawFormat  : '<?php echo $draw_day . ' ' .$next_draw_date_format ?>',
         priceBet        : {{ single_bet_price }},
         currencySymbol  : '<?php echo $currency_symbol ?>',
@@ -135,11 +135,11 @@
                     {% endif %}
                 </h1>
 
-                {% include "_elements/ej/eurojackpot-header.volt" %}
+                {% include "_elements/eurojackpot-header.volt" %}
 
                 <div class="gameplay" id="gameplay"></div>
 
-                {% include "_elements/ej/eurojackpot-bottom-block.volt" %}
+                {% include "_elements/eurojackpot-bottom-block.volt" %}
 
             </div>
 
@@ -168,12 +168,6 @@
         </div>
 
 
-
-        {#TODO: this block is the Results page - paste it in right place please #}
-        {% include "_elements/ej/eurojackpot-results.volt" %}
-
-        {#TODO: this block is the History page - paste it in right place please #}
-        {% include "_elements/ej/eurojackpot-history.volt" %}
 
 
     </main>
