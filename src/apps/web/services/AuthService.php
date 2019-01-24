@@ -95,6 +95,7 @@ class AuthService
     public function logout()
     {
         $this->storageStrategy->removeCurrentUser();
+        $this->storageStrategy->removeCurrentUserLogged($this->getCurrentUser()->getId());
     }
 
     public function isLogged()
@@ -116,6 +117,7 @@ class AuthService
                 return ['bool' => false, 'error' => 'disabledUser'];
             }else {
                 $this->storageStrategy->setCurrentUserId($user->getId());
+                $this->storageStrategy->setCurrentUserLogged($user->getId());
                 if ($credentials['remember']) {
                     $user->setRememberToken($agentIdentificationString);
                     $this->storageStrategy->storeRemember($user);
@@ -163,6 +165,7 @@ class AuthService
         $this->emailService->sendWelcomeEmail($user, $this->urlManager);
         $this->userService->initUserNotifications($user->getId());
         $this->storageStrategy->setCurrentUserId($user->getId());
+        $this->storageStrategy->setCurrentUserLogged($user->getId());
         return new ActionResult(true, $user);
     }
 
@@ -179,6 +182,7 @@ class AuthService
             $user = $this->userRepository->registerFromCheckout($credentials, $userId, $this->passwordHasher, new Md5EmailValidationToken());
             if (null !== $user->getId()) {
                 $this->storageStrategy->setCurrentUserId($userId);
+                $this->storageStrategy->setCurrentUserLogged($user->getId());
             } else {
                 return new ActionResult(false, 'Error getting an user');
             }

@@ -109,7 +109,9 @@ class UserRepository extends RepositoryBase
             'validation_token' => new ValidationToken($email, $validationTokenGenerator),
             'user_currency' => new Currency('EUR'),
             'created' => new \DateTime(),
-            'ip_address' => new IPAddress($credentials['ipaddress'])
+            'ip_address' => new IPAddress($credentials['ipaddress']),
+            'phone_number' => $credentials['phone_number'],
+            'birth_date' => new BirthDate($credentials['birth_date'])
         ]);
 
         $this->addWithId($user);

@@ -233,7 +233,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->view->setVar('user_balance_raw', $user_balance_raw);
         $this->view->setVar('active_languages', $this->languageService->activeLanguagesArray());
         $this->view->setVar('user_language', $user_language);
-        $this->view->setVar('jackpot', $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')));
+        //$this->view->setVar('jackpot', $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')));
         $date_time_util = new DateTimeUtil();
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $this->view->setVar('nextDrawDateEuromillions', $date_next_draw->format('Y-m-d'));

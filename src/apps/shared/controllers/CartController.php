@@ -3,6 +3,7 @@ namespace EuroMillions\shared\controllers;
 
 use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\shared\services\SiteConfigService;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
@@ -118,11 +119,12 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
                     'password' => $this->request->getPost('password'),
                     'email'    => $this->request->getPost('email'),
                     'country'  => $this->request->getPost('country'),
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
                     $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
-                    $this->response->redirect('/'.$this->lottery.'/play');
+                    TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered();
+                    $this->response->redirect('/'.$this->lottery.'/play/?register=user');
                     //$this->response->redirect('/'.$this->lottery.'/order');
                 }else{
                     $errors [] = $result->errorMessage();
@@ -173,7 +175,7 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
                     'email'    => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     false,
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], 'string');
 
                 if (!$userCheck['bool']) {

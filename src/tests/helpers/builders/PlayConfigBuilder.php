@@ -26,8 +26,9 @@ class PlayConfigBuilder
     protected $active;
     protected $frequency;
     protected $lottery;
+    protected $power_play;
     protected $discount;
-    
+
     const REGULAR_NUMBERS = [7, 16, 17, 22, 15];
 
     const LUCKY_NUMBERS = [7, 1];
@@ -39,7 +40,9 @@ class PlayConfigBuilder
         $this->startDrawDate = new \DateTime('2015-09-10');
         $this->lastDrawDate = new \DateTime('2015-09-30');
         $this->active = 1;
+        $this->frequency= 1;
         $this->lottery = $this->getLottery();
+        $this->power_play = 0;
         $this->discount = new Discount(0,[]);
     }
 
@@ -60,6 +63,12 @@ class PlayConfigBuilder
         return $this;
     }
 
+    public function withFrequency($frequency)
+    {
+        $this->frequency= $frequency;
+        return $this;
+    }
+
     public function withDays( DrawDays $drawDays )
     {
         $this->days = $drawDays->value();
@@ -75,6 +84,12 @@ class PlayConfigBuilder
     public function withLastDrawDate( \DateTime $date )
     {
         $this->lastDrawDate = $date;
+        return $this;
+    }
+
+    public function withPowerPlay($value)
+    {
+        $this->power_play= $value;
         return $this;
     }
 

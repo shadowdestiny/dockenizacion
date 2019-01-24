@@ -21,7 +21,6 @@ Vagrant.configure(2) do |config|
         ansible.groups = {
             'localhost' => ['default']
         }
-
         ansible.extra_vars = {
           do_docker_setup: true,
           is_vagrant: true

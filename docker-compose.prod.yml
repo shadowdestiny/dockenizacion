@@ -4,8 +4,11 @@ services:
   redis:
     image: redis:latest
     labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=prod-04
       io.rancher.container.pull_image: always
       em_container_service: redis
+      em_service: euromillions-web
+    mem_reservation: 52428800 #50MB
 
   web:
     image: panamedialottery/euromillions-web:prod
@@ -14,9 +17,14 @@ services:
     depends_on:
       - php
     labels:
+      io.rancher.scheduler.affinity:host_label: em_service=euromillions-web
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.pull_image: always
-      io.rancher.sidekicks: php, phpcron
+      io.rancher.sidekicks: php
       em_container_service: web
+      em_service: euromillions-web
+    mem_reservation: 52428800 #50MB
+    mem_limit: 268435456 #256MB
     environment:
       EM_ENV: ${EM_ENV}
 
@@ -25,28 +33,30 @@ services:
     depends_on:
       - redis
     volumes:
-      - "php_tmp_volume:/tmp"
+      - "/mnt/nfs/php_tmp:/tmp"
     labels:
       io.rancher.container.pull_image: always
       em_container_service: php
+      em_service: euromillions-web
+    mem_reservation: 268435456 #256MB
+    mem_limit: 1073741824 #1024MB
     environment:
       EM_ENV: ${EM_ENV}
       AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
       AWS_SECRET_ACCESS_KEY: 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
 
   phpcron:
-    image: panamedialottery/euromillions-php:cron
-    volumes_from:
-      - php
+    image: panamedialottery/euromillions-php:cron_prod
     depends_on:
       - redis
     labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=prod-04
       io.rancher.container.pull_image: always
       em_container_service: phpcron
+      em_service: euromillions-web
+    mem_reservation: 268435456 #256MB
+    mem_limit: 1073741824 #1024MB
     environment:
       EM_ENV: ${EM_ENV}
       AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
       AWS_SECRET_ACCESS_KEY: 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
-
-volumes:
-  php_tmp_volume:

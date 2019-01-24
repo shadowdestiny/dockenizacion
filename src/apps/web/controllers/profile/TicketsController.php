@@ -37,7 +37,7 @@ class TicketsController extends AccountController
         }
 
         $page = (!empty($this->request->get('pageInactives'))) ? $this->request->get('pageInactives') : 1;
-        $paginator = $this->getPaginatorAsArray(!empty($playConfigInactivesDTOCollection->result['dates']) ? $playConfigInactivesDTOCollection->result['dates'] : [],4,$page);
+        $paginator = $this->getPaginatorAsArray(!empty($playConfigInactivesDTOCollection->result) ? $playConfigInactivesDTOCollection->result : [],4,$page);
         /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
         $paginator_view = (new PaginationWidgetAdmin($paginator, $this->request->getQuery(), [], 'pageInactives'))->render();
         $this->view->pick('account/games');

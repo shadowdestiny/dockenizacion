@@ -84,6 +84,7 @@ class AuthServiceUnitTest extends UnitTestBase
 
         $this->storageStrategy_double->storeRemember($user)->shouldBeCalled();
         $this->storageStrategy_double->setCurrentUserId($user->getId())->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUserLogged($user->getId())->shouldBeCalled();
         $this->expectFlushInEntityManager();
         $this->exerciseCheck($credentials);
     }
@@ -452,6 +453,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->userRepository_double->find(Argument::any())->willReturn(false);
         $this->userRepository_double->registerFromCheckout($credentials, $user_id, $this->hasher_double->reveal(), Argument::type('EuroMillions\web\interfaces\IEmailValidationToken'))->willReturn($registered_user->build());
         $this->storageStrategy_double->setCurrentUserId($user_id)->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUserLogged($user_id)->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->registerFromCheckout($credentials,$user_id);
         $expected = new ActionResult(true,$registered_user->build());

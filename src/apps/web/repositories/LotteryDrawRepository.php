@@ -55,12 +55,11 @@ class LotteryDrawRepository extends EntityRepository
      */
     public function getNextJackpot(Lottery $lottery, \DateTime $date = null)
     {
+
         if (!$date) {
             $date = new \DateTime();
         }
-
         $next_draw_date = $lottery->getNextDrawDate($date);
-
         /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
             ->createQuery(
@@ -69,12 +68,13 @@ class LotteryDrawRepository extends EntityRepository
                 . ' WHERE l.name = :lottery_name AND ld.draw_date = :date AND l.draw_time = :time'
                 . ' ORDER BY ld.draw_date ASC')
             ->setMaxResults(1)
-            ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $next_draw_date->format('Y-m-d'), 'time' => $next_draw_date->format("H:i:s")])
-            ->useResultCache(true)
+            ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $next_draw_date->format('Y-m-d'), 'time' => $lottery->getDrawTime()])
+            ->useResultCache(true, 3600)
             ->getResult();
         if (!count($result)) {
             throw new DataMissingException('Couldn\'t find the next draw row in the database');
         }
+
         return $result[0]->getJackpot();
     }
 
@@ -125,17 +125,17 @@ class LotteryDrawRepository extends EntityRepository
         return $result[0]->getResult();
     }
 
-    public function getLastSixResults(Lottery $lottery)
+    public function getLastSixResults(Lottery $lottery, \DateTime $nextDrawDate)
     {
         /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT ld'
                 . ' FROM ' . $this->getEntityName() . ' ld JOIN ld.lottery l'
-                . ' WHERE l.name = :lottery_name'
+                . ' WHERE l.name = :lottery_name and ld.draw_date < :date'
                 . ' ORDER BY ld.draw_date DESC')
             ->setMaxResults(6)
-            ->setParameters(['lottery_name' => $lottery->getName()])
+            ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $nextDrawDate->format('Y-m-d')])
             ->useResultCache(true)
             ->getResult();
         if (!count($result)) {
@@ -273,7 +273,7 @@ class LotteryDrawRepository extends EntityRepository
                 . ' AND l.id != 2 '
                 . ' ORDER BY ed.jackpot.amount DESC')
             ->setMaxResults(1)
-            ->useResultCache(true, 3600)
+         //   ->useResultCache(true, 3600)
             ->getResult();
         return $result[0];
     }

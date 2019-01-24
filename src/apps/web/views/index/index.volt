@@ -101,6 +101,7 @@
         }
     });
 {% endblock %}
+
 {% block body %}
     <main id="content">
         {% include "_elements/banner.volt" %}

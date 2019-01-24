@@ -205,13 +205,13 @@ class ReportsService
      *
      * @return mixed
      */
-    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall)
+    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions)
     {
-        $subscriptionsActives = $this->reportsRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall);
+        $subscriptionsActives = $this->reportsRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions);
         foreach ($subscriptionsActives as $subscriptionsActiveKey => $subscriptionsActiveValue) {
             $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
             $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
-            $subscriptionsActives[$subscriptionsActiveKey]['lottery'] = $subscriptionsActiveValue['lottery_id'] == 1 ? 'Euromillions' : 'PowerBall';
+            $subscriptionsActives[$subscriptionsActiveKey]['lottery'] = $subscriptionsActiveValue['lottery_id'] == 1 ? 'Euromillions' : $subscriptionsActiveValue['lottery_id'] == 3 ? 'PowerBall' : 'MegaMillions';
         }
         return $subscriptionsActives;
     }
@@ -227,7 +227,7 @@ class ReportsService
         foreach ($subscriptionsActives as $subscriptionsActiveKey =>  $subscriptionsActiveValue) {
             $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
             $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
-            $subscriptionsActives[$subscriptionsActiveKey]['lottery'] = $subscriptionsActiveValue['lottery_id'] == 1 ? 'Euromillions' : 'PowerBall';
+            $subscriptionsActives[$subscriptionsActiveKey]['lottery'] = $subscriptionsActiveValue['lottery_id'] == 1 ? 'Euromillions' : $subscriptionsActiveValue['lottery_id'] == 3 ? 'PowerBall' : 'MegaMillions';
         }
         return $subscriptionsActives;
     }
@@ -313,6 +313,21 @@ class ReportsService
         $actualDraw = new \DateTime($date);
         $nextDrawDate = clone $actualDraw->modify('+27 hours');
         $actualDrawDate = $this->getNextDateDrawByLottery('PowerBall', $actualDraw->modify('-5 days'))->setTime(03, 00, 00);
+        $actualDrawDate = $actualDrawDate->modify('+1 day');
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
+    /**
+     * @param $date
+     *
+     * @return array
+     */
+    public function getMegaMillionsDrawsActualAfterDatesByDrawDate($date)
+    {
+        $actualDraw = new \DateTime($date);
+        $nextDrawDate = clone $actualDraw->modify('+27 hours');
+        $actualDrawDate = $this->getNextDateDrawByLottery('MegaMillions', $actualDraw->modify('-5 days'))->setTime(03, 00, 00);
         $actualDrawDate = $actualDrawDate->modify('+1 day');
 
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
@@ -471,6 +486,28 @@ class ReportsService
             $salesDraw[$keyDraw]['grossSales'] = $drawData['grossSales'];
             $salesDraw[$keyDraw]['grossMargin'] = $drawData['grossMargin'];
             $salesDraw[$keyDraw]['totalPowerplay'] = $drawData['totalPowerplay'];
+        }
+        return $salesDraw;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function fetchSalesDrawMegaMillions()
+    {
+        $salesDraw = $this->reportsRepository->getSalesDrawMegaMillions();
+        foreach ($salesDraw as $keyDraw => $valueDraw) {
+            $drawDates = $this->getMegaMillionsDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
+//            $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('PowerBall');
+            $single_bet_price = new Money(200, new Currency('USD'));
+            $megamillions_price = new Money(100, new Currency('USD'));
+            $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency('EUR'));
+            $megamillions_price_currency = $this->currencyConversionService->convert($megamillions_price, new Currency('EUR'));
+            $drawData = $this->reportsRepository->getMegaMillionsDrawDetailsBetweenDrawDates($drawDates, $single_bet_price_currency->getAmount(), $megamillions_price_currency->getAmount());
+            $salesDraw[$keyDraw]['totalBets'] = $drawData['totalBets'];
+            $salesDraw[$keyDraw]['grossSales'] = $drawData['grossSales'];
+            $salesDraw[$keyDraw]['grossMargin'] = $drawData['grossMargin'];
+            $salesDraw[$keyDraw]['totalMegaplier'] = $drawData['totalMegaplier'];
         }
         return $salesDraw;
     }

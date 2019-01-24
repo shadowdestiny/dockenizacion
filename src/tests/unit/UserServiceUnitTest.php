@@ -2,8 +2,10 @@
 namespace EuroMillions\tests\unit;
 
 use EuroMillions\shared\vo\Wallet;
+use EuroMillions\tests\helpers\mothers\BetMother;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\Notification;
@@ -475,6 +477,47 @@ class UserServiceUnitTest extends UnitTestBase
     }
 
 
+    /**
+    * method  getMyInactivePlays
+    * when   called
+    * should returnActionResultFalse
+    */
+    public function test_getMyInactivePlays_called_returnActionResultFalse()
+    {
+       $sut= $this->getSut();
+       $expected = new ActionResult(false);
+       $actual = $sut->getMyInactivePlays(null);
+       $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method getMyInactivePlays
+     * when calledUserWithoutPastGames
+     * should returnActionResultFalse
+     */
+    public function test_getMyInactivePlays_calledUserWithoutPastGames_returnActionResultFalse()
+    {
+        $user= $this->getUser();
+        $sut= $this->getSut();
+        $expected= new ActionResult(false, 'You don\'t have games');
+        $actual = $sut->getMyInactivePlays($user->getId());
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method getMyInactivePlays
+     * when calledUserWithPastGames
+     * should returnActionResultTrue
+     */
+    public function test_getMyInactivePlays_calledUserWithPastGames_returnActionResultTrue()
+    {
+        $userId = '9098299B-14AC-4124-8DB0-19571EDABE55';
+        $expected= new ActionResult(true, []);
+        $this->betRepository_double->getPastGamesWithPrizes($userId)->willReturn(['anything']);
+        $sut= $this->getSut();
+        $actual = $sut->getMyInactivePlays($userId);
+        $this->assertEquals($expected->success(),$actual->success());
+    }
 
     private function getPlayConfigAndEuroMillionsDraw()
     {
@@ -691,5 +734,4 @@ class UserServiceUnitTest extends UnitTestBase
         return $lottery;
 
     }
-
 }

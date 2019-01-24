@@ -130,7 +130,7 @@ class DomainServiceFactory
 
     public function getAuthService()
     {
-        return new LoggedAuthServiceStrategy(
+        return new AuthService(
             $this->entityManager,
             new PhpassWrapper(),
             new WebAuthStorageStrategy(

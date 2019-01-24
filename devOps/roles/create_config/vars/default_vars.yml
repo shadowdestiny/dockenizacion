@@ -3,6 +3,7 @@ error_reporting: 'E_ALL'
 display_errors: '1'
 display_startup_errors: '1'
 send_single_validations: '1'
+db_master_slave_enabled: '0'
 
 database_adapter: 'Mysql'
 database_host: 'mysql'
@@ -10,6 +11,10 @@ database_user: ''
 database_pass: ''
 database_name: 'euromillions'
 original_database_name: 'euromillions'
+database_slave_host: ''
+database_slave_user: ''
+database_slave_pass: ''
+database_slave_name: ''
 is_development_mode: 'true'
 
 domain_url: 'localhost:443/'
@@ -69,7 +74,7 @@ wirecard_endpoint: 'https://api.euromillions.com/beta/wirecard-payment'
 wirecard_endpoint_withdraw: 'https://api.euromillions.com/beta/withdraw'
 wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
-moneymatrix_endpoint: 'https://rancher-beta.euromillions.com:49167/deposit'
+moneymatrix_endpoint: 'https://rancher-beta.euromillions.com:49167'
 
 
 lottorisq_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball'

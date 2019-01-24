@@ -35,7 +35,6 @@ lottery-carousel--christmas
                 {%  endif %}
 
             {%  endfor %}
-            {% include "_elements/home/lottery-carousel/christmas.volt" %}
         </div>
 
     </div>

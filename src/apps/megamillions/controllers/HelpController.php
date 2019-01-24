@@ -41,9 +41,9 @@ final class HelpController extends PublicSiteControllerBase
             'price_bet' => (!empty($lottery)) ? $lottery->getSingleBetPrice()->getAmount() / 10000 : "",
             'draw_time' => (!empty($lottery)) ? $lottery->getDrawTime() : '',
             'email_support' => $config->email_support['email'],
-            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'),
+            'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('MegaMillions')->modify('-1 hours'))->format('%a'),
             'pageController' => 'megaHowto',
-            'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
+            'date_draw' => $this->lotteryService->getNextDateDrawByLottery('MegaMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
         ]);
     }
 }

@@ -2,8 +2,7 @@
 - hosts: localhost
 
   vars:
-    enable_frontend_watchers: false
-    enable_frontend_react_build: true
+    enable_frontend_react_build: false
     is_vagrant: false # overwritten via Vagrantfile for Windows OS Hosts
     update_geoip_database: false # should update the geoip databases?
     do_docker_setup: false # should install docker and docker-compose on host?
@@ -16,7 +15,8 @@
 
   - name: Get GeoIP IPv4 database
     get_url:
-      url: http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+      #url: http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+      url: https://s3-eu-west-1.amazonaws.com/geoip-euromillions-hotfix/GeoIP.dat.gz
       dest: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIP.dat.gz"
     when: not check_geoipv4.stat.exists or update_geoip_database
 
@@ -33,7 +33,8 @@
 
   - name: Get GeoIP IPv6 database
     get_url:
-      url: http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+      #url: http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+      url: https://s3-eu-west-1.amazonaws.com/geoip-euromillions-hotfix/GeoIPv6.dat.gz
       dest: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIPv6.dat.gz"
     when: not check_geoipv6.stat.exists or update_geoip_database
 
@@ -50,6 +51,7 @@
     with_items:
       - "{{ playbook_dir }}/../src/apps/web/assets"
       - "{{ playbook_dir }}/../src/apps/web/assets/compiled_templates"
+      - "{{ playbook_dir }}/../src/logs"
     when: not is_vagrant
 
   - name: Auto cd in /vagrant (Windows OS Host)
@@ -102,20 +104,6 @@
           COMPOSER_NO_INTERACTION: 1
           COMPOSER_ALLOW_SUPERUSER: 1
 
-    - name: run react frontend
-      docker_container:
-        name: euromillions-util-nodejs
-        image: euromillions-util-nodejs
-        detach: false
-        cleanup: yes
-        state: started
-        command: ./provision-react.sh
-        volumes:
-          - "{{ playbook_dir }}/../src:/var/www"
-        env:
-          EM_ENV: development
-      when: enable_frontend_react_build
-
     - name: initialize test database
       shell: docker-compose exec -d database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
       args:
@@ -159,44 +147,16 @@
       args:
         chdir: "{{ playbook_dir }}/../"
 
-    - name: start compass web container
+    - name: run react frontend
       docker_container:
-        name: euromillions-compassweb-watcher
-        image: antonienko/compass-watch
+        name: euromillions-util-nodejs
+        image: euromillions-util-nodejs
+        detach: false
         cleanup: yes
         state: started
-        command: watch --poll /src/compass_web
-        user: 1000:1000
-        volumes:
-          - "{{ playbook_dir }}/../src:/src"
-        env:
-          EM_ENV: development
-      when: enable_frontend_watchers
-
-    - name: start compass admin container
-      docker_container:
-        name: euromillions-compassadmin-watcher
-        image: antonienko/compass-watch
-        cleanup: yes
-        state: started
-        command: watch --poll /src/compass_admin
-        user: 1000:1000
-        volumes:
-          - "{{ playbook_dir }}/../src:/src"
-        env:
-          EM_ENV: development
-      when: enable_frontend_watchers
-
-    - name: start react frontend watcher
-      docker_container:
-        name: euromillions-react-watcher
-        image: euromillions-util-nodejs:devel
-        cleanup: yes
-        state: started
-        working_dir: /var/www/react
-        command: npm run watch
+        command: ./provision-react.sh
         volumes:
         - "{{ playbook_dir }}/../src:/var/www"
         env:
           EM_ENV: development
-      when: enable_frontend_watchers
+      when: enable_frontend_react_build
