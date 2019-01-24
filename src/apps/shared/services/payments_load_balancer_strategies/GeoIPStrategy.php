@@ -42,9 +42,9 @@ class GeoIPStrategy implements ILoadBalancingPayment
     {
         if(in_array($this->geoipImpl->countryFromIP($this->getIp()),$this->blocked_countries))
         {
-            $this->instance = $this->normalGW;
-        } else {
             $this->instance = $this->blockedGW;
+        } else {
+            $this->instance = $this->normalGW;
         }
     }
 
