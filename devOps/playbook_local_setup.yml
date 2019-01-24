@@ -51,6 +51,7 @@
     with_items:
       - "{{ playbook_dir }}/../src/apps/web/assets"
       - "{{ playbook_dir }}/../src/apps/web/assets/compiled_templates"
+      - "{{ playbook_dir }}/../src/logs"
     when: not is_vagrant
 
   - name: Auto cd in /vagrant (Windows OS Host)

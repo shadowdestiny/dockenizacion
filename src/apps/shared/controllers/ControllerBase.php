@@ -7,6 +7,7 @@ use EuroMillions\shared\components\RestrictedAccess;
 use EuroMillions\shared\vo\HttpUser;
 use EuroMillions\web\components\MaxMindWrapper;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\factories\DomainServiceFactory;
@@ -67,6 +68,8 @@ class ControllerBase extends Controller
         $this->checkBannedCountry();
         $this->checkRestrictedAccess();
         $this->insertGoogleAnalyticsCodeViaEnvironment();
+        $this->setTrackingAffiliatePlatform();
+
     }
 
     private function checkRestrictedAccess()
@@ -99,9 +102,14 @@ class ControllerBase extends Controller
     {
         $config = $this->di->get('config');
         $geoip = new MaxMindWrapper($config->geoip->database_files_path);
-        if($geoip->isIpForbidden($this->request->getClientAddress())) {
+        if($geoip->isIpForbidden($this->request->getClientAddress(true))) {
             $this->view->pick('/landings/restricted');
         }
+    }
+
+    protected function setTrackingAffiliatePlatform()
+    {
+        $this->view->setVar('tracking',TrackingCodesHelper::trackingAffiliatePlatformCodeWhenAnUserAccessSite());
     }
 
 }

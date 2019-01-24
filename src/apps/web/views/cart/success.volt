@@ -60,6 +60,7 @@ localStorage.removeItem('bet_line');
     <script>
         fbq('track', 'Purchase');
     </script>
+    {{ tracking }}
 {%  set lines = order.lines|json_decode %}
 
 <?php

@@ -10,6 +10,7 @@ namespace EuroMillions\megamillions\controllers;
 
 
 use EuroMillions\shared\controllers\LotteriesCartController;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\forms\SignInForm;
 
 class MegaMillionsCartController extends LotteriesCartController
@@ -50,16 +51,20 @@ class MegaMillionsCartController extends LotteriesCartController
                     'password' => $this->request->getPost('password'),
                     'email'    => $this->request->getPost('email'),
                     'country'  => $this->request->getPost('country'),
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'phone_number' => $this->request->getPost('prefix')."-".$this->request->getPost('phone'),
+                    'birth_date' => $this->request->getPost('year').'-'.$this->request->getPost('month').'-'.$this->request->getPost('day'),
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
                     $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
-                    $this->response->redirect('/'.$this->lottery.'/play');
+                    TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered();
+                    $this->response->redirect('/'.$this->lottery.'/play/?register=user');
                 }else{
                     $errors [] = $result->errorMessage();
                 }
             }
         }
+
         $this->view->pick('cart/profile');
         $this->tag->prependTitle('Log In or Sign Up');
         return $this->view->setVars([
@@ -73,6 +78,32 @@ class MegaMillionsCartController extends LotteriesCartController
             'action' => $action,
             'params' => json_encode($params),
         ]);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getErrorsArray()
+    {
+        $form_errors = [
+            'email'            => '',
+            'password'         => '',
+            'name'             => '',
+            'surname'          => '',
+            'confirm_password' => '',
+            'country'          => '',
+            'card-number' => '',
+            'card-holder' => '',
+            'card-cvv' => '',
+            'expiry-date-month' => '',
+            'expiry-date-year' => '',
+            'accept' => '',
+            'day' => '',
+            'month' => '',
+            'year' => '',
+        ];
+
+        return $form_errors;
     }
 
 

@@ -16,8 +16,6 @@ class EnvironmentDetector
     {
         $this->var_name = $varName ?: self::ENVIRONMENT_VARNAME;
         $this->valid_environments = [
-            'scrutinizer',
-            'shippable',
             'test',
             'development',
             'staging',

@@ -107,10 +107,17 @@ class ResultTask extends TaskBase
      */
     public function startAction(array $params)
     {
+        if(!empty($params[1]))
+        {
+            $drawDate= new \DateTime($params[1]);
+        }
         if(isset($params[0]) && in_array($params[0],['MegaMillions', 'PowerBall']))
         {
             try {
-                $drawDate = $this->lotteryService->getLastDrawDate($params[0]);
+                if(empty($drawDate))
+                {
+                    $drawDate = $this->lotteryService->getLastDrawDate($params[0]);
+                }
                 $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
                 $this->domainServiceFactory->getServiceFactory()->getCloudService($resultConfigQueue)->cloud()->queue()->messageProducer([
                     'drawDate' => $drawDate->format('Y-m-d'),

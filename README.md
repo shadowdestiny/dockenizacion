@@ -1,7 +1,3 @@
-[![Build Status](https://scrutinizer-ci.com/g/PanamediaSLU/euromillions/badges/build.png?b=master&s=b5bfef5cfbcf10eb16a5dec22ffa0cbda6583fa0)](https://scrutinizer-ci.com/g/PanamediaSLU/euromillions/build-status/master)
-[![Code Coverage](https://scrutinizer-ci.com/g/PanamediaSLU/euromillions/badges/coverage.png?b=master&s=3c7cc5d1328fe1325537b9689787b961203b8455)](https://scrutinizer-ci.com/g/PanamediaSLU/euromillions/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PanamediaSLU/euromillions/badges/quality-score.png?b=master&s=30e09efd0c8f4d9cbd919fd3c9d4614a1244620a)](https://scrutinizer-ci.com/g/PanamediaSLU/euromillions/?branch=master)
-
 # Instructions
 
 ## Installation of a developer machine
@@ -24,13 +20,23 @@ On Linux we interact directly with Docker and we use Ansible for provision and c
 On Windows we wrap the Ansible / Docker approach for Linux with a Vagrant / Virtualbox machine. With this approach the automation with Ansible works in both
 systems. The Windows OS support is limited and has a lot of inconvenience ( slow, hard to debug code, etc...) 
 
+Important: Git must be configured for checkout files as LF. If not sure you can run this commands (on the repository folder) if you have already cloned the repository:
+
+```
+git config core.eol lf
+git config core.autocrlf input
+
+git rm -rf --cached . 
+git reset --hard HEAD
+```
+
 ### Mac OS
 Not tested in this OS.
 
 ## Steps for running the development environment:
 
 ### For all OS
-1. Clone this repository: `git clone https://github.com/PanamediaSLU/devel-structure.git your-folder` (substitute _your-folder_ with the path you want to clone into)
+1. Clone this repository: `git clone https://github.com/PanamediaSLU/euromillions your-folder` (substitute _your-folder_ with the path you want to clone into)
 2. Copy the file .env.dist to .env
 3. Go into your folder on a command shell
 4. Set variable **'enable_frontend_react_build'** to **'true'** for the first run on file devOps/playbook_local_setup.yml 
@@ -40,8 +46,7 @@ Not tested in this OS.
 1. Run **$ ansible-playbook devOps/playbook_local_setup.yml**
 2. Edit /etc/hosts file for point dev.euromillions.com to IP defined at .env file with the value of ***EM_DOCKER_VARNISH_IP*** by default 172.10.10.10
 3. You can connect to MySQL database on the ip defined with ***EM_DOCKER_DATABASE_IP***
-4. After first boot, you can do a $ docker-compose -d --build for get the environment running
-
+4. After first boot, you can do a $ docker-compose up -d --build for get the environment running
 
 ### For Windows OS
 

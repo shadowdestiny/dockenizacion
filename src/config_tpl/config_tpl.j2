@@ -1,0 +1,149 @@
+[application]
+error_reporting={{ error_reporting }}
+display_errors={{ display_errors }}
+display_startup_errors={{ display_startup_errors }}
+env={{ env }}
+send_single_validations={{ send_single_validations }}
+
+[database]
+adapter={{ database_adapter }}
+host={{ database_host }}
+username={{ database_user }}
+password={{ database_pass }}
+dbname={{ database_name }}
+original_db_name={{ original_database_name }}
+is_dev_mode={{ is_development_mode }}
+
+[domain]
+url={{ domain_url }}
+
+[redis]
+host={{ redis_host }}
+prefix={{ redis_prefix }}
+
+[default_cache_lifetime]
+redis={{ redis_cache_lifetime }}
+
+[lifetime_cache]
+redis={{ redis_cache_lifetime }}
+
+[mail]
+from_name={{ email_from_name }}
+from_address={{ email_from_address }}
+api_key={{ api_key }}
+
+[log]
+file_logs_path={{ file_logs_path }}
+
+[recaptcha]
+public_key={{ recaptcha_public_key }}
+private_key={{ recaptcha_private_key }}
+
+[ips]
+ips={{ ips }}
+
+[retry_validation_time]
+time={{ euromillions_retry_validation_time }}
+
+[threshold_value_reminder]
+threshold={{ threshold_value_reminder }}
+
+[threshold_above]
+value={{ threshold_above }}
+
+[admin_credentials]
+user={{ admin_user }}
+pass={{ admin_pass }}
+
+[email_support]
+email={{ support_email_address }}
+
+[payxpert]
+originator_id={{ payxpert_originator_id }}
+originator_name={{ payxpert_originator_name }}
+api_key={{ payxpert_api_key }}
+
+[sms]
+username={{ sms_user }}
+password={{ sms_pass }}
+number={{ sms_number }}
+
+[mobile_alert]
+number={{ sms_number }}
+
+[restricted_access]
+activated={{ restricted_access_activated }}
+allowed_ips={{ restricted_access_ips }}
+user={{ restricted_access_user }}
+pass={{ restricted_access_pass }}
+
+[empay_iframe]
+client_id={{ empay_client_id }}
+form_purchase_id= {{ empay_form_purchase_id }}
+form_deposit_id= {{ empay_form_deposit_id }}
+test_transaction={{ empay_test_transaction }}
+md5Key= {{ empay_md5Key }}
+url={{ empay_url}}
+
+[emerchant_api]
+endpoint= {{ emerchant_endpoint }}
+api_key={{ emerchant_apikey }}
+
+[gcp]
+url= {{ gcp_url }}
+mid= {{ gcp_mid }}
+visa_gw_id= {{ gcp_visa_gw_id }}
+visa_sign_key={{ gcp_visa_sign_key}}
+master_gw_id={{ gcp_master_gw_id}}
+master_sign_key={{ gcp_master_sign_key }}
+
+[wirecard]
+endpoint= {{ wirecard_endpoint }}
+endpoint_withdraw= {{ wirecard_endpoint_withdraw }}
+api_key={{ wirecard_apikey }}
+
+[moneymatrix]
+endpoint={{ moneymatrix_endpoint }}
+
+[lotto_api]
+endpoint= {{ lottorisq_endpoint }}
+api_key={{ lottorisq_apikey }}
+
+[megamillions_api]
+endpoint= {{ megamillions_endpoint }}
+api_key={{ megamillions_apikey }}
+
+[aws]
+queue_results_endpoint={{ queue_results_endpoint }}
+queue_prizes_endpoint= {{ queue_prizes_endpoint }}
+secret_access_key= {{ aws_secret_access_key }}
+access_key_id= {{ aws_access_key_id }}
+
+[payment_gateway]
+class_strategy={{ payment_strategy }}
+config= {{ payment_config }}
+
+[geoip_strategy]
+normal={{geoip_normal}}
+blocked={{geoip_blocked}}
+geoip={{geoip_geoip}}
+geoIpImpl={{geoip_geoIpImpl}}
+database_path={{geoip_database_path}}
+blocked_countries={{geoip_blocked_countries}}
+
+[payment_balancing]
+strategy={{ payment_balancing }}
+dependencies={{payment_balancing_dependencies}}
+
+[jackpot_widget]
+EuroMillions={{ controllers_euromillions }}
+PowerBall={{ controllers_powerball }}
+MegaMillions= {{ controllers_megamillions }}
+
+[result_widget]
+EuroMillions={{ controllers_result_euromillions }}
+PowerBall={{ controllers_result_powerball }}
+MegaMillions={{ controllers_result_megamillions }}
+
+[geoip]
+database_files_path={{ file_databasegeoip_path }}

@@ -17,13 +17,13 @@ class WinningsWithdrawGenerator implements ITransactionGeneratorStrategy
             $winningsWithdrawTransaction->setAccountBankId($data['accountBankId']);
             $winningsWithdrawTransaction->setAmountWithdrawed($data['amountWithdrawed']);
             $winningsWithdrawTransaction->setState($data['state']);
-            $winningsWithdrawTransaction->setTransactionID($data['transactionID']);
+            $winningsWithdrawTransaction->setTransactionID(!empty($data['transactionID']) ? $data['transactionID'] : 0);
             $winningsWithdrawTransaction->setWalletBefore($data['walletBefore']);
             $winningsWithdrawTransaction->setWalletAfter($data['walletAfter']);
             $winningsWithdrawTransaction->setDate($data['now']);
             $winningsWithdrawTransaction->setUser($data['user']);
-            $winningsWithdrawTransaction->setStatus($data['status']);
-            $winningsWithdrawTransaction->setLotteryName($data['lotteryName']);
+            $winningsWithdrawTransaction->setStatus(!empty($data['status']) ? $data['status'] : '');
+            $winningsWithdrawTransaction->setLotteryName(!empty($data['lotteryName']) ? $data['lotteryName'] : '');
             $winningsWithdrawTransaction->toString();
         } catch( \Exception $e ) {
             throw new \Exception('Invalid argument to build entity');

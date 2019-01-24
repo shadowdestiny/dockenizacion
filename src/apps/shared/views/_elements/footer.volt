@@ -117,8 +117,10 @@
     <div class="wrapper">
         {% include "../../shared/views/_elements/cards-block.volt" %}
     </div>
-
-
+    {{ tracking }}
+    {% if register is defined %}
+        {{ register }}
+    {% endif %}
     <div class="wrapper">
         <div class="copyright-text">
 
