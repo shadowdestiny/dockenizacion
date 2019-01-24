@@ -78,10 +78,5 @@ class PlayController extends PublicSiteControllerBase
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
         $this->betValue = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
-
-        if($this->request->get('register'))
-        {
-            $this->view->setVar('register', TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered());
-        }
     }
 }
