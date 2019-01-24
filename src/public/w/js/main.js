@@ -312,6 +312,8 @@ function isMobile(){
 
 //v2
 $(document).ready(function () {
+    
+ const items = $(".lotteries--carousel").find(".lottery-carousel").length;
 
   // Homepage lotteries carousel
   if ($('.lotteries--carousel').length) {
@@ -322,12 +324,12 @@ $(document).ready(function () {
       responsiveClass:true,
       responsive:{
         0:{
-          items:2,
+          items: items > 2 ? 2 : items ,
           nav:false,
           loop:false
         },
         900:{
-          items:3,
+          items:items > 3 ? 3 : items,
           nav:true,
           loop:false
         }
