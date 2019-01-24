@@ -1,6 +1,6 @@
 # Instructions
 
-## Installation of a developer machine
+## Installation of a developer machine 
 
 The pre-requisites for installation are:
 
