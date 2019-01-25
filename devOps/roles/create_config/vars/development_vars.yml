@@ -2,7 +2,7 @@
 env: 'development'
 display_errors: '1'
 display_startup_errors: '1'
-db_master_slave_enabled: '1'
+db_master_slave_enabled: '0'
 
 database_user: 'root'
 database_pass: 'tpl9'
