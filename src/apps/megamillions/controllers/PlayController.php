@@ -10,6 +10,7 @@ namespace EuroMillions\megamillions\controllers;
 
 
 use EuroMillions\web\components\DateTimeUtil;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\components\ViewHelper;
 use function GuzzleHttp\Psr7\str;
 use Money\Currency;
@@ -58,6 +59,10 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         $this->tag->prependTitle($this->languageService->translate('play_megam_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('play_megam_desc'));
 
+        if($this->request->get('register'))
+        {
+            $this->view->setVar('register', TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered());
+        }
         return $this->view->setVars([
             'play_dates' => $this->play_dates,
             'next_draw' => $this->dayOfWeek,
@@ -76,6 +81,7 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
             'draw_day' => $this->languageService->translate($this->draw->format('l')),
             'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay()
         ]);
+
     }
 
 }

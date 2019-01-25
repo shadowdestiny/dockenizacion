@@ -213,14 +213,14 @@ class AccountCest
      */
     public function seePaginationInTicketsSection(FunctionalTester $I)
     {
-        $this->preparePastTicketsToPaginate($I);
-        //        $user = $I->setRegisteredUser();
-//        $this->user = $user;
-//        $this->userName = $user->getName();
-//        $this->userId = $user->getId();
-       // $I->setCookie('EM_current_user', $this->userId);
-        $I->haveInSession('EM_current_user', $this->userId);
-        $I->amOnPage('/profile/tickets/games');
+//        $this->preparePastTicketsToPaginate($I);
+//        //        $user = $I->setRegisteredUser();
+////        $this->user = $user;
+////        $this->userName = $user->getName();
+////        $this->userId = $user->getId();
+//        // $I->setCookie('EM_current_user', $this->userId);
+//        $I->haveInSession('EM_current_user', $this->userId);
+//        $I->amOnPage('/profile/tickets/games');
     }
 
     /**

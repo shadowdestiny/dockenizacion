@@ -126,7 +126,7 @@ class CartController extends PublicSiteControllerBase
                 if($result->success()){
                     $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
                     TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered();
-                    $this->response->redirect('/'.$this->lottery.'/play');
+                    $this->response->redirect('/'.$this->lottery.'/play/?register=user');
                     //$this->response->redirect('/'.$this->lottery.'/order');
                 }else{
                     $errors [] = $result->errorMessage();
