@@ -1,6 +1,8 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\shared\helpers\SiteHelpers;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
@@ -84,10 +86,13 @@ class PowerBallCartController extends PublicSiteControllerBase
                     'password' => $this->request->getPost('password'),
                     'email'    => $this->request->getPost('email'),
                     'country'  => $this->request->getPost('country'),
+                    'phone_number' => $this->request->getPost('prefix')."-".$this->request->getPost('phone'),
+                    'birth_date'   => $this->request->getPost('year').'-'.$this->request->getPost('month').'-'.$this->request->getPost('day'),
                     'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
                     $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                    TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered();
                     $this->response->redirect('/'.$this->lottery.'/play');
                 }else{
                     $errors [] = $result->errorMessage();
@@ -193,12 +198,7 @@ class PowerBallCartController extends PublicSiteControllerBase
      */
     private function getSignUpForm()
     {
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        //key+1, select element from phalcon need index 0 to set empty value
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
-        return new SignUpForm(null, ['countries' => $countries]);
+        return SiteHelpers::getSignUpForm();
     }
 
     /**

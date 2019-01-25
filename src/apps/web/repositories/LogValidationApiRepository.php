@@ -31,6 +31,7 @@ class LogValidationApiRepository extends RepositoryBase
                 'id_ticket' => $id_ticket,
                 'status' => $status,
                 'response' => '',
+                'uuid' => '',
                 'received' => new \DateTime(),
                 'bet' => $bet
             ]);

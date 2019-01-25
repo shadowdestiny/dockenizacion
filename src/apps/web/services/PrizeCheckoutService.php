@@ -109,7 +109,7 @@ class PrizeCheckoutService
             $resultAwarded = $this->betRepository->getMatchesPlayConfigAndUserFromLotteryByDrawDate($date, $lottery->getId());
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['draw_date' => new \DateTime($date), 'lottery' => $lottery->getId()]);
-            if(count($resultAwarded) > 0) {
+            if(count($resultAwarded) > 0 && !empty($draw)) {
                 foreach($resultAwarded as $k => $result)
                 {
                     $prize = new LotteryPrize($draw->getBreakDown(), [$result['cnt'],$result['cnt_lucky'],$result['power_play']]);

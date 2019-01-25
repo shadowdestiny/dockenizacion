@@ -12,6 +12,8 @@ namespace EuroMillions\web\vo\dto;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use ReflectionClass;
+use Money\Currency;
+use Money\Money;
 
 class PowerBallDrawBreakDownDTO extends EuroMillionsDrawBreakDownDTO implements IDto
 {
@@ -45,16 +47,16 @@ class PowerBallDrawBreakDownDTO extends EuroMillionsDrawBreakDownDTO implements 
 
 
 
-    public function __construct(EuroMillionsDrawBreakDown $euroMillionsDrawBreakDown)
+    public function __construct(EuroMillionsDrawBreakDown $euroMillionsDrawBreakDown, $conversionService = null)
     {
         $this->euroMillionsDrawBreakDown = $euroMillionsDrawBreakDown;
-        $this->exChangeObject();
+        $this->exChangeObject($conversionService);
     }
 
 
-    public function exChangeObject()
+    public function exChangeObject($conversionService = null)
     {
-        foreach ($this->setDataToLine() as $k => $data)
+        foreach ($this->setDataToLine($conversionService) as $k => $data)
         {
             $this->$k = new PowerBallBreakDownDataDTO($data);
         }
@@ -88,7 +90,7 @@ class PowerBallDrawBreakDownDTO extends EuroMillionsDrawBreakDownDTO implements 
         return json_encode(json_decode(json_encode($this),TRUE));
     }
 
-    private function setDataToLine()
+    private function setDataToLine($conversionService = null)
     {
         return [
             'lineOne' => [
@@ -104,7 +106,7 @@ class PowerBallDrawBreakDownDTO extends EuroMillionsDrawBreakDownDTO implements 
                 'winnersPowerBall' => $this->euroMillionsDrawBreakDown->getCategoryThree()->getWinners(),
                 'powerBallPrize' => $this->euroMillionsDrawBreakDown->getCategoryThree()->getLotteryPrize()->getAmount(),
                 'winnersPowerPlay' => $this->euroMillionsDrawBreakDown->getCategoryOne()->getWinners(),
-                'powerPlayPrize' => $this->euroMillionsDrawBreakDown->getCategoryOne()->getLotteryPrize()->getAmount(),
+                'powerPlayPrize' => !is_null($conversionService)?(string)$conversionService->convert(new Money(20000000000,new Currency('USD') ), new Currency('EUR'))->getAmount():$this->euroMillionsDrawBreakDown->getCategoryOne()->getLotteryPrize()->getAmount(),
                 'showPowerball' => false
             ],
             'lineThree' => [

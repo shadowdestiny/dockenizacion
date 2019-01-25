@@ -8,6 +8,7 @@
 
 namespace EuroMillions\shared\controllers;
 
+use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
@@ -88,7 +89,7 @@ class LotteriesCartController extends PublicSiteControllerBase
                     'password' => $this->request->getPost('password'),
                     'email'    => $this->request->getPost('email'),
                     'country'  => $this->request->getPost('country'),
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
                     $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
@@ -142,7 +143,7 @@ class LotteriesCartController extends PublicSiteControllerBase
                     'email'    => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     false,
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], 'string');
 
                 if (!$userCheck['bool']) {
@@ -197,12 +198,7 @@ class LotteriesCartController extends PublicSiteControllerBase
      */
     protected function getSignUpForm()
     {
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        //key+1, select element from phalcon need index 0 to set empty value
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
-        return new SignUpForm(null, ['countries' => $countries]);
+        return SiteHelpers::getSignUpForm();
     }
 
     /**

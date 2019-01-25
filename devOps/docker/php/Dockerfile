@@ -1,25 +1,7 @@
-FROM panamedialottery/euromillions-base-php as base
+FROM panamedialottery/euromillions-base-php:prod_staging as base
 
 # override default WORKDIR
 WORKDIR /var/www
-
-################################################################################
-
-FROM base as cron
-
-# set php.ini
-COPY devOps/docker/php/cron/php.ini $PHP_INI_DIR/php.ini
-
-COPY devOps/docker/php/cron/run-cron.sh /run-cron.sh
-COPY devOps/docker/php/cron/euromillions.crons /etc/cron.d/euromillions.crons
-
-RUN apt-get update && apt-get install -y cron \
-    && chmod -v +x /run-cron.sh \
-    && crontab /etc/cron.d/euromillions.crons \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /tmp/*
-
-CMD ["/run-cron.sh"]
 
 ################################################################################
 
@@ -45,27 +27,51 @@ USER ${user}
 
 ################################################################################
 
-FROM base as prod
+FROM base as common-tasks-onbuild
 
-# set php.ini
-COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
-
-# set fpm pool config
-COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
-
-# set post-deploy script
-COPY devOps/docker/php/php-prod/post-deploy.sh /post-deploy.sh
-RUN chmod 700 /post-deploy.sh
-
-COPY ./src .
-
-RUN chown -R www-data:www-data /var/www
+COPY --chown=www-data:www-data ./src .
+#RUN chown -R www-data:www-data /var/www
 
 VOLUME /var/www
 
 ################################################################################
 
-FROM base as staging
+FROM common-tasks-onbuild as cron
+
+# set php.ini
+COPY devOps/docker/php/cron/php.ini $PHP_INI_DIR/php.ini
+
+COPY devOps/docker/php/cron/entrypoint.sh /entrypoint.sh
+COPY devOps/docker/php/cron/euromillions.crons /etc/cron.d/euromillions.crons
+
+RUN apt-get update && apt-get install -y cron supervisor \
+    && chmod -v +x /entrypoint.sh \
+    && crontab /etc/cron.d/euromillions.crons \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/*
+
+COPY devOps/docker/php/cron/supervisord.conf /etc/supervisor/supervisord.conf
+COPY devOps/docker/php/cron/supervisor/services.conf /etc/supervisor/conf.d/services.conf
+
+CMD ["/entrypoint.sh"]
+
+################################################################################
+
+FROM common-tasks-onbuild as prod
+
+# set php.ini
+COPY devOps/docker/php/php-prod/php.ini $PHP_INI_DIR/php.ini
+
+# set fpm pool config
+COPY devOps/docker/php/php-prod/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www.conf
+
+# set post-deploy script
+COPY devOps/docker/php/php-prod/post-deploy.sh /post-deploy.sh
+RUN chmod 700 /post-deploy.sh
+
+################################################################################
+
+FROM common-tasks-onbuild as staging
 
 # set php.ini
 COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
@@ -76,9 +82,3 @@ COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/
 # set post-deploy script
 COPY devOps/docker/php/php-staging/post-deploy.sh /post-deploy.sh
 RUN chmod 700 /post-deploy.sh
-
-COPY ./src .
-
-RUN chown -R www-data:www-data /var/www
-
-VOLUME /var/www
