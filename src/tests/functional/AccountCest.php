@@ -239,14 +239,6 @@ class AccountCest
         $I->canSee('Your withdrawable balance');
         $I->click('MAKE WITHDRAWAL');
         $I->canSee('Withdraw your winnings');
-       $user = UserMother::aUserWith40EurWinnings()->withId('9098299B-14AC-4124-8DB0-19571EDABE54')->build();
-        $I->haveInDatabase(
-            'users',
-            $user->toArray()
-        );
-        $I->haveInSession('EM_current_user', $user->getId());
-        $I->amOnPage('/account/wallet');
-        $I->click('.box-btn');
         $I->canSeeElement('#bank-name');
         $I->submitForm(
             '#form-withdraw', [
