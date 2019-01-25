@@ -239,7 +239,30 @@ class AccountCest
         $I->canSee('Your withdrawable balance');
         $I->click('MAKE WITHDRAWAL');
         $I->canSee('Withdraw your winnings');
-
+       $user = UserMother::aUserWith40EurWinnings()->withId('9098299B-14AC-4124-8DB0-19571EDABE54')->build();
+        $I->haveInDatabase(
+            'users',
+            $user->toArray()
+        );
+        $I->haveInSession('EM_current_user', $user->getId());
+        $I->amOnPage('/account/wallet');
+        $I->click('.box-btn');
+        $I->canSeeElement('#bank-name');
+        $I->submitForm(
+            '#form-withdraw', [
+                'amount' => '25',
+                'name' => 'Test',
+                'surname' => 'Test1',
+                'bank-name' => 'Los mas Ladrones',
+                'bank-account' => 'ggyugyugy8789789',
+                'bank-swift' => '6786786',
+                'street' => 'calle testing',
+                'city' => 'Thetest',
+                'zip' => '123456789',
+                'phone_number' => '3469000000'
+            ]
+        );
+        $I->canSeeInDatabase('transactions', ['entity_type' => 'winnings_withdraw']);
      }
 
     private function preparePastTicketsToPaginate(FunctionalTester $I)
