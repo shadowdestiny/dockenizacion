@@ -237,8 +237,8 @@ class AccountCest
         $I->haveInSession('EM_current_user', $user->getId());
         $I->amOnPage('/account/wallet');
         $I->canSee('Your withdrawable balance');
-        $I->click(['class' => 'withdraw']);
-        $I->canSeeElement('input', ['name' => 'add-bank-name']);
+        $I->click('MAKE WITHDRAWAL');
+        $I->canSee('Withdraw your winnings');
 
      }
 
