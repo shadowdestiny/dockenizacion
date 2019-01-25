@@ -436,7 +436,7 @@ class PlayConfigRepository extends RepositoryBase
     public function substractNumFractionsToChristmasTicket($number)
     {
         $number = str_replace(',', '', $number);
-        $this->getEntityManager()->getConnection()->executeQuery("UPDATE christmas_tickets SET n_fractions = n_fractions - 1 where number = '" . $number . "'");
+        $this->getEntityManager()->getConnection()->executeUpdate("UPDATE christmas_tickets SET n_fractions = n_fractions - 1 where number = '" . $number . "'");
     }
 
     /**
