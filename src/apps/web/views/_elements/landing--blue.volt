@@ -65,10 +65,11 @@
                     <div class="wrapper-small">
 
                         <div class="landing--banner-block--title">
+                            Play {{lottery}} and <br>
                             Win a huge jackpot of
                         </div>
                         <div class="landing--banner-block--prize">
-                            45m€
+                            {{landing_jackpot_value}}{% if landing_jackpot_milliards %}B {% elseif landing_jackpot_trillions %}T {% else %}M {% endif %}
                         </div>
                         <div class="landing--banner-block--countdown-block">
                             <div class="lefter"></div>
@@ -77,7 +78,7 @@
                                     next draw
                                 </div>
                                 <div class="bottom">
-                                    3 days : 22hrs : 45 min
+                                    {{landing_show_day['days']}} days :  {{landing_show_day['hours']}} hrs :  {{landing_show_day['minutes']}} min
                                 </div>
                             </div>
                         </div>
@@ -85,7 +86,7 @@
                             <a rel="nofollow" class="btn-theme btn-secondary" href="/sign-in">Join us</a>
                         </div>
                         <div class="landing--banner-block--star">
-                            *Every Friday and Tuesday a new draw to become a millionare
+                            *{{landing_lottery_text_days}}
                         </div>
 
                     </div>
