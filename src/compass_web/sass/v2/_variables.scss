@@ -93,6 +93,7 @@ $screen-small-wrapper 		: 748px; 	// ipad vertical
 
 $screen-medium-pre 			: 991px;
 $screen-medium 				: 992px;
+$screen-init 				: 0px;
 //$screen-medium-wrapper 		: 952px;
 $screen-medium-wrapper 		: 960px;
 
@@ -112,6 +113,7 @@ $screen-ipad-v-pre 				: $width-pre-tablet;
 $screen-ipad-v 					: $screen-small;
 $screen-ipad-h-pre 				: $screen-medium-pre;
 $screen-ipad-h 					: $screen-medium;
+$screen-ipad-init 				: $screen-init;
 $screen-desktop--pre 			: $screen-full--pre;
 $screen-desktop 	 			: $screen-full;
 $screen-desktop-wide 	 		: $screen-wide;
