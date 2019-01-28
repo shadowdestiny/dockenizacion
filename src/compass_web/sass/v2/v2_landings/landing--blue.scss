@@ -11,7 +11,7 @@
       background-position: 0 0;
 
       li {
-        text-align: left;
+        text-align: center;
 
         span {
           i {
@@ -19,93 +19,91 @@
           }
         }
         &.li-01 {
-          padding-left: vw(192);
           margin-right: vw(-16);
         }
         &.li-02 {
-          padding-left: vw(121);
           margin-right: vw(-16);
         }
         &.li-03 {
-          padding-left: vw(199);
         }
       }
     }
   }
 
   .landing--banner-block {
-    height: vw(945);
-    margin-bottom: vw(43);
+    height: vw(635);
+    margin-bottom: vw(23);
     overflow: hidden;
-
     background-image: url('../img/landing/blue/bg-01.jpg');
-    -webkit-background-size: vw(810);
-    background-size: vw(820);
+    -webkit-background-size: vw(875);
+    background-size: vw(875);
     background-repeat: no-repeat;
     background-position: 100% 0;
 
     .landing--banner-block--content {
       background-image: url('../img/landing/blue/bg--blue.svg');
-      -webkit-background-size: vw(1300);
-      background-size: vw(1300);
+      -webkit-background-size: vw(1150);
+      background-size: vw(1150);
       background-repeat: no-repeat;
       background-position: 0 0;
-      width: vw(1300);
+      width: vw(1200);
       height: 100%;
       float: left;
 
       .landing--banner-block--title {
+        display: block;
         color: #ffffff;
-        font-size: vw(78);
+        font-size: vw(70);
         font-weight: 400;
         line-height: 1;
-        text-align: left;
+        text-align: center;
         text-shadow: 0px vw(2) vw(1.96) rgba(0, 0, 0, 0.5);
-        text-transform: uppercase;
-        margin-top: vw(26);
+        margin-top: vw(20);
         letter-spacing: vw(-2.4);
+      }
+
+      .landing--banner-block--title-mobile, .landing--banner-block--title-mobile-bottom {
+        display: none;
       }
 
       .landing--banner-block--prize {
         color: #ffffff;
-        font-size: vw(400);
-        font-weight: 700;
+        font-size: vw(250);
+        font-weight: 710;
         line-height: 0.8;
-        text-align: left;
+        text-align: center;
         text-shadow: 0px vw(2) vw(1.96) rgba(0, 0, 0, 0.5);
         text-transform: uppercase;
-        margin-bottom: vw(50);
+        margin-bottom: vw(40);
         position: relative;
         letter-spacing: vw(-8);
-        left: vw(-14);
+        left: vw(-5);
       }
 
       .landing--banner-block--countdown-block {
         overflow: hidden;
-        margin-bottom: vw(82);
+        margin-left: vw(165);
+        margin-bottom: vw(40);
 
         .lefter {
-          width: vw(142);
-          height: vw(142);
+          width: vw(95);
+          height: vw(95);
           background-image: url('../img/landing/blue/clock.svg');
           -webkit-background-size: contain;
           background-size: contain;
           background-repeat: no-repeat;
           background-position: 0 0;
           float: left;
-          margin-right: vw(-142);
           position: relative;
-          top: vw(10);
-          left: vw(6);
         }
         .righter {
           overflow: hidden;
           float: left;
-          padding-left: vw(170);
+          padding-left: vw(25);
 
           .top {
             color: #333333;
-            font-size: vw(125);
+            font-size: vw(60);
             font-weight: 700;
             line-height: 0.8;
             text-transform: uppercase;
@@ -113,31 +111,30 @@
           }
           .bottom {
             color: #333333;
-            font-size: vw(62);
-            font-weight: 700;
+            font-size: vw(58);
+            font-weight: 400;
             line-height: 0.8;
             text-transform: uppercase;
-            padding-top: vw(8);
-            padding-left: vw(6);
             letter-spacing: vw(-1);
           }
         }
       }
+
       .landing--banner-block--button-row {
         overflow: hidden;
-        padding-bottom: vw(60);
+        padding-bottom: vw(30);
         margin: 0;
 
         .btn-theme {
-          margin: 0;
-          width: vw(608);
-          height: vw(128);
+          margin: 0 auto;
+          width: 100%;
+          height: vw(105);
           cursor: pointer;
           text-decoration: none;
           text-transform: uppercase;
           color: #ffffff !important;
           font-size: vw(57);
-          line-height: vw(125);
+          line-height: vw(95);
           font-weight: 700;
 
           border-radius: vw(7);
@@ -156,8 +153,58 @@
         color: #000000;
         font-size: vw(24);
         font-weight: 500;
+        text-align: center;
       }
     }
+
+    .landing--banner-block--content--lottery {
+
+      .landing--banner-block--title {
+        line-height: 1.1;
+      }
+
+      .landing--banner-block--prize {
+        margin-bottom: vw(30);
+      }
+
+      .landing--banner-block--countdown-block {
+        overflow: hidden;
+        margin-left: 0;
+        margin-bottom: vw(30);
+        color: #333333;
+        font-size: vw(58);
+        font-weight: 400;
+        line-height: 0.8;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: vw(-1);
+      }
+
+      .landing--banner-block--button-row {
+        padding-bottom: vw(15);
+      }
+    }
+
+    .EM-bg {
+      background-image: url('../img/landing/blue/bg--EM.svg');
+    }
+
+    .PB-bg {
+      background-image: url('../img/landing/blue/bg--PB.svg');
+    }
+
+    .MM-bg {
+      background-image: url('../img/landing/blue/bg--MM.svg');
+
+      .landing--banner-block--countdown-block {
+        color: #A8A8A8;
+      }
+
+      .landing--banner-block--star {
+        color: #A8A8A8;
+      }
+    }
+
   }
 
 }

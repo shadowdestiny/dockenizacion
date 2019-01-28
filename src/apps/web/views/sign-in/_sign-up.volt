@@ -13,19 +13,12 @@
     <div class="close--btn">
         <div class="close--btn--inner"></div>
     </div>
-    {% if signIn.myClass == 'landing' %}
-        {{ signupform.render('name', {'class':'input'~form_errors['name'], 'value':credentials['name']}) }}
-        {{ signupform.render('surname', {'class':'input'~form_errors['surname'], 'value':credentials['surname']}) }}
-    {% else %}
-        {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
-        {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}
-    {% endif %}
+
+    {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
+    {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}
+
     <div class="input--email">
-    {% if signIn.myClass == 'landing' %}
-        {{ signupform.render('email', {'class':'input'~form_errors['email'], 'value':credentials['email']}) }}
-    {% else %}
         {{ signupform.render('email', {'class':'input'~form_errors['email']}) }}
-    {% endif %}
     </div>
     <div class="input--password">
         {{ signupform.render('password', {'class':'input'~form_errors['password']}) }}
@@ -40,48 +33,31 @@
             <use xlink:href="/w/svg/icon.svg#v-info"></use>
         </svg>
         </span>{{ language.translate("signup_passwordLenght") }}</div>
-        <div style="font-size:14px; font-family: Work Sans,sans-serif; color: #999;">
-                {{ language.translate('signup_birthdate') }}
-            </div>
-        <div class="selectbox">
-            {{ signupform.render('day', {'class':'select'~form_errors['country']}) }}
-            {{ signupform.render('month', {'class':'select'~form_errors['country']}) }}
-            {{ signupform.render('year', {'class':'select'~form_errors['country']}) }}
+        <div class="selectTitle">Date of Birth </div>
+        <div class="selectbox-container">
+          <div class="selectbox three-cols one">
+              {{ signupform.render('day', {'class':'select'~form_errors['country']}) }}
+          </div>
+          <div class="selectbox three-cols two">
+              {{ signupform.render('month', {'class':'select'~form_errors['country']}) }}
+          </div>
+          <div class="selectbox three-cols last-col three">
+              {{ signupform.render('year', {'class':'select'~form_errors['country']}) }}
+          </div>
         </div>
-     <div style="font-size:14px; font-family: Work Sans,sans-serif; color: #999;">
-              {{ language.translate('signup_country') }}
-    </div>
+     <div class="selectTitle">Country of Residence</div>
     <div class="selectbox">
         {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}
     </div>
-    <div style="font-size:14px; font-family: Work Sans,sans-serif; color: #999;">
-         {{ language.translate('signup_phone') }}
+    <div class="selectTitle">Phone number</div>
+    <div class="selectbox-container">
+      <div class="selectbox prefix-col">
+        {{ signupform.render('prefix', {'class':'select'~form_errors['country']}) }}
+      </div>
+      <div class="phone-col">
+        {{ signupform.render('phone', {'class':'input'~form_errors['name']}) }}
+      </div>
     </div>
-    <div class="selectbox">
-            {{ signupform.render('prefix', {'class':'select'~form_errors['country']}) }}
-            {{ signupform.render('phone', {'class':'input'~form_errors['name']}) }}
-    </div>
-    <div class="cl btn-row">
-        <input id="goSignUp" type="submit" class="hidden2"/>
-        {% if signIn.myClass == 'sign-in' %}
-            <label for="goSignUp" class="submit btn-theme--big">
-                <span class="resizeme">{{ language.translate("signup_createAccount_btn") }}</span>
-            </label>
-        {% elseif signIn.myClass == 'cart' %}
-            <label for="goSignUp" class="submit btn-theme--big">
-                <span class="resizeme">{{ language.translate("signup_createAccount_btn") }}</span>
-            </label>
-         {% elseif signIn.myClass == 'landing' %}
-                    <label for="goSignUp" class="submit btn-theme--big">
-                        <span>{{ language.translate("signup_createAccount_btn") }}</span>
-                    </label>
-        {% endif %}
-    </div>
-
-    <div class="cl txt--already-have-account {% if signIn.myClass == 'landing' %} hidden{% endif %}">
-        {{ language.translate("signup_accountQuestion") }} <a href="/{{ language.translate("link_signin") }}">{{ language.translate("signup_LogIn_btn") }}</a>
-    </div>
-
 
     <div class="cl txt--accept">
         <label class="label left" for="accept">
@@ -94,11 +70,23 @@
         </label>
     </div>
 
-    <div class="box-extra{% if signIn.myClass == 'cart' or  signIn.myClass == 'landing' %} hidden{% endif %}">
-        <span class="txt">{{ language.translate("signup_accountQuestion") }}</span>
-        <a class="btn gwy" href="/{{ language.translate("link_signin") }}"><span class="resizeme">{{ language.translate("signup_LogIn_btn") }}</span></a>
-        <br><br>
+    <div class="cl btn-row">
+        <input id="goSignUp" type="submit" class="hidden2"/>
+        {% if signIn.myClass == 'sign-in' %}
+            <label for="goSignUp" class="submit btn-theme--big">
+                <span class="resizeme">{{ language.translate("signup_createAccount_btn") }}</span>
+            </label>
+        {% elseif signIn.myClass == 'cart' %}
+            <label for="goSignUp" class="submit btn-theme--big">
+                <span class="resizeme">{{ language.translate("signup_createAccount_btn") }}</span>
+            </label>
+        {% endif %}
     </div>
+
+    <div class="cl txt--already-have-account">
+        {{ language.translate("signup_accountQuestion") }} <a href="/{{ language.translate("link_signin") }}">{{ language.translate("signup_LogIn_btn") }}</a>
+    </div>
+
 </form>
 <script>
     function fbRegistration() {

@@ -136,11 +136,10 @@ class SignUpForm extends Form
 
         $day = new Select(
             'day',
-            ['01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06','07'=>'07','08'=>'08','09'=>'09','10'=>'10','11'=>'11','12'=>'12','13'=>'13','14'=>'14','15'=>'15','16'=>'16','17'=>'17','18'=>'18','19'=>'19','20'=>'20','21'=>'21','22'=>'22','23'=>'23','24'=>'24','25'=>'25','26'=>'26','27'=>'27','28'=>'28','29'=>'29','30'=>'30','31'=>'31'],
+            [1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10,11=>11,12=>12,13=>13,14=>14,15=>15,16=>16,17=>17,18=>18,19=>19,20=>20,21=>21,22=>22,23=>23,24=>24,25=>25,26=>26,27=>27,28=>28,29=>29,30=>30,31=>31],
             [
                 'useEmpty' => true,
-                'emptyText' => $translationAdapter->query('signup_birthdate_day'),
-                'style' => 'width: 30%;',
+                'emptyText' => 'day',
             ]
         );
 
@@ -157,8 +156,7 @@ class SignUpForm extends Form
             ['01'=>'January', '02'=>'February', '03'=>'March', '04'=>'April', '05'=>'May', '06'=>'June', '07'=>'July', '08'=>'August', '09'=>'September', '10'=>'October', '11'=>'November', '12'=>'December'],
             [
                 'useEmpty' => true,
-                'emptyText' => $translationAdapter->query('signup_birthdate_month'),
-                'style' => 'width: 36%;',
+                'emptyText' => 'month',
             ]
         );
 
@@ -175,8 +173,7 @@ class SignUpForm extends Form
             $this->getYears()
             ,[
                 'useEmpty' => true,
-                'emptyText' => $translationAdapter->query('signup_birthdate_year'),
-                'style' => 'width: 30%;',
+                'emptyText' => 'year',
             ]
         );
 
@@ -193,8 +190,7 @@ class SignUpForm extends Form
             [],
             [
                 'useEmpty' => true,
-                'emptyText' => $translationAdapter->query('signup_phone_prefix'),
-                'style' => 'width: 30%;',
+                'emptyText' => 'Prefix',
             ]
         );
 
@@ -207,8 +203,7 @@ class SignUpForm extends Form
         $this->add($prefix);
 
         $phone = new Text('phone', [
-            'placeholder' => $translationAdapter->query('signup_phone'),
-            'style' => 'width: 68%;',
+            'placeholder' => 'Phone Number',
         ]);
 
         $phone->addValidators(array(

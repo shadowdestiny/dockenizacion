@@ -55,6 +55,10 @@
     });
     </script>
     {% block font %}{% endblock %}
+    <!-- CODE FROM sign-in/sign-up.volt -->
+    {% block template_scripts_after %}<script src="/w/js/react/tooltip.js"></script>{% endblock %}
+    {% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
+    <!-- END CODE FROM sign-in/sign-up.volt -->
 </head>
 {% block body %}
 <div class="landing landing--orange">
@@ -65,14 +69,6 @@
                 <a href="/" class="logo logo-desktop-a ui-link" title="Go to Homepage">
                     <img src="https://images.euromillions.com/imgs/logo-desktop.png" alt="Euromillions">
                 </a>
-                <ul class="ul-top-nav">
-                    <li class="li-sign">
-                        <a rel="nofollow" class="btn-theme btn-secondary ui-link" href="/sign-up">Sign Up</a>
-                    </li>
-                    <li class="li-sign">
-                        <a rel="nofollow" class="btn-theme btn-primary ui-link" href="/sign-in">Login</a>
-                    </li>
-                </ul>
             </div>
         </nav>
 
@@ -82,12 +78,10 @@
         <main id=content>
             <div class="landing--banner-block">
 
-                <div class="landing--banner-block--content">
+                <div class="landing--banner-block--content landing--banner-block--content--lottery">
                     <div class="wrapper">
-
-
-
                         <div class="landing--banner-block--content--left">
+<<<<<<< Updated upstream
                             <div class="landing--banner-block--title">
                                 Play {{lottery}} and <br>
                                 Win a Huge JACKPOT of
@@ -110,43 +104,82 @@
                             <div class="landing--banner-block--star">
                                 *{{landing_lottery_text_days}}
                             </div>
+=======
+                          <div class="landing--banner-block--title">
+                              Play <strong>POWERBALL</strong> and<br>
+                              <strong>Win</strong> a huge JACKPOT of
+                          </div>
+                          <div class="landing--banner-block--title-mobile">
+                              <strong>Win</strong> a<br>huge JACKPOT of
+                          </div>
+                          <div class="landing--banner-block--prize">
+                              €945m
+                          </div>
+                          <div class="landing--banner-block--title-mobile-bottom">
+                              with <strong>POWERBALL</strong>
+                          </div>
+                          <div class="landing--banner-block--countdown-block">
+                              <strong>next draw 3</strong>D <strong>22</strong>H:<strong>45</strong>M
+                          </div>
+
+                          <div class="landing--banner-block--star">
+                              Every Friday and Tuesday a new draw to become a millionare
+                          </div>
+
+                          <div class="landing--banner-block--steps">
+                            <ul>
+                              <li class="li-01"><span><i><strong>1</strong>|</i> Join <strong>Us</strong></span></li>
+                              <li class="li-02"><span><i><strong>2</strong>|</i> select your <strong>numbers</strong></span></li>
+                              <li class="li-03"><span><i><strong>3</strong>|</i> <strong>Big</strong> win</span></li>
+                            </ul>
+                          </div>
+
+>>>>>>> Stashed changes
                         </div>
+                        <!-- Sign up form starts -->
 
                         <div class="landing--banner-block--content--right">
+<<<<<<< Updated upstream
                             <div class="signin-form sign-up">
                                 <h1 class="h1 title">{{ language.translate("signup_head") }}</h1>
                                 {% set signIn='{"myClass": "landing"}'|json_decode %}
                                 {% include "sign-in/_sign-up.volt" %}
                             </div>
                         <div>
+=======
+                            <div class="signin-form landing--signin-form sign-up">
+                              <h1 class="h1 title">{{ language.translate("signup_head") }}</h1>
+                              <!-- CODE FROM sign-in/sign-up.volt -->
+                              {% set signIn='{"myClass": "sign-in"}'|json_decode %}
+                              {% set url_signup = '/sign-up' %}
+                              {% include "sign-in/_sign-up.volt" %}
+                              <!-- END CODE FROM sign-in/sign-up.volt -->
+                            </div>
+                        </div>
+>>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
 
-            <div class="wrapper wrapper--arrows">
-                <div class="landing--arrows">
-                    <ul>
-                        <li class="li-01"><span><i>1.</i>Join Us</span></li>
-                        <li class="li-02"><span><i>2.</i> select your <br>numbers</span></li>
-                        <li class="li-03"><span><i>3.</i> win big</span></li>
-                    </ul>
-                </div>
-            </div>
             <div class="landing--disclaimer">
                 <div class="wrapper">
-                    <p>
-                        Only play if you are 18+. This service operates under the Gaming License #5536/JAZ authorised and regulated
-                        by the Government of Curaçao. This site is operated by Panamedia B.V., Emancipatie Boulevard29,
-                        <br>
-                        Willemstad, Curaçao and payment processing services are provided by Panamedia International Limited, 30/3
-                        Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU). All transactions are charged in Euros. Prices
-                        <br>
-                        displayed in other currencies are for informative purposes only and are converted according to actual
-                        exchange rates. 
-                    </p>
+                    <p>Only play if you are 18+. This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of Curaçao. This site is operated by Panamedia B.V., Emancipatie Boulevard29, Willemstad, Curaçao and payment processing services are provided by Panamedia International Limited, 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU). All transactions are charged in Euros. Prices displayed in other currencies are for informative purposes only and are converted according to actual exchange rates.</p>
                 </div>
             </div>
         </main>
     </div>
 </div>
+<script>
+    function fbRegistration() {
+        fbq('track', 'CompleteRegistration');
+    }
+</script>
+{% if ga_code is defined %}
+    <!--start PROD imports
+    <script src="/w/js/dist/GASignUpAttempt.min.js"></script>
+    end PROD imports-->
+    <!--start DEV imports-->
+    <script src="/w/js/GASignUpAttempt.js"></script>
+    <!--end DEV imports-->
+{% endif %}
 {% endblock %}

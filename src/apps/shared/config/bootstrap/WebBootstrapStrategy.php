@@ -1508,30 +1508,52 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         //LANDINGS
 
-        $router->add('/landings/{lottery:(euromillions|powerball|megamillions)+}', [
-            "module" => "web",
-            "controller" => "landings",
-            "action" => "main",
-            "language" => "en"
-        ]);
-
-        $router->add('/{language:(es|it|nl|ru)+}/landings/{lottery:(euromillions|powerball|megamillions)+}', [
+        $router->add('/landings/euromillions', [
             "module" => "web",
             "controller" => "landings",
             "action" => "main"
         ]);
 
-        $router->add('/landings/{lottery:(euromillions|powerball|megamillions)+}/form', [
+        $router->add('/landings/euromillions_em', [
             "module" => "web",
             "controller" => "landings",
-            "action" => "mainorange",
-            "language" => "en"
+            "action" => "mainEM"
         ]);
 
-        $router->add('/{language:(es|it|nl|ru)+}/landings/{lottery:(euromillions|powerball|megamillions)+}/{form:(form|formulario|modulo|formulier|форма)+}', [
+        $router->add('/landings/euromillions_pb', [
             "module" => "web",
             "controller" => "landings",
-            "action" => "mainorange",
+            "action" => "mainPB"
+        ]);
+
+        $router->add('/landings/euromillions_mm', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "mainMM"
+        ]);
+
+        $router->add('/landings/euromillions_form', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "mainorange"
+        ]);
+
+        $router->add('/landings/euromillions_em_form', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "mainorangeEM"
+        ]);
+
+        $router->add('/landings/euromillions_pb_form', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "mainorangePB"
+        ]);
+
+        $router->add('/landings/euromillions_mm_form', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "mainorangeMM"
         ]);
 
 //        $router->setDefaults(array(

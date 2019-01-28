@@ -53,30 +53,31 @@
 
             <div class="landing--banner-block">
 
-                <div class="landing--banner-block--content landing--banner-block--content--lottery PB-bg">
+                <div class="landing--banner-block--content landing--banner-block--content--lottery EM-bg">
                     <div class="wrapper-small">
 
                         <div class="landing--banner-block--title">
-                            Play <strong>powerball</strong> and<br>
-                            <strong>Win</strong> a huge JACKPOT of
+                            {{ language.translate("Landing_euromillions_title1") }}<br>
+                            {{ language.translate("Landing_title2") }}
                         </div>
                         <div class="landing--banner-block--title-mobile">
-                            <strong>Win</strong> a<br>huge JACKPOT of
+                            {{ language.translate("Landing_title_mobile1") }}<br>
+                            {{ language.translate("Landing_title_mobile2") }}
                         </div>
                         <div class="landing--banner-block--prize">
-                            €945m
+                            {{ language.translate("Landing_euromillions_XXM") }}
                         </div>
                         <div class="landing--banner-block--title-mobile-bottom">
-                            with <strong>powerball</strong>
+                            {{ language.translate("Landing_euromillions_title_mobile3") }}
                         </div>
                         <div class="landing--banner-block--countdown-block">
-                            <strong>next draw 3</strong>D <strong>22</strong>H:<strong>45</strong>M
+                            <strong>{{ language.translate("Landing_nextdraw") }} 3</strong>D <strong>22</strong>H:<strong>45</strong>M
                         </div>
                         <div class="landing--banner-block--button-row">
-                            <a rel="nofollow" class="btn-theme btn-secondary" href="/sign-in">Join us</a>
+                            <a rel="nofollow" class="btn-theme btn-secondary" href="/sign-in">{{ language.translate("Landing_buttoncalltoaction") }}</a>
                         </div>
                         <div class="landing--banner-block--star">
-                            Every Friday and Tuesday a new draw to become a millionare
+                            {{ language.translate("Landing_euromillions_text_dates") }}
                         </div>
 
                     </div>
@@ -87,19 +88,15 @@
             <div class="wrapper wrapper--arrows">
                 <div class="landing--arrows">
                     <ul>
-                        <li class="li-01"><span><i><strong>1</strong>|</i> Join <strong>Us</strong></span></li>
-                        <li class="li-02"><span><i><strong>2</strong>|</i> select your <strong>numbers</strong></span></li>
-                        <li class="li-03"><span><i><strong>3</strong>|</i> <strong>Big</strong> win</span></li>
+                        <li class="li-01"><span><i><strong>1</strong>|</i> {{ language.translate("Landing_button1") }}</span></li>
+                        <li class="li-02"><span><i><strong>2</strong>|</i> {{ language.translate("Landing_button2") }}</span></li>
+                        <li class="li-03"><span><i><strong>3</strong>|</i> {{ language.translate("Landing_button3") }}</span></li>
                     </ul>
                 </div>
             </div>
             <div class="landing--disclaimer">
                 <div class="wrapper">
-                    <p>
-                        Only play if you are 18+. This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of Curaçao. This site is operated by Panamedia B.V., Emancipatie Boulevard29, Willemstad, Curaçao and payment processing services are provided by Panamedia International Limited, 30/3
-                        Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU). All transactions are charged in Euros. Prices displayed in other currencies are for informative purposes only and are converted according to actual
-                        exchange rates. 
-                    </p>
+                    <p>{{ language.translate("Landing_legalfooter") }}</p>
                 </div>
             </div>
         </main>
