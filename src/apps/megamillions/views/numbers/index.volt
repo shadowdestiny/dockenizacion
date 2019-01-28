@@ -35,7 +35,7 @@
     var $selectDay = $('#day');
     $('#day option').remove();
     response.forEach(function(element){
-    $selectDay.append('<option value="/' + element["url"] + '">' + element["day"] + ' ' + element["name"] + '</option>');
+        $selectDay.append('<option value="/' + element["url"] + '">' + element["day"] + ' ' + element["name"] + '</option>');
     });
     }
     });
@@ -50,13 +50,13 @@
     });
 
     $('#show-results').click(function(){
-    var date = new Date($('#day').val().substr(-10,10));
-    var actualDate = new Date();
-    if (actualDate < date) {
-    alert ("We don't have results for this date");
-    } else {
-    location.href = $('#day').val();
-    }
+        var date = new Date($('#day').val().substr(-10,10));
+        var actualDate = new Date();
+        if (actualDate < date) {
+            alert ("We don't have results for this date");
+        } else {
+            location.href = $('#day').val();
+        }
     });
 
     var html_formatted_offset = [];
