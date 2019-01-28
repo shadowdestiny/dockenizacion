@@ -1528,7 +1528,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "language" => "en"
         ]);
 
-        $router->add('/{language:(es|it|nl|ru)+}/landings/{lottery:(euromillions|powerball|megamillions)+}/{form:(formulario|modulo|formulier|форма)+}', [
+        $router->add('/{language:(es|it|nl|ru)+}/landings/{lottery:(euromillions|powerball|megamillions)+}/{form:(form|formulario|modulo|formulier|форма)+}', [
             "module" => "web",
             "controller" => "landings",
             "action" => "mainorange",
