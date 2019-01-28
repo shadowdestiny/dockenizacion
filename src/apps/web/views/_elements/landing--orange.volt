@@ -81,30 +81,6 @@
                 <div class="landing--banner-block--content landing--banner-block--content--lottery">
                     <div class="wrapper">
                         <div class="landing--banner-block--content--left">
-<<<<<<< Updated upstream
-                            <div class="landing--banner-block--title">
-                                Play {{lottery}} and <br>
-                                Win a Huge JACKPOT of
-                            </div>
-                            <div class="landing--banner-block--prize">
-                                {{landing_jackpot_value}}{% if landing_jackpot_milliards %}B {% elseif landing_jackpot_trillions %}T {% else %}M {% endif %}
-                            </div>
-                            <div class="landing--banner-block--countdown-block">
-                                <div class="lefter"></div>
-                                <div class="righter">
-                                    <div class="top">
-                                        next draw
-                                    </div>
-                                    <div class="bottom">
-                                        {{landing_show_day['days']}} days :  {{landing_show_day['hours']}} hrs :  {{landing_show_day['minutes']}} min
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="landing--banner-block--star">
-                                *{{landing_lottery_text_days}}
-                            </div>
-=======
                           <div class="landing--banner-block--title">
                               Play <strong>POWERBALL</strong> and<br>
                               <strong>Win</strong> a huge JACKPOT of
@@ -133,20 +109,10 @@
                               <li class="li-03"><span><i><strong>3</strong>|</i> <strong>Big</strong> win</span></li>
                             </ul>
                           </div>
-
->>>>>>> Stashed changes
                         </div>
                         <!-- Sign up form starts -->
 
                         <div class="landing--banner-block--content--right">
-<<<<<<< Updated upstream
-                            <div class="signin-form sign-up">
-                                <h1 class="h1 title">{{ language.translate("signup_head") }}</h1>
-                                {% set signIn='{"myClass": "landing"}'|json_decode %}
-                                {% include "sign-in/_sign-up.volt" %}
-                            </div>
-                        <div>
-=======
                             <div class="signin-form landing--signin-form sign-up">
                               <h1 class="h1 title">{{ language.translate("signup_head") }}</h1>
                               <!-- CODE FROM sign-in/sign-up.volt -->
@@ -156,7 +122,6 @@
                               <!-- END CODE FROM sign-in/sign-up.volt -->
                             </div>
                         </div>
->>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
