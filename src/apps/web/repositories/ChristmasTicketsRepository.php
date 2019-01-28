@@ -22,7 +22,7 @@ class ChristmasTicketsRepository extends RepositoryBase
 
     public function insertTicket(array $ticket)
     {
-        $this->getEntityManager()->getConnection()->executeQuery("
+        $this->getEntityManager()->getConnection()->executeUpdate("
             INSERT INTO christmas_tickets VALUES (NULL, '" . $ticket[0] . "', '1', " . $ticket[1] . ", " . $ticket[1] . ", 10, 1, 10)
             ");
     }

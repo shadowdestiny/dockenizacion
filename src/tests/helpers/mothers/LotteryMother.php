@@ -18,7 +18,7 @@ class LotteryMother
             'name'      => 'EuroMillions',
             'frequency' => 'w0100100',
             'draw_time' => '20:00:00',
-            'active'    => 0,
+            'active' => 0,
             'single_bet_price' => new Money((int) 300, new Currency('EUR'))
         ]);
         return $lottery;
@@ -32,7 +32,7 @@ class LotteryMother
             'name'      => 'PowerBall',
             'frequency' => 'w0001001',
             'draw_time' => '03:30:00',
-            'active'    => 0,
+            'active' => 0,
             'single_bet_price' => new Money((int) 350, new Currency('EUR'))
         ]);
         return $lottery;
