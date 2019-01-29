@@ -154,8 +154,7 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         $this->entityManager->flush($ticketPurchaseTransaction);
 
         $arr=$this->sut->getDepositsByUserId($user->getId());
-
-        $this->assertArrayHasKey('entity_type', $arr);
+        $this->assertArrayHasKey('entity_type', $arr[0]);
     }
     
 }
