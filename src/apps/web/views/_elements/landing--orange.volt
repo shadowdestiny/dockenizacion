@@ -30,6 +30,7 @@
         fbq('init', '165298374129776');
         fbq('track', 'PageView');
     </script>
+    {{ tracking }}
     <noscript><img height="1" width="1" style="display:none"
                    src="https://www.facebook.com/tr?id=165298374129776&ev=PageView&noscript=1"
         /></noscript>

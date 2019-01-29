@@ -7,6 +7,7 @@
  */
 
 namespace EuroMillions\web\controllers;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\web\components\EmTranslationAdapter;
@@ -30,7 +31,7 @@ class LandingsController extends PublicSiteControllerBase
         $errors = [];
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
-        $url_redirect = $this->router->getRewriteUri();
+        $url_redirect = ($this->languageService->getLocale()=='en'?'/':'/'.$this->languageService->getLocale().'/')."landings/".$this->router->getParams()['lottery'].'/form';
 
         if ($this->request->isPost()) {
             $credentials = [
@@ -69,7 +70,7 @@ class LandingsController extends PublicSiteControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
-                    return $this->response->redirect('/'.$translationAdapter->query('link_'.$this->router->getParams()['lottery'].'_play'));
+                    return $this->response->redirect('/'.$translationAdapter->query('link_'.$this->router->getParams()['lottery'].'_play') . '/?register=user');
                 }
             }
         }
@@ -114,12 +115,16 @@ class LandingsController extends PublicSiteControllerBase
         }
         $params= $this->getJackpot($lottery);
 
-        $this->view->setVars(['landing_jackpot_milliards' => $params['milliards'],
+
+        $this->view->setVars([
+            'landing_jackpot_milliards' => $params['milliards'],
             'landing_jackpot_trillions'=> $params['trillions'],
             'landing_jackpot_value' => $params['jackpot_value'],
             'landing_show_day'=> $this->getNextDraw($lottery),
             'landing_lottery' => $landing_lottery,
-            'landing_lottery_class' => $lotteryClass]);
+            'landing_lottery_class' => $lotteryClass,
+            'tracking' => TrackingCodesHelper::trackingAffiliatePlatformCodeWhenAnUserAccessSite()
+        ]);
     }
 
     private function getJackpot($lottery)
