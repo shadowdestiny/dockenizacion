@@ -68,7 +68,7 @@
           margin-bottom: vwm(10);
         }
 
-        .landing--banner-block--countdown-block {
+        .landing--banner-block--countdown-block, .landing--banner-block--countdown-block-mobile {
           margin-bottom: vwm(15);
           padding-left: vwm(50);
 
@@ -87,6 +87,12 @@
             }
           }
         }
+          .landing--banner-block--countdown-block {
+            display: none;
+          }
+          .landing--banner-block--countdown-block-mobile {
+            display: block;
+          }
         }
 
         .landing--banner-block--star {
@@ -118,7 +124,7 @@
             margin-bottom: vwm(15);
           }
 
-          .landing--banner-block--countdown-block {
+          .landing--banner-block--countdown-block, .landing--banner-block--countdown-block-mobile {
             font-size: vwm(22);
             padding-left: 0;
           }

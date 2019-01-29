@@ -80,7 +80,7 @@
         left: vw(-5);
       }
 
-      .landing--banner-block--countdown-block {
+      .landing--banner-block--countdown-block, .landing--banner-block--countdown-block-mobile {
         overflow: hidden;
         margin-left: vw(165);
         margin-bottom: vw(40);
@@ -167,7 +167,7 @@
         margin-bottom: vw(30);
       }
 
-      .landing--banner-block--countdown-block {
+      .landing--banner-block--countdown-block, .landing--banner-block--countdown-block-mobile {
         overflow: hidden;
         margin-left: 0;
         margin-bottom: vw(30);
@@ -183,6 +183,10 @@
       .landing--banner-block--button-row {
         padding-bottom: vw(15);
       }
+
+      .landing--banner-block--countdown-block-mobile {
+        display: none;
+      }
     }
 
     .EM-bg {
@@ -196,7 +200,7 @@
     .MM-bg {
       background-image: url('../img/landing/blue/bg--MM.svg');
 
-      .landing--banner-block--countdown-block {
+      .landing--banner-block--countdown-block, .landing--banner-block--countdown-block-mobile {
         color: #A8A8A8;
       }
 
