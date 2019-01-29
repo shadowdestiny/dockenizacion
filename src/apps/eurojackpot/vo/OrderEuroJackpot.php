@@ -71,12 +71,6 @@ class OrderEuroJackpot extends Order
     public function getCreditCardCharge()
     {
         return $this->credit_card_charge;
-//        if($this->powerPlay)
-//        {
-//            $powerPlayValue = (new Money($this->lottery->getPowerPlayValue(), new Currency('EUR')))->multiply(count($this->play_config));
-//            $this->total =  $this->total->add($powerPlayValue);
-//        }
-//        return $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
     }
 
     public function getUnitPrice()

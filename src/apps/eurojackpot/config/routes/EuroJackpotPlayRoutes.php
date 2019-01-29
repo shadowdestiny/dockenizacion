@@ -34,14 +34,14 @@ class EuroJackpotPlayRoutes extends RouterGroup
         $this->add( '/cart/profile', [
             "module" => "eurojackpot",
             'lottery' => "eurojackpot",
-            'controller' => 'mega-millions-cart',
+            'controller' => 'euro-jackpot-cart',
             'action' => 'profile'
         ]);
 
         $this->add('/order', [
             "module" => "eurojackpot",
             'lottery' => 'eurojackpot',
-            'controller' => 'mega-millions-order',
+            'controller' => 'euro-jackpot-order',
             'action' => 'order'
         ]);
     }
