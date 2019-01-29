@@ -30,7 +30,6 @@
         fbq('init', '165298374129776');
         fbq('track', 'PageView');
     </script>
-    {{ tracking }}
     <noscript><img height="1" width="1" style="display:none"
                    src="https://www.facebook.com/tr?id=165298374129776&ev=PageView&noscript=1"
         /></noscript>
@@ -54,7 +53,7 @@
 
             <div class="landing--banner-block">
 
-                <div class="landing--banner-block--content landing--banner-block--content--lottery {{landing_lottery_class}}-bg">
+                <div class="landing--banner-block--content landing--banner-block--content--lottery {{ landing_lottery_class }}-bg">
                     <div class="wrapper-small">
 
                         <div class="landing--banner-block--title">
@@ -73,9 +72,6 @@
                         </div>
                         <div class="landing--banner-block--countdown-block">
                          <strong>{{ language.translate("Landing_nextdraw") }}    {% if landing_show_day['days']>0 %}{{landing_show_day['days']}}</strong>D{%else%}</strong>{% endif %} <strong>{{landing_show_day['hours']}}</strong>H:<strong>{{landing_show_day['minutes']}}</strong>M
-                        </div>
-                        <div class="landing--banner-block--countdown-block-mobile">
-                            <p style="margin-bottom: 0.35em;"><strong>{{ language.translate("Landing_nextdraw") }}</p>{% if landing_show_day['days']>0 %}{{landing_show_day['days']}}</strong>D{%else%}</strong>{% endif %} <strong>{{landing_show_day['hours']}}</strong>H:<strong>{{landing_show_day['minutes']}}</strong>M
                         </div>
                         <div class="landing--banner-block--button-row">
                             <a rel="nofollow" class="btn-theme btn-secondary" href="/{{ language.translate("link_signup") }}">{{ language.translate("Landing_buttoncalltoaction") }}</a>
