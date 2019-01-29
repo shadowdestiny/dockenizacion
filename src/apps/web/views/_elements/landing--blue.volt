@@ -30,7 +30,6 @@
         fbq('init', '165298374129776');
         fbq('track', 'PageView');
     </script>
-    {{ tracking }}
     <noscript><img height="1" width="1" style="display:none"
                    src="https://www.facebook.com/tr?id=165298374129776&ev=PageView&noscript=1"
         /></noscript>
@@ -54,7 +53,7 @@
 
             <div class="landing--banner-block">
 
-                <div class="landing--banner-block--content landing--banner-block--content--lottery {{landing_lottery_class}}-bg">
+                <div class="landing--banner-block--content landing--banner-block--content--lottery {{ landing_lottery_class }}-bg">
                     <div class="wrapper-small">
 
                         <div class="landing--banner-block--title">

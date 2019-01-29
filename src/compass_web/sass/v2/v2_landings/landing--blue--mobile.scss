@@ -52,7 +52,7 @@
           margin-bottom: vwm(10);
         }
 
-        .landing--banner-block--countdown-block {
+        .landing--banner-block--countdown-block, .landing--banner-block--countdown-block-mobile {
           margin-bottom: vwm(18);
           padding-left: vwm(50);
 
@@ -112,10 +112,18 @@
           padding-top: vwm(3);
         }
 
-        .landing--banner-block--countdown-block {
+        .landing--banner-block--countdown-block, .landing--banner-block--countdown-block-mobile {
           font-size: vwm(22);
           margin-bottom: vwm(18);
           padding-left: 0;
+        }
+
+        .landing--banner-block--countdown-block-mobile {
+          display: block;
+        }
+
+        .landing--banner-block--countdown-block {
+          display: none;
         }
       }
 

@@ -99,6 +99,9 @@
                           <div class="landing--banner-block--countdown-block">
                               <strong>{{ language.translate("Landing_nextdraw") }}    {% if landing_show_day['days']>0 %}{{landing_show_day['days']}}</strong>D{%else%}</strong>{% endif %} <strong>{{landing_show_day['hours']}}</strong>H:<strong>{{landing_show_day['minutes']}}</strong>M
                           </div>
+                          <div class="landing--banner-block--countdown-block-mobile">
+                              <p style="margin-bottom: 0.35em;"><strong>{{ language.translate("Landing_nextdraw") }}</p>{% if landing_show_day['days']>0 %}{{landing_show_day['days']}}</strong>D{%else%}</strong>{% endif %} <strong>{{landing_show_day['hours']}}</strong>H:<strong>{{landing_show_day['minutes']}}</strong>M
+                          </div>
 
                           <div class="landing--banner-block--star">
                               {{ language.translate("Landing_"~lottery~"_text_dates") }}
