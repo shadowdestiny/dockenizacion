@@ -289,6 +289,11 @@ var CartPage = new React.createClass({
                 href_payment = '/megamillions/payment/payment?method=wallet&charge='+this.state.fund_value;
                 data_btn = 'wallet';
                 price_txt_btn = this.state.total;
+        } else if(eurojackpot === true) {
+            txt_button_payment = this.props.txt_buy_btn;
+            href_payment = '/eurojackpot/payment/payment?method=wallet&charge='+this.state.fund_value;
+            data_btn = 'wallet';
+            price_txt_btn = this.state.total;
         } else {
             txt_button_payment = this.props.txt_buy_btn;
             href_payment = '/euromillions/payment/payment?method=wallet&charge='+this.state.fund_value;
