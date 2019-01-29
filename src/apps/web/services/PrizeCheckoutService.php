@@ -36,35 +36,35 @@ use Phalcon\Di;
 class PrizeCheckoutService
 {
 
-    private $entityManager;
+    protected $entityManager;
 
     /**
      * @var PlayConfigRepository
      */
-    private $playConfigRepository;
+    protected $playConfigRepository;
 
     /** @var  BetRepository */
-    private $betRepository;
+    protected $betRepository;
 
     /** @var UserRepository */
-    private $userRepository;
+    protected $userRepository;
 
     /** @var  UserService */
-    private $userService;
+    protected $userService;
 
     /** @var CurrencyConversionService */
-    private $currencyConversionService;
+    protected $currencyConversionService;
 
     /** @var  EmailService */
-    private $emailService;
+    protected $emailService;
 
     /** @var  LotteryDrawRepository */
-    private $lotteryDrawRepository;
+    protected $lotteryDrawRepository;
 
     /** @var  TransactionService */
-    private $transactionService;
+    protected $transactionService;
 
-    private $di;
+    protected $di;
 
 
     public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService, UserService $userService, EmailService $emailService, TransactionService $transactionService)
@@ -104,8 +104,7 @@ class PrizeCheckoutService
             $domainServiceFactory = Di::getDefault()->get('domainServiceFactory');
             $prizeConfigQueue = $this->di->get('config')['aws']['queue_prizes_endpoint'];
             /** @var Lottery $lottery */
-            $lottery = $this->lotteryRepository->findOneBy(['name' => $lottery]);
-
+            $lottery = $lottery instanceof Lottery ? $lottery : $this->lotteryRepository->findOneBy(['name' => $lottery]);
             $resultAwarded = $this->betRepository->getMatchesPlayConfigAndUserFromLotteryByDrawDate($date, $lottery->getId());
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['draw_date' => new \DateTime($date), 'lottery' => $lottery->getId()]);
@@ -133,16 +132,16 @@ class PrizeCheckoutService
 
     //TODO it should new method to award prize
     /**
-     * @param $betId
+     * @param $bet
      * @param Money $amount
      * @param array $scalarValues
      * @return ActionResult
      * @throws \Money\UnknownCurrencyException
      */
-    public function award($betId, Money $amount, array $scalarValues)
+    public function award($bet, Money $amount, array $scalarValues)
     {
         /** @var Bet $bet */
-        $bet = $this->betRepository->findOneBy(['id' => $betId]);
+        $bet = $bet instanceof Bet ? $bet : $this->betRepository->findOneBy(['id' => $bet]);
         $lotteryId = $bet->getPlayConfig()->getLottery()->getId();
         $config = $this->di->get('config');
         $threshold_price = new Money((int)$config->threshold_above['value'] * 100, new Currency('EUR'));
@@ -159,7 +158,6 @@ class PrizeCheckoutService
             $user->awardPrize($winning);
             $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount, $userWalletBefore);
             $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
-
             if($transactionBuilder->greaterThanOrEqualThreshold()){
                 $this->sendBigWinLotteryEmail($bet, $user, $price, $scalarValues);
             }
@@ -235,7 +233,7 @@ class PrizeCheckoutService
         }
     }
 
-    private function storeAwardTransaction(array $data, $transactionType)
+    protected function storeAwardTransaction(array $data, $transactionType)
     {
         $this->transactionService->storeTransaction($transactionType, $data);
     }
@@ -268,7 +266,7 @@ class PrizeCheckoutService
      * @param array $scalarValues
      * @internal param array $countBalls
      */
-    private function sendSmallWinLotteryEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
+    protected function sendSmallWinLotteryEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
     {
         $emailBaseTemplate = new EmailTemplate();
         if($bet->getPlayConfig()->getLottery()->getName()=='MegaMillions')
@@ -321,7 +319,7 @@ class PrizeCheckoutService
      * @param array $scalarValues
      * @internal param array $countBalls
      */
-    private function sendBigWinLotteryEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
+    protected function sendBigWinLotteryEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new WinEmailPowerBallAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));

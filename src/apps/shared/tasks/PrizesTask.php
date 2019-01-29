@@ -31,12 +31,23 @@ class PrizesTask extends TaskBase
     /** @var PrizeCheckoutService */
     protected $prizeService;
 
+    /** @var BetService */
+    protected $betService;
+
+    /** @var LotteryService */
+    protected $lotteryService;
+
+    /** @var DomainServiceFactory */
+    protected $domainFactory;
+
     public function initialize(PrizeCheckoutService $prizeService = null, LotteryService $lotteryService = null)
     {
         parent::initialize();
         $this->serviceFactory = new ServiceFactory($this->getDI());
-        $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
-        $this->prizeService = $prizeService ? $this->prizeService = $prizeService : $domainFactory->getPrizeCheckoutService();
+        $this->domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
+        $this->prizeService = $prizeService ? $this->prizeService = $prizeService : $this->domainFactory->getPrizeCheckoutService();
+        $this->lotteryService = $lotteryService ? $this->lotteryService = $lotteryService : $this->domainFactory->getLotteryService();
+        $this->betService = $this->domainFactory->getBetService();
     }
 
 
@@ -94,7 +105,8 @@ class PrizesTask extends TaskBase
             foreach ($result->get('Messages') as $message) {
                 $body = json_decode($message['Body'], true);
                 if ($body['lotteryName'] != 'Error') {
-                    $this->prizeService->calculatePrizeAndInsertMessagesInQueue($body['drawDate'], $body['lotteryName']);
+                    $lottery = $this->lotteryService->getLotteryByName($body['lotteryName']);
+                    $this->domainFactory->getPrizeCheckoutService($lottery)->calculatePrizeAndInsertMessagesInQueue($body['drawDate'], $lottery);
                 }
             }
             $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->deleteMessage(
@@ -122,7 +134,9 @@ class PrizesTask extends TaskBase
             foreach ($result->get('Messages') as $message) {
                 $body = json_decode($message['Body'], true);
                 $amount = new Money((int)$body['prize'], new Currency('EUR'));
-                $this->prizeService->award($body['betId'], $amount, [
+                $bet = $this->betService->getBet($body['betId']);
+                $lottery = $bet->getPlayConfig()->getLottery();
+                $this->domainFactory->getPrizeCheckoutService($lottery)->award($bet, $amount, [
                         'matches' => ['cnt' => $body['cnt'],
                                       'cnt_lucky' => $body['cnt_lucky']
                     ],
