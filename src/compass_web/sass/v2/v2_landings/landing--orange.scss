@@ -69,10 +69,6 @@
         letter-spacing: vw(-2.4);
       }
 
-      .landing--banner-block--title-mobile, .landing--banner-block--title-mobile-bottom {
-        display: none;
-      }
-
       .landing--banner-block--prize {
         color: #333333;
         font-size: vw(250);
@@ -86,7 +82,7 @@
         left: vw(-5);
       }
 
-      .landing--banner-block--countdown-block {
+      .landing--banner-block--countdown-block, .landing--banner-block--countdown-block-mobile {
         overflow: hidden;
         margin-left: vw(165);
         margin-bottom: vw(40);
@@ -125,6 +121,11 @@
           }
         }
       }
+
+      .landing--banner-block--title-mobile, .landing--banner-block--title-mobile-bottom, .landing--banner-block--countdown-block-mobile {
+        display: none;
+      }
+      
       .landing--banner-block--star {
         color: #000000;
         font-size: vw(24);
@@ -174,7 +175,7 @@
         line-height: 1.1;
       }
 
-      .landing--banner-block--countdown-block {
+      .landing--banner-block--countdown-block, .landing--banner-block--countdown-block-mobile {
         overflow: hidden;
         margin-left: 0;
         margin-bottom: vw(30);
