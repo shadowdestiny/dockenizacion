@@ -31,7 +31,7 @@ class LandingsController extends PublicSiteControllerBase
         $errors = [];
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
-        $url_redirect = ($this->languageService->getLocale()=='en'?'/':'/'.$this->languageService->getLocale().'/')."landings/".$this->router->getParams()['lottery'].'/form';
+        $url_redirect = ($this->router->getParams()['language']=='en'?'/':'/'.$this->router->getParams()['language'].'/')."landings/".$this->router->getParams()['lottery'].'/form';
 
         if ($this->request->isPost()) {
             $credentials = [
