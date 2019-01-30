@@ -24,6 +24,8 @@ class LandingsCest
         $I->haveInDatabase('euromillions_draws', $draw_array);
         $I->amOnPage('/landings/euromillions/');
         $I->canSee('€120M');
+        $diff= explode(':', (new \DateTime())->diff((new \DateTime('tomorrow'))->modify('-1 hours'))->format('%a:%h:%i'));
+        $I->canSee($diff[2].'M');
     }
 
     /**
@@ -37,6 +39,8 @@ class LandingsCest
         $I->haveInDatabase('euromillions_draws', $draw_array);
         $I->amOnPage('/landings/powerball/');
         $I->canSee('€120M');
+        $diff= explode(':', (new \DateTime())->diff((new \DateTime('tomorrow'))->modify('-1 hours'))->format('%a:%h:%i'));
+        $I->canSee($diff[2].'M');
     }
 
     /**
@@ -50,6 +54,8 @@ class LandingsCest
         $I->haveInDatabase('euromillions_draws', $draw_array);
         $I->amOnPage('/landings/megamillions/');
         $I->canSee('€120M');
+        $diff= explode(':', (new \DateTime())->diff((new \DateTime('tomorrow'))->modify('-1 hours'))->format('%a:%h:%i'));
+        $I->canSee($diff[2].'M');
     }
 
     /**
@@ -63,6 +69,8 @@ class LandingsCest
         $I->haveInDatabase('euromillions_draws', $draw_array);
         $I->amOnPage('/landings/megamillions/form');
         $I->canSee('€120M');
+        $diff= explode(':', (new \DateTime())->diff((new \DateTime('tomorrow'))->modify('-1 hours'))->format('%a:%h:%i'));
+        $I->canSee($diff[2].'M');
         $I->submitForm(
             '#sign-up-form', [
                 'name' => 'Test',
