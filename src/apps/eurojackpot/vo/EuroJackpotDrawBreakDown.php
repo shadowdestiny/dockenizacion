@@ -60,9 +60,13 @@ class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
     private function mappingMethodName($key)
     {
         $mappingArray = [
-            'match-1-2' => 'setCategoryEleven',
+            'match-0-1' => 'setCategorySeventeen',
+            'match-0-2' => 'setCategorySixteen',
+            'match-1-0' => 'setCategoryFifteen',
+            'match-1-1' => 'setCategoryFourteen',
             'match-2' => 'setCategoryThirteen',
             'match-2-1' => 'setCategoryTwelve',
+            'match-1-2' => 'setCategoryEleven',
             'match-2-2' => 'setCategoryTen',
             'match-3' => 'setCategoryNine',
             'match-3-1' => 'setCategoryEight',
@@ -88,6 +92,45 @@ class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
         } catch (UnknownCurrencyException $e) {
             return null;
         }
+    }
+
+    private function structureOfCombinations()
+    {
+        return [
+            52 => 'category_one',
+            51 => 'category_two',
+            50 => 'category_three',
+            42 => 'category_four',
+            41 => 'category_five',
+            32 => 'category_six',
+            40 => 'category_seven',
+            22 => 'category_eight',
+            31 => 'category_nine',
+            30 => 'category_ten',
+            12 => 'category_eleven',
+            21 => 'category_twelve',
+            20 => 'category_thirteen'
+        ];
+    }
+
+    public function toArray()
+    {
+        $categories = $this->structureOfCombinations();
+        $result = [];
+        foreach ($categories as $category) {
+            $method = 'get' . StringHelper::fromUnderscoreToCamelCase($category);
+            $category_result = $this->$method();
+            if (is_null($category_result)) {
+                continue;
+            }
+            $data = $category_result->toArray();
+            $data_prefixed = [];
+            foreach ($data as $key => $value) {
+                $data_prefixed[$category . '_' . $key] = $value;
+            }
+            $result = array_merge($result, $data_prefixed);
+        }
+        return $result;
     }
 
 }
