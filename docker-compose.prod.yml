@@ -62,6 +62,8 @@ services:
     image: panamedialottery/euromillions-php:cron_prod
     depends_on:
       - redis
+    volumes:
+      - "/mnt/nfs/php_tmp:/tmp"
     labels:
       io.rancher.scheduler.affinity:host_label: em_hostname=prod-04
       io.rancher.container.pull_image: always

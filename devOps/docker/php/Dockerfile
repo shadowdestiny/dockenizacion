@@ -30,7 +30,11 @@ USER ${user}
 FROM base as common-tasks-onbuild
 
 COPY --chown=www-data:www-data ./src .
-#RUN chown -R www-data:www-data /var/www
+
+# set editors for live coding on the containers
+RUN apt-get update && apt-get install -y nano vim \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 VOLUME /var/www
 
