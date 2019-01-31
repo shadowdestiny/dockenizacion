@@ -30,9 +30,11 @@ USER ${user}
 FROM base as common-tasks-onbuild
 
 COPY --chown=www-data:www-data ./src .
-#RUN chown -R www-data:www-data /var/www
 
-VOLUME /var/www
+# set editors for live coding on the containers
+RUN apt-get update && apt-get install -y nano vim \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ################################################################################
 
@@ -53,6 +55,10 @@ RUN apt-get update && apt-get install -y cron supervisor \
 COPY devOps/docker/php/cron/supervisord.conf /etc/supervisor/supervisord.conf
 COPY devOps/docker/php/cron/supervisor/services.conf /etc/supervisor/conf.d/services.conf
 
+# tweak config file for get output on cron at production environment
+RUN sed -i s/error_reporting=0/error_reporting=E_ALL/g /var/www/apps/shared/config/production_config.ini \
+    && sed -i s/display_errors=0/display_errors=1/g /var/www/apps/shared/config/production_config.ini
+
 CMD ["/entrypoint.sh"]
 
 ################################################################################
@@ -69,6 +75,8 @@ COPY devOps/docker/php/php-prod/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/www
 COPY devOps/docker/php/php-prod/post-deploy.sh /post-deploy.sh
 RUN chmod 700 /post-deploy.sh
 
+VOLUME /var/www
+
 ################################################################################
 
 FROM common-tasks-onbuild as staging
@@ -82,3 +90,5 @@ COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/
 # set post-deploy script
 COPY devOps/docker/php/php-staging/post-deploy.sh /post-deploy.sh
 RUN chmod 700 /post-deploy.sh
+
+VOLUME /var/www

@@ -30,6 +30,7 @@
         fbq('init', '165298374129776');
         fbq('track', 'PageView');
     </script>
+    {{ tracking }}    
     <noscript><img height="1" width="1" style="display:none"
                    src="https://www.facebook.com/tr?id=165298374129776&ev=PageView&noscript=1"
         /></noscript>
@@ -45,14 +46,6 @@
                 <a href="/" class="logo logo-desktop-a ui-link" title="Go to Homepage">
                     <img src="https://images.euromillions.com/imgs/logo-desktop.png" alt="Euromillions">
                 </a>
-                <ul class="ul-top-nav">
-                    <li class="li-sign">
-                        <a rel="nofollow" class="btn-theme btn-secondary ui-link" href="/sign-up">Sign Up</a>
-                    </li>
-                    <li class="li-sign">
-                        <a rel="nofollow" class="btn-theme btn-primary ui-link" href="/sign-in">Login</a>
-                    </li>
-                </ul>
             </div>
         </nav>
     </header>
@@ -61,31 +54,34 @@
 
             <div class="landing--banner-block">
 
-                <div class="landing--banner-block--content">
+                <div class="landing--banner-block--content landing--banner-block--content--lottery {{ landing_lottery_class }}-bg">
                     <div class="wrapper-small">
 
                         <div class="landing--banner-block--title">
-                            Win a huge jackpot of
+                            {{ language.translate("Landing_"~lottery~"_title1") }}<br>
+                            {{ language.translate("Landing_title2") }}
+                        </div>
+                        <div class="landing--banner-block--title-mobile">
+                            {{ language.translate("Landing_title_mobile1") }}<br>
+                            {{ language.translate("Landing_title_mobile2") }}
                         </div>
                         <div class="landing--banner-block--prize">
-                            45m€
+                            {{landing_jackpot_value}}{% if landing_jackpot_milliards %}B {% elseif landing_jackpot_trillions %}T {% else %}M {% endif %}
+                        </div>
+                        <div class="landing--banner-block--title-mobile-bottom">
+                            {{ language.translate("Landing_"~lottery~"_title_mobile3") }}
                         </div>
                         <div class="landing--banner-block--countdown-block">
-                            <div class="lefter"></div>
-                            <div class="righter">
-                                <div class="top">
-                                    next draw
-                                </div>
-                                <div class="bottom">
-                                    3 days : 22hrs : 45 min
-                                </div>
-                            </div>
+                         <strong>{{ language.translate("Landing_nextdraw") }}    {% if landing_show_day['days']>0 %}{{landing_show_day['days']}}</strong>D{%else%}</strong>{% endif %} <strong>{{landing_show_day['hours']}}</strong>H:<strong>{{landing_show_day['minutes']}}</strong>M
                         </div>
+                        <div class="landing--banner-block--countdown-block-mobile">
+                            <p style="margin-bottom: 0.35em;"><strong>{{ language.translate("Landing_nextdraw") }}</p>{% if landing_show_day['days']>0 %}{{landing_show_day['days']}}</strong>D{%else%}</strong>{% endif %} <strong>{{landing_show_day['hours']}}</strong>H:<strong>{{landing_show_day['minutes']}}</strong>M
+                        </div>    
                         <div class="landing--banner-block--button-row">
-                            <a rel="nofollow" class="btn-theme btn-secondary" href="/sign-in">Join us</a>
+                            <a rel="nofollow" class="btn-theme btn-secondary" href="/{{ language.translate("link_signup") }}">{{ language.translate("Landing_buttoncalltoaction") }}</a>
                         </div>
                         <div class="landing--banner-block--star">
-                            *Every Friday and Tuesday a new draw to become a millionare
+                            {{ language.translate("Landing_"~lottery~"_text_dates") }}
                         </div>
 
                     </div>
@@ -96,23 +92,16 @@
             <div class="wrapper wrapper--arrows">
                 <div class="landing--arrows">
                     <ul>
-                        <li class="li-01"><span><i>1.</i>Join Us</span></li>
-                        <li class="li-02"><span><i>2.</i> select your <br>numbers</span></li>
-                        <li class="li-03"><span><i>3.</i> win big</span></li>
+                        <li class="li-01"><span><i><strong>1</strong>|</i> {{ language.translate("Landing_button1") }}</span></li>
+                        <li class="li-02"><span><i><strong>2</strong>|</i> {{ language.translate("Landing_button2") }}</span></li>
+                        <li class="li-03"><span><i><strong>3</strong>|</i> {{ language.translate("Landing_button3") }}</span></li>
                     </ul>
                 </div>
             </div>
             <div class="landing--disclaimer">
                 <div class="wrapper">
                     <p>
-                        Only play if you are 18+. This service operates under the Gaming License #5536/JAZ authorised and regulated
-                        by the Government of Curaçao. This site is operated by Panamedia B.V., Emancipatie Boulevard29,
-                        <br>
-                        Willemstad, Curaçao and payment processing services are provided by Panamedia International Limited, 30/3
-                        Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU). All transactions are charged in Euros. Prices
-                        <br>
-                        displayed in other currencies are for informative purposes only and are converted according to actual
-                        exchange rates. 
+                        {{ language.translate("Landing_legalfooter") }} 
                     </p>
                 </div>
             </div>
