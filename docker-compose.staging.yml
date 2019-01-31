@@ -2,15 +2,8 @@ version: '2'
 services:
 
   loadbalancer:
-    image: rancher/lb-service-haproxy:v0.9.1
-    ports:
-      - 443:443/tcp
-      - 80:80/tcp
     labels:
       io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
-      io.rancher.container.agent.role: environmentAdmin,agent
-      io.rancher.container.agent_service.drain_provider: 'true'
-      io.rancher.container.create_agent: 'true'
 
   redis:
     labels:
@@ -19,7 +12,6 @@ services:
   web:
     image: panamedialottery/euromillions-web:staging
     labels:
-#      io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
       io.rancher.scheduler.affinity:host_label: em_service=euromillions-web
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
 #    logging:
