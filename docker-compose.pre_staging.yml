@@ -1,0 +1,47 @@
+version: '2'
+services:
+
+  loadbalancer:
+    ports: []
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+
+  redis:
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+
+  web:
+    image: panamedialottery/euromillions-web:pre_staging
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+      io.rancher.scheduler.affinity:container_label_soft_ne:
+
+  php:
+    image: panamedialottery/euromillions-php:pre_staging
+    depends_on:
+      - redis
+      - database
+    volumes: [ ]
+
+  phpcron:
+    image: panamedialottery/euromillions-php:cron_pre_staging
+    depends_on:
+      - redis
+      - database
+    volumes: [ ]
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+
+  database:
+    image: mysql:5.6
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+      io.rancher.container.pull_image: always
+      em_container_service: database
+      em_service: euromillions-web
+    environment:
+      EM_ENV: ${EM_ENV}
+      MYSQL_ROOT_PASSWORD: root_master
+      MYSQL_USER: euromillions
+      MYSQL_PASSWORD: master
+      MYSQL_DATABASE: euromillions
