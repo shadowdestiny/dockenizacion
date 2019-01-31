@@ -1,36 +1,64 @@
 version: '2'
 services:
 
-  loadbalancer:
-    ports: []
-    labels:
-      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
-
   redis:
+    image: redis:latest
     labels:
       io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+      io.rancher.container.pull_image: always
+      em_container_service: redis
+      em_service: euromillions-web
+    mem_reservation: 52428800 #50MB
 
   web:
     image: panamedialottery/euromillions-web:pre_staging
+    volumes_from:
+      - php
+    depends_on:
+      - php
     labels:
       io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
-      io.rancher.scheduler.affinity:container_label_soft_ne:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: php
+      em_container_service: web
+      em_service: euromillions-web
+    mem_reservation: 52428800 #50MB
+    mem_limit: 268435456 #256MB
+    environment:
+      EM_ENV: ${EM_ENV}
 
   php:
     image: panamedialottery/euromillions-php:pre_staging
     depends_on:
       - redis
       - database
-    volumes: [ ]
+    labels:
+      io.rancher.container.pull_image: always
+      em_container_service: php
+      em_service: euromillions-web
+    mem_reservation: 268435456 #256MB
+    mem_limit: 1073741824 #1024MB
+    environment:
+      EM_ENV: ${EM_ENV}
+      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
+      AWS_SECRET_ACCESS_KEY: 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
 
   phpcron:
     image: panamedialottery/euromillions-php:cron_pre_staging
     depends_on:
       - redis
       - database
-    volumes: [ ]
     labels:
       io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+      io.rancher.container.pull_image: always
+      em_container_service: phpcron
+      em_service: euromillions-web
+    mem_reservation: 268435456 #256MB
+    mem_limit: 1073741824 #1024MB
+    environment:
+      EM_ENV: ${EM_ENV}
+      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
+      AWS_SECRET_ACCESS_KEY: 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
 
   database:
     image: mysql:5.6
@@ -40,7 +68,6 @@ services:
       em_container_service: database
       em_service: euromillions-web
     environment:
-      EM_ENV: ${EM_ENV}
       MYSQL_ROOT_PASSWORD: root_master
       MYSQL_USER: euromillions
       MYSQL_PASSWORD: master
