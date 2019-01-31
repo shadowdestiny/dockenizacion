@@ -4,6 +4,7 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 
+use EuroMillions\shared\enums\PurchaseConfirmationEnum;
 use EuroMillions\shared\vo\RedisOrderKey;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\PowerBallPurchaseConfirmationEmailTemplate;
@@ -152,9 +153,7 @@ class PowerBallService
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
                 $powerPlay = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user_id,$lottery->getId())->key());
-
                 $powerPlay = (int)json_decode($powerPlay->returnValues())->play_config[0]->powerPlay;
-
                 $result_order = $this->cartService->get($user_id, $lottery->getName(),$isWallet);
 
                 if ($result_order->success()) {
@@ -311,8 +310,7 @@ class PowerBallService
 
     public function sendEmailPurchase(User $user, $orderLines, $lotteryName)
     {
-        $path=($lotteryName=='MegaMillions'?'megamillions':'web');
-        $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseConfirmationEmailTemplate";
+        $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName);
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
         if ($orderLines[0]->getFrequency() >= 4) {
