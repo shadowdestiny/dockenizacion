@@ -67,8 +67,15 @@ services:
       io.rancher.container.pull_image: always
       em_container_service: database
       em_service: euromillions-web
+    volumes:
+      - "database_master_volume:/var/lib/mysql"
+      - "database_master_logs_volume:/var/log/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: root_master
       MYSQL_USER: euromillions
       MYSQL_PASSWORD: master
       MYSQL_DATABASE: euromillions
+
+volumes:
+  database_master_volume:
+  database_master_logs_volume:
