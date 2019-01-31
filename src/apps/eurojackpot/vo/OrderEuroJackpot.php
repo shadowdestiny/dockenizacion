@@ -17,8 +17,11 @@ use EuroMillions\web\vo\Order;
 use Money\Currency;
 use Money\Money;
 
-class OrderEuroJackpot extends Order
+final class OrderEuroJackpot extends Order
 {
+
+    private $powerPlay;
+
 
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw)
     {
@@ -101,6 +104,23 @@ class OrderEuroJackpot extends Order
         } else {
             $this->amountWallet = new Money(0, new Currency('EUR'));
         }
+    }
+
+
+    /**
+     * @return null
+     */
+    public function getPowerPlay()
+    {
+        return $this->powerPlay;
+    }
+
+    /**
+     * @param null $powerPlay
+     */
+    public function setPowerPlay($powerPlay)
+    {
+        $this->powerPlay = $powerPlay;
     }
 
     /**
