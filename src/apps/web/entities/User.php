@@ -19,7 +19,7 @@ use Money\UnknownCurrencyException;
 
 class User extends EntityBase implements IEntity, IUser, \JsonSerializable
 {
-    const MX_COUNTRY = '140';
+    public static $MX_COUNTRY = '140';
 
     protected $id;
     protected $name;
@@ -222,10 +222,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
 
     public function getValidated()
     {
-        if($this->getCountry() == self::MX_COUNTRY)
-        {
-            return true;
-        }
+        if($this->isFromMexico()) return true;
         return $this->validated;
     }
 
@@ -589,6 +586,11 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function setDisabledDate($disabledDate)
     {
         $this->disabledDate = $disabledDate;
+    }
+
+    public function isFromMexico()
+    {
+        return $this->getCountry() == self::$MX_COUNTRY;
     }
 
     /**
