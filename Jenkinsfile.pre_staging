@@ -1,0 +1,34 @@
+pipeline {
+    environment {
+        EM_ENVIRONMENT = "pre_staging"
+        BUILD_IMAGE_TAG = "${env.EM_ENVIRONMENT}_${env.BUILD_NUMBER}"
+
+        DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
+        DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
+        DOCKER_HUB_PASSWORD = "${env.DOCKER_HUB_CREDENTIALS_PSW}"
+
+        RANCHER_STACK_NAME = "euromillions-pre_staging"
+
+        RANCHER_ENV_URL = "http://34.247.7.73:8080/v2-beta/projects/1a7"
+        RANCHER_ENV_KEY = credentials('RANCHER_ENV_KEY_STAGING')
+        RANCHER_ENV_SECRET = credentials('RANCHER_ENV_SECRET_STAGING')
+        RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL --access-key $RANCHER_ENV_KEY --secret-key $RANCHER_ENV_SECRET -p ${RANCHER_STACK_NAME} -f docker-compose.prod.yml -f docker-compose.staging.yml -r rancher-compose.staging.yml -e .env.staging"
+    }
+    agent {
+        label 'aws-slave'
+    }
+    options {
+        skipStagesAfterUnstable()
+        timeout( time: 1, unit: 'HOURS' )
+    }
+    stages {
+        stage('pre-build') {
+            steps {
+                // send build started notifications
+                // slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+
+                sh('chmod +x devOps/ci/pre_build.sh; devOps/ci/pre_build.sh')
+            }
+        }
+    }
+}
