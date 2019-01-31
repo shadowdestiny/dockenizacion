@@ -314,7 +314,7 @@ class PowerBallService
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
         if ($orderLines[0]->getFrequency() >= 4) {
-            $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseSubscriptionConfirmationEmailTemplate";
+            $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName, true);
             $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
             $emailTemplate->setDraws($orderLines[0]->getFrequency());
             $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
