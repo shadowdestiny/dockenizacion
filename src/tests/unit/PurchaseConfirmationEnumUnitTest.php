@@ -25,6 +25,19 @@ class PurchaseConfirmationEnumUnitTest extends UnitTestBase
 
     /**
      * method findTemplatePathByLotteryName
+     * when calledWithSubscription
+     * should returnProperPathTemplate
+     */
+    public function test_findTemplatePathByLotteryName_calledWithSubscription_returnProperPathTemplate()
+    {
+        $path = 'EuroMillions\megamillions\emailTemplates\MegaMillionsPurchaseSubscriptionConfirmationEmailTemplate';
+        $sut = new PurchaseConfirmationEnum();
+        $actual = $sut->findTemplatePathByLotteryName('MegaMillions',true);
+        $this->assertEquals($path,$actual);
+    }
+
+    /**
+     * method findTemplatePathByLotteryName
      * when passALotteryUnknown
      * should throughAnUnexpectedValueException
      */
