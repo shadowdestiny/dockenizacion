@@ -10,7 +10,6 @@ namespace EuroMillions\shared\controllers;
 
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
-use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use Money\Currency;
@@ -56,11 +55,11 @@ class PlayController extends PublicSiteControllerBase
         $this->view->setVar('language', $this->languageService->getLocale());
         $this->view->setVar('numbers', $numbers);
         $this->view->setVar('textMillions', $textMillions);
-        $this->view->setVar('next_draw', $this->dayOfWeek);
         $this->play_dates = $this->lotteryService->getRecurrentDrawDates('Euromillions');
         $this->draw = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
         $date_time_util = new DateTimeUtil();
         $this->dayOfWeek = $date_time_util->getDayOfWeek($this->draw);
+        $this->view->setVar('draw_day',  $date_time_util->checkTimeForClosePlay($this->draw));
         $this->checkOpenTicket = $date_time_util->checkTimeForClosePlay($this->draw);
         $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $this->automaticRandom = $this->request->get('random');
