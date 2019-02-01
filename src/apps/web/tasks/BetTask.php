@@ -41,11 +41,8 @@ class BetTask extends TaskBase
 
     public function placeBetsAction($args = null)
     {
-        if (!$args) {
-            $date = new \DateTime();
-        } else {
-            $date = new \DateTime($args[0]);
-        }
+        $date = !$args ? new \DateTime() : new \DateTime($args[0]);
+
         $lotteries = $this->lotteryService->getLotteriesOrderedByNextDrawDate();
         /** @var Lottery $lottery */
         foreach ($lotteries as $lottery) {

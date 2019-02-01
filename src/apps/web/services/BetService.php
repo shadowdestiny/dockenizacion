@@ -75,7 +75,8 @@ class BetService
                     'status' => 'OK',//$lotteryValidation->getXmlResponse()->status,
                     'response' => '',//$lotteryValidation->getXmlResponse(),
                     'received' => new \DateTime(),
-                    'bet' => $bet
+                    'bet' => $bet,
+                    'uuid' => ''
                 ]);
                 $this->entityManager->persist($bet);
                 $this->logValidationRepository->add($log_api_reponse);
