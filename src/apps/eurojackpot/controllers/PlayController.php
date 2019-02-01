@@ -29,6 +29,18 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         $this->view->setVar('milliards', $jackpotSymbol['milliards']);
         $this->view->setVar('trillions', $jackpotSymbol['trillions']);
 
+        $this->view->setVar('milliards', false);
+        $this->view->setVar('trillions', false);
+        if ($numbers > 1000 && $this->languageService->getLocale() != 'es_ES') {
+            $numbers = round(($numbers / 1000), 1);
+            $textMillions = 'billion';
+        } elseif ($numbers > 1000000 && $this->languageService->getLocale() != 'es_ES') {
+            $numbers = round(($numbers / 1000000), 1);
+            $textMillions = 'trillion';
+        } else{
+            $textMillions = 'million';
+        }
+
         $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('EuroJackpot');
         if (!$this->authService->isLogged()) {
             $user_currency = $this->userPreferencesService->getCurrency();
@@ -55,6 +67,8 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         return $this->view->setVars([
             'play_dates' => [(new \DateTime())->format('Y-m-d')],
             'next_draw' => $this->dayOfWeek,
+            'numbers'   => $numbers,
+            'textMillions' => $textMillions,
             'next_draw_format' => $this->draw->format('l j M G:i'),
             'currency_symbol' => $this->currencySymbol,
             'openTicket' => ($this->checkOpenTicket) ? '1' : '0',
