@@ -1,3 +1,5 @@
+![Alt text](logo.png?raw=true "Euromillions")
+
 # Instructions
 
 ## Installation of a developer machine 

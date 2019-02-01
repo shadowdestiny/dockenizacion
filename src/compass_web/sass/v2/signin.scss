@@ -43,7 +43,6 @@
   border: 0;
   background-color: transparent;
   max-width: none;
-  //height: 755px;
   margin: auto;
   margin-top: 30px;
   padding: 0px 0px !important;
@@ -66,8 +65,6 @@
     border: 1px solid #E9E9E9;
     border-radius: 4px;
     background-color: #fcfcfc;
-
-    //margin-top: 50px;
     margin-bottom: 50px;
   }
 
@@ -174,51 +171,30 @@
     }
   }
 
-  h1,
-  .title {
-    //font-family: WorkSans;
+  h1, .title {
     color: #403f3f;
-    font-size: 24px;
+    font-size: 16px;
     line-height: 20px;
     text-align: left;
-    font-weight: 900;
+    font-weight: 600;
     margin-bottom: 26px;
-
-    @media only screen and (min-width: $screen-xs) {
-      color: #403f3f;
-      font-size: 16px;
-      line-height: 20px;
-      text-align: left;
-      font-weight: 600;
-      margin-bottom: 26px;
-    }
-
-    @media only screen and (min-width: $screen-ipad-v) {
-      color: #403f3f;
-      font-size: 16px;
-      line-height: 20px;
-      text-align: left;
-      font-weight: 600;
-      margin-bottom: 26px;
-    }
 
     @media only screen and (min-width: $screen-ipad-h) {
       text-align: center;
     }
-
-    @media only screen and (min-width: $screen-desktop) {
-      text-align: center;
-      font-size: 12px;
-      line-height: 20px;
-      font-weight: 600;
-      margin-bottom: 16px;
-      text-transform: none;
-    }
   }
 
   form {
-    .input,
-    input{
+    a {
+      color: rgb(248, 206, 13);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .input, input {
       padding-left: 0;
       width: 100%;
 
@@ -228,21 +204,7 @@
       font-size: 16px;
       border-left-width: 0;
       border-right-width: 0;
-      border-bottom-width: 0;
-
-      @media only screen and (min-width: $screen-xs) {
-        padding-left: 0;
-        width: 100%;
-
-        height: 30px;
-        line-height: 30px;
-        margin-bottom: 28px;
-        font-size: 18px;
-
-        border-left-width: 1px;
-        border-right-width: 1px;
-        border-bottom-width: 1px;
-      }
+      border-top-width: 0;
 
       @media only screen and (min-width: $screen-ipad-v) {
         padding-left: 0;
@@ -269,8 +231,7 @@
       border-bottom-width: 1px;
     }
 
-    .select,
-    select {
+    .select, select {
       width: 100%;
       font-size: 18px;
 
@@ -281,6 +242,55 @@
 
       @media only screen and (min-width: $screen-desktop) {
         font-size: 13px;
+      }
+    }
+
+    .selectTitle {
+      color: #999999;
+      text-align: left;
+    }
+
+    .selectbox-container{
+      width: 100%;
+
+      .prefix-col {
+          width: 30%;
+          float: left;
+      }
+
+      .three-cols {
+          width: 33%;
+          float: left;
+          padding-right: 2%;
+      }
+
+      .three-cols.one, .three-cols.three {
+          width: 30%;
+      }
+
+      .three-cols.two {
+          width: 40%;
+      }
+
+      .three-cols.last-col {
+          padding-right: 0;
+      }
+
+      .phone-col {
+          width: 68%;
+          float: right;
+          input {
+            height: 30px;
+            padding-top: 10px;
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              height: 40px;
+          }
+
+            @media only screen and (min-width: $screen-desktop) {
+              height: 40px;
+          }
+        }
       }
     }
 
@@ -376,12 +386,8 @@
         border-bottom-width: 1px;
       }
 
-      select {
-        font-size: 16px;
-      }
       .selectbox::after {
         top: 17px;
-        right: 2px;
         -webkit-background-size: 14px;
         background-size: 14px;
       }
@@ -450,18 +456,17 @@
     }
 
     .btn-row {
-      height: 70px;
+      padding: 10px 0;
     }
 
     .txt--already-have-account {
 
-      //font-family: WorkSans;
       font-family: $ff1;
       color: #999999;
       font-size: 16px;
       font-weight: 400;
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 50px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         font-family: $ff1;
@@ -469,34 +474,11 @@
         font-size: 16px;
         font-weight: 400;
         text-align: center;
-        margin-bottom: 10px;
-      }
-
-      @media only screen and (min-width: $screen-ipad-h) {
-        margin-bottom: 35px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
         margin-bottom: 18px;
         font-size: 12px;
-      }
-
-      a {
-        //font-family: WorkSans;
-        font-family: inherit;
-        color: #56a1e8;
-        font-size: 16px;
-        font-weight: 400;
-        text-align: left;
-        text-decoration: none;
-
-        @media only screen and (min-width: $screen-desktop) {
-          font-size: 12px;
-        }
-      }
-
-      a:hover {
-        text-decoration: underline;
       }
     }
 

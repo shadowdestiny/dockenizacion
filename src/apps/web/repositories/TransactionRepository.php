@@ -80,7 +80,7 @@ class TransactionRepository extends RepositoryBase
 
         return $this->getEntityManager()
             ->createNativeQuery(
-                'SELECT t.date, t.entity_type, (if(t.entity_type = "deposit", (t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount),(select (d.wallet_after_subscription_amount - d.wallet_before_subscription_amount) from transactions as d where t.transactionID=d.transactionID and d.entity_type="ticket_purchase"))) as movement, (if(t.entity_type = "deposit",(t.wallet_after_uploaded_amount + t.wallet_after_winnings_amount), (select (d.wallet_after_uploaded_amount + d.wallet_after_winnings_amount) from transactions as d where t.transactionID=d.transactionID and d.entity_type="ticket_purchase"))) as balance
+                'SELECT t.date, t.entity_type, (if(t.entity_type = "deposit", (t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount),(select (d.wallet_after_subscription_amount - d.wallet_before_subscription_amount) from transactions as d where t.transactionID=d.transactionID and d.entity_type="ticket_purchase" and d.transactionID != null))) as movement, (if(t.entity_type = "deposit",(t.wallet_after_uploaded_amount + t.wallet_after_winnings_amount), (select (d.wallet_after_uploaded_amount + d.wallet_after_winnings_amount) from transactions as d where t.transactionID=d.transactionID and d.entity_type="ticket_purchase" and d.transactionID != null))) as balance
                 FROM transactions as t
                 WHERE t.entity_type in ("deposit", "subscription_purchase") and t.user_id = "' . $userId . '"
                 order by t.date desc'

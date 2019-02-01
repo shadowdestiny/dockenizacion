@@ -22,7 +22,7 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
             $environment = $di->get('environmentDetector')->get();
 
             if ($environment === 'test') {
-                $command = '/var/www/vendor/bin/phinx migrate --configuration="phinx.yml" -e test';
+                $command = '/var/www/vendor/bin/phinx migrate --configuration="/var/www/phinx.yml" -e test';
                 exec($command);
 
                 /*
