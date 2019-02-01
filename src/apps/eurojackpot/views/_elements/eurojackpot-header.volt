@@ -9,8 +9,8 @@
     </div>
     <div class="help-block">
         <div class="top resizeme">
-            {#{{ language.translate('aboutLottery') }}#}
-            About the megamillions lottery
+            {#{{ "About the eurojackpot lottery" }}#}
+            {{ language.translate('aboutEurojackpotLottery') }}
         </div>
         <div class="bottom">
             <a href="/{{ language.translate('link_megamillions_help') }}" class="a-hiw">
@@ -26,18 +26,11 @@
     </div>
     <div class="right">
         <div class="top resizeme">
-            {#{{ jackpot_value_mega }}{% if milliards %}#}
-            {#{{ language.translate("billion") }}#}
-            {#{% elseif trillions %}#}
-            {#{{ language.translate("trillion") }}#}
-            {#{% else %}#}
-            {#{{ language.translate("million") }}#}
-            {#{% endif %}#}
-            €28 millions
+            {{ numbers }} {{textMillions}}
         </div>
         <div class="bottom resizeme">
-            {#{{ language.translate('shortInstruction') }}#}
-            Play EuroJackpot: pick 5 numbers and 2 suns
+            {#{{ "Play EuroJackpot: pick 5 numbers and 2 suns" }}#}
+            {{ language.translate('eurojackpotShortInstruction') }}
         </div>
     </div>
 </header>
