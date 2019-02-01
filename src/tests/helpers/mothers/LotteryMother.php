@@ -48,7 +48,19 @@ class LotteryMother
             'draw_time' => '03:30:00',
             'active'    => 0,
             'single_bet_price' => new Money((int) 350, new Currency('EUR')),
-            'active' => 0
+        ]);
+        return $lottery;
+    }
+    public static function aEuroJackpot()
+    {
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 5,
+            'name'      => 'EuroJackpot',
+            'frequency' => 'w0001011',
+            'draw_time' => '03:30:00',
+            'active'    => 1,
+            'single_bet_price' => new Money((int) 350, new Currency('EUR')),
         ]);
         return $lottery;
     }
