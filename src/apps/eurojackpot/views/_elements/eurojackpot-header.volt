@@ -1,7 +1,7 @@
 <header>
     <div class="left">
         <div class="top">
-            {% if next_draw == 5 %}{{ language.translate('friday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
+            {{ language.translate('friday') }}
         </div>
         <div class="bottom">
             {{ language.translate('tittle') }}
