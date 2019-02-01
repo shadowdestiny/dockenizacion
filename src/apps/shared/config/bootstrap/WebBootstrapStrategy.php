@@ -596,6 +596,19 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'payment',
         ));
 
+        $router->add("/{lottery:(eurojackpot)+}/payment", array(
+            "module" => "eurojackpot",
+            'lottery' => 5,
+            'controller' => 'euro-jackpot-payment',
+            'action' => 'payment',
+        ));
+
+        $router->add("/{lottery:(eurojackpot)+}/payment/payment(.*?)", array(
+            "module" => "eurojackpot",
+            'lottery' => 5,
+            'controller' => 'euro-jackpot-payment',
+            'action' => 'payment',
+        ));
 
         $router->add("/{lottery:(euromillions|powerball|megamillions)+}/cart/login", array(
             "module" => "web",
@@ -642,7 +655,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        $router->add("/{lottery:(euromillions|powerball|megamillions)+}/result/success/:params", array(
+        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot)+}/result/success/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'result',
@@ -1532,6 +1545,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->mount(new ResultPurchaseRoutes());
 
         $router->mount(new HowToPlayRoutesEuroJackpot());
+        $router->mount(new EuroJackpotPlayRoutes());
         $router->mount(new EuroJackpotPlayRoutes());
         $router->mount(new EuroJackpotResultRoutes());
         $router->mount(new ResultPurchaseRoutesEuroJackpot());

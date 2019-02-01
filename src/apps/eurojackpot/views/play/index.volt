@@ -4,7 +4,7 @@
     var ajaxFunctions = {
     playCart : function (params){
     $.ajax({
-    url:'/ajax/mega-millions-play-temporarily/temporarilyCart/',
+    url:'/ajax/euro-jackpot-play-temporarily/temporarilyCart/',
     data:params,
     type:'POST',
     dataType:"json",

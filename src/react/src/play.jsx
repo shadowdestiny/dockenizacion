@@ -109,7 +109,7 @@ var PlayPage = React.createClass({
         var current_lines = this.state.storage;
         var num_valid_lines = 0;
         const { mode } = this.props
-        const maxStars = mode == GAME_MODE_EUROMILLIONS ? 2 : 1 // MegaMillions and Powerball both have a dropdown with one possible selected number
+        const maxStars = (mode == GAME_MODE_EUROMILLIONS || mode == GAME_MODE_EUROJACKPOT) ? 2 : 1 // MegaMillions and Powerball both have a dropdown with one possible selected number
 
         current_lines.forEach(function(value) {
             if(value.numbers.length == 5 && value.stars.length == maxStars) {
@@ -428,6 +428,7 @@ var PlayPage = React.createClass({
         var numDraws = numWeeks * playDays;
         var betsActive = this.getNumLinesThatAreFilled();
         var total = Number(betsActive * price_bet * numDraws).toFixed(2);
+        console.log("Active " + betsActive);
         var show_clear_all = this.checkNumbersOnLineStored() > 0;
         this.setState( { price : total,
                          how_clear_all : show_clear_all,

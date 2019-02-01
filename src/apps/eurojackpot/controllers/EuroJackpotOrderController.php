@@ -25,7 +25,7 @@ class EuroJackpotOrderController extends CartController
         $msg = '';
         $errors = [];
         if(!empty($user_id)) {
-            $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id,$this->lottery);
+            $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id,'EuroJackpot');
             $user = $this->userService->getUser($current_user_id);
         } else {
             /** @var User $user */
@@ -35,7 +35,7 @@ class EuroJackpotOrderController extends CartController
                 return false;
             }
 
-            $result = $play_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
+            $result = $play_service->getPlaysFromTemporarilyStorage($user, 'EuroJackpot');
         }
         if(!$result->success()) {
             $this->response->redirect('/'.$this->lottery.'/play');
