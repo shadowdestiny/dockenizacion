@@ -5,6 +5,7 @@ namespace EuroMillions\tests\helpers\mothers;
 
 
 use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
+use EuroMillions\tests\helpers\builders\EurojackpotDrawBuilder;
 use EuroMillions\tests\helpers\builders\EuroMillionsDrawBuilder;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\PowerBallDrawBreakDown;
@@ -128,6 +129,23 @@ class EuroMillionsDrawMother
         return EuroMillionsDrawBuilder::aDraw()
             ->withLottery(LotteryMother::aPowerBall())
             ->withId(4)
+            ->withDrawDate($date)
+            ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
+    }
+
+    public static function anEurojackpotDrawWithJackpotAndBreakDown(\DateTime $date = null)
+    {
+        if($date == null)
+        {
+            $date= new \DateTime('2020-01-09');
+        }
+        $jackpot = new Money(5000000000, new Currency('EUR'));
+        $breakDown =
+            new PowerBallDrawBreakDown(json_decode(self::$powerBallJsonResult, TRUE));
+        $line = EuroMillionsLineMother::anPowerBallLine();
+        return EurojackpotDrawBuilder::aDraw()
+            ->withLottery(LotteryMother::aEuroJackpot())
+            ->withId(5)
             ->withDrawDate($date)
             ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }

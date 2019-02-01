@@ -147,7 +147,9 @@
     <div class="wrapper">
         {% include "_elements/cards-block.volt" %}
     </div>
-{{ tracking }}
+    {% if tracking is defined %}
+        {{ tracking }}
+    {% endif %}
     {% if register is defined %}
         {{ register }}
     {% endif %}
