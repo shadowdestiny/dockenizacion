@@ -19,10 +19,10 @@ class EuroJackpotPurchaseSubscriptionConfirmationEmailTemplate extends PowerBall
         $language = $this->user->getDefaultLanguage();
 
         if ($language == "ru") {
-            $template_id = "8769556";
+            $template_id = "9747067";
             $subject = 'Поздравляем';
         } else {
-            $template_id = "8769451";
+            $template_id = "9747340";
             $subject = 'Congratulations';
         }
 
@@ -67,5 +67,29 @@ class EuroJackpotPurchaseSubscriptionConfirmationEmailTemplate extends PowerBall
         ];
 
         return $vars;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLine()
+    {
+        $lines = [];
+
+        if(!is_array($this->line)) {
+            $this->line = [$this->line];
+        }
+        /** @var PlayConfig $line */
+        foreach ($this->line as $line) {
+            $play = [];
+            foreach ($line->getLine()->getRegularNumbersArray() as $balls) {
+                $play['regular_numbers'][]['number'] = $balls;
+            }
+            foreach ($line->getLine()->getLuckyNumbersArray() as $lucky) {
+                $play['lucky_numbers'][]['number'] = $lucky;
+            }
+            array_push($lines, $play);
+        }
+        return $lines;
     }
 }
