@@ -208,6 +208,7 @@ class CartController extends PublicSiteControllerBase
             'controller' => $controller,
             'action' => $action,
             'params' => json_encode($params),
+            'lottery' => $this->lottery
         ]);
     }
 
