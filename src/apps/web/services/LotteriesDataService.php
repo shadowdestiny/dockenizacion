@@ -160,7 +160,7 @@ class LotteriesDataService
             }
 
             $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
-            $draw->createBreakDown($result);
+            //$draw->createBreakDown($result);
 
             if ($draw->getResult()->getRegularNumbers()) {
                 $this->entityManager->persist($draw);
@@ -178,7 +178,7 @@ class LotteriesDataService
                 $draw = $this->createDraw($last_draw_date, null, $lottery);
             }
             $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
-            $draw->createBreakDown($result);
+            //$draw->createBreakDown($result);
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
             $this->sendEmailResultsOrigin('Mashape Results');
