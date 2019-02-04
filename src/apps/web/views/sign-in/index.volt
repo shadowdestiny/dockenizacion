@@ -19,7 +19,7 @@
 {% block body %}
 {% set signIn='{"myClass": "sign-in"}'|json_decode %}
 
-<main id="content" style="padding-top:40px;">
+<main id="content" style="padding-top:20px;">
     <div class="wrapper cl">
         {#<div class="col-left">#}
             {#{% include "_elements/logo.volt" %}#}
@@ -49,4 +49,3 @@
     </div>
 </main>
 {% endblock %}
-

@@ -30,11 +30,14 @@ var EmResumeOrder = new React.createClass({
             day = this.props.saturday;
         }
 
-        if(this.props.txt_lottery === 'Powerball') {
+        if(this.props.txt_lottery === 'Megamillions') {
+            txt_link_play = "/" + this.props.txt_link_megamillions;
+        } else if(this.props.txt_lottery === 'Powerball') {
             txt_link_play = "/" + this.props.txt_link_powerball;
         } else {
             txt_link_play = "/" + this.props.txt_link_play;
         }
+
         if(config.frequency == 1) {
             text_weeks = day + ', ' + config.startDrawDateFormat;
         } else if(this.props.txt_lottery === 'Euromillions') {
@@ -42,8 +45,6 @@ var EmResumeOrder = new React.createClass({
         } else if(this.props.txt_lottery === 'Powerball') {
             text_weeks = this.props.wednesday + ' & ' + this.props.saturday + ', ' + this.props.txt_since + ' ' + config.startDrawDateFormat + ' ' + this.props.txt_for + config.frequency / 2 + ' ' + this.props.txt_weeks;
         }
-
-
         return (
             <div className="box-order">
                 <div className="box-total-upper cl">

@@ -93,18 +93,15 @@ class Wallet implements IArraySerializable
     {
         if ($amount->greaterThan($this->uploaded->add($this->winnings))) {
             $to_add = $this->uploaded->add($this->winnings);
-
             return new self($this->uploaded->subtract($this->uploaded), $this->winnings->subtract($this->winnings), $this->subscription->add($to_add));
         } else {
             if ($amount->greaterThan($this->uploaded)) {
                 $to_subtract_from_winnings = $amount->subtract($this->uploaded);
-
                 return new self($this->uploaded->subtract($this->uploaded), $this->winnings->subtract($to_subtract_from_winnings), $this->subscription->add($amount));
             } else {
                 return new self($this->uploaded->subtract($amount), $this->winnings, $this->subscription->add($amount));
             }
         }
-
     }
 
     public function uploadToSubscription(Money $amount)

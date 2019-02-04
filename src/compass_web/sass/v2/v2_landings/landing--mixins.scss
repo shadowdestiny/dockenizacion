@@ -1,0 +1,112 @@
+@function vw($size) {
+  $ratioVW: 0.0520833333333333; // This is most correct ratio for the responsive
+  $vwSize: $size * $ratioVW;
+  @return $vwSize * 1vw;
+}
+
+@function vwm($size) {
+  $ratioVW: 0.3125; // This is most correct ratio for the responsive
+  $vwSize: $size * $ratioVW;
+  @return $vwSize * 1vw;
+}
+
+
+@mixin selectbox--landing {
+
+  position: relative;
+  overflow: hidden;
+
+  select {
+    display: block;
+    background-color: transparent;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none !important;
+    border-radius: vw(4);
+    border-width: 1px;
+    border-color: #b7b7b7;
+    border-style: solid;
+    width: 100%;
+    color: #999999;
+    font-weight: 300;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+    font-family: $ff1;
+    cursor: pointer;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: vw(30);
+    height: vw(48);
+    padding-left: vw(32);
+    font-size: vw(18);
+    line-height: vw(20);
+    margin-bottom: vw(14);
+
+    @include input-placeholder {
+      color: $v2-placeholder-color;
+    }
+
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 vw(1000) #fff inset !important;
+    }
+  }
+
+  &::after {
+    display: block;
+    content: '';
+    position: absolute;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-image: url('../img/basic/desktop/selectbox-arrow.png');
+    background-position: vw(0) vw(0);
+    top: vw(16);
+    -webkit-background-size: vw(18);
+    background-size: vw(18);
+    right: vw(30);
+    width: vw(20);
+    height: vw(20);
+  }
+}
+
+// Use it:
+//    @include selectbox--landing();
+
+@mixin input--landing {
+  display: block;
+  background-color: transparent;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none !important;
+  cursor: default;
+  -webkit-appearance: none;
+  border: 0;
+  border-bottom: 1px solid #b7b7b7;
+  border-radius: 0;
+  width: 100%;
+  color: #999999;
+  font-weight: 300;
+  text-align: left;
+  position: relative;
+  font-family: $ff1;
+  padding-top: 0;
+  padding-right: vw(30);
+  padding-left: vw(22);
+  font-size: vw(18);
+  padding-bottom: vw(4);
+  height: vw(38);
+  line-height: vw(32);
+  margin-bottom: vw(20);
+
+  @include input-placeholder {
+    color: $v2-placeholder-color;
+  }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 vw(1000) #fff inset !important;
+  }
+}

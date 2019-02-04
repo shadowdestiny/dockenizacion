@@ -1,0 +1,27 @@
+//Landing Sign Up form
+
+.landing--signin-form {
+
+  // Mobile version Start
+  @media only screen and (max-width: $screen-pre-desktop) {
+    // *******************
+
+    height: auto;
+    margin-top: 0;
+    max-width: none;
+    padding: vwm(13) vwm(8);
+    padding-bottom: 0;
+    border-radius: 0;
+    border: none;
+
+    form {
+    //
+      .selectbox {
+        margin-bottom: 20px;
+      }
+    }
+
+    // *******************
+  }
+// Mobile design End
+}

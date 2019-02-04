@@ -31,7 +31,7 @@
       display: block;
 
       height: 398px;
-      background-image: url("../img/home/banner/desktop/banner.png");
+      background-image: url("https://images.euromillions.com/imgs/banner-home.jpg");
       background-repeat: no-repeat;
       background-position: 50% 50%;
       -webkit-background-size: cover;
@@ -388,6 +388,7 @@
               }
             }
           }
+
           &.td-ball-numbers--lottery {
             //padding-right: 50px;
             padding-right: 30px;
@@ -407,7 +408,14 @@
                 //bottom: -5px;
               }
             }
+
+            &.megamillions--lottery-balls {
+              .ico-ball {
+                background-color: #014fa3;
+              }
+            }
           }
+
           &.td-powerball {
             //padding-right: 50px;
             //padding-right: 30px;
@@ -428,6 +436,11 @@
                 //bottom: -5px;
               }
             }
+            &.megamillions--megaball {
+              .ico-ball {
+                background-color: #f4e778;
+              }
+            }
           }
 
           &.td-powerplay {
@@ -446,6 +459,11 @@
 
               @media only screen and (min-width: $screen-desktop-wide) {
                 //bottom: -5px;
+              }
+            }
+            &.megamillions--megaplier {
+              .ico-ball {
+                background-color: #fcaaaa;
               }
             }
           }
@@ -823,4 +841,5 @@
     }
 
   }
+
 }

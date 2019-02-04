@@ -1,0 +1,45 @@
+.lottery-results--carousel--section{
+  .lottery-results--carousel {
+    .lottery-result {
+      &.lottery-result--megamillions {
+        .bottom-block,
+        .top-block {
+          background-color: #014fa3;
+        }
+
+        .center-block {
+
+          background-color: rgba(1, 79, 163, 0.75);
+          
+          .result-row {
+
+            background-color: rgba(1, 79, 163, 0.5);
+
+            &:nth-child(even) {
+              background-color: transparent;
+            }
+
+            .row--results {
+              .ball {
+
+                &.star {
+                  color: #fff;
+                  background-color: rgb(255, 206, 5);
+                  border: 1px solid rgb(255, 206, 5);
+
+                  &:last-of-type {
+                    color: #ffce05;
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+
+      }
+    }
+  }
+}

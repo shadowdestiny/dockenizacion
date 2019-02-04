@@ -7,6 +7,7 @@ namespace EuroMillions\web\repositories;
 use Doctrine\ORM\Query\ResultSetMapping;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class TransactionRepository extends RepositoryBase
 {
@@ -75,15 +76,14 @@ class TransactionRepository extends RepositoryBase
         $rsm->addScalarResult('date','date');
         $rsm->addScalarResult('entity_type','entity_type');
         $rsm->addScalarResult('movement','movement');
-        $rsm->addScalarResult('subsMovement','subsMovement');
         $rsm->addScalarResult('balance','balance');
 
         return $this->getEntityManager()
             ->createNativeQuery(
-                'SELECT date, entity_type, (wallet_after_uploaded_amount - wallet_before_uploaded_amount) as movement, (wallet_after_uploaded_amount + wallet_after_winnings_amount) as balance, (wallet_after_subscription_amount - wallet_before_subscription_amount) as subsMovement
-                FROM transactions
-                WHERE entity_type in ("deposit", "subscription_purchase") and user_id = "' . $userId . '"
-                order by date desc'
+                'SELECT t.date, t.entity_type, (if(t.entity_type = "deposit", (t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount),(select (d.wallet_after_subscription_amount - d.wallet_before_subscription_amount) from transactions as d where t.transactionID=d.transactionID and d.entity_type="ticket_purchase" and d.transactionID != null))) as movement, (if(t.entity_type = "deposit",(t.wallet_after_uploaded_amount + t.wallet_after_winnings_amount), (select (d.wallet_after_uploaded_amount + d.wallet_after_winnings_amount) from transactions as d where t.transactionID=d.transactionID and d.entity_type="ticket_purchase" and d.transactionID != null))) as balance
+                FROM transactions as t
+                WHERE t.entity_type in ("deposit", "subscription_purchase") and t.user_id = "' . $userId . '"
+                order by t.date desc'
                 , $rsm)->getResult();
     }
 
@@ -111,7 +111,7 @@ class TransactionRepository extends RepositoryBase
             ->createNativeQuery(
                 'SELECT *
                 FROM transactions
-                WHERE entity_type = "winnings_received" and DATE_FORMAT(date,\'%Y-%m-%d\') = "' . $date . '"
+                WHERE entity_type = "winnings_received" AND DATE_FORMAT(date,\'%Y-%m-%d\') = "' . $date . '" 
                 order by date desc'
                 , $rsm)->getResult();
     }
@@ -161,5 +161,25 @@ class TransactionRepository extends RepositoryBase
                       where transactionID is not null and user_id="'.$userId .'" 
                       group by transactionID order by date DESC limit 1;'
                 , $rsm)->getResult();
+    }
+
+    public function getTransactionsDTOByUser($userId, $page = null)
+    {
+
+        if(is_null($page))
+        {
+            return $this->findBy(['user' => $userId], ['id' => 'DESC']);
+        }
+        else
+        {
+            $dql = "SELECT t FROM ".$this->getEntityName()." t Where t.user= :userid order by t.id DESC ";
+            $query = $this->getEntityManager()
+                ->createQuery($dql)
+                ->setParameter('userid', $userId)
+                ->setFirstResult(10 * ($page - 1)) // Offset
+                ->setMaxResults(10); // Limit;
+
+            return new Paginator($query);
+        }
     }
 }

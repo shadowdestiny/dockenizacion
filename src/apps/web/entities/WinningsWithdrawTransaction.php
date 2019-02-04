@@ -10,7 +10,10 @@ class WinningsWithdrawTransaction extends Transaction implements ITransactionDat
 {
     protected $amountWithdrawed;
     protected $accountBankId;
+    protected $lotteryName;
     protected $state;
+    protected $status;
+
 
     /**
      * @return mixed
@@ -62,16 +65,49 @@ class WinningsWithdrawTransaction extends Transaction implements ITransactionDat
 
     public function toString()
     {
-        $this->data = $this->accountBankId.'#'.$this->amountWithdrawed.'#'.$this->state;
+        $this->data = $this->accountBankId.'#'.$this->amountWithdrawed.'#'.$this->state.'#'.$this->lotteryName;
     }
 
     public function fromString()
     {
-        list($accountBankId, $amountWithdrawed, $state) = explode('#',$this->data);
+        list($accountBankId, $amountWithdrawed, $state,$lotteryName) = explode('#',$this->data);
         $this->amountWithdrawed = $amountWithdrawed;
         $this->accountBankId = $accountBankId;
         $this->state = $state;
+        $this->lotteryName = $lotteryName;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLotteryName()
+    {
+        return $this->lotteryName;
+    }
+
+    /**
+     * @param mixed $lotteryName
+     */
+    public function setLotteryName($lotteryName)
+    {
+        $this->lotteryName = $lotteryName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
 }

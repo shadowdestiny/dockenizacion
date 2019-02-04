@@ -1,13 +1,17 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\shared\helpers\SiteHelpers;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
+use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\OrderPowerBall;
 use Money\Currency;
 use Phalcon\Validation\Message;
 
@@ -82,10 +86,13 @@ class PowerBallCartController extends PublicSiteControllerBase
                     'password' => $this->request->getPost('password'),
                     'email'    => $this->request->getPost('email'),
                     'country'  => $this->request->getPost('country'),
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'phone_number' => $this->request->getPost('prefix')."-".$this->request->getPost('phone'),
+                    'birth_date'   => $this->request->getPost('year').'-'.$this->request->getPost('month').'-'.$this->request->getPost('day'),
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
                     $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
+                    TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered();
                     $this->response->redirect('/'.$this->lottery.'/play');
                 }else{
                     $errors [] = $result->errorMessage();
@@ -136,7 +143,7 @@ class PowerBallCartController extends PublicSiteControllerBase
                     'email'    => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     false,
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], 'string');
 
                 if (!$userCheck['bool']) {
@@ -191,12 +198,7 @@ class PowerBallCartController extends PublicSiteControllerBase
      */
     private function getSignUpForm()
     {
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        //key+1, select element from phalcon need index 0 to set empty value
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
-        return new SignUpForm(null, ['countries' => $countries]);
+        return SiteHelpers::getSignUpForm();
     }
 
     /**
@@ -266,9 +268,9 @@ class PowerBallCartController extends PublicSiteControllerBase
         $user = $this->authService->getCurrentUser();
         $discount = new Discount($result->returnValues()[0]->getFrequency(), $this->domainServiceFactory->getPlayService()->getBundleDataAsArray());
         if ($orderView) {
-            $order = new Order($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount); // order created
-            $order_eur = new Order($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount); //workaround for new payment gateway
-            $this->powerBallCartService->store($order);
+            $order = OrderFactory::create($result, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$this->lottery);
+            $order_eur = OrderFactory::create($result, $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$this->lottery);
+            $this->cartService->store($order);
         }
         /** @var PlayConfig[] $play_config */
         $play_config_collection = $result->returnValues();

@@ -98,13 +98,13 @@ class PlayConfigRepository extends RepositoryBase
         return $result;
     }
 
-    public function getPowerBallSubscriptionsActives()
+    public function getLotterySubscriptionsActives($lotteryId)
     {
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
-                . ' WHERE p.active = 1 AND p.lottery = 3 AND p.frequency > 1')
+                . ' WHERE p.active = 1 AND p.lottery = '.$lotteryId.' AND p.frequency > 1')
             ->getResult();
 
         return $result;
@@ -119,38 +119,38 @@ class PlayConfigRepository extends RepositoryBase
     protected function getPlayConfigsByUser($userId, $active)
     {
 
-        $result = $this->getEntityManager()
+        /*$result = $this->getEntityManager()
             ->createQuery(
                 'SELECT b'
                 . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b INNER JOIN b.playConfig p '
                 . ' WHERE p.user = :user_id AND p.active = :active and p.frequency = :frequency'
-                . ' GROUP BY p.startDrawDate,p.line.regular_number_one,'
+                . ' GROUP BY p.lottery, p.startDrawDate,p.line.regular_number_one,'
                 . ' p.line.regular_number_two,p.line.regular_number_three, '
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
                 . ' p.line.lucky_number_one, p.line.lucky_number_two '
-                . ' ORDER BY p.startDrawDate DESC ')
+                . ' ORDER BY p.lottery ASC, p.startDrawDate DESC ')
+            ->setParameters(['user_id' => $userId, 'active' => $active, 'frequency' => 1]);
+        $result= $result->getResult();
+
+        $playConfigs = [];*/
+        ///** @var Bet $bet */
+        /*foreach ($result as $bet) {
+            $playConfigs[] = $bet->getPlayConfig();
+        }*/
+        $result = $this->getEntityManager()
+            ->createQuery(
+               'SELECT p'
+                . ' FROM ' . $this->getEntityName() . ' p '
+                . ' WHERE p.user = :user_id AND p.active = :active AND p.frequency = :frequency '
+                . ' GROUP BY p.lottery, p.startDrawDate,p.line.regular_number_one,'
+                . ' p.line.regular_number_two,p.line.regular_number_three, '
+                . ' p.line.regular_number_four,p.line.regular_number_five, '
+                . ' p.line.lucky_number_one, p.line.lucky_number_two '
+                . ' ORDER BY p.lottery ASC, p.startDrawDate DESC ')
             ->setParameters(['user_id' => $userId, 'active' => $active, 'frequency' => 1])
             ->getResult();
 
-        $playConfigs = [];
-        /** @var Bet $bet */
-        foreach ($result as $bet) {
-            $playConfigs[] = $bet->getPlayConfig();
-        }
-//        $result = $this->getEntityManager()
-//            ->createQuery(
-//                'SELECT p'
-//                . ' FROM ' . $this->getEntityName() . ' p '
-//                . ' WHERE p.user = :user_id AND p.active = :active '
-//                . ' GROUP BY p.startDrawDate,p.line.regular_number_one,'
-//                . ' p.line.regular_number_two,p.line.regular_number_three, '
-//                . ' p.line.regular_number_four,p.line.regular_number_five, '
-//                . ' p.line.lucky_number_one, p.line.lucky_number_two '
-//                . ' ORDER BY p.startDrawDate DESC ')
-//            ->setParameters(['user_id' => $userId, 'active' => $active])
-//            ->getResult();
-
-        return $playConfigs;
+        return $result;
     }
 
     public function getActiveChristmasByUser($userId)
@@ -269,7 +269,8 @@ class PlayConfigRepository extends RepositoryBase
                 . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 '
                 . ' AND last_draw_date >= "' . $nextDrawDate->format('Y-m-d') . '" AND received >= "' . $receivedDate->format('Y-m-d H:i:s') . '"
                     AND lva.status = "OK"
-                    GROUP BY p.start_draw_date,
+                    GROUP BY  p.lottery_id,
+                            p.start_draw_date,
                             p.line_regular_number_one,
                             p.line_regular_number_two,
                             p.line_regular_number_three,
@@ -277,7 +278,7 @@ class PlayConfigRepository extends RepositoryBase
                             p.line_regular_number_five,
                             p.line_lucky_number_one,
                             p.line_lucky_number_two
-                    ORDER BY p.start_draw_date ASC, p.last_draw_date ASC '
+                    ORDER BY p.lottery_id ASC, p.start_draw_date ASC, p.last_draw_date ASC '
                 , $rsm)->getResult();
     }
 
@@ -315,7 +316,8 @@ class PlayConfigRepository extends RepositoryBase
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
                 . ' INNER JOIN lotteries l ON l.id = p.lottery_id '
                 . ' WHERE p.user_id = "' . $userId . '" AND p.active = 0 AND p.frequency > 1 '
-                . '    GROUP BY p.start_draw_date,
+                . '    GROUP BY p.lottery_id,
+                            p.start_draw_date,
                             p.line_regular_number_one,
                             p.line_regular_number_two,
                             p.line_regular_number_three,
@@ -323,7 +325,7 @@ class PlayConfigRepository extends RepositoryBase
                             p.line_regular_number_five,
                             p.line_lucky_number_one,
                             p.line_lucky_number_two
-                    ORDER BY p.start_draw_date ASC, p.last_draw_date ASC '
+                    ORDER BY p.lottery_id ASC, p.start_draw_date ASC, p.last_draw_date ASC '
                 , $rsm)->getResult();
     }
 
@@ -434,7 +436,7 @@ class PlayConfigRepository extends RepositoryBase
     public function substractNumFractionsToChristmasTicket($number)
     {
         $number = str_replace(',', '', $number);
-        $this->getEntityManager()->getConnection()->executeQuery("UPDATE christmas_tickets SET n_fractions = n_fractions - 1 where number = '" . $number . "'");
+        $this->getEntityManager()->getConnection()->executeUpdate("UPDATE christmas_tickets SET n_fractions = n_fractions - 1 where number = '" . $number . "'");
     }
 
     /**

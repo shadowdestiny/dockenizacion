@@ -68,7 +68,6 @@ class BetService
                 $castillo_ticket = CastilloTicketId::create();
                 $bet->setCastilloBet($castillo_ticket);
                 $result_validation = $lotteryValidation->validateBet($bet, $cypher, $castillo_key, $castillo_ticket, $dateNextDraw, $bet->getPlayConfig()->getLine());
-
                 $log_api_reponse = new LogValidationApi();
                 $log_api_reponse->initialize([
                     'id_provider' => 1,
@@ -80,11 +79,9 @@ class BetService
                 ]);
                 $this->entityManager->persist($bet);
                 $this->logValidationRepository->add($log_api_reponse);
-                $this->entityManager->flush();
 
                 if ($result_validation->success()) {
                     $this->betRepository->add($bet);
-                    $this->entityManager->flush();
                     $this->playConfigRepository->add($playConfig);
                     $this->entityManager->flush();
                     return new ActionResult(true);
@@ -99,7 +96,7 @@ class BetService
         }
     }
 
-    public function validationLottoRisq(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $dateNextDraw, \DateTime $today = null, $uuid = null)
+    public function validationLottery(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $dateNextDraw, \DateTime $today = null, $uuid = null)
     {
         if (!$today) {
             $today = new \DateTime();
@@ -123,7 +120,6 @@ class BetService
 
                 $this->entityManager->persist($bet);
                 $this->logValidationRepository->add($log_api_reponse);
-                $this->entityManager->flush();
                 if ($uuid) {
                     $this->betRepository->add($bet);
                     $this->playConfigRepository->add($playConfig);

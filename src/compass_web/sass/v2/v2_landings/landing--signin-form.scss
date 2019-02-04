@@ -1,0 +1,23 @@
+//Landing Sign Up form
+
+.landing--signin-form {
+
+  position: relative;
+  margin: auto;
+  max-width: vw(600);
+  padding: vw(30) vw(20)!important;
+  border: 0px;
+  border-radius: vw(0);
+  background-color: #ffffff;
+
+  form {
+  //
+    .selectbox {
+      margin-bottom: vw(15);
+    }
+
+    .txt--already-have-account {
+      margin-bottom: vw(4);
+    }
+  }
+}

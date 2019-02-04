@@ -4,9 +4,12 @@ namespace EuroMillions\web\controllers;
 
 use Captcha\Captcha;
 use EuroMillions\shared\helpers\HeaderControllerTrait;
+use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\web\components\TrackingCodesHelper;
+use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\forms\SignInForm;
@@ -111,7 +114,7 @@ class UserAccessController extends ControllerBase
                     'email' => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     'remember' => $this->request->getPost('remember'),
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], 'string');
 
                 if (!$userCheck['bool']) {
@@ -158,7 +161,7 @@ class UserAccessController extends ControllerBase
         $url_redirect = $this->session->get('original_referer');
 
         if ($this->request->isPost()) {
-            if ($sign_up_form->isValid($this->request->getPost()) === false) {
+            if ($sign_up_form->isValid($this->request->getPost()) === false || checkdate($this->request->getPost('month'), $this->request->getPost('day'), $this->request->getPost('year'))===false) {
                 $messages = $sign_up_form->getMessages(true);
                 /**
                  * @var string $field
@@ -168,6 +171,15 @@ class UserAccessController extends ControllerBase
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
                 }
+
+                if(!checkdate($this->request->getPost('month'), $this->request->getPost('day'), $this->request->getPost('year')))
+                {
+                    $errors[] = 'The birthdate is incorrect';
+                    $form_errors['day'] = ' error';
+                    $form_errors['month'] = ' error';
+                    $form_errors['year'] = ' error';
+                }
+
             } else {
                 $credentials = [
                     'name' => $this->request->getPost('name'),
@@ -175,8 +187,10 @@ class UserAccessController extends ControllerBase
                     'email' => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     'country' => $this->request->getPost('country'),
-                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                     'default_language' => explode('_', $this->languageService->getLocale())[0],
+                    'phone_number' => $this->request->getPost('prefix')."-".$this->request->getPost('phone'),
+                    'birth_date' => $this->request->getPost('year').'-'.$this->request->getPost('month').'-'.$this->request->getPost('day')
                 ];
 
                 $register_result = $this->authService->register($credentials);
@@ -184,19 +198,7 @@ class UserAccessController extends ControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
-                    echo "
-                    <script src='/w/js/vendor/ganalytics.min.js'></script>
-                    <script>
-                        ga('send', 'event', 'Button', 'Register');
-                    </script>
-                    ";
-
-                    $randomNumber = time() . mt_rand(1000, 9999999);
-                    $currentPage = substr($_SERVER["REQUEST_URI"], 0, 255);
-                    $curl = new Curl();
-                    $curl->get('https://ads.trafficjunky.net/tj_ads_pt?a=1000153071&member_id=1000848161&cb=' . $randomNumber . '&epu=' . $currentPage . '&cti=' . $register_result->getValues()->getEmail()->toNative() . '&ctv=1&ctd=signup');
-
-                    return $this->response->redirect('/');
+                    return $this->response->redirect('/?register=user');
                 }
             }
         }
@@ -323,11 +325,7 @@ class UserAccessController extends ControllerBase
      */
     private function getSignUpForm()
     {
-        $countries = $this->geoService->countryList();
-        sort($countries);
-        //key+1, select element from phalcon need index 0 to set empty value
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
-        return new SignUpForm(null, ['countries' => $countries]);
+        return SiteHelpers::getSignUpForm();
     }
 
     /**

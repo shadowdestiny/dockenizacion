@@ -13,6 +13,11 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
     protected $hasFee;
     protected $amountAdded;
     protected $discount;
+    protected $status;
+    protected $lotteryName;
+    protected $withWallet;
+
+
 
     public function __construct(array $data)
     {
@@ -27,6 +32,9 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
         $this->setDate($data['now']);
         $this->setUser($data['user']);
         $this->setPendingBalanceAmount($data['amountWithCreditCard'] + $data['amountWithWallet']);
+        $this->setLotteryName($data['lotteryName']);
+        $this->setStatus(!empty($data['status']) ? $data['status'] : 'SUCCESS');
+        $this->setWithWallet($data['withWallet']);
     }
 
 
@@ -80,17 +88,48 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
 
     public function toString()
     {
-        $this->data = $this->getLotteryId().'#'.$this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getDiscount();
+        $this->data = $this->getLotteryId().'#'.$this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getDiscount().'#'.$this->getStatus().'#'.$this->getLotteryName(). '#'.$this->withWallet;
     }
 
     public function fromString()
     {
-        list($lotteryId,$fee,$amount,$discount) = explode('#',$this->data);
-        $this->lotteryId = $lotteryId;
-        $this->hasFee = $fee;
-        $this->amountAdded = $amount;
-        $this->discount = $discount;
-        return $this;
+        try
+        {
+            $arr=explode('#',$this->data);
+            $count=count($arr);
+
+            switch($count)
+            {
+                case 2:
+                    list($lotteryId,$fee)= $arr;
+                    break;
+                case 3:
+                    list($lotteryId,$fee,$amount)= $arr;
+                    break;
+                case 4:
+                    list($lotteryId,$fee,$amount,$discount)= $arr;
+                    break;
+                case 5:
+                    list($lotteryId,$fee,$amount,$discount,$status)= $arr;
+                    break;
+                case 6:
+                    list($lotteryId,$fee,$amount,$discount,$status,$lotteryName) = $arr;
+                    break;
+                default:
+                    list($lotteryId,$fee,$amount,$discount,$status,$lotteryName,$withWallet) = $arr;
+            }
+
+            $this->lotteryId = isset($lotteryId) && $lotteryId!=''? $lotteryId: 0;
+            $this->hasFee = isset($fee) && $fee!=''? $fee: '';
+            $this->amountAdded = isset($amount) && $amount!=''? $amount: 0;
+            $this->discount = isset($discount) && $discount!=''? $discount: '';
+            $this->status = isset($status) && $status!=''? $status: 'PENDING';
+            $this->lotteryName = isset($lotteryName) && $lotteryName!=''? $lotteryName: 'NONE';
+            $this->withWallet = isset($withWallet) && $withWallet!=''? $withWallet: 0;
+            return $this;
+        } catch ( \Exception $e ) {
+            throw new BadEntityInitializationException('Invalid data format');
+        }
     }
 
     public function getEntityType()
@@ -128,5 +167,53 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
     public function setAmountAdded($amountAdded)
     {
         $this->amountAdded = $amountAdded;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLotteryName()
+    {
+        return $this->lotteryName;
+    }
+
+    /**
+     * @param mixed $lotteryName
+     */
+    public function setLotteryName($lotteryName)
+    {
+        $this->lotteryName = $lotteryName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWithWallet()
+    {
+        return $this->withWallet;
+    }
+
+    /**
+     * @param mixed $withWallet
+     */
+    public function setWithWallet($withWallet)
+    {
+        $this->withWallet = $withWallet;
     }
 }

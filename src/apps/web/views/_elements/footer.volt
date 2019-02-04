@@ -25,16 +25,34 @@
                 <strong>{{ language.translate('column1_head') }}</strong>
                 <ul>
                     <li>
+                        <a href="/{{ language.translate('link_lotteries_play') }}">{{ language.translate('column1_first') }}</a>
+                    </li>
+                    <li>
                         <a href="/{{ language.translate('link_euromillions_play') }}">{{ language.translate('column1_second') }}</a>
                     </li>
                     <li>
                         <a href="/{{ language.translate('link_christmas_play') }}">{{ language.translate('column1_third') }}</a>
+                    </li>
+                    <li>
+                    	<a href="/{{ language.translate('link_powerball_play') }}">{{ language.translate('column1_fourth') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate('link_lotteries_time') }}">{{ language.translate('drawtime') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate('link_em_time') }}">{{ language.translate('drawtime_em') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate('link_pow_time') }}">{{ language.translate('drawtime_pow') }}</a>
                     </li>
                 </ul>
             </div>
             <div class="col col16per">
                 <strong>{{ language.translate('column2_head') }}</strong>
                 <ul>
+                	<li>
+                    	<a href="/{{ language.translate('link_lotteries_results') }}">{{ language.translate('column2_first') }}</a>
+                    </li>
                     <li>
                         <a href="/{{ language.translate('link_euromillions_results') }}">{{ language.translate('column2_second') }}</a>
                     </li>
@@ -43,6 +61,18 @@
                     </li>
                     <li>
                         <a href="/{{ language.translate('link_christmas_results') }}">{{ language.translate('column2_fourth') }}</a>
+                    </li>
+                    <li>
+                       <a href="/{{ language.translate('link_powerball_results') }}">{{ language.translate('column2_fifth') }}</a>
+                    </li>
+                    <li>
+                       <a href="/{{ language.translate('link_powerball_draw_history') }}">{{ language.translate('column2_sixth') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate('link_megam_results') }}">{{ language.translate('column2_seventh') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate('link_megam_draw_history') }}">{{ language.translate('column2_eighth') }}</a>
                     </li>
                 </ul>
             </div>
@@ -117,8 +147,10 @@
     <div class="wrapper">
         {% include "_elements/cards-block.volt" %}
     </div>
-
-
+{{ tracking }}
+    {% if register is defined %}
+        {{ register }}
+    {% endif %}
     <div class="wrapper">
         <div class="copyright-text">
 

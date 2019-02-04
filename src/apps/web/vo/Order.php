@@ -4,7 +4,9 @@
 namespace EuroMillions\web\vo;
 
 
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\vo\enum\OrderType;
 use Money\Currency;
 use Money\Money;
 
@@ -34,21 +36,28 @@ class Order implements \JsonSerializable
 
     protected $lottery;
 
+    protected $nextDraw;
+
+    protected $orderType;
+
+
     protected $hasSubscription;
 
 
-    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null)
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null,$withWallet=false, Lottery $lottery, $draw)
     {
         $this->play_config = $play_config;
         $this->single_bet_price = $single_bet_price;
         $this->fee = $fee;
         $this->fee_limit = $fee_limit;
         $this->funds_amount = new Money(0, new Currency('EUR'));
-        $this->isCheckedWalletBalance = false;
+        $this->isCheckedWalletBalance = $withWallet;
         if (!$discount) {
             $discount = new Discount(0, []);
         }
         $this->discount = $discount;
+        $this->nextDraw = $draw;
+        $this->lottery = $lottery;
         $this->initialize();
     }
 
@@ -202,9 +211,13 @@ class Order implements \JsonSerializable
      * @param \DateTime $draw_date
      * @return bool
      */
-    public function isNextDraw(\DateTime $draw_date)
+    public function isNextDraw(\DateTime $draw_date = null)
     {
         $play_config = $this->getPlayConfig();
+        if($this->getNextDraw() != null && $draw_date == null)
+        {
+            return $play_config[0]->getStartDrawDate()->getTimestamp() <= $this->getNextDraw()->getDrawDate()->getTimestamp();
+        }
         return $play_config[0]->getStartDrawDate()->getTimestamp() <= $draw_date->getTimestamp();
     }
 
@@ -221,7 +234,6 @@ class Order implements \JsonSerializable
         } else {
             $this->total = new Money((int)(round($this->single_bet_price->getAmount() / (($this->discount->getValue() / 100) + 1)) * ($this->play_config[0]->getFrequency())) * $this->num_lines, new Currency('EUR'));
         }
-
         $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
     }
 
@@ -269,7 +281,8 @@ class Order implements \JsonSerializable
             'fee_limit' => $this->fee_limit->getAmount(),
             'single_bet_price' => $this->single_bet_price->getAmount(),
             'num_lines' => $this->num_lines,
-            'play_config' => $bets
+            'play_config' => $bets,
+            'lottery' => $this->getLottery()->getName()
         ];
 
     }
@@ -284,8 +297,8 @@ class Order implements \JsonSerializable
             if ($this->amountWallet->greaterThan($this->total)) {
                 $this->amountWallet = $this->total;
             }
-            $total = $this->total->subtract($this->amountWallet)->add($this->funds_amount);
-            $this->credit_card_charge = new CreditCardCharge($total, $this->fee, $this->fee_limit);
+            $this->total = $this->total->subtract($this->amountWallet)->add($this->funds_amount);
+            $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
         } else {
             $this->amountWallet = new Money(0, new Currency('EUR'));
         }
@@ -322,5 +335,82 @@ class Order implements \JsonSerializable
     public function setLottery($lottery)
     {
         $this->lottery = $lottery;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNextDraw()
+    {
+        return $this->nextDraw;
+    }
+
+    /**
+     * @param mixed $nextDraw
+     */
+    public function setNextDraw($nextDraw)
+    {
+        $this->nextDraw = $nextDraw;
+    }
+
+    public function getUnitPrice()
+    {
+        return $this->getPlayConfig()[0]->getSinglePrice();
+    }
+
+    public function getUnitPriceSubscription()
+    {
+        return $this->getPlayConfig()[0]->getSinglePrice()->multiply($this->getPlayConfig()[0]->getFrequency());
+    }
+
+    //TODO ha de ir en OrderPowerBall
+    public function setData($data=null)
+    {
+        if($data !=null)
+        {
+            $powerPlayValue = (new Money($data, new Currency('EUR')))->multiply(count($this->play_config));
+            $this->total =  $this->total->add($powerPlayValue);
+        }
+        $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
+    }
+
+    public function amountForTicketPurchaseTransaction()
+    {
+        return $this->getLottery()->getSingleBetPrice()->multiply(count($this->getPlayConfig()))->getAmount();
+    }
+
+    public function totalPlayConfigs()
+    {
+        return count($this->getPlayConfig());
+    }
+
+    public function isDepositOrder()
+    {
+        return false;
+    }
+
+    public function isWithdrawOrder()
+    {
+        return false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderType()
+    {
+        if(!isset($this->orderType))
+        {
+            return OrderType::DEPOSIT;
+        }
+        return $this->orderType;
+    }
+
+    /**
+     * @param mixed $orderType
+     */
+    public function setOrderType($orderType)
+    {
+        $this->orderType = $orderType;
     }
 }

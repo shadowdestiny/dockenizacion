@@ -8,7 +8,7 @@ paths:
 settings:
     bootstrap: _bootstrap.php
     colors: true
-    memory_limit: 2048M
+    memory_limit: 1024M
     error_level: "E_ALL"
 extensions:
     enabled:
@@ -16,12 +16,11 @@ extensions:
 modules:
     config:
         Db:
-            dsn: 'mysql:host=127.0.0.1;dbname=euromillions_test'
-            user: 'root'
+            dsn: 'mysql:host=database;dbname=euromillions'
+            user: 'euromillions'
             password: 'tpl9'
             dump: tests/_data/dump.sql
-            populate: true # load dump before all tests
-            cleanup: true # load dump for each test
+            clean: true
 coverage:
   enabled: true
   whitelist:

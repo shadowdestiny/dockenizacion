@@ -3,22 +3,26 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\components\ViewHelper;
+use EuroMillions\web\vo\dto\MainJackpotHomeDTO;
 
 class IndexController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
-        $jackpotPowerBall = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
-        $jackpotChristmas = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('Christmas'));
-        $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
-//        var_dump(ViewHelper::formatJackpotNoCents($jackpot)); die();
-        $textMillions = $this->billionsAndTrillions($jackpot, 'euromillions');
-        $textMillionsChristmas = $this->billionsAndTrillions($jackpotChristmas, 'christmas');
+
+        /** @var MainJackpotHomeDTO $mainJackpotHomeDTO */
+        $mainJackpotHomeDTO = $this->lotteryService->mainJackpotHome();
+        $euroMillionsDrawJackpotArr = $this->lotteryService->sliderAndBarJackpotHome();
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($mainJackpotHomeDTO->jackpot);
+        //$jackpotChristmas = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('Christmas'));
+        $this->view->setVar('day_draw_christmas', $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('l'));
+        $this->view->setVar('next_draw_christmas', $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('d.m.Y'));
+        $textMillions = $this->billionsAndTrillions($jackpot, strtolower($mainJackpotHomeDTO->lotteryName));
+       // $textMillionsChristmas = $this->billionsAndTrillions($jackpotChristmas, 'christmas');
         $this->view->setVar('jackpot_millions', ViewHelper::formatMillionsJackpot($jackpot));
-        $this->view->setVar('jackpot_powerball', ViewHelper::formatMillionsJackpot($jackpotPowerBall));
-        $this->view->setVar('jackpot_christmas', ViewHelper::formatBillionsJackpot($jackpotChristmas, $this->languageService->getLocale()));
+      //  $this->view->setVar('jackpot_christmas', ViewHelper::formatBillionsJackpot($jackpotChristmas, $this->languageService->getLocale()));
         $time_till_next_draw = $this->lotteryService->getTimeToNextDraw('EuroMillions');
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $last_draw_date = $this->lotteryService->getLastDrawDate('EuroMillions');
@@ -29,15 +33,49 @@ class IndexController extends PublicSiteControllerBase
         $this->view->setVar('hours_till_next_draw', $time_till_next_draw->h);
         $this->view->setVar('minutes_till_next_draw', $time_till_next_draw->i);
         $this->view->setVar('date_to_draw', $date_next_draw->format('Y-m-d H:i:s'));
-        $this->view->setVar('date_draw', $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'));
+        $this->view->setVar('date_draw', $mainJackpotHomeDTO->drawDate->modify('-1 hours')->format('Y-m-d H:i:s'));//$this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'));
         $this->view->setVar('date_draw_power', $this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours')->format('Y-m-d H:i:s'));
         $this->view->setVar('last_draw_date', $last_draw_date->format('l, F j, Y'));
         $this->view->setVar('show_s_days', (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours'))->format('%a'));
         $this->view->setVar('show_p_days', (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('PowerBall')->modify('-1 hours'))->format('%a'));
         $this->view->setVar('pageController', 'index');
-
+        $this->view->setVar('main_jackpot_home', $mainJackpotHomeDTO);
+        $userPreferenceService = $this->userPreferencesService;
+        $jackpotFunc = function(&$euroMillionsDrawJackpotArr,&$userPreferenceService) {
+            $dtoArr= [];
+            foreach ($euroMillionsDrawJackpotArr as $dto) {
+                $jackpot = $userPreferenceService->getJackpotInMyCurrencyAndMillions($dto->jackpot);
+                $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
+                $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
+                $params = ViewHelper::setSemanticJackpotValue($numbers, $letters, $jackpot, $this->languageService->getLocale());
+                $size = function($params) {
+                    if($params['milliards']) return 'B';
+                    if($params['trillions']) return 'T';
+                    return 'M';
+                };
+                $dto->jackpot = $params['jackpot_value'].$size($params);
+                array_push($dtoArr,$dto);
+            }
+            return $dtoArr;
+        };
+        $this->view->setVar('slide_jackpot_include', $jackpotFunc($euroMillionsDrawJackpotArr,$userPreferenceService));
+        $this->view->setVar('draw_date_slider', call_user_func(function() use ($euroMillionsDrawJackpotArr){
+            $arr = [];
+            array_map(function ($item) use (&$arr){
+                array_push($arr,['name' => $item->lotteryName,
+                                         'date' =>$item->drawDate->modify('-1 hours')->format('Y-m-d H:i:s')
+                                        ]
+                );
+            },$euroMillionsDrawJackpotArr);
+            return json_encode($arr);
+        }));
         $this->tag->prependTitle($this->languageService->translate('home_name') . ViewHelper::formatMillionsJackpot($jackpot) . ' ' . $this->languageService->translate($textMillions));
         MetaDescriptionTag::setDescription($this->languageService->translate('home_desc'));
+        if($this->request->get('register'))
+        {
+            $this->view->setVar('register', TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered());
+        }
+
     }
 
     public function notfoundAction()

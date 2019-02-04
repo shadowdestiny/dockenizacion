@@ -21,12 +21,16 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
             /** @var EnvironmentDetector $ed */
             $environment = $di->get('environmentDetector')->get();
 
-            if ($environment === 'vagrant') {
-                $command = '/vagrant/dev-scripts/schema_migration.sh devel';
+            if ($environment === 'test') {
+                $command = '/var/www/vendor/bin/phinx migrate --configuration="/var/www/phinx.yml" -e test';
                 exec($command);
 
-                $command = "mysqldump -h {$config->database->host} -u {$config->database->username} -p{$config->database->password} -d {$config->database->original_db_name} 2>/dev/null | mysql -h {$config->database->host} -u {$config->database->username} -p{$config->database->password} -D{$config->database->dbname} 2>/dev/null";
-                exec($command);
+                /*
+                 * This command tries to copy the original DB to the test DB. In a docker environment we use only a ONE empty database for now.
+                 *
+                 */
+                //$command = "mysqldump -h {$config->database->host} -u {$config->database->username} -p{$config->database->password} -d {$config->database->original_db_name} 2>/dev/null | mysql -h {$config->database->host} -u {$config->database->username} -p{$config->database->password} -D{$config->database->dbname} 2>/dev/null";
+                //exec($command);
             }
         } else {
             $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(true, APP_PATH, APP_PATH . 'shared/config/', APP_PATH . 'assets/', TESTS_PATH));

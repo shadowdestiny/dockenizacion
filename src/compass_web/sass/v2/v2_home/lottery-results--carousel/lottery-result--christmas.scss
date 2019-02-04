@@ -1,0 +1,44 @@
+.lottery-results--carousel--section{
+  .lottery-results--carousel {
+    .lottery-result {
+      &.lottery-result--christmas {
+        .bottom-block,
+        .top-block {
+          background-color: #b61c1c ;
+        }
+
+
+        .center-block {
+
+          background-color: rgba(182,28,28,0.75) ;
+
+          .result-row {
+            background-color: rgba(182,28,28,0.5) ;
+
+            &:nth-child(even) {
+              background-color: transparent;
+            }
+
+            .row--results {
+              .ball {
+
+                &.star {
+                  color: #b61c1c;
+                  background-color: #fff;
+                  border: 1px solid #fff;
+
+                  &:last-of-type {
+                    color: #fff;
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+}

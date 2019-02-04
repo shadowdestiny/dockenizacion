@@ -4,6 +4,7 @@ namespace EuroMillions\tests\helpers\builders;
 use EuroMillions\tests\helpers\mothers\LotteryMother;
 use EuroMillions\tests\helpers\mothers\RaffleMother;
 use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Raffle;
@@ -31,13 +32,25 @@ class EuroMillionsDrawBuilder
     {
         $this->id = self::DEFAULT_ID;
         $this->lottery = LotteryMother::anEuroMillions();
-        $this->draw_date = self::DEFAULT_DRAW_DATE;
+        $this->draw_date = new \DateTime('2016-04-22');
         $this->raffle = RaffleMother::anRaffle();
     }
 
     public function withJackpot(Money $jackpot)
     {
         $this->jackpot = $jackpot;
+        return $this;
+    }
+
+    public function withDrawDate(\DateTime $dateTime)
+    {
+        $this->draw_date= $dateTime;
+        return $this;
+    }
+
+    public function withLottery(Lottery $lottery)
+    {
+        $this->lottery= $lottery;
         return $this;
     }
 
@@ -50,6 +63,12 @@ class EuroMillionsDrawBuilder
     public function withResult(EuroMillionsLine $result)
     {
         $this->result = $result;
+        return $this;
+    }
+
+    public function withId($id)
+    {
+        $this->id= $id;
         return $this;
     }
 

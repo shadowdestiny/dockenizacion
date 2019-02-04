@@ -11,13 +11,22 @@ cart success minimal
     {% include "_elements/header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
-{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>if (window!=top){top.location.href=location.href;}
+{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script><script>
+(function(window) {
+  if (window.location !== window.top.location) {
+    window.top.location = window.location;
+  }
+})(this);
 {% if (lottery_name == 'EuroMillions') %}
 localStorage.removeItem('bet_line');
 {%endif%}
 {% if (lottery_name == 'PowerBall') %}
     localStorage.removeItem('pb_bat_line');
 {%endif%}
+{% if (lottery_name == 'MegaMillions') %}
+    localStorage.removeItem('mm_bet_line');
+{%endif%}
+
 
 </script>
 {% endblock %}
@@ -51,6 +60,7 @@ localStorage.removeItem('bet_line');
     <script>
         fbq('track', 'Purchase');
     </script>
+    {{ tracking }}
 {%  set lines = order.lines|json_decode %}
 
 <?php
@@ -150,6 +160,8 @@ function numCharLine($line){
                             {% endfor %}
                             {% if (lottery_name == 'PowerBall') %}
                             <li class="star_red"><?php echo sprintf("%02s", $lucky_arr[1]);?></li>
+                            {% elseif (lottery_name == 'MegaMillions') %}
+                            <li class="star_blue" style="color:white;"><?php echo sprintf("%02s", $lucky_arr[1]);?></li>
                             {% else %}
                                 {% for lucky_number in lucky_arr %}
                                     <li class="star"><?php echo sprintf("%02s", $lucky_number);?></li>

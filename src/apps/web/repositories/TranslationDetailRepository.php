@@ -95,7 +95,7 @@ class TranslationDetailRepository extends EntityRepository
             WHERE id = ' . $translationExist[0]['id'];
         }
 
-        $this->getEntityManager()->getConnection()->executeQuery($sql);
+        $this->getEntityManager()->getConnection()->executeUpdate($sql);
     }
 
     /**
@@ -103,11 +103,11 @@ class TranslationDetailRepository extends EntityRepository
      */
     public function removeTranslationByKey($translationData)
     {
-        $this->getEntityManager()->getConnection()->executeQuery(
+        $this->getEntityManager()->getConnection()->executeUpdate(
             'DELETE FROM translation_details WHERE translation_id = ' . $translationData->getId()
         );
 
-        $this->getEntityManager()->getConnection()->executeQuery(
+        $this->getEntityManager()->getConnection()->executeUpdate(
             'DELETE FROM translations WHERE id = ' . $translationData->getId()
         );
     }

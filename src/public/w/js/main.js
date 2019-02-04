@@ -117,7 +117,6 @@ function count_down(element,
                     html_formatted_offset,
                     date,
                     finish_text, finish_action) {
-    console.log(element);
   return element.countdown(date).on('update.countdown', function (event) {
     if (event.offset.days == 0) {
       $(this).html(event.strftime(html_formatted_offset[0]));
@@ -139,7 +138,32 @@ function count_down(element,
   //visit: http://hilios.github.io/jQuery.countdown to formatted html result
 }
 
+function setCountDownByLottery(drawDate,countdownclass,daylottery,dotslottery,minutelottery,secondslottery,hourlottery) {
+    var html_formatted_offsetpower = [];
+    $('.' + countdownclass + ' .' + dotslottery).eq(2).hide();
+    $('.' + countdownclass + ' .' + secondslottery).hide();
+    var elementpower = $('.' + countdownclass);
+    var html_formattedpower = elementpower.html();
+    $('.' + countdownclass + ' .' + dotslottery).eq(2).show();
+    $('.' + countdownclass + ' .' + secondslottery).show();
+    $('.' + countdownclass + ' .' + daylottery).remove();
+    $('.' + countdownclass + ' .' + dotslottery).eq(0).remove();
+    html_formatted_offsetpower[0] = $('.' + countdownclass).html();
+    $('.' + countdownclass + ' .' + hourlottery).remove();
+    $('.' + countdownclass + ' .' + dotslottery).eq(0).remove();
+    html_formatted_offsetpower[1] = $('.' + countdownclass).html();
+    $('.' + countdownclass + ' .' + minutelottery).remove();
+    $('.' + countdownclass + ' .' + dotslottery).eq(0).remove();
+    html_formatted_offsetpower[2] = $('.' + countdownclass).html();
+    var finish_actionpower = function () {
+        $('.box-next-draw .btn.red').remove();
+    }
+    var datepower = drawDate;
+    var finish_textpower = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
+    count_down(elementpower, html_formattedpower, html_formatted_offsetpower, datepower, finish_textpower, finish_actionpower);
+}
 var varSize = 0
+
 function checkSize() {
   if ($(".media").width() == "1") {         // max-width: 1200px
     varSize = 1;
@@ -275,12 +299,71 @@ $(function () {
 
 });
 
+function isMobile(){
+    try{
+        document.createEvent('TouchEvent');
+        if(varSize > 2){
+            return true;
+        }
+    }catch(e){
+        return false;
+    }
+}
 
 //v2
 $(document).ready(function () {
+    
+ const items = $(".lotteries--carousel").find(".lottery-carousel").length;
+
+  // Homepage lotteries carousel
+  if ($('.lotteries--carousel').length) {
+    $('.lotteries--carousel').owlCarousel({
+      items:1,
+      dots: true,
+      margin:10,
+      responsiveClass:true,
+      responsive:{
+        0:{
+          items: items > 2 ? 2 : items ,
+          nav:false,
+          loop:false
+        },
+        900:{
+          items:items > 3 ? 3 : items,
+          nav:true,
+          loop:false
+        }
+      }
+    });
+  }
+  // Homepage lottery results carousel
+  if ($('.lottery-results--carousel').length) {
+    $('.lottery-results--carousel').owlCarousel({
+      items:1,
+      dots: true,
+      margin:10,
+      responsiveClass:true,
+      responsive:{
+        0:{
+          items:1,
+          nav:false,
+          loop:false
+        },
+        767:{
+          items:2,
+          nav:false,
+          loop:false
+        },
+        900:{
+          items:3,
+          nav:false,
+          loop:false
+        }
+      }
+    });
+  }
 
   // FAQ accordion function
-
   if ($('.faq-section .answer').length) {
     $('.faq-section .accordion-block-outer').find('h2').click(function () {
       $(this).parent().toggleClass('expanded');
@@ -432,6 +515,22 @@ $(document).ready(function () {
     });
   }
 
+    $( "#sign-up-form" ).on('change', '#country', function() {
+        $.ajax({
+            url:'https://restcountries.eu/rest/v2/name/'+$("#country option:selected").text()+'?fullText=true',
+            type:'get',
+            dataType:"json",
+            success:function(json){
+                $("#prefix").html('<option value="">Prefix</option>');
+                $.each(json[0].callingCodes, function( index, value ) {
+                    $("#prefix").append('<option value="'+value+'" selected="selected">'+value+'</option>');
+                });
+            },
+            error:function (xhr, status, errorThrown){
+               //Manage Errors
+                },
+            });
+    });
 });
 
 //*************** Font resize Start ***************************

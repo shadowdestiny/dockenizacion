@@ -48,7 +48,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
         $raffle = $euroMillionsDraw->getRaffle()->toArray();
         $raffle = $raffle['value'];
         //$breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
-        $breakDownDTO = new PowerBallDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
+        $breakDownDTO = new PowerBallDrawBreakDownDTO($euroMillionsDraw->getBreakDown(),  $this->currencyConversionService);
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
         $this->tag->prependTitle($this->languageService->translate('results_pow_name'));
         MetaDescriptionTag::setDescription($this->languageService->translate('results_pow_desc'));
@@ -73,7 +73,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
     {
 
         $webLanguageStrategy = new WebLanguageStrategy($this->session,$this->di->get('request'));
-        $result = $this->lotteryService->getPowerBallDrawsDTO('PowerBall', 1000, $webLanguageStrategy);
+        $result = $this->lotteryService->getLotteryDrawsDTO('PowerBall', 1000, $webLanguageStrategy);
         if (!$result->success()) {
             return $this->view->setVars([
                 'error' => $result->errorMessage()
@@ -145,7 +145,7 @@ class PowerballNumbersController extends PublicSiteControllerBase
         $draw = $this->lotteryService->getNextDateDrawByLottery('PowerBall');
         /** @var EuroMillionsDraw $euroMillionsDraw */
         $euroMillionsDraw = $draw_result->getValues();
-        $breakDownDTO = new PowerBallDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
+        $breakDownDTO = new PowerBallDrawBreakDownDTO($euroMillionsDraw->getBreakDown(),  $this->currencyConversionService);
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
         $this->tag->prependTitle($this->languageService->translate('resultsdate_pow_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));

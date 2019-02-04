@@ -186,6 +186,15 @@ abstract class Transaction extends EntityBase
         $this->message = $message;
     }
 
-
-
+    /**
+     * @return boolean
+     */
+    public function checkTransactionType($transaction)
+    {
+        if (method_exists($this, 'getStatus') && $this->getStatus() == $transaction)
+        {
+            return true;
+        }
+        return false;
+    }
 }

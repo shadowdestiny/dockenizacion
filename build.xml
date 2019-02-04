@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Euromillions" default="build">
+
     <property name="toolsdir" value="src/vendor/bin/"/>
     <property name="phpcpd"  value="phpcpd"/>
     <property name="phpcs"   value="phpcs"/>
@@ -8,114 +9,112 @@
             description=""/>
 
     <!--<target name="clean"-->
-    <!--unless="clean.done"-->
-    <!--description="Cleanup build artifacts">-->
-    <!--<delete dir="build/api"/>-->
-    <!--<delete dir="build/coverage"/>-->
-    <!--<delete dir="build/logs"/>-->
-    <!--<delete dir="build/pdepend"/>-->
-    <!--<delete dir="build/phpdox"/>-->
-    <!--<property name="clean.done" value="true"/>-->
+            <!--unless="clean.done"-->
+            <!--description="Cleanup build artifacts">-->
+        <!--<delete dir="build/api"/>-->
+        <!--<delete dir="build/coverage"/>-->
+        <!--<delete dir="build/logs"/>-->
+        <!--<delete dir="build/pdepend"/>-->
+        <!--<delete dir="build/phpdox"/>-->
+        <!--<property name="clean.done" value="true"/>-->
     <!--</target>-->
 
     <!--<target name="prepare"-->
-    <!--unless="prepare.done"-->
-    <!--depends="clean"-->
-    <!--description="Prepare for build">-->
-    <!--<mkdir dir="build/api"/>-->
-    <!--<mkdir dir="build/coverage"/>-->
-    <!--<mkdir dir="build/logs"/>-->
-    <!--<mkdir dir="build/pdepend"/>-->
-    <!--<mkdir dir="build/phpdox"/>-->
-    <!--<property name="prepare.done" value="true"/>-->
+            <!--unless="prepare.done"-->
+            <!--depends="clean"-->
+            <!--description="Prepare for build">-->
+        <!--<mkdir dir="build/api"/>-->
+        <!--<mkdir dir="build/coverage"/>-->
+        <!--<mkdir dir="build/logs"/>-->
+        <!--<mkdir dir="build/pdepend"/>-->
+        <!--<mkdir dir="build/phpdox"/>-->
+        <!--<property name="prepare.done" value="true"/>-->
     <!--</target>-->
 
     <!--<target name="vendors" depends="clean" description="Add Dev Vendors">-->
-    <!--<exec executable="composer">-->
-    <!--<arg value='install' />-->
-    <!--<arg value='&#45;&#45;dev' />-->
-    <!--<arg value='&#45;&#45;prefer-dist' />-->
-    <!--</exec>-->
+        <!--<exec executable="composer">-->
+            <!--<arg value='install' />-->
+            <!--<arg value='&#45;&#45;dev' />-->
+            <!--<arg value='&#45;&#45;prefer-dist' />-->
+        <!--</exec>-->
     <!--</target>-->
 
-    <!--<target name="phpcs"-->
-    <!--unless="phpcs.done"-->
-    <!--description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">-->
-    <!--<exec executable="${phpcs}" taskname="phpcs">-->
-    <!--<arg value="&#45;&#45;standard=PSR2" />-->
-    <!--<arg value="&#45;&#45;extensions=php" />-->
-    <!--<arg value="&#45;&#45;ignore=autoload.php" />-->
-    <!--<arg path="src/apps" />-->
-    <!--<arg path="src/tests" />-->
-    <!--</exec>-->
+ <!--<target name="phpcs"-->
+         <!--unless="phpcs.done"-->
+         <!--description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">-->
+  <!--<exec executable="${phpcs}" taskname="phpcs">-->
+   <!--<arg value="&#45;&#45;standard=PSR2" />-->
+   <!--<arg value="&#45;&#45;extensions=php" />-->
+   <!--<arg value="&#45;&#45;ignore=autoload.php" />-->
+   <!--<arg path="src/apps" />-->
+   <!--<arg path="src/tests" />-->
+  <!--</exec>-->
 
-    <!--<property name="phpcs.done" value="true"/>-->
-    <!--</target>-->
-
-
+  <!--<property name="phpcs.done" value="true"/>-->
+ <!--</target>-->
 
 
-    <!--<target name="phpcs-ci"-->
-    <!--unless="phpcs.done"-->
-    <!--depends="prepare"-->
-    <!--description="Find coding standard violations using PHP_CodeSniffer and log result in XML format. Intended for usage within a continuous integration environment.">-->
-    <!--<exec executable="${phpcs}" output="/dev/null" taskname="phpcs">-->
-    <!--<arg value="&#45;&#45;report=checkstyle" />-->
-    <!--<arg value="&#45;&#45;report-file=build/logs/checkstyle.xml" />-->
-    <!--<arg value="&#45;&#45;standard=PSR2" />-->
-    <!--<arg value="&#45;&#45;extensions=php" />-->
-    <!--<arg value="&#45;&#45;ignore=autoload.php" />-->
-    <!--<arg path="src/apps" />-->
-    <!--<arg path="src/tests" />-->
-    <!--</exec>-->
 
-    <!--<property name="phpcs.done" value="true"/>-->
-    <!--</target>-->
+
+ <!--<target name="phpcs-ci"-->
+         <!--unless="phpcs.done"-->
+         <!--depends="prepare"-->
+         <!--description="Find coding standard violations using PHP_CodeSniffer and log result in XML format. Intended for usage within a continuous integration environment.">-->
+  <!--<exec executable="${phpcs}" output="/dev/null" taskname="phpcs">-->
+   <!--<arg value="&#45;&#45;report=checkstyle" />-->
+   <!--<arg value="&#45;&#45;report-file=build/logs/checkstyle.xml" />-->
+   <!--<arg value="&#45;&#45;standard=PSR2" />-->
+   <!--<arg value="&#45;&#45;extensions=php" />-->
+   <!--<arg value="&#45;&#45;ignore=autoload.php" />-->
+   <!--<arg path="src/apps" />-->
+   <!--<arg path="src/tests" />-->
+  <!--</exec>-->
+
+  <!--<property name="phpcs.done" value="true"/>-->
+ <!--</target>-->
 
 
     <!--<target name="phpcpd"-->
-    <!--unless="phpcpd.done"-->
-    <!--description="Find duplicate code using PHPCPD and print human readable output. Intended for usage on the command line before committing.">-->
-    <!--<exec executable="${phpcpd}" taskname="phpcpd">-->
-    <!--<arg path="src" />-->
-    <!--</exec>-->
-    <!--<property name="phpcpd.done" value="true"/>-->
+         <!--unless="phpcpd.done"-->
+         <!--description="Find duplicate code using PHPCPD and print human readable output. Intended for usage on the command line before committing.">-->
+        <!--<exec executable="${phpcpd}" taskname="phpcpd">-->
+            <!--<arg path="src" />-->
+        <!--</exec>-->
+        <!--<property name="phpcpd.done" value="true"/>-->
     <!--</target>-->
 
-    <!--<target name="phpcpd-ci"-->
-    <!--unless="phpcpd.done"-->
-    <!--depends="prepare"-->
-    <!--description="Find duplicate code using PHPCPD and log result in XML format. Intended for usage within a continuous integration environment.">-->
-    <!--<exec executable="${phpcpd}" taskname="phpcpd">-->
-    <!--<arg value="&#45;&#45;log-pmd" />-->
-    <!--<arg path="build/logs/pmd-cpd.xml" />-->
-    <!--<arg path="src/apps" />-->
-    <!--</exec>-->
+ <!--<target name="phpcpd-ci"-->
+         <!--unless="phpcpd.done"-->
+         <!--depends="prepare"-->
+         <!--description="Find duplicate code using PHPCPD and log result in XML format. Intended for usage within a continuous integration environment.">-->
+  <!--<exec executable="${phpcpd}" taskname="phpcpd">-->
+   <!--<arg value="&#45;&#45;log-pmd" />-->
+   <!--<arg path="build/logs/pmd-cpd.xml" />-->
+   <!--<arg path="src/apps" />-->
+  <!--</exec>-->
 
-    <!--<property name="phpcpd.done" value="true"/>-->
-    <!--</target>-->
+  <!--<property name="phpcpd.done" value="true"/>-->
+ <!--</target>-->
 
 
 
     <!--&lt;!&ndash;<target name="phpunit"&ndash;&gt;-->
-    <!--&lt;!&ndash;depends="vendors"&ndash;&gt;-->
-    <!--&lt;!&ndash;description="Run unit tests with PHPUnit">&ndash;&gt;-->
-    <!--&lt;!&ndash;<exec executable="${toolsdir}phpunit" resultproperty="result.phpunit" taskname="phpunit">&ndash;&gt;-->
-    <!--&lt;!&ndash;<arg value="&#45;&#45;configuration"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;<arg path="src/tests/phpunit.xml"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;</exec>&ndash;&gt;-->
+            <!--&lt;!&ndash;depends="vendors"&ndash;&gt;-->
+            <!--&lt;!&ndash;description="Run unit tests with PHPUnit">&ndash;&gt;-->
+        <!--&lt;!&ndash;<exec executable="${toolsdir}phpunit" resultproperty="result.phpunit" taskname="phpunit">&ndash;&gt;-->
+            <!--&lt;!&ndash;<arg value="&#45;&#45;configuration"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<arg path="src/tests/phpunit.xml"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</exec>&ndash;&gt;-->
     <!--&lt;!&ndash;</target>&ndash;&gt;-->
 
 
-    <!--<target name="-check-failure">-->
-    <!--<fail message="PHPUnit did not finish successfully">-->
-
-    <!--<condition>-->
+ <!--<target name="-check-failure">-->
+  <!--<fail message="PHPUnit did not finish successfully">-->
+   <!--<condition>-->
     <!--<not>-->
-    <!--<equals arg1="${result.phpunit}" arg2="0"/>-->
+     <!--<equals arg1="${result.phpunit}" arg2="0"/>-->
     <!--</not>-->
-    <!--</condition>-->
-    <!--</fail>-->
-    <!--</target>-->
-
+   <!--</condition>-->
+  <!--</fail>-->
+ <!--</target>-->
 </project>

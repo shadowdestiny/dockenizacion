@@ -36,22 +36,43 @@
     var txt_edit = "{{ language.translate("edit_btn") }}";
     var txt_link_play = "{{ language.translate("link_euromillions_play") }}";
     var txt_link_powerball = "{{ language.translate("link_powerball_play") }}";
+    var txt_link_megamillions = "{{ language.translate("link_megamillions_play") }}";
     var txt_line = '{{ language.translate('line_x') }}';
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';
     var wednesday = '{{ language.translate('wednesday') }}';
     var saturday = '{{ language.translate('saturday') }}';
     var powerball = true;
+    var megamillions = false;
     var powerplay = <?php echo $power_play; ?>;
     var powerplayprice = <?php echo $power_play_price; ?>;
     var txt_lottery = '<?php echo $lottery_name; ?>';
     var playingPP = '{{ language.translate('checkout_powerplay') }}';
+    var playingMM = '';
     var txt_for = '{{ language.translate('subs_for') }}';
     var txt_since = '{{ language.translate('subs_since') }}';
     var txt_weeks = '{{ language.translate('subs_weeks') }}';
+    var cashier = null;
+    var tsid = '<?php echo $cashier->transactionID; ?>';
 
 
+    //Workaround for moneymatrix
 
+    var disableiframeclick = false;
+    $(document).on("moneymatrix",{wallet: true},function(e, wallet) {
+        $(document).trigger("disableiframeclick", [ true ]);
+        disableiframeclick = true;
+         if(wallet == 1) wallet = true;
+         $.post('/cart/iframereload', "tsid="+tsid+"&wallet="+wallet+"&lottery=PowerBall",function(response){
+                let result = JSON.parse(response);
+                $("#iframemx").attr('src',result.cashierUrl);
+         }
+         ).done(function(){
+            $(document).trigger("disableiframeclick", [ false ]);
+            disableiframeclick = false;
+         })
+        }
+    )
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {
     var total_text = '';
     if(currency_symbol !== '€') {
@@ -69,13 +90,13 @@
     }
     )
 
-
     $(function(){
     $('.buy').on('click',function(){
     if ($(this).text() == txt_buy_btn) {
     $(this).text('Please wait...');
     $(this).css('pointer-events', 'none');
     }
+
     var value = $(this).data('btn');
     if(value == 'no-wallet') {
     var total_text = '';
@@ -87,20 +108,27 @@
     }
     $('.submit.big.green').text(txt_depositBuy_btn + ' ' + total_price_in_credit_card_form);
     {#$('.submit.big.green').text('Pay ' + total_price_in_credit_card_form + total_text);#}
-    $('.payment').show();
-    $('.box-bottom').hide();
+    if(disableiframeclick == false)
+    {
+
+        $('.payment').show();
+        $('.box-bottom').hide();
+    }
     var $root = $('html, body');
     $root.animate({
     scrollTop: $('#card-number').offset().top
     }, 500);
     $('#card-number').focus();
     } else {
-    $('.payment').hide();
+        $('.payment').hide();
     }
     })
     if(show_form_credit_card) {
-    $('.box-bottom').hide();
-    $('.payment').show();
+        if(disableiframeclick == false)
+        {
+            $('.box-bottom').hide();
+            $('.payment').show();
+        }
     $('#card-number').focus();
     }
     });
@@ -149,6 +177,7 @@
     e.preventDefault();
     }
     });
+
 {% endblock %}
 {% block template_scripts_after %}
     <script src="/w/js/react/cart.js"></script>
@@ -176,6 +205,7 @@
         <span class="type">5 {{ language.app("numbers") }} + 3 {{ language.app("stars") }}</span>
     #}
 
+  {% set cashierURL=cashier.cashierUrl %}
     <main id="content" class="">
         <div class="wrapper">
             <div class="review_and_pay-section">
@@ -201,7 +231,11 @@
 
 
                 <div class="payment hidden">
-
+                    {% if cashier.message != "" %}
+                      {% include "cart/loading_order_processing.volt" %}
+                    {% elseif cashier.cashierUrl != null %}
+                      {% include "cart/moneymatrix_iframe.volt" %}
+                    {% else %}
                     <section class="section--card--details">
 
                         <div class="top-row">
@@ -219,6 +253,7 @@
                             </form>
                         </div>
                     </section>
+                    {% endif %}
                 </div>
 
             </div>

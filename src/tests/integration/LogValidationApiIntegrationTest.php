@@ -55,6 +55,7 @@ class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
             'id_ticket' => $bet->getCastilloBet()->id(),
             'status' => 'OK',
             'response' => 'XML',
+            'uuid' => '123456',
             'received' => new \DateTime('2015-11-11 09:46:37')
         ]);
 

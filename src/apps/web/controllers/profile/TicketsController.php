@@ -25,19 +25,19 @@ class TicketsController extends AccountController
         $myGamesActives = $this->userService->getMyActivePlays($user->getId());
         if($myGamesActives->success()){
             $myGames = $myGamesActives->getValues();
-            $playConfigDTO = new UpcomingDrawsDTO($myGames);
+            $playConfigDTO = new UpcomingDrawsDTO($myGames, 1);
         }else{
             $message_actives = $myGamesActives->errorMessage();
         }
         $myGamesInactives = $this->userService->getMyInactivePlays($user->getId());
         if($myGamesInactives->success()){
-            $playConfigInactivesDTOCollection = new PastDrawsCollectionDTO($myGamesInactives->getValues());
+            $playConfigInactivesDTOCollection = new PastDrawsCollectionDTO($myGamesInactives->getValues(),1);
         }else{
             $message_inactives = $myGamesInactives->errorMessage();
         }
 
         $page = (!empty($this->request->get('pageInactives'))) ? $this->request->get('pageInactives') : 1;
-        $paginator = $this->getPaginatorAsArray(!empty($playConfigInactivesDTOCollection->result['dates']) ? $playConfigInactivesDTOCollection->result['dates'] : [],4,$page);
+        $paginator = $this->getPaginatorAsArray(!empty($playConfigInactivesDTOCollection->result) ? $playConfigInactivesDTOCollection->result : [],4,$page);
         /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
         $paginator_view = (new PaginationWidgetAdmin($paginator, $this->request->getQuery(), [], 'pageInactives'))->render();
         $this->view->pick('account/games');

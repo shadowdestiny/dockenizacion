@@ -1,0 +1,299 @@
+$megamillions-color--main : #014fa3;
+
+.megamillions--page {
+
+  .play--h1 {
+    @media only screen and (max-width: $width-pre-tablet) {
+      font-size: 35px;
+      line-height: 38px;
+    }
+  }
+
+  .gameplay {
+    border: 0;
+
+    @media only screen and (max-width: $width-pre-tablet) {
+      padding-top: 5px;
+      margin-bottom: 0;
+    }
+  }
+
+
+  .__react_component_tooltip,
+  .__react_component_tooltip.place-top,
+  .__react_component_tooltip.type-light {
+    font-family: $ff1;
+    color:  #2d2d2d;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+    padding: 20px!important;
+    background-color: #eae8e8;
+    border: 0;
+    text-transform: none;
+
+    &:after {
+      border-top: 8px solid #eae8e8!important;
+    }
+  }
+
+  .gameplay--section.megamillions-game {
+
+    .h4 {
+      display: block;
+
+      span {
+        color: #2d2d2d;
+      }
+    }
+
+
+    #box-action .box-action {
+      @media only screen and (min-width: $screen-desktop) {
+        margin: 13px 24px 0 15px;
+      }
+
+      li {
+        @media only screen and (min-width: $screen-desktop) {
+          margin: 0 5px 4px 0;
+        }
+      }
+    }
+
+    .box-lines {
+      //margin-bottom: 50px;
+      margin-bottom: 15px;
+
+      .line:hover,
+      .line {
+        border: 1px solid $megamillions-color--main;
+
+        &.selected {
+          background-image: url('../img/powerball/full-check.png');
+          -webkit-background-size: 97px;
+          background-size: 97px;
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+        }
+
+        .powerballlabel {
+          padding-top: 2px;
+
+          span {
+            color:  #2d2d2d;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 25px;
+            display: block;
+            float: left;
+            text-transform: capitalize;
+            margin-left: 8px;
+          }
+
+          select {
+            display: inline-block;
+            border-radius: 3px;
+            border-width: 1px;
+            border-color:  $megamillions-color--main;
+            border-style: solid;
+            background-color:  #ffffff;
+            line-height: 25px;
+            color:  #2d2d2d;
+            //font-size: 18px;
+            font-size: 16px;
+            padding: 0;
+            font-weight: 500;
+            font-family: $ff1;
+
+            padding-left: 5px;
+            width: 50px;
+            height: 22px;
+          }
+        }
+
+        .gwy{
+          border: 1px solid $megamillions-color--main;
+        }
+
+        .gwr:hover,
+        .gwr{
+          border: 1px solid #0250a3;
+          background-image: url('../img/megamillions/clear.svg');
+          bottom: -15px;
+          position: relative;
+          left: -30px;
+
+          span {
+            color: $megamillions-color--main;
+          }
+        }
+
+        .gwp:visited,
+        .gwp {
+          border: 1px solid $megamillions-color--main;
+        }
+
+        .gwp.active,
+        .gwp:hover {
+          background-color: $megamillions-color--main;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .left-box-action {
+    @media only screen and (min-width: $screen-desktop) {
+      display: inline-block;
+      padding-left: 52px;
+      padding-top: 12px;
+    }
+  }
+
+  .power-play-check {
+    color: #333333;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    height: 30px;
+    line-height: 1;
+    vertical-align: top;
+    cursor: pointer;
+    margin-bottom: 13px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 13px;
+      margin-bottom: 0;
+    }
+
+    span {
+      display: inline-block;
+      height: 30px;
+      vertical-align: top;
+      position: relative;
+      top: 6px;
+    }
+
+    input {
+      display: none;
+    }
+  }
+  .power-play-check:before {
+    display: inline-block;
+    content: ' ';
+    width: 30px;
+    height: 30px;
+    background-color: #f8ce0d;
+    border-radius: 4px;
+    margin-right: 11px;
+    background-image: url('../svg/check-powerplay.svg');
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 0 0;
+
+    @media only screen and (min-width: $screen-desktop) {
+      width: 22px;
+      height: 23px;
+      margin-right: 5px;
+    }
+
+  }
+  .power-play-check.checked:before {
+    background-color: transparent;
+  }
+
+  .info-icon {
+    width: 24px;
+    height: 24px;
+    line-height: 15px;
+    text-align: center;
+    display: inline-block;
+    margin-left: 8px;
+
+    background-image: url('../svg/info.svg');
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 0 0;
+
+    position: relative;
+    top: -4px;
+
+
+
+    @media only screen and (min-width: $screen-desktop) {
+      width: 18px;
+      height: 18px;
+      margin-left: 5px;
+      top: -2px;
+    }
+
+
+    span {
+      display: none;
+    }
+
+  }
+
+  .bet-line {
+    .ticket-number {
+
+    }
+    .ticket-number.star {
+      border: 0;
+      color: #333333;
+      background-color:  #f4e778;
+      //background-color:  #b3d8fa;
+    }
+  }
+
+  .numbers.selected {
+    .numbers-section.regular {
+      background-image: url('../img/powerball/full-check.png');
+      -webkit-background-size: 97px;
+      background-size: 97px;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .ticket .numbers {
+  .numbers-section {
+    .ticket-number.regular {
+      border-width: 1px;
+      border-color:  $megamillions-color--main;
+      border-style: solid;
+      background-color:  #ffffff;
+      cursor: pointer;
+
+      &.selected {
+        border-width: 1px;
+        border-color:  $megamillions-color--main;
+        border-style: solid;
+        background-color:  $megamillions-color--main;
+        color: #fff;
+      }
+    }
+    .ticket-number.star {
+      border-width: 1px;
+      border-color:  #f4e778;
+      border-style: solid;
+      background-color:  #ffffff;
+      cursor: pointer;
+      color: #333333;
+
+      &.selected {
+        background-color:  #f4e778;
+        color: #333333;
+      }
+    }
+  }
+  }
+
+  .line .v-checkmark {
+    color: #d0e1e9;
+    opacity: 1;
+  }
+}

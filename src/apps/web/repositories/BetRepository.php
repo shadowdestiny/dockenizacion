@@ -129,7 +129,7 @@ class BetRepository extends RepositoryBase
                 INNER JOIN play_configs p ON b.playConfig_id=p.id
                 INNER JOIN euromillions_draws e on e.id=b.euromillions_draw_id
                 INNER JOIN users u ON u.id = p.user_id
-                WHERE p.active=1 and e.draw_date = ?
+                WHERE p.active=1 and e.draw_date = ? and p.lottery_id=1
                 having (cnt=5 and cnt_lucky=2) OR (cnt=5 and cnt_lucky=1) OR (cnt=5 and cnt_lucky=0)
                 OR (cnt=4 and cnt_lucky=2) OR (cnt=4 and cnt_lucky=1) OR (cnt=4 and cnt_lucky=0)
                 OR (cnt=3 and cnt_lucky=2) OR (cnt=2 and cnt_lucky=2) OR (cnt=3 and cnt_lucky=1)
@@ -140,7 +140,7 @@ class BetRepository extends RepositoryBase
     }
 
 
-    public function getMatchesPlayConfigAndUserFromPowerBallByDrawDate($date)
+    public function getMatchesPlayConfigAndUserFromLotteryByDrawDate($date, $lotteryId)
     {
         $rsm = new ResultSetMapping;
         //$rsm->addEntityResult('EuroMillions\web\entities\User', 'u');
@@ -187,7 +187,7 @@ class BetRepository extends RepositoryBase
                   INNER JOIN play_configs p ON b.playConfig_id=p.id
                   INNER JOIN euromillions_draws e on e.id=b.euromillions_draw_id
                   INNER JOIN users u ON u.id = p.user_id
-                WHERE p.active=1 and e.draw_date = ? and p.lottery_id=3
+                WHERE p.active=1 and e.draw_date = ? and p.lottery_id=".$lotteryId." 
                 having (cnt=5 and cnt_lucky=1) OR (cnt=5 and cnt_lucky=0)
                        OR (cnt=4 and cnt_lucky=1) OR (cnt=4 and cnt_lucky=0)
                        OR (cnt=3 and cnt_lucky=1) OR (cnt=3 and cnt_lucky=0)
@@ -329,7 +329,7 @@ class BetRepository extends RepositoryBase
                 . ' p.line.lucky_number_one, p.line.lucky_number_two'
                 . ' FROM ' . $this->getEntityName() . ' b JOIN b.playConfig p JOIN b.euromillionsDraw e'
                 . ' WHERE p.user = :user_id AND e.draw_date < :actual_date and p.frequency = :frequency'
-                . ' ORDER BY p.startDrawDate DESC ')
+                . ' ORDER BY e.id ASC, p.startDrawDate ASC ')
             ->setParameters(['user_id' => $userId, 'actual_date' => date('Y-m-d'), 'frequency' => 1])
             ->getResult();
         return $result;

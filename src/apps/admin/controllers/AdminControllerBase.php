@@ -14,7 +14,7 @@ use Phalcon\Mvc\View;
 class AdminControllerBase extends Controller
 {
 
-    const ALLOW_IPS = ['62.57.159.66', '88.15.234.137'];
+    const ALLOW_IPS = ['62.57.159.66', '88.15.234.137','80.28.218.1', '83.63.153.86'];
 
     use PaginatedControllerTrait;
     /** @var  DomainAdminServiceFactory */
@@ -35,7 +35,7 @@ class AdminControllerBase extends Controller
 
     public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher) {
        if($this->di->get('environmentDetector')->get() === 'production' ) {
-         if(!in_array($this->request->getClientAddress(), self::ALLOW_IPS)){
+         if(!in_array($this->request->getClientAddress(true), self::ALLOW_IPS)){
              die('You have not access');
          }
        }

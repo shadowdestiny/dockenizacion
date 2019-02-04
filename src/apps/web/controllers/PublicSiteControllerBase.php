@@ -3,7 +3,9 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\shared\components\widgets\JackpotAndCountDownWidget;
+use EuroMillions\shared\components\widgets\LotteryResultsListWidget;
 use EuroMillions\shared\helpers\PaginatedControllerTrait;
+use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\ViewHelper;
@@ -18,6 +20,8 @@ use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\LanguageService;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\services\OrderService;
+use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\PowerBallCartService;
 use EuroMillions\web\services\TransactionService;
 use EuroMillions\web\services\UserPreferencesService;
@@ -64,11 +68,19 @@ class PublicSiteControllerBase extends ControllerBase
     /** @var  BlogService */
     protected $blogService;
 
+    /** @var PaymentProviderService */
+    protected $paymentProviderService;
+
     protected $lottery;
 
     protected $languageUrl;
 
     protected $currencyUrl;
+
+    protected $cartPaymentProvider;
+
+    /** @var OrderService $orderService */
+    protected $orderService;
 
     public function initialize(LotteryService $lotteryService = null,
                                LanguageService $languageService = null,
@@ -101,10 +113,14 @@ class PublicSiteControllerBase extends ControllerBase
         $this->lottery = !isset($this->router->getParams()['lottery']) ? 'euromillions' : $this->router->getParams()['lottery'];
         $this->languageUrl = !isset($this->router->getParams()['language']) ? '' : $this->router->getParams()['language'];
         $this->currencyUrl = !isset($this->router->getParams()['currency']) ? '' : $this->router->getParams()['currency'];
+        $this->cartPaymentProvider = $this->getDI()->get('paymentProviderFactory');
+        $this->paymentProviderService = $this->di->get('domainServiceFactory')->getPaymentProviderService();
+        $this->orderService = $this->domainServiceFactory->getOrderService();
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
+        $this->setResultWidget();
         $this->setJackpotWidget();
         $this->checkAuth();
         $this->setCurrencyByUrl();
@@ -166,6 +182,22 @@ class PublicSiteControllerBase extends ControllerBase
         $this->view->setVar('jackpot_widget', $widgetArr);
     }
 
+    protected function setResultWidget()
+    {
+        $controllerWidgetForLotteries = $this->di->get('config')['result_widget'];
+        $widgetArr = null;
+        foreach($controllerWidgetForLotteries as $lottery => $controllers)
+        {
+            foreach(explode(',',$controllers) as $controller) {
+                if($this->dispatcher->getControllerName() ==  $controller)
+                {
+                    $widgetArr .= (new LotteryResultsListWidget($lottery))->render();
+                }
+            }
+        }
+        $this->view->setVar('result_widget', $widgetArr);
+    }
+
     protected function setTopNavValues()
     {
         $user_currency = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
@@ -201,7 +233,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->view->setVar('user_balance_raw', $user_balance_raw);
         $this->view->setVar('active_languages', $this->languageService->activeLanguagesArray());
         $this->view->setVar('user_language', $user_language);
-        $this->view->setVar('jackpot', $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')));
+        //$this->view->setVar('jackpot', $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')));
         $date_time_util = new DateTimeUtil();
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $this->view->setVar('nextDrawDateEuromillions', $date_next_draw->format('Y-m-d'));
@@ -213,7 +245,8 @@ class PublicSiteControllerBase extends ControllerBase
             $fakeDateTime = new \DateTime($this->request->get('fakedatetime'));
             $this->view->setVar('countdown_finish_bet', ViewHelper::setCountDownFinishBet(1, 100, 5, $this->lotteryService->getNextDateDrawByLottery('EuroMillions', new \DateTime('2016-11-11 18:00:00')), $fakeDateTime->setTime(17, 9, 58)));
         }
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroMillions'));
+        $mainJackpotHomeDTO = $this->lotteryService->mainJackpotHome();
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($mainJackpotHomeDTO->jackpot);
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $params = ViewHelper::setSemanticJackpotValue($numbers, $letters, $jackpot, $this->languageService->getLocale());
@@ -221,7 +254,6 @@ class PublicSiteControllerBase extends ControllerBase
         $this->view->setVar('trillions', $params['trillions']);
         $this->view->setVar('jackpot_value', $params['jackpot_value']);
         $this->view->setVar('language', $this->languageService->getLocale());
-
 
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
@@ -262,65 +294,11 @@ class PublicSiteControllerBase extends ControllerBase
             $user_name = '';
         }
 
-        $isMobile = $this->detectDevice();
+        $isMobile = SiteHelpers::detectDevice();
         $this->view->setVar('mobile', $isMobile);
         $this->view->setVar('user_logged', $is_logged);
         $this->view->setVar('user_name', $user_name);
 
-    }
-
-    public function detectDevice()
-    {
-        $tablet_browser = 0;
-        $mobile_browser = 0;
-        $body_class = 'desktop';
-
-        if (preg_match('/(tablet|ipad|playbook)|(android(?!.*(mobi|opera mini)))/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
-            $tablet_browser++;
-            $body_class = "tablet";
-        }
-
-        if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|android|iemobile)/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
-            $mobile_browser++;
-            $body_class = "mobile";
-        }
-
-        if ((strpos(strtolower(isset($_SERVER['HTTP_ACCEPT'])), 'application/vnd.wap.xhtml+xml') > 0) or ((isset($_SERVER['HTTP_X_WAP_PROFILE']) or isset($_SERVER['HTTP_PROFILE'])))) {
-            $mobile_browser++;
-            $body_class = "mobile";
-        }
-
-        $mobile_ua = strtolower(substr($_SERVER['HTTP_USER_AGENT'], 0, 4));
-        $mobile_agents = array(
-            'w3c ', 'acs-', 'alav', 'alca', 'amoi', 'audi', 'avan', 'benq', 'bird', 'blac',
-            'blaz', 'brew', 'cell', 'cldc', 'cmd-', 'dang', 'doco', 'eric', 'hipt', 'inno',
-            'ipaq', 'java', 'jigs', 'kddi', 'keji', 'leno', 'lg-c', 'lg-d', 'lg-g', 'lge-',
-            'maui', 'maxo', 'midp', 'mits', 'mmef', 'mobi', 'mot-', 'moto', 'mwbp', 'nec-',
-            'newt', 'noki', 'palm', 'pana', 'pant', 'phil', 'play', 'port', 'prox',
-            'qwap', 'sage', 'sams', 'sany', 'sch-', 'sec-', 'send', 'seri', 'sgh-', 'shar',
-            'sie-', 'siem', 'smal', 'smar', 'sony', 'sph-', 'symb', 't-mo', 'teli', 'tim-',
-            'tosh', 'tsm-', 'upg1', 'upsi', 'vk-v', 'voda', 'wap-', 'wapa', 'wapi', 'wapp',
-            'wapr', 'webc', 'winw', 'winw', 'xda ', 'xda-');
-
-        if (in_array($mobile_ua, $mobile_agents)) {
-            $mobile_browser++;
-        }
-
-        if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'opera mini') > 0) {
-            $mobile_browser++;
-            //Check for tablets on opera mini alternative headers
-            $stock_ua = strtolower(isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']) ? $_SERVER['HTTP_X_OPERAMINI_PHONE_UA'] : (isset($_SERVER['HTTP_DEVICE_STOCK_UA']) ? $_SERVER['HTTP_DEVICE_STOCK_UA'] : ''));
-            if (preg_match('/(tablet|ipad|playbook)|(android(?!.*mobile))/i', $stock_ua)) {
-                $tablet_browser++;
-            }
-        }
-        if ($tablet_browser > 0) {
-            return 2;
-        } else if ($mobile_browser > 0) {
-            return 1;
-        } else {
-            return 3;
-        }
     }
 
     private function setActiveCurrencies()

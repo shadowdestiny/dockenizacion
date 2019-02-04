@@ -119,6 +119,7 @@ class ReportsController extends AdminControllerBase
         ]);
     }
 
+
     public function playerDetailsAction()
     {
         $user = $this->reportsService->getUserById($this->request->get('id'));
@@ -128,7 +129,7 @@ class ReportsController extends AdminControllerBase
         $paginatorActives = $this->getPaginatorAsArray(!empty($myGamesActives->result) ? $myGamesActives->result : [], 4, $pageActives);
         $paginatorViewActives = (new PaginationWidgetAdmin($paginatorActives, $this->request->getQuery(), [], 'pageActives'))->render();
 
-        $mySubscriptionActives = $this->reportsService->getSubscriptionsByUserIdActive($user->getId(), $this->reportsService->getNextDateDrawByLottery('EuroMillions'), $this->reportsService->getNextDateDrawByLottery('PowerBall'));
+        $mySubscriptionActives = $this->reportsService->getSubscriptionsByUserIdActive($user->getId(), $this->reportsService->getNextDateDrawByLottery('EuroMillions'), $this->reportsService->getNextDateDrawByLottery('PowerBall'), $this->reportsService->getNextDateDrawByLottery('MegaMillions'));
         $pageSubsActives = (!empty($this->request->get('pageSubsActives'))) ? $this->request->get('pageSubsActives') : 1;
         $paginatorSubsActives = $this->getPaginatorAsArray(!empty($mySubscriptionActives) ? $mySubscriptionActives : [], 4, $pageSubsActives);
         $paginatorViewSubsActives = (new PaginationWidgetAdmin($paginatorSubsActives, $this->request->getQuery(), [], 'pageSubsActives'))->render();
@@ -201,13 +202,7 @@ class ReportsController extends AdminControllerBase
                 header('Content-Disposition: attachment; filename=userDeposits.csv');
                 $fp = fopen('php://output', 'w');
                 foreach ($userDeposits as $userDeposit) {
-                    if ($userDeposit['entity_type'] == 'subscription_purchase') {
-                        $movement = $userDeposit['subsMovement'];
-                    } else {
-                        $movement = $userDeposit['movement'];
-                    }
-
-                    fputcsv($fp, [$userDeposit['date'], $userDeposit['entity_type'], sprintf("%.2f", $movement / 100), sprintf("%.2f", $userDeposit['balance'] / 100)]);
+                    fputcsv($fp, [$userDeposit['date'], $userDeposit['entity_type'], sprintf("%.2f", $userDeposit['movement'] / 100), sprintf("%.2f", $userDeposit['balance'] / 100)]);
                 }
                 fclose($fp);
             }
@@ -229,6 +224,15 @@ class ReportsController extends AdminControllerBase
         $this->view->setVars([
             'needReportsMenu' => true,
             'salesDraw' => $this->reportsService->fetchSalesDrawPowerBall()
+        ]);
+    }
+
+    public function salesDrawMegaMillionsAction()
+    {
+        $this->checkPermissions();
+        $this->view->setVars([
+            'needReportsMenu' => true,
+            'salesDraw' => $this->reportsService->fetchSalesDrawMegaMillions()
         ]);
     }
 

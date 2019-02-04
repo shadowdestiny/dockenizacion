@@ -31,7 +31,7 @@
                     <span class="num">{{ my_subscription_inactive['line_regular_number_three'] }}</span>
                     <span class="num">{{ my_subscription_inactive['line_regular_number_four'] }}</span>
                     <span class="num">{{ my_subscription_inactive['line_regular_number_five'] }}</span>
-                    {% if my_subscription_inactive['lottery'] != 'PowerBall' %}
+                    {% if my_subscription_inactive['lottery'] != 'PowerBall' and my_subscription_inactive['lottery'] != 'MegaMillions' %}
                         <span class="num yellow">{{ my_subscription_inactive['line_lucky_number_one'] }}</span>
                     {% endif %}
                     <span class="num yellow">{{ my_subscription_inactive['line_lucky_number_two'] }}</span>

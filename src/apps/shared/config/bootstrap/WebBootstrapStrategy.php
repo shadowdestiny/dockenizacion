@@ -3,6 +3,10 @@
 namespace EuroMillions\shared\config\bootstrap;
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;
+use EuroMillions\megamillions\config\routes\HowToPlayRoutes;
+use EuroMillions\megamillions\config\routes\MegaMillionsPlayRoutes;
+use EuroMillions\megamillions\config\routes\MegaMillionsResultRoutes;
+use EuroMillions\megamillions\config\routes\ResultPurchaseRoutes;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconCookiesWrapper;
 use EuroMillions\shared\components\PhalconRequestWrapper;
@@ -74,6 +78,27 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             $view->setViewsDir($this->appPath . 'admin/views/');
         }
 
+        $view->registerEngines(array(
+            ".volt" => function ($view, $di) use ($compiled_path) {
+                $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
+                $volt->setOptions($this->voltConfigByEnvironment($compiled_path));
+                $compiler = $volt->getCompiler();
+                $compiler->addFilter('number_format', 'number_format');
+                $compiler->addFunction('currency_css', function ($currency) {
+                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
+                });
+                return $volt;
+            }
+        ));
+        return $view;
+    }
+
+    protected function configViewMegaMillions()
+    {
+        $view = new Phalcon\Mvc\View();
+        $compiled_path = $this->assetsPath . 'compiled_templates/';
+        $view->setViewsDir($this->appPath . 'megamillions/views/');
+        $view->setLayoutsDir('shared/views/');
         $view->registerEngines(array(
             ".volt" => function ($view, $di) use ($compiled_path) {
                 $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
@@ -203,6 +228,25 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
             'language' => 'it',
         ));
+
+        $router->add('/paymentmx/success', array(
+            "module" => "web",
+            "controller" => "moneymatrix",
+            "action" => "success"
+        ));
+
+        $router->add('/paymentmx/notification', array(
+            "module" => "web",
+            "controller" => "notification",
+            "action" => "notification"
+        ));
+
+        $router->add('/paymentmx/status', array(
+            "module" => "web",
+            "controller" => "notification",
+            "action" => "status"
+        ));
+
 
         $router->add("/{lottery:(euromillions)+}/play", array(
             "module" => "web",
@@ -513,8 +557,22 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'payment',
         ));
 
+        $router->add("/{lottery:(megamillions)+}/payment", array(
+            "module" => "megamillions",
+            'lottery' => 4,
+            'controller' => 'mega-millions-payment',
+            'action' => 'payment',
+        ));
 
-        $router->add("/{lottery:(euromillions|powerball)+}/cart/login", array(
+        $router->add("/{lottery:(megamillions)+}/payment/payment(.*?)", array(
+            "module" => "megamillions",
+            'lottery' => 4,
+            'controller' => 'mega-millions-payment',
+            'action' => 'payment',
+        ));
+
+
+        $router->add("/{lottery:(euromillions|powerball|megamillions)+}/cart/login", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'cart',
@@ -559,7 +617,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        $router->add("/{lottery:(euromillions|powerball)+}/result/success/:params", array(
+        $router->add("/{lottery:(euromillions|powerball|megamillions)+}/result/success/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'result',
@@ -1386,51 +1444,95 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        //MEGAMILLIONS ROUTES
+        //*********************MEGAMILLIONS ROUTES***********************************//
+
+        //INDEX
+        $router->add("/{lottery:(megamillions)+}", array(
+            "module" => "megamillions",
+            'controller' => 'index',
+            'action' => 'index',
+        ));
 
         //DRAW HISTORY
         $router->add("/{lottery:(megamillions)+}/results/draw-history", array(
-            "module" => "web",
-            'controller' => 'numbers',
+            "module" => "megamillions",
+            'controller' => 'megamillions-numbers',
             'action' => 'pastList',
             'language' => 'en'
         ));
 
         $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}", array(
-            "module" => "web",
-            'controller' => 'numbers',
-            'action' => 'pastList'
+            "module" => "megamillions",
+            'controller' => 'megamillions-numbers',
+            'action' => 'pastList',
         ));
 
         //LAST RESULTS
         $router->add("/{lottery:(megamillions)+}/results", array(
-            "module" => "web",
-            'controller' => 'numbers',
+            "module" => "megamillions",
+            'controller' => 'megamillions-numbers',
             'action' => 'index',
             'language' => 'en'
         ));
 
         $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}", array(
-            "module" => "web",
-            'controller' => 'numbers',
-            'action' => 'index'
+            "module" => "megamillions",
+            'controller' => 'megamillions-numbers',
+            'action' => 'index',
         ));
 
         //PAST DATES
         $router->add("/{lottery:(megamillions)+}/results/draw-history/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
-            "module" => "web",
-            'controller' => 'numbers',
-            'action' => 'pastResult',
+            "module" => "megamillions",
+            'controller' => 'megamillions-numbers',
+            'action' => 'index',
             'language' => 'en'
         ));
 
         $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
-            "module" => "web",
-            'controller' => 'numbers',
-            'action' => 'pastResult',
+            "module" => "megamillions",
+            'controller' => 'megamillions-numbers',
+            'action' => 'index',
         ));
 
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{play:(jugar|gioca|speel|играть)+}", array(
+            "module" => "megamillions",
+            'controller' => 'play',
+            'action' => 'index',
+        ));
 
+        $router->mount(new HowToPlayRoutes());
+        $router->mount(new MegaMillionsPlayRoutes());
+        $router->mount(new MegaMillionsResultRoutes());
+        $router->mount(new ResultPurchaseRoutes());
+
+        //LANDINGS
+
+        $router->add('/landings/{lottery:(euromillions|powerball|megamillions)+}', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "main",
+            "language" => "en"
+        ]);
+
+        $router->add('/{language:(es|it|nl|ru)+}/landings/{lottery:(euromillions|powerball|megamillions)+}', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "main"
+        ]);
+
+        $router->add('/landings/{lottery:(euromillions|powerball|megamillions)+}/form', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "mainorange",
+            "language" => "en"
+        ]);
+
+        $router->add('/{language:(es|it|nl|ru)+}/landings/{lottery:(euromillions|powerball|megamillions)+}/{form:(form|formulario|modulo|formulier|форма)+}', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "mainorange",
+        ]);
 
 //        $router->setDefaults(array(
 //            "module"     => "web",
@@ -1522,12 +1624,17 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'admin' => [
                 'className' => 'EuroMillions\admin\Module',
                 'path' => '../apps/admin/Module.php',
+            ],
+            'megamillions' => [
+                'className' => 'EuroMillions\megamillions\Module',
+                'path' => '../apps/megamillions/Module.php',
             ]
         ]);
         $di = $application->getDI();
         $eventsManager = new Phalcon\Events\Manager();
         $eventsManager->attach('application:beforeStartModule', function ($event, $application) use ($di) {
             $module_name = $event->getData();
+
             if ($module_name === 'web') {
                 $web_module = $application->getModule($module_name);
                 /** @var ModuleDefinitionInterface $object */
@@ -1543,6 +1650,15 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $object = $di->get($admin_module['className']);
                 $object->registerServices($di);
             }
+            if ($module_name === 'megamillions') {
+                $web_module = $application->getModule($module_name);
+                /** @var ModuleDefinitionInterface $object */
+                $object = $di->get($web_module['className']);
+                $di->set('language', $this->configLanguage($di), true);
+                $di->set('view', $this->configViewMegaMillions(), true);
+                //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
+                $object->registerServices($di);
+            }
         });
         $application->setEventsManager($eventsManager);
     }
@@ -1552,7 +1668,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         $di = parent::dependencyInjector();
         $environment = $di->get('environmentDetector');
-        if ($environment->get() !== 'development' || $environment->get() !== 'vagrant') {
+        if ($environment->get() !== 'development' || $environment->get() !== 'test') {
             return [
                 "compiledPath" => $compiled_path,
                 "compiledExtension" => ".compiled",

@@ -7,44 +7,46 @@
             <td class="date-to"></td>
             <td class="numbers">{{ language.translate("tickets_SubsPast_numbers") }}</td>
         </tr>
+        {% for name,results in my_games_actives.result %}
+            {% for date,play_configs in results %}
+                {% if (name != 'Christmas')%}
+                    <tr>
+                        <td class="lottery">
+                            {{ name }}
+                        </td>
+                        <td class="date-from">
+                            <?php
+                            $euromillionsDateActive = new DateTime($date);
+                        ?>
+                            {{ euromillionsDateActive.format(language.translate('dateformat')) }}
+                        </td>
+                        <td class="date-to">
 
-        {% for date,play_configs in my_games_actives.result %}
-            {% if (play_configs[0].lotteryName != 'Christmas')%}
-                <tr>
-                    <td class="lottery">
-                        {{ play_configs[0].lotteryName }}
-                    </td>
-                    <td class="date-from">
-                        <?php
-                        $euromillionsDateActive = new DateTime($date);
-                    ?>
-                        {{ euromillionsDateActive.format(language.translate('dateformat')) }}
-                    </td>
-                    <td class="date-to">
-
-                    </td>
-                    <td class="numbers">
-                        {% for play_config in play_configs %}
-                            <?php $play_config = $play_config->get(0); ?>
-                            <?php $regular = explode(',', $play_config->lines['bets']['regular']);?>
-                            <?php $lucky = explode(',', $play_config->lines['bets']['lucky']);?>
-                            <div class="numbers--row">
-                            {% if (play_config.powerPLay) %}PowerPlay{% endif %}
-                            {% for regular_number in regular %}
-                                <span>{{ regular_number }}</span>
-                            {% endfor %}
-                            {% if (play_config.lotteryName == 'PowerBall') %}
-                                <span class="star">{{ lucky[1] }}</span>
-                            {% else %}
-                                {% for lucky_number in lucky %}
-                                    <span class="star">{{ lucky_number }}</span>
+                        </td>
+                        <td class="numbers">
+                            {% for play_config in play_configs %}
+                                <?php $play_config = $play_config->get(0); ?>
+                                <?php $regular = explode(',', $play_config->lines['bets']['regular']);?>
+                                <?php $lucky = explode(',', $play_config->lines['bets']['lucky']);?>
+                                <div class="numbers--row">
+                                {% if (play_config.powerPLay)  and (play_config.lotteryName == 'PowerBall') %}PowerPlay{% endif %}
+                                {% if (play_config.powerPLay)  and (play_config.lotteryName == 'MegaMillions')%}MegaPlier{% endif %}
+                                {% for regular_number in regular %}
+                                    <span>{{ regular_number }}</span>
                                 {% endfor %}
-                            {% endif %}
-                            </div>
-                        {% endfor %}
-                    </td>
-                </tr>
-            {% endif %}
+                                {% if (play_config.lotteryName == 'PowerBall') or (play_config.lotteryName == 'MegaMillions')%}
+                                    <span class="star">{{ lucky[1] }}</span>
+                                {% else %}
+                                    {% for lucky_number in lucky %}
+                                        <span class="star">{{ lucky_number }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                                </div>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
         {% endfor %}
     </table>
 </div>

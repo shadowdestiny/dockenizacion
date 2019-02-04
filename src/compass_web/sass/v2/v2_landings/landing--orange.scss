@@ -1,0 +1,192 @@
+.landing--orange {
+  // .landing--arrows {
+  //   padding-left: vw(20);
+  //
+  //   ul {
+  //
+  //     background-image: url('../img/landing/arrows.png');
+  //     background-repeat: no-repeat;
+  //     -webkit-background-size: contain;
+  //     background-size: contain;
+  //     background-position: 0 0;
+  //
+  //     li {
+  //       text-align: center;
+  //
+  //       span {
+  //         i {
+  //
+  //         }
+  //       }
+  //       &.li-01 {
+  //         margin-right: vw(-16);
+  //       }
+  //       &.li-02 {
+  //         margin-right: vw(-16);
+  //       }
+  //       &.li-03 {
+  //       }
+  //     }
+  //   }
+  // }
+
+  .landing--banner-block {
+    height: auto;
+    margin-bottom: vw(23);
+    overflow: hidden;
+    background: url('../img/landing/orange/bg.png'), -webkit-linear-gradient(-45deg, #ffdc1e 0%, #ffce05 100%);
+    background: url('../img/landing/orange/bg.png'), -moz-linear-gradient(-45deg, #ffdc1e 0%, #ffce05 100%);
+    background: url('../img/landing/orange/bg.png'), -o-linear-gradient(-45deg, #ffdc1e 0%, #ffce05 100%);
+    background: url('../img/landing/orange/bg.png'), -ms-linear-gradient(-45deg, #ffdc1e 0%, #ffce05 100%);
+    background: url('../img/landing/orange/bg.png'), linear-gradient(135deg, #ffdc1e 0%, #ffce05 100%);
+    -webkit-background-size: contain;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+
+    .landing--banner-block--content {
+      overflow: hidden;
+
+      .landing--banner-block--content--left {
+        padding-left: vw(340);
+        float: left;
+      }
+      .landing--banner-block--content--right {
+        float: right;
+
+        .btn-theme--big span {
+          opacity: 1!important;
+        }
+      }
+
+      .landing--banner-block--title {
+        color: #333333;
+        font-size: vw(70);
+        font-weight: 400;
+        line-height: 1;
+        text-align: center;
+        margin-top: vw(60);
+        letter-spacing: vw(-2.4);
+      }
+
+      .landing--banner-block--prize {
+        color: #333333;
+        font-size: vw(250);
+        font-weight: 710;
+        line-height: 0.7;
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: vw(40);
+        position: relative;
+        letter-spacing: vw(-8);
+        left: vw(-5);
+      }
+
+      .landing--banner-block--countdown-block, .landing--banner-block--countdown-block-mobile {
+        overflow: hidden;
+        margin-left: vw(165);
+        margin-bottom: vw(40);
+
+        .lefter {
+          width: vw(95);
+          height: vw(95);
+          background-image: url('../img/landing/orange/clock.svg');
+          -webkit-background-size: contain;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: 0 0;
+          float: left;
+          position: relative;
+        }
+        .righter {
+          overflow: hidden;
+          float: left;
+          padding-left: vw(25);
+
+          .top {
+            color: #ffffff;
+            font-size: vw(60);
+            font-weight: 700;
+            line-height: 0.8;
+            text-transform: uppercase;
+            letter-spacing: vw(-2.6);
+          }
+          .bottom {
+            color: #ffffff;
+            font-size: vw(58);
+            font-weight: 400;
+            line-height: 0.8;
+            text-transform: uppercase;
+            letter-spacing: vw(-1);
+          }
+        }
+      }
+
+      .landing--banner-block--title-mobile, .landing--banner-block--title-mobile-bottom, .landing--banner-block--countdown-block-mobile {
+        display: none;
+      }
+      
+      .landing--banner-block--star {
+        color: #000000;
+        font-size: vw(24);
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: vw(125);
+      }
+
+      .landing--banner-block--steps {
+        width: vw(850);
+        margin-bottom: 0;
+
+        ul {
+          background-image: url('../img/landing/orange/arrows.png');
+          background-repeat: no-repeat;
+          -webkit-background-size: contain;
+          background-size: contain;
+          background-position: 0 0;
+
+          li {
+            text-align: center;
+
+            &.li-01 {
+                width: 22%;
+                padding-top: vw(24);
+            }
+            &.li-02 {
+                width: 55%;
+                padding-top:vw(24);
+            }
+            &.li-03 {
+                width: 23%;
+                padding-top: vw(24);
+            }
+
+            span {
+              font-size: vw(32);
+            }
+          }
+        }
+      }
+    }
+
+    .landing--banner-block--content--lottery {
+
+      .landing--banner-block--title {
+        line-height: 1.1;
+      }
+
+      .landing--banner-block--countdown-block, .landing--banner-block--countdown-block-mobile {
+        overflow: hidden;
+        margin-left: 0;
+        margin-bottom: vw(30);
+        color: #ffffff;
+        font-size: vw(58);
+        font-weight: 400;
+        line-height: 0.8;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: vw(-1);
+      }
+    }
+  }
+}

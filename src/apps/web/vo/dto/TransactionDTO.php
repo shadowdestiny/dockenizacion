@@ -4,6 +4,7 @@
 namespace EuroMillions\web\vo\dto;
 
 
+use EuroMillions\web\components\MoneyMatrixStatusCodeTranslation;
 use EuroMillions\web\entities\AutomaticPurchaseTransaction;
 use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\DepositTransaction;
@@ -15,6 +16,7 @@ use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\entities\ManualDepositTransaction;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
+use EuroMillions\web\vo\enum\MoneyMatrixStatusCode;
 use Money\Currency;
 use Money\Money;
 
@@ -32,6 +34,7 @@ class TransactionDTO extends DTOBase implements IDto
     public $pendingBalanceMovement;
     public $ticketPrice;
     public $lotteryId;
+    public $status;
 
     public function __construct(Transaction $transaction)
     {
@@ -60,7 +63,12 @@ class TransactionDTO extends DTOBase implements IDto
         } else {
             $this->ticketPrice = new Money(0, new Currency('EUR'));
         }
-
+        // more shit
+        if($this->transaction instanceof WinningsWithdrawTransaction)
+        {
+            $statusTranslated = MoneyMatrixStatusCodeTranslation::createStatusCodeTranslation($this->transaction->getState());
+            $this->status = $statusTranslated->getTranslation();
+        }
     }
 
     public function getEntityType($transactionType)
@@ -100,5 +108,9 @@ class TransactionDTO extends DTOBase implements IDto
         return $amount;
     }
 
+    public function isErrorTransaction()
+    {
+        return $this->transaction->checkTransactionType('ERROR');
+    }
 
 }

@@ -6,6 +6,7 @@ use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\BirthDate;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
@@ -42,6 +43,9 @@ class UserBuilder
     private $playConfig;
     private $winning_above;
     private $ip_address;
+    private $birth_date;
+    private $show_modal_winning;
+
 
 
 
@@ -52,6 +56,7 @@ class UserBuilder
 
     public function __construct()
     {
+        $this->id = self::DEFAULT_ID;
         $this->email = new Email(self::DEFAULT_EMAIL);
         $this->password = new Password(self::DEFAULT_PASSWORD, new NullPasswordHasher());
         $this->wallet = new Wallet();
@@ -60,6 +65,8 @@ class UserBuilder
         $this->user_currency = new Currency(self::DEFAULT_USER_CURRENCY);
         $this->winning_above = new Money((int) 0, new Currency(self::DEFAULT_USER_CURRENCY));
         $this->ip_address = new IPAddress(self::DEFAULT_IP_ADDRESS);
+        $this->birth_date = new BirthDate('2000-10-10');
+        $this->show_modal_winning= 1;
     }
 
     /**
@@ -92,6 +99,13 @@ class UserBuilder
         return $this;
     }
 
+    public function withSubsriptionWallet(Wallet $wallet)
+    {
+        $this->wallet = $wallet;
+        return $this;
+    }
+
+
     public function withName($name)
     {
         $this->name = $name;
@@ -111,6 +125,12 @@ class UserBuilder
     public function withPlayConfigsCollection(array $playConfigMother)
     {
         $this->playConfig = new ArrayCollection($playConfigMother);
+        return $this;
+    }
+
+    public function withWinningAbove(Money $amount)
+    {
+        $this->winning_above= $amount;
         return $this;
     }
 

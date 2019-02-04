@@ -4,13 +4,75 @@
 namespace EuroMillions\tests\helpers\mothers;
 
 
+use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
 use EuroMillions\tests\helpers\builders\EuroMillionsDrawBuilder;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\web\vo\PowerBallDrawBreakDown;
 use Money\Currency;
 use Money\Money;
 
 class EuroMillionsDrawMother
 {
+
+
+    private static $powerBallJsonResult='{
+        "currency": "USD",
+        "date": "2018-11-07",
+        "jackpot": {
+            "rollover": 2,
+            "total": "71000000.00"
+        },
+        "numbers": {
+            "main": [
+                26,
+                28,
+                34,
+                42,
+                50
+            ],
+            "powerball": 25,
+            "powerplay": 2
+        },
+        "prizes": {
+            "match-0-p": "4.00",
+            "match-0-p-pp": "8.00",
+            "match-1-p": "4.00",
+            "match-1-p-pp": "8.00",
+            "match-2-p": "7.00",
+            "match-2-p-pp": "14.00",
+            "match-3": "7.00",
+            "match-3-p": "100.00",
+            "match-3-p-pp": "200.00",
+            "match-3-pp": "14.00",
+            "match-4": "100.00",
+            "match-4-p": "50000.00",
+            "match-4-p-pp": "100000.00",
+            "match-4-pp": "200.00",
+            "match-5": "1000000.00",
+            "match-5-p": "71000000.00",
+            "match-5-pp": "2000000.00"
+        },
+        "type": "powerball",
+        "winners": {
+            "match-0-p": 254996,
+            "match-0-p-pp": 70489,
+            "match-1-p": 101929,
+            "match-1-p-pp": 27249,
+            "match-2-p": 12905,
+            "match-2-p-pp": 3463,
+            "match-3": 16248,
+            "match-3-p": 585,
+            "match-3-p-pp": 158,
+            "match-3-pp": 4390,
+            "match-4": 248,
+            "match-4-p": 15,
+            "match-4-p-pp": 2,
+            "match-4-pp": 70,
+            "match-5": 0,
+            "match-5-p": 0,
+            "match-5-pp": 1
+            }
+    }';
     /**
      * @return EuroMillionsDrawBuilder
      */
@@ -35,5 +97,40 @@ class EuroMillionsDrawMother
         $line = EuroMillionsLineMother::anEuroMillionsLine();
         return EuroMillionsDrawBuilder::aDraw()->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
+
+    public static function anPowerBallDrawWithJackpotAndBreakDown(\DateTime $date = null)
+    {
+        if($date == null)
+        {
+            $date= new \DateTime('2020-01-09');
+        }
+        $jackpot = new Money(5000000000, new Currency('EUR'));
+        $breakDown =
+            new PowerBallDrawBreakDown(json_decode(self::$powerBallJsonResult, TRUE));
+        $line = EuroMillionsLineMother::anPowerBallLine();
+        return EuroMillionsDrawBuilder::aDraw()
+            ->withLottery(LotteryMother::aPowerBall())
+            ->withId(3)
+            ->withDrawDate($date)
+            ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
+    }
+
+    public static function anMegaMillionsDrawWithJackpotAndBreakDown(\DateTime $date = null)
+    {
+        if($date == null)
+        {
+            $date= new \DateTime('2020-01-09');
+        }
+        $jackpot = new Money(5000000000, new Currency('EUR'));
+        $breakDown =
+            new MegaMillionsDrawBreakDown(json_decode(self::$powerBallJsonResult, TRUE));
+        $line = EuroMillionsLineMother::anPowerBallLine();
+        return EuroMillionsDrawBuilder::aDraw()
+            ->withLottery(LotteryMother::aPowerBall())
+            ->withId(4)
+            ->withDrawDate($date)
+            ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
+    }
+
 }
 

@@ -4,6 +4,7 @@
 namespace EuroMillions\tests\integration;
 
 
+use EuroMillions\tests\helpers\mothers\LotteryMother;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\vo\EuroMillionsLine;
@@ -25,6 +26,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     protected function getFixtures()
     {
         return [
+            'lotteries',
             'users',
             'play_configs'
         ];
@@ -67,6 +69,8 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $actual = $this->sut->getPlayConfigsByDrawDayAndDate($date_expected);
         $this->assertEquals($expected, $this->getIdsFromArrayOfObjects($actual));
     }
+
+
 
 
     /**
@@ -136,6 +140,20 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertEquals(0, count($actual));
     }
 
+
+    /**
+     * method getActivePlayConfigsByUser
+     * when called
+     * should returnPlayConfigsActiveByUser
+     */
+    public function test_getActivePlayConfigsByUser_called_returnPlayConfigsActiveByUser()
+    {
+        $expected=3;
+        $userId= '9098299B-14AC-4124-8DB0-19571EDABE56';
+        $actual = $this->sut->getActivePlayConfigsByUser($userId);
+        $this->assertEquals($expected, count($actual));
+    }
+
     /**
      * method updateToInactives
      * when called
@@ -144,9 +162,12 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function test_updateToInactives_called_updateMatchingRowsToInactive()
     {
         $date = new \DateTime('2016-01-01');
-        $actual = $this->sut->updateToInactives($date);
-        $this->assertEquals(6, $actual);
+        $lottery = LotteryMother::anEuroMillions();
+        $actual = $this->sut->updateToInactives($date,$lottery);
+        $this->assertEquals(7, $actual);
     }
+
+
 
     private function exerciseAdd($user, $euroMillionsLine)
     {

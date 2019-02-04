@@ -76,12 +76,12 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
         $this->startDrawDate = $start->format('Y M j');
         $this->startDrawDateTime = $start;
         $this->lines = $this->euroMillionsLinesToJson();
-        $this->regular_numbers = [];
-        $this->lucky_numbers = [];
+        $this->regular_numbers = $this->playConfig[0]->getLine()->getRegularNumbersArray();
+        $this->lucky_numbers = $this->playConfig[0]->getLine()->getLuckyNumbersArray();
         $this->lines = $this->euroMillionsLinesToJson();
         $this->duration_format = $this->getFormatDuration();
         $this->duration = $this->duration();
-        $this->lotteryName = $this->playConfig[0]->getLottery()->getName();
+        $this->lotteryName = $this->playConfig[0]->getLottery() != null  ? $this->playConfig[0]->getLottery()->getName() : "";
         $this->powerPLay = $this->playConfig[0]->getPowerPlay();
         $this->frequency = $this->playConfig[0]->getFrequency();
         $this->user = $this->playConfig[0]->getUser();
@@ -98,8 +98,8 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
         $this->lastDrawDate = $last->format('Y-m-d');
         $this->startDrawDate = $start->format('Y M j');
         $this->lines = $this->euroMillionsLine($key);
-        $this->regular_numbers = [];
-        $this->lucky_numbers = [];
+        $this->regular_numbers = $this->playConfig[$key]->getLine()->getRegularNumbersArray();
+        $this->lucky_numbers = $this->playConfig[$key]->getLine()->getLuckyNumbersArray();
         $this->lines = $this->euroMillionsLine($key);
         $this->duration_format = $this->getFormatDuration();
         $this->duration = $this->duration();

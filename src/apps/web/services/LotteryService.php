@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnexpectedResultException;
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\shared\interfaces\IComparable;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\EmTranslationAdapter;
@@ -29,13 +30,17 @@ use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\external_apis\LottorisqApi;
+use EuroMillions\web\services\external_apis\MegaMillionsApi;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationResultsStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\dto\EuroMillionsDrawDTO;
+use EuroMillions\web\vo\dto\MainJackpotHomeDTO;
 use EuroMillions\web\vo\dto\PowerBallDrawBreakDownDTO;
 use EuroMillions\web\vo\dto\PowerBallDrawDTO;
+use EuroMillions\megamillions\vo\dto\MegaMillionsDrawDTO;
+use EuroMillions\megamillions\vo\dto\MegaMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsJackpot;
@@ -66,6 +71,8 @@ class LotteryService
     /** @var WalletService $walletService */
     private $walletService;
 
+    private $biggestJackpot;
+
     public function __construct(EntityManager $entityManager,
                                 LotteriesDataService $lotteriesDataService,
                                 UserService $userService,
@@ -85,6 +92,7 @@ class LotteryService
         $this->betService = $betService;
         $this->userNotificationsService = $userNotificationsService;
         $this->walletService = $walletService;
+        $this->biggestJackpot = $this->lotteryDrawRepository->giveMeBiggestJackpot();
     }
 
     /**
@@ -109,16 +117,25 @@ class LotteryService
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
         /** @var EuroMillionsJackpot $jackpot_object */
-        $jackpot_object = 'EuroMillions\web\vo\\' . $lotteryName . 'Jackpot';
+        switch($lotteryName)
+        {
+            case 'MegaMillions':
+                $jackpot_object = 'EuroMillions\megamillions\vo\\' . $lotteryName . 'Jackpot';
+                break;
+            default:
+                $jackpot_object = 'EuroMillions\web\vo\\' . $lotteryName . 'Jackpot';
+                break;
+        }
+
         try {
             $next_jackpot = $this->lotteryDrawRepository->getNextJackpot($lottery);
             return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
         } catch (DataMissingException $e) {
             try {
-                $next_jackpot = ($lotteryName == 'PowerBall') ?
-                    $this->lotteriesDataService->updateNextDrawJackpotPowerball($lotteryName) :
+                $next_jackpot = ($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
+                    $this->lotteriesDataService->updateNextDrawJackpotLottery($lotteryName) :
                     $this->lotteriesDataService->updateNextDrawJackpot($lotteryName);
-                if($next_jackpot == null ) return $jackpot_object::fromAmountIncludingDecimals(null);
+                if ($next_jackpot == null) return $jackpot_object::fromAmountIncludingDecimals(null);
                 return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
             } catch (DataMissingException $e) {
                 return $jackpot_object::fromAmountIncludingDecimals(null);
@@ -135,7 +152,7 @@ class LotteryService
         $allJackpots = null;
         try {
             $next_jackpots = $this->lotteryDrawRepository->getAllNextJackpots();
-            foreach($next_jackpots as $key=>$val) {
+            foreach ($next_jackpots as $key => $val) {
                 /** @var EuroMillionsJackpot $jackpot_object */
                 $jackpot_object = 'EuroMillions\web\vo\\' . $key . 'Jackpot';
                 $allJackpots[$key] = $jackpot_object::fromAmountIncludingDecimals($val->getAmount());
@@ -162,7 +179,9 @@ class LotteryService
             /** @var EuroMillionsLine $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
         } catch (DataMissingException $e) {
-//            $lottery_result = $this->lotteriesDataService->updateLastDrawResult($lotteryName);
+            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
+                $this->lotteriesDataService->updateLastDrawResultLottery($lotteryName):
+                $this->lotteriesDataService->updateLastDrawResult($lotteryName);
         }
         $result['regular_numbers'] = explode(',', $lottery_result->getRegularNumbers());
         $result['lucky_numbers'] = explode(',', $lottery_result->getLuckyNumbers());
@@ -171,19 +190,20 @@ class LotteryService
 
     public function getLastFiveResults($lotteryName)
     {
+        $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
+        $nextDraw = $this->lotteryDrawRepository->getNextDraw($lottery);
         $lottery_results = $this->lotteryDrawRepository->getLastSixResults(
-            $this->lotteryRepository->getLotteryByName($lotteryName)
+            $lottery, !is_array($nextDraw) ? $nextDraw->getDrawDate() : new \DateTime()
         );
 
         $result = [];
         $cont = 0;
         /** @var EuroMillionsDraw $lottery_result */
         foreach ($lottery_results as $lottery_result) {
-            if ($cont != 0) {
-                $result[$cont-1]['regular_numbers'] = explode(',', $lottery_result->getResult()->getRegularNumbers());
-                $result[$cont-1]['lucky_numbers'] = explode(',', $lottery_result->getResult()->getLuckyNumbers());
-                $result[$cont-1]['draw_date'] =  $lottery_result->getDrawDate();
-            }
+            $result[$cont - 1]['regular_numbers'] = explode(',', $lottery_result->getResult()->getRegularNumbers());
+            $result[$cont - 1]['lucky_numbers'] = explode(',', $lottery_result->getResult()->getLuckyNumbers());
+            $result[$cont - 1]['draw_date'] = $lottery_result->getDrawDate();
+            $result[$cont - 1]['raffle'] = !empty($lottery_result->getRaffle()) ? $lottery_result->getRaffle()->getValue() : "";
             $cont++;
         }
 
@@ -199,7 +219,9 @@ class LotteryService
             /** @var EuroMillionsDrawBreakDown $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastBreakdown($lottery);
         } catch (DataMissingException $e) {
-//            $lottery_result = $this->lotteriesDataService->updateLastDrawResult($lotteryName);
+            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions') ?
+                $this->lotteriesDataService->updateLastBreakDownLottery($lotteryName):
+                $this->lotteriesDataService->updateLastBreakDown($lotteryName);
         }
         return $lottery_result;
     }
@@ -215,25 +237,25 @@ class LotteryService
     {
         list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         $date = $lottery->getNextDrawDate($now);
-        if($showLotteryLocalTime) {
-            if($lottery->getName() !== 'EuroMillions' && $lottery->getName() !== 'Christmas')
-            {
-                return DateTimeUtil::convertDateTimeBetweenTimeZones($date,'America/New_York','Europe/Madrid');
+        if ($showLotteryLocalTime) {
+            if ($lottery->getName() !== 'EuroMillions' && $lottery->getName() !== 'Christmas') {
+                return DateTimeUtil::convertDateTimeBetweenTimeZones($date, 'America/New_York', 'Europe/Madrid',$lottery->getName());
             }
         }
         return $date;
     }
 
-    public function getNextDrawAndJackpotForAllLotteries(\DateTime $now = null) {
+    public function getNextDrawAndJackpotForAllLotteries(\DateTime $now = null)
+    {
         $jackpots = $this->getAllNextJackpots();
         list($now, $lotteries) = $this->getAllLotteriesAndNowDate($now);
         $time = null;
-        foreach($lotteries as $lottery) {
-            if(trim($lottery->getName()) != 'Christmas') {
+        foreach ($lotteries as $lottery) {
+            if (trim($lottery->getName()) != 'Christmas') {
                 $time[$lottery->getName()]['show_days'] = (new \DateTime())->diff($this->getNextDateDrawByLottery($lottery->getName())->modify('-1 hours'))->format('%a');
                 $time[$lottery->getName()]['jackpot_value'] = $jackpots[$lottery->getName()]->getAmount();
-                $time[$lottery->getName()]['link'] = $lottery->getName().'/play';
-                $time[$lottery->getName()]['name'] = $lottery->getName().' Jackpot';
+                $time[$lottery->getName()]['link'] = $lottery->getName() . '/play';
+                $time[$lottery->getName()]['name'] = $lottery->getName() . ' Jackpot';
             }
         }
 
@@ -275,28 +297,40 @@ class LotteryService
         return new ActionResult(false);
     }
 
-    public function getPowerBallDrawsDTO($lotteryName, $limit = 13,WebLanguageStrategy $webLanguageStrategy)
+    public function getLotteryDrawsDTO($lotteryName, $limit = 13, WebLanguageStrategy $webLanguageStrategy)
     {
-
         $emTranslationAdapter = new EmTranslationAdapter($webLanguageStrategy->get(), $this->entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
         /** @var Lottery $lottery */
         $lottery = $this->getLotteryByName($lotteryName);
         if (null !== $lottery) {
             try {
                 $euroMillionsDraws = $this->lotteryDrawRepository->getDraws($lottery, $limit);
-                $powerBallDrawsDTO = [];
+                $drawsDTO = [];
+                $drawDtoObject = $this->getDTO($lotteryName);
                 //TODO please, we need move results, jackpot from Draws to another service. Inject this depencencies for example
                 /** @var EuroMillionsDraw[] $euroMillionsDraws */
                 foreach ($euroMillionsDraws as $euroMillionsDraw) {
-                    $powerBallDrawDTO = new PowerBallDrawDTO($euroMillionsDraw, $emTranslationAdapter);
-                    $powerBallDrawsDTO[] = $powerBallDrawDTO;
+                    $drawsDTO[] = new $drawDtoObject($euroMillionsDraw, $emTranslationAdapter);
                 }
-                return new ActionResult(true, $powerBallDrawsDTO);
+                return new ActionResult(true, $drawsDTO);
             } catch (DataMissingException $e) {
                 return new ActionResult(false);
             }
         }
         return new ActionResult(false);
+    }
+
+    /** return Class */
+    private function getDTO($lotteryName){
+
+        switch($lotteryName)
+        {
+            case 'MegaMillions':
+                return 'EuroMillions\megamillions\vo\dto\\'.$lotteryName.'DrawDTO';
+            default:
+                return 'EuroMillions\web\vo\dto\\'.$lotteryName.'DrawDTO';
+        }
+
     }
 
     public function getDrawsDTO($lotteryName, $limit = 13)
@@ -445,9 +479,9 @@ class LotteryService
         }
     }
 
-    public function placePowerBallBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
+    public function placeLotteryBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
     {
-        $playConfigs = $this->playConfigRepository->getPowerBallSubscriptionsActives();
+        $playConfigs = $this->playConfigRepository->getLotterySubscriptionsActives($lottery->getId());
 
         if (!is_null($playConfigs)) {
             $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
@@ -462,8 +496,13 @@ class LotteryService
                     if ($playConfig->getUser()->getWallet()->getSubscription()->getAmount() >= $price->getAmount()) {
 
                         $APIPlayConfigs = json_encode([$playConfig]);
-                        $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
-                        $this->betService->validationLottoRisq($playConfig, $euroMillionsDraw, $lottery->getNextDrawDate(), null, $result_validation->uuid);
+                        if($lottery->getName()=='PowerBall')
+                        {
+                            $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
+                        }else{
+                            $result_validation = json_decode((new MegaMillionsApi())->book($APIPlayConfigs)->body);
+                        }
+                        $this->betService->validationLottery($playConfig, $euroMillionsDraw, $lottery->getNextDrawDate(), null, $result_validation->uuid);
                         if ($result_validation->success) {
                             $walletBefore = $playConfig->getUser()->getWallet();
                             $this->walletService->payWithSubscription($playConfig->getUser(), $playConfig);
@@ -477,7 +516,7 @@ class LotteryService
                             ];
                             $this->walletService->purchaseTransactionGrouped($playConfig->getUser(), TransactionType::AUTOMATIC_PURCHASE, $dataTransaction);
                             try {
-                                $this->sendPowerBallEmailPurchase($playConfig->getUser(), $playConfig);
+                                $this->sendLotteryEmailPurchase($playConfig->getUser(), $playConfig, $lottery->getName());
                             } catch (\Exception $e) {
                                 echo $e->getMessage();
                             }
@@ -499,7 +538,7 @@ class LotteryService
         }
     }
 
-    public function getAllResultFromPowerball(Curl $curl, $config)
+    public function getAllResultFromLottery(Curl $curl, $config, $lotteryName)
     {
         try {
             $curl->setOption(CURLOPT_SSL_VERIFYHOST, false);
@@ -591,6 +630,31 @@ class LotteryService
         ];
     }
 
+    public function mainJackpotHome()
+    {
+        $this->biggestJackpot->setDrawDate($this->getNextDateDrawByLottery($this->biggestJackpot->getLottery()->getName()));
+        return MainJackpotHomeDTO::mainJAckpotHomeDTO($this->biggestJackpot);
+    }
+
+
+    public function sliderAndBarJackpotHome()
+    {
+        $drawListByHeldDate = $this->lotteryDrawRepository->giveMeLotteriesOrderedByHeldDate();
+        $slideJackpot = [];
+        array_map(function($item) use(&$slideJackpot) {
+            $jackpotHome = MainJackpotHomeDTO::mainJAckpotHomeDTO($item);
+            $comparator = function(IComparable $a, IComparable $b) {
+                return $a->compare($b);
+            };
+            if(!$comparator($jackpotHome,MainJackpotHomeDTO::mainJAckpotHomeDTO($this->biggestJackpot)))
+            {
+                $jackpotHome->drawDate = $this->getNextDateDrawByLottery($jackpotHome->lotteryName);
+                array_push($slideJackpot,$jackpotHome);
+            }
+        }, $drawListByHeldDate);
+        return $slideJackpot;
+    }
+
     /**
      * @param $lotteryName
      * @param \DateTime $today
@@ -617,7 +681,7 @@ class LotteryService
      * @param $lotteryName
      * @return Lottery
      */
-    private function getLotteryByName($lotteryName)
+    public function getLotteryByName($lotteryName)
     {
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
@@ -684,12 +748,15 @@ class LotteryService
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
-    private function sendPowerBallEmailPurchase(User $user, PlayConfig $playConfig)
+    private function sendLotteryEmailPurchase(User $user, PlayConfig $playConfig, $lotteryName)
     {
+        $path=($lotteryName=='MegaMillions'?'megamillions':'web');
+        $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseConfirmationEmailTemplate";
         $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new PowerBallPurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
+        $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
         if ($playConfig->getFrequency() >= 4) {
-            $emailTemplate = new PowerballPurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
+            $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseSubscriptionConfirmationEmailTemplate";
+            $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
             $emailTemplate->setDraws($playConfig->getFrequency());
             $emailTemplate->setStartingDate($playConfig->getStartDrawDate()->format('d-m-Y'));
         }

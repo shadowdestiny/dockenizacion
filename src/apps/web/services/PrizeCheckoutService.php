@@ -5,8 +5,11 @@ namespace EuroMillions\web\services;
 
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\shared\vo\PowerBallPrize;
-use EuroMillions\shared\vo\Wallet;
+use EuroMillions\megamillions\emailTemplates\WinEmailMegaMillionsAboveTemplate;
+use EuroMillions\megamillions\emailTemplates\WinEmailMegaMillionsTemplate;
+use EuroMillions\shared\components\transactionBuilders\WinningTransactionDataBuilder;
+use EuroMillions\shared\vo\LotteryPrize;
+use EuroMillions\shared\vo\Winning;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
 use EuroMillions\web\emailTemplates\WinEmailPowerBallAboveTemplate;
@@ -100,15 +103,16 @@ class PrizeCheckoutService
             /** @var DomainServiceFactory $domainServiceFactory */
             $domainServiceFactory = Di::getDefault()->get('domainServiceFactory');
             $prizeConfigQueue = $this->di->get('config')['aws']['queue_prizes_endpoint'];
-            $resultAwarded = $this->betRepository->getMatchesPlayConfigAndUserFromPowerBallByDrawDate($date);
             /** @var Lottery $lottery */
             $lottery = $this->lotteryRepository->findOneBy(['name' => $lottery]);
+
+            $resultAwarded = $this->betRepository->getMatchesPlayConfigAndUserFromLotteryByDrawDate($date, $lottery->getId());
             /** @var EuroMillionsDraw $draw */
-            $draw = $this->lotteryDrawRepository->findOneBy(['draw_date' => new \DateTime($date)]);
-            if(count($resultAwarded) > 0) {
+            $draw = $this->lotteryDrawRepository->findOneBy(['draw_date' => new \DateTime($date), 'lottery' => $lottery->getId()]);
+            if(count($resultAwarded) > 0 && !empty($draw)) {
                 foreach($resultAwarded as $k => $result)
                 {
-                    $prize = new PowerBallPrize($draw->getBreakDown(), [$result['cnt'],$result['cnt_lucky'],$result['power_play']]);
+                    $prize = new LotteryPrize($draw->getBreakDown(), [$result['cnt'],$result['cnt_lucky'],$result['power_play']]);
                     $domainServiceFactory->getServiceFactory()->getCloudService($prizeConfigQueue)->cloud()->queue()->messageProducer([
                         'userId' => $result['userId'],
                         'prize' => $prize->getPrize()->getAmount(),
@@ -128,42 +132,49 @@ class PrizeCheckoutService
     }
 
     //TODO it should new method to award prize
-    public function award($betId,Money $amount, array $scalarValues)
+    /**
+     * @param $betId
+     * @param Money $amount
+     * @param array $scalarValues
+     * @return ActionResult
+     * @throws \Money\UnknownCurrencyException
+     */
+    public function award($betId, Money $amount, array $scalarValues)
     {
         /** @var Bet $bet */
         $bet = $this->betRepository->findOneBy(['id' => $betId]);
+        $lotteryId = $bet->getPlayConfig()->getLottery()->getId();
         $config = $this->di->get('config');
         $threshold_price = new Money((int)$config->threshold_above['value'] * 100, new Currency('EUR'));
+
         /** @var User $user */
         $user = $this->userRepository->find($scalarValues['userId']);
         try {
-            //EMTD WinningVO to avoid this logic
-            $data = $this->prepareDataToTransaction($bet, $user, $amount);
             $current_amount = $amount->getAmount() / 100;
-            $amount = new Money((int)$current_amount, new Currency('EUR'));
-            if ($amount->greaterThanOrEqual($threshold_price)) {
-                $user->setWinningAbove($amount);
-                $user->setShowModalWinning(1);
-                $this->storeAwardTransaction($data, TransactionType::BIG_WINNING);
-                $this->sendBigWinPowerBallEmail($bet, $user, $amount, $scalarValues);
-            } else {
-                $user->awardPrize($amount);
-                $data['walletAfter'] = $user->getWallet();
-                $data['state'] = '';
-                $data['lottery_id'] = $bet->getPlayConfig()->getLottery()->getId();
-                $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
-                //TODO: send to new queue
-                $this->sendSmallWinPowerBallEmail($bet, $user, $amount, $scalarValues);
+            $price = new Money((int)$current_amount, new Currency('EUR'));
+
+            $winning = new Winning($price, $threshold_price, $lotteryId);
+            //TODO refactor to move
+            $userWalletBefore= $user->getWallet();
+            $user->awardPrize($winning);
+            $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount, $userWalletBefore);
+            $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
+
+            if($transactionBuilder->greaterThanOrEqualThreshold()){
+                $this->sendBigWinLotteryEmail($bet, $user, $price, $scalarValues);
             }
+            else{
+                //TODO: send to new queue
+                $this->sendSmallWinLotteryEmail($bet, $user, $price, $scalarValues);
+            }
+
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
+
             return new ActionResult(true, $user);
         } catch (\Exception $e) {
             return new ActionResult(false);
         }
-
-
-
     }
 
 
@@ -174,23 +185,23 @@ class PrizeCheckoutService
         /** @var User $user */
         $user = $this->userRepository->find($scalarValues['userId']);
         try {
-            //EMTD WinningVO to avoid this logic
-            $data = $this->prepareDataToTransaction($bet, $user, $amount);
             $current_amount = $amount->getAmount() / 100;
-            $amount = new Money((int)$current_amount, new Currency('EUR'));
-            if ($amount->greaterThanOrEqual($threshold_price)) {
-                $user->setWinningAbove($amount);
-                $user->setShowModalWinning(1);
-                $this->storeAwardTransaction($data, TransactionType::BIG_WINNING);
-                $this->sendBigWinEmail($bet, $user, $amount, $scalarValues);
-            } else {
-                $user->awardPrize($amount);
-                $data['walletAfter'] = $user->getWallet();
-                $data['state'] = '';
-                $data['lottery_id'] = 1;
-                $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
-                $this->sendSmallWinEmail($bet, $user, $amount, $scalarValues);
+            $price = new Money((int)$current_amount, new Currency('EUR'));
+            //TODO: The getPlayConfig on $bet returns null so we force to the $lotteryId = 1 because only that runs that code
+            //$lotteryId = $bet->getPlayConfig()->getLottery()->getId();
+            $winning = new Winning($price, $threshold_price, 1);
+            $userWalletBefore= $user->getWallet();
+            $user->awardPrize($winning);
+            $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount,$userWalletBefore);
+            $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
+
+            if($transactionBuilder->greaterThanOrEqualThreshold()){
+                $this->sendBigWinEmail($bet, $user, $price, $scalarValues);
             }
+            else{
+                $this->sendSmallWinEmail($bet, $user, $price, $scalarValues);
+            }
+
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
             return new ActionResult(true, $user);
@@ -229,20 +240,6 @@ class PrizeCheckoutService
         $this->transactionService->storeTransaction($transactionType, $data);
     }
 
-    private function prepareDataToTransaction(Bet $bet, User $user, Money $amount)
-    {
-        return [
-            'draw_id' => $bet->getEuroMillionsDraw()->getId(),
-            'bet_id' => $bet->getId(),
-            'amount' => $amount->getAmount(),
-            'user' => $user,
-            'walletBefore' => $user->getWallet(),
-            'walletAfter' => $user->getWallet(),
-            'state' => 'pending',
-            'now' => new \DateTime()
-        ];
-    }
-
     /**
      * @param User $user
      * @param Money $amount
@@ -271,10 +268,16 @@ class PrizeCheckoutService
      * @param array $scalarValues
      * @internal param array $countBalls
      */
-    private function sendSmallWinPowerBallEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
+    private function sendSmallWinLotteryEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
     {
         $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new WinEmailPowerBallTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+        if($bet->getPlayConfig()->getLottery()->getName()=='MegaMillions')
+        {
+            $emailTemplate = new WinEmailMegaMillionsTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+        }else{
+            $emailTemplate = new WinEmailPowerBallTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+        }
+
         $powerBall = explode(',', $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers());
         $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $powerBall[1] . ' )';
         $emailTemplate->setWinningLine($numLine);
@@ -295,7 +298,13 @@ class PrizeCheckoutService
     private function sendBigWinEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
     {
         $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new WinEmailAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+        if($bet->getPlayConfig()->getLottery()->getName()=='MegaMillions')
+        {
+            $emailTemplate = new WinEmailMegaMillionsAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+        }else{
+            $emailTemplate = new WinEmailAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+        }
+
         $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers() . ' )';
         $emailTemplate->setWinningLine($numLine);
         $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
@@ -312,7 +321,7 @@ class PrizeCheckoutService
      * @param array $scalarValues
      * @internal param array $countBalls
      */
-    private function sendBigWinPowerBallEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
+    private function sendBigWinLotteryEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new WinEmailPowerBallAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));

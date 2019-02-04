@@ -1,6 +1,10 @@
 <?php
 use EuroMillions\tests\helpers\builders\UserBuilder;
 use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
+use EuroMillions\tests\helpers\mothers\EuroMillionsLineMother;
+use EuroMillions\tests\helpers\mothers\PlayConfigMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
+use EuroMillions\web\entities\Bet;
 
 /**
  * Class AccountCest
@@ -9,10 +13,58 @@ class AccountCest
 {
     private $userId;
     private $userName;
+    private $user;
+    private $draw;
 
     public function _before(FunctionalTester $I)
     {
+        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::anEuroMillions();
+
+        $I->haveInDatabase(
+            'lotteries',
+            $this->lottery->toArray()
+        );
+
+        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::aMegaMillions();
+
+        $I->haveInDatabase(
+            'lotteries',
+            $this->lottery->toArray()
+        );
+
+        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::aPowerBall();
+
+        $I->haveInDatabase(
+            'lotteries',
+            $this->lottery->toArray()
+        );
+
+        $I->haveInDatabase(
+            'languages',
+            ['id'   => 1,
+                'ccode' => 'en',
+                'active' => true,
+                'defaultLocale' => 'en_US']
+        );
+
+        $I->haveInDatabase(
+            'currencies',
+            ['code' => 'EUR', 'name' => 'Euro', 'order' => '1']
+        );
+
+        $this->draw = \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()
+            ->withId(1)
+            ->withDrawDate(new \DateTime('2020-01-10'))
+            ->withRaffle(new \EuroMillions\web\vo\Raffle('ABC'))
+            ->build();
+
+        $I->haveInDatabase(
+            'euromillions_draws',
+            $this->draw->toArray()
+        );
+
         $user = $I->setRegisteredUser();
+        $this->user = $user;
         $this->userName = $user->getName();
         $this->userId = $user->getId();
     }
@@ -153,6 +205,76 @@ class AccountCest
         $I->amOnPage('/account/transaction');
         $I->canSee('Transaction');
         $I->seeNumberOfElements('table tbody tr', 0);
+    }
+
+    /**
+     * @param FunctionalTester $I
+     * @group account
+     */
+    public function seePaginationInTicketsSection(FunctionalTester $I)
+    {
+//        $this->preparePastTicketsToPaginate($I);
+//        //        $user = $I->setRegisteredUser();
+////        $this->user = $user;
+////        $this->userName = $user->getName();
+////        $this->userId = $user->getId();
+//        // $I->setCookie('EM_current_user', $this->userId);
+//        $I->haveInSession('EM_current_user', $this->userId);
+//        $I->amOnPage('/profile/tickets/games');
+    }
+
+    /**
+     * functionalcase seeWithdrawPageWithOutMoneyMatrix
+     * @param FunctionalTester $I
+     */
+    public function seeWithdrawPageWithOutMoneyMatrix(FunctionalTester $I)
+    {
+        $user = UserMother::aUserWith40EurWinnings()->withId('9098299B-14AC-4124-8DB0-19571EDABE54')->build();
+        $I->haveInDatabase(
+            'users',
+            $user->toArray()
+        );
+        $I->haveInSession('EM_current_user', $user->getId());
+        $I->amOnPage('/account/wallet');
+        $I->canSee('Your withdrawable balance');
+        $I->click('MAKE WITHDRAWAL');
+        $I->canSee('Withdraw your winnings');
+        $I->canSeeElement('#bank-name');
+        $I->submitForm(
+            '#form-withdraw', [
+                'amount' => '25',
+                'name' => 'Test',
+                'surname' => 'Test1',
+                'bank-name' => 'Los mas Ladrones',
+                'bank-account' => 'ggyugyugy8789789',
+                'bank-swift' => '6786786',
+                'street' => 'calle testing',
+                'city' => 'Thetest',
+                'zip' => '123456789',
+                'phone_number' => '3469000000'
+            ]
+        );
+        $I->canSeeInDatabase('transactions', ['entity_type' => 'winnings_withdraw']);
+     }
+
+    private function preparePastTicketsToPaginate(FunctionalTester $I)
+    {
+        $powerBallLottery = \EuroMillions\tests\helpers\mothers\LotteryMother::aPowerBall();
+
+        $draw = \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anPowerBallDrawWithJackpotAndBreakDown(new \DateTime('2018-01-01'))->build();
+        $playConfig = PlayConfigMother::aPlayConfigSetForUser($this->user)
+            ->withLine(EuroMillionsLineMother::anOtherPowerBallLine())
+            ->withLottery($powerBallLottery)
+            ->withNoActive()
+            ->withStartDrawDate(new DateTime('2018-02-01'))
+            ->withLastDrawDate(new DateTime('2018-02-01'))
+            ->build();
+        $bet = new Bet($playConfig, $draw);
+        $bet->setPrize(new \Money\Money(10000, new \Money\Currency('EUR')));
+        $I->haveInDatabase('euromillions_draws', $draw->toArray());
+        $I->haveInDatabase('play_configs', $playConfig->toArray());
+        $I->haveInDatabase('bets', $bet->toArray());
+
     }
 
 //    /**

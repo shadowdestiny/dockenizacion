@@ -1,0 +1,169 @@
+# This docker-compose.yml is for devel environment only. (On staging / prod we use the version 2)
+version: '3.4'
+
+services:
+  database:
+    image: mysql:5.6
+    volumes:
+      - "database_master_volume:/var/lib/mysql"
+      - "database_master_logs_volume:/var/log/mysql"
+      - "./devOps/docker/database/devel/master/em_master.cnf:/etc/mysql/conf.d/em_master.cnf"
+      - "./devOps/docker/database/devel/master/setup_master.sh:/docker-entrypoint-initdb.d/setup_master.sh"
+    networks:
+      backend:
+        ipv4_address: ${EM_DOCKER_DATABASE_IP}
+    environment:
+      MYSQL_ROOT_PASSWORD: tpl9
+      MYSQL_USER: euromillions
+      MYSQL_PASSWORD: tpl9
+      MYSQL_DATABASE: euromillions
+
+  read-database:
+    image: mysql:5.6
+    volumes:
+      - "database_slave_volume:/var/lib/mysql"
+      - "database_slave_logs_volume:/var/log/mysql"
+      - "./devOps/docker/database/devel/slave/em_slave.cnf:/etc/mysql/conf.d/em_slave.cnf"
+      - "./devOps/docker/database/devel/slave/setup_slave.sh:/docker-entrypoint-initdb.d/setup_slave.sh"
+    depends_on:
+      - database
+    links:
+      - database:master
+    networks:
+      backend:
+        ipv4_address: ${EM_DOCKER_DATABASE_SLAVE_IP}
+    environment:
+      MYSQL_ROOT_PASSWORD: tpl9_slave
+      MYSQL_USER: euromillions
+      MYSQL_PASSWORD: tpl9_slave
+      MYSQL_DATABASE: euromillions
+
+  redis:
+    image: redis:latest
+    networks:
+      - backend
+
+  web:
+    build:
+      context: devOps/docker/web
+      target: devel
+    image: panamedialottery/euromillions-web:devel
+    volumes:
+      - "./src:/var/www"
+    depends_on:
+      - php
+    links:
+      - php:php
+    networks:
+      - backend
+    environment:
+      EM_ENV: ${EM_ENV}
+
+  php:
+    build:
+      context: devOps/docker/php
+      dockerfile: Dockerfile-devel
+      target: devel
+    image: panamedialottery/euromillions-php:devel
+    volumes:
+      - "./src:/var/www"
+    depends_on:
+      - redis
+      - database
+      - read-database
+    links:
+      - redis:redis
+      - database:mysql
+      - read-database:mysql-read
+    networks:
+      - backend
+    environment:
+      EM_ENV: ${EM_ENV}
+      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
+      AWS_SECRET_ACCESS_KEY: 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
+      XDEBUG_CONFIG: remote_host=172.10.0.1 remote_enable=1 remote_autostart=1 remote_log=/tmp/xdebug.log
+
+  phpcron:
+    build:
+      context: devOps/docker/php
+      dockerfile: Dockerfile-devel
+      target: cron
+    image: panamedialottery/euromillions-php:cron
+    volumes:
+      - "./src:/var/www"
+    depends_on:
+      - redis
+      - database
+      - read-database
+    links:
+      - redis:redis
+      - database:mysql
+      - read-database:mysql-read
+    networks:
+      - backend
+    environment:
+      EM_ENV: ${EM_ENV}
+      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
+      AWS_SECRET_ACCESS_KEY: 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
+
+  varnish:
+    build: devOps/docker/varnish
+    image: panamedialottery/euromillions-varnish:devel
+    depends_on:
+      - web
+    links:
+      - web:backend
+    networks:
+      backend: {}
+      frontend:
+        ipv4_address: ${EM_DOCKER_VARNISH_IP}
+    environment:
+      EM_ENV: ${EM_ENV}
+
+  util-nodejs:
+    build: devOps/docker/util-nodejs
+    image: euromillions-util-nodejs:devel
+    command: sleep infinity
+    working_dir: "/var/www"
+    volumes:
+      - "./src:/var/www"
+
+  util-php:
+    build:
+      context: devOps/docker/php
+      dockerfile: Dockerfile-devel
+      target: tools
+    image: euromillions-util-php:devel
+    depends_on:
+      - redis
+      - database
+      - read-database
+    links:
+      - redis:redis
+      - database:mysql
+      - read-database:mysql-read
+    command: sleep infinity
+    volumes:
+      - "./src:/var/www"
+    networks:
+      - backend
+    environment:
+      EM_ENV: ${EM_ENV}
+      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
+      AWS_SECRET_ACCESS_KEY: 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
+
+volumes:
+  database_master_volume:
+  database_master_logs_volume:
+  database_slave_volume:
+  database_slave_logs_volume:
+
+networks:
+  backend:
+    ipam:
+      config:
+      - subnet: ${EM_DOCKER_BACKEND_SUBNET}
+  frontend:
+    ipam:
+      config:
+      - subnet: ${EM_DOCKER_FRONTEND_SUBNET}

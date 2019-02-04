@@ -35,6 +35,56 @@
                     <a href="/{{ language.translate("link_blogindex") }}" class="link-blog">{{ language.translate("gotoindex_btn") }}</a>
                 </div>
             </div>
-        </div>
+
+			<div class="wrapper">
+				<table width="100%" align="center">
+					<tr width="100%">
+						<td width="45%">
+						{% if not((prev is empty)) %}
+							<a href="/{{ language.translate('link_blogindex') }}/{{ prev.getUrl() }}"  style="text-decoration:none">
+								<strong>{{ language.translate('previous') }} </strong></br>
+								 <table width="100%">
+                                 	<tr width="100%">
+                                 		<td width="48%">
+                                 			<img src="{{ prev.getImage() }}"/>
+                                 		</td>
+                                 	    <td width="4%"></td>
+                                 		<td width="48%" class="title-blog" style="vertical-align: middle;">
+                                 			{{ prev.getTitle() }}
+                                 		</td>
+                                    </tr>
+                                  </table>
+							</a>
+						{% endif %}
+						</td>
+						{% if mobile == 1 %}
+							</tr>
+							<tr>
+						{% else %}
+							<td width="10%"></td>
+						{% endif %}
+						<td width="45%">
+						{% if not((next is empty)) %}
+							<a href="/{{ language.translate('link_blogindex') }}/{{ next.getUrl() }}"  style="text-decoration:none">
+                            	<strong>{{ language.translate('next') }} </strong></br>
+								<table width="100%">
+									<tr width="100%">
+									 	<td width="48%">
+											<img src="{{ next.getImage() }}"/>
+										</td>
+									 	 <td width="4%"></td>
+										 <td width="48%" class="title-blog" style="vertical-align: middle;">
+										   {{ next.getTitle() }}
+										</td>
+                               		</tr>
+                               	</table>
+                            </a>
+						{% endif %}
+						</td>
+					</tr>
+				</table>
+			</div>
+			</br></br>
+		</div>
     </main>
 {% endblock %}

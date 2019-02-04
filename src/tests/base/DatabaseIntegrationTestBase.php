@@ -60,6 +60,7 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
         }
         return $this->pdo;
     }
+
     protected function setUp()
     {
         $conn = $this->getPDO();

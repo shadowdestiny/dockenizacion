@@ -5,6 +5,7 @@ var EuroMillionsAddToCart = require('./EmAddToCart.jsx');
 var EmSelectDrawDate = require('./EmSelectDrawDate.jsx');
 
 const GAME_MODE_POWERBALL = 'powerball'
+const GAME_MODE_MEGAMILLIONS = 'megamillions'
 const GAME_MODE_EUROMILLIONS = 'euromillions'
 
 var EuroMillionsBoxBottomAction = React.createClass({
@@ -17,7 +18,7 @@ var EuroMillionsBoxBottomAction = React.createClass({
         var params = '';
         const { mode } = this.props
         const maxNumbers = 5
-        const maxStars = mode == GAME_MODE_POWERBALL ? 1 : 2
+        const maxStars = mode == GAME_MODE_POWERBALL || mode == GAME_MODE_MEGAMILLIONS ? 1 : 2
         this.props.lines.forEach(function(bet,i){
             if(bet.numbers.length == maxNumbers && bet.stars.length == maxStars ) {
                 params += 'bet['+i+']='+ bet.numbers +","+ bet.stars + '&';
@@ -70,7 +71,7 @@ var EuroMillionsBoxBottomAction = React.createClass({
                     draw_day={this.props.draw_day}
                   />
                 </div>
-                <EuroMillionsAddToCart total_draws={this.props.total_draws} discount_lines={this.props.discount_lines} currency_symbol={this.props.currency_symbol} price={this.props.price} txtNextButton={this.props.txtNextButton} onBtnAddToCartClick={this.addToCart} powerplay={this.props.powerplay} enablePowerPlay={this.props.powerPlayEnabled} lines={this.props.lines}key="2"/>
+                <EuroMillionsAddToCart total_lines={this.props.total_lines} total_draws={this.props.total_draws} discount_lines={this.props.discount_lines} currency_symbol={this.props.currency_symbol} price={this.props.price} txtNextButton={this.props.txtNextButton} onBtnAddToCartClick={this.addToCart} powerplay={this.props.powerplay} enablePowerPlay={this.props.powerPlayEnabled} lines={this.props.lines}key="2"/>
             </div>
         </div>
 

@@ -34,7 +34,9 @@
                                 $lottery = 'EuroMillions';
                             } elseif($lotteryId == 3) {
                                 $lottery = 'PowerBall';
-                            }?>
+                            } elseif($lotteryId == 4) {
+                                $lottery = 'MegaMillions';
+                             }?>
                         {{ lottery }}
                     </td>
                     <td align="center">

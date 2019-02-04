@@ -142,7 +142,7 @@
                     <tbody>
 
                 {% for transaction in transactionCollection %}
-                    <tr class="row-common tr-transactions-" data-id="">
+                    <tr class="row-common tr-transactions-" data-id="" {% if transaction.isErrorTransaction() %} style="border: 2px solid red;" {% endif %}>
                         <td class="date">
                             <p>
                                 {{ transaction.date.format(language.translate('dateformat')) }}
@@ -159,7 +159,7 @@
 
                         <td class="type">
                             <p>
-                                {% if transaction.transactionName == 'Winning Withdraw' %} {{ language.translate("transaction_type_withdraw") }}
+                                {% if transaction.transactionName == 'Winning Withdraw' %} {{ language.translate("transaction_type_withdraw") }} ( {{ transaction.status }} )
                                 {% elseif transaction.transactionName == 'Ticket Purchase' %} {{ language.translate("transaction_type_purchase") }}
                                 {% elseif transaction.transactionName == 'Automatic Purchase' %} {{ language.translate("transaction_type_purchase_aut") }}
                                 {% elseif transaction.transactionName == 'Subscription Deposit' %} {{ language.translate("transaction_type_subs_deposit") }}
@@ -167,16 +167,20 @@
                                 {% elseif transaction.transactionName == 'Winnings Received' %} {{ language.translate("transaction_type_win") }}
                                 {% else %} {{ transaction.transactionName }}
                                 {% endif %}
+                                {% if transaction.isErrorTransaction() %} Not Processed {% endif %}
                             </p>
                         </td>
 
                         <td class="amount">
                             <p>
-                                {% if transaction.transactionName == 'Ticket Purchase' %}{{ transaction.ticketPrice }}
-                                {% elseif transaction.transactionName == 'Subscription Deposit'%}+{{ transaction.pendingBalanceMovement }}
-                                {% elseif transaction.transactionName == 'Automatic Purchase' %}{{ transaction.pendingBalanceMovement }}
-                                {% else %}{{ transaction.movement }}
-                                {% endif %}
+								{% if transaction.isErrorTransaction() %} {{symbol}}0.00
+								{% else %}
+									{% if transaction.transactionName == 'Ticket Purchase' %}{{ transaction.ticketPrice }}
+                                	{% elseif transaction.transactionName == 'Subscription Deposit'%}+{{ transaction.pendingBalanceMovement }}
+                                    {% elseif transaction.transactionName == 'Automatic Purchase' %}{{ transaction.pendingBalanceMovement }}
+                                    {% else %}{{ transaction.movement }}
+                                    {% endif %}
+								{% endif %}
                             </p>
                         </td>
                     </tr>

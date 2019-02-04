@@ -23,13 +23,14 @@
                     {% for i in 1..my_subscription_active['lines'] %}
                         <div class="numbers--row">
                             {#{{ dump(my_subscription_active) }}#}
-                            {% if (my_subscription_active[i-1]['powerplay']) %}PowerPlay{% endif %}
+                            {% if (my_subscription_active[i-1]['powerplay']) and (my_subscription_active['name'] == 'PowerBall')%}PowerPlay{% endif %}
+                            {% if (my_subscription_active[i-1]['powerplay']) and (my_subscription_active['name'] == 'MegaMillions')%}MegaPlier{% endif %}
                             <span>{{ my_subscription_active[i-1]['line_regular_number_one'] }}</span>
                             <span>{{ my_subscription_active[i-1]['line_regular_number_two'] }}</span>
                             <span>{{ my_subscription_active[i-1]['line_regular_number_three'] }}</span>
                             <span>{{ my_subscription_active[i-1]['line_regular_number_four'] }}</span>
                             <span>{{ my_subscription_active[i-1]['line_regular_number_five'] }}</span>
-                            {% if (my_subscription_active['name'] != 'PowerBall') %}
+                            {% if (my_subscription_active['name'] != 'PowerBall') and (my_subscription_active['name'] != 'MegaMillions')%}
                                 <span class="star">{{ my_subscription_active[i-1]['line_lucky_number_one'] }}</span>
                             {% endif %}
                             <span class="star">{{ my_subscription_active[i-1]['line_lucky_number_two'] }}</span>

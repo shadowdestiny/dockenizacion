@@ -15,6 +15,7 @@ import {
   BET_STARS_COUNT,
   GAME_MODE_POWERBALL,
   GAME_MODE_EUROMILLIONS,
+  GAME_MODE_MEGAMILLIONS,
 } from './constants'
 
 /**
@@ -26,7 +27,7 @@ export default class MobilePlayApp extends Component {
     /**
      * game mode. Two game modes supported which have minor differences between each other
      */
-    mode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS]),
+    mode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS, GAME_MODE_MEGAMILLIONS]),
     /**
      * formatted Date/time of next draw
      */
@@ -98,6 +99,7 @@ export default class MobilePlayApp extends Component {
     const storageKeys = {
       [GAME_MODE_POWERBALL] : 'pb_bat_line',
       [GAME_MODE_EUROMILLIONS] : 'bet_line',
+      [GAME_MODE_MEGAMILLIONS] : 'mm_bet_line',
     }
     return storageKeys[this.props.mode]
   }
@@ -139,7 +141,7 @@ export default class MobilePlayApp extends Component {
 
     const selectedBundle = this.findBundle(drawsNumber)
     const canSubmit = !!bets.length
-    const showPowerCheckbox = mode == GAME_MODE_POWERBALL
+    const showPowerCheckbox = mode == GAME_MODE_POWERBALL || mode == GAME_MODE_MEGAMILLIONS
 
     return (
       <div className="main-layout">
@@ -154,7 +156,7 @@ export default class MobilePlayApp extends Component {
           </button>
         </div>
 
-        {mode == GAME_MODE_POWERBALL
+        {showPowerCheckbox
           ? <PowerPlayCheckbox
               checked={powerPlayEnabled}
               onChange={this.togglePowerPlay}

@@ -1,0 +1,122 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: rmrbest
+ * Date: 8/12/18
+ * Time: 23:25
+ */
+
+namespace EuroMillions\megamillions\controllers;
+
+
+use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\components\ViewHelper;
+use EuroMillions\web\controllers\PowerBallPaymentController;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\forms\CreditCardForm;
+use EuroMillions\web\vo\CardHolderName;
+use EuroMillions\web\vo\CardNumber;
+use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\ExpiryDate;
+use Money\Currency;
+use Money\Money;
+
+class MegaMillionsPaymentController extends PowerBallPaymentController
+{
+    public function paymentAction()
+    {
+        $credit_card_form = new CreditCardForm();
+        $form_errors = $this->getErrorsArray();
+        $funds_value = $this->request->getPost('funds');
+        $card_number = $this->request->getPost('card-number');
+        $card_holder_name = $this->request->getPost('card-holder');
+        $expiry_date_month = $this->request->getPost('expiry-date-month');
+        $expiry_date_year = $this->request->getPost('expiry-date-year') + 2000; //This is Antonio, the first developer at EuroMillions. If something failed horribly and you are looking at this, I'm glad that my code survived for more than 75 years, but also my apologies. We changed from 4 digits years to 2 digits, and the implications in all the validators where so much, and we need to finish to go to production, that I decided to include this ugly hack. Luckily, it will work until after I'm dead and rotten.
+        $cvv = $this->request->getPost('card-cvv');
+        $payWallet = $this->request->getPost('paywallet') !== 'false';
+        $isWallet = false;
+        $powerball_service = $this->domainServiceFactory->getPowerBallService();
+        $errors = [];
+        $user_id = $this->authService->getCurrentUser()->getId();
+        /** @var User $user */
+        $user = $this->userService->getUser($user_id);
+        if (null == $user) {
+            $this->response->redirect('/' . $this->lottery . '/cart/profile');
+            return false;
+        }
+        $result = $powerball_service->getPlaysFromTemporarilyStorage($user, 'megamillions');
+        $msg = '';
+
+        $order_view = true;
+        //Payment thru wallet ONLY
+        if ($this->request->isGet()) {
+            $isWallet = true;
+            $charge = $this->request->get('charge');
+            $user = $this->userService->getUser($user_id);
+            if (null != $user && isset($charge)) {
+                try {
+                    $card = null;
+                    $amount = new Money((int)$charge, new Currency('EUR'));
+                    $result = $powerball_service->play($user_id, $amount, $card, true, $isWallet, 'MegaMillions');
+                    return $this->playResult($result,$result->getValues()->getLottery()->getName());
+                } catch (\Exception $e) {
+                    $errors[] = $e->getMessage();
+                }
+            }
+        }
+
+        //Payment thru Credit Card or Credit Card + Wallet
+        if ($this->request->isPost()) {
+            $isWallet = false;
+            $order_view = false;
+            if ($credit_card_form->isValid($this->request->getPost()) == false) {
+                $messages = $credit_card_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                //check date
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            } else {
+                /** User $user */
+                $user = $this->userService->getUser($user_id);
+                if (null != $user) {
+                    try {
+                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
+                        $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
+                        $result = $powerball_service->play($user_id, $amount, $card, $payWallet, $isWallet,'MegaMillions');
+                        return $this->playResult($result, 'megamillions');
+                    } catch (\Exception $e) {
+                        $errors[] = $e->getMessage();
+                    }
+                }
+            }
+        }
+
+        $type = ViewHelper::getNamePaymentType($this->getDI()->get('paymentProviderFactory'));
+        $view = $type == 'iframe' ? 'cart/order_iframe' : 'cart/order';
+        $this->view->pick($view);
+        return $this->dataOrderView($user, $result, $form_errors, $msg, $credit_card_form, $errors, $order_view);
+    }
+
+
+    /**
+     * @param ActionResult $result
+     * @return bool
+     */
+    protected function playResult(ActionResult $result, $lotteryName='powerball')
+    {
+        if ($result->success()) {
+            $this->response->redirect('/' . mb_strtolower($lotteryName) . '/result/success/'.mb_strtolower($lotteryName));
+            return false;
+        } else {
+            $this->response->redirect('/euromillions/result/failure');
+            return false;
+        }
+    }
+
+}

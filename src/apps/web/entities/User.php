@@ -4,6 +4,7 @@ namespace EuroMillions\web\entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use EuroMillions\shared\vo\Wallet;
+use EuroMillions\shared\vo\Winning;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\vo\Email;
@@ -11,12 +12,15 @@ use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\RememberToken;
 use EuroMillions\web\vo\ValidationToken;
+use EuroMillions\web\vo\BirthDate;
 use Money\Currency as MoneyCurrency;
 use Money\Money;
 use Money\UnknownCurrencyException;
 
 class User extends EntityBase implements IEntity, IUser, \JsonSerializable
 {
+    public static $MX_COUNTRY = '140';
+
     protected $id;
     protected $name;
     protected $surname;
@@ -39,6 +43,8 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $zip;
     protected $city;
     protected $phone_number;
+    /**@var BirthDate */
+    protected $birth_date;
     protected $jackpotReminder;
     protected $threshold;
     protected $userNotification;
@@ -216,6 +222,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
 
     public function getValidated()
     {
+        if($this->isFromMexico()) return true;
         return $this->validated;
     }
 
@@ -242,6 +249,16 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function setPhoneNumber($phone_number)
     {
         $this->phone_number = $phone_number;
+    }
+
+    public function getBirthDate()
+    {
+        return $this->birth_date;
+    }
+
+    public function setBirthDate(BirthDate $birth_date)
+    {
+        $this->birth_date = $birth_date;
     }
 
     /**
@@ -330,10 +347,12 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
         $this->wallet = $this->wallet->pay($amount);
     }
 
-    public function awardPrize(Money $amount)
-    {
-        $this->wallet = $this->wallet->award($amount);
-        $this->setShowModalWinning(true);
+    public function awardPrize(Winning $winning)
+    {  if(!$winning->greaterThanOrEqualThreshold())
+        {
+            $this->wallet = $this->wallet->award($winning->getPrice());
+            $this->setShowModalWinning(true);
+        }
     }
 
     public function reChargeWallet(Money $amount)
@@ -567,6 +586,11 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function setDisabledDate($disabledDate)
     {
         $this->disabledDate = $disabledDate;
+    }
+
+    public function isFromMexico()
+    {
+        return $this->getCountry() == self::$MX_COUNTRY;
     }
 
     /**
