@@ -18,39 +18,39 @@ class AccountCest
 
     public function _before(FunctionalTester $I)
     {
-//        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::anEuroMillions();
-//
-//        $I->haveInDatabase(
-//            'lotteries',
-//            $this->lottery->toArray()
-//        );
-//
-//        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::aMegaMillions();
-//
-//        $I->haveInDatabase(
-//            'lotteries',
-//            $this->lottery->toArray()
-//        );
-//
-//        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::aPowerBall();
-//
-//        $I->haveInDatabase(
-//            'lotteries',
-//            $this->lottery->toArray()
-//        );
+        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::anEuroMillions();
 
-//        $I->haveInDatabase(
-//            'languages',
-//            ['id'   => 1,
-//             'ccode' => 'en',
-//             'active' => true,
-//             'defaultLocale' => 'en_US']
-//        );
-//
-//        $I->haveInDatabase(
-//            'currencies',
-//            ['code' => 'EUR', 'name' => 'Euro', 'order' => '1']
-//        );
+        $I->haveInDatabase(
+            'lotteries',
+            $this->lottery->toArray()
+        );
+
+        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::aMegaMillions();
+
+        $I->haveInDatabase(
+            'lotteries',
+            $this->lottery->toArray()
+        );
+
+        $this->lottery = \EuroMillions\tests\helpers\mothers\LotteryMother::aPowerBall();
+
+        $I->haveInDatabase(
+            'lotteries',
+            $this->lottery->toArray()
+        );
+
+        $I->haveInDatabase(
+            'languages',
+            ['id'   => 1,
+                'ccode' => 'en',
+                'active' => true,
+                'defaultLocale' => 'en_US']
+        );
+
+        $I->haveInDatabase(
+            'currencies',
+            ['code' => 'EUR', 'name' => 'Euro', 'order' => '1']
+        );
 
         $this->draw = \EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()
             ->withId(1)
@@ -223,7 +223,39 @@ class AccountCest
 //        $I->amOnPage('/profile/tickets/games');
     }
 
-
+    /**
+     * functionalcase seeWithdrawPageWithOutMoneyMatrix
+     * @param FunctionalTester $I
+     */
+    public function seeWithdrawPageWithOutMoneyMatrix(FunctionalTester $I)
+    {
+        $user = UserMother::aUserWith40EurWinnings()->withId('9098299B-14AC-4124-8DB0-19571EDABE54')->build();
+        $I->haveInDatabase(
+            'users',
+            $user->toArray()
+        );
+        $I->haveInSession('EM_current_user', $user->getId());
+        $I->amOnPage('/account/wallet');
+        $I->canSee('Your withdrawable balance');
+        $I->click('MAKE WITHDRAWAL');
+        $I->canSee('Withdraw your winnings');
+        $I->canSeeElement('#bank-name');
+        $I->submitForm(
+            '#form-withdraw', [
+                'amount' => '25',
+                'name' => 'Test',
+                'surname' => 'Test1',
+                'bank-name' => 'Los mas Ladrones',
+                'bank-account' => 'ggyugyugy8789789',
+                'bank-swift' => '6786786',
+                'street' => 'calle testing',
+                'city' => 'Thetest',
+                'zip' => '123456789',
+                'phone_number' => '3469000000'
+            ]
+        );
+        $I->canSeeInDatabase('transactions', ['entity_type' => 'winnings_withdraw']);
+     }
 
     private function preparePastTicketsToPaginate(FunctionalTester $I)
     {

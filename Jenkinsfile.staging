@@ -1,7 +1,9 @@
 pipeline {
     environment {
         EM_ENVIRONMENT = "staging"
+
         BUILD_IMAGE_TAG = "${env.EM_ENVIRONMENT}_${env.BUILD_NUMBER}"
+        TARGET_IMAGE_TAG = "${env.EM_ENVIRONMENT}"
 
         DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
         DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"
