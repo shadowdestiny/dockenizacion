@@ -4,7 +4,10 @@
 namespace EuroMillions\tests\integration;
 
 
+use EuroMillions\shared\vo\Wallet;
 use EuroMillions\tests\base\RepositoryIntegrationTestBase;
+use EuroMillions\web\entities\DepositTransaction;
+use EuroMillions\web\entities\SubscriptionPurchaseTransaction;
 use EuroMillions\web\entities\TicketPurchaseTransaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\tests\helpers\mothers\UserMother;
@@ -105,6 +108,53 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     {
         $actual = $this->sut->getNextId();
         $this->assertEquals(11, $actual);
+    }
+
+    /**
+     * method getDepositsByUserId
+     * when existTransactionWithOutNullTransactionId
+     * should ReturnArray
+     */
+    public function test_getDepositsByUserId_existTransactionWithNullTransactionId_ReturnArray()
+    {
+        $date = new \DateTime();
+        $user = UserMother::aJustRegisteredUser()->build();
+        $this->entityManager->persist($user);
+        $data = [
+            'lottery_id' => 1,
+            'lotteryName' => 'EuroMillions',
+            'numBets' => 3,
+            'amount' =>  2000,
+            'amountWithWallet' => 2000,
+            'amountWithCreditCard' => 0,
+            'feeApplied' => 0,
+            'user' => $user,
+            'walletBefore' => new Wallet(),
+            'walletAfter' => new Wallet(),
+            'transactionID' => '123456',
+            'now' => $date,
+            'playConfigs' => [1,2],
+            'discount' => 0,
+            'status' => 'SUCCESS',
+            'withWallet' => 1
+        ];
+        $depositTransaction= new DepositTransaction($data);
+        $this->sut->add($depositTransaction);
+        $this->entityManager->flush($depositTransaction);
+        $ticketPurchaseTransaction = new TicketPurchaseTransaction($data);
+        $this->sut->add($ticketPurchaseTransaction);
+        $this->entityManager->flush($ticketPurchaseTransaction);
+        $data['transactionID']='78910';
+        $suscriptionTransaction= new SubscriptionPurchaseTransaction($data);
+        $this->sut->add($suscriptionTransaction);
+        $this->entityManager->flush($suscriptionTransaction);
+        $data['transactionID']=null;
+        $ticketPurchaseTransaction = new TicketPurchaseTransaction($data);
+        $this->sut->add($ticketPurchaseTransaction);
+        $this->entityManager->flush($ticketPurchaseTransaction);
+
+        $arr=$this->sut->getDepositsByUserId($user->getId());
+        $this->assertArrayHasKey('entity_type', $arr[0]);
     }
     
 }

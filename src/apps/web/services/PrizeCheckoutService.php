@@ -187,9 +187,9 @@ class PrizeCheckoutService
         try {
             $current_amount = $amount->getAmount() / 100;
             $price = new Money((int)$current_amount, new Currency('EUR'));
-            $lotteryId = $bet->getPlayConfig()->getLottery()->getId();
-
-            $winning = new Winning($price, $threshold_price, $lotteryId);
+            //TODO: The getPlayConfig on $bet returns null so we force to the $lotteryId = 1 because only that runs that code
+            //$lotteryId = $bet->getPlayConfig()->getLottery()->getId();
+            $winning = new Winning($price, $threshold_price, 1);
             $userWalletBefore= $user->getWallet();
             $user->awardPrize($winning);
             $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount,$userWalletBefore);

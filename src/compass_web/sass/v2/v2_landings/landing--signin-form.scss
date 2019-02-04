@@ -4,197 +4,20 @@
 
   position: relative;
   margin: auto;
-  margin-top: vw(52);
-
   max-width: vw(600);
-  padding: vw(74) vw(92);
-  border: 1px solid #E9E9E9;
-  border-radius: vw(4);
-  background-color: #fcfcfc;
-
-  h1,
-  .title {
-    color: #403f3f;
-    text-align: center;
-    font-size: vw(16);
-    line-height: vw(24);
-    font-weight: 400;
-    margin-bottom: vw(16);
-    text-transform: none;
-  }
+  padding: vw(30) vw(20)!important;
+  border: 0px;
+  border-radius: vw(0);
+  background-color: #ffffff;
 
   form {
-
-    input {
-      @include input--landing();
-    }
-
+  //
     .selectbox {
-      @include selectbox--landing();
-      margin-bottom: vw(26);
-    }
-
-    .input,
-    input {
-      border-left-width: 0;
-      border-right-width: 0;
-      padding-left: 0;
-      width: 100%;
-    }
-
-    .input + .input,
-    input + input {
-      border-bottom-width: 1px;
-    }
-
-    .select,
-    select {
-      width: 100%;
-      font-size: vw(13);
-
-    }
-    .hidden2,
-    input[type="checkbox"] {
-      display: none;
-    }
-
-    .btn.gwy {
-      padding: 0 vw(40);
-      display: inline-block;
-      overflow: hidden;
-      text-transform: uppercase;
-    }
-
-    .btn-theme--big {
-      display: block;
-      height: vw(58);
-      line-height: vw(58);
-      font-size: vw(24);
-      width: 100%;
-      font-weight: 600;
-      padding: 0 0;
-    }
-
-    .pass-alert {
-      color: #403f3f;
-      clear: both;
-      font-weight: 600;
-      font-size: vw(16);
-      line-height: vw(24);
-      padding-top: vw(20);
-      margin-bottom: vw(34);
-
-      span {
-        position: relative;
-        top: vw(2);
-      }
-
-      text-align: center;
-    }
-
-    .selectbox {
-      margin-bottom: vw(20);
-    }
-
-    .btn-row {
-      height: vw(70);
+      margin-bottom: vw(15);
     }
 
     .txt--already-have-account {
-
-      font-family: $ff1;
-      color: #999999;
-      font-weight: 400;
-      text-align: left;
       margin-bottom: vw(4);
-      font-size: vw(16);
-      padding-top: vw(4);
-      padding-left: vw(12);
-
-      a {
-        font-family: inherit;
-        color: rgb(248, 206, 13);
-        font-weight: 400;
-        text-align: left;
-        text-decoration: none;
-
-      }
-
-      a:hover {
-        text-decoration: underline;
-      }
     }
-
-    .txt--accept {
-      font-family: $ff1;
-      color: #404040;
-      font-weight: 300;
-      text-align: left;
-      font-size: vw(16);
-      padding-left: vw(12);
-
-      .label {
-        text-align: left;
-      }
-
-      span {
-        font-weight: 300;
-        line-height:1.2;
-        display: block;
-        
-        a {
-          text-decoration: none;
-          color: inherit;
-        }
-      }
-    }
-
-    .input--email {
-      position: relative;
-      overflow: hidden;
-      padding-left: vw(66);
-
-      &::before {
-        display: block;
-        content: "";
-        position: absolute;
-        border: 1px solid #b7b7b7;
-        border-radius: 50%;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        background-image: url('../img/sign/desktop/email.png');
-        top: vw(4);
-        left: 0;
-        width: vw(32);
-        height: vw(32);
-        -webkit-background-size: vw(18);
-        background-size: vw(18);
-      }
-    }
-
-    .input--password {
-      position: relative;
-      overflow: hidden;
-      padding-left: vw(66);
-
-      &::before {
-        display: block;
-        content: "";
-        position: absolute;
-        border: 1px solid #b7b7b7;
-        border-radius: 50%;
-        background-image: url('../img/sign/desktop/password.png');
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        top: vw(4);
-        left: 0;
-        width: vw(32);
-        height: vw(32);
-        -webkit-background-size: vw(14);
-        background-size: vw(14);
-      }
-    }
-
   }
-
 }

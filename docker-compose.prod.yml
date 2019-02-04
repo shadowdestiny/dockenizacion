@@ -1,6 +1,19 @@
 version: '2'
 services:
 
+  loadbalancer:
+    image: rancher/lb-service-haproxy:v0.9.1
+    ports:
+      - 443:443/tcp
+      - 80:80/tcp
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=prod-05
+      io.rancher.container.agent.role: environmentAdmin,agent
+      io.rancher.container.agent_service.drain_provider: 'true'
+      io.rancher.container.create_agent: 'true'
+      em_container_service: loadbalancer
+      em_service: euromillions-web-ha
+
   redis:
     image: redis:latest
     labels:
@@ -49,6 +62,8 @@ services:
     image: panamedialottery/euromillions-php:cron_prod
     depends_on:
       - redis
+    volumes:
+      - "/mnt/nfs/php_tmp:/tmp"
     labels:
       io.rancher.scheduler.affinity:host_label: em_hostname=prod-04
       io.rancher.container.pull_image: always
