@@ -407,17 +407,14 @@ class EuroMillionsDrawBreakDown
             50 => 'category_three',
             42 => 'category_four',
             41 => 'category_five',
-            40 => 'category_six',
-            32 => 'category_seven',
-            31 => 'category_eight',
-            30 => 'category_nine',
-            22 => 'category_ten',
+            32 => 'category_six',
+            40 => 'category_seven',
+            22 => 'category_eight',
+            31 => 'category_nine',
+            30 => 'category_ten',
             12 => 'category_eleven',
             21 => 'category_twelve',
-            20 => 'category_thirteen',
-            11 => 'category_fourteen',
-            02 => 'category_sixteen',
-            01 => 'category_seventeen'
+            20 => 'category_thirteen'
         ];
     }
 
