@@ -10,7 +10,6 @@ namespace EuroMillions\shared\controllers;
 
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
-use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use Money\Currency;

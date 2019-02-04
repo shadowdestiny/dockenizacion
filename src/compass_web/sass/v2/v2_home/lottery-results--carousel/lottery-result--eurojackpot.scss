@@ -1,19 +1,19 @@
 .lottery-results--carousel--section{
   .lottery-results--carousel {
     .lottery-result {
-      &.lottery-result--eurokackpot {
+      &.lottery-result--eurojackpot {
         .bottom-block,
         .top-block {
-          background-color: #014fa3;
+          background-color: #b61c1c ;
         }
+
 
         .center-block {
 
-          background-color: rgba(1, 79, 163, 0.75);
-          
-          .result-row {
+          background-color: rgba(182,28,28,0.75) ;
 
-            background-color: rgba(1, 79, 163, 0.5);
+          .result-row {
+            background-color: rgba(182,28,28,0.5) ;
 
             &:nth-child(even) {
               background-color: transparent;
@@ -23,12 +23,12 @@
               .ball {
 
                 &.star {
-                  color: #fff;
-                  background-color: rgb(255, 206, 5);
-                  border: 1px solid rgb(255, 206, 5);
+                  color: #b61c1c;
+                  background-color: #fff;
+                  border: 1px solid #fff;
 
                   &:last-of-type {
-                    color: #ffce05;
+                    color: #fff;
                     background-color: transparent;
                     border: 1px solid transparent;
                   }
@@ -37,7 +37,6 @@
             }
           }
         }
-
 
       }
     }
