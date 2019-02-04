@@ -48,6 +48,7 @@ use EuroMillions\web\vo\EuroMillionsJackpot;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Raffle;
 use Phalcon\Http\Client\Provider\Curl;
+use EuroMillions\shared\enums\PurchaseConfirmationEnum;
 
 class LotteryService
 {
@@ -767,12 +768,11 @@ class LotteryService
 
     private function sendLotteryEmailPurchase(User $user, PlayConfig $playConfig, $lotteryName)
     {
-        $path=($lotteryName=='MegaMillions'?'megamillions':$lotteryName=='EuroJackpot'?'eurojackpot':'web');
-        $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseConfirmationEmailTemplate";
+        $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName);
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
         if ($playConfig->getFrequency() >= 4) {
-            $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseSubscriptionConfirmationEmailTemplate";
+            $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName, true);
             $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
             $emailTemplate->setDraws($playConfig->getFrequency());
             $emailTemplate->setStartingDate($playConfig->getStartDrawDate()->format('d-m-Y'));
