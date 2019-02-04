@@ -23,7 +23,7 @@ var EmLineOrder = new React.createClass({
         }
 
         return (
-            <div className={"row cl " + (this.props.eurojackpot ? 'thank-you-block--rows' : '')}>
+            <div className={"row cl " + (this.props.eurojackpot ? 'thank-you-block--rows in-order-section' : '')}>
                 <div className={"desc"}>
                     {this.props.txt_line} {num_char_line}
                     {this.props.megamillions && this.props.powerplay ? '('+this.props.playingMM+')' : ''}
