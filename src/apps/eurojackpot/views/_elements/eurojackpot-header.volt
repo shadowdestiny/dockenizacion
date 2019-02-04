@@ -26,7 +26,14 @@
     </div>
     <div class="right">
         <div class="top resizeme">
-            {{ numbers }} {{textMillions}}
+            {{ jackpot_value_eurojackpot }}
+            {% if milliards %}
+                {{ language.translate("billion") }}
+            {% elseif trillions %}
+                {{ language.translate("trillion") }}
+            {% else %}
+                {{ language.translate("million") }}
+            {% endif %}
         </div>
         <div class="bottom resizeme">
             {#{{ "Play EuroJackpot: pick 5 numbers and 2 suns" }}#}
