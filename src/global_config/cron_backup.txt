@@ -1,2 +1,0 @@
-0 */1 * * * /usr/bin/mysqldump -u root -ptpl9 euromillions > /opt/backups/backup.sql
-
