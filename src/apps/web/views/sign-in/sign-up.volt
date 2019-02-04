@@ -19,7 +19,7 @@
 {% block body %}
 {% set signIn='{"myClass": "sign-in"}'|json_decode %}
 
-<main id="content" style="padding-top:40px;">
+<main id="content" style="padding-top:20px;">
     <div class="wrapper cl">
             <div class="signin-form sign-up">
                 <h1 class="h1 title">{{ language.translate("signup_head") }}</h1>
@@ -29,4 +29,3 @@
     </div>
 </main>
 {% endblock %}
-

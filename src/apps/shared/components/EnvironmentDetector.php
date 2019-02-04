@@ -19,6 +19,7 @@ class EnvironmentDetector
             'test',
             'development',
             'staging',
+            'pre_staging',
             'production',
         ];
     }
