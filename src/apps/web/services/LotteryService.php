@@ -29,6 +29,7 @@ use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\external_apis\EuroJackpotApi;
 use EuroMillions\web\services\external_apis\LottorisqApi;
 use EuroMillions\web\services\external_apis\MegaMillionsApi;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
@@ -514,8 +515,12 @@ class LotteryService
                         if($lottery->getName()=='PowerBall')
                         {
                             $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
-                        }else{
+                        }else if ($lottery->getName()=='MegaMillions'){
                             $result_validation = json_decode((new MegaMillionsApi())->book($APIPlayConfigs)->body);
+                        }
+                        else
+                        {
+                            $result_validation = json_decode((new EuroJackpotApi())->book($APIPlayConfigs)->body);
                         }
                         $this->betService->validationLottery($playConfig, $euroMillionsDraw, $lottery->getNextDrawDate(), null, $result_validation->uuid);
                         if ($result_validation->success) {
@@ -762,7 +767,7 @@ class LotteryService
 
     private function sendLotteryEmailPurchase(User $user, PlayConfig $playConfig, $lotteryName)
     {
-        $path=($lotteryName=='MegaMillions'?'megamillions':'web');
+        $path=($lotteryName=='MegaMillions'?'megamillions':$lotteryName=='EuroJackpot'?'eurojackpot':'web');
         $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseConfirmationEmailTemplate";
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
