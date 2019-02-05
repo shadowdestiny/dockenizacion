@@ -229,8 +229,28 @@ class DomainServiceFactory
         );
     }
 
-    public function getPrizeCheckoutService()
+    public function getPrizeCheckoutService($lottery = null)
     {
+        if (is_null($lottery)) {
+            return new PrizeCheckoutService(
+                $this->entityManager,
+                $this->getCurrencyConversionService(),
+                $this->getUserService(),
+                $this->serviceFactory->getEmailService(),
+                $this->getTransactionService()
+            );
+        }
+
+        if ($lottery->isEuroJackpot()) {
+            return new \EuroMillions\eurojackpot\services\PrizeCheckoutService(
+                $this->entityManager,
+                $this->getCurrencyConversionService(),
+                $this->getUserService(),
+                $this->serviceFactory->getEmailService(),
+                $this->getTransactionService()
+            );
+        }
+
         return new PrizeCheckoutService(
             $this->entityManager,
             $this->getCurrencyConversionService(),
@@ -238,6 +258,7 @@ class DomainServiceFactory
             $this->serviceFactory->getEmailService(),
             $this->getTransactionService()
         );
+
     }
 
     public function getCurrencyService()

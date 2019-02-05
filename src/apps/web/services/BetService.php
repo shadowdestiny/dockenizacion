@@ -248,4 +248,8 @@ class BetService
         }
     }
 
+    public function getBet($id)
+    {
+        return $this->betRepository->findOneBy(['id' => $id]);
+    }
 }

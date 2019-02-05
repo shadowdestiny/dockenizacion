@@ -78,6 +78,37 @@ class AwardprizesTaskCest
         $I->canSeeInDatabase('transactions',['entity_type' => 'winnings_received']);
     }
 
+    /**
+     * @group tasks
+     * @param FunctionalTester $I
+     */
+    public function EuroJackpotWinnersAreAwarded(FunctionalTester $I)
+    {
+        $euroJackpotLottery = \EuroMillions\tests\helpers\mothers\LotteryMother::anEuroJackpot();
+        /** @var \EuroMillions\web\entities\User $user */
+        $user = UserMother::aUserWith50Eur()->build();
+        $playConfig = PlayConfigMother::aPlayConfigSetForUser($user)
+            ->withLine(EuroMillionsLineMother::anEuroJackpotLine())
+            ->withLottery($euroJackpotLottery)
+            ->withStartDrawDate(new DateTime('2020-01-01'))
+            ->withLastDrawDate(new DateTime('2020-05-01'))
+            ->build();
+        $draw = EuroMillionsDrawMother::anEuroJackpotDrawWithJackpotAndBreakDown()->build();
+        $draw_array = $draw->toArray();
+        $bet = new Bet($playConfig, $draw);
+        $bet->setPrize(new \Money\Money(10000, new \Money\Currency('EUR')));
+        $bet_array = $bet->toArray();
+        $I->haveInDatabase('users',$user->toArray());
+        $I->haveInDatabase('play_configs', $playConfig->toArray());
+        $I->haveInDatabase('euromillions_draws', $draw_array);
+        $I->haveInDatabase('bets', $bet_array);
+        $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php result start EuroJackpot 2020-01-01');
+        $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes listen');
+        $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes award');
+        $I->canSeeInDatabase('transactions',['entity_type' => 'winnings_received']);
+        $I->canSeeInDatabase('transactions',['entity_type' => 'winnings_received']);
+    }
+
 
     /**
      * @param FunctionalTester $I
