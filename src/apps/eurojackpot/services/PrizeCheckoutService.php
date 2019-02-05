@@ -111,7 +111,7 @@ class PrizeCheckoutService extends PrizeService
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new WinEmailEuroJackpotAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
         $luckyNumbers = explode(',', $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers());
-        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $luckyNumbers[0] . ', ' .$luckyNumbers[1] . ' )';
+        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . ' ( ' . $luckyNumbers[0] . ', ' .$luckyNumbers[1] . ' )';
         $emailTemplate->setWinningLine($numLine);
         $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
         $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
@@ -132,7 +132,7 @@ class PrizeCheckoutService extends PrizeService
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new WinEmailEuroJackpotTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
         $luckyNumbers = explode(',', $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers());
-        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $luckyNumbers[0] . ', ' .$luckyNumbers[1] . ' )';
+        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . ' ( ' . $luckyNumbers[0] . ', ' .$luckyNumbers[1] . ' )';
         $emailTemplate->setWinningLine($numLine);
         $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
         $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
