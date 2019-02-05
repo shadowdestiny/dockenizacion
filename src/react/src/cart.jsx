@@ -8,6 +8,13 @@ var EmLineFeeCart = require('../components/cart/EmLineFeeCart.jsx');
 var EmWallet = require('../components/cart/EmWallet.jsx');
 var EmBtnPayment = require('../components/cart/EmBtnPayment.jsx');
 
+var _eurojackpot;
+try{
+    _eurojackpot = eurojackpot;
+} catch (e) {
+    _eurojackpot = false;
+}
+
 var CartPage = new React.createClass({
 
     displayName: 'CartPage',
@@ -290,7 +297,7 @@ var CartPage = new React.createClass({
                 href_payment = '/megamillions/payment/payment?method=wallet&charge='+this.state.fund_value;
                 data_btn = 'wallet';
                 price_txt_btn = this.state.total;
-        } else if(eurojackpot === true) {
+        } else if(_eurojackpot === true) {
             txt_button_payment = this.props.txt_buy_btn;
             href_payment = '/eurojackpot/payment/payment?method=wallet&charge='+this.state.fund_value;
             data_btn = 'wallet';
@@ -358,7 +365,7 @@ var CartPage = new React.createClass({
                                txt_weeks={this.props.txt_weeks}
                                txt_lottery={this.props.txt_lottery}/>
 
-                <div className={'box-order ' + (this.props.eurojackpot ? 'thank-you-block' : '')}>
+                <div className={'box-order'}>
                     {_euroMillionsLine}
                     <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList}
                                        pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration} wednesday={this.props.wednesday}
@@ -569,7 +576,7 @@ ReactDOM.render(<CartPage total={total_price}
                           powerplayprice={powerplayprice}
                           powerball={powerball}
                           megamillions={megamillions}
-                          eurojackpot={eurojackpot === undefined ? false : eurojackpot}
+                          eurojackpot={_eurojackpot}
                           txt_lottery={txt_lottery}
                           playingPP={playingPP}
                           playingMM={playingMM}
