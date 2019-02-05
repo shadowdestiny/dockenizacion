@@ -26,10 +26,10 @@ environments:
 
     staging:
         adapter: mysql
-        host: mysql
+        host: stagingdatabases.cywoihxulkwc.eu-west-1.rds.amazonaws.com
         name: euromillions
-        user: root
-        pass: 'tpl9'
+        user: euromillions
+        pass: 'je96bmdhaVdH6oCt'
         port: 3306
         charset: utf8
 

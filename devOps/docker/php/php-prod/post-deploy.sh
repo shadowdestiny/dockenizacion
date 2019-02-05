@@ -4,4 +4,5 @@
 cd /var/www && php vendor/doctrine/orm/bin/doctrine orm:generate-proxies;
 chown www-data:www-data /tmp/__CG__*;
 
-# TODO: Launch database migrations here
+# Launch database migrations
+cd /var/www && php vendor/bin/phinx migrate --configuration="phinx.yml" -e production;
