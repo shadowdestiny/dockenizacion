@@ -23,13 +23,13 @@ var EmLineOrder = new React.createClass({
         }
 
         return (
-            <div className={"row cl " + (this.props.eurojackpot ? 'thank-you-block--rows' : '')}>
+            <div className={"row cl"}>
                 <div className={"desc"}>
                     {this.props.txt_line} {num_char_line}
                     {this.props.megamillions && this.props.powerplay ? '('+this.props.playingMM+')' : ''}
                     {this.props.powerplay && this.props.powerball ? '('+this.props.playingPP+')' : ''}
                 </div>
-                <div className={(this.props.eurojackpot ? 'thank-you-block--row' : 'detail')}>
+                <div className={'detail'}>
                     <ul className="no-li inline numbers small">
                         {
                             numbers.map(function(number,i) {
