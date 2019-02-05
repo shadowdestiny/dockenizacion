@@ -24,8 +24,11 @@ use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\external_apis\EuroJackpotApi;
+use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\external_apis\LottorisqApi;
 use EuroMillions\web\services\external_apis\MegaMillionsApi;
+use EuroMillions\web\services\factories\ApiFactory;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Discount;
@@ -203,12 +206,9 @@ class PowerBallService
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                     if ($result_payment->success() && $orderIsToNextDraw) {
                         $APIPlayConfigs = json_encode($order->getPlayConfig());
-                        if($lottery->getName()== 'PowerBall')
-                        {
-                            $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
-                        }else{
-                            $result_validation = json_decode((new MegaMillionsApi())->book($APIPlayConfigs)->body);
-                        }
+                        $externalApi=LotteryApisFactory::bookApi($lottery);
+                        $result_validation=json_decode($externalApi->book($APIPlayConfigs)->body);
+
                         $walletBefore = $user->getWallet();
                         $config = $di->get('config');
                         if ($config->application->send_single_validations) {
