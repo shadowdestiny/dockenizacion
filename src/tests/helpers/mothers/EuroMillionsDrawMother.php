@@ -198,7 +198,7 @@ class EuroMillionsDrawMother
             new EuroJackpotDrawBreakDown(json_decode(self::$euroJackpotJsonResult, TRUE));
         $line = EuroMillionsLineMother::anEuroJackpotLine();
         return EuroMillionsDrawBuilder::aDraw()
-            ->withLottery(LotteryMother::anEuroJackpot())
+            ->withLottery(LotteryMother::anEuroJackpot());
     }
 }
 
