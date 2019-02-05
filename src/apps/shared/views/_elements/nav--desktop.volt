@@ -46,13 +46,13 @@
                 </a>
             </li>
             <li>
-                <a href="/{{ language.translate('eurojackpot/results') }}">
-                    {{ language.translate("Eurojackpot results") }}
+                <a href="/{{ language.translate('link_eurojackpot_results') }}">
+                    {{ language.translate("results_eurojackpot_sub") }}
                 </a>
             </li>
             <li>
-                <a href="/{{ language.translate('eurojackpot/results/draw-history') }}">
-                    {{ language.translate("Eurojackpot history") }}
+                <a href="/{{ language.translate('link_eurojackpot_draw_history') }}">
+                    {{ language.translate("history_eurojackpot_sub") }}
                 </a>
             </li>
         </ul>
