@@ -50,7 +50,6 @@ use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Raffle;
 use Phalcon\Http\Client\Provider\Curl;
 use EuroMillions\shared\enums\PurchaseConfirmationEnum;
-use EuroMillions\web\services\factories\ApiFactory;
 
 class LotteryService
 {

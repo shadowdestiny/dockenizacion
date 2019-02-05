@@ -28,7 +28,6 @@ use EuroMillions\web\services\external_apis\EuroJackpotApi;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\external_apis\LottorisqApi;
 use EuroMillions\web\services\external_apis\MegaMillionsApi;
-use EuroMillions\web\services\factories\ApiFactory;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Discount;
