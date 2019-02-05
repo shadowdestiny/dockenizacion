@@ -9,6 +9,7 @@ use EuroMillions\web\vo\PowerBallDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\eurojackpot\vo\EuroJackpotDrawBreakDown;
 use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
+use EuroMillions\tests\helpers\builders\EurojackpotDrawBuilder;
 use EuroMillions\tests\helpers\builders\EuroMillionsDrawBuilder;
 
 class EuroMillionsDrawMother
@@ -184,6 +185,7 @@ class EuroMillionsDrawMother
             ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
 
+
     public static function anEuroJackpotDrawWithJackpotAndBreakDown(\DateTime $date = null)
     {
         if($date == null)
@@ -197,9 +199,6 @@ class EuroMillionsDrawMother
         $line = EuroMillionsLineMother::anEuroJackpotLine();
         return EuroMillionsDrawBuilder::aDraw()
             ->withLottery(LotteryMother::anEuroJackpot())
-            ->withId(5)
-            ->withDrawDate($date)
-            ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
 }
 

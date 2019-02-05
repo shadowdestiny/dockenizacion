@@ -21,11 +21,11 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         parent::indexAction();
         $current_currency = $this->userPreferencesService->getCurrency();
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroJackpot'));
-        $this->view->setVar('jackpot_value_mega', ViewHelper::formatJackpotNoCents($jackpot));
+        $this->view->setVar('jackpot_value_eurojackpot', ViewHelper::formatJackpotNoCents($jackpot));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $letters = preg_replace('/[0-9.,]/','',ViewHelper::formatJackpotNoCents($jackpot));
         $jackpotSymbol = ViewHelper::setSemanticJackpotValue($numbers,$letters,$jackpot,$this->languageService->getLocale());
-        $this->view->setVar('jackpot_value_mega', $jackpotSymbol['jackpot_value']);
+        $this->view->setVar('jackpot_value_eurojackpot', $jackpotSymbol['jackpot_value']);
         $this->view->setVar('milliards', $jackpotSymbol['milliards']);
         $this->view->setVar('trillions', $jackpotSymbol['trillions']);
 
@@ -55,6 +55,7 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         return $this->view->setVars([
             'play_dates' => [(new \DateTime())->format('Y-m-d')],
             'next_draw' => $this->dayOfWeek,
+            'numbers'   => $numbers,
             'next_draw_format' => $this->draw->format('l j M G:i'),
             'currency_symbol' => $this->currencySymbol,
             'openTicket' => ($this->checkOpenTicket) ? '1' : '0',

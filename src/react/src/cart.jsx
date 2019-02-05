@@ -251,6 +251,7 @@ var CartPage = new React.createClass({
                 powerplayprice={this.props.powerplayprice}
                 powerball={this.props.powerball}
                 megamillions={this.props.megamillions}
+                eurojackpot={this.props.eurojackpot}
                 playingPP={this.props.playingPP}
                 playingMM={this.props.playingMM}
 
@@ -289,6 +290,11 @@ var CartPage = new React.createClass({
                 href_payment = '/megamillions/payment/payment?method=wallet&charge='+this.state.fund_value;
                 data_btn = 'wallet';
                 price_txt_btn = this.state.total;
+        } else if(eurojackpot === true) {
+            txt_button_payment = this.props.txt_buy_btn;
+            href_payment = '/eurojackpot/payment/payment?method=wallet&charge='+this.state.fund_value;
+            data_btn = 'wallet';
+            price_txt_btn = this.state.total;
         } else {
             txt_button_payment = this.props.txt_buy_btn;
             href_payment = '/euromillions/payment/payment?method=wallet&charge='+this.state.fund_value;
@@ -352,7 +358,7 @@ var CartPage = new React.createClass({
                                txt_weeks={this.props.txt_weeks}
                                txt_lottery={this.props.txt_lottery}/>
 
-                <div className="box-order">
+                <div className={'box-order ' + (this.props.eurojackpot ? 'thank-you-block' : '')}>
                     {_euroMillionsLine}
                     <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList}
                                        pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration} wednesday={this.props.wednesday}
@@ -563,6 +569,7 @@ ReactDOM.render(<CartPage total={total_price}
                           powerplayprice={powerplayprice}
                           powerball={powerball}
                           megamillions={megamillions}
+                          eurojackpot={eurojackpot === undefined ? false : eurojackpot}
                           txt_lottery={txt_lottery}
                           playingPP={playingPP}
                           playingMM={playingMM}

@@ -596,8 +596,21 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'payment',
         ));
 
+        $router->add("/{lottery:(eurojackpot)+}/payment", array(
+            "module" => "eurojackpot",
+            'lottery' => 5,
+            'controller' => 'euro-jackpot-payment',
+            'action' => 'payment',
+        ));
 
-        $router->add("/{lottery:(euromillions|powerball|megamillions)+}/cart/login", array(
+        $router->add("/{lottery:(eurojackpot)+}/payment/payment(.*?)", array(
+            "module" => "eurojackpot",
+            'lottery' => 5,
+            'controller' => 'euro-jackpot-payment',
+            'action' => 'payment',
+        ));
+
+        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot)+}/cart/login", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'cart',
@@ -642,7 +655,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        $router->add("/{lottery:(euromillions|powerball|megamillions)+}/result/success/:params", array(
+        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot)+}/result/success/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'result',
@@ -1533,21 +1546,36 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->mount(new HowToPlayRoutesEuroJackpot());
         $router->mount(new EuroJackpotPlayRoutes());
+        $router->mount(new EuroJackpotPlayRoutes());
         $router->mount(new EuroJackpotResultRoutes());
         $router->mount(new ResultPurchaseRoutesEuroJackpot());
 
         //LANDINGS
 
-        $router->add('/landings/euromillions', [
+        $router->add('/landings/{lottery:(euromillions|powerball|megamillions)+}', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "main",
+            "language" => "en"
+        ]);
+
+        $router->add('/{language:(es|it|nl|ru)+}/landings/{lottery:(euromillions|powerball|megamillions)+}', [
             "module" => "web",
             "controller" => "landings",
             "action" => "main"
         ]);
 
-        $router->add('/landings/euromillions_form', [
+        $router->add('/landings/{lottery:(euromillions|powerball|megamillions)+}/form', [
             "module" => "web",
             "controller" => "landings",
-            "action" => "mainorange"
+            "action" => "mainorange",
+            "language" => "en"
+        ]);
+
+        $router->add('/{language:(es|it|nl|ru)+}/landings/{lottery:(euromillions|powerball|megamillions)+}/{form:(form|formulario|modulo|formulier|форма)+}', [
+            "module" => "web",
+            "controller" => "landings",
+            "action" => "mainorange",
         ]);
 
 //        $router->setDefaults(array(

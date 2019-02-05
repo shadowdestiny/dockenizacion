@@ -29,6 +29,7 @@ use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\external_apis\EuroJackpotApi;
 use EuroMillions\web\services\external_apis\LottorisqApi;
 use EuroMillions\web\services\external_apis\MegaMillionsApi;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
@@ -47,6 +48,7 @@ use EuroMillions\web\vo\EuroMillionsJackpot;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Raffle;
 use Phalcon\Http\Client\Provider\Curl;
+use EuroMillions\shared\enums\PurchaseConfirmationEnum;
 
 class LotteryService
 {
@@ -241,7 +243,7 @@ class LotteryService
         list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         $date = $lottery->getNextDrawDate($now);
         if ($showLotteryLocalTime) {
-            if ($lottery->getName() !== 'EuroMillions' && $lottery->getName() !== 'Christmas') {
+            if ($lottery->getName() !== 'EuroMillions' && $lottery->getName() !== 'Christmas' && $lottery->getName() !== 'EuroJackpot') {
                 return DateTimeUtil::convertDateTimeBetweenTimeZones($date, 'America/New_York', 'Europe/Madrid',$lottery->getName());
             }
         }
@@ -514,8 +516,12 @@ class LotteryService
                         if($lottery->getName()=='PowerBall')
                         {
                             $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
-                        }else{
+                        }else if ($lottery->getName()=='MegaMillions'){
                             $result_validation = json_decode((new MegaMillionsApi())->book($APIPlayConfigs)->body);
+                        }
+                        else
+                        {
+                            $result_validation = json_decode((new EuroJackpotApi())->book($APIPlayConfigs)->body);
                         }
                         $this->betService->validationLottery($playConfig, $euroMillionsDraw, $lottery->getNextDrawDate(), null, $result_validation->uuid);
                         if ($result_validation->success) {
@@ -762,12 +768,11 @@ class LotteryService
 
     private function sendLotteryEmailPurchase(User $user, PlayConfig $playConfig, $lotteryName)
     {
-        $path=($lotteryName=='MegaMillions'?'megamillions':'web');
-        $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseConfirmationEmailTemplate";
+        $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName);
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
         if ($playConfig->getFrequency() >= 4) {
-            $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseSubscriptionConfirmationEmailTemplate";
+            $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName, true);
             $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
             $emailTemplate->setDraws($playConfig->getFrequency());
             $emailTemplate->setStartingDate($playConfig->getStartDrawDate()->format('d-m-Y'));

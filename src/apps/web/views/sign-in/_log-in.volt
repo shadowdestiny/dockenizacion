@@ -38,11 +38,8 @@
         </div>
         {% endif %}
     </div>
-    
-    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}">
-        <span class="txt">{{ language.translate("signin_accountQuestion") }}</span>
-        <a class="btn gwy" href="/{{ language.translate("link_signup") }}"><span class="resizeme">{{ language.translate("signin_signup_btn") }}</span></a>
-        <br>
-        <br>
+
+    <div class="cl txt--already-have-account">
+        {{ language.translate("signin_accountQuestion") }} <a href="/{{ language.translate("link_signup") }}">{{ language.translate("signin_signup_btn") }}</a>
     </div>
 </form>

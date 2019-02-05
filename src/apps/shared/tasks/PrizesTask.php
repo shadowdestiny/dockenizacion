@@ -97,7 +97,7 @@ class PrizesTask extends TaskBase
      * @param $resultConfigQueue
      * @throws \Exception
      */
-    public function createPrizes($resultConfigQueue,$backOff)
+    private function createPrizes($resultConfigQueue,$backOff)
     {
         $result = $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->receiveMessage();
         if (count($result->get('Messages')) > 0) {
@@ -126,7 +126,7 @@ class PrizesTask extends TaskBase
      * @param $prizeConfigQueue
      * @throws \Money\UnknownCurrencyException
      */
-    public function awardPrize($prizeConfigQueue,$backOff)
+    private function awardPrize($prizeConfigQueue,$backOff)
     {
         $result = $this->serviceFactory->getCloudService($prizeConfigQueue)->cloud()->queue()->receiveMessage();
         if (count($result->get('Messages')) > 0) {

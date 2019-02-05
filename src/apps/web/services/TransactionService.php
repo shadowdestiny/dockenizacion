@@ -127,13 +127,18 @@ class TransactionService
     //Shit function
     private function getLotteryName(LotteryRepository $lotteryRepository,Transaction $transaction)
     {
-
         try {
             /** @var Lottery$lottery */
             $lottery = null;
             if($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction) return "";
             $transaction->fromString();
-            $lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
+
+            #TODO Validate because the Transaction class is not being serialized well, the lottery id attribute always returns 1
+            $playConfig = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'PlayConfig');
+            $lotteryId = $playConfig->find($transaction->getPlayConfigs()[0])
+                ->getLottery()->getId();
+
+            $lottery = $lotteryRepository->findBy(["id" => ($lotteryId) ? $lotteryId : 1]);
             return $lottery[0]->getName();
         } catch (\Exception $e)
         {

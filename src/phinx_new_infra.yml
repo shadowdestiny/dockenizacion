@@ -33,6 +33,15 @@ environments:
         port: 3306
         charset: utf8
 
+    pre_staging:
+        adapter: mysql
+        host: database
+        name: euromillions
+        user: euromillions
+        pass: 'master'
+        port: 3306
+        charset: utf8
+
     production:
         adapter: mysql
         host: euromillionsweb.cywoihxulkwc.eu-west-1.rds.amazonaws.com

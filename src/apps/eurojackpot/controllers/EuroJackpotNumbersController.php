@@ -67,8 +67,8 @@ final class EuroJackpotNumbersController extends PublicSiteControllerBase
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroJackpotDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
-        $this->tag->prependTitle($this->languageService->translate('resultsdate_em_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));
-        MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_em_desc'));
+        $this->tag->prependTitle($this->languageService->translate('results_euro_name '));
+        MetaDescriptionTag::setDescription($this->languageService->translate('results_euro_desc'));
 
         $this->view->pick('/numbers/past-draw');
         return $this->view->setVars([
@@ -118,9 +118,8 @@ final class EuroJackpotNumbersController extends PublicSiteControllerBase
             $this->view->setVar('trillions', false);
         }
         $this->view->setVar('language', $this->languageService->getLocale());
-        $this->tag->prependTitle($this->languageService->translate('resultshist_pow_name'));
-        MetaDescriptionTag::setDescription($this->languageService->translate('resultshist_pow_desc'));
-
+        $this->tag->prependTitle($this->languageService->translate('resultshist_euro_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('resultshist_euro_desc'));
         $this->view->pick('numbers/past');
 
         return $this->view->setVars([
@@ -178,8 +177,8 @@ final class EuroJackpotNumbersController extends PublicSiteControllerBase
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroJackpotDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
-        $this->tag->prependTitle($this->languageService->translate('resultsdate_em_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));
-        MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_em_desc'));
+        $this->tag->prependTitle($this->languageService->translate('resultsdate_euro_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate(' resultsdate_euro_desc'));
 
         $this->view->pick('/numbers/past-draw');
         return $this->view->setVars([
