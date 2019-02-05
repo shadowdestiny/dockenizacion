@@ -69,4 +69,37 @@ class BetTaskCest
     {
         //EMTD Igual que el anterior pero comprobar amount Subscription antes y dsps, con y sin descuento
     }
+
+    /**
+     * @param FunctionalTester $I
+     * @group bet-tasks
+     */
+    public function canRegisterAutomaticPurchase(FunctionalTester $I)
+    {
+        $user = UserMother::aUserWith500Eur()->build();
+        $I->haveInDatabase('users', $user->toArray());
+
+        $play_config_to_bet = PlayConfigMother::aPlayConfig();
+        $play_config_to_bet->withId(123);
+        $play_config_to_bet->withStartDrawDate(new \DateTime('2020-04-01'));
+        $play_config_to_bet->withLastdrawDate(new \DateTime('2020-04-30'));
+        $play_config_to_bet->withLottery(1);
+        $play_config_to_bet->withUser($user);
+        $play_config_to_bet->withFrequency(2);
+
+        $I->haveInDatabase('euromillions_draws', [
+            'id'         => 456,
+            'lottery_id' => 1,
+            'draw_date'  => '2020-04-07',
+        ]);
+
+        $I->haveInDatabase('play_configs', $play_config_to_bet->toArray());
+        $I->runShellCommand('php ' . __DIR__ . '/../../apps/cli-test.php bet placeBets 2020-04-06');
+        $I->canSeeNumRecords(1, 'bets');
+        $I->canSeeInDatabase('bets', [
+            'id' => 1,
+            'playConfig_id' => 123,
+            'euromillions_draw_id' => 456,
+        ]);
+    }
 }
