@@ -29,7 +29,7 @@ var EmLineOrder = new React.createClass({
                     {this.props.megamillions && this.props.powerplay ? '('+this.props.playingMM+')' : ''}
                     {this.props.powerplay && this.props.powerball ? '('+this.props.playingPP+')' : ''}
                 </div>
-                <div className={(this.props.eurojackpot ? 'thank-you-block--row' : 'detail')}>
+                <div className={(this.props.eurojackpot ? 'thank-you-block--row in-order-section' : 'detail')}>
                     <ul className="no-li inline numbers small">
                         {
                             numbers.map(function(number,i) {
