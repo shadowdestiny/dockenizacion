@@ -26,6 +26,9 @@ localStorage.removeItem('bet_line');
 {% if (lottery_name == 'MegaMillions') %}
     localStorage.removeItem('mm_bet_line');
 {%endif%}
+{% if (lottery_name == 'EuroJackpot') %}
+    localStorage.removeItem('ej_bet_line');
+{%endif%}
 
 
 </script>
