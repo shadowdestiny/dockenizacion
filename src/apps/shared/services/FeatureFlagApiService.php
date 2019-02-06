@@ -61,6 +61,40 @@ class FeatureFlagApiService
 
         $response = $this->sendPut('/'.$feature->getName(), json_encode($params));
 
+        return $this->validateResponse($response);
+    }
+
+    public function addItem(array $data)
+    {
+        $feature = new FeatureFlagDTO();
+        $feature->setName($data['name']);
+        $feature->setDescription($data['description']);
+        $feature->setStatus($data['status']);
+
+        $params = array(
+            'description' => $feature->getDescription(),
+            'status' => $feature->getStatus(),
+        );
+
+        $response = $this->sendPost('/'.$feature->getName(), json_encode($params));
+
+        return $this->validateResponse($response);
+    }
+
+    public function deleteItem($name)
+    {
+        $response = $this->sendDelete('/'.$name);
+
+        return $this->validateResponse($response);
+    }
+
+    private function validateResponse($response)
+    {
+        $responseArray = json_decode($response, true);
+        if(!isset($responseArray['status']) || $responseArray['status'] != 'ok'){
+            return false;
+        }
+
         return $response;
     }
 
@@ -81,6 +115,36 @@ class FeatureFlagApiService
     {
         $drawBody = $this->curl->put($this->config->endpoint . $endpoint,
             $params,
+            true,
+            array(
+                "x-api-key: " . $this->config->api_key,
+                "Content-Type: application/json; charset=utf-8",
+            )
+        )
+            ->body;
+
+        return $drawBody;
+    }
+
+    private function sendPost($endpoint, $params)
+    {
+        $drawBody = $this->curl->post($this->config->endpoint . $endpoint,
+            $params,
+            true,
+            array(
+                "x-api-key: " . $this->config->api_key,
+                "Content-Type: application/json; charset=utf-8",
+            )
+        )
+            ->body;
+
+        return $drawBody;
+    }
+
+    private function sendDelete($endpoint)
+    {
+        $drawBody = $this->curl->delete($this->config->endpoint . $endpoint,
+            [],
             true,
             array(
                 "x-api-key: " . $this->config->api_key,

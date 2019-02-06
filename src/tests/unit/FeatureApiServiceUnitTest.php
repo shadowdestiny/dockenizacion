@@ -152,15 +152,11 @@ class FeatureApiServiceUnitTest extends UnitTestBase
      */
     public function test_updateItem_called_callApiAndReturnOk()
     {
-        $responseBody = json_encode([
-            'status' => 'ok'
-        ]);
+        $responseBody = $this->getResponseMock_Ok();
 
         $data = array('name' => 'feature-1', 'description' => 'lorem ipsum', 'status' => true);
 
-        $expected = json_encode([
-            'status' => 'ok'
-        ]);
+        $expected = $this->getResponseMock_Ok();
 
         $this->curl_double->put(self::ENDPOINT."/feature-1",
             Argument::any(),
@@ -171,6 +167,116 @@ class FeatureApiServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
 
         $actual = $sut->updateItem($data);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method addItem
+     * when called
+     * should callApiAndReturnOk
+     */
+    public function test_addItem_called_callApiAndReturnOk()
+    {
+        $responseBody = $this->getResponseMock_Ok();
+
+        $data = array('name' => 'feature-1', 'description' => 'lorem ipsum', 'status' => true);
+
+        $expected = $this->getResponseMock_Ok();
+
+        $this->curl_double->post(self::ENDPOINT."/feature-1",
+            Argument::any(),
+            true,
+            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
+        )->willReturn($this->getResponseObject($responseBody));
+
+        $sut = $this->getSut();
+
+        $actual = $sut->addItem($data);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method addItem
+     * when called
+     * should callApiAndReturnKeyExists
+     */
+    public function test_addItem_called_callApiAndReturnKeyExists()
+    {
+        $responseBody = json_encode([
+            'Error' => 'The key already exist.',
+            'Reference' =>  '2980eb91-4e33-429f-bfa0-f67cb9aa7390',
+        ]);
+
+        $data = array('name' => 'feature-exists-on-database', 'description' => 'lorem ipsum', 'status' => true);
+
+        $expected = false;
+
+        $this->curl_double->post(self::ENDPOINT."/feature-exists-on-database",
+            Argument::any(),
+            true,
+            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
+        )->willReturn($this->getResponseObject($responseBody));
+
+        $sut = $this->getSut();
+
+        $actual = $sut->addItem($data);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method deleteItem
+     * when called
+     * should callApiAndReturnOk
+     */
+    public function test_deleteItem_called_callApiAndReturnOk()
+    {
+        $responseBody = $this->getResponseMock_Ok();
+
+        $data = 'feature-1';
+
+        $expected = $this->getResponseMock_Ok();
+
+        $this->curl_double->delete(self::ENDPOINT."/feature-1",
+            Argument::any(),
+            true,
+            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
+        )->willReturn($this->getResponseObject($responseBody));
+
+        $sut = $this->getSut();
+
+        $actual = $sut->deleteItem($data);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method deleteItem
+     * when called
+     * should callApiAndReturnKeyNotExists
+     */
+    public function test_deleteItem_called_callApiAndReturnKeyNotExists()
+    {
+        $responseBody = json_encode([
+            'Error' => 'Not Found',
+            'Reference' =>  '2980eb91-4e33-429f-bfa0-f67cb9aa7390',
+        ]);
+
+        $data = 'feature-not-exists-on-database';
+
+        $expected = false;
+
+        $this->curl_double->delete(self::ENDPOINT."/feature-not-exists-on-database",
+            Argument::any(),
+            true,
+            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
+        )->willReturn($this->getResponseObject($responseBody));
+
+        $sut = $this->getSut();
+
+        $actual = $sut->deleteItem($data);
 
         $this->assertEquals($expected, $actual);
     }
@@ -189,6 +295,13 @@ class FeatureApiServiceUnitTest extends UnitTestBase
     {
         $sut = new FeatureFlagApiService($this->curl_double->reveal());
         return $sut;
+    }
+
+    private function getResponseMock_Ok()
+    {
+        return json_encode([
+            'status' => 'ok'
+        ]);
     }
 
 }
