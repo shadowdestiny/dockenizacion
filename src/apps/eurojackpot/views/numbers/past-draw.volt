@@ -82,7 +82,7 @@
 {% endblock %}
 {% block body %}
     <main id="content">
-        <div class="result-page--content">
+        <div class="common--result-page--content eurojackpot--result-page--content">
 
             <div class="banner">
                 <div class="top-banner--section">
