@@ -4,33 +4,48 @@
       &.lottery-result--eurojackpot {
         .bottom-block,
         .top-block {
-          background-color: #b61c1c ;
+          background-color: #af7800 ;
         }
 
 
         .center-block {
-
-          background-color: rgba(182,28,28,0.75) ;
+          background-color: #d5ac53 ;
 
           .result-row {
-            background-color: rgba(182,28,28,0.5) ;
+            $row-results-eurojackpot--obb--start : #bb8b22;
+            $row-results-eurojackpot--obb--end : #c08f26;
+
+            background: -webkit-linear-gradient(90deg, $row-results-eurojackpot--obb--start 0%, $row-results-eurojackpot--obb--end 100%);
+            background: -moz-linear-gradient(90deg, $row-results-eurojackpot--obb--start 0%, $row-results-eurojackpot--obb--end 100%);
+            background: -o-linear-gradient(90deg, $row-results-eurojackpot--obb--start 0%, $row-results-eurojackpot--obb--end 100%);
+            background: -ms-linear-gradient(90deg, $row-results-eurojackpot--obb--start 0%, $row-results-eurojackpot--obb--end 100%);
+            background: linear-gradient(0deg, $row-results-eurojackpot--obb--start 0%, $row-results-eurojackpot--obb--end  100%);
+
 
             &:nth-child(even) {
-              background-color: transparent;
+              $row-results-eurojackpot--even--start : #d1a74e;
+              $row-results-eurojackpot--even--end : #dcb35b;
+
+              background: -webkit-linear-gradient(90deg, $row-results-eurojackpot--even--start 0%, $row-results-eurojackpot--even--end 100%);
+              background: -moz-linear-gradient(90deg, $row-results-eurojackpot--even--start 0%, $row-results-eurojackpot--even--end 100%);
+              background: -o-linear-gradient(90deg, $row-results-eurojackpot--even--start 0%, $row-results-eurojackpot--even--end 100%);
+              background: -ms-linear-gradient(90deg, $row-results-eurojackpot--even--start 0%, $row-results-eurojackpot--even--end 100%);
+              background: linear-gradient(0deg, $row-results-eurojackpot--even--start 0%, $row-results-eurojackpot--even--end  100%);
+
             }
 
             .row--results {
               .ball {
 
                 &.star {
-                  color: #b61c1c;
+                  color: #af7800;
                   background-color: #fff;
                   border: 1px solid #fff;
 
                   &:last-of-type {
-                    color: #fff;
-                    background-color: transparent;
-                    border: 1px solid transparent;
+                    color: #af7800;
+                    background-color: #fff;
+                    border: 1px solid #fff;
                   }
                 }
               }
