@@ -35,6 +35,8 @@ services:
 
   php:
     image: panamedialottery/euromillions-php:staging
+    mem_reservation: 268435456 #256MB
+    mem_limit: 1073741824 #1024MB
     logging:
       driver: fluentd
       options:
