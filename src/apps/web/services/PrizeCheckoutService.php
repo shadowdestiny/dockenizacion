@@ -5,16 +5,9 @@ namespace EuroMillions\web\services;
 
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\megamillions\emailTemplates\WinEmailMegaMillionsAboveTemplate;
-use EuroMillions\megamillions\emailTemplates\WinEmailMegaMillionsTemplate;
 use EuroMillions\shared\components\transactionBuilders\WinningTransactionDataBuilder;
-use EuroMillions\shared\vo\LotteryPrize;
 use EuroMillions\shared\vo\Winning;
 use EuroMillions\web\emailTemplates\EmailTemplate;
-use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
-use EuroMillions\web\emailTemplates\WinEmailPowerBallAboveTemplate;
-use EuroMillions\web\emailTemplates\WinEmailPowerBallTemplate;
-use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
@@ -190,14 +183,8 @@ class PrizeCheckoutService
             $user->awardPrize($winning);
             $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount,$userWalletBefore);
             $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
-
-            if($transactionBuilder->greaterThanOrEqualThreshold()){
-                $this->sendBigWinEmail($bet, $user, $price, $scalarValues);
-            }
-            else{
-                $this->sendSmallWinEmail($bet, $user, $price, $scalarValues);
-            }
-
+            $isBig = $transactionBuilder->greaterThanOrEqualThreshold();
+            $this->sendWinLotteryEmail($bet, $user, $price, $scalarValues, $isBig);
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
             return new ActionResult(true, $user);
@@ -237,11 +224,11 @@ class PrizeCheckoutService
     }
 
     /**
+     * @param Bet $bet
      * @param User $user
      * @param Money $amount
-     * @param Bet $bet
      * @param array $scalarValues
-     * @internal param array $countBalls
+     * @param bool $isBig
      */
     protected function sendWinLotteryEmail(Bet $bet, User $user, Money $amount, array $scalarValues, $isBig)
     {
@@ -249,9 +236,7 @@ class PrizeCheckoutService
         $lottery = $bet->getPlayConfig()->getLottery();
         $template = (new WinEmailEnum())->findTemplatePathByLotteryName($lottery->getName(), $isBig);
         $emailTemplate = new $template($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-
-        $powerBall = explode(',', $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers());
-        $luckyNumbers = $lottery->isEuroJackpot() ? ' ( ' . $powerBall[0] . ', ' .$powerBall[1] . ' )' : ' ( ' . $powerBall[1] . ' )';
+        $luckyNumbers = $this->getLuckyNumbers($bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers(), $lottery);
         $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . $luckyNumbers;
         $emailTemplate->setWinningLine($numLine);
         $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
@@ -261,50 +246,19 @@ class PrizeCheckoutService
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
-    /**
-     * @param User $user
-     * @param Money $amount
-     * @param Bet $bet
-     * @param array $scalarValues
-     * @internal param array $countBalls
-     */
-    private function sendSmallWinEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
+    protected function getLuckyNumbers($numbers, $lottery)
     {
-        $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers() . ' )';
-        $emailTemplate->setWinningLine($numLine);
-        $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
-        $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
-        $emailTemplate->setUser($user);
-        $emailTemplate->setResultAmount($amount);
-        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
-    }
+        $balls = explode(',', $numbers);
 
-    /**
-     * @param User $user
-     * @param Money $amount
-     * @param Bet $bet
-     * @param array $scalarValues
-     * @internal param array $countBalls
-     */
-    private function sendBigWinEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
-    {
-        $emailBaseTemplate = new EmailTemplate();
-        if($bet->getPlayConfig()->getLottery()->getName()=='MegaMillions')
-        {
-            $emailTemplate = new WinEmailMegaMillionsAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-        }else{
-            $emailTemplate = new WinEmailAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+        if ($lottery->isEuroJackpot()) {
+            return ' ( ' . $balls[0] . ', ' .$balls[1] . ' )';
+        };
+
+        if ($lottery->isEuroMillions()) {
+            return '( ' . $numbers . ' )';
         }
 
-        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers() . ' )';
-        $emailTemplate->setWinningLine($numLine);
-        $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
-        $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
-        $emailTemplate->setUser($user);
-        $emailTemplate->setResultAmount($amount);
-        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+        return ' ( ' . $balls[1] . ' )';
     }
 
     public function sendEmailWinnerRaffle($betsRaffle, Raffle $lastRaffle)
@@ -324,7 +278,6 @@ class PrizeCheckoutService
                 $this->emailService->sendLog($name, $type, $message, $time);
             }
         }
-
     }
 
     protected function getResultAwarded($date, $lottery)
