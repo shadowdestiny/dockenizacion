@@ -34,7 +34,7 @@
         </div>
 
         <div class="btn-block">
-            <a href="/{{ language.translate("eurojackpot/play") }}"
+            <a href="/{{ language.translate("link_eurojackpot_play") }}"
                class="lottery-carousel--btn ui-link" style="">
                             <span class="resizeme" style="">
                                  {{ language.translate("banner1_btn") }}
