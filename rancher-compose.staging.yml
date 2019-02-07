@@ -19,6 +19,18 @@ services:
         service: web
         source_port: 80
         target_port: 80
+      - hostname: pre.euromillions.com
+        priority: 3
+        protocol: https
+        service: euromillions-pre-staging/web
+        source_port: 443
+        target_port: 80
+      - hostname: pre.euromillions.com
+        priority: 4
+        protocol: http
+        service: euromillions-pre-staging/web
+        source_port: 80
+        target_port: 80
     stickiness_policy:
       cookie: EM_LB
       indirect: false
