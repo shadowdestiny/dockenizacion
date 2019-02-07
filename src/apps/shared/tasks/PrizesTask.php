@@ -106,7 +106,7 @@ class PrizesTask extends TaskBase
                 $body = json_decode($message['Body'], true);
                 if ($body['lotteryName'] != 'Error') {
                     $lottery = $this->lotteryService->getLotteryByName($body['lotteryName']);
-                    $this->domainFactory->getPrizeCheckoutService($lottery)->calculatePrizeAndInsertMessagesInQueue($body['drawDate'], $lottery);
+                    $this->prizeService->calculatePrizeAndInsertMessagesInQueue($body['drawDate'], $lottery);
                 }
             }
             $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->deleteMessage(
@@ -135,8 +135,7 @@ class PrizesTask extends TaskBase
                 $body = json_decode($message['Body'], true);
                 $amount = new Money((int)$body['prize'], new Currency('EUR'));
                 $bet = $this->betService->getBet($body['betId']);
-                $lottery = $bet->getPlayConfig()->getLottery();
-                $this->domainFactory->getPrizeCheckoutService($lottery)->award($bet, $amount, [
+                $this->prizeService->award($bet, $amount, [
                         'matches' => ['cnt' => $body['cnt'],
                                       'cnt_lucky' => $body['cnt_lucky']
                     ],
