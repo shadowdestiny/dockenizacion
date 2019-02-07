@@ -1,4 +1,4 @@
-<div class="item lottery-carousel lottery-carousel--euromillions">
+<div class="item lottery-carousel lottery-carousel--eurojackpot">
     <div class="top-block">
         <div class="title">
             <span class="resizeme" style="">{{ language.translate("EuroJackpot") }}</span>
