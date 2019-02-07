@@ -23,11 +23,11 @@ class WinEmailEuroJackpotTemplate extends WinEmailPowerBallTemplate
 
         if ($language == "ru") {
             // Welcome Email Russian Version Template ID= 3997341
-            $template_id = "9365560";
+            $template_id = "9747342";
             $subject = 'Поздравляем, Вы выиграли';
         } else {
             // Welcome Email English Version Template ID= 4021147
-            $template_id = "9365474"; //testing
+            $template_id = "9747069";
             $subject = 'Congratulations you have won!';
         }
         $vars = [
@@ -53,7 +53,7 @@ class WinEmailEuroJackpotTemplate extends WinEmailPowerBallTemplate
                     ],
                     [
                         'name' => 'winning',
-                        'content' => number_format((float)$this->result_amount->getAmount() / 100, 2, ".", ",")
+                        'content' => number_format((float)$this->result_amount->getAmount(), 2, ".", ",")
                     ],
                     [
                         'name' => 'url_play',
@@ -86,5 +86,21 @@ class WinEmailEuroJackpotTemplate extends WinEmailPowerBallTemplate
             ];
         }
         return $vars;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStarBalls()
+    {
+        if ($this->starBalls == 0) {
+            return null;
+        }
+
+        if ($this->starBalls == 1) {
+            return '1 Euro Ball';
+        }
+
+        return '2 Euro Balls';
     }
 }

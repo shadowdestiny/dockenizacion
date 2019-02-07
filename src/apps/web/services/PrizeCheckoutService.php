@@ -32,6 +32,8 @@ use EuroMillions\web\vo\Raffle;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
+use EuroMillions\web\services\factories\LotteryPrizeFactory;
+use EuroMillions\shared\enums\WinEmailEnum;
 
 class PrizeCheckoutService
 {
@@ -105,13 +107,15 @@ class PrizeCheckoutService
             $prizeConfigQueue = $this->di->get('config')['aws']['queue_prizes_endpoint'];
             /** @var Lottery $lottery */
             $lottery = $lottery instanceof Lottery ? $lottery : $this->lotteryRepository->findOneBy(['name' => $lottery]);
-            $resultAwarded = $this->betRepository->getMatchesPlayConfigAndUserFromLotteryByDrawDate($date, $lottery->getId());
+            $resultAwarded = $this->getResultAwarded($date, $lottery);
             /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['draw_date' => new \DateTime($date), 'lottery' => $lottery->getId()]);
+
             if(count($resultAwarded) > 0 && !empty($draw)) {
                 foreach($resultAwarded as $k => $result)
                 {
-                    $prize = new LotteryPrize($draw->getBreakDown(), [$result['cnt'],$result['cnt_lucky'],$result['power_play']]);
+                    $results = isset($result['power_play']) ? [$result['cnt'],$result['cnt_lucky'],$result['power_play']] : [$result['cnt'],$result['cnt_lucky']];
+                    $prize = LotteryPrizeFactory::create($lottery, $draw->getBreakDown(), $results);
                     $domainServiceFactory->getServiceFactory()->getCloudService($prizeConfigQueue)->cloud()->queue()->messageProducer([
                         'userId' => $result['userId'],
                         'prize' => $prize->getPrize()->getAmount(),
@@ -119,7 +123,7 @@ class PrizeCheckoutService
                         'betId' => $result['bet'],
                         'cnt' => $result['cnt'],
                         'cnt_lucky' => $result['cnt_lucky'],
-                        'power_play' => $result['power_play']
+                        'power_play' => isset($result['power_play']) ? $result['power_play'] : 0
                     ]);
                 }
             }
@@ -158,14 +162,8 @@ class PrizeCheckoutService
             $user->awardPrize($winning);
             $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount, $userWalletBefore);
             $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
-            if($transactionBuilder->greaterThanOrEqualThreshold()){
-                $this->sendBigWinLotteryEmail($bet, $user, $price, $scalarValues);
-            }
-            else{
-                //TODO: send to new queue
-                $this->sendSmallWinLotteryEmail($bet, $user, $price, $scalarValues);
-            }
-
+            $isBig = $transactionBuilder->greaterThanOrEqualThreshold();
+            $this->sendWinLotteryEmail($bet, $user, $price, $scalarValues, $isBig);
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
 
@@ -245,11 +243,16 @@ class PrizeCheckoutService
      * @param array $scalarValues
      * @internal param array $countBalls
      */
-    private function sendSmallWinEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
+    protected function sendWinLotteryEmail(Bet $bet, User $user, Money $amount, array $scalarValues, $isBig)
     {
         $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers() . ' )';
+        $lottery = $bet->getPlayConfig()->getLottery();
+        $template = (new WinEmailEnum())->findTemplatePathByLotteryName($lottery->getName(), $isBig);
+        $emailTemplate = new $template($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+
+        $powerBall = explode(',', $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers());
+        $luckyNumbers = $lottery->isEuroJackpot() ? ' ( ' . $powerBall[0] . ', ' .$powerBall[1] . ' )' : ' ( ' . $powerBall[1] . ' )';
+        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . $luckyNumbers;
         $emailTemplate->setWinningLine($numLine);
         $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
         $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
@@ -258,7 +261,6 @@ class PrizeCheckoutService
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
-
     /**
      * @param User $user
      * @param Money $amount
@@ -266,18 +268,11 @@ class PrizeCheckoutService
      * @param array $scalarValues
      * @internal param array $countBalls
      */
-    protected function sendSmallWinLotteryEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
+    private function sendSmallWinEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
     {
         $emailBaseTemplate = new EmailTemplate();
-        if($bet->getPlayConfig()->getLottery()->getName()=='MegaMillions')
-        {
-            $emailTemplate = new WinEmailMegaMillionsTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-        }else{
-            $emailTemplate = new WinEmailPowerBallTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-        }
-
-        $powerBall = explode(',', $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers());
-        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $powerBall[1] . ' )';
+        $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
+        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers() . ' )';
         $emailTemplate->setWinningLine($numLine);
         $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
         $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
@@ -312,27 +307,6 @@ class PrizeCheckoutService
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
-    /**
-     * @param User $user
-     * @param Money $amount
-     * @param Bet $bet
-     * @param array $scalarValues
-     * @internal param array $countBalls
-     */
-    protected function sendBigWinLotteryEmail(Bet $bet, User $user, Money $amount, array $scalarValues)
-    {
-        $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new WinEmailPowerBallAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-        $powerBall = explode(',', $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers());
-        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $powerBall[1] . ' )';
-        $emailTemplate->setWinningLine($numLine);
-        $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
-        $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
-        $emailTemplate->setUser($user);
-        $emailTemplate->setResultAmount($amount);
-        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
-    }
-
     public function sendEmailWinnerRaffle($betsRaffle, Raffle $lastRaffle)
     {
         foreach ($betsRaffle as $bet) {
@@ -351,6 +325,15 @@ class PrizeCheckoutService
             }
         }
 
+    }
+
+    protected function getResultAwarded($date, $lottery)
+    {
+        if ($lottery->isEuroJackpot()) {
+            return $this->betRepository->getMatchesPlayConfigAndUserFromEuroJackpotByDrawDate($date, $lottery->getId());
+        }
+
+        return $this->betRepository->getMatchesPlayConfigAndUserFromLotteryByDrawDate($date, $lottery->getId());
     }
 
 }
