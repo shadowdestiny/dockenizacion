@@ -53,7 +53,7 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         $this->betValue = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
 
         return $this->view->setVars([
-            'play_dates' => [(new \DateTime())->format('Y-m-d')],
+            'play_dates' => $this->play_dates,
             'next_draw' => $this->dayOfWeek,
             'numbers'   => $numbers,
             'next_draw_format' => $this->draw->format('l j M G:i'),

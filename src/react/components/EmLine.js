@@ -78,6 +78,17 @@ var EuroMillionsLine = React.createClass({
         this.props.callback( this.props.lineNumber,numbers_length,stars_length);
     },
 
+    componentWillMount : function (nextProps)
+    {
+        if(this.props.defaultRandom) {
+            setTimeout(function () {
+                this.randomAll(true);
+                var numbers_length = this.state.selectedNumbers.numbers.length;
+                var stars_length = this.state.selectedNumbers.stars.length;
+                this.props.callback( this.props.lineNumber,numbers_length,stars_length);
+            }.bind(this), 3000);
+        }
+    },
 
     handleClickOnNumber: function (number)
     {

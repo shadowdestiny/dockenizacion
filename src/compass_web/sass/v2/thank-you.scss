@@ -789,7 +789,7 @@
 
           $ellipse_eurojackpot : 'ellipse_eurojackpot';
           @include icon_result_right();
-          @include icon_result_right($ellipse_eurojackpot,'../img/home/result-block/desktop/ellipse_eurojackpot.svg','#fff');
+          @include icon_result_right($ellipse_eurojackpot,'../img/home/result-block/desktop/ellipse_eurojackpot.svg',#fff);
 
           li.star_red {
             background-image: url('../img/home/result-block/desktop/ellipse_red.svg');
