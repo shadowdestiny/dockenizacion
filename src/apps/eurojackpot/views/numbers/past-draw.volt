@@ -192,7 +192,7 @@
 
                                 <div class="previous-results--btn">
 
-                                    <a href="/{{ language.translate("link_euro_draw_history") }}" class="btn-theme--big">
+                                    <a href="/{{ language.translate("link_eurojackpot_draw_history") }}" class="btn-theme--big">
                                           <span class="resizeme">
                                                 {{ language.translate("eurohistory_btn") }}
                                           </span>
