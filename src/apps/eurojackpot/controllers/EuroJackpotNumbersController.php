@@ -135,7 +135,7 @@ final class EuroJackpotNumbersController extends PublicSiteControllerBase
     public function pastResultAction()
     {
         $params = $this->router->getParams();
-        if (!isset($params[0])) {
+        if (!isset($params['date'])) {
             return $this->response->redirect('/'.$this->lottery . '/results');
         }
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('EuroJackpot'));
@@ -158,7 +158,7 @@ final class EuroJackpotNumbersController extends PublicSiteControllerBase
             $this->view->setVar('trillions', false);
         }
         $this->view->setVar('language', $this->languageService->getLocale());
-        $date = $params[0];
+        $date = $params['date'];
         $lotteryName = 'EuroJackpot';
         $actualDate = new \DateTime();
         $date = empty($date) ? new \DateTime() : new \DateTime($date);
