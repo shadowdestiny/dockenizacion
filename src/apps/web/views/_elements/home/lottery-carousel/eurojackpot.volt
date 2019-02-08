@@ -1,4 +1,4 @@
-<div class="item lottery-carousel lottery-carousel--euromillions">
+<div class="item lottery-carousel lottery-carousel--eurojackpot">
     <div class="top-block">
         <div class="title">
             <span class="resizeme" style="">{{ language.translate("EuroJackpot") }}</span>
@@ -13,15 +13,15 @@
         <div class="lottery--countdown countdowneuroj" style="">
             <div class="resizeme">
                 <div class="dayeuroj unit" style="">
-                    <span class="val" style="">%-d{% if show_ej_days == '1' %}D{% else %}D{% endif %}</span>
+                    <span class="val" style=""><b>%-d</b>{% if show_ej_days == '1' %}D{% else %}D{% endif %}</span>
                 </div>
                 <div class="dotseuroj"></div>
                 <div class="houreuroj unit" style="">
-                    <span class="val" style="">%-HH</span>
+                    <span class="val" style=""><b>%-H</b>H</span>
                 </div>
                 <div class="dotseuroj" style="">:</div>
                 <div class="minuteeuroj unit" style="">
-                    <span class="val" style="">%-MM</span>
+                    <span class="val" style=""><b>%-M</b>M</span>
                 </div>
                 {% if show_ej_days == '1' %}
                     <div class="dotseuroj" style="">:</div>

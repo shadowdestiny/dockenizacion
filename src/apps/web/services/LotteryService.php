@@ -667,6 +667,15 @@ class LotteryService
                 array_push($slideJackpot,$jackpotHome);
             }
         }, $drawListByHeldDate);
+
+        usort($slideJackpot, function($a, $b){
+            if ($a->jackpot->getAmount() == $b->jackpot->getAmount()) {
+                return 0;
+            }
+            return ($a->jackpot->getAmount() > $b->jackpot->getAmount()) ? -1 : 1;
+
+        });
+
         return $slideJackpot;
     }
 

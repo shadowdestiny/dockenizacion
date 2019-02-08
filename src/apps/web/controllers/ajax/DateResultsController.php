@@ -57,7 +57,7 @@ class DateResultsController extends AjaxControllerBase
         for($i = $begindDate; $i <= $endDate; $i->modify('+1 day')){
             if ($i->format('N') == 2 || $i->format('N') == 5) {
                 $playDates[] = [
-                    'url' =>  "megamillions/results/".$languageService->translate('draw-history-page') ."/". $i->format('Y-m-d'),
+                    'url' =>  $languageService->translate('link_megam_draw_history') ."/". $i->format('Y-m-d'),
                     'day' => $i->format('d'),
                     'name' => $languageService->translate($i->format('l'))
                 ];
@@ -78,7 +78,7 @@ class DateResultsController extends AjaxControllerBase
         for($i = $begindDate; $i <= $endDate; $i->modify('+1 day')){
             if ($i->format('N') == 5) {
                 $playDates[] = [
-                    'url' => 'eurojackpot/results/draw-history' . '/' . $i->format('Y-m-d'),
+                    'url' => $languageService->translate('link_eurojackpot_draw_history'). '/' . $i->format('Y-m-d'),
                     'day' => $i->format('d'),
                     'name' => $languageService->translate($i->format('l'))
                 ];

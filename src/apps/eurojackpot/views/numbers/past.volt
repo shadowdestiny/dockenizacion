@@ -87,7 +87,7 @@
                                         <th class="td-powerball" style="width:40%">
                                         </th>
                                         <th class="td-powerball" style="width:40%">
-                                                {{ language.translate("Lucky Numbers") }}
+
                                         </th>
                                     </tr>
                                     </thead>
@@ -107,7 +107,7 @@
                                 <tbody>
                                 {% for draw in list_draws %}
                                     <tr class="more" style="cursor: pointer"
-                                        onclick="document.location='/eurojackpot/results/draw-history/{{ draw.drawDateParam }}'">
+                                        onclick="document.location='/{{ language.translate('link_eurojackpot_draw_history') }}/{{ draw.drawDateParam }}'">
                                         <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
                                         <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
                                         <td class="td-powerball">{{ draw.luckyNumbers }}</td>

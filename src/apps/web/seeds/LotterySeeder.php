@@ -26,6 +26,7 @@ class LotterySeeder extends AbstractSeed
                 'result_api' => 'LoteriasyapuestasDotEs',
                 'single_bet_price_amount' => '300',
                 'single_bet_price_currency_name' => 'EUR',
+                'time_zone' => 'Europe/Madrid'
             ],[
                 'name' => 'Christmas ',
                 'jackpot_api' => 'LoteriasyapuestasDotEs',
@@ -34,6 +35,7 @@ class LotterySeeder extends AbstractSeed
                 'result_api' => 'LoteriasyapuestasDotEs',
                 'single_bet_price_amount' => '2500',
                 'single_bet_price_currency_name' => 'EUR',
+                'time_zone' => 'Europe/Madrid'
             ],[
                 'name' => 'PowerBall',
                 'jackpot_api' => 'Lottorisq',
@@ -42,6 +44,7 @@ class LotterySeeder extends AbstractSeed
                 'result_api' => 'Lottorisq',
                 'single_bet_price_amount' => '350',
                 'single_bet_price_currency_name' => 'EUR',
+                'time_zone' => 'America/New_York'
             ],
             [
                 'name' => 'MegaMillions',
