@@ -130,7 +130,7 @@ class TransactionService
         try {
             /** @var Lottery$lottery */
             $lottery = null;
-            if($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction) return "";
+            if($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction or $transaction instanceof WinningsReceivedTransaction) return "";
             $transaction->fromString();
 
             #TODO Validate because the Transaction class is not being serialized well, the lottery id attribute always returns 1
