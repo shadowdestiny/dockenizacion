@@ -252,7 +252,8 @@ class LotteryDrawRepository extends RepositoryBase
                 . ' FROM ' . $this->getEntityName() . ' ed JOIN ed.lottery l'
                 . ' WHERE '
                 . ' ed.draw_date >= CURRENT_DATE()'
-                . ' and l.id != 2'
+                . ' and l.id != 2 '
+                . ' group by l.id'
                 . ' order by ed.draw_date ASC')
             ->useResultCache(true, 3600)
             ->getResult();
