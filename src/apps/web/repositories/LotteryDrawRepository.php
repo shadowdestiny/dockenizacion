@@ -254,7 +254,7 @@ class LotteryDrawRepository extends RepositoryBase
                 . ' ed.draw_date >= CURRENT_DATE()'
                 . ' and l.id != 2 '
                 . ' group by l.id'
-                . ' order by ed.draw_date ASC')
+                . ' order by ed.id,ed.draw_date ASC')
             ->useResultCache(true, 3600)
             ->getResult();
         return $result;
