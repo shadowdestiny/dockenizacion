@@ -129,21 +129,28 @@ class TransactionService
     {
         try {
             /** @var Lottery$lottery */
-            $lottery = null;
-            if($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction) return "";
+            if ($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction or $transaction instanceof WinningsReceivedTransaction) return "";
+
+            if (method_exists($transaction, 'getLotteryName')) {
+                return $transaction->getLotteryName();
+            }
+
+            if (method_exists($transaction, 'getLotteryId')) {
+                $lotteryId = $transaction->getLotteryId();
+                $lottery = $lotteryRepository->find($lotteryId);
+                return $lottery->getName();
+            }
+
             $transaction->fromString();
 
-            #TODO Validate because the Transaction class is not being serialized well, the lottery id attribute always returns 1
-            #$lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
-            #TODO change:
             $playConfig = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'PlayConfig');
-            $lottery = $playConfig->find($transaction->getPlayConfigs()[0])->getLottery();
-            return $lottery->getName();
+
+            return  $playConfig->find($transaction->getPlayConfigs()[0])
+                ->getLottery()->getName();
         } catch (\Exception $e)
         {
             return "";
         }
-
     }
 
     public function getTransaction($id)
