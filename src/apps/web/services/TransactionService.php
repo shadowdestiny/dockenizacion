@@ -134,12 +134,11 @@ class TransactionService
             $transaction->fromString();
 
             #TODO Validate because the Transaction class is not being serialized well, the lottery id attribute always returns 1
+            #$lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
+            #TODO change:
             $playConfig = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'PlayConfig');
-            $lotteryId = $playConfig->find($transaction->getPlayConfigs()[0])
-                ->getLottery()->getId();
-
-            $lottery = $lotteryRepository->findBy(["id" => ($lotteryId) ? $lotteryId : 1]);
-            return $lottery[0]->getName();
+            $lottery = $playConfig->find($transaction->getPlayConfigs()[0])->getLottery();
+            return $lottery->getName();
         } catch (\Exception $e)
         {
             return "";
