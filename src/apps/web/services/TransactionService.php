@@ -129,7 +129,7 @@ class TransactionService
     {
         try {
             /** @var Lottery$lottery */
-            if ($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction) return "";
+            if ($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction or $transaction instanceof WinningsReceivedTransaction) return "";
 
             if (method_exists($transaction, 'getLotteryName')) {
                 return $transaction->getLotteryName();
