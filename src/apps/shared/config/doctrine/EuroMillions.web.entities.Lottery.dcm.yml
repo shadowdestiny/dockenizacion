@@ -26,3 +26,5 @@ EuroMillions\web\entities\Lottery:
       nullable: true
     draw_time:
       type: string
+    time_zone:
+      type: string

@@ -17,6 +17,8 @@ class Lottery extends EntityBase implements IEntity
     protected $draw_time; //utc
     protected $jackpot_api;
     protected $result_api;
+    protected $time_zone;
+
     /** @var  Money */
     protected $single_bet_price;
 
@@ -83,6 +85,16 @@ class Lottery extends EntityBase implements IEntity
     public function setDrawTime($draw_time)
     {
         $this->draw_time = $draw_time;
+    }
+
+    public function getTimeZone()
+    {
+        return $this->time_zone;
+    }
+
+    public function setTimeZone($time_zone)
+    {
+        $this->time_zone = $time_zone;
     }
 
     public function getLastDrawDate(\DateTime $now = null)
@@ -188,7 +200,12 @@ class Lottery extends EntityBase implements IEntity
             $weekday_index = PositiveModulus::calc($weekday_index + $increment, 7);
             $days_to_check--;
         }
-        
+        if (1 === (int)$configParams[$weekday_index] && ($days_to_check < 7 || $hourCondition($hour))) {
+            return ($this->isPowerBall() || $this->isMegaMillions()) ?
+                DateTimeUtil::convertDateTimeBetweenTimeZones($result_date, 'Europe/Madrid', 'America/New_York', $this->getName()) :
+                $result_date;
+        }
+
         throw new NotDrawFound('Couldn\'t find the draw');
     }
 

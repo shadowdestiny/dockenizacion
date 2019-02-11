@@ -99,6 +99,7 @@ payment_config: 'wirecard,moneymatrix'
 controllers_euromillions: 'numbers,powerball-numbers'
 controllers_powerball: 'numbers,powerball-numbers'
 controllers_megamillions: 'megamillions-numbers'
+controllers_eurojackpot: 'euro-jackpot-numbers'
 
 controllers_result_euromillions: 'index'
 controllers_result_powerball: 'index'

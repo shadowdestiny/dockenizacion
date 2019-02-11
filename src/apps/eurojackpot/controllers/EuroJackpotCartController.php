@@ -50,6 +50,8 @@ class EuroJackpotCartController extends LotteriesCartController
                     'password' => $this->request->getPost('password'),
                     'email'    => $this->request->getPost('email'),
                     'country'  => $this->request->getPost('country'),
+                    'phone_number' => $this->request->getPost('prefix')."-".$this->request->getPost('phone'),
+                    'birth_date' => $this->request->getPost('year').'-'.$this->request->getPost('month').'-'.$this->request->getPost('day'),
                     'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
@@ -75,5 +77,29 @@ class EuroJackpotCartController extends LotteriesCartController
         ]);
     }
 
+    /**
+     * @return array
+     */
+    protected function getErrorsArray()
+    {
+        $form_errors = [
+            'email'            => '',
+            'password'         => '',
+            'name'             => '',
+            'surname'          => '',
+            'confirm_password' => '',
+            'country'          => '',
+            'card-number' => '',
+            'card-holder' => '',
+            'card-cvv' => '',
+            'expiry-date-month' => '',
+            'expiry-date-year' => '',
+            'accept' => '',
+            'day' => '',
+            'month' => '',
+            'year' => '',
+        ];
 
+        return $form_errors;
+    }
 }

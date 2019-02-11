@@ -147,7 +147,6 @@ class TransactionService
 
             return  $playConfig->find($transaction->getPlayConfigs()[0])
                 ->getLottery()->getName();
-
         } catch (\Exception $e)
         {
             return "";
