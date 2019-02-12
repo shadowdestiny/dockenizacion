@@ -51,7 +51,7 @@ class WinEmailEuroJackpotAboveTemplate extends WinEmailPowerBallAboveTemplate
                     ],
                     [
                         'name' => 'winning',
-                        'content' => number_format((float)$this->result_amount->getAmount(), 2, ".", ",")
+                        'content' => number_format((float)$this->result_amount->getAmount()  / 100, 2, ".", ",")
                     ],
                 ]
         ];
