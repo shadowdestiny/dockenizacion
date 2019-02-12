@@ -133,6 +133,16 @@ class UserBuilder
         $this->winning_above= $amount;
         return $this;
     }
+    /**
+     * @param boolean $validated
+     * @return UserBuilder
+     */
+    public function withValidated($validated)
+    {
+        $this->validated = $validated;
+        return $this;
+    }
+
 
     /**
      * @return UserBuilder

@@ -73,7 +73,7 @@ class LotteryMother
             'name'      => 'EuroJackpot',
             'frequency' => 'w0000100',
             'draw_time' => '20:00:00',
-            'active'    => 0,
+            'active'    => 1,
             'single_bet_price' => new Money((int) 300, new Currency('EUR'))
         ]);
         return $lottery;
