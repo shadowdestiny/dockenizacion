@@ -55,8 +55,8 @@
                 </a>
              </li>
              <li>
-                <a href="/{{ language.translate('link_eurojackpot_results') }}">
-                    {{ language.translate("results_eurojackpot_sub") }}
+                <a href="/{{ language.translate('link_eurojackpot_resultstest') }}">
+                    {{ language.translate("results_eurojackpot_subtest") }}
                 </a>
             </li>
             <li>
