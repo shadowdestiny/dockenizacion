@@ -190,7 +190,6 @@ class PrizeCheckoutService
             $user->awardPrize($winning);
             $transactionBuilder = new WinningTransactionDataBuilder($winning, $bet, $user, $amount,$userWalletBefore);
             $this->storeAwardTransaction($transactionBuilder->getData(), $transactionBuilder->getType());
-
             if($transactionBuilder->greaterThanOrEqualThreshold()){
                 $this->sendBigWinEmail($bet, $user, $price, $scalarValues);
             }
@@ -237,11 +236,11 @@ class PrizeCheckoutService
     }
 
     /**
+     * @param Bet $bet
      * @param User $user
      * @param Money $amount
-     * @param Bet $bet
      * @param array $scalarValues
-     * @internal param array $countBalls
+     * @param bool $isBig
      */
     protected function sendWinLotteryEmail(Bet $bet, User $user, Money $amount, array $scalarValues, $isBig)
     {
@@ -249,9 +248,7 @@ class PrizeCheckoutService
         $lottery = $bet->getPlayConfig()->getLottery();
         $template = (new WinEmailEnum())->findTemplatePathByLotteryName($lottery->getName(), $isBig);
         $emailTemplate = new $template($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-
-        $powerBall = explode(',', $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers());
-        $luckyNumbers = $lottery->isEuroJackpot() ? ' ( ' . $powerBall[0] . ', ' .$powerBall[1] . ' )' : ' ( ' . $powerBall[1] . ' )';
+        $luckyNumbers = $this->getLuckyNumbers($bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers(), $lottery);
         $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . $luckyNumbers;
         $emailTemplate->setWinningLine($numLine);
         $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
@@ -305,6 +302,22 @@ class PrizeCheckoutService
         $emailTemplate->setUser($user);
         $emailTemplate->setResultAmount($amount);
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    }
+
+
+    protected function getLuckyNumbers($numbers, $lottery)
+    {
+        $balls = explode(',', $numbers);
+
+        if ($lottery->isEuroJackpot()) {
+            return ' ( ' . $balls[0] . ', ' .$balls[1] . ' )';
+        };
+
+        if ($lottery->isEuroMillions()) {
+            return '( ' . $numbers . ' )';
+        }
+
+        return ' ( ' . $balls[1] . ' )';
     }
 
     public function sendEmailWinnerRaffle($betsRaffle, Raffle $lastRaffle)

@@ -3,26 +3,30 @@
 
 namespace EuroMillions\shared\enums;
 
-
-use http\Exception\UnexpectedValueException;
-
 class WinEmailEnum extends \SplEnum
 {
+    const EuroMillions = 'web';
+
+    const PowerBall = 'web';
+
+    const MegaMillions = 'megamillions';
+
+    const EuroJackpot = 'eurojackpot';
 
     public function findTemplatePathByLotteryName($lotteryName, $isBig = false)
     {
-        if ($isBig) {
-            if ($lotteryName == 'EuroJackpot') {
-                return 'EuroMillions\eurojackpot\emailTemplates\WinEmailEuroJackpotAboveTemplate';
+        $declaredElems = $this->getConstList();
+        $above = $isBig ? 'Above' : '';
+
+        if (array_key_exists($lotteryName, $declaredElems)) {
+            if(strtolower($lotteryName) == self::EuroJackpot || strtolower($lotteryName) == self::MegaMillions ) {
+                return 'EuroMillions\\'.strtolower($lotteryName).'\emailTemplates\WinEmail'.$lotteryName.$above.'Template';
             }
-
-            return 'EuroMillions\web\emailTemplates\WinEmailPowerBallAboveTemplate';
+            return $lotteryName == 'PowerBall' ?
+                "EuroMillions\\web\\emailTemplates\\WinEmailPowerBall".$above.'Template':
+                "EuroMillions\\web\\emailTemplates\\WinEmail".$above.'Template';
         }
 
-        if ($lotteryName == 'MegaMillions' || $lotteryName == 'EuroJackpot') {
-            return 'EuroMillions\\'.strtolower ($lotteryName).'\emailTemplates\WinEmail'.$lotteryName.'Template';
-        }
-
-        return 'EuroMillions\web\emailTemplates\WinEmailPowerBallTemplate';;
+        throw new \UnexpectedValueException('Lottery unknown');
     }
 }
