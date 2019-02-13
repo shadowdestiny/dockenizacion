@@ -107,7 +107,7 @@ class EuroMillionsDrawMother
             "match-4-2": "3745.50",
             "match-5": "165741.30",
             "match-5-1": "626134.00",
-            "match-5-2": "0.00"
+            "match-5-2": "1626134.00"
         },
         "type": "eurojackpot",
         "winners": {
@@ -198,7 +198,9 @@ class EuroMillionsDrawMother
             new EuroJackpotDrawBreakDown(json_decode(self::$euroJackpotJsonResult, TRUE));
         $line = EuroMillionsLineMother::anEuroJackpotLine();
         return EuroMillionsDrawBuilder::aDraw()
-            ->withLottery(LotteryMother::anEuroJackpot());
+            ->withLottery(LotteryMother::anEuroJackpot())
+            ->withDrawDate($date)
+            ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
 }
 

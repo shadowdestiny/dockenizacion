@@ -15,16 +15,11 @@ class EuroJackpotPrize extends LotteryPrize
     public function mappingArray()
     {
         return [
-            '0,1' => 'getCategorySeventeen',
-            '0,2' => 'getCategorySixteen',
-            '1,0' => 'getCategoryFifteen',
-            '1,1' => 'getCategoryFourteen',
-            '2,0' => 'getCategoryThirteen',
             '2,1' => 'getCategoryTwelve',
             '1,2' => 'getCategoryEleven',
-            '2,2' => 'getCategoryTen',
-            '3,0' => 'getCategoryNine',
-            '3,1' => 'getCategoryEight',
+            '3,0' => 'getCategoryTen',
+            '3,1' => 'getCategoryNine',
+            '2,2' => 'getCategoryEight',
             '3,2' => 'getCategorySeven',
             '4,0' => 'getCategorySix',
             '4,1' => 'getCategoryFive',
