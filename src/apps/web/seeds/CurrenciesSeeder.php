@@ -14,9 +14,14 @@ class CurrenciesSeeder extends AbstractSeed
      */
     public function run()
     {
+        $this->execute('SET FOREIGN_KEY_CHECKS = 0');
+        $this->execute('TRUNCATE TABLE currencies');
+
         $currencies = $this->table('currencies');
         $currencies->insert($this->getData())
             ->save();
+        $this->execute('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 
     private function getData()

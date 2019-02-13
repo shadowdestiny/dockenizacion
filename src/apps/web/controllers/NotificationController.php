@@ -36,6 +36,7 @@ class NotificationController extends MoneymatrixController
         $transactionID = $this->request->getQuery('transaction');
         $status = $this->request->getQuery('status');
         $statusCode = $this->request->getQuery('statusCode');
+        $testDate = !empty($this->request->getQuery('date')) ? new \DateTime($this->request->getQuery('date')) : null;
 
         $logger = new CloudWatch(new CloudWatchLogger(ConfigGenerator::cloudWatchConfig(
             'Euromillions', getenv('EM_ENV')
@@ -58,7 +59,7 @@ class NotificationController extends MoneymatrixController
         {
             $this->paymentProviderService->setEventsManager($this->eventsManager);
             $this->eventsManager->attach('orderservice', $this->orderService);
-            $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName())->getValues();
+            $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName(), !empty($testDate) ? $testDate : null)->getValues();
             $order->setNextDraw($nextDrawForOrder);
             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,$status,$statusCode);
         }
