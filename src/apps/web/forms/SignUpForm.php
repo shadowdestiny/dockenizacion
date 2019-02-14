@@ -18,6 +18,7 @@ use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Digit;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 use Phalcon\Validation\Validator\StringLength;
+use Phalcon\Validation\Validator\Regex as RegexValidator;
 
 class SignUpForm extends Form
 {
@@ -92,6 +93,12 @@ class SignUpForm extends Form
             'messageMinimum' => $translationAdapter->query('signup_passwordLenght')
         )));
 
+        $password->addValidator(new RegexValidator(
+            [
+                "pattern" => "/^[a-zA-Z0-9_]+$/",
+                "message" =>  $translationAdapter->query('signup_passwordSymbols'),
+            ])
+        );
 
         $this->add($password);
         $password_confirm = new Password('confirm_password', array(

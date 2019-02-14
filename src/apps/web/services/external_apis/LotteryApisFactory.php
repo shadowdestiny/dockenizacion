@@ -30,4 +30,14 @@ class LotteryApisFactory
         return new $object_name($curlWrapper);
     }
 
+    /**
+     * @param Lottery $lottery
+     * @param Curl $curlWrapper
+     * @return IResultApi
+     */
+    public static function bookApi(Lottery $lottery, Curl $curlWrapper = null)
+    {
+        $object_name = '\EuroMillions\web\services\external_apis\\'.$lottery->getResultApi().'Api';
+        return new $object_name($curlWrapper);
+    }
 }

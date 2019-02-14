@@ -174,6 +174,9 @@ class PublicSiteControllerBase extends ControllerBase
     {
         $controllerWidgetForLotteries = $this->di->get('config')['result_widget'];
         $widgetArr = null;
+        if (!$controllerWidgetForLotteries) {
+            return $this->view->setVar('result_widget', $widgetArr);
+        }
         foreach($controllerWidgetForLotteries as $lottery => $controllers)
         {
             foreach(explode(',',$controllers) as $controller) {

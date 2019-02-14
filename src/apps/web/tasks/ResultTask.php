@@ -57,7 +57,7 @@ class ResultTask extends TaskBase
 
     public function updateAction(\DateTime $today = null)
     {
-        $results = $this->lotteryService->getLastDrawWithBreakDownByDate('EuroMillions', $this->lotteryService->getLastDrawDate('Euromillions'));
+        //$results = $this->lotteryService->getLastDrawWithBreakDownByDate('EuroMillions', $this->lotteryService->getLastDrawDate('Euromillions'));
         $result = $this->lotteryService->getLastResult('EuroMillions');
         $breakdown = $this->lotteryService->getLastBreakdown('Euromillions');
         try {
@@ -111,7 +111,7 @@ class ResultTask extends TaskBase
         {
             $drawDate= new \DateTime($params[1]);
         }
-        if(isset($params[0]) && in_array($params[0],['MegaMillions', 'PowerBall']))
+        if(isset($params[0]) && in_array($params[0],['MegaMillions', 'PowerBall', 'EuroJackpot']))
         {
             try {
                 if(empty($drawDate))

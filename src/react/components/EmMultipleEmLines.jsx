@@ -29,6 +29,7 @@ var EuroMillionsMultipleEmLines = React.createClass({
                       txtLine={this.props.txtLine}
                       gameMode={this.props.gameMode}
                       translations={this.props.translations}
+                      defaultRandom={i===0}
                     />
             );
         }

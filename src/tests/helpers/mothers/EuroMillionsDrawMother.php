@@ -3,13 +3,14 @@
 
 namespace EuroMillions\tests\helpers\mothers;
 
-
-use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
-use EuroMillions\tests\helpers\builders\EuroMillionsDrawBuilder;
-use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\web\vo\PowerBallDrawBreakDown;
-use Money\Currency;
 use Money\Money;
+use Money\Currency;
+use EuroMillions\web\vo\PowerBallDrawBreakDown;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\eurojackpot\vo\EuroJackpotDrawBreakDown;
+use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
+use EuroMillions\tests\helpers\builders\EurojackpotDrawBuilder;
+use EuroMillions\tests\helpers\builders\EuroMillionsDrawBuilder;
 
 class EuroMillionsDrawMother
 {
@@ -73,6 +74,58 @@ class EuroMillionsDrawMother
             "match-5-pp": 1
             }
     }';
+
+    protected static $euroJackpotJsonResult = '{
+        "currency": "EUR",
+        "date": "2019-01-25",
+        "jackpot": {
+            "rollover": 3,
+            "total": "38000000.00"
+        },
+        "numbers": {
+            "euro": [
+                1,
+                4
+            ],
+            "main": [
+                10,
+                26,
+                28,
+                30,
+                40
+            ]
+        },
+        "prizes": {
+            "match-1-2": "7.80",
+            "match-2-1": "7.80",
+            "match-2-2": "17.10",
+            "match-3": "16.60",
+            "match-3-1": "17.10",
+            "match-3-2": "45.60",
+            "match-4": "131.50",
+            "match-4-1": "287.80",
+            "match-4-2": "3745.50",
+            "match-5": "165741.30",
+            "match-5-1": "626134.00",
+            "match-5-2": "1626134.00"
+        },
+        "type": "eurojackpot",
+        "winners": {
+            "match-1-2": 224171,
+            "match-2-1": 535178,
+            "match-2-2": 43366,
+            "match-3": 57090,
+            "match-3-1": 35325,
+            "match-3-2": 2907,
+            "match-4": 1176,
+            "match-4-1": 691,
+            "match-4-2": 59,
+            "match-5": 4,
+            "match-5-1": 3,
+            "match-5-2": 0
+        }
+    }';
+
     /**
      * @return EuroMillionsDrawBuilder
      */
@@ -132,5 +185,22 @@ class EuroMillionsDrawMother
             ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
 
+
+    public static function anEuroJackpotDrawWithJackpotAndBreakDown(\DateTime $date = null)
+    {
+        if($date == null)
+        {
+            $date= new \DateTime('2020-01-01');
+        }
+        $jackpot = new Money(5000000000, new Currency('EUR'));
+
+        $breakDown =
+            new EuroJackpotDrawBreakDown(json_decode(self::$euroJackpotJsonResult, TRUE));
+        $line = EuroMillionsLineMother::anEuroJackpotLine();
+        return EuroMillionsDrawBuilder::aDraw()
+            ->withLottery(LotteryMother::anEuroJackpot())
+            ->withDrawDate($date)
+            ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
+    }
 }
 

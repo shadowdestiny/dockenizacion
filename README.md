@@ -86,26 +86,12 @@ This command will run 3 Docker containers:
 
 You can view their logs via **$ docker log -f <container-name>**
 
-# Frontend Comments 
+### Compile all SASS files
 
-##Main CSS
+On the root of the project you can run:
 
-1) cd src/compass_web/
-2) compass watch
+```
+docker run --rm -v $(pwd)/src:/src antonienko/compass-watch compile --force /src/compass_web
+```
 
-
-##V2 SASS - new design style
-
-1) Use "npm install" command to install plugins for the SCSS (from the package.json file list)
-2) Use "gulp" command to generate actual CSS files
-3) Use "gulp watch" command to generate actual CSS files all times you add the changes to the sources SCSS files
-
-
-CSS file for the new template is here:
-src/public/w/css/main_v2.css
-
-Sources SCSS files for the new template are here:
-src/compass_web/sass/
-
-
-
+This will compile all .scss files on /src/compass_web
