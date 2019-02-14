@@ -27,6 +27,7 @@ use EuroMillions\web\services\email_templates_strategies\ErrorDataEmailTemplateS
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\LotteryValidatorsFactory;
+use EuroMillions\web\services\notification_mediator\Colleague;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\BundlePlayCollectionDTO;
@@ -43,7 +44,7 @@ use Exception;
 use Money\Currency;
 use Money\Money;
 
-class PlayService
+class PlayService extends Colleague
 {
 
     const NUM_BETS_PER_REQUEST = 5;
@@ -775,6 +776,7 @@ class PlayService
         {
             return new ActionResult(false);
         }
+
         return new ActionResult(true, $response);
     }
 

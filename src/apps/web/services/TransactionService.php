@@ -17,6 +17,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsReceivedTransaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\repositories\LotteryRepository;
+use EuroMillions\web\services\notification_mediator\Colleague;
 use EuroMillions\web\vo\dto\TransactionDTO;
 use EuroMillions\web\vo\Order;
 use Exception;
@@ -24,7 +25,7 @@ use Money\Currency;
 use Money\Money;
 
 
-class TransactionService
+class TransactionService extends Colleague
 {
 
     protected $entityManager;
@@ -64,6 +65,10 @@ class TransactionService
         {
             $this->entityManager->persist($entity);
             $this->entityManager->flush();
+            if(!is_null($this->mediator))
+            {
+                $this->mediator->playConfigValidate();
+            }
         }catch(\Exception $e)
         {
             throw new \Exception($e->getMessage());

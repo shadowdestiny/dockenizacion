@@ -13,6 +13,7 @@ use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
+use EuroMillions\web\services\notification_mediator\NotificationMediatorNotification;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
@@ -35,6 +36,8 @@ class OrderService
     /** @var IPlayStorageStrategy $redisOrderChecker*/
     protected $redisOrderChecker;
 
+    protected $mediator;
+
 
     public function __construct(WalletService $walletService,
                                 PlayService $playService,
@@ -48,6 +51,7 @@ class OrderService
         $this->transactionService = $transactionService;
         $this->logger = $logger;
         $this->redisOrderChecker = $redisOrderChecker;
+        $this->mediator= new NotificationMediatorNotification($this->walletService,$this->playService,$this->transactionService);
     }
 
 
@@ -62,53 +66,14 @@ class OrderService
         $transactionID = $data['transactionID'];
         /** @var User $user */
         $user = $order->getPlayConfig()[0]->getUser();
-        $lottery = $order->getLottery();
         $this->redisOrderChecker->save($transactionID,$user->getId());
         try
         {
             if($order->isNextDraw())
             {
                 $walletBefore = $user->getWallet();
-                $user=$this->updateOrderTransaction($user, $order, $transactionID, $walletBefore);
-                $walletBefore = $user->getWallet();
-                foreach ($order->getPlayConfig() as $playConfig)
-                {
-                    $playConfig->setLottery($order->getLottery());
-                    $playConfig->setDiscount(new Discount($order->getPlayConfig()[0]->getFrequency(),$this->playService->retrieveEuromillionsBundlePrice()));
-                    $result = $this->playService->validatorResult($lottery,$playConfig,new ActionResult(true, $order->getNextDraw()),$order);
-                    $isBetPersisted = $this->playService->persistBetDistinctEuroMillions($playConfig, new ActionResult(true, $order->getNextDraw()), $order, $result->getValues());
-                    $this->logger->log(Logger::INFO,
-                        'checkout:Validating against lottery provider with status =' . $result->success());
-                    if($result->success() && $isBetPersisted->success())
-                    {
-                        $this->logger->log(Logger::INFO,
-                            'checkout:Before substract playconfig bet value from wallet =' . $user->getBalance()->getAmount());
-                       $this->walletService->extract($user,$order);
-                        $this->logger->log(Logger::INFO,
-                            'checkout:After substract playconfig bet value from wallet =' . $user->getBalance()->getAmount());
-                    }
-                }
-                //TODO move to TransactionService
-                $dataTransaction = [
-                    'lottery_id' => $order->getLottery()->getId(),
-                    'transactionID' => $transactionID,
-                    'numBets' => count($order->getPlayConfig()),
-                    'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                    'amountWithWallet' => $order->amountForTicketPurchaseTransaction(),
-                    'walletBefore' => $walletBefore,
-                    'amountWithCreditCard' => 0,
-                    'playConfigs' => array_map(function ($val) {
-                        return $val->getId();
-                    }, $order->getPlayConfig()),
-                    'discount' => $order->getDiscount()->getValue(),
-                ];
-                $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
-                $this->logger->log(Logger::INFO,
-                    'checkout:Transaction TICKET_PURCHASE it was created');
-                $this->sendEmail($user,$order,$lottery->getName());
+                $this->walletService->initPaymentFlowFromNotification($user,$order,$transactionID,$walletBefore);
                 $this->redisOrderChecker->delete($user->getId());
-                $this->logger->log(Logger::INFO,
-                    'checkout:Email sent');
             }
         } catch(\Exception $e)
         {
@@ -117,7 +82,6 @@ class OrderService
                 'ERRORcheckout:' . $e->getMessage());
             throw new \Exception($e->getMessage());
         }
-
     }
 
     public function hasOrderProcessing($userId)
@@ -200,37 +164,5 @@ class OrderService
         {
 
         }
-    }
-
-    private function sendEmail(User $user, Order $order, $lotteryName)
-    {
-        if($lotteryName == 'EuroMillions')
-        {
-            $this->playService->sendEmailPurchase($user,$order->getPlayConfig());
-        }
-        if($lotteryName == 'PowerBall')
-        {
-            $this->playService->sendEmailPowerBallPurchase($user,$order->getPlayConfig());
-        }
-    }
-
-    private function updateOrderTransaction($user, $order, $transactionID, $walletBefore)
-    {
-        $order->getPlayConfig()[0]->setLottery($order->getLottery());
-        $this->logger->log(Logger::INFO,
-            'checkout:User wallet before it was payed=' . $user->getWallet()->getBalance()->getAmount());
-        $user = $this->walletService->payOrder($user,$order);
-        $this->logger->log(Logger::INFO,
-            'checkout:User it was payed in its wallet=' . $user->getWallet()->getBalance()->getAmount());
-        $transactions = $this->transactionService->getTransactionByEmTransactionID($transactionID);
-
-        //TODO move to TransactionService
-        $transactions[0]->fromString();
-        $transactions[0]->setWalletBefore($walletBefore);
-        $transactions[0]->setWalletAfter($user->getWallet());
-        $transactions[0]->toString();
-        $this->transactionService->updateTransaction($transactions[0]);
-
-        return $user;
     }
 }

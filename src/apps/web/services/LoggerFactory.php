@@ -3,8 +3,9 @@ namespace EuroMillions\web\services;
 
 use EuroMillions\web\components\PhalconFileJsonLogger;
 use EuroMillions\web\interfaces\ILogger;
+use EuroMillions\web\services\notification_mediator\Colleague;
 
-class LoggerFactory
+class LoggerFactory extends Colleague
 {
     const AUTHLOG = 'auth.log';
 
