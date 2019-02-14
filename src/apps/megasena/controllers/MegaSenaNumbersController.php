@@ -6,7 +6,7 @@
  * Time: 02:31 PM
  */
 
-namespace EuroMillions\MegaSena\controllers;
+namespace EuroMillions\megasena\controllers;
 
 use EuroMillions\shared\components\widgets\JackpotAndCountDownWidget;
 use EuroMillions\web\components\DateTimeUtil;

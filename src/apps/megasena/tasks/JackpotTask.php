@@ -1,5 +1,5 @@
 <?php
-namespace EuroMillions\eurojackpot\tasks;
+namespace EuroMillions\megasena\tasks;
 
 use EuroMillions\web\tasks\TaskBase;
 use EuroMillions\web\emailTemplates\EmailTemplate;
@@ -36,7 +36,7 @@ class JackpotTask extends TaskBase
 
     public function updateNextDrawJackpotEuroJackpotAction()
     {
-        $this->lotteriesDataService->updateNextDrawJackpotLottery('EuroJackpot');
+        $this->lotteriesDataService->updateNextDrawJackpotLottery('MegaSena');
 
     }
 
@@ -47,13 +47,13 @@ class JackpotTask extends TaskBase
         }
 
         /** @var \DateTime $date */
-        $date = $this->lotteryService->getLastDrawDate('EuroJackpot', $today);
-        $this->lotteriesDataService->updateNextDrawJackpotLottery('EuroJackpot', $date->sub(new \DateInterval('PT1M')));
+        $date = $this->lotteryService->getLastDrawDate('MegaSena', $today);
+        $this->lotteriesDataService->updateNextDrawJackpotLottery('MegaSena', $date->sub(new \DateInterval('PT1M')));
     }
 
     public function reminderJackpotAction()
     {
-        $jackpot_amount = $this->lotteryService->getNextJackpot('EuroJackpot');
+        $jackpot_amount = $this->lotteryService->getNextJackpot('MegaSena');
         $emailTemplate = new EmailTemplate();
         $emailTemplate = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
         /** @var ActionResult $result */

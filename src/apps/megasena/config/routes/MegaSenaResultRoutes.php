@@ -14,7 +14,7 @@ class MegaSenaResultRoutes extends RouterGroup
     public function initialize()
     {
 
-        $this->add("/{language:(es|it|nl|ru)+}/{lottery:(eurojackpot)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}", array(
+        $this->add("/{language:(es|it|nl|ru)+}/{lottery:(megasena)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}", array(
             "module" => "megasena",
             'controller' => 'mega-sena-numbers',
             'action' => 'pastList',

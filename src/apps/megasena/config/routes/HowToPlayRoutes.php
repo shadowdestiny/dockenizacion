@@ -19,15 +19,15 @@ class HowToPlayRoutes extends RouterGroup
         // Default paths
         $this->setPaths(
             [
-                'module'    => 'eurojackpot',
-                'namespace' => 'EuroMillions\eurojackpot\controllers',
+                'module'    => 'megasena',
+                'namespace' => 'EuroMillions\megasena\controllers',
             ]
         );
 
-        // All the routes start with /eurojackpot
-        //$this->setPrefix('/eurojackpot'); #validate this, since it affects the prefixes that have a name at the beginning
+        // All the routes start with /megasena
+        //$this->setPrefix('/megasena'); #validate this, since it affects the prefixes that have a name at the beginning
 
-        $this->add("/eurojackpot/help",
+        $this->add("/megasena/help",
             array(
                 'controller' => 'help',
                 'action' => 'index',
@@ -35,36 +35,36 @@ class HowToPlayRoutes extends RouterGroup
             )
         );
 
-        //*********************EUROJACKPOT ROUTES***********************************//
-        $this->add("/eurojackpot/how-to-play", array(
+        //*********************MEGASENA ROUTES***********************************//
+        $this->add("/megasena/how-to-play", array(
             'lottery' => 5,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'en',
         ));
 
-        $this->add("/es/eurojackpot/como-se-juega", array(
+        $this->add("/es/megasena/como-se-juega", array(
             'lottery' => 5,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'es',
         ));
 
-        $this->add("/it/eurojackpot/come-giocare", array(
+        $this->add("/it/megasena/come-giocare", array(
             'lottery' => 5,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'it',
         ));
 
-        $this->add("/nl/eurojackpot/speluitleg", array(
+        $this->add("/nl/megasena/speluitleg", array(
             'lottery' => 5,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'nl',
         ));
 
-        $this->add("/ru/eurojackpot/как-играть", array(
+        $this->add("/ru/megasena/как-играть", array(
             'lottery' => 5,
             'controller' => 'help',
             'action' => 'index',
