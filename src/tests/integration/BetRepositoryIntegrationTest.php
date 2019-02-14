@@ -130,6 +130,19 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     }
 
 
+    /**
+     * method getCheckResult
+     * when passValidaDateAsParam
+     * should returnProperObjectWithWinnersCombination
+     */
+    public function test_getCheckResult_passValidaDateAsParam_returnProperObjectWithWinnersCombination()
+    {
+        $date='2015-09-22';
+        $actual = $this->sut->getCheckResult($date);
+        $this->assertEquals(null,$actual);
+    }
+
+
 
     private function exerciseAdd()
     {

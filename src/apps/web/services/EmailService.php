@@ -28,6 +28,7 @@ class EmailService
 
     public function sendWelcomeEmail(User $user, IUrlManager $urlManager, IEmailTemplateDataStrategy $strategy = null)
     {
+        if($user->isValidationDisabled()) return;
         $strategy = $strategy ? $strategy : new JackpotDataEmailTemplateStrategy();
         //$url =  new Url($urlManager->get('/userAccess/passwordReset/' . $user->getValidationToken()));
         $emailTemplate = new EmailTemplate();

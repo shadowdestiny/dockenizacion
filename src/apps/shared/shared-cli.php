@@ -4,7 +4,6 @@ error_reporting(E_ALL);
 use \EuroMillions\shared\bootstrap\SharedBootstrap;
 
 $app_path = __DIR__.'/';
-$global_config_path = $app_path.'../../global_config/';
 $tests_path = $app_path.'../../tests/';
 $config_path = $app_path . '../shared/config/';
 $config_path_web = $app_path . '../web/config';
