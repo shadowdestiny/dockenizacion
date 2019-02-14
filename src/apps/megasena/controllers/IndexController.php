@@ -1,6 +1,6 @@
 <?php
 
-namespace EuroMillions\eurojackpot\controllers;
+namespace EuroMillions\megasena\controllers;
 
 
 use EuroMillions\shared\controllers\PublicSiteControllerBase;

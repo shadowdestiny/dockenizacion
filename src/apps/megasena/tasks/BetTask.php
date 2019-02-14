@@ -6,7 +6,7 @@
  * Time: 03:44 PM
  */
 
-namespace EuroMillions\eurojackpot\tasks;
+namespace EuroMillions\megasena\tasks;
 
 use EuroMillions\web\tasks\TaskBase;
 use EuroMillions\web\entities\Lottery;
@@ -45,6 +45,6 @@ class BetTask extends TaskBase
 
     public function placeEuroJackpotBetsAction($args = null)
     {
-        $this->placeLotteryBets('EuroJackpot', $args);
+        $this->placeLotteryBets('MegaSena', $args);
     }
 }

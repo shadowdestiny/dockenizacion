@@ -11,8 +11,8 @@ class EuroMillionsLine implements IArraySerializable
     const NUM_REGULAR_NUMBERS = 5;
     const NUM_LUCKY_NUMBERS = 2;
 
-    private $regular_numbers;
-    private $lucky_numbers;
+    protected $regular_numbers;
+    protected $lucky_numbers;
 
     protected $regular_number_one;
     protected $regular_number_two;
@@ -78,7 +78,7 @@ class EuroMillionsLine implements IArraySerializable
      * @param $type
      * @return bool
      */
-    private function checkTypeAndRepeated($numbers, $type)
+    protected function checkTypeAndRepeated($numbers, $type)
     {
         $existing_numbers = [];
         foreach ($numbers as $number) {

@@ -2,10 +2,9 @@
 
 namespace EuroMillions\web\repositories;
 
-use Doctrine\ORM\EntityRepository;
 use EuroMillions\web\entities\Lottery;
 
-class LotteryRepository extends EntityRepository
+class LotteryRepository extends RepositoryBase
 {
     /**
      * @param $lotteryName

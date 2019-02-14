@@ -51,33 +51,33 @@ class ResultTask extends TaskBase
         $this->lotteryService = $lotteryService ? $lotteryService : $this->domainServiceFactory->getLotteryService();
     }
 
-    public function importAllHistoricalDataFromEuroJackpotAction()
+    public function importAllHistoricalDataFromMegaSenaAction()
     {
         try {
             $dependencies = [];
             $conversionService = $this->domainServiceFactory->getCurrencyConversionService();
             $dependencies['CurrencyConversionService'] = $conversionService;
-            $results = $this->lotteryService->getAllResultFromLottery(new Curl(), Di::getDefault()->get('config')['eurojackpot_api'], 'eurojackpot');
-            $this->lotteriesDataService->insertLotteryData($results->body,$dependencies, 'EuroJackpot');
+            $results = $this->lotteryService->getAllResultFromLottery(new Curl(), Di::getDefault()->get('config')['megasena_api'], 'megasena');
+            $this->lotteriesDataService->insertLotteryData($results->body,$dependencies, 'MegaSena');
         } catch (Exception $e) {
             throw new \Exception($e->getMessage());
         }
     }
 
-    public function updateEuroJackpotResultAction(\DateTime $now = null)
+    public function updateMegaSenaResultAction(\DateTime $now = null)
     {
         try {
             $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];
-            $drawDate = $this->lotteryService->getLastDrawDate('EuroJackpot');
-            $result = $this->lotteryService->getLastResult('EuroJackpot');
-            $breakdown = $this->lotteryService->getLastBreakdown('EuroJackpot');
+            $drawDate = $this->lotteryService->getLastDrawDate('MegaSena');
+            $result = $this->lotteryService->getLastResult('MegaSena');
+            $breakdown = $this->lotteryService->getLastBreakdown('MegaSena');
             if (!$result['regular_numbers'][0])
             {
-                $this->lotteriesDataService->updateLastDrawResultLottery('EuroJackpot');
+                $this->lotteriesDataService->updateLastDrawResultLottery('MegaSena');
             }
             if(!empty($breakdown) && !$breakdown->getCategoryOne()->getName())
             {
-                $this->lotteriesDataService->updateLastBreakDownLottery('EuroJackpot');
+                $this->lotteriesDataService->updateLastBreakDownLottery('MegaSena');
             }
         }catch (\Exception $e)
         {

@@ -14,9 +14,23 @@
     </a>
 </li>
 <li class="li-christmas{% if activeNav.myClass == 'christmas' %} active{% endif %}">
-    <a href="/{{ language.translate("link_christmas_play") }}">
-        <span class="txt">{{ language.translate("playchris_sub") }}</span>
+    <a href="#">
+        <span class="txt">{{ language.translate("playlotto_all") }}</span>
     </a>
+    <div class="submenu">
+            <ul>
+                <li>
+                    <a href="/{{ language.translate('link_eurojackpot_play') }}">
+                        {{ language.translate("playeurojackpot") }}
+                    </a>
+                </li>
+                <li>
+                    <a href="/{{ language.translate("link_christmas_play") }}">
+                        {{ language.translate("playchris_sub") }}
+                    </a>
+                </li>
+            </ul>
+        </div>
 </li>
 <li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">
     <a href="#">
@@ -40,6 +54,11 @@
                     {{ language.translate("results_megam_sub") }}
                 </a>
              </li>
+             <li>
+                <a href="/{{ language.translate('link_eurojackpot_resultstest') }}">
+                    {{ language.translate("results_eurojackpot_subtest") }}
+                </a>
+            </li>
             <li>
                 <a href="/{{ language.translate('link_christmas_results') }}">
                     {{ language.translate("results_chris_sub") }}

@@ -76,12 +76,17 @@ wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
 moneymatrix_endpoint: 'https://rancher-beta.euromillions.com:49167'
 
-
 lottorisq_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball'
 lottorisq_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
 megamillions_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/megamillions'
 megamillions_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
+
+eurojackpot_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/eurojackpot'
+eurojackpot_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
+
+megasena_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/megasena'
+megasena_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
 queue_results_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/results_testing'
 queue_prizes_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/prizes_test'
@@ -97,10 +102,12 @@ payment_config: 'wirecard,moneymatrix'
 controllers_euromillions: 'numbers,powerball-numbers'
 controllers_powerball: 'numbers,powerball-numbers'
 controllers_megamillions: 'megamillions-numbers'
+controllers_eurojackpot: 'euro-jackpot-numbers'
 
 controllers_result_euromillions: 'index'
 controllers_result_powerball: 'index'
 controllers_result_megamillions: 'index'
+controllers_result_eurojackpot: 'index'
 
 file_databasegeoip_path: '/var/www/data/geoipdatabase'
 

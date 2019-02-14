@@ -11,6 +11,7 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\exceptions\ValidDateRangeException;
+use EuroMillions\shared\exceptions\NotDrawFound;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
@@ -84,8 +85,7 @@ class LotteriesDataService
             }
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $jackpot = EuroMillionsJackpot::fromAmountIncludingDecimals(4000000000);
             $next_draw_date = $lottery->getNextDrawDate(new \DateTime());
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
@@ -158,27 +158,31 @@ class LotteriesDataService
             } catch (DataMissingException $e) {
                 $draw = $this->createDraw($last_draw_date, null, $lottery);
             }
+
             $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
+            //$draw->createBreakDown($result);
+
             if ($draw->getResult()->getRegularNumbers()) {
                 $this->entityManager->persist($draw);
                 $this->entityManager->flush();
                 $this->sendEmailResultsOrigin('Loterias y Apuestas Results');
                 return $draw->getResult();
-
-            } else {
-                $result = $result_api->getResultForDateSecond($lotteryName, $last_draw_date->format('Y-m-d'));
-                try {
-                    /** @var EuroMillionsDraw $draw */
-                    $draw = $this->lotteryDrawRepository->getLastDraw($lottery);
-                } catch (DataMissingException $e) {
-                    $draw = $this->createDraw($last_draw_date, null, $lottery);
-                }
-                $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
-                $this->entityManager->persist($draw);
-                $this->entityManager->flush();
-                $this->sendEmailResultsOrigin('Mashape Results');
-                return $draw->getResult();
             }
+
+            $result = $result_api->getResultForDateSecond($lotteryName, $last_draw_date->format('Y-m-d'));
+
+            try {
+                /** @var EuroMillionsDraw $draw */
+                $draw = $this->lotteryDrawRepository->getLastDraw($lottery);
+            } catch (DataMissingException $e) {
+                $draw = $this->createDraw($last_draw_date, null, $lottery);
+            }
+            $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
+            //$draw->createBreakDown($result);
+            $this->entityManager->persist($draw);
+            $this->entityManager->flush();
+            $this->sendEmailResultsOrigin('Mashape Results');
+            return $draw->getResult();
 
         } catch (\Exception $e) {
             throw new \Exception('Error updating results');
@@ -199,9 +203,14 @@ class LotteriesDataService
             } catch (DataMissingException $e) {
                 $draw = $this->createDraw($lastDrawDate, null, $lottery);
             }
-                $draw->createResult($result['numbers']['main'],  [0,$result['numbers'][$lotteryName=='PowerBall'?'powerball':'megaball']]);
-                $draw->setRaffle(new Raffle($result['numbers'][$lotteryName=='PowerBall'?'powerplay':'megaplier']));
-                $draw->createBreakDown($result);
+
+            $draw= $this->createResult($draw, $lottery, $result['numbers']);
+
+            if ($lottery->isNotEuroJackpot() && $lottery->isNotMegaSena()) {
+                $draw->setRaffle(new Raffle($result['numbers'][$lottery->isPowerBall() ? 'powerplay' : 'megaplier']));
+            }
+
+            $draw->createBreakDown($result);
 
             if ($draw->getResult()->getRegularNumbers()) {
                 $this->entityManager->persist($draw);
@@ -210,8 +219,7 @@ class LotteriesDataService
                 return $draw->getResult();
             }
 
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
     }
@@ -234,15 +242,24 @@ class LotteriesDataService
                 $lotteryDraws  = json_decode($data, true);
                 unset($lotteryDraws[0]);
                 foreach ($lotteryDraws as $lotteryDraw) {
+
+                    $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => (new \DateTime($lotteryDraw['date']))]);
+
+                    if ($draw) {
+                        continue;
+                    }
+
                     $draw = $this->createDraw(new \DateTime($lotteryDraw['date']), null, $lottery);
-                    $draw->createResult($lotteryDraw['numbers']['main'], [0,$lotteryDraw['numbers'][$lotteryName=='PowerBall'?'powerball':'megaball']]);
+                    $draw= $this->createResult($draw, $lottery, $lotteryDraw['numbers']);
                     $jackpotEUR = $currencyConversionService->convert(
-                        new Money((int) $lotteryDraw['jackpot']['total'],new Currency('USD') ),
+                        new Money((int) $lotteryDraw['jackpot']['total'], new Currency($lotteryDraw['currency']) ),
                         new Currency('EUR')
                     );
                     $jack = new Money((int) floor($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
                     $draw->setJackpot($jack);
-                    $draw->setRaffle(new Raffle($lotteryDraw['numbers'][$lotteryName=='PowerBall'?'powerplay':'megaplier']));
+                    if ($lottery->isNotEuroJackpot() && $lottery->isNotMegaSena()) {
+                        $draw->setRaffle(new Raffle($lotteryDraw['numbers'][$lottery->isPowerBall() ? 'powerplay' : 'megaplier']));
+                    }
                     $draw->createBreakDown($lotteryDraw);
                     $this->entityManager->persist($draw);
                     $this->entityManager->flush();
@@ -359,6 +376,32 @@ class LotteriesDataService
             'jackpot' => $jackpot,
             'lottery' => $lottery
         ]);
+        return $draw;
+    }
+
+    /**
+     * @param $draw
+     * @param $lottery
+     * @param $numbers
+     * @return EuroMillionsDraw
+     */
+    protected function createResult($draw ,$lottery, $numbers)
+    {
+        switch($lottery->getName())
+        {
+            case 'EuroJackpot':
+                $draw->createResult($numbers['main'], $numbers['euro'] );
+                break;
+            case 'MegaMillions':
+                $draw->createResult($numbers['main'], [0, $numbers['megaball']] );
+                break;
+            case 'PowerBall':
+                $draw->createResult($numbers['main'], [0, $numbers['powerball']] );
+                break;
+            case 'MegaSena':
+                $draw->createResult($numbers['main'], [0, 0] );
+                break;
+        }
         return $draw;
     }
 }

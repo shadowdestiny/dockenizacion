@@ -1,6 +1,7 @@
 export const GAME_MODE_EUROMILLIONS = 'euromillions'
 export const GAME_MODE_POWERBALL    = 'powerball'
 export const GAME_MODE_MEGAMILLIONS = 'megamillions'
+export const GAME_MODE_EUROJACKPOT = 'eurojackpot'
 
 export const BUNDLE_CHECKED   = 'active'
 export const BUNDLE_UNCHECKED = ''
@@ -9,22 +10,26 @@ export const TICKET_MAX_NUMBER = {
   [GAME_MODE_EUROMILLIONS] : 50,
   [GAME_MODE_POWERBALL] : 69,
   [GAME_MODE_MEGAMILLIONS] : 70,
+  [GAME_MODE_EUROJACKPOT] : 50,
 }
 export const TICKET_MAX_STAR_NUMBER = {
   [GAME_MODE_EUROMILLIONS] : 12,
   [GAME_MODE_POWERBALL] : 26,
   [GAME_MODE_MEGAMILLIONS] : 25,
+  [GAME_MODE_EUROJACKPOT] : 10,
 }
 
 export const BET_NUMBERS_COUNT = {
   [GAME_MODE_EUROMILLIONS] : 5,
   [GAME_MODE_POWERBALL] : 5,
   [GAME_MODE_MEGAMILLIONS] : 5,
+  [GAME_MODE_EUROJACKPOT] : 5,
 }
 export const BET_STARS_COUNT = {
   [GAME_MODE_EUROMILLIONS] : 2,
   [GAME_MODE_POWERBALL] : 1,
   [GAME_MODE_MEGAMILLIONS] : 1,
+  [GAME_MODE_EUROJACKPOT] : 2,
 }
 
 export const TICKET_NUMBER_TYPE_REGULAR = 'regular'

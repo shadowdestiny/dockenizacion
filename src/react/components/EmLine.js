@@ -8,6 +8,7 @@ var EuroMillionsRandomBtn = require('./EmRandomBtn.js');
 const GAME_MODE_POWERBALL = 'powerball'
 const GAME_MODE_EUROMILLIONS = 'euromillions'
 const GAME_MODE_MEGAMILLIONS = 'megamillions'
+const GAME_MODE_EUROJACKPOT = 'eurojackpot'
 const GAME_MODE_MEGASENA = 'megasena'
 
 var EuroMillionsLine = React.createClass({
@@ -29,12 +30,12 @@ var EuroMillionsLine = React.createClass({
           stars   = storage.stars;
         }
         const numberSets = {
-          [GAME_MODE_POWERBALL]    : { maxStars : 1, highestNumber : 69, highestStar : 26, maxNumbers : 5 },
-          [GAME_MODE_EUROMILLIONS] : { maxStars : 2, highestNumber : 50, highestStar : 12, maxNumbers : 5 },
-          [GAME_MODE_MEGAMILLIONS] : { maxStars : 1, highestNumber : 70, highestStar : 25,  maxNumbers : 5},
+          [GAME_MODE_POWERBALL]    : { maxStars : 1, highestNumber : 69, highestStar : 26 },
+          [GAME_MODE_EUROMILLIONS] : { maxStars : 2, highestNumber : 50, highestStar : 12 },
+          [GAME_MODE_MEGAMILLIONS] : { maxStars : 1, highestNumber : 70, highestStar : 25 },
+          [GAME_MODE_EUROJACKPOT]  : { maxStars : 2, highestNumber : 50, highestStar : 10 },
           [GAME_MODE_MEGASENA] : { maxStars : 0, highestNumber : 60, highestStar : 0, maxNumbers : 6},
-        };
-
+        }
         return {
             isAnimated : false,
             show_btn_clear : showClearBtn,
@@ -79,6 +80,17 @@ var EuroMillionsLine = React.createClass({
         this.props.callback( this.props.lineNumber,numbers_length,stars_length);
     },
 
+    componentWillMount : function (nextProps)
+    {
+        if(this.props.defaultRandom) {
+            setTimeout(function () {
+                this.randomAll(true);
+                var numbers_length = this.state.selectedNumbers.numbers.length;
+                var stars_length = this.state.selectedNumbers.stars.length;
+                this.props.callback( this.props.lineNumber,numbers_length,stars_length);
+            }.bind(this), 3000);
+        }
+    },
 
     handleClickOnNumber: function (number)
     {
@@ -182,7 +194,7 @@ var EuroMillionsLine = React.createClass({
         const { selectedNumbers, maxNumbers, maxStars } = this.state
         const { lineNumber, gameMode } = this.props
 
-        const showStars = gameMode == GAME_MODE_EUROMILLIONS
+        const showStars = gameMode == GAME_MODE_EUROMILLIONS || gameMode == GAME_MODE_EUROJACKPOT
         const showDropdown = gameMode == GAME_MODE_POWERBALL || gameMode == GAME_MODE_MEGAMILLIONS
 
         var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

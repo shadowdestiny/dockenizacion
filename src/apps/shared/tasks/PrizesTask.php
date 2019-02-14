@@ -31,12 +31,23 @@ class PrizesTask extends TaskBase
     /** @var PrizeCheckoutService */
     protected $prizeService;
 
+    /** @var BetService */
+    protected $betService;
+
+    /** @var LotteryService */
+    protected $lotteryService;
+
+    /** @var DomainServiceFactory */
+    protected $domainFactory;
+
     public function initialize(PrizeCheckoutService $prizeService = null, LotteryService $lotteryService = null)
     {
         parent::initialize();
         $this->serviceFactory = new ServiceFactory($this->getDI());
-        $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
-        $this->prizeService = $prizeService ? $this->prizeService = $prizeService : $domainFactory->getPrizeCheckoutService();
+        $this->domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
+        $this->prizeService = $prizeService ? $this->prizeService = $prizeService : $this->domainFactory->getPrizeCheckoutService();
+        $this->lotteryService = $lotteryService ? $this->lotteryService = $lotteryService : $this->domainFactory->getLotteryService();
+        $this->betService = $this->domainFactory->getBetService();
     }
 
 
@@ -86,7 +97,7 @@ class PrizesTask extends TaskBase
      * @param $resultConfigQueue
      * @throws \Exception
      */
-    public function createPrizes($resultConfigQueue,$backOff)
+    private function createPrizes($resultConfigQueue,$backOff)
     {
         $result = $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->receiveMessage();
         if (count($result->get('Messages')) > 0) {
@@ -94,7 +105,8 @@ class PrizesTask extends TaskBase
             foreach ($result->get('Messages') as $message) {
                 $body = json_decode($message['Body'], true);
                 if ($body['lotteryName'] != 'Error') {
-                    $this->prizeService->calculatePrizeAndInsertMessagesInQueue($body['drawDate'], $body['lotteryName']);
+                    $lottery = $this->lotteryService->getLotteryByName($body['lotteryName']);
+                    $this->prizeService->calculatePrizeAndInsertMessagesInQueue($body['drawDate'], $lottery);
                 }
             }
             $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->deleteMessage(
@@ -114,7 +126,7 @@ class PrizesTask extends TaskBase
      * @param $prizeConfigQueue
      * @throws \Money\UnknownCurrencyException
      */
-    public function awardPrize($prizeConfigQueue,$backOff)
+    private function awardPrize($prizeConfigQueue,$backOff)
     {
         $result = $this->serviceFactory->getCloudService($prizeConfigQueue)->cloud()->queue()->receiveMessage();
         if (count($result->get('Messages')) > 0) {
@@ -122,7 +134,8 @@ class PrizesTask extends TaskBase
             foreach ($result->get('Messages') as $message) {
                 $body = json_decode($message['Body'], true);
                 $amount = new Money((int)$body['prize'], new Currency('EUR'));
-                $this->prizeService->award($body['betId'], $amount, [
+                $bet = $this->betService->getBet($body['betId']);
+                $this->prizeService->award($bet, $amount, [
                         'matches' => ['cnt' => $body['cnt'],
                                       'cnt_lucky' => $body['cnt_lucky']
                     ],
