@@ -563,6 +563,7 @@ ReactDOM.render(<CartPage total={total_price}
                           powerplayprice={powerplayprice}
                           powerball={powerball}
                           megamillions={megamillions}
+                          megasena={megasena}
                           txt_lottery={txt_lottery}
                           playingPP={playingPP}
                           playingMM={playingMM}
