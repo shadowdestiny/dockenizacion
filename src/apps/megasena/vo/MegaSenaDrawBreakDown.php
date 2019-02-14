@@ -16,7 +16,7 @@ use Phalcon\Di;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\shared\helpers\StringHelper;
 
-class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
+class MegaSenaDrawBreakDown extends EuroMillionsDrawBreakDown
 {
     /** @var CurrencyConversionService $currencyConversion */
     protected $currencyConversion;
@@ -29,10 +29,10 @@ class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
             throw new \InvalidArgumentException("");
         }
         $this->breakdown = $breakdown;
-        $this->exchangeEuroJackpotData();
+        $this->exchangeMegaSenaData();
     }
 
-    protected function exchangeEuroJackpotData()
+    protected function exchangeMegaSenaData()
     {
 
         try {
@@ -40,12 +40,12 @@ class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
             {
 
                 $methodName = $this->mappingMethodName($k);
-                $euroMillionsDrawBreakDown = new EuroJackpotDrawBreakDownData();
+                $euroMillionsDrawBreakDown = new MegaSenaDrawBreakDownData();
                 $euroMillionsDrawBreakDown->setName($k);
 
                 $euroMillionsDrawBreakDown->setLotteryPrize($this->currencyConversion(
                     new Money((int) str_replace('.','', $data),
-                        new Currency('EUR'))
+                        new Currency('BRL'))
                 )
                 );
                 $euroMillionsDrawBreakDown->setWinners($this->breakdown['winners'][$k]);
@@ -60,19 +60,9 @@ class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
     private function mappingMethodName($key)
     {
         $mappingArray = [
-            'match-1-2' => 'setCategoryEleven',
-            'match-2' => 'setCategoryThirteen',
-            'match-2-1' => 'setCategoryTwelve',
-            'match-2-2' => 'setCategoryTen',
-            'match-3' => 'setCategoryNine',
-            'match-3-1' => 'setCategoryEight',
-            'match-3-2' => 'setCategorySeven',
-            'match-4' => 'setCategorySix',
-            'match-4-1' => 'setCategoryFive',
-            'match-4-2' => 'setCategoryFour',
-            'match-5' => 'setCategoryThree',
-            'match-5-1' => 'setCategoryTwo',
-            'match-5-2' => 'setCategoryOne'
+            'match-4' => 'setCategoryThree',
+            'match-5' => 'setCategoryTwo',
+            'match-6' => 'setCategoryOne'
         ];
 
         return $mappingArray[$key];

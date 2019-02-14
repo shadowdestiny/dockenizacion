@@ -64,7 +64,7 @@ class ResultTask extends TaskBase
         }
     }
 
-    public function updateEuroJackpotResultAction(\DateTime $now = null)
+    public function updateMegaSenaResultAction(\DateTime $now = null)
     {
         try {
             $resultConfigQueue = $this->di->get('config')['aws']['queue_results_endpoint'];

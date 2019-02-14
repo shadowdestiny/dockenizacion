@@ -137,9 +137,19 @@ class Lottery extends EntityBase implements IEntity
         return $this->name == 'MegaMillions';
     }
 
+    public function isMegaSena()
+    {
+        return $this->name == 'MegaSena';
+    }
+
     public function isNotEuroJackpot()
     {
         return !$this->isEuroJackpot();
+    }
+
+    public function isNotMegaSena()
+    {
+        return !$this->isMegasena();
     }
 
     /**

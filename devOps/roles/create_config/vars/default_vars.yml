@@ -85,6 +85,9 @@ megamillions_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 eurojackpot_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/eurojackpot'
 eurojackpot_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
+megasena_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/megasena'
+megasena_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
+
 queue_results_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/results_testing'
 queue_prizes_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/prizes_test'
 aws_secret_access_key: 'yX6OWDq23bhTWqZUpCl8ih00ubWYRXsmKVsWEWIn'

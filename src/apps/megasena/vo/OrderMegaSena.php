@@ -17,7 +17,7 @@ use EuroMillions\web\vo\Order;
 use Money\Currency;
 use Money\Money;
 
-class OrderEuroJackpot extends Order
+class OrderMegaSena extends Order
 {
 
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw)

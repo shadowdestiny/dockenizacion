@@ -9,7 +9,7 @@
 namespace EuroMillions\eurojackpot\vo;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDownData;
 
-class EuroJackpotDrawBreakDownData extends EuroMillionsDrawBreakDownData
+class MegaSenaDrawBreakDownData extends EuroMillionsDrawBreakDownData
 {
 
 }
