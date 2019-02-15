@@ -705,7 +705,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'it',
         ));
 
-        $router->add("/nl/{lottery:(powerball)+}/uitslagen/trekking-geschiedenis/:params", array(
+        $router->add("/nl/{lottery:(powerball)+}/uitslagen/trekking-geschiedenislagen/:params", array(
             "module" => "web",
             'lottery' => 3,
             'controller' => 'powerball-numbers',
@@ -759,7 +759,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'it',
         ));
 
-        $router->add("/nl/{lottery:(euromillions)+}/uitslagen/trekking-geschiedenis/:params", array(
+        $router->add("/nl/{lottery:(euromillions)+}/uitslagen/trekking-geschiedenislagen/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'numbers',
@@ -966,7 +966,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'it',
         ));
 
-        $router->add("/nl/powerball/uitslagen/trekking-geschiedenis", array(
+        $router->add("/nl/powerball/uitslagen/trekking-geschiedenislagen", array(
             "module" => "web",
             'lottery' => 3,
             'controller' => 'powerball-numbers',
@@ -1014,7 +1014,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'it',
         ));
 
-        $router->add("/nl/euromillions/uitslagen/trekking-geschiedenis", array(
+        $router->add("/nl/euromillions/uitslagen/trekking-geschiedenislagen", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'numbers',
@@ -1539,13 +1539,18 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(eurojackpot)+}/{play:(jugar|gioca|speel|играть)+}", array(
+            "module" => "eurojackpot",
+            'controller' => 'play',
+            'action' => 'index',
+        ));
+
         $router->mount(new HowToPlayRoutes());
         $router->mount(new MegaMillionsPlayRoutes());
         $router->mount(new MegaMillionsResultRoutes());
         $router->mount(new ResultPurchaseRoutes());
 
         $router->mount(new HowToPlayRoutesEuroJackpot());
-        $router->mount(new EuroJackpotPlayRoutes());
         $router->mount(new EuroJackpotPlayRoutes());
         $router->mount(new EuroJackpotResultRoutes());
         $router->mount(new ResultPurchaseRoutesEuroJackpot());
