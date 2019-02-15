@@ -705,7 +705,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'it',
         ));
 
-        $router->add("/nl/{lottery:(powerball)+}/uitslagen/trekking-geschiedenislagen/:params", array(
+        $router->add("/nl/{lottery:(powerball)+}/uitslagen/trekking-geschiedenis/:params", array(
             "module" => "web",
             'lottery' => 3,
             'controller' => 'powerball-numbers',
@@ -759,7 +759,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'it',
         ));
 
-        $router->add("/nl/{lottery:(euromillions)+}/uitslagen/trekking-geschiedenislagen/:params", array(
+        $router->add("/nl/{lottery:(euromillions)+}/uitslagen/trekking-geschiedenis/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'numbers',
@@ -966,7 +966,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'it',
         ));
 
-        $router->add("/nl/powerball/uitslagen/trekking-geschiedenislagen", array(
+        $router->add("/nl/powerball/uitslagen/trekking-geschiedenis", array(
             "module" => "web",
             'lottery' => 3,
             'controller' => 'powerball-numbers',
@@ -1014,7 +1014,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'it',
         ));
 
-        $router->add("/nl/euromillions/uitslagen/trekking-geschiedenislagen", array(
+        $router->add("/nl/euromillions/uitslagen/trekking-geschiedenis", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'numbers',
@@ -1499,7 +1499,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'en'
         ));
 
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}", array(
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenis|история-розыгрышей)+}", array(
             "module" => "megamillions",
             'controller' => 'megamillions-numbers',
             'action' => 'pastList',
@@ -1527,7 +1527,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'en'
         ));
 
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenis|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
             "module" => "megamillions",
             'controller' => 'megamillions-numbers',
             'action' => 'index',
