@@ -81,7 +81,7 @@ final class EuroJackpotNumbersController extends PublicSiteControllerBase
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroJackpot')->modify('-1 hours'))->format('%a'),
             'actual_year' => $actualDate->format('Y'),
-            'pageController' => 'euroPastResult',
+            'pageController' => 'eurojackpotNumbersIndex',
             'draw_day' => $euroJackpotDraw->getDrawDate()->format('l'),
             'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
             'past_draw_date_format' => $euroJackpotDraw->getDrawDate()->format('d.m.Y'),
@@ -128,7 +128,7 @@ final class EuroJackpotNumbersController extends PublicSiteControllerBase
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroJackpot')->modify('-1 hours'))->format('%a'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
-            'pageController' => 'EuroJackpotNumbersPast',
+            'pageController' => 'eurojackpotNumbersPast',
         ]);
     }
 
@@ -191,7 +191,7 @@ final class EuroJackpotNumbersController extends PublicSiteControllerBase
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('EuroJackpot')->modify('-1 hours'))->format('%a'),
             'actual_year' => $actualDate->format('Y'),
-            'pageController' => 'euroPastResult',
+            'pageController' => 'eurojackpotNumbersPast',
             'draw_day' => $euroJackpotDraw->getDrawDate()->format('l'),
             'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
             'past_draw_date_format' => $euroJackpotDraw->getDrawDate()->format('d.m.Y'),

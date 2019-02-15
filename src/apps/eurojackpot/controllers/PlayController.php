@@ -66,7 +66,7 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
             'discount_lines' => json_encode($this->bundlePriceDTO),
             'draws_number' => $this->bundlePriceDTO->bundlePlayDTOActive->getDraws(),
             'discount' => $this->bundlePriceDTO->bundlePlayDTOActive->getDiscount(),
-            'pageController' => 'euroPlay',
+            'pageController' => 'eurojackpotPlay',
             'next_draw_date_format' => $this->draw->format($this->languageService->translate('dateformat')),
             'draw_day' => $this->languageService->translate($this->draw->format('l')),
             'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay()
