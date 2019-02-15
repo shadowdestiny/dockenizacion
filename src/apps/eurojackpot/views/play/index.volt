@@ -143,7 +143,7 @@
 
             </div>
 
-            <div id="closeticket2" class="modal" style="width: 1000px;height: 500px;">
+            <div id="closeticket" class="modal" style="width: 1000px;height: 500px;">
                 <div style="text-align: center;color:white">
                     It is too late to buy EuroJackpot tickets for the draw held in Paris tonight at 20:45 CET.
                     In a few moments you will be able to purchase EuroJackpot tickets for the next draw that will take
