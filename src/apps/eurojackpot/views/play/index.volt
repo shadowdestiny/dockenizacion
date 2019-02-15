@@ -143,11 +143,11 @@
 
             </div>
 
-            <div id="closeticket" class="modal" style="width: 1000px;height: 500px;">
+            <div id="closeticket2" class="modal" style="width: 1000px;height: 500px;">
                 <div style="text-align: center;color:white">
-                    It is too late to buy Powerball tickets for the draw held in Paris tonight at 20:45 CET.
-                    In a few moments you will be able to purchase Powerball tickets for the next draw that will take
-                    place on Tuesday.
+                    It is too late to buy EuroJackpot tickets for the draw held in Paris tonight at 20:45 CET.
+                    In a few moments you will be able to purchase EuroJackpot tickets for the next draw that will take
+                    place on Friday.
 
                     <br><br>Thank you for your pacience.<br>
 
@@ -156,8 +156,8 @@
             </div>
             <div id="closeticketbylimitbet" class="modal" style="width: 1000px;height: 500px;">
                 <div style="text-align: center;color:white">
-                    It is too late to buy Powerball tickets for the draw held in Paris tonight at 20:45 CET.
-                    You can be able to purchase Powerball tickets for the next draw accessing again to <a href="/">Euromillions.com</a>
+                    It is too late to buy EuroJackpot tickets for the draw held in Paris tonight at 20:45 CET.
+                    You can be able to purchase EuroJackpot tickets for the next draw accessing again to <a href="/">Euromillions.com</a>
                     .
 
                     <br><br>Thank you for your pacience.<br>
