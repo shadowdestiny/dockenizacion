@@ -40,7 +40,7 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
             $this->singleBetPriceCurrency = $this->currencyConversionService->convert($this->singleBetPrice, new Currency($user->getUserCurrency()->getName()));
         }
 
-        //$this->play_dates = $this->lotteryService->getRecurrentDrawDates('EuroJackpot');
+        $this->play_dates = $this->lotteryService->getRecurrentDrawDates('EuroJackpot');
         $this->draw = $this->lotteryService->getNextDateDrawByLottery('EuroJackpot');
         $date_time_util = new DateTimeUtil();
         $this->dayOfWeek = $date_time_util->getDayOfWeek($this->draw);
@@ -55,7 +55,6 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         return $this->view->setVars([
             'play_dates' => $this->play_dates,
             'next_draw' => $this->dayOfWeek,
-            'numbers'   => $numbers,
             'next_draw_format' => $this->draw->format('l j M G:i'),
             'currency_symbol' => $this->currencySymbol,
             'openTicket' => ($this->checkOpenTicket) ? '1' : '0',
