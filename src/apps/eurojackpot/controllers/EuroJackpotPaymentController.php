@@ -39,7 +39,7 @@ final class EuroJackpotPaymentController extends PowerBallPaymentController
             $this->response->redirect('/' . $this->lottery . '/cart/profile');
             return false;
         }
-        $result = $powerball_service->getPlaysFromTemporarilyStorage($user, 'eurojackpot');
+        $result = $powerball_service->getPlaysFromTemporarilyStorage($user, 'EuroJackpot');
         $msg = '';
 
         $order_view = true;
@@ -83,7 +83,7 @@ final class EuroJackpotPaymentController extends PowerBallPaymentController
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
                         $result = $powerball_service->play($user_id, $amount, $card, $payWallet, $isWallet,'EuroJackpot');
-                        return $this->playResult($result, 'eurojackpot');
+                        return $this->playResult($result, 'EuroJackpot');
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
