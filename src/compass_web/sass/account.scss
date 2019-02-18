@@ -1,4 +1,6 @@
 @import "variable";
+@import "./v2/_variables";
+@import "./v2/mixins";
 @import "_elements/with-subnav.scss";
 @import "_elements/paging.scss";
 #content .content{
