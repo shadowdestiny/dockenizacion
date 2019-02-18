@@ -23,7 +23,7 @@
         {% block template_scripts %}{% endblock %}  {# Inject unique js #}
 
         {# FONTS  #}
-        <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
+        <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
     </head>
 
     <body class="{% block bodyClass %}{% endblock %}">
