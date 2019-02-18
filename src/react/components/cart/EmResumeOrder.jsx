@@ -30,7 +30,9 @@ var EmResumeOrder = new React.createClass({
             day = this.props.saturday;
         }
 
-        if(this.props.txt_lottery === 'Megamillions') {
+        if(this.props.txt_lottery === 'Eurojackpot') {
+            txt_link_play = "/" + this.props.txt_link_eurojackpot;
+        } else if(this.props.txt_lottery === 'Megamillions') {
             txt_link_play = "/" + this.props.txt_link_megamillions;
         } else if(this.props.txt_lottery === 'Powerball') {
             txt_link_play = "/" + this.props.txt_link_powerball;
