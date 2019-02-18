@@ -51,7 +51,7 @@ class OrderService
         $this->transactionService = $transactionService;
         $this->logger = $logger;
         $this->redisOrderChecker = $redisOrderChecker;
-        $this->mediator= new NotificationMediatorNotification($this->walletService,$this->playService,$this->transactionService);
+        $this->mediator= new NotificationMediatorNotification($this->walletService,$this->playService,$this->transactionService,(new LoggerFactory(""))->paymentStream());
     }
 
 

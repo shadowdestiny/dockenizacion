@@ -816,7 +816,6 @@ class PlayService extends Colleague
         }
         $emailTemplate->setLine($orderLines);
         $emailTemplate->setUser($user);
-
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 

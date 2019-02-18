@@ -2,6 +2,7 @@
 namespace EuroMillions\web\services;
 
 use EuroMillions\web\components\PhalconFileJsonLogger;
+use EuroMillions\web\components\transaction\PhalconStreamJsonLogger;
 use EuroMillions\web\interfaces\ILogger;
 use EuroMillions\web\services\notification_mediator\Colleague;
 
@@ -15,7 +16,10 @@ class LoggerFactory extends Colleague
 
     public function __construct($fileLogsPath)
     {
-        $this->fileLogsPath = $fileLogsPath;
+        if(!empty($fileLogsPath))
+        {
+            $this->fileLogsPath = $fileLogsPath;
+        }
     }
     /**
      * @param $logName
@@ -35,4 +39,10 @@ class LoggerFactory extends Colleague
     {
         return new PhalconFileJsonLogger($this->fileLogsPath.self::ACCOUNTLOG);
     }
+
+    public function paymentStream()
+    {
+        return new PhalconStreamJsonLogger();
+    }
+
 }

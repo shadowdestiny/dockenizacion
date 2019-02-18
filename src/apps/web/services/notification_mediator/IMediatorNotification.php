@@ -14,7 +14,7 @@ interface IMediatorNotification
 
     public function persistBet();
 
-    public function log();
+    public function log($action,$message, $level);
 
     public function purchaseTransaction();
 

@@ -17,6 +17,7 @@ use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderChristmas;
 use Money\Currency;
 use Money\Money;
+use Phalcon\Logger;
 
 class WalletService extends Colleague
 {
@@ -385,6 +386,7 @@ class WalletService extends Colleague
             'discount' => $order->getDiscount()->getValue(),
         ];
         $this->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+        $this->mediator->log('ticketPurchaseFromNotification','TicketPurchase created->'.$transactionID,Logger::INFO);
         $this->mediator->sendEmail();
     }
 

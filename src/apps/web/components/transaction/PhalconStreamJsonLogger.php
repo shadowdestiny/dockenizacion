@@ -5,10 +5,11 @@ namespace EuroMillions\web\components\transaction;
 
 
 use EuroMillions\web\interfaces\ILogger;
+use EuroMillions\web\services\notification_mediator\Colleague;
 use Phalcon\Logger\Adapter\Stream;
 use Phalcon\Logger\Formatter\Json;
 
-class PhalconStreamJsonLogger implements ILogger
+class PhalconStreamJsonLogger extends Colleague implements ILogger
 {
 
 
@@ -31,12 +32,12 @@ class PhalconStreamJsonLogger implements ILogger
 
     public function begin()
     {
-        $this->logger->commit();
+       // $this->logger->commit();
     }
 
     public function commit()
     {
-        $this->logger->commit();
+       // $this->logger->commit();
     }
 
     public function alert($message)
