@@ -5,24 +5,38 @@ namespace EuroMillions\web\vo\dto;
 
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
+use EuroMillions\web\components\DateTimeUtil;
 
 
 class FeatureFlagDTO extends DTOBase implements IDto
 {
-    private $name;
-    private $description;
-    private $status;
-    private $created_at;
-    private $updated_at;
+    private $name = null;
+    private $description = null;
+    private $status = false;
+    private $created_at = null;
+    private $updated_at = null;
 
     public function __construct(array $data = null)
     {
+        if(isset($data['Item'])) {
+            $data = $data['Item'];
+        }
+
         if($data !== null) {
-            $this->name = $data['name'];
-            $this->description = $data['description'];
-            $this->status = $data['status'];
-            $this->created_at = $this->convertDatesToTimestamps($data['created_at']);
-            $this->updated_at = $this->convertDatesToTimestamps($data['updated_at']);
+            if(isset($data['name']))
+                $this->name = $data['name'];
+
+            if(isset($data['description']))
+                $this->description = $data['description'];
+
+            if(isset($data['status']))
+                $this->status = $data['status'];
+
+            if(isset($data['created_at']))
+                $this->created_at = DateTimeUtil::convertISODateToTimestamp($data['created_at']);
+
+            if(isset($data['updated_at']))
+                $this->updated_at = DateTimeUtil::convertISODateToTimestamp($data['updated_at']);
         }
     }
 
@@ -97,12 +111,6 @@ class FeatureFlagDTO extends DTOBase implements IDto
     public function toArray()
     {
         throw new \Exception('Method not implemented');
-    }
-
-    private function convertDatesToTimestamps($fromISOStringDate)
-    {
-        $datetime = new \DateTime($fromISOStringDate);
-        return $datetime->getTimestamp();
     }
 
     private function convertStatus($status)

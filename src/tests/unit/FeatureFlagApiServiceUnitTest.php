@@ -4,19 +4,14 @@ namespace EuroMillions\tests\unit;
 use EuroMillions\shared\services\FeatureFlagApiService;
 use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\web\vo\dto\FeatureFlagDTO;
-use Phalcon\Http\Client\Response;
-use Prophecy\Argument;
 
-class FeatureApiServiceUnitTest extends UnitTestBase
+class FeatureFlagApiServiceUnitTest extends UnitTestBase
 {
-    private $curl_double;
-
-    const ENDPOINT = 'https://apigateway.enpoint.com/beta'; //from test_config.ini
-    const API_KEY = 'apikey'; //from test_config.ini
+    private $api;
 
     public function setUp()
     {
-        $this->curl_double = $this->prophesize('\Phalcon\Http\Client\Provider\Curl');
+        $this->api = $this->prophesize('EuroMillions\web\services\external_apis\FeatureFlagApi');
         parent::setUp();
     }
 
@@ -66,10 +61,7 @@ class FeatureApiServiceUnitTest extends UnitTestBase
             ])
         ];
 
-        $this->curl_double->get(self::ENDPOINT."/",
-            [],
-            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
-        )->willReturn($this->getResponseObject($responseBody));
+        $this->api->sendGet("/")->willReturn($responseBody);
 
         $sut = $this->getSut();
 
@@ -94,10 +86,7 @@ class FeatureApiServiceUnitTest extends UnitTestBase
 
         $expected = array();
 
-        $this->curl_double->get(self::ENDPOINT."/",
-            [],
-            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
-        )->willReturn($this->getResponseObject($responseBody));
+        $this->api->sendGet("/")->willReturn($responseBody);
 
         $sut = $this->getSut();
 
@@ -132,11 +121,37 @@ class FeatureApiServiceUnitTest extends UnitTestBase
             ]
         );
 
+        $this->api->sendGet('/feature-1')->willReturn($responseBody);
 
-        $this->curl_double->get(self::ENDPOINT."/feature-1",
-            [],
-            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
-        )->willReturn($this->getResponseObject($responseBody));
+        $sut = $this->getSut();
+
+        $actual = $sut->getItem('feature-1');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method getItem
+     * when called
+     * should callApiAndReturnNotFound
+     */
+    public function test_getItem_called_callApiAndReturnNotFound()
+    {
+        $responseBody = json_encode([
+            'Error' => 'Not Found',
+            'Reference' =>  '2980eb91-4e33-429f-bfa0-f67cb9aa7390',
+        ]);
+
+        $expected = new FeatureFlagDTO([
+                'name' => null,
+                'description' => null,
+                'status' => false,
+                'updated_at' => null,
+                'created_at' => null,
+            ]
+        );;
+
+        $this->api->sendGet('/feature-1')->willReturn($responseBody);
 
         $sut = $this->getSut();
 
@@ -158,11 +173,7 @@ class FeatureApiServiceUnitTest extends UnitTestBase
 
         $expected = $this->getResponseMock_Ok();
 
-        $this->curl_double->put(self::ENDPOINT."/feature-1",
-            Argument::any(),
-            true,
-            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
-        )->willReturn($this->getResponseObject($responseBody));
+        $this->api->sendPut('/feature-1', ['description' => 'lorem ipsum', 'status' => true])->willReturn($responseBody);
 
         $sut = $this->getSut();
 
@@ -184,11 +195,7 @@ class FeatureApiServiceUnitTest extends UnitTestBase
 
         $expected = $this->getResponseMock_Ok();
 
-        $this->curl_double->post(self::ENDPOINT."/feature-1",
-            Argument::any(),
-            true,
-            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
-        )->willReturn($this->getResponseObject($responseBody));
+        $this->api->sendPost('/feature-1', ['description' => 'lorem ipsum', 'status' => true])->willReturn($responseBody);
 
         $sut = $this->getSut();
 
@@ -213,11 +220,7 @@ class FeatureApiServiceUnitTest extends UnitTestBase
 
         $expected = false;
 
-        $this->curl_double->post(self::ENDPOINT."/feature-exists-on-database",
-            Argument::any(),
-            true,
-            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
-        )->willReturn($this->getResponseObject($responseBody));
+        $this->api->sendPost('/feature-exists-on-database', ['description' => 'lorem ipsum', 'status' => true])->willReturn($responseBody);
 
         $sut = $this->getSut();
 
@@ -239,11 +242,7 @@ class FeatureApiServiceUnitTest extends UnitTestBase
 
         $expected = $this->getResponseMock_Ok();
 
-        $this->curl_double->delete(self::ENDPOINT."/feature-1",
-            Argument::any(),
-            true,
-            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
-        )->willReturn($this->getResponseObject($responseBody));
+        $this->api->sendDelete('/feature-1')->willReturn($responseBody);
 
         $sut = $this->getSut();
 
@@ -268,11 +267,7 @@ class FeatureApiServiceUnitTest extends UnitTestBase
 
         $expected = false;
 
-        $this->curl_double->delete(self::ENDPOINT."/feature-not-exists-on-database",
-            Argument::any(),
-            true,
-            ["x-api-key: ".self::API_KEY."", "Content-Type: application/json; charset=utf-8"]
-        )->willReturn($this->getResponseObject($responseBody));
+        $this->api->sendDelete('/feature-not-exists-on-database')->willReturn($responseBody);
 
         $sut = $this->getSut();
 
@@ -281,19 +276,12 @@ class FeatureApiServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected, $actual);
     }
 
-    private function getResponseObject($result)
-    {
-        $response = new Response();
-        $response->body = $result;
-        return $response;
-    }
-
     /**
      * @return FeatureFlagApiService
      */
     private function getSut()
     {
-        $sut = new FeatureFlagApiService($this->curl_double->reveal());
+        $sut = new FeatureFlagApiService($this->api->reveal());
         return $sut;
     }
 
