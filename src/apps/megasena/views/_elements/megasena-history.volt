@@ -100,7 +100,7 @@
                         <thead class="thead--eurojackpot">
                         <tr class="tr--desktop">
                             <th class="td-date" data-colstart="1"><span class="ico-date"></span>Date</th>
-                            <th class="td-ball-numbers--lottery eurojackpot--lottery-balls" data-colstart="2"><span class="ico-ball"></span>Lottery balls</th>
+                            <th class="td-ball-numbers--lottery megasena--lottery-balls" data-colstart="2"><span class="ico-ball"></span>Lottery balls</th>
                             <th class="td-ball-suns" data-colstart="3">
                                 <span class="ico-sun"></span>
                                 Suns

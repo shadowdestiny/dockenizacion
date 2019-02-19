@@ -1,0 +1,103 @@
+@import "../_variables";
+@import "../mixins";
+// Play page - mobile version
+
+.megasena--page {
+  @media only screen and (max-width: $width-pre-tablet) {
+    .play-page-mobile {
+
+
+      .bet-line {
+        .ticket-number {
+            margin-right: 8px;
+            margin-bottom: 1px;
+        }
+      }
+      .numbers-section {
+        &.regular {
+          .ticket-number {
+            width: 36px;
+            height: 36px;
+            margin-right: 6px;
+            line-height:33px;
+            margin-bottom: 8px;
+          }
+        }
+        &.stars {
+          .ticket-number.star {
+            width: 36px;
+            height: 36px;
+            margin-right: 0px;
+            line-height:33px;
+            margin-bottom: 8px;
+          }
+        }
+      }
+
+
+      .btn--pick {
+        margin-bottom: 24px;
+      }
+
+      .draws-section {
+        .section-title {
+          text-transform: none;
+        }
+
+        .section-sub-title {
+          margin-bottom: 24px;
+        }
+
+        .buttons {
+          .bundle-btn {
+            margin-right: 10px;
+
+            &:last-of-type {
+              margin-right: 0;
+            }
+
+            .btn {
+              width: 52px;
+              height: 52px;
+            }
+          }
+        }
+      }
+
+      .price-per-line {
+        margin-bottom: 6px;
+      }
+
+      .buy-for-date {
+        margin-bottom: 3px;
+
+        padding-top: 15px;
+        font-size: 18px;
+      }
+
+      .btn--clear-big {
+        width: 50px;
+        height: 47px;
+      }
+
+      .ticket-layout {
+        .clear-button-big-block {
+          margin-bottom: 15px;
+        }
+      }
+
+      .btn--clear-small,
+      .btn--random-second {
+        height: 40px;
+        max-width: 144px;
+        margin-bottom: 10px;
+      }
+
+      .btn--clear-small {
+        background-position: 37px 50%;
+        padding-left: 65px;
+      }
+
+    }
+  }
+}

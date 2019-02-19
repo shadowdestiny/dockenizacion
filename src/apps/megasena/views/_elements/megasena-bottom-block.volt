@@ -1,4 +1,4 @@
-<div class="box-bottom--accordion--eurojackpot">
+<div class="box-bottom--accordion--megasena">
     <div class="block--text--accordion">
         <h2>
             {#{{ language.translate("play_megamillions_firstH2") }}#}
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="box-bottom play-bottom-block--eurojackpot">
+<div class="box-bottom play-bottom-block--megasena">
 
     <div class="play-bottom-block--img">
         <img src="/w/img/eurojackpot/play-bottom-eurojackpot.png"/>

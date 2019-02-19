@@ -119,9 +119,9 @@
 {% block body %}
 
     <main id="content">
-        <div class="eurojackpot--page">
+        <div class="megasena--page">
 
-            <div class="top-banner--eurojackpot"></div>
+            <div class="top-banner--megasena"></div>
 
             <div class="wrapper">
 

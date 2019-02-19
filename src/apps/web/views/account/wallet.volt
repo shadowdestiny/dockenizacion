@@ -335,6 +335,10 @@
                                  EuroJackpot
                                  <span class="value">{{ wallet.subscriptionBalanceEuroJackpot}}</span>
                             </div>
+                            <div class="txt">
+                                 MegaSena
+                                 <span class="value">{{ wallet.subscriptionBalanceMegaSena}}</span>
+                            </div>
 
                         </div>
                         <div class="box-balance--row  cl">

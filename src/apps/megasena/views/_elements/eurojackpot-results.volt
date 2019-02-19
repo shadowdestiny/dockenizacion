@@ -1,4 +1,4 @@
-<div class="common--result-page--content eurojackpot--result-page--content">
+<div class="common--result-page--content megasena--result-page--content">
 
     <div class="banner">
 

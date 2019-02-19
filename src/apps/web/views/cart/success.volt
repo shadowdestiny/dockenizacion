@@ -29,6 +29,9 @@ localStorage.removeItem('bet_line');
 {% if (lottery_name == 'EuroJackpot') %}
     localStorage.removeItem('ej_bet_line');
 {%endif%}
+{% if (lottery_name == 'MegaSena') %}
+    localStorage.removeItem('ms_bet_line');
+{%endif%}
 
 
 </script>
@@ -170,6 +173,12 @@ function numCharLine($line){
                             {% elseif (lottery_name == 'EuroJackpot') %}
                                 {% for lucky_number in lucky_arr %}
                                     <li class="ellipse_eurojackpot">
+                                        <?php echo sprintf("%02s", $lucky_number);?>
+                                    </li>
+                                {% endfor %}
+                            {% elseif (lottery_name == 'MegaSena') %}
+                                {% for lucky_number in lucky_arr %}
+                                    <li class="ellipse_megasena">
                                         <?php echo sprintf("%02s", $lucky_number);?>
                                     </li>
                                 {% endfor %}

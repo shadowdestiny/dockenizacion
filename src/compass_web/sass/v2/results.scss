@@ -325,6 +325,7 @@
 
       @include results_draw();
       @include results_draw('ellipse_eurojackpot','../img/home/result-block/desktop/ellipse_eurojackpot.svg',#fff);
+      @include results_draw('ellipse_megasena','../img/home/result-block/desktop/ellipse_eurojackpot.svg',#fff);
     }
   }
 
