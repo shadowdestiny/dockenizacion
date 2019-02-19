@@ -14,7 +14,7 @@ use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\vo\LastDrawDate;
 use EuroMillions\web\vo\PlayFormToStorage;
 
-class MegaMillionsPlayTemporarilyController extends PowerBallPlayTemporarilyController
+final class MegaMillionsPlayTemporarilyController extends PowerBallPlayTemporarilyController
 {
 
     public function temporarilyCartAction()

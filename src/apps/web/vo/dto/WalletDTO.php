@@ -19,6 +19,7 @@ class WalletDTO
     public $subscriptionBalanceEuromillions;
     public $subscriptionBalancePowerBall;
     public $subscriptionBalanceMegaMillions;
+    public $subscriptionBalanceEuroJackpot;
     private $limitWithdrawWinning;
 
 
@@ -30,6 +31,7 @@ class WalletDTO
         $this->current_winnings = $data['currentWinningConvert']->isZero() ? '' : $data['currentWinningConvert'];
         $this->subscriptionBalanceEuromillions =$data['amountSubscriptionBalanceEuroMillions'];
         $this->subscriptionBalancePowerBall= $data['amountSubscriptionBalancePowerBall'];
+        $this->subscriptionBalanceEuroJackpot= $data['amountSubscriptionBalanceEuroJackpot'];
         $this->subscriptionBalanceMegaMillions= $data['amountSubscriptionBalanceMegaMillions'];
         $this->limitWithdrawWinning = new Money((int) 2500, new Currency('EUR'));
         $this->checkLaterSubscriptionsWithoutRelations();
@@ -145,11 +147,27 @@ class WalletDTO
     }
 
     /**
+     * @return mixed
+     */
+    public function getSubscriptionBalanceEuroJackpot()
+    {
+        return $this->subscriptionBalanceEuroJackpot;
+    }
+
+    /**
      * @param mixed $subscriptionBalancePowerBall
      */
     public function setSubscriptionBalancePowerBall($subscriptionBalancePowerBall)
     {
         $this->subscriptionBalancePowerBall = $subscriptionBalancePowerBall;
+    }
+
+    /**
+     * @param mixed $subscriptionBalancePowerBall
+     */
+    public function setSubscriptionBalanceEuroJackpot($subscriptionBalanceEuroJackpot)
+    {
+        $this->subscriptionBalanceEuroJackpot = $subscriptionBalanceEuroJackpot;
     }
 
     /**
@@ -175,8 +193,9 @@ class WalletDTO
             $this->subscriptionBalanceEuromillions : $this->wallet_subscription_amount;
         $powerBallSubscription = str_replace(['€','.'],"", $this->subscriptionBalancePowerBall);
         $megaMillionsSubscription = str_replace(['€','.'],"", $this->subscriptionBalanceMegaMillions);
+        $euroJackpotSubscription = str_replace(['€','.'],"", $this->subscriptionBalanceEuroJackpot);
         $walletSubscriptionBalance = str_replace(['€','.',','],"", $this->wallet_subscription_amount);
-        $sumLotteries = $euroMillionsSubscription + $powerBallSubscription + $megaMillionsSubscription;
+        $sumLotteries = $euroMillionsSubscription + $powerBallSubscription + $megaMillionsSubscription + $euroJackpotSubscription;
         if($sumLotteries !== $walletSubscriptionBalance)
         {
             $substractBalances = $walletSubscriptionBalance - $sumLotteries;

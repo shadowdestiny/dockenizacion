@@ -97,7 +97,7 @@ class LottorisqApi implements IResultApi, IJackpotApi, IBookApi
     /**
      * @return string
      */
-    private function sendCurl($endpoint)
+    protected function sendCurl($endpoint)
     {
         $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST, false);
         $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, false);

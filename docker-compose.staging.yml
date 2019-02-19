@@ -4,39 +4,53 @@ services:
   loadbalancer:
     labels:
       io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        fluentd-async-connect: '1'
+        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'
 
   redis:
     labels:
       io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        fluentd-async-connect: '1'
+        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'
 
   web:
     image: panamedialottery/euromillions-web:staging
     labels:
       io.rancher.scheduler.affinity:host_label: em_service=euromillions-web
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
-#    logging:
-#      driver: fluentd
-#      options:
-#        fluentd-address: localhost:24224
-#        fluentd-async-connect: '1'
-#        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        fluentd-async-connect: '1'
+        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}#log_type:nginx#'
 
   php:
     image: panamedialottery/euromillions-php:staging
-#    logging:
-#      driver: fluentd
-#      options:
-#        fluentd-address: localhost:24224
-#        fluentd-async-connect: '1'
-#        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'
+    mem_reservation: 268435456 #256MB
+    mem_limit: 1073741824 #1024MB
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        fluentd-async-connect: '1'
+        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'
 
   phpcron:
     image: panamedialottery/euromillions-php:cron_staging
     labels:
       io.rancher.scheduler.affinity:host_label: em_hostname=staging-01
-#    logging:
-#      driver: fluentd
-#      options:
-#        fluentd-address: localhost:24224
-#        fluentd-async-connect: '1'
-#        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        fluentd-async-connect: '1'
+        tag: '{{ index .ContainerLabels "io.rancher.stack_service.name" }}'

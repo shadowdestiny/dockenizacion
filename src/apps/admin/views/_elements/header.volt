@@ -24,6 +24,7 @@
                             <li><a href="/admin/millon">Find El Millon</a></li>
                             <li><a href="/admin/reports/playersReports">Reports</a></li>
                             <li><a href="/admin/tracking">Tracking</a></li>
+                            <li><a href="/admin/featureFlagApi">Manage Features</a></li>
                         </ul>
                     </li>
                     <li class=" dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -48,6 +49,7 @@
                 <li><a href="/admin/reports/salesDraw">Sales Draw<br />Euromillions</a></li>
                 <li><a href="/admin/reports/salesDrawPowerBall">Sales Draw<br />PowerBall</a></li>
                 <li><a href="/admin/reports/salesDrawMegaMillions">Sales Draw<br />MegaMillions</a></li>
+                <li><a href="/admin/reports/salesDrawEuroJackpot">Sales Draw<br />EuroJackpot</a></li>
                 <li><a href="/admin/reports/salesDrawChristmas">Sales Draw<br />Christmas</a></li>
                 <li><a href="/admin/reports/playersReports">Players Reports</a></li>
                 <!-- li><a href="/admin/reports/salesDraw">Sales Draw</a></li>

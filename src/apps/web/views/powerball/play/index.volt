@@ -141,18 +141,11 @@
     {% endif %}
     <main id="content">
         <div class="play--page powerball--page">
+
             <div class="banner">
                 <div class="top-banner--section">
                     <div class="top-banner--banner">
                         <div class="wrapper">
-
-                            {#<h1 class="top-banner-play">#}
-                                {#{% if mobile == 1 %}#}
-                                    {#{{ language.translate("play_pow_h1") }}#}
-                                {#{% else %}#}
-                                    {#{{ language.translate("play_pow_mobile_h1") }}#}
-                                {#{% endif %}#}
-                            {#</h1>#}
                         </div>
                     </div>
                 </div>
@@ -202,12 +195,6 @@
                             {{ language.translate('pow_instruction') }}
                         </div>
                     </div>
-                    {#<h1 class="h3 draw">{{ language.translate("shortInstruction") }}</h1>#}
-                    {#<span class="h1 jackpot">#}
-                    {#Jackpot#}
-                    {#{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}#}
-                    {#{% include "_elements/jackpot-value" with ['extraClass': extraClass] %}#}
-                    {#</span>#}
                 </header>
 
                 {# TODO : html version start #}
@@ -220,7 +207,6 @@
 
                 {% include "_elements/powerball-bottom-block.volt" %}
 
-                {#{% include "_elements/play-bottom-block.volt" %}#}
             </div>
 
             <div id="closeticket" class="modal" style="width: 1000px;height: 500px;">
@@ -246,6 +232,8 @@
                 </div>
             </div>
         </div>
+
+
     </main>
     {#   temporary styling for mobile app     #}
 {% endblock %}

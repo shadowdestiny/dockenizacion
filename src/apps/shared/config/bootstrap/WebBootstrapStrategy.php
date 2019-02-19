@@ -7,6 +7,10 @@ use EuroMillions\megamillions\config\routes\HowToPlayRoutes;
 use EuroMillions\megamillions\config\routes\MegaMillionsPlayRoutes;
 use EuroMillions\megamillions\config\routes\MegaMillionsResultRoutes;
 use EuroMillions\megamillions\config\routes\ResultPurchaseRoutes;
+use EuroMillions\eurojackpot\config\routes\HowToPlayRoutes as HowToPlayRoutesEuroJackpot;
+use EuroMillions\eurojackpot\config\routes\EuroJackpotPlayRoutes;
+use EuroMillions\eurojackpot\config\routes\EuroJackpotResultRoutes;
+use EuroMillions\eurojackpot\config\routes\ResultPurchaseRoutes as ResultPurchaseRoutesEuroJackpot;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconCookiesWrapper;
 use EuroMillions\shared\components\PhalconRequestWrapper;
@@ -98,6 +102,27 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $view = new Phalcon\Mvc\View();
         $compiled_path = $this->assetsPath . 'compiled_templates/';
         $view->setViewsDir($this->appPath . 'megamillions/views/');
+        $view->setLayoutsDir('shared/views/');
+        $view->registerEngines(array(
+            ".volt" => function ($view, $di) use ($compiled_path) {
+                $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
+                $volt->setOptions($this->voltConfigByEnvironment($compiled_path));
+                $compiler = $volt->getCompiler();
+                $compiler->addFilter('number_format', 'number_format');
+                $compiler->addFunction('currency_css', function ($currency) {
+                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
+                });
+                return $volt;
+            }
+        ));
+        return $view;
+    }
+
+    protected function configViewEuroJackpot()
+    {
+        $view = new Phalcon\Mvc\View();
+        $compiled_path = $this->assetsPath . 'compiled_templates/';
+        $view->setViewsDir($this->appPath . 'eurojackpot/views/');
         $view->setLayoutsDir('shared/views/');
         $view->registerEngines(array(
             ".volt" => function ($view, $di) use ($compiled_path) {
@@ -571,8 +596,21 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'payment',
         ));
 
+        $router->add("/{lottery:(eurojackpot)+}/payment", array(
+            "module" => "eurojackpot",
+            'lottery' => 5,
+            'controller' => 'euro-jackpot-payment',
+            'action' => 'payment',
+        ));
 
-        $router->add("/{lottery:(euromillions|powerball|megamillions)+}/cart/login", array(
+        $router->add("/{lottery:(eurojackpot)+}/payment/payment(.*?)", array(
+            "module" => "eurojackpot",
+            'lottery' => 5,
+            'controller' => 'euro-jackpot-payment',
+            'action' => 'payment',
+        ));
+
+        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot)+}/cart/login", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'cart',
@@ -617,7 +655,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        $router->add("/{lottery:(euromillions|powerball|megamillions)+}/result/success/:params", array(
+        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot)+}/result/success/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'result',
@@ -1461,7 +1499,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'en'
         ));
 
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}", array(
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenis|история-розыгрышей)+}", array(
             "module" => "megamillions",
             'controller' => 'megamillions-numbers',
             'action' => 'pastList',
@@ -1489,7 +1527,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'en'
         ));
 
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenis|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
             "module" => "megamillions",
             'controller' => 'megamillions-numbers',
             'action' => 'index',
@@ -1501,10 +1539,21 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(eurojackpot)+}/{play:(jugar|gioca|speel|играть)+}", array(
+            "module" => "eurojackpot",
+            'controller' => 'play',
+            'action' => 'index',
+        ));
+
         $router->mount(new HowToPlayRoutes());
         $router->mount(new MegaMillionsPlayRoutes());
         $router->mount(new MegaMillionsResultRoutes());
         $router->mount(new ResultPurchaseRoutes());
+
+        $router->mount(new HowToPlayRoutesEuroJackpot());
+        $router->mount(new EuroJackpotPlayRoutes());
+        $router->mount(new EuroJackpotResultRoutes());
+        $router->mount(new ResultPurchaseRoutesEuroJackpot());
 
         //LANDINGS
 
@@ -1628,6 +1677,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'megamillions' => [
                 'className' => 'EuroMillions\megamillions\Module',
                 'path' => '../apps/megamillions/Module.php',
+            ],
+            'eurojackpot' => [
+                'className' => 'EuroMillions\eurojackpot\Module',
+                'path' => '../apps/eurojackpot/Module.php',
             ]
         ]);
         $di = $application->getDI();
@@ -1656,6 +1709,15 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $object = $di->get($web_module['className']);
                 $di->set('language', $this->configLanguage($di), true);
                 $di->set('view', $this->configViewMegaMillions(), true);
+                //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
+                $object->registerServices($di);
+            }
+            if ($module_name === 'eurojackpot') {
+                $web_module = $application->getModule($module_name);
+                /** @var ModuleDefinitionInterface $object */
+                $object = $di->get($web_module['className']);
+                $di->set('language', $this->configLanguage($di), true);
+                $di->set('view', $this->configViewEuroJackpot(), true);
                 //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
                 $object->registerServices($di);
             }

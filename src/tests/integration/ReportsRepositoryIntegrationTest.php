@@ -52,7 +52,7 @@ class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             'winnings' => '0',
         ];
 
-        $this->assertEquals($expected, $actual[2]);
+        $this->assertEquals($expected, $actual[3]);
     }
 
     /**

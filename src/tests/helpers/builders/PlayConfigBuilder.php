@@ -113,7 +113,7 @@ class PlayConfigBuilder
 
     public function withLottery($lottery)
     {
-        $this->lottery = $this->getLottery($lottery);
+        $this->lottery = $lottery instanceof $lottery ? $lottery : $this->getLottery($lottery);
         return $this;
     }
 
