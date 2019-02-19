@@ -48,7 +48,7 @@
         </h2>
 
         <p>
-            {{ language.translate("PlayEJ_h2_text2") }}
+            {{ language.translate("PlayEJ_h2_text") }}
         </p>
 
     </div>
