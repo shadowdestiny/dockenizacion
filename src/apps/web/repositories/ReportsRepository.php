@@ -200,6 +200,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('numberBets', 'numberBets');
         $rsm->addScalarResult('wagering', 'wagering');
         $rsm->addScalarResult('ggr', 'ggr');
+        $rsm->addScalarResult('affiliate', 'affiliate');
         return $this->entityManager
             ->createNativeQuery($sql, $rsm)->getResult();
     }
