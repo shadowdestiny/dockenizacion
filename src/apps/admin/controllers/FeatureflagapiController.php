@@ -13,8 +13,7 @@ class FeatureflagapiController extends AdminControllerBase
     {
         $this->checkPermissions();
         parent::initialize();
-        $this->featureFlagApiService = $this->domainAdminServiceFactory->getFeatureFlagApiService();
-
+        $this->featureFlagApiService = $this->domainServiceFactory->getFeatureFlagApiService();
     }
 
     /**
