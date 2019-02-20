@@ -81,6 +81,18 @@ pipeline {
                         sh('sudo docker run --rm -v $(pwd)/src:/var/www -v /tmp:/tmp -e "NPM_CONFIG_CACHE=/tmp/npm_cache" panamedialottery/euromillions-util-nodejs ./provision-grunt.sh')
                     }
                 }
+                stage('build css'){
+                    steps{
+                        //Compile Web SASS
+                        sh('sudo docker run --rm -u 1000 -v $(pwd)/src:/src antonienko/compass-watch compile --force --quiet --boring --no-debug-info /src/compass_web || true')
+                    }
+                    post {
+                        always {
+                            //Delete sass cache folder
+                            sh('rm -rf $(pwd)/src/.sass-cache/*')
+                        }
+                    }
+                }
                 stage('composer php'){
                     steps{
                         sh('sudo docker run --rm -v $(pwd)/src:/var/www -v /tmp:/tmp -e "COMPOSER_HOME=/tmp/composer_home" panamedialottery/euromillions-php:tools composer install --no-progress --no-dev --optimize-autoloader')
