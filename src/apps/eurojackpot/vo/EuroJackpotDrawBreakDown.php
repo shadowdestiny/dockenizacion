@@ -60,11 +60,16 @@ class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
     private function mappingMethodName($key)
     {
         $mappingArray = [
+            'match-0-1' => 'setCategorySeventeen',
+            'match-0-2' => 'setCategorySixteen',
+            'match-1-0' => 'setCategoryFifteen',
+            'match-1-1' => 'setCategoryFourteen',
+            'match-2' => 'setCategoryThirteen',
             'match-2-1' => 'setCategoryTwelve',
             'match-1-2' => 'setCategoryEleven',
-            'match-3' => 'setCategoryTen',
-            'match-3-1' => 'setCategoryNine',
-            'match-2-2' => 'setCategoryEight',
+            'match-2-2' => 'setCategoryTen',
+            'match-3' => 'setCategoryNine',
+            'match-3-1' => 'setCategoryEight',
             'match-3-2' => 'setCategorySeven',
             'match-4' => 'setCategorySix',
             'match-4-1' => 'setCategoryFive',
@@ -97,13 +102,14 @@ class EuroJackpotDrawBreakDown extends EuroMillionsDrawBreakDown
             50 => 'category_three',
             42 => 'category_four',
             41 => 'category_five',
-            40 => 'category_six',
-            32 => 'category_seven',
+            32 => 'category_six',
+            40 => 'category_seven',
             22 => 'category_eight',
             31 => 'category_nine',
             30 => 'category_ten',
             12 => 'category_eleven',
             21 => 'category_twelve',
+            20 => 'category_thirteen'
         ];
     }
 
