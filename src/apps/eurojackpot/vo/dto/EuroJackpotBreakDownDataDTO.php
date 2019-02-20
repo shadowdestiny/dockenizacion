@@ -9,26 +9,27 @@
 namespace EuroMillions\eurojackpot\vo\dto;
 
 
-class EurojackpotBreakDownDataDTO
+class EuroJackpotBreakDownDataDTO
 {
 
     public $name;
 
-    public $euroJackpotPrize;
+    public $lottery_prize;
 
-    public $winnersEuroJackpot;
+    public $winners;
 
-    public $showEuroJackpot;
+    public $numbers_corrected;
 
+    public $stars_corrected;
 
     public function __construct(array $data)
     {
         $this->name = $data['name'];
-        $this->EuroJackpotPrize = $data['euroJackpotPrize'];
-        $this->winnersEuroJackpot = $data['winnersEuroJackpot'];
-        $this->showEuroJackpot = $data['showEuroJackpot'];
+        $this->lottery_prize = $data['lottery_prize'];
+        $this->winners = $data['winners'];
+        $this->numbers_corrected = $data['numbers_corrected'];
+        $this->stars_corrected = $data['stars_corrected'];
     }
-
 
     /**
      * @return mixed
@@ -49,32 +50,65 @@ class EurojackpotBreakDownDataDTO
     /**
      * @return mixed
      */
-    public function getEuroJackpotPrize()
+    public function getLotteryPrize()
     {
-        return $this->euroJackpotPrize;
+        return $this->lottery_prize;
     }
 
     /**
-     * @param mixed $euroJackpotPrize
+     * @param mixed $lottery_prize
      */
-    public function setEuroJackpotPrize($euroJackpotPrize)
+    public function setLotteryPrize($lottery_prize)
     {
-        $this->euroJackpotPrize = $euroJackpotPrize;
+        $this->lottery_prize = $lottery_prize;
     }
 
     /**
      * @return mixed
      */
-    public function getWinnersEurojackpot()
+    public function getWinners()
     {
-        return $this->winnersEuroJackpot;
+        return $this->winners;
     }
 
     /**
-     * @param mixed $winnersEuroJackpot
+     * @param mixed $winners
      */
-    public function setWinnersEuroJackpot($winnersEuroJackpot)
+    public function setWinners($winners)
     {
-        $this->winnersEuroJackpot = $winnersEuroJackpot;
+        $this->winners = $winners;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStarsCorrected()
+    {
+        return $this->stars_corrected;
+    }
+
+    /**
+     * @param mixed $stars_corrected
+     */
+    public function setStarsCorrected($stars_corrected)
+    {
+        $this->stars_corrected = $stars_corrected;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getNumbersCorrected()
+    {
+        return $this->numbers_corrected;
+    }
+
+    /**
+     * @param mixed $numbers_corrected
+     */
+    public function setNumbersCorrected($numbers_corrected)
+    {
+        $this->numbers_corrected = $numbers_corrected;
     }
 }
