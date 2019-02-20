@@ -62,7 +62,7 @@ class LotterySeeder extends AbstractSeed
                 'frequency' => 'w0000100',
                 'draw_time' => '20:00:00',
                 'result_api' => 'EuroJackpot',
-                'single_bet_price_amount' => '200',
+                'single_bet_price_amount' => '300',
                 'single_bet_price_currency_name' => 'EUR',
                 'time_zone' => 'Europe/Madrid'
             ]

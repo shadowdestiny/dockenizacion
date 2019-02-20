@@ -9,7 +9,6 @@ use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\external_apis\CurrencyConversion\CurrencyLayerApi;
 use EuroMillions\web\services\external_apis\CurrencyConversion\RedisCurrencyApiCache;
 use EuroMillions\web\services\GeoService;
-use EuroMillions\shared\services\FeatureFlagApiService;
 use Phalcon\DiInterface;
 use Phalcon\Http\Client\Provider\Curl;
 
@@ -95,13 +94,6 @@ class DomainAdminServiceFactory
                 new Curl(),
                 new RedisCurrencyApiCache($redis_cache)
             )
-        );
-    }
-
-    public function getFeatureFlagApiService()
-    {
-        return new FeatureFlagApiService(
-            new Curl()
         );
     }
 }

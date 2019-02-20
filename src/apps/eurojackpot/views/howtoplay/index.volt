@@ -126,14 +126,6 @@
                                         <h3 class="h3">{{ language.translate("howToEJ_17q") }}</h3>
                                         <p>{{ language.translate("howToEJ_17a") }}</p>
                                     </div>
-                                    <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_18q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_18a") }}</p>
-                                    </div>
-                                    <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_19q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_19a") }}</p>
-                                    </div>
                                 </div>
                             </div>
 

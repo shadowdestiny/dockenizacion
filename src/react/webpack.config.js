@@ -4,11 +4,12 @@ var env = process.env.WEBPACK_ENV;
 
 var path = require('path');
 
-var plugins = [], outputFile;
+var plugins = [], outputFile, bailMode;
 
 if (env == 'build') {
     plugins.push(new UglifyJsPlugin({minimize: true}));
     outputFile = '.js';
+    bailMode = true;
 } else {
     outputFile = '.js';
 }
@@ -53,6 +54,7 @@ var config = {
     watchOptions: {
         aggregateTimeout: 300,
         poll: 1000
-    }
+    },
+    bail: bailMode
 };
 module.exports = config;
