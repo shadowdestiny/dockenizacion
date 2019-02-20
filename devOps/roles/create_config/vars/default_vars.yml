@@ -117,3 +117,6 @@ geoip_blocked_countries: 'FR'
 
 payment_balancing: 'GeoIPStrategy'
 payment_balancing_dependencies: 'geoip_strategy'
+
+featureflag_api_endpoint: 'https://tg5wg2gree.execute-api.eu-west-1.amazonaws.com/beta'
+featureflag_api_apikey: 'mJPvu4rrzi43McgJY6ruf4GTdTiwP18K9OojNYjx'
