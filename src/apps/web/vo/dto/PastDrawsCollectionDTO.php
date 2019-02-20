@@ -15,6 +15,8 @@ class PastDrawsCollectionDTO extends DTOBase implements IDto
 
     public $result;
 
+    public $playConfigs;
+
     public function __construct(array $playConfigs, $tickets=0)
     {
         $this->playConfigs = $playConfigs;
@@ -40,12 +42,13 @@ class PastDrawsCollectionDTO extends DTOBase implements IDto
     private function createCollectionByDate()
     {
         $collection = [];
-        if($this->result) {
-            foreach($this->result as $result) {
+        if($this->playConfigs) {
+            foreach($this->playConfigs as $result) {
                 $startDrawDate = $result['startDrawDate']->format('Y-m-d');
                 $collection['dates'][$startDrawDate][] = new PastDrawDTO($result);
             }
         }
+
         return $collection;
     }
 
