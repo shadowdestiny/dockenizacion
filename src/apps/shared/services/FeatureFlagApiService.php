@@ -4,6 +4,7 @@ namespace EuroMillions\shared\services;
 
 use EuroMillions\shared\interfaces\IFeatureFlagApi;
 use EuroMillions\web\vo\dto\FeatureFlagDTO;
+use EuroMillions\shared\vo\results\ActionResult;
 
 class FeatureFlagApiService
 {
@@ -49,49 +50,25 @@ class FeatureFlagApiService
 
     /**
      * @param array $data
-     * @return bool
+     * @return ActionResult
      */
     public function updateItem(array $data)
     {
-        $feature = new FeatureFlagDTO();
-        $feature->setName($data['name']);
-        $feature->setDescription($data['description']);
-        $feature->setStatus($data['status']);
-
-        $params = array(
-            'description' => $feature->getDescription(),
-            'status' => $feature->getStatus(),
-        );
-
-        $response = $this->api->sendPut('/'.$feature->getName(), $params);
-
-        return $this->validateResponse($response);
+        return $this->persist($data, 'sendPut');
     }
 
     /**
      * @param array $data
-     * @return bool
+     * @return ActionResult
      */
     public function addItem(array $data)
     {
-        $feature = new FeatureFlagDTO();
-        $feature->setName($data['name']);
-        $feature->setDescription($data['description']);
-        $feature->setStatus($data['status']);
-
-        $params = array(
-            'description' => $feature->getDescription(),
-            'status' => $feature->getStatus(),
-        );
-
-        $response = $this->api->sendPost('/'.$feature->getName(), $params);
-
-        return $this->validateResponse($response);
+        return $this->persist($data, 'sendPost');
     }
 
     /**
      * @param $name
-     * @return bool
+     * @return ActionResult
      */
     public function deleteItem($name)
     {
@@ -101,16 +78,37 @@ class FeatureFlagApiService
     }
 
     /**
+     * @param array $data
+     * @param $method
+     * @return ActionResult
+     */
+    private function persist(array $data, $method)
+    {
+        $feature = new FeatureFlagDTO($data);
+
+        $params = array(
+            'description' => $feature->getDescription(),
+            'status' => $feature->getStatus(),
+        );
+
+        $response = $this->api->$method('/'.$feature->getName(), $params);
+
+        return $this->validateResponse($response);
+    }
+
+    /**
      * @param $response
-     * @return bool
+     * @return ActionResult
      */
     private function validateResponse($response)
     {
         $responseArray = json_decode($response, true);
-        if(!isset($responseArray['status']) || $responseArray['status'] != 'ok'){
-            return false;
+        $success = true;
+
+        if(!isset($responseArray['status']) || $responseArray['status'] != 'ok') {
+            $success = false;
         }
 
-        return $response;
+        return new ActionResult($success, $responseArray);
     }
 }

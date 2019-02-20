@@ -4,6 +4,7 @@ namespace EuroMillions\tests\unit;
 use EuroMillions\shared\services\FeatureFlagApiService;
 use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\web\vo\dto\FeatureFlagDTO;
+use EuroMillions\shared\vo\results\ActionResult;
 
 class FeatureFlagApiServiceUnitTest extends UnitTestBase
 {
@@ -149,7 +150,7 @@ class FeatureFlagApiServiceUnitTest extends UnitTestBase
                 'updated_at' => null,
                 'created_at' => null,
             ]
-        );;
+        );
 
         $this->api->sendGet('/feature-1')->willReturn($responseBody);
 
@@ -171,7 +172,7 @@ class FeatureFlagApiServiceUnitTest extends UnitTestBase
 
         $data = array('name' => 'feature-1', 'description' => 'lorem ipsum', 'status' => true);
 
-        $expected = $this->getResponseMock_Ok();
+        $expected = new ActionResult(true, json_decode($this->getResponseMock_Ok(), true));
 
         $this->api->sendPut('/feature-1', ['description' => 'lorem ipsum', 'status' => true])->willReturn($responseBody);
 
@@ -193,7 +194,7 @@ class FeatureFlagApiServiceUnitTest extends UnitTestBase
 
         $data = array('name' => 'feature-1', 'description' => 'lorem ipsum', 'status' => true);
 
-        $expected = $this->getResponseMock_Ok();
+        $expected = new ActionResult(true, json_decode($this->getResponseMock_Ok(), true));
 
         $this->api->sendPost('/feature-1', ['description' => 'lorem ipsum', 'status' => true])->willReturn($responseBody);
 
@@ -218,7 +219,7 @@ class FeatureFlagApiServiceUnitTest extends UnitTestBase
 
         $data = array('name' => 'feature-exists-on-database', 'description' => 'lorem ipsum', 'status' => true);
 
-        $expected = false;
+        $expected = new ActionResult(false, json_decode($responseBody, true));
 
         $this->api->sendPost('/feature-exists-on-database', ['description' => 'lorem ipsum', 'status' => true])->willReturn($responseBody);
 
@@ -240,7 +241,7 @@ class FeatureFlagApiServiceUnitTest extends UnitTestBase
 
         $data = 'feature-1';
 
-        $expected = $this->getResponseMock_Ok();
+        $expected = new ActionResult(true, json_decode($this->getResponseMock_Ok(), true));
 
         $this->api->sendDelete('/feature-1')->willReturn($responseBody);
 
@@ -265,7 +266,7 @@ class FeatureFlagApiServiceUnitTest extends UnitTestBase
 
         $data = 'feature-not-exists-on-database';
 
-        $expected = false;
+        $expected = new ActionResult(false, json_decode($responseBody, true));
 
         $this->api->sendDelete('/feature-not-exists-on-database')->willReturn($responseBody);
 
