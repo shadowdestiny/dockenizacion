@@ -86,7 +86,8 @@ class UserRepository extends RepositoryBase
             'ip_address' => new IPAddress($credentials['ipaddress']),
             'default_language' => $credentials['default_language'],
             'phone_number' => $credentials['phone_number'],
-            'birth_date' => new BirthDate($credentials['birth_date'])
+            'birth_date' => new BirthDate($credentials['birth_date']),
+            'affiliate' => isset($credentials['affiliate'])?$credentials['affiliate']:'',
         ]);
         $this->add($user);
         $this->getEntityManager()->flush($user);
@@ -111,7 +112,8 @@ class UserRepository extends RepositoryBase
             'created' => new \DateTime(),
             'ip_address' => new IPAddress($credentials['ipaddress']),
             'phone_number' => $credentials['phone_number'],
-            'birth_date' => new BirthDate($credentials['birth_date'])
+            'birth_date' => new BirthDate($credentials['birth_date']),
+            'affiliate' => isset($credentials['affiliate'])?$credentials['affiliate']:'',
         ]);
 
         $this->addWithId($user);
