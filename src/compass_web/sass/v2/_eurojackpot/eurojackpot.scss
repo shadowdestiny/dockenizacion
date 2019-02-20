@@ -199,6 +199,22 @@ $eurojackpot-color--main : #af7800;
 
           li {
             width: 20%;
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              border-right: 6px solid transparent;
+              border-left: 3px solid transparent;
+            }
+
+            @media only screen and (min-width: $screen-ipad-h) {
+              border-right: 5px solid transparent;
+              border-left: 3px solid transparent;
+            }
+
+            @media only screen and (min-width: $screen-desktop) {
+              border-left: 0;
+              border-right: 3px solid transparent;
+            }
+
           }
 
           .cols {

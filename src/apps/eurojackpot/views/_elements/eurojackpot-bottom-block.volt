@@ -51,7 +51,6 @@
             {{ language.translate("PlayEJ_h2_text2") }}
         </p>
 
-
     </div>
 </div>
 
