@@ -114,7 +114,7 @@
 
                                     </td>
                                     <td>
-                                        <input type="button" class="btn btn-primary" value="Edit"  onClick="editFeature('{{ feature.getName() }}', '{{ feature.getDescription() }}', '{{ feature.getStatus(false) }}');" />
+                                        <input type="button" class="btn btn-primary" value="Edit"  onClick="editFeature('{{ feature.getName() }}', '{{ feature.getDescription() }}', '{{ feature.getStatus() }}');" />
                                     </td>
                                 </tr>
                             {% endfor %}

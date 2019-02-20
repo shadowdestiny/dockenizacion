@@ -1,6 +1,6 @@
 var React = require('react');
 var EuroMillionsLine = require('./EmLine.js');
-
+const GAME_MODE_EUROJACKPOT = 'eurojackpot'
 
 var EuroMillionsMultipleEmLines = React.createClass({
 
@@ -14,6 +14,7 @@ var EuroMillionsMultipleEmLines = React.createClass({
         var numberEuroMillionsLine = this.props.numberEuroMillionsLine;
         var random = this.props.random_all;
         var em_lines = [];
+        const { gameMode } = this.props
         for (let i = 0; i < numberEuroMillionsLine; i++) {
             em_lines.push(
                     <EuroMillionsLine
@@ -23,11 +24,11 @@ var EuroMillionsMultipleEmLines = React.createClass({
                       storage={this.props.storage[i]}
                       callback={this.props.callback}
                       numberPerLine="5"
-                      starsPerLine={4}
+                      starsPerLine={gameMode == GAME_MODE_EUROJACKPOT ? 5 : 4}
                       key={i}
                       lineNumber={i}
                       txtLine={this.props.txtLine}
-                      gameMode={this.props.gameMode}
+                      gameMode={gameMode}
                       translations={this.props.translations}
                       defaultRandom={i===0}
                     />
