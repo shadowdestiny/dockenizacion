@@ -70,14 +70,14 @@
                         {#</div>#}
                         <h1 class="h1 title">
                             {% if mobile == 1 %}
-                                {{ language.translate("resultshist_pow_mobile_h1") }}
+                                {{ language.translate("resultsEJ_hist_h1") }}
                             {% else %}
-                                {{ language.translate("EURO JACKPOT HISTORY: ALL PAST RESULTS") }}
+                                {{ language.translate("resultsEJ_hist_h1") }}
                             {% endif %}
                         </h1>
                         <div class="history-numbers-block">
                             <div class="pad">
-                                <h2 class="h2 purple">{{ language.translate("resultshist_pow_h2") }}</h2>
+                                <h2 class="h2 purple">{{ language.translate("resultsEJ_hist_h2") }}</h2>
                             </div>
                             <table id="history-numbers" class="ui-responsive table2" data-role="table"
                                    data-mode="reflow" style="margin-top:-20px">
@@ -94,12 +94,12 @@
                                  {% else %}
                                     <thead class="thead--powerball">
                                     <tr>
-                                        <th class="td-date"><span class="ico-date"></span>{{ language.translate("pastNumbers_date") }}</th>
+                                        <th class="td-date"><span class="ico-date"></span>{{ language.translate("resultsEJ_hist_date") }}</th>
                                         <th class="td-ball-numbers--lottery megamillions--lottery-balls"><span
-                                                    class="ico-ball"></span>{{ language.translate("resultshist_pow_numbers") }}</th>
+                                                    class="ico-ball"></span>{{ language.translate("resultsEJ_hist_balls") }}</th>
                                         <th class="td-powerball megamillions--megaball">
                                             <span class="ico-ball"></span>
-                                                {{ language.translate("Lucky Numbers") }}
+                                                {{ language.translate("resultsEJ_hist_soles") }}
                                         </th>
                                     </tr>
                                     </thead>
@@ -121,7 +121,7 @@
                             <div id="show-more-results">
                                 <div class="btn-theme--big">
                                 <span class="resizme">
-                                    {{ language.translate("loadmore_btn") }}
+                                    {{ language.translate("resultsEJ_hist_loadbtn") }}
                                 </span>
                                 </div>
                             </div>

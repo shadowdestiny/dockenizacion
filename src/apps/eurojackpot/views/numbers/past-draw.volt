@@ -102,7 +102,7 @@
             <div class="wrapper">
                 <h3 class="mobile--only">
                     <br />
-                    {{ language.translate("draw") }}
+                    {{ language.translate("lastDraw_title") }}
                     {{ language.translate(draw_day) }}, {{ past_draw_date_format }}
                 </h3>
 
@@ -129,7 +129,7 @@
                     </ul>
 
                     <span class="desktop--only">
-                        {{ language.translate("draw") }}
+                        {{ language.translate("lastDraw_title") }}
                     </span>
 
                     <h3 class="desktop--only">
@@ -144,9 +144,17 @@
                     <div class="left-section result-section">
 
                         <div class="box-current-winners--new">
+
+                            <h1 class="winners--h1">
+                                {% if mobile == 1 %}
+                                    {{ language.translate("results_pow_mobile_h1") }}
+                                {% else %}
+                                    {{ language.translate("resultsEJ_h1") }}
+                                {% endif %}
+                            </h1>
+
                             <h2 class="h2">
-                                {{ language.translate("resultsdate_h2") }}
-                                {#Euromillions Results & price breakdown for Tuesday 02 November 2016#}
+                                {{ language.translate("resultsEJ_h2") }}
                             </h2>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
                                    data-mode="reflow">
@@ -166,7 +174,7 @@
                                             <td class="td-ball">
                                                 <span>
                                                 {#TODO : Add real variables here#}
-                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("prizePool_ball") }} + {{ break_downs[name]['stars_corrected'] }} {{ language.translate("prizePool_star") }}
+                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("pastNumbers_ball") }} + {{ break_downs[name]['stars_corrected'] }} {{ language.translate("resultsEJ_soles") }}
                                                 </span>
                                             </td>
                                             <td class="td-winners">
@@ -192,7 +200,7 @@
 
                                     <a href="/{{ language.translate("link_eurojackpot_draw_history") }}" class="btn-theme--big">
                                           <span class="resizeme">
-                                                {{ language.translate("eurohistory_btn") }}
+                                                {{ language.translate("morePastResults_btn") }}
                                           </span>
                                     </a>
 
@@ -201,6 +209,17 @@
 
                         </div>
                     </div>
+                </div>
+
+                <div class="bottom--banner"></div>
+
+                <div class="block--text--accordion">
+                    <h2>
+                        {{ language.translate("resultsEJ_title_par") }}
+                    </h2>
+                    <p>
+                        {{ language.translate("resultsEJ_par") }}
+                    </p>
                 </div>
             </div>
         </div>
