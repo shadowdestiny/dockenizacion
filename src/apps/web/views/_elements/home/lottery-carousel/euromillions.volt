@@ -24,12 +24,6 @@
                 <div class="minuteeuro unit" style="">
                     <span class="val" style=""><b>%-M</b>M</span>
                 </div>
-                {% if show_s_days == '1' %}
-                    <div class="dotseuro" style="">:</div>
-                    <div class="secondseuro unit" style="">
-                        <span class="val" style="">%-SS</span>
-                    </div>
-                {% endif %}
             </div>
             {#<div class="resizeme">3<span>D</span> 22<span>H</span>:45<span>M</span></div>#}
         </div>
