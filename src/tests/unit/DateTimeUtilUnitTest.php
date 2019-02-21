@@ -106,6 +106,21 @@ class DateTimeUtilUnitTest extends UnitTestBase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+    * method convertISODateToTimestamp
+    * when called
+    * should returnStringWithTimestampFromDate
+    */
+    public function test_convertISODateToTimestamp_returnStringWithTimestampFromDate()
+    {
+       $sut = $this->getSut();
+       $isoDate = '2019-02-05T15:36:21.185Z';
+       $expected = new \DateTime($isoDate);
+       $expected = $expected->getTimestamp();
+       $actual = $sut->convertISODateToTimestamp($isoDate);
+       $this->assertEquals($expected, $actual);
+    }
+
     public function getCountDownCases()
     {
         return [
