@@ -72,13 +72,6 @@
     padding-top: 17px;
     height: 37px;
 
-    @media only screen and (min-width: $screen-ipad-init) {
-      padding-top: 0;
-      height: 30px;
-      line-height:30px;
-      text-align: left;
-    }
-
     @media only screen and (min-width: $screen-ipad-v) {
       padding-top: 0;
       height: 30px;
@@ -90,25 +83,6 @@
     .lottery-carousel--clock {
       display: none;
 
-      @media only screen and (min-width: $screen-ipad-init) {
-        display: block;
-
-        position: relative;
-        top: 4px;
-
-        float: left;
-        margin-right: 5px;
-        margin-left: 15px;
-        width: 20px;
-        height: 20px;
-
-        background-image: url('../img/home/v2/lotteries-carousel/clock.png');
-        background-repeat: no-repeat;
-        background-position: 0 0;
-        -webkit-background-size: 20px;
-        background-size: 20px;
-      }
-
       @media only screen and (min-width: $screen-ipad-v) {
         display: block;
 
@@ -117,7 +91,7 @@
 
         float: left;
         margin-right: 5px;
-        margin-left: 15px;
+        margin-left: 25px;
         width: 20px;
         height: 20px;
 
@@ -164,19 +138,13 @@
       bottom: 20px;
       left: 16px;
 
-      @media only screen and (min-width: $screen-ipad-init) {
-        bottom: 0;
-        left: auto;
-        right: 0;
-        text-align:left;
-      }
       @media only screen and (min-width: $screen-ipad-v) {
         bottom: -2px;
         left: auto;
         right: 30px;
       }
       @media only screen and (min-width: $screen-ipad-h) {
-        right: 0px;
+        right: 10px;
       }
 
       .lottery-carousel--btn {
