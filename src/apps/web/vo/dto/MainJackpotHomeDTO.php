@@ -92,6 +92,11 @@ class MainJackpotHomeDTO extends DTOBase implements IDto,IComparable
                 'link' => 'link_eurojackpot_play',
                 'css'  => 'lotteries-jackpot--bar--eurojackpot',
                 'include' => '_elements/home/lottery-carousel/eurojackpot'
+            ],
+            'MegaSena' => [
+                'link' => 'link_megasena_play',
+                'css'  => 'lotteries-jackpot--bar--megasena',
+                'include' => '_elements/home/lottery-carousel/megasena'
             ]
         ];
     }
@@ -111,6 +116,10 @@ class MainJackpotHomeDTO extends DTOBase implements IDto,IComparable
             return MegaMillionsJackpot::fromAmountIncludingDecimals($amount->getAmount());
         }
         if($this->lotteryName == 'EuroJackpot')
+        {
+            return EuroJackpotJackpot::fromAmountIncludingDecimals($amount->getAmount());
+        }
+        if($this->lotteryName == 'MegaSena')
         {
             return EuroJackpotJackpot::fromAmountIncludingDecimals($amount->getAmount());
         }

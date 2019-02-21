@@ -82,7 +82,7 @@
 {% endblock %}
 {% block body %}
     <main id="content">
-        <div class="result-page--content">
+        <div class="common--result-page--content megasena--result-page--content">
 
             <div class="banner">
                 <div class="top-banner--section">
@@ -188,11 +188,11 @@
                             </table>
 
                             <div class="previous-results--common-row">
-                                {% include "_elements/previous-results-eurojackpot.volt" %}
+                                {% include "_elements/previous-results-megasena.volt" %}
 
                                 <div class="previous-results--btn">
 
-                                    <a href="/eurojackpot/results" class="btn-theme--big">
+                                    <a href="/megasena/results" class="btn-theme--big">
                                         <span class="resizeme">
                                             {{ language.translate("resultsdate_btn") }}
                                         </span>
