@@ -1,6 +1,7 @@
 @import "../_variables";
 @import "../mixins";
-$megasena-color--main : #af7800;
+@import "_partial/init";
+$megasena-color--main : $color--main;
 
 .megasena--page {
 
@@ -111,7 +112,7 @@ $megasena-color--main : #af7800;
 
       .line:hover,
       .line {
-        border: 1px solid $megasena-color--main;
+        border: 1px solid $color--main;
         border-radius: 10px;
 
         &.selected {
@@ -140,7 +141,7 @@ $megasena-color--main : #af7800;
             display: inline-block;
             border-radius: 3px;
             border-width: 1px;
-            border-color:  $megasena-color--main;
+            border-color:  $color--main;
             border-style: solid;
             background-color:  #ffffff;
             line-height: 25px;
@@ -158,31 +159,31 @@ $megasena-color--main : #af7800;
         }
 
         .gwy{
-          border: 1px solid $megasena-color--main;
+          border: 1px solid $color--main;
         }
 
         .gwr:hover,
         .gwr{
-          border: 1px solid $megasena-color--main;
+          border: 1px solid $color--main;
           background-image: url('../img/eurojackpot/clear.svg');
           bottom: -15px;
           position: relative;
           //left: -30px;
 
           span {
-            color: $megasena-color--main;
+            color: $color--main;
           }
         }
 
         .gwp:visited,
         .gwp {
-          border: 1px solid $megasena-color--main;
+          border: 1px solid $color--main;
         }
 
         .gwp.active,
         .gwp:hover {
-          background-color: #ffc74d;
-          //color: #fff;
+          background-color: #009b3a;
+          color: #fff;
         }
         .stars {
           position: relative;
@@ -418,16 +419,16 @@ $megasena-color--main : #af7800;
   .numbers-section {
     .ticket-number.regular {
       border-width: 1px;
-      border-color:  $megasena-color--main;
+      border-color:  $color--main;
       border-style: solid;
       background-color:  #ffffff;
       cursor: pointer;
 
       &.selected {
         border-width: 1px;
-        border-color:  $megasena-color--main;
+        border-color:  $color--main;
         border-style: solid;
-        background-color:  $megasena-color--main;
+        background-color:  $color--main;
         color: #fff;
       }
     }
@@ -448,7 +449,7 @@ $megasena-color--main : #af7800;
   }
 
   .line .v-checkmark {
-    color: #d4b675;
+    color: $v-checkmark;
     opacity: 1;
   }
 }
