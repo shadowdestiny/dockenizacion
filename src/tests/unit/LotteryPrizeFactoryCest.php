@@ -279,7 +279,7 @@ class LotteryPrizeFactoryCest
 
         $breakDown = new MegaMillionsDrawBreakDown($megaMillionsBreakDown);
 
-        $draw = EuroMillionsDrawMother::anMegaMillionsDrawWithJackpot()
+        $draw = EuroMillionsDrawMother::aMegaMillionsDrawWithJackpot()
             ->withLottery($lottery)
             ->withBreakDown($breakDown)
             ->build();

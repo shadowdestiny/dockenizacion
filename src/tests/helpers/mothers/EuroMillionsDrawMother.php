@@ -203,7 +203,7 @@ class EuroMillionsDrawMother
             ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
 
-    public static function anMegaMillionsDrawWithJackpot(\DateTime $date = null)
+    public static function aMegaMillionsDrawWithJackpot(\DateTime $date = null)
     {
         if($date == null)
         {
@@ -213,7 +213,7 @@ class EuroMillionsDrawMother
 
         $line = EuroMillionsLineMother::anPowerBallLine();
         return EuroMillionsDrawBuilder::aDraw()
-            ->withLottery(LotteryMother::aPowerBall())
+            ->withLottery(LotteryMother::aMegaMillions())
             ->withId(4)
             ->withDrawDate($date)
             ->withJackpot($jackpot)->withResult($line);
