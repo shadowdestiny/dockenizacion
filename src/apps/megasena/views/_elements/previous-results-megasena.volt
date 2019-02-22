@@ -1,6 +1,6 @@
 <div class="previous-results">
     <div class="previous-results--title">
-        {{ language.translate("EuroJackpot past numbers") }}
+        {{ language.translate("MegaSena past numbers") }}
     </div>
     <form action="" class="previous-results--selectboxes">
         <div class="selectbox">
