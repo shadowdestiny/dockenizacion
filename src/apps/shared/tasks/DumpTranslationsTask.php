@@ -8,20 +8,19 @@ use Aws\Exception\AwsException;
 
 class DumpTranslationsTask extends TaskBase
 {
-    private $allowedEnvs = array('beta', 'development');
+    private $allowedEnvsExport = array('beta');
     private $allowedEnvsImport = array('development');
     private $bucketName = 'euromillions-dumps';
 
     public function mainAction()
     {
-
-        if(!in_array(getenv('EM_ENV'), $this->allowedEnvs )){
+        if(!in_array(getenv('EM_ENV'), $this->allowedEnvsExport )){
             echo "Not allowed from this Environment\n";
             return 1;
         }
 
         $config = $this->getDatabaseConfig();
-        $tables = "translation_categories translations translation_details"; //List of tables to dump
+        $tables = "languages translation_categories translations translation_details"; //List of tables to dump
         $dump_file = "/tmp/".$config['database']."_translations.sql.gz";
 
         $command = "mysqldump --opt --default-character-set ".$config['charset']." --add-drop-table -h ".$config['host']." -u ".$config['user']." -p".$config['password']." ".$config['database']." $tables | gzip > $dump_file";
