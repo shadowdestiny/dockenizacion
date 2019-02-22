@@ -35,7 +35,6 @@ class DumpTranslationsTask extends TaskBase
         return 0;
     }
 
-
     public function importAction()
     {
         if(!in_array(getenv('EM_ENV'), $this->allowedEnvsImport )){
@@ -56,7 +55,6 @@ class DumpTranslationsTask extends TaskBase
 
         return 0;
     }
-
 
     private function getFromS3($key)
     {
