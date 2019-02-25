@@ -104,11 +104,6 @@
           COMPOSER_NO_INTERACTION: 1
           COMPOSER_ALLOW_SUPERUSER: 1
 
-    - name: initialize test database
-      shell: docker-compose exec -d database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
-      args:
-        chdir: "{{ playbook_dir }}/../"
-
     - name: migrate database devel
       shell: docker-compose run -T php /var/www/vendor/bin/phinx migrate --configuration="phinx.yml" -e devel
       args:
@@ -120,17 +115,10 @@
         chdir: "{{ playbook_dir }}/../"
       ignore_errors: true
 
-    - name: populate database data
-      shell: docker-compose exec -T database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 --default-character-set=utf8 euromillions < {{ playbook_dir }}/../src/data/sql/translations/all_translations.sql
+    - name: populate translations data
+      shell: docker-compose exec -T phpcron php /var/www/apps/shared/shared-cli.php dump-translations import
       args:
         chdir: "{{ playbook_dir }}/../"
-
-    # TODO: This is needed?
-    - name: insert translation to BBDD
-      shell: docker-compose exec -T database mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 --default-character-set=utf8 euromillions < {{ playbook_dir }}/../src/data/sql/translation_dump.sql
-      args:
-        chdir: "{{ playbook_dir }}/../"
-      ignore_errors: yes
 
     - name: execute crons for updating jackpots and results
       shell: >
@@ -141,6 +129,7 @@
         docker-compose exec -T phpcron php /var/www/apps/cli.php result updatePowerballResult;
         docker-compose exec -T phpcron php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall;
         docker-compose exec -T phpcron php /var/www/apps/megamillions/megamillions-cli.php result importAllHistoricalDataFromMegamillions;
+        docker-compose exec -T phpcron php /var/www/apps/eurojackpot/eurojackpot-cli.php result importAllHistoricalDataFromEuroJackpot;
         docker-compose exec -T phpcron php /var/www/apps/megamillions/megamillions-cli.php jackpot updateNextDrawJackpotMegaMillions;
         docker-compose exec -T phpcron php /var/www/apps/cli.php clear-cache clear;
         docker-compose exec -u www-data -T php php /var/www/apps/cli.php clear-cache clear;

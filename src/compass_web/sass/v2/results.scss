@@ -254,70 +254,75 @@
         }
       }
 
-      li.star {
+      @mixin results_draw($className:'star',$img: '../img/results/desktop/star.png',$fontColor:#333333){
+        li.#{$className} {
+          background-image: url($img);
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
+          text-align: center;
+          //height: 106px;
+          -webkit-background-size: 35px;
+          background-size: 35px;
+          width: 38px;
+          line-height: 38px;
+          margin-left: 7px;
 
-        background-image: url('../img/results/desktop/star.png');
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        text-align: center;
-        //height: 106px;
-        -webkit-background-size: 35px;
-        background-size: 35px;
-        width: 38px;
-        line-height: 38px;
-        margin-left: 7px;
-
-        position: relative;
-        top: -1px;
-
-        @media only screen and (min-width: $screen-ipad-v) {
-          -webkit-background-size: 47px;
-          background-size: 47px;
-          width: 50px;
-          line-height: 50px;
-          margin-left: 20px;
-          top: 0px;
-        }
-        @media only screen and (min-width: $screen-ipad-h) {
-          -webkit-background-size: 66px;
-          background-size: 66px;
-          width: 70px;
-          line-height: 70px;
-          margin-left: 17px;
-        }
-        @media only screen and (min-width: $screen-desktop) {
-          -webkit-background-size: 72px;
-          background-size: 72px;
-          width: 72px;
-          line-height: 72px;
-          margin-left: 26px;
-        }
-
-        &:last-of-type {
-          //margin-left: 12px;
-
-          @media only screen and (min-width: $screen-ipad-v) {
-            margin-left: 12px;
-          }
-          @media only screen and (min-width: $screen-ipad-h) {}
-          @media only screen and (min-width: $screen-desktop) {}
-        }
-
-        span {
           position: relative;
-          top: 2px;
+          top: -1px;
 
           @media only screen and (min-width: $screen-ipad-v) {
-            top: 2px;
+            -webkit-background-size: 47px;
+            background-size: 47px;
+            width: 50px;
+            line-height: 50px;
+            margin-left: 20px;
+            top: 0px;
           }
           @media only screen and (min-width: $screen-ipad-h) {
-            top: 5px;
+            -webkit-background-size: 66px;
+            background-size: 66px;
+            width: 70px;
+            line-height: 70px;
+            margin-left: 17px;
           }
           @media only screen and (min-width: $screen-desktop) {
-            top: 5px;
+            -webkit-background-size: 72px;
+            background-size: 72px;
+            width: 72px;
+            line-height: 72px;
+            margin-left: 26px;
+          }
+
+          &:last-of-type {
+            //margin-left: 12px;
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              margin-left: 12px;
+            }
+            @media only screen and (min-width: $screen-ipad-h) {}
+            @media only screen and (min-width: $screen-desktop) {}
+          }
+
+          span {
+            color: $fontColor;
+            position: relative;
+            top: 2px;
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              top: 2px;
+            }
+            @media only screen and (min-width: $screen-ipad-h) {
+              top: 5px;
+            }
+            @media only screen and (min-width: $screen-desktop) {
+              top: 5px;
+            }
           }
         }
       }
+
+      @include results_draw();
+      @include results_draw('ellipse_eurojackpot','../img/home/result-block/desktop/ellipse_eurojackpot.svg',#fff);
     }
   }
 
@@ -714,7 +719,7 @@
             border: 0;
             box-shadow: none;
             color: inherit;
-            font-size: inherit;
+            font-size: 10px;
             background-color: transparent;
             //padding: 0;
             margin: 0;

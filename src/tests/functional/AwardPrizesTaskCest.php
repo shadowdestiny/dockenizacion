@@ -5,6 +5,8 @@ use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
 use EuroMillions\tests\helpers\mothers\EuroMillionsLineMother;
 use EuroMillions\tests\helpers\mothers\PlayConfigMother;
 use EuroMillions\tests\helpers\mothers\UserMother;
+use EuroMillions\tests\helpers\mothers\LotteryMother;
+use EuroMillions\tests\helpers\mothers\BetMother;
 use EuroMillions\web\entities\Bet;
 
 class AwardprizesTaskCest
@@ -73,6 +75,39 @@ class AwardprizesTaskCest
         $I->haveInDatabase('euromillions_draws', $draw_array);
         $I->haveInDatabase('bets', $bet_array);
         $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php result start PowerBall 2020-01-09');
+        $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes listen');
+        $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes award');
+        $I->canSeeInDatabase('transactions',['entity_type' => 'winnings_received']);
+    }
+
+    /**
+     * @group tasks
+     * @param FunctionalTester $I
+     */
+    public function EuroJackpotWinnersAreAwarded(FunctionalTester $I)
+    {
+        $euroJackpotLottery = LotteryMother::anEuroJackpot();
+        /** @var \EuroMillions\web\entities\User $user */
+        $user = UserMother::aUserWith50Eur()->withValidated(true)->build();
+        $line = EuroMillionsLineMother::anEuroJackpotLine();
+        $anotherLine = EuroMillionsLineMother::anotherEuroJackpotLine();
+        $date = new DateTime('2020-01-01');
+        $playConfig = PlayConfigMother::aPlayConfigSetForUser($user)
+            ->withLine($anotherLine)
+            ->withLottery($euroJackpotLottery)
+            ->withStartDrawDate($date)
+            ->withLastDrawDate($date)
+            ->build();
+        $draw = EuroMillionsDrawMother::anEuroJackpotDrawWithJackpotAndBreakDown($date)
+            ->withResult($line)->build();
+        $bet = BetMother::aSingleBet($playConfig, $draw);
+        $bet->setPrize(new \Money\Money(10000, new \Money\Currency('EUR')));
+
+        $I->haveInDatabase('users',$user->toArray());
+        $I->haveInDatabase('euromillions_draws', $draw->toArray());
+        $I->haveInDatabase('play_configs', $playConfig->toArray());
+        $I->haveInDatabase('bets', $bet->toArray());
+        $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php result start EuroJackpot 2020-01-01');
         $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes listen');
         $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes award');
         $I->canSeeInDatabase('transactions',['entity_type' => 'winnings_received']);

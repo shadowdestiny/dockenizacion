@@ -324,6 +324,11 @@ $(document).ready(function () {
       responsiveClass:true,
       responsive:{
         0:{
+              items: items > 1 ? 1 : items ,
+              nav:false,
+              loop:false
+        },
+        768:{
           items: items > 2 ? 2 : items ,
           nav:false,
           loop:false
@@ -517,7 +522,7 @@ $(document).ready(function () {
 
     $( "#sign-up-form" ).on('change', '#country', function() {
         $.ajax({
-            url:'https://restcountries.eu/rest/v2/name/'+$("#country option:selected").text()+'?fullText=true',
+            url:'https://restcountries.eu/rest/v2/name/'+$("#country option:selected").text(),
             type:'get',
             dataType:"json",
             success:function(json){
@@ -543,7 +548,7 @@ $(document).ready(function () {
             var parentHeight = $elem.parent().height();
             var origFontSize = parseInt($elem.data('original-font-size'));
             var origPosition = $elem.data('original-position');
-            var fontSize = origFontSize + 1;
+            var fontSize = origFontSize - 2;
             
             $elem.css('position', 'absolute');
             

@@ -13,15 +13,15 @@
         <div class="lottery--countdown countdownmega" style="">
             <div class="resizeme">
                 <div class="daymega unit" style="">
-                    <span class="val" style="">%-d{% if show_s_days == '1' %}D{% else %}D{% endif %}</span>
+                    <span class="val" style=""><b>%-d</b>{% if show_s_days == '1' %}D{% else %}D{% endif %}</span>
                 </div>
                 <div class="dotsmega"></div>
                 <div class="hourmega unit" style="">
-                    <span class="val" style="">%-HH</span>
+                    <span class="val" style=""><b>%-H</b>H</span>
                 </div>
                 <div class="dotsmega" style="">:</div>
                 <div class="minutemega unit" style="">
-                    <span class="val" style="">%-MM</span>
+                    <span class="val" style=""><b>%-M</b>M</span>
                 </div>
                 {% if show_s_days == '1' %}
                     <div class="dotsmega" style="">:</div>

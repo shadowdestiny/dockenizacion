@@ -1,4 +1,4 @@
-0,30 * * * *      echo Cron is alive > /proc/1/fd/1 2> /proc/1/fd/2
+0,30 * * * *    echo Cron is alive > /proc/1/fd/1 2> /proc/1/fd/2
 01 * * * 3,6    /usr/local/bin/php /var/www/apps/cli.php jackpot update > /proc/1/fd/1 2> /proc/1/fd/2
 08 * * * 4,7    /usr/local/bin/php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall > /proc/1/fd/1 2> /proc/1/fd/2
 07 * * * 3,6    /usr/local/bin/php /var/www/apps/megamillions/megamillions-cli.php jackpot updateNextDrawJackpotMegaMillions > /proc/1/fd/1 2> /proc/1/fd/2
@@ -21,12 +21,19 @@
 30 8 * * 3,6    /usr/local/bin/php /var/www/apps/megamillions/megamillions-cli.php bet placeMegaMillionsBets > /proc/1/fd/1 2> /proc/1/fd/2
 55 6 * * 3,6    /usr/local/bin/php /var/www/apps/cli.php check-automatic-purchase verify > /proc/1/fd/1 2> /proc/1/fd/2
 
-# Clear cache
-30 0 * * *     /usr/local/bin/php /var/www/apps/cli.php clear-cache clear > /proc/1/fd/1 2> /proc/1/fd/2
+# EuroJackpot
+10 1 * * 6      /usr/local/bin/php /var/www/apps/eurojackpot/eurojackpot-cli.php jackpot updateNextDrawJackpotEuroJackpot > /proc/1/fd/1 2> /proc/1/fd/2
+30 1 * * 6      /usr/local/bin/php /var/www/apps/eurojackpot/eurojackpot-cli.php result updateEuroJackpotResult > /proc/1/fd/1 2> /proc/1/fd/2
+50 1 * * 6      /usr/local/bin/php /var/www/apps/eurojackpot/eurojackpot-cli.php bet placeEuroJackpotBets > /proc/1/fd/1 2> /proc/1/fd/2
+30 2 * * 6      /usr/local/bin/php /var/www/apps/shared/shared-cli.php Play-config updateLottery now EuroJackpot > /proc/1/fd/1 2> /proc/1/fd/2
+40 1 * * 6      /usr/local/bin/php /var/www/apps/cli.php result start EuroJackpot > /proc/1/fd/1 2> /proc/1/fd/2
 
-###### TODO:
-# Disabled for now.....
-#   57 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/pullFromEMDB.sql
-#   58 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/analysisQueries.sql
-#   59 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/Archive.sql
-###### ###### ###### ###### ###### ######
+# Clear cache
+30 0 * * *      /usr/local/bin/php /var/www/apps/cli.php clear-cache clear > /proc/1/fd/1 2> /proc/1/fd/2
+
+# Database dumps
+15 8,20 * * *   if [ $EM_ENV != "production" ]; then /usr/local/bin/php /var/www/apps/shared/shared-cli.php dump-translations > /proc/1/fd/1 2> /proc/1/fd/2; fi
+
+# Restart PHP listeners
+05 13 * * 1,3   /usr/bin/supervisorctl restart php_award
+10 13 * * 1,3   /usr/bin/supervisorctl restart php_listen

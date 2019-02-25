@@ -108,4 +108,12 @@ Sources SCSS files for the new template are here:
 src/compass_web/sass/
 
 
+### Compile all SASS files
 
+On the root of the project you can run:
+
+```
+docker run --rm -v $(pwd)/src:/src antonienko/compass-watch compile --force /src/compass_web
+```
+
+This will compile all .scss files on /src/compass_web

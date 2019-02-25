@@ -46,7 +46,7 @@ COPY devOps/docker/php/cron/php.ini $PHP_INI_DIR/php.ini
 COPY devOps/docker/php/cron/entrypoint.sh /entrypoint.sh
 COPY devOps/docker/php/cron/euromillions.crons /etc/cron.d/euromillions.crons
 
-RUN apt-get update && apt-get install -y cron supervisor \
+RUN apt-get update && apt-get install -y cron supervisor mysql-client gzip \
     && chmod -v +x /entrypoint.sh \
     && crontab /etc/cron.d/euromillions.crons \
     && rm -rf /var/lib/apt/lists/* \
@@ -81,6 +81,8 @@ VOLUME /var/www
 
 FROM common-tasks-onbuild as staging
 
+ARG EM_ENVIRONMENT=staging
+
 # set php.ini
 COPY devOps/docker/php/php-staging/php.ini $PHP_INI_DIR/php.ini
 
@@ -89,6 +91,7 @@ COPY devOps/docker/php/php-staging/php-fpm.d/www.conf $PHP_INI_DIR/../php-fpm.d/
 
 # set post-deploy script
 COPY devOps/docker/php/php-staging/post-deploy.sh /post-deploy.sh
-RUN chmod 700 /post-deploy.sh
+RUN sed -i s/__EM_ENVIRONMENT__/$EM_ENVIRONMENT/g /post-deploy.sh \
+    && chmod 700 /post-deploy.sh
 
 VOLUME /var/www

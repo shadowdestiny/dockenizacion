@@ -137,4 +137,10 @@ class DateTimeUtil
         return $date;
     }
 
+    public static function convertISODateToTimestamp($fromISOStringDate)
+    {
+        $datetime = new \DateTime($fromISOStringDate);
+        return $datetime->getTimestamp();
+    }
+
 }

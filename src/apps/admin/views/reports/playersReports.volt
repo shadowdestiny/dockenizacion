@@ -289,6 +289,13 @@
                                         <td>
                                             <input type="checkbox" name="check_amountWithdraw" value="Y" />
                                         </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            Affiliate ID
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" name="check_affiliate" value="Y" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>
