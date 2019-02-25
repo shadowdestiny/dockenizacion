@@ -4,7 +4,6 @@ namespace EuroMillions\web\entities;
 use EuroMillions\eurojackpot\vo\EuroJackpotDrawBreakDown;
 use EuroMillions\eurojackpot\vo\MegaSenaDrawBreakDown;
 use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
-use EuroMillions\megasena\vo\MegaSenaLine;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
@@ -118,14 +117,8 @@ class EuroMillionsDraw extends EntityBase implements IEntity
         foreach ($luckyNumbers as $number) {
             $lucky_numbers[] = new EuroMillionsLuckyNumber((int) $number);
         }
-        if($this->lottery->isMegaSena())
-        {
-            $this->result = new MegaSenaLine($regular_numbers);
-        }
-        else
-        {
-            $this->result = new EuroMillionsLine($regular_numbers, $lucky_numbers);
-        }
+
+        $this->result = new EuroMillionsLine($regular_numbers, $lucky_numbers);
 
     }
 
