@@ -52,7 +52,7 @@ services:
       em_container_service: php
       em_service: euromillions-web
     mem_reservation: 268435456 #256MB
-    mem_limit: 2147483648 #2048MB
+    mem_limit: 6442450944 #6144MB
     environment:
       EM_ENV: ${EM_ENV}
       AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
