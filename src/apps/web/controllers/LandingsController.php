@@ -31,7 +31,7 @@ class LandingsController extends PublicSiteControllerBase
         $errors = [];
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
-        $url_redirect = ($this->router->getParams()['language']=='en'?'/':'/'.$this->router->getParams()['language'].'/')."landings/".$this->router->getParams()['lottery'].'/form';
+        $url_redirect = ($this->router->getParams()['language']=='en'?'/':'/'.$this->router->getParams()['language'].'/')."landings/".$this->router->getParams()['lottery'].'/form?a_aid='.$this->request->getQuery('a_aid', null, '');
 
         if ($this->request->isPost()) {
             $credentials = [
@@ -43,7 +43,8 @@ class LandingsController extends PublicSiteControllerBase
                 'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 'default_language' => explode('_', $this->languageService->getLocale())[0],
                 'phone_number' => $this->request->getPost('prefix')."-".$this->request->getPost('phone'),
-                'birth_date' => $this->request->getPost('year').'-'.$this->request->getPost('month').'-'.$this->request->getPost('day')
+                'birth_date' => $this->request->getPost('year').'-'.$this->request->getPost('month').'-'.$this->request->getPost('day'),
+                'affiliate' => $this->request->getQuery('a_aid')
             ];
 
             if ($sign_up_form->isValid($this->request->getPost()) === false || checkdate($this->request->getPost('month'), $this->request->getPost('day'), $this->request->getPost('year'))===false) {

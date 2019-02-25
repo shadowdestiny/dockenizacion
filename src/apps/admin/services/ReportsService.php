@@ -741,6 +741,9 @@ class ReportsService
                 case "acceptingEmails":
                     //Pasamos array con accepting emails de todos los usuarios a la vista
                     break;
+                case "affiliate";
+                    $selectPlayersReports .= ' u.affiliate as affiliate,';
+                    break;
             }
         }
 

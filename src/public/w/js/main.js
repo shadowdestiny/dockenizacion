@@ -522,7 +522,7 @@ $(document).ready(function () {
 
     $( "#sign-up-form" ).on('change', '#country', function() {
         $.ajax({
-            url:'https://restcountries.eu/rest/v2/name/'+$("#country option:selected").text()+'?fullText=true',
+            url:'https://restcountries.eu/rest/v2/name/'+$("#country option:selected").text(),
             type:'get',
             dataType:"json",
             success:function(json){
