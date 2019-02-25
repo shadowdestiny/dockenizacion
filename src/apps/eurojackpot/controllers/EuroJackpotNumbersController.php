@@ -64,7 +64,7 @@ final class EuroJackpotNumbersController extends PublicSiteControllerBase
         $euroJackpotDraw = $draw_result->getValues();
 
         
-        $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroJackpotDraw->getBreakDown());
+        $breakDownDTO = new EuroJackpotDrawBreakDownDTO($euroJackpotDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
         $this->tag->prependTitle($this->languageService->translate('results_euro_name '));
@@ -174,7 +174,7 @@ final class EuroJackpotNumbersController extends PublicSiteControllerBase
         $euroJackpotDraw = $draw_result->getValues();
 
         
-        $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroJackpotDraw->getBreakDown());
+        $breakDownDTO = new EuroJackpotDrawBreakDownDTO($euroJackpotDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
         $this->tag->prependTitle($this->languageService->translate('resultsdate_euro_name'));
