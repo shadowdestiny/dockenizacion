@@ -1,4 +1,4 @@
-<div class="result-page--content--previous-result eurojackpot-previous-results">
+<div class="result-page--content--previous-result megasena-previous-results">
     {#<div class="banner"></div>#}
     <div class="wrapper">
         <br>
@@ -6,7 +6,7 @@
 
             <div class="past-header">
                 <h1 class="h1 title">
-                    Eurojackpot draw history
+                    Megasena draw history
                 </h1>
                 <h2 class="h2 purple">All the lottery results history</h2>
             </div>
@@ -97,10 +97,10 @@
                 <div class="history-numbers-block">
 
                     <table id="history-numbers" class="ui-responsive table2 ui-table ui-table-reflow" data-role="table" data-mode="reflow" style="">
-                        <thead class="thead--eurojackpot">
+                        <thead class="thead--megasena">
                         <tr class="tr--desktop">
                             <th class="td-date" data-colstart="1"><span class="ico-date"></span>Date</th>
-                            <th class="td-ball-numbers--lottery eurojackpot--lottery-balls" data-colstart="2"><span class="ico-ball"></span>Lottery balls</th>
+                            <th class="td-ball-numbers--lottery megasena--lottery-balls" data-colstart="2"><span class="ico-ball"></span>Lottery balls</th>
                             <th class="td-ball-suns" data-colstart="3">
                                 <span class="ico-sun"></span>
                                 Suns

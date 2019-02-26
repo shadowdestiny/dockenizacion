@@ -21,7 +21,7 @@
     function recalculateDrawDates() {
         $.ajax({
             type: "POST",
-            url: '/ajax/date-results/getEuroJackpotDrawDaysByDate/',
+            url: '/ajax/date-results/getMegaSenaDrawDaysByDate/',
             data: {
                 month: $('#month option:selected').val(),
                 year: $('#year option:selected').val()
@@ -45,7 +45,7 @@
         recalculateDrawDates();
     });
 
-    $('#show-eurojackpot-results').click(function(){
+    $('#show-megasena-results').click(function(){
         var date = new Date($('#day').val().substr(-10,10));
         var actualDate = new Date();
         if (actualDate < date) {
@@ -82,7 +82,7 @@
 {% endblock %}
 {% block body %}
     <main id="content">
-        <div class="result-page--content">
+        <div class="common--result-page--content megasena--result-page--content">
 
             <div class="banner">
                 <div class="top-banner--section">
@@ -188,11 +188,11 @@
                             </table>
 
                             <div class="previous-results--common-row">
-                                {% include "_elements/previous-results-eurojackpot.volt" %}
+                                {% include "_elements/previous-results-megasena.volt" %}
 
                                 <div class="previous-results--btn">
 
-                                    <a href="/eurojackpot/results" class="btn-theme--big">
+                                    <a href="/megasena/results" class="btn-theme--big">
                                         <span class="resizeme">
                                             {{ language.translate("resultsdate_btn") }}
                                         </span>

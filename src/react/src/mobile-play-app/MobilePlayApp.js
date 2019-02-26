@@ -17,6 +17,7 @@ import {
   GAME_MODE_EUROMILLIONS,
   GAME_MODE_MEGAMILLIONS,
   GAME_MODE_EUROJACKPOT,
+  GAME_MODE_MEGASENA,
 } from './constants'
 
 /**
@@ -28,7 +29,7 @@ export default class MobilePlayApp extends Component {
     /**
      * game mode. Two game modes supported which have minor differences between each other
      */
-    mode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS, GAME_MODE_MEGAMILLIONS, GAME_MODE_EUROJACKPOT]),
+    mode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS, GAME_MODE_MEGAMILLIONS, GAME_MODE_EUROJACKPOT, GAME_MODE_MEGASENA]),
     /**
      * formatted Date/time of next draw
      */
@@ -102,6 +103,7 @@ export default class MobilePlayApp extends Component {
       [GAME_MODE_EUROMILLIONS] : 'bet_line',
       [GAME_MODE_MEGAMILLIONS] : 'mm_bet_line',
       [GAME_MODE_EUROJACKPOT] : 'ej_bet_line',
+      [GAME_MODE_MEGASENA] : 'ms_bet_line',
     }
     return storageKeys[this.props.mode]
   }

@@ -1,6 +1,6 @@
 <div class="previous-results">
     <div class="previous-results--title">
-        {{ language.translate("EuroJackpot past numbers") }}
+        {{ language.translate("MegaSena past numbers") }}
     </div>
     <form action="" class="previous-results--selectboxes">
         <div class="selectbox">
@@ -29,7 +29,7 @@
 
         <div class="previous-results--button">
             <div class="btn-theme--big resizeme">
-                <input type="button" value="{{ language.translate("PastResults_btn") }}" id="show-eurojackpot-results" class="ui-link" />
+                <input type="button" value="{{ language.translate("PastResults_btn") }}" id="show-megasena-results" class="ui-link" />
             </div>
 
         </div>

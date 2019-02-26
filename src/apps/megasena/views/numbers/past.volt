@@ -107,7 +107,7 @@
                                 <tbody>
                                 {% for draw in list_draws %}
                                     <tr class="more" style="cursor: pointer"
-                                        onclick="document.location='/eurojackpot/results/draw-history/{{ draw.drawDateParam }}'">
+                                        onclick="document.location='/megasena/results/draw-history/{{ draw.drawDateParam }}'">
                                         <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
                                         <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
                                         <td class="td-powerball">{{ draw.luckyNumbers }}</td>

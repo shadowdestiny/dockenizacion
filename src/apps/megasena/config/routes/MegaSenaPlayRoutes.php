@@ -34,14 +34,14 @@ class MegaSenaPlayRoutes extends RouterGroup
         $this->add( '/cart/profile', [
             "module" => "megasena",
             'lottery' => "megasena",
-            'controller' => 'mega-millions-cart',
+            'controller' => 'mega-sena-cart',
             'action' => 'profile'
         ]);
 
         $this->add('/order', [
             "module" => "megasena",
             'lottery' => 'megasena',
-            'controller' => 'mega-millions-order',
+            'controller' => 'mega-sena-order',
             'action' => 'order'
         ]);
     }
