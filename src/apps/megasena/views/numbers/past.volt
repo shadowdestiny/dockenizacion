@@ -72,7 +72,7 @@
                             {% if mobile == 1 %}
                                 {{ language.translate("resultshist_pow_mobile_h1") }}
                             {% else %}
-                                {{ language.translate("EURO JACKPOT HISTORY: ALL PAST RESULTS") }}
+                                {{ language.translate("MEGA SENA HISTORY: ALL PAST RESULTS") }}
                             {% endif %}
                         </h1>
                         <div class="history-numbers-block">
@@ -97,20 +97,15 @@
                                         <th class="td-date"><span class="ico-date"></span>{{ language.translate("pastNumbers_date") }}</th>
                                         <th class="td-ball-numbers--lottery megamillions--lottery-balls"><span
                                                     class="ico-ball"></span>{{ language.translate("resultshist_pow_numbers") }}</th>
-                                        <th class="td-powerball megamillions--megaball">
-                                            <span class="ico-ball"></span>
-                                                {{ language.translate("Lucky Numbers") }}
-                                        </th>
                                     </tr>
                                     </thead>
                                 {% endif %}
                                 <tbody>
                                 {% for draw in list_draws %}
                                     <tr class="more" style="cursor: pointer"
-                                        onclick="document.location='/eurojackpot/results/draw-history/{{ draw.drawDateParam }}'">
+                                        onclick="document.location='/megasena/results/draw-history/{{ draw.drawDateParam }}'">
                                         <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
-                                        <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
-                                        <td class="td-powerball">{{ draw.luckyNumbers }}</td>
+                                        <td class="td-ball-numbers">{{ draw.resultNumbers }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

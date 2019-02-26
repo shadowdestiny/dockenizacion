@@ -5,7 +5,7 @@
     <style>.laurel {
         display: none;
     }</style><![endif]-->
-    <link Rel="Canonical" href="{{ language.translate('canonical_powerball_results') }}"/>
+    <link Rel="Canonical" href="{{ language.translate('canonical_megasena_results') }}"/>
 {% endblock %}
 {% block bodyClass %}
     numbers
@@ -310,7 +310,7 @@
 
                                 <div class="previous-results--btn">
 
-                                    <a href="/megamillions/results/draw-history" class="btn-theme--big">
+                                    <a href="/megasena/results/draw-history" class="btn-theme--big">
                                         <span class="resizeme">
                                             {{ language.translate("powhistory_btn") }}
                                         </span>

@@ -16,8 +16,7 @@ use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\repositories\TranslationDetailRepository;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
-use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
-use EuroMillions\MegaSena\vo\dto\EuroJackpotDrawBreakDownDTO;
+use EuroMillions\megasena\vo\dto\MegaSenaDrawBreakDownDTO;
 use EuroMillions\shared\controllers\PublicSiteControllerBase;
 use Money\Currency;
 use Money\Money;
@@ -64,17 +63,23 @@ final class MegaSenaNumbersController extends PublicSiteControllerBase
         $MegaSenaDraw = $draw_result->getValues();
 
         
-        $breakDownDTO = new EuroMillionsDrawBreakDownDTO($MegaSenaDraw->getBreakDown());
+        $breakDownDTO = new MegaSenaDrawBreakDownDTO($MegaSenaDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
+        $break_down_list['category_one']['name'] = 'match-6';
+        $break_down_list['category_one']['numbers_corrected'] = 6;
+        $break_down_list['category_one']['stars_corrected'] = 0;
 
-        $this->tag->prependTitle($this->languageService->translate('resultsdate_em_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));
-        MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_em_desc'));
+        $this->tag->prependTitle($this->languageService->translate('resultsdate_ms_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));
+        MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_ms_desc'));
+
+        $regularNumbers = $MegaSenaDraw->getResult()->getRegularNumbersArray();
+        $regularNumbers[] = $MegaSenaDraw->getResult()->getLuckyNumbersArray()[1];
 
         $this->view->pick('/numbers/past-draw');
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $MegaSenaDraw->getId(),
-            'last_result' => ['regular_numbers' => $MegaSenaDraw->getResult()->getRegularNumbersArray(), 'lucky_numbers' => $MegaSenaDraw->getResult()->getLuckyNumbersArray()],
+            'last_result' => ['regular_numbers' => $regularNumbers],
             'last_draw_date' => $MegaSenaDraw->getDrawDate()->format('D, d M Y'),
             'date_canonical' => $MegaSenaDraw->getDrawDate()->format('Y-m-d'),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('MegaSena')->modify('-1 hours')->format('Y-m-d H:i:s'),
@@ -118,8 +123,8 @@ final class MegaSenaNumbersController extends PublicSiteControllerBase
             $this->view->setVar('trillions', false);
         }
         $this->view->setVar('language', $this->languageService->getLocale());
-        $this->tag->prependTitle($this->languageService->translate('resultshist_pow_name'));
-        MetaDescriptionTag::setDescription($this->languageService->translate('resultshist_pow_desc'));
+        $this->tag->prependTitle($this->languageService->translate('resultshist_ms_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('resultshist_ms_desc'));
 
         $this->view->pick('numbers/past');
 
@@ -173,19 +178,23 @@ final class MegaSenaNumbersController extends PublicSiteControllerBase
         
         /** @var MegaSenaDraw $MegaSenaDraw */
         $MegaSenaDraw = $draw_result->getValues();
-
+        $regularNumbers = $MegaSenaDraw->getResult()->getRegularNumbersArray();
+        $regularNumbers[] = $MegaSenaDraw->getResult()->getLuckyNumbersArray()[1];
         
-        $breakDownDTO = new EuroMillionsDrawBreakDownDTO($MegaSenaDraw->getBreakDown());
+        $breakDownDTO = new MegaSenaDrawBreakDownDTO($MegaSenaDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
+        $break_down_list['category_one']['name'] = 'match-6';
+        $break_down_list['category_one']['numbers_corrected'] = 6;
+        $break_down_list['category_one']['stars_corrected'] = 0;
 
-        $this->tag->prependTitle($this->languageService->translate('resultsdate_em_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));
-        MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_em_desc'));
+        $this->tag->prependTitle($this->languageService->translate('resultsdate_ms_name') . $this->languageService->translate($date->format('l')) . ', ' . $date->format($this->languageService->translate('dateformat')));
+        MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_ms_desc'));
 
         $this->view->pick('/numbers/past-draw');
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $MegaSenaDraw->getId(),
-            'last_result' => ['regular_numbers' => $MegaSenaDraw->getResult()->getRegularNumbersArray(), 'lucky_numbers' => $MegaSenaDraw->getResult()->getLuckyNumbersArray()],
+            'last_result' => ['regular_numbers' => $regularNumbers],
             'last_draw_date' => $MegaSenaDraw->getDrawDate()->format('D, d M Y'),
             'date_canonical' => $MegaSenaDraw->getDrawDate()->format('Y-m-d'),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('MegaSena')->modify('-1 hours')->format('Y-m-d H:i:s'),
@@ -205,7 +214,7 @@ final class MegaSenaNumbersController extends PublicSiteControllerBase
         $user_currency = $this->userPreferencesService->getCurrency();
         if (!empty($break_downs)) {
             foreach ($break_downs as &$breakDown) {
-                $breakDown['MegaSenaPrize'] = $this->currencyConversionService->convert(new Money((int)$breakDown['MegaSenaPrize'], new Currency('EUR')), $user_currency)->getAmount() / 10000;
+                $breakDown['MegaSenaPrize'] = $this->currencyConversionService->convert(new Money((int)$breakDown['lottery_prize'], new Currency('EUR')), $user_currency)->getAmount() / 10000;
             }
         }
         return $break_downs;

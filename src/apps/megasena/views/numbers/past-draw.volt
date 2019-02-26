@@ -21,7 +21,7 @@
     function recalculateDrawDates() {
         $.ajax({
             type: "POST",
-            url: '/ajax/date-results/getEuroJackpotDrawDaysByDate/',
+            url: '/ajax/date-results/getMegaSenaDrawDaysByDate/',
             data: {
                 month: $('#month option:selected').val(),
                 year: $('#year option:selected').val()
@@ -45,7 +45,7 @@
         recalculateDrawDates();
     });
 
-    $('#show-eurojackpot-results').click(function(){
+    $('#show-megasena-results').click(function(){
         var date = new Date($('#day').val().substr(-10,10));
         var actualDate = new Date();
         if (actualDate < date) {
@@ -123,11 +123,6 @@
                                 </li>
                             {% endif %}
                         {% endfor %}
-                        {% for lucky_number in last_result["lucky_numbers"] %}
-                            <li class="star">
-                                <span class="num">{{ lucky_number }}</span>
-                            </li>
-                        {% endfor %}
                     </ul>
 
                     <span class="desktop--only">
@@ -168,7 +163,7 @@
                                             <td class="td-ball">
                                                 <span>
                                                 {#TODO : Add real variables here#}
-                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("prizePool_ball") }} + {{ break_downs[name]['stars_corrected'] }} {{ language.translate("prizePool_star") }}
+                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("prizePool_ball") }}
                                                 </span>
                                             </td>
                                             <td class="td-winners">
@@ -188,11 +183,11 @@
                             </table>
 
                             <div class="previous-results--common-row">
-                                {% include "_elements/previous-results-eurojackpot.volt" %}
+                                {% include "_elements/previous-results-megasena.volt" %}
 
                                 <div class="previous-results--btn">
 
-                                    <a href="/eurojackpot/results" class="btn-theme--big">
+                                    <a href="/megasena/results" class="btn-theme--big">
                                         <span class="resizeme">
                                             {{ language.translate("resultsdate_btn") }}
                                         </span>
