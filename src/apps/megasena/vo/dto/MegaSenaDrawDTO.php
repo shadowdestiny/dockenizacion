@@ -6,7 +6,7 @@
  * Time: 11:34
  */
 
-namespace EuroMillions\eurojackpot\vo\dto;
+namespace EuroMillions\megasena\vo\dto;
 
 
 use EuroMillions\web\components\EmTranslationAdapter;
@@ -14,11 +14,11 @@ use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
 
-class EuroJackpotDrawDTO extends DTOBase implements IDto
+class MegaSenaDrawDTO extends DTOBase implements IDto
 {
 
-    /** @var euroJackpotDrawBreakDownDTO $euroJackpotDrawBreakDownDTO */
-    public $euroJackpotDrawBreakDownDTO;
+    /** @var MegaSenaDrawBreakDownDTO $megaSenaDrawBreakDownDTO */
+    public $megaSenaDrawBreakDownDTO;
 
     public $resultNumbers;
 
@@ -49,12 +49,12 @@ class EuroJackpotDrawDTO extends DTOBase implements IDto
 
     public function exChangeObject()
     {
-        $this->resultNumbers = $this->euromillionsDraw->getResult()->getRegularNumbers();
         $this->luckyNumber = str_replace('0,','',$this->euromillionsDraw->getResult()->getLuckyNumbers());
+        $this->resultNumbers = $this->euromillionsDraw->getResult()->getRegularNumbers().','.$this->luckyNumber;
         $date = $this->euromillionsDraw->getDrawDate();
         $this->drawDate = $this->emTranslationAdapter->query($date->format('l'));
         $this->drawDateTranslate = $date->format($this->emTranslationAdapter->query('dateformat'));
         $this->drawDateParam = $date->format('Y-m-d');
-        $this->euroJackpotDrawBreakDownDTO = new EuroJackpotDrawBreakDownDTO($this->euromillionsDraw->getBreakDown());
+        $this->megaSenaDrawBreakDownDTO = new MegaSenaDrawBreakDownDTO($this->euromillionsDraw->getBreakDown());
     }
 }

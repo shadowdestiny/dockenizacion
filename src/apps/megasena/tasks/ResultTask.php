@@ -1,5 +1,5 @@
 <?php
-namespace EuroMillions\eurojackpot\tasks;
+namespace EuroMillions\megasena\tasks;
 
 
 use EuroMillions\web\services\CurrencyService;
