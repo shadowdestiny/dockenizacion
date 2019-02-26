@@ -45,11 +45,11 @@ class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     {
         $actual = $this->sut->getMonthlySales();
         $expected = [
-            'month' => 'November',
-            'total_bets' => '1',
-            'gross_sales' => '3.00',
-            'gross_margin' => '0.50',
-            'winnings' => '0',
+            'month' => 'October',
+            'total_bets' => '2',
+            'gross_sales' => '6.00',
+            'gross_margin' => '1.00',
+            'winnings' => null,
         ];
 
         $this->assertEquals($expected, $actual[3]);
