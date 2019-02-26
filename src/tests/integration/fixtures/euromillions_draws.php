@@ -187,6 +187,20 @@ return [
             'result_lucky_number_one' => 1,
             'result_lucky_number_two' => 8,
         ],
+        [
+            'id' => 15,
+            'draw_date' => '2019-02-08',
+            'jackpot_amount' => 2001,
+            'lottery_id' => 5,
+            'jackpot_currency_name' => 'EUR',
+            'result_regular_number_one' => 11,
+            'result_regular_number_two' => 20,
+            'result_regular_number_three' => 22,
+            'result_regular_number_four' => 29,
+            'result_regular_number_five' => 32,
+            'result_lucky_number_one' => 1,
+            'result_lucky_number_two' => 8,
+        ],
 
     ]
 ];

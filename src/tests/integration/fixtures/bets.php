@@ -57,6 +57,16 @@ return [
             'euromillions_draw_id' => 9,
             'castillo_bet_id' => 1234567890
         ],
+        [
+            'id' => 7,
+            'playConfig_id' => 16,
+            'match_numbers' => '11,12',
+            'match_stars' => '1',
+            'prize_amount' => '2000',
+            'prize_currency_name' => 'EUR',
+            'euromillions_draw_id' => 15,
+            'castillo_bet_id' => 1234567890
+        ],
 
     ]
 ];
