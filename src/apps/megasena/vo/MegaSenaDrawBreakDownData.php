@@ -7,6 +7,7 @@
  */
 
 namespace EuroMillions\megasena\vo;
+
 use EuroMillions\web\vo\EuroMillionsDrawBreakDownData;
 
 class MegaSenaDrawBreakDownData extends EuroMillionsDrawBreakDownData

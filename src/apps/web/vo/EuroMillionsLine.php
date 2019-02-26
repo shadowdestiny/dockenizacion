@@ -11,8 +11,8 @@ class EuroMillionsLine implements IArraySerializable
     const NUM_REGULAR_NUMBERS = 5;
     const NUM_LUCKY_NUMBERS = 2;
 
-    protected $regular_numbers;
-    protected $lucky_numbers;
+    private $regular_numbers;
+    private $lucky_numbers;
 
     protected $regular_number_one;
     protected $regular_number_two;

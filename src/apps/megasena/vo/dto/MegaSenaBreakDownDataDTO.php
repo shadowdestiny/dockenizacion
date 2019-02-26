@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: lmarin
- * Date: 26/02/19
- * Time: 13:26
+ * User: rmrbest
+ * Date: 18/06/18
+ * Time: 11:36
  */
 
 namespace EuroMillions\megasena\vo\dto;
@@ -14,21 +14,23 @@ class MegaSenaBreakDownDataDTO
 
     public $name;
 
-    public $megaSenaPrize;
+    public $lottery_prize;
 
-    public $winnersMegaSena;
+    public $winners;
 
-    public $showMegaSena;
+    public $numbers_corrected;
+
+    public $stars_corrected;
 
 
     public function __construct(array $data)
     {
         $this->name = $data['name'];
-        $this->megaSenaPrize = $data['megaSenaPrize'];
-        $this->winnersMegaSena = $data['winnersMegaSena'];
-        $this->showMegaSena = $data['showMegaSena'];
+        $this->lottery_prize = $data['lottery_prize'];
+        $this->winners = $data['winners'];
+        $this->numbers_corrected = $data['numbers_corrected'];
+        $this->stars_corrected = $data['stars_corrected'];
     }
-
 
     /**
      * @return mixed
@@ -49,32 +51,64 @@ class MegaSenaBreakDownDataDTO
     /**
      * @return mixed
      */
-    public function getMegaSenaPrize()
+    public function getLotteryPrize()
     {
-        return $this->megaSenaPrize;
+        return $this->lottery_prize;
     }
 
     /**
-     * @param mixed $megaSenaPrize
+     * @param mixed $lottery_prize
      */
-    public function setMegaSenaPrize($megaSenaPrize)
+    public function setLotteryPrize($lottery_prize)
     {
-        $this->megaSenaPrize = $megaSenaPrize;
+        $this->lottery_prize = $lottery_prize;
     }
 
     /**
      * @return mixed
      */
-    public function getWinnersMegaSena()
+    public function getWinners()
     {
-        return $this->winnersMegaSena;
+        return $this->winners;
     }
 
     /**
-     * @param mixed $winnersMegaSena
+     * @param mixed $winners
      */
-    public function setWinnersMegaSena($winnersMegaSena)
+    public function setWinners($winners)
     {
-        $this->winnersMegaSena = $winnersMegaSena;
+        $this->winners = $winners;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStarsCorrected()
+    {
+        return $this->stars_corrected;
+    }
+
+    /**
+     * @param mixed $stars_corrected
+     */
+    public function setStarsCorrected($stars_corrected)
+    {
+        $this->stars_corrected = $stars_corrected;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumbersCorrected()
+    {
+        return $this->numbers_corrected;
+    }
+
+    /**
+     * @param mixed $numbers_corrected
+     */
+    public function setNumbersCorrected($numbers_corrected)
+    {
+        $this->numbers_corrected = $numbers_corrected;
     }
 }
