@@ -6,7 +6,7 @@
  * Time: 02:23 PM
  */
 
-namespace EuroMillions\eurojackpot\vo;
+namespace EuroMillions\megasena\vo;
 
 use EuroMillions\web\services\CurrencyConversionService;
 use Money\Currency;
@@ -62,7 +62,7 @@ class MegaSenaDrawBreakDown extends EuroMillionsDrawBreakDown
         $mappingArray = [
             'match-4' => 'setCategoryThree',
             'match-5' => 'setCategoryTwo',
-            'match-6' => 'setCategoryOne'
+            'match-5-1' => 'setCategoryOne'
         ];
 
         return $mappingArray[$key];

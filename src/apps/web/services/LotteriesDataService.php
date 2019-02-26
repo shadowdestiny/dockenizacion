@@ -399,7 +399,7 @@ class LotteriesDataService
                 $draw->createResult($numbers['main'], [0, $numbers['powerball']] );
                 break;
             case 'MegaSena':
-                $draw->createResult($numbers['main'], [0, 0] );
+                $draw->createResult($numbers['main'], $numbers['sena']);
                 break;
         }
         return $draw;

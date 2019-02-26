@@ -81,15 +81,7 @@ class PlayConfig extends EntityBase implements IEntity, IEMForm, \JsonSerializab
                 foreach ($lucky as $number) {
                     $lucky_numbers[] = new EuroMillionsLuckyNumber((int)$number);
                 }
-                if($this->getLottery()->isMegaSena())
-                {
-                    $euroMillionsLine = new MegaSenaLine($regular_numbers);
-                }
-                else
-                {
-                    $euroMillionsLine = new EuroMillionsLine($regular_numbers, $lucky_numbers);
-                }
-
+                $euroMillionsLine = new EuroMillionsLine($regular_numbers, $lucky_numbers);
             }
 
             $this->setLine($euroMillionsLine);

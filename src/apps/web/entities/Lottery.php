@@ -149,7 +149,7 @@ class Lottery extends EntityBase implements IEntity
 
     public function isNotMegaSena()
     {
-        return !$this->isMegasena();
+        return !$this->isMegaSena();
     }
 
     /**

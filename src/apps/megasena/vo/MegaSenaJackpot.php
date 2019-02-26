@@ -1,7 +1,7 @@
 <?php
 
 
-namespace EuroMillions\eurojackpot\vo;
+namespace EuroMillions\megasena\vo;
 use EuroMillions\web\vo\PowerBallJackpot;
 
 class MegaSenaJackpot extends PowerBallJackpot
