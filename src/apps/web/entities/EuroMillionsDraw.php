@@ -4,7 +4,6 @@ namespace EuroMillions\web\entities;
 use EuroMillions\eurojackpot\vo\EuroJackpotDrawBreakDown;
 use EuroMillions\megasena\vo\MegaSenaDrawBreakDown;
 use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
-use EuroMillions\megasena\vo\MegaSenaLine;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;

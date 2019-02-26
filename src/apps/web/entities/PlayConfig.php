@@ -5,7 +5,6 @@ namespace EuroMillions\web\entities;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
-use EuroMillions\megasena\vo\MegaSenaLine;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\interfaces\IEMForm;
 use EuroMillions\web\vo\Discount;
