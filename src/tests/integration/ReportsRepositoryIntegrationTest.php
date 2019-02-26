@@ -98,4 +98,16 @@ class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $actual = $this->sut->getCustomersData();
         $this->assertEquals($expected,$actual[0]);
     }
+
+    /**
+     * method getPastGamesWithPrizes
+     * when called
+     * should returnArrayWithProperData
+     */
+    public function test_getPastGamesWithPrizes()
+    {
+        $actual = $this->sut->getPastGamesWithPrizes('9098299B-14AC-4124-8DB0-19571EDABE55');
+
+        $this->assertEquals('EuroJackpot',$actual[0][0]->getPlayConfig()->getLottery()->getName());
+    }
 }

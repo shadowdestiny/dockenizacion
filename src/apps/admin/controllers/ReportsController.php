@@ -124,7 +124,7 @@ class ReportsController extends AdminControllerBase
     {
         $user = $this->reportsService->getUserById($this->request->get('id'));
 
-        $myGamesActives = new UpcomingDrawsDTO($this->reportsService->getActivePlaysByUserId($user->getId()));
+        $myGamesActives = new UpcomingDrawsDTO($this->reportsService->getActivePlaysByUserId($user->getId()),1);
         $pageActives = (!empty($this->request->get('pageActives'))) ? $this->request->get('pageActives') : 1;
         $paginatorActives = $this->getPaginatorAsArray(!empty($myGamesActives->result) ? $myGamesActives->result : [], 4, $pageActives);
         $paginatorViewActives = (new PaginationWidgetAdmin($paginatorActives, $this->request->getQuery(), [], 'pageActives'))->render();
