@@ -29,17 +29,14 @@
                                 {{ lottery }}
                             </td>
                             <td class="numbers">
-                                <?php $regular_numbers= $upcoming->regular_numbers;
-                                      $lucky_numbers= $upcoming->lucky_numbers;
-                                 ?>
-                                {% for regular_number in  regular_numbers %}
+                                {% for regular_number in  upcoming.regular_numbers %}
                                     <span class="num">{{ regular_number }}</span>
                                 {% endfor %}
 
                                 {% if lottery === 'PowerBall' or lottery === 'MegaMillions'%}
-                                    <span class="num yellow">{{ lucky_numbers[1] }}</span>
+                                    <span class="num yellow">{{ upcoming.lucky_numbers[1] }}</span>
                                 {% else %}
-                                    {% for lucky_number in lucky_numbers  %}
+                                    {% for lucky_number in upcoming.lucky_numbers  %}
                                         <span class="num yellow">{{ lucky_number }}</span>
                                     {% endfor %}
                                 {% endif %}
