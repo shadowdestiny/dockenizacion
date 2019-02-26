@@ -68,6 +68,15 @@ class MegaSenaDrawBreakDown extends EuroMillionsDrawBreakDown
         return $mappingArray[$key];
     }
 
+    private function structureOfCombinations()
+    {
+        return [
+            51 => 'category_one',
+            50 => 'category_two',
+            40 => 'category_three',
+        ];
+    }
+
     protected function currencyConversion(Money $money)
     {
         try {
@@ -78,6 +87,22 @@ class MegaSenaDrawBreakDown extends EuroMillionsDrawBreakDown
         } catch (UnknownCurrencyException $e) {
             return null;
         }
+    }
+
+    public function toArray()
+    {
+        $categories = $this->structureOfCombinations();
+        $result = [];
+        foreach ($categories as $category) {
+            $method = 'get' . StringHelper::fromUnderscoreToCamelCase($category);
+            $data = $this->$method()->toArray();
+            $data_prefixed = [];
+            foreach ($data as $key => $value) {
+                $data_prefixed[$category . '_' . $key] = $value;
+            }
+            $result = array_merge($result, $data_prefixed);
+        }
+        return $result;
     }
 
 }

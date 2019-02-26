@@ -7,6 +7,7 @@ use Money\Money;
 use Money\Currency;
 use EuroMillions\web\vo\PowerBallDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\megasena\vo\MegaSenaDrawBreakDown;
 use EuroMillions\eurojackpot\vo\EuroJackpotDrawBreakDown;
 use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
 use EuroMillions\tests\helpers\builders\EurojackpotDrawBuilder;
@@ -126,6 +127,39 @@ class EuroMillionsDrawMother
         }
     }';
 
+    protected static $megaSenaJsonResult = '{
+        "currency": "EUR",
+        "date": "2020-02-26",
+        "jackpot": {
+            "rollover": 3,
+            "total": "38000000.00"
+        },
+        "numbers": {
+            "sena": [
+                0,
+                51
+            ],
+            "main": [
+                11,
+                16,
+                25,
+                31,
+                47
+            ]
+        },
+        "prizes": {
+            "match-4": "17.80",
+            "match-5": "257.80",
+            "match-5-1": "9874517.10"
+        },
+        "type": "megasena",
+        "winners": {
+            "match-4": 444,
+            "match-5": 31,
+            "match-5-1": 1
+        }
+    }';
+
     /**
      * @return EuroMillionsDrawBuilder
      */
@@ -199,6 +233,23 @@ class EuroMillionsDrawMother
         $line = EuroMillionsLineMother::anEuroJackpotLine();
         return EuroMillionsDrawBuilder::aDraw()
             ->withLottery(LotteryMother::anEuroJackpot())
+            ->withDrawDate($date)
+            ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
+    }
+
+    public static function aMegaSenaDrawWithJackpotAndBreakDown(\DateTime $date = null)
+    {
+        if($date == null) {
+            $date= new \DateTime('2020-01-01');
+        }
+
+        $jackpot = new Money(5000000000, new Currency('EUR'));
+
+        $breakDown =
+            new MegaSenaDrawBreakDown(json_decode(self::$megaSenaJsonResult, TRUE));
+        $line = EuroMillionsLineMother::aMegaSenaLine();
+        return EuroMillionsDrawBuilder::aDraw()
+            ->withLottery(LotteryMother::aMegaSena())
             ->withDrawDate($date)
             ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
