@@ -55,12 +55,6 @@
                     <div class="minuteeuro unit" style="color:black;">
                         <span class="val" style="color:black;">%-MM</span>
                     </div>
-                    {% if show_s_days == '1' %}
-                        <div class="dotseuro" style="color:black;">:</div>
-                        <div class="secondseuro unit" style="color:black;">
-                        <span class="val" style="color:black;">%-SS</span>
-                    </div>
-                    {% endif %}
                 </div>
                 <div class="btn-row" style="">
                     <a href="/{{ language.translate("link_euromillions_play") }}"
@@ -89,11 +83,6 @@
                     <div class="dotspower" style="color:black;">:</div>
                     <div class="minutepower unit" style="color:black;">
                         <span class="val" style="color:black;">%-MM</span>
-                    </div>
-                    {% if show_p_days == '1' %}
-                        <div class="dotspower" style="color:black;">:</div>
-                        <div class="secondspower unit" style="color:black;">
-                        <span class="val" style="color:black;">%-SS</span>
                     </div>
                     {% endif %}
                 </div>

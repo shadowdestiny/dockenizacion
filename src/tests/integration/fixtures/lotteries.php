@@ -33,6 +33,14 @@ return [
             'jackpot_api' => 'LottorisApi',
             'draw_time' => '09:00:00'
         ],
+        [
+            'id'   => 5,
+            'name' => 'EuroJackpot',
+            'active' => 1,
+            'frequency' => 'w0000100',
+            'jackpot_api' => 'LottorisApi',
+            'draw_time' => '20:00:00'
+        ],
 
   ]
 ];

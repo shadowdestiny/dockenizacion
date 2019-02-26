@@ -312,28 +312,24 @@ function isMobile(){
 
 //v2
 $(document).ready(function () {
-    
- const items = $(".lotteries--carousel").find(".lottery-carousel").length;
+
+ var lottery_carousel =  $(".lotteries--carousel");
+ const items = lottery_carousel.find(".lottery-carousel").length;
 
   // Homepage lotteries carousel
-  if ($('.lotteries--carousel').length) {
-    $('.lotteries--carousel').owlCarousel({
+  if (lottery_carousel.length) {
+      lottery_carousel.owlCarousel({
       items:1,
       dots: true,
       margin:10,
       responsiveClass:true,
       responsive:{
         0:{
-              items: items > 1 ? 1 : items ,
+              items: items > 2 ? 2 : items,
               nav:false,
               loop:false
         },
-        768:{
-          items: items > 2 ? 2 : items ,
-          nav:false,
-          loop:false
-        },
-        900:{
+        992:{
           items:items > 3 ? 3 : items,
           nav:true,
           loop:false
@@ -548,7 +544,7 @@ $(document).ready(function () {
             var parentHeight = $elem.parent().height();
             var origFontSize = parseInt($elem.data('original-font-size'));
             var origPosition = $elem.data('original-position');
-            var fontSize = origFontSize - 2;
+            var fontSize = origFontSize + 1;
             
             $elem.css('position', 'absolute');
             

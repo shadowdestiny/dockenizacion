@@ -243,7 +243,7 @@ class ReportsRepository implements IReports
             ->createQuery(
                 'SELECT b, p'
                 . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b INNER JOIN b.playConfig p '
-                . ' WHERE p.user = :user_id AND p.active = :active and p.frequency = 1 AND p.lottery IN (1,5) '
+                . ' WHERE p.user = :user_id AND p.active = :active and p.frequency = 1 AND p.lottery IN (1,3,4,5) '
                 . ' GROUP BY p.startDrawDate,p.line.regular_number_one,'
                 . ' p.line.regular_number_two,p.line.regular_number_three, '
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
@@ -270,7 +270,7 @@ class ReportsRepository implements IReports
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
                 . ' p.line.lucky_number_one, p.line.lucky_number_two'
                 . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b JOIN b.playConfig p JOIN b.euromillionsDraw e'
-                . ' WHERE p.user = :user_id AND e.draw_date < :actual_date and p.frequency = 1 AND p.lottery IN (1,5) '
+                . ' WHERE p.user = :user_id AND e.draw_date < :actual_date and p.frequency = 1 AND p.lottery IN (1,3,4,5) '
                 . ' ORDER BY p.startDrawDate DESC ')
             ->setParameters(['user_id' => $userId, 'actual_date' => date('Y-m-d')])
             ->getResult();
@@ -357,9 +357,9 @@ class ReportsRepository implements IReports
                             p.line_lucky_number_two'
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
                 . ' INNER JOIN log_validation_api lva ON lva.bet_id = b.id '
-                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 AND p.lottery_id IN (1,5) '
+                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 AND p.lottery_id IN (1, 3, 4, 5) '
                 . ' AND IF (p.lottery_id = 1, "' . $nextDrawDate->format('Y-m-d') . '", IF (p.lottery_id = 3, "' . $nextDrawDatePowerBall->format('Y-m-d') . '", IF (p.lottery_id = 4, "' . $nextDrawDateMegaMillions->format('Y-m-d') . '", "'.$nextDrawDateEuroJackpot->format('Y-m-d').'"))) <= last_draw_date '
-                . ' AND IF (p.lottery_id = 1, "' . $receivedDate->format('Y-m-d H:i:s') . '", IF (p.lottery_id =3, "' . $receivedDatePowerBall->format('Y-m-d H:i:s') . '", IF (p.lottery_id =4, "' . $receivedDateMegaMillions->format('Y-m-d H:i:s') . '", "'.$nextDrawDateEuroJackpot->format('Y-m-d H:i:s').'"))) <= received 
+                . ' AND IF (p.lottery_id = 1, "' . $receivedDate->format('Y-m-d H:i:s') . '", IF (p.lottery_id =3, "' . $receivedDatePowerBall->format('Y-m-d H:i:s') . '", IF (p.lottery_id =4, "' . $receivedDateMegaMillions->format('Y-m-d H:i:s') . '", "'.$receivedDateEuroJackpot->format('Y-m-d H:i:s').'"))) <= received 
                     GROUP BY p.start_draw_date,
                             p.line_regular_number_one,
                             p.line_regular_number_two,
@@ -396,7 +396,7 @@ class ReportsRepository implements IReports
                             p.line_lucky_number_one,
                             p.line_lucky_number_two'
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
-                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 0 AND p.frequency > 1 AND p.lottery_id IN (1,5) '
+                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 0 AND p.frequency > 1 AND p.lottery_id IN (1,3,4,5) '
                 . '    GROUP BY p.start_draw_date,
                             p.line_regular_number_one,
                             p.line_regular_number_two,
