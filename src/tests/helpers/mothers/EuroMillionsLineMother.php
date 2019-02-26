@@ -91,4 +91,21 @@ class EuroMillionsLineMother
             ]
         );
     }
+
+    public static function aMegaSenaLine()
+    {
+        return new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(1),
+                new EuroMillionsRegularNumber(41),
+                new EuroMillionsRegularNumber(44),
+                new EuroMillionsRegularNumber(46),
+                new EuroMillionsRegularNumber(54),
+            ],
+            [
+                new EuroMillionsLuckyNumber(0),
+                new EuroMillionsLuckyNumber(58),
+            ]
+        );
+    }
 }

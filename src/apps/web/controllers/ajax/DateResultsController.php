@@ -97,7 +97,7 @@ class DateResultsController extends AjaxControllerBase
 
         $playDates = [];
         for($i = $begindDate; $i <= $endDate; $i->modify('+1 day')){
-            if ($i->format('N') == 5) {
+            if ($i->format('N') == 3 || $i->format('N') == 6) {
                 $playDates[] = [
                     'url' => $languageService->translate('link_megasena_draw_history'). '/' . $i->format('Y-m-d'),
                     'day' => $i->format('d'),

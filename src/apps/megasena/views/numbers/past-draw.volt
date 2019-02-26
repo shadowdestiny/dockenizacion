@@ -123,11 +123,6 @@
                                 </li>
                             {% endif %}
                         {% endfor %}
-                        {% for lucky_number in last_result["lucky_numbers"] %}
-                            <li class="star">
-                                <span class="num">{{ lucky_number }}</span>
-                            </li>
-                        {% endfor %}
                     </ul>
 
                     <span class="desktop--only">
@@ -168,7 +163,7 @@
                                             <td class="td-ball">
                                                 <span>
                                                 {#TODO : Add real variables here#}
-                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("prizePool_ball") }} + {{ break_downs[name]['stars_corrected'] }} {{ language.translate("prizePool_star") }}
+                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("prizePool_ball") }}
                                                 </span>
                                             </td>
                                             <td class="td-winners">
