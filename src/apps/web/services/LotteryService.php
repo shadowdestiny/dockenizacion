@@ -188,7 +188,7 @@ class LotteryService
             /** @var EuroMillionsLine $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
         } catch (DataMissingException $e) {
-            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions' || $lotteryName == 'EuroJackpot' || $lotteryName=='MegaSena') ?
+            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions' || $lotteryName == 'EuroJackpot' || $lotteryName == 'MegaSena') ?
                 $this->lotteriesDataService->updateLastDrawResultLottery($lotteryName):
                 $this->lotteriesDataService->updateLastDrawResult($lotteryName);
         }
@@ -341,6 +341,8 @@ class LotteryService
         {
             case 'EuroJackpot':
                 return 'EuroMillions\eurojackpot\vo\dto\\'.$lotteryName.'DrawDTO';
+            case 'MegaSena':
+                return 'EuroMillions\megasena\vo\dto\\'.$lotteryName.'DrawDTO';
             case 'MegaMillions':
                 return 'EuroMillions\megamillions\vo\dto\\'.$lotteryName.'DrawDTO';
             case 'MegaSena':

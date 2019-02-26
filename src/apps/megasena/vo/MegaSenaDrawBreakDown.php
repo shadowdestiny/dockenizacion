@@ -14,7 +14,6 @@ use Money\Money;
 use Money\UnknownCurrencyException;
 use Phalcon\Di;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\shared\helpers\StringHelper;
 
 class MegaSenaDrawBreakDown extends EuroMillionsDrawBreakDown
 {

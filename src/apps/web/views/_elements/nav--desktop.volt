@@ -60,6 +60,11 @@
                </a>
            </li>
            <li>
+                <a href="/{{ language.translate('link_megasena_resultstest') }}">
+                       {{ language.translate("results_megasena_subtest") }}
+                </a>
+            </li>
+           <li>
                <a href="/{{ language.translate('link_christmas_results') }}">
                      {{ language.translate("results_chris_sub") }}
                </a>

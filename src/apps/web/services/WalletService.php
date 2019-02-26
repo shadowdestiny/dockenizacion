@@ -406,6 +406,10 @@ class WalletService
                     $this->transactionService->getSubscriptionByLotteryAndUserId('EuroJackpot', $user->getId()),
                     $user->getUserCurrency()
                 ), $user->getLocale());
+                $amountSubscriptionBalanceMegaSena = $this->currencyConversionService->toString( $this->currencyConversionService->convert(
+                    $this->transactionService->getSubscriptionByLotteryAndUserId('MegaSena', $user->getId()),
+                    $user->getUserCurrency()
+                ), $user->getLocale());
                 $wallet_dto = new WalletDTO([
                     'amountBalance' => $amount_balance,
                     'amountWinnings' => $amount_winnings,
@@ -416,6 +420,7 @@ class WalletService
                     'amountSubscriptionBalancePowerBall' => $amountSubscriptionBalancePowerBall,
                     'amountSubscriptionBalanceMegaMillions' => $amountSubscriptionBalanceMegaMillions,
                     'amountSubscriptionBalanceEuroJackpot' => $amountSubscriptionBalanceEuroJackpot,
+                    'amountSubscriptionBalanceMegaSena' => $amountSubscriptionBalanceMegaSena,
                 ]);
                 $balance = $this->currencyConversionService->toString($wallet->getBalance(), $user->getLocale());
                 $winnings = $this->currencyConversionService->toString($wallet->getWithdrawable(), $user->getLocale());

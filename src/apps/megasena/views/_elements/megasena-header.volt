@@ -4,23 +4,23 @@
             {% if next_draw == 6 %}{{ language.translate('saturday') }}{% else %}{{ language.translate('tuesday') }}{% endif %}
         </div>
         <div class="bottom">
-            {{ language.translate('tittle') }}
+            {{ language.translate('PlayMS_jackpot') }}
         </div>
     </div>
     <div class="help-block">
         <div class="top resizeme">
             {#{{ language.translate('aboutLottery') }}#}
-            About the megamillions lottery
+            {{ language.translate('PlayMS_about') }}
         </div>
         <div class="bottom">
             <a href="/{{ language.translate('link_megamillions_help') }}" class="a-hiw">
-                {{ language.translate('play_howbtn') }}
+                {{ language.translate('PlayMS_howto') }}
             </a>
             <a href="/{{ language.translate('link_megamillions_results') }}" class="a-results">
-                {{ language.translate('play_resultsbtn') }}
+                {{ language.translate('PlayMS_results') }}
             </a>
             <a href="/{{ language.translate('link_megamillions_faq') }}" class="a-faq">
-                {{ language.translate('play_faqbtn') }}
+                {{ language.translate('PlayMS_faq') }}
             </a>
         </div>
     </div>
@@ -36,7 +36,7 @@
             €28 millions
         </div>
         <div class="bottom resizeme">
-            {{ language.translate('shortInstructionMegaSena') }}
+            {{ language.translate('PlayMS_instr') }}
         </div>
     </div>
 </header>
