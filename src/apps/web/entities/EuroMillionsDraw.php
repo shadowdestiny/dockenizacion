@@ -2,7 +2,7 @@
 namespace EuroMillions\web\entities;
 
 use EuroMillions\eurojackpot\vo\EuroJackpotDrawBreakDown;
-use EuroMillions\eurojackpot\vo\MegaSenaDrawBreakDown;
+use EuroMillions\megasena\vo\MegaSenaDrawBreakDown;
 use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
 use EuroMillions\megasena\vo\MegaSenaLine;
 use EuroMillions\web\interfaces\IEntity;

@@ -1,12 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: rmrbest
- * Date: 6/11/18
+ * User: lmarin
+ * Date: 25/02/19
  * Time: 15:18
  */
 
-namespace EuroMillions\eurojackpot\vo;
+namespace EuroMillions\megasena\vo;
 
 
 use EuroMillions\web\entities\Lottery;
@@ -19,6 +19,9 @@ use Money\Money;
 
 class OrderMegaSena extends Order
 {
+
+    private $powerPlay;
+
 
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw)
     {
@@ -107,6 +110,23 @@ class OrderMegaSena extends Order
         } else {
             $this->amountWallet = new Money(0, new Currency('EUR'));
         }
+    }
+
+
+    /**
+     * @return null
+     */
+    public function getPowerPlay()
+    {
+        return $this->powerPlay;
+    }
+
+    /**
+     * @param null $powerPlay
+     */
+    public function setPowerPlay($powerPlay)
+    {
+        $this->powerPlay = $powerPlay;
     }
 
     /**

@@ -31,8 +31,11 @@
     var txt_depositBuy_btn = "{{ language.translate("depositBuy_btn") }}";
     var txt_checkout_fee = "{{ language.translate("checkout_fee") }}";
     var txt_edit = "{{ language.translate("edit_btn") }}";
-    var txt_link_play = "{{ language.translate("link_euromillions_play") }}";
+    var txt_link_play = "{{ language.translate("link_megasena_play") }}";
     var txt_link_powerball = "{{ language.translate("link_powerball_play") }}";
+    var txt_link_megamillions = "{{ language.translate("link_megamillions_play") }}";
+    var txt_link_eurojackpot = "{{ language.translate("link_eurojackpot_play") }}";
+    var txt_link_megasena = "{{ language.translate("link_megasena_play") }}";
     var txt_line = '{{ language.translate('line_x') }}';
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';
@@ -41,25 +44,25 @@
     var powerball = false;
     var megamillions = false;
     var megasena = true;
-    var powerplay = <?php echo $power_play; ?>;
+    var eurojackpot = false;
+    var powerplay = false;
     var powerplayprice = <?php echo $power_play_price; ?>;
     var txt_lottery = '<?php echo $lottery_name; ?>';
     var playingPP = '{{ language.translate('checkout_powerplay') }}';
+    var playingMM = '{{ language.translate('checkout_megaplier') }}';
     var txt_for = '{{ language.translate('subs_for') }}';
     var txt_since = '{{ language.translate('subs_since') }}';
     var txt_weeks = '{{ language.translate('subs_weeks') }}';
     var cashier = null;
     var tsid = '<?php echo $cashier->transactionID; ?>';
 
-    console.log(total_price);
     //Workaround for moneymatrix
-
     var disableiframeclick = false;
     $(document).on("moneymatrix",{wallet: true},function(e, wallet) {
         $(document).trigger("disableiframeclick", [ true ]);
         disableiframeclick = true;
          if(wallet == 1) wallet = true;
-         $.post('/cart/iframereload', "tsid="+tsid+"&wallet="+wallet+"&lottery=MegaMillions",function(response){
+         $.post('/cart/iframereload', "tsid="+tsid+"&wallet="+wallet+"&lottery=MegaSena",function(response){
                 let result = JSON.parse(response);
                 $("#iframemx").attr('src',result.cashierUrl);
          }
@@ -223,7 +226,7 @@
                         <div class="section--content">
                             <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}"
                                   method="post"
-                                  action="/powerball/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
+                                  action="/megasena/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
                                 {% set component='{"where": "cart"}'|json_decode %}
                                 {% include "../../shared/views/account/_add-card.volt" %}
                                 <input type="hidden" id="csid" name="csid"/>

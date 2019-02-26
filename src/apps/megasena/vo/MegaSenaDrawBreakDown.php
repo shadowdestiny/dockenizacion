@@ -6,7 +6,7 @@
  * Time: 02:23 PM
  */
 
-namespace EuroMillions\eurojackpot\vo;
+namespace EuroMillions\megasena\vo;
 
 use EuroMillions\web\services\CurrencyConversionService;
 use Money\Currency;
@@ -14,7 +14,6 @@ use Money\Money;
 use Money\UnknownCurrencyException;
 use Phalcon\Di;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\shared\helpers\StringHelper;
 
 class MegaSenaDrawBreakDown extends EuroMillionsDrawBreakDown
 {

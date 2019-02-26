@@ -1,12 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: rmrbest
- * Date: 18/06/18
- * Time: 11:34
+ * User: lmarin
+ * Date: 26/02/19
+ * Time: 13:26
  */
 
-namespace EuroMillions\eurojackpot\vo\dto;
+namespace EuroMillions\megasena\vo\dto;
 
 
 use EuroMillions\web\components\EmTranslationAdapter;
@@ -14,10 +14,10 @@ use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
 
-class EuroJackpotDrawDTO extends DTOBase implements IDto
+class MegaSenaDrawDTO extends DTOBase implements IDto
 {
 
-    /** @var euroJackpotDrawBreakDownDTO $euroJackpotDrawBreakDownDTO */
+    /** @var MegaSenaDrawBreakDownDTO $euroJackpotDrawBreakDownDTO */
     public $euroJackpotDrawBreakDownDTO;
 
     public $resultNumbers;
@@ -55,6 +55,6 @@ class EuroJackpotDrawDTO extends DTOBase implements IDto
         $this->drawDate = $this->emTranslationAdapter->query($date->format('l'));
         $this->drawDateTranslate = $date->format($this->emTranslationAdapter->query('dateformat'));
         $this->drawDateParam = $date->format('Y-m-d');
-        $this->euroJackpotDrawBreakDownDTO = new EuroJackpotDrawBreakDownDTO($this->euromillionsDraw->getBreakDown());
+        $this->euroJackpotDrawBreakDownDTO = new MegaSenaDrawBreakDownDTO($this->euromillionsDraw->getBreakDown());
     }
 }

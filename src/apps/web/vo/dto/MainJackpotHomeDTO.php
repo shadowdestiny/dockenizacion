@@ -10,6 +10,7 @@ namespace EuroMillions\web\vo\dto;
 
 
 use EuroMillions\eurojackpot\vo\EuroJackpotJackpot;
+use EuroMillions\megasena\vo\MegaSenaJackpot;
 use EuroMillions\megamillions\vo\MegaMillionsJackpot;
 use EuroMillions\shared\interfaces\IComparable;
 use EuroMillions\web\entities\EuroMillionsDraw;
@@ -121,7 +122,7 @@ class MainJackpotHomeDTO extends DTOBase implements IDto,IComparable
         }
         if($this->lotteryName == 'MegaSena')
         {
-            return EuroJackpotJackpot::fromAmountIncludingDecimals($amount->getAmount());
+            return MegaSenaJackpot::fromAmountIncludingDecimals($amount->getAmount());
         }
     }
 

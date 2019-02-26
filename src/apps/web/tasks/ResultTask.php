@@ -111,7 +111,7 @@ class ResultTask extends TaskBase
         {
             $drawDate= new \DateTime($params[1]);
         }
-        if(isset($params[0]) && in_array($params[0],['MegaMillions', 'PowerBall', 'EuroJackpot']))
+        if(isset($params[0]) && in_array($params[0],['MegaMillions', 'PowerBall', 'EuroJackpot','MegaSena']))
         {
             try {
                 if(empty($drawDate))

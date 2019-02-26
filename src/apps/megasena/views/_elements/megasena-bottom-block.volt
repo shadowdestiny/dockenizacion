@@ -23,7 +23,7 @@
 <div class="box-bottom play-bottom-block--megasena">
 
     <div class="play-bottom-block--img">
-        <img src="/w/img/eurojackpot/play-bottom-eurojackpot.png"/>
+        <img src="/w/img/megasena/megasena-skyline-desktop.jpg"/>
     </div>
     <div class="play-bottom-block--center">
         <h2>

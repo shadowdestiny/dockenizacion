@@ -128,6 +128,9 @@ class LotteryService
             case 'MegaMillions':
                 $jackpot_object = 'EuroMillions\megamillions\vo\\' . $lotteryName . 'Jackpot';
                 break;
+            case 'MegaSena':
+                $jackpot_object = 'EuroMillions\megasena\vo\\' . $lotteryName . 'Jackpot';
+                break;
             default:
                 $jackpot_object = 'EuroMillions\web\vo\\' . $lotteryName . 'Jackpot';
                 break;
@@ -138,7 +141,7 @@ class LotteryService
             return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
         } catch (DataMissingException $e) {
             try {
-                $next_jackpot = ($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions' || $lotteryName == 'EuroJackpot') ?
+                $next_jackpot = ($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions' || $lotteryName == 'EuroJackpot' || $lotteryName == 'MegaSena') ?
                     $this->lotteriesDataService->updateNextDrawJackpotLottery($lotteryName) :
                     $this->lotteriesDataService->updateNextDrawJackpot($lotteryName);
                 if ($next_jackpot == null) return $jackpot_object::fromAmountIncludingDecimals(null);
@@ -185,7 +188,7 @@ class LotteryService
             /** @var EuroMillionsLine $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
         } catch (DataMissingException $e) {
-            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions' || $lotteryName == 'EuroJackpot' || $lotteryName=='MegaSena') ?
+            $lottery_result=($lotteryName == 'PowerBall' || $lotteryName == 'MegaMillions' || $lotteryName == 'EuroJackpot' || $lotteryName == 'MegaSena') ?
                 $this->lotteriesDataService->updateLastDrawResultLottery($lotteryName):
                 $this->lotteriesDataService->updateLastDrawResult($lotteryName);
         }
@@ -338,6 +341,8 @@ class LotteryService
         {
             case 'EuroJackpot':
                 return 'EuroMillions\eurojackpot\vo\dto\\'.$lotteryName.'DrawDTO';
+            case 'MegaSena':
+                return 'EuroMillions\megasena\vo\dto\\'.$lotteryName.'DrawDTO';
             case 'MegaMillions':
                 return 'EuroMillions\megamillions\vo\dto\\'.$lotteryName.'DrawDTO';
             default:
