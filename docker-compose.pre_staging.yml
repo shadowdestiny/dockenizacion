@@ -40,8 +40,8 @@ services:
     mem_limit: 1073741824 #1024MB
     environment:
       EM_ENV: ${EM_ENV}
-      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
-      AWS_SECRET_ACCESS_KEY: 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
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
 
   phpcron:
     image: panamedialottery/euromillions-php:cron_${TARGET_IMAGE_TAG}
@@ -57,8 +57,8 @@ services:
     mem_limit: 1073741824 #1024MB
     environment:
       EM_ENV: ${EM_ENV}
-      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
-      AWS_SECRET_ACCESS_KEY: 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
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
 
   database:
     image: mysql:5.6
