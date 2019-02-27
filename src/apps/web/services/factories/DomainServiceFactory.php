@@ -24,7 +24,6 @@ use EuroMillions\web\services\LoggedAuthServiceStrategy;
 use EuroMillions\web\services\LoggedUserServiceStrategy;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\LotteryService;
-use EuroMillions\web\services\MegaSenaService;
 use EuroMillions\web\services\OrderService;
 use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\play_strategies\RedisCheckerOrderStrategy;
@@ -182,25 +181,6 @@ class DomainServiceFactory
     public function getPowerBallService()
     {
         return new PowerBallService(
-            $this->entityManager,
-            $this->getLotteryService(),
-            new RedisPlayStorageStrategy(
-                $this->serviceFactory->getDI()->get('redisCache')
-            ),
-            new RedisOrderStorageStrategy(
-                $this->serviceFactory->getDI()->get('redisCache')
-            ),
-            $this->getCartService(),
-            $this->getWalletService(),
-            $this->serviceFactory->getDI()->get('paymentProviderFactory'),
-            $this->getBetService(),
-            $this->serviceFactory->getEmailService()
-        );
-    }
-
-    public function getMegaSenaService()
-    {
-        return new MegaSenaService(
             $this->entityManager,
             $this->getLotteryService(),
             new RedisPlayStorageStrategy(
