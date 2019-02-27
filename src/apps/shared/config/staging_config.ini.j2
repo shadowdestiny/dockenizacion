@@ -136,8 +136,8 @@ class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
 config= wirecard,moneymatrix
 
 [geoip_strategy]
-normal=WideCardPaymentStrategy
-blocked=MoneyMatrixPaymentStrategy
+normal=MoneyMatrixPaymentStrategy
+blocked=WideCardPaymentStrategy
 geoip=GeoIPService
 geoIpImpl=MaxMindWrapper
 database_path=/var/www/data/geoipdatabase
