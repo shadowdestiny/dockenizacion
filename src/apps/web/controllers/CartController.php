@@ -258,7 +258,7 @@ class CartController extends PublicSiteControllerBase
 //            $this->paymentProviderService->setEventsManager($this->eventsManager);
 //            $this->eventsManager->attach('orderservice', $this->orderService);
             $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider,$transactionID);
-            //$this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$order->getTotal(),$transactionID);
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$order->getTotal(),$transactionID);
             $this->cartService->store($order);
             echo json_encode($cashierViewDTO);
         } catch (\Exception $e)
@@ -381,7 +381,7 @@ class CartController extends PublicSiteControllerBase
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider);
         if($this->cartPaymentProvider->type() == 'IFRAME' && $cashierViewDTO->transactionID != null)
         {
-           //$this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
+           $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
         }
 
 
