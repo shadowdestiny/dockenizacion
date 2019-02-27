@@ -56,8 +56,10 @@ COPY devOps/docker/php/cron/supervisord.conf /etc/supervisor/supervisord.conf
 COPY devOps/docker/php/cron/supervisor/services.conf /etc/supervisor/conf.d/services.conf
 
 # tweak config file for get output on cron at production environment
-RUN sed -i s/error_reporting=0/error_reporting=E_ALL/g /var/www/apps/shared/config/production_config.ini \
-    && sed -i s/display_errors=0/display_errors=1/g /var/www/apps/shared/config/production_config.ini
+RUN if [ -f /var/www/apps/shared/config/production_config.ini ]; then \
+    sed -i s/error_reporting=0/error_reporting=E_ALL/g /var/www/apps/shared/config/production_config.ini \
+    && sed -i s/display_errors=0/display_errors=1/g /var/www/apps/shared/config/production_config.ini; \
+    fi
 
 CMD ["/entrypoint.sh"]
 
