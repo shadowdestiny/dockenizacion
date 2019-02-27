@@ -21,13 +21,13 @@
     }
 
     @media only screen and (min-width: $screen-desktop) {
-      margin-top: -150px;
+      margin-top: -213px;
       height: 83px;
     }
 
     .left {
       float: left;
-      padding-top: 0px;
+      padding-top: 0;
       padding-left: 10px;
 
       @media only screen and (min-width: $screen-ipad-v) {
@@ -260,7 +260,7 @@
         padding-right: 7px;
 
         @media only screen and (min-width: $screen-ipad-h) {
-          padding-right: 0px;
+          padding-right: 0;
         }
         @media only screen and (min-width: $screen-desktop) {
           padding-right: 7px;

@@ -237,6 +237,22 @@ class EuroMillionsDrawMother
             ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }
 
+    public static function aMegaMillionsDrawWithJackpot(\DateTime $date = null)
+    {
+        if($date == null)
+        {
+            $date= new \DateTime('2020-01-09');
+        }
+        $jackpot = new Money(5000000000, new Currency('EUR'));
+
+        $line = EuroMillionsLineMother::anPowerBallLine();
+        return EuroMillionsDrawBuilder::aDraw()
+            ->withLottery(LotteryMother::aMegaMillions())
+            ->withId(4)
+            ->withDrawDate($date)
+            ->withJackpot($jackpot)->withResult($line);
+    }
+
     public static function aMegaSenaDrawWithJackpotAndBreakDown(\DateTime $date = null)
     {
         if($date == null) {

@@ -38,7 +38,6 @@
                     <a href="/{{ language.translate('link_eurojackpot_play') }}">{{ language.translate("playeurojackpot") }}</a>
                     <a href="/{{ language.translate('link_megasena_play') }}">{{ language.translate("playmegasena") }}</a>
                     <a href="/{{ language.translate('link_christmas_play') }}">{{ language.translate("playchris_sub") }}</a>
-                    <a href="/{{ language.translate('link_lotteries_play') }}">{{ language.translate("play_all") }}</a>
                     <a href="/{{ language.translate('link_euromillions_help') }}">{{ language.translate("howto_em_sub") }}</a>
                     <a href="/{{ language.translate('link_powerball_howto') }}">{{ language.translate("howto_pow_sub") }}</a>
                 </li>

@@ -153,7 +153,7 @@ class PrizeCheckoutService
         /** @var User $user */
         $user = $this->userRepository->find($scalarValues['userId']);
         try {
-            $current_amount = $amount->getAmount();
+            $current_amount = $amount->getAmount() /100;
             $price = new Money((int)$current_amount, new Currency('EUR'));
 
             $winning = new Winning($price, $threshold_price, $lotteryId);

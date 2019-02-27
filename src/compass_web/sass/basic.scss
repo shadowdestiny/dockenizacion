@@ -1430,10 +1430,10 @@ body, .submit {
       display: inline-block!important;
       box-sizing: border-box;
       white-space: nowrap;
-      font-size: inherit!important;
+      font-size: inherit;
 
       * {
-        font-size: inherit!important;
+        font-size: inherit;
       }
     }
   }

@@ -17,9 +17,9 @@ class EuroJackpotPrize extends LotteryPrize
         return [
             '2,1' => 'getCategoryTwelve',
             '1,2' => 'getCategoryEleven',
-            '3,0' => 'getCategoryTen',
-            '3,1' => 'getCategoryNine',
-            '2,2' => 'getCategoryEight',
+            '3,0' => 'getCategoryNine',
+            '3,1' => 'getCategoryEight',
+            '2,2' => 'getCategoryTen',
             '3,2' => 'getCategorySeven',
             '4,0' => 'getCategorySix',
             '4,1' => 'getCategoryFive',
@@ -28,5 +28,13 @@ class EuroJackpotPrize extends LotteryPrize
             '5,1' => 'getCategoryTwo',
             '5,2' => 'getCategoryOne'
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrize()
+    {
+        return $this->prize->multiply(100);
     }
 }

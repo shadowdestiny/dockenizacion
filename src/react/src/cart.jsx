@@ -366,6 +366,7 @@ var CartPage = new React.createClass({
                                txt_edit={this.props.txt_edit} txt_link_play={this.props.txt_link_play}
                                txt_link_powerball={this.props.txt_link_powerball}
                                txt_link_megamillions={this.props.txt_link_megamillions}
+                               txt_link_eurojackpot={this.props.txt_link_eurojackpot}
                                txt_line={this.props.txt_line}
                                tuesday={this.props.tuesday}
                                friday={this.props.friday}
@@ -579,6 +580,7 @@ ReactDOM.render(<CartPage total={total_price}
                           txt_link_play={txt_link_play}
                           txt_link_powerball={txt_link_powerball}
                           txt_link_megamillions={txt_link_megamillions}
+                          txt_link_eurojackpot={txt_link_eurojackpot}
                           txt_line={txt_line}
                           tuesday={tuesday}
                           friday={friday}

@@ -101,7 +101,7 @@ class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
             ->getResult();
 
         $this->assertEquals(4,count($actual));
-        $this->assertEquals(7,count($actualBet));
+        $this->assertEquals(9,count($actualBet));
     }
 
 }

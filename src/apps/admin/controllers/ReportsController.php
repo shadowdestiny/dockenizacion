@@ -124,9 +124,9 @@ class ReportsController extends AdminControllerBase
     {
         $user = $this->reportsService->getUserById($this->request->get('id'));
 
-        $myGamesActives = new UpcomingDrawsDTO($this->reportsService->getActivePlaysByUserId($user->getId()));
+        $myGamesActives = new UpcomingDrawsDTO($this->reportsService->getActivePlaysByUserId($user->getId()),1);
         $pageActives = (!empty($this->request->get('pageActives'))) ? $this->request->get('pageActives') : 1;
-        $paginatorActives = $this->getPaginatorAsArray(!empty($myGamesActives->result) ? $myGamesActives->result : [], 4, $pageActives);
+        $paginatorActives = $this->getPaginatorAsArray(!empty($myGamesActives->result) ? $myGamesActives->result : [], 2, $pageActives);
         $paginatorViewActives = (new PaginationWidgetAdmin($paginatorActives, $this->request->getQuery(), [], 'pageActives'))->render();
 
         $mySubscriptionActives = $this->reportsService->getSubscriptionsByUserIdActive($user->getId(), $this->reportsService->getNextDateDrawByLottery('EuroMillions'), $this->reportsService->getNextDateDrawByLottery('PowerBall'), $this->reportsService->getNextDateDrawByLottery('MegaMillions'), $this->reportsService->getNextDateDrawByLottery('EuroJackpot'));
@@ -139,9 +139,9 @@ class ReportsController extends AdminControllerBase
         $paginatorSubsInactives = $this->getPaginatorAsArray(!empty($mySubsInactives) ? $mySubsInactives : [], 4, $pageSubsInactives);
         $paginatorViewSubsInactives = (new PaginationWidgetAdmin($paginatorSubsInactives, $this->request->getQuery(), [], 'pageSubsInactives'))->render();
 
-        $myGamesInactives = new PastDrawsCollectionDTO($this->reportsService->getPastGamesWithPrizes($user->getId()));
+        $myGamesInactives = new PastDrawsCollectionDTO($this->reportsService->getPastGamesWithPrizes($user->getId()), 1);
         $pageInactives = (!empty($this->request->get('pageInactives'))) ? $this->request->get('pageInactives') : 1;
-        $paginatorInactives = $this->getPaginatorAsArray(!empty($myGamesInactives->result['dates']) ? $myGamesInactives->result['dates'] : [], 4, $pageInactives);
+        $paginatorInactives = $this->getPaginatorAsArray(!empty($myGamesInactives->result) ? $myGamesInactives->result : [], 2, $pageInactives);
         $paginatorViewInactives = (new PaginationWidgetAdmin($paginatorInactives, $this->request->getQuery(), [], 'pageInactives'))->render();
 
         $userBets = $this->reportsService->getAutomaticAndTicketPurchaseByUserId($this->request->get('id'));

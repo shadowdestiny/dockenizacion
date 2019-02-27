@@ -1538,7 +1538,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'en'
         ));
 
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}", array(
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenis|история-розыгрышей)+}", array(
             "module" => "megamillions",
             'controller' => 'megamillions-numbers',
             'action' => 'pastList',
@@ -1566,7 +1566,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'language' => 'en'
         ));
 
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenis|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
             "module" => "megamillions",
             'controller' => 'megamillions-numbers',
             'action' => 'index',
@@ -1574,6 +1574,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megamillions)+}/{play:(jugar|gioca|speel|играть)+}", array(
             "module" => "megamillions",
+            'controller' => 'play',
+            'action' => 'index',
+        ));
+
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(eurojackpot)+}/{play:(jugar|gioca|speel|играть)+}", array(
+            "module" => "eurojackpot",
             'controller' => 'play',
             'action' => 'index',
         ));
@@ -1590,7 +1596,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->mount(new ResultPurchaseRoutesMegaSena());
 
         $router->mount(new HowToPlayRoutesEuroJackpot());
-        $router->mount(new EuroJackpotPlayRoutes());
         $router->mount(new EuroJackpotPlayRoutes());
         $router->mount(new EuroJackpotResultRoutes());
         $router->mount(new ResultPurchaseRoutesEuroJackpot());

@@ -45,14 +45,14 @@ class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     {
         $actual = $this->sut->getMonthlySales();
         $expected = [
-            'month' => 'November',
-            'total_bets' => '1',
-            'gross_sales' => '3.00',
-            'gross_margin' => '0.50',
-            'winnings' => '0',
+            'month' => 'October',
+            'total_bets' => '2',
+            'gross_sales' => '6.00',
+            'gross_margin' => '1.00',
+            'winnings' => null,
         ];
 
-        $this->assertEquals($expected, $actual[2]);
+        $this->assertEquals($expected, $actual[3]);
     }
 
     /**
@@ -97,5 +97,17 @@ class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         ];
         $actual = $this->sut->getCustomersData();
         $this->assertEquals($expected,$actual[0]);
+    }
+
+    /**
+     * method getPastGamesWithPrizes
+     * when called
+     * should returnArrayWithProperData
+     */
+    public function test_getPastGamesWithPrizes()
+    {
+        $actual = $this->sut->getPastGamesWithPrizes('9098299B-14AC-4124-8DB0-19571EDABE55');
+
+        $this->assertEquals('EuroJackpot',$actual[0][0]->getPlayConfig()->getLottery()->getName());
     }
 }

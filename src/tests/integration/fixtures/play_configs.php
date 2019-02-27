@@ -262,6 +262,41 @@ return [
             'discount_value' => 0,
             'power_play' => 0
         ],
-
+        [
+            'id' => '15',
+            'user_id' => '9098299B-14AC-4124-8DB0-19571EDABE55',
+            'active' => 1,
+            'lottery_id' => 1,
+            'start_draw_date' => '2015-09-22 00:00:00',
+            'last_draw_date' => '2015-09-22 00:00:00',
+            'line_regular_number_one' => 11,
+            'line_regular_number_two' => 20,
+            'line_regular_number_three' => 22,
+            'line_regular_number_four' => 29,
+            'line_regular_number_five' => 40,
+            'line_lucky_number_one' => 1,
+            'line_lucky_number_two' => 7,
+            'frequency' => 1,
+            'discount_value' => 0,
+            'power_play' => 0
+        ],
+        [
+            'id' => '16',
+            'user_id' => '9098299B-14AC-4124-8DB0-19571EDABE55',
+            'active' => 0,
+            'lottery_id' => 5,
+            'start_draw_date' => '2019-02-08 00:00:00',
+            'last_draw_date' => '2019-02-08 00:00:00',
+            'line_regular_number_one' => 11,
+            'line_regular_number_two' => 20,
+            'line_regular_number_three' => 22,
+            'line_regular_number_four' => 29,
+            'line_regular_number_five' => 40,
+            'line_lucky_number_one' => 1,
+            'line_lucky_number_two' => 7,
+            'frequency' => 1,
+            'discount_value' => 0,
+            'power_play' => 0
+        ]
     ]
 ];

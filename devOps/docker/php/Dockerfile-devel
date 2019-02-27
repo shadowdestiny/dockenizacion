@@ -46,7 +46,7 @@ COPY cron/php.ini $PHP_INI_DIR/php.ini
 COPY cron/entrypoint.sh /entrypoint.sh
 COPY cron/euromillions.crons /etc/cron.d/euromillions.crons
 
-RUN apt-get update && apt-get install -y cron supervisor \
+RUN apt-get update && apt-get install -y cron supervisor mysql-client gzip \
     && chmod -v +x /entrypoint.sh \
     && crontab /etc/cron.d/euromillions.crons \
     && rm -rf /var/lib/apt/lists/* \

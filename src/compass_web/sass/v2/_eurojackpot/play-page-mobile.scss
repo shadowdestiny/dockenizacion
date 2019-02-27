@@ -9,31 +9,61 @@
 
       .bet-line {
         .ticket-number {
-            margin-right: 8px;
-            margin-bottom: 1px;
-        }
-      }
-      .numbers-section {
-        &.regular {
-          .ticket-number {
-            width: 36px;
-            height: 36px;
-            margin-right: 6px;
-            line-height:33px;
-            margin-bottom: 8px;
+          margin-right: 8px;
+          margin-bottom: 1px;
+          width: 32px;
+          height: 32px;
+          color: #696969;
+          border-color: #696969;
+          background-color: #fff;
+
+          &.star {
+            border: 1px solid #af7800;
+            color: #af7800;
           }
-        }
-        &.stars {
-          .ticket-number.star {
-            width: 36px;
-            height: 36px;
-            margin-right: 0px;
-            line-height:33px;
-            margin-bottom: 8px;
-          }
+
         }
       }
 
+      .ticket {
+        .numbers-section {
+          &.regular {
+            .ticket-number {
+              width: 36px;
+              height: 36px;
+              line-height: 33px;
+              margin-right: 14px;
+              margin-bottom: 10px;
+              color: #696969!important;
+              border-color: #696969!important;
+              background-color: #fff!important;
+
+              &.selected {
+                background-color: #ffc74d!important;
+              }
+            }
+          }
+
+          &.stars {
+            .ticket-number.star {
+              width: 36px;
+              height: 36px;
+              margin-right: 5px;
+              line-height: 33px;
+              margin-bottom: 10px;
+              float: right;
+              clear: both;
+              border-color: #af7800 !important;
+              color: #af7800 !important;
+
+              &.selected {
+                background: #af7800 !important;
+                color: #fff !important;
+              }
+            }
+          }
+        }
+      }
 
       .btn--pick {
         margin-bottom: 24px;
