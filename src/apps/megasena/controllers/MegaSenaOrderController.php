@@ -21,7 +21,7 @@ class MegaSenaOrderController extends CartController
         $current_user_id = $this->authService->getCurrentUser()->getId();
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
-        $play_service = $this->domainServiceFactory->getPowerBallService();
+        $play_service = $this->domainServiceFactory->getMegaSenaService();
         $msg = '';
         $errors = [];
         if(!empty($user_id)) {
