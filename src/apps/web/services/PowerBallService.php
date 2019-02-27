@@ -53,13 +53,13 @@ class PowerBallService
     /**
      * @var PlayConfigRepository
      */
-    private $playConfigRepository;
+    protected $playConfigRepository;
 
     /** @var  LotteryService */
     private $lotteryService;
 
     /** @var IPlayStorageStrategy */
-    private $playStorageStrategy;
+    protected $playStorageStrategy;
 
     private $orderStorageStrategy;
 
@@ -302,7 +302,7 @@ class PowerBallService
         }
     }
 
-    private function getLottery($lottery)
+    protected function getLottery($lottery)
     {
         return $this->lotteryService->getLotteryConfigByName($lottery);
     }
