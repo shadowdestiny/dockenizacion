@@ -255,8 +255,8 @@ class CartController extends PublicSiteControllerBase
             ],
                 $this->di->get('config')
             );
-//            $this->paymentProviderService->setEventsManager($this->eventsManager);
-//            $this->eventsManager->attach('orderservice', $this->orderService);
+            $this->paymentProviderService->setEventsManager($this->eventsManager);
+            $this->eventsManager->attach('orderservice', $this->orderService);
             $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider,$transactionID);
             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$order->getTotal(),$transactionID);
             $this->cartService->store($order);
