@@ -6,10 +6,9 @@
  * Time: 04:04 PM
  */
 
-namespace EuroMillions\megasena\vo;
+namespace EuroMillions\web\entities;
 
-use EuroMillions\web\entities\PlayConfig;
-use EuroMillions\web\entities\User;
+use EuroMillions\megasena\vo\MegaSenaLine;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use Exception;
 
@@ -39,7 +38,7 @@ class PlayConfigMegaSena extends PlayConfig
                     $regular_numbers[] = new EuroMillionsRegularNumber((int)$number);
 
                 }
-                $euroMillionsLine = new MegaSenaLine($regular_numbers, $lucky_numbers);
+                $euroMillionsLine = new MegaSenaLine($regular_numbers,"MegaSena");
             }
 
             $this->setLine($euroMillionsLine);

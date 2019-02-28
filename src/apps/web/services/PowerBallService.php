@@ -48,7 +48,7 @@ class PowerBallService
 {
     const NUM_BETS_PER_REQUEST = 5;
 
-    private $entityManager;
+    protected $entityManager;
 
     /**
      * @var PlayConfigRepository
@@ -56,7 +56,7 @@ class PowerBallService
     protected $playConfigRepository;
 
     /** @var  LotteryService */
-    private $lotteryService;
+    protected $lotteryService;
 
     /** @var IPlayStorageStrategy */
     protected $playStorageStrategy;
@@ -64,16 +64,16 @@ class PowerBallService
     private $orderStorageStrategy;
 
     /** @var UserRepository $userRepository */
-    private $userRepository;
+    protected $userRepository;
 
     /** @var CartService $cartService */
-    private $cartService;
+    protected $cartService;
     /** @var  WalletService $walletService */
-    private $walletService;
+    protected $walletService;
     /** @var  PayXpertCardPaymentStrategy $cardPaymentProvider */
-    private $cardPaymentProvider;
+    protected $cardPaymentProvider;
     /** @var  BetService $betService */
-    private $betService;
+    protected $betService;
     /** @var  EmailService $emailService */
     private $emailService;
 

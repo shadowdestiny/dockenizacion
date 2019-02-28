@@ -25,6 +25,9 @@ class MegaSenaLine extends EuroMillionsLine
     protected $regular_number_five;
     protected $regular_number_six;
 
+    protected $lucky_number_one;
+    protected $lucky_number_two;
+
 
     /**
      * @param EuroMillionsRegularNumber[] $regular_numbers
@@ -64,12 +67,16 @@ class MegaSenaLine extends EuroMillionsLine
         $this->regular_number_five  = $regular_numbers[4]->getNumber();
         $this->regular_number_six   = $regular_numbers[5]->getNumber();
 
+        $this->lucky_number_one = 0;
+        $this->lucky_number_two = $this->regular_number_six;
+
     }
 
     public function toJsonData()
     {
         return [
-            'regular' => $this->getRegularNumbersArray(),
+            'regular'   => $this->getRegularNumbersArray(),
+            'lucky'     => $this->getLuckyNumbersArray()
         ];
     }
 
