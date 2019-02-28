@@ -31,7 +31,7 @@ final class MegaSenaPaymentController extends PowerBallPaymentController
         $cvv = $this->request->getPost('card-cvv');
         $payWallet = $this->request->getPost('paywallet') !== 'false';
         $isWallet = false;
-        $powerball_service = $this->domainServiceFactory->getPowerBallService();
+        $powerball_service = $this->domainServiceFactory->getMegaSenaService();
         $errors = [];
         $user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */

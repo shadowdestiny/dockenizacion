@@ -2,9 +2,9 @@
 
 namespace EuroMillions\web\services;
 
-use EuroMillions\megasena\vo\PlayConfigMegaSena;
 use EuroMillions\shared\vo\RedisOrderKey;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\entities\PlayConfigMegaSena;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\entities\User;
 class MegaSenaService extends PowerBallService

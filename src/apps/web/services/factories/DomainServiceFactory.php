@@ -2,6 +2,7 @@
 namespace EuroMillions\web\services\factories;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\web\services\CartServiceMegaSena;
 use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\EmTranslationAdapter;
@@ -209,7 +210,7 @@ class DomainServiceFactory
             new RedisOrderStorageStrategy(
                 $this->serviceFactory->getDI()->get('redisCache')
             ),
-            $this->getCartService(),
+            $this->getCartMegaSenaService(),
             $this->getWalletService(),
             $this->serviceFactory->getDI()->get('paymentProviderFactory'),
             $this->getBetService(),
@@ -235,6 +236,15 @@ class DomainServiceFactory
     public function getCartService()
     {
         return new CartService(
+            $this->entityManager,
+            new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache')),
+            new SiteConfigService($this->entityManager,$this->getCurrencyConversionService()),
+            $this->getWalletService()
+        );
+    }
+    public function getCartMegaSenaService()
+    {
+        return new CartServiceMegaSena(
             $this->entityManager,
             new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache')),
             new SiteConfigService($this->entityManager,$this->getCurrencyConversionService()),

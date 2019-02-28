@@ -14,6 +14,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\BlogService;
 use EuroMillions\web\services\CartService;
+use EuroMillions\web\services\CartServiceMegaSena;
 use EuroMillions\web\services\ChristmasService;
 use EuroMillions\web\services\CurrencyConversionService;
 use EuroMillions\web\services\CurrencyService;
@@ -57,6 +58,8 @@ class PublicSiteControllerBase extends ControllerBase
     protected $siteConfigService;
     /** @var  CartService $cartService */
     protected $cartService;
+    /** @var  CartServiceMegaSena $megaSenaService */
+    protected $megaSenaService;
     /** @var  PowerBallCartService $powerBallCartService */
     protected $powerBallCartService;
     /** @var  CurrencyConversionService */
@@ -94,7 +97,8 @@ class PublicSiteControllerBase extends ControllerBase
                                TransactionService $transactionService = null,
                                ChristmasService $christmasService = null,
                                BlogService $blogService = null,
-                               PowerBallCartService $powerBallCartService = null)
+                               PowerBallCartService $powerBallCartService = null,
+                               CartServiceMegaSena $cartServiceMegaSena = null)
     {
         parent::initialize();
         $this->lotteryService = $lotteryService ?: $this->domainServiceFactory->getLotteryService();
@@ -104,6 +108,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->authService = $authService ?: $this->domainServiceFactory->getAuthService();
         $this->userPreferencesService = $userPreferencesService ?: $this->domainServiceFactory->getUserPreferencesService();
         $this->cartService = $cartService ?: $this->domainServiceFactory->getCartService();
+        $this->megaSenaService = $cartServiceMegaSena ?: $this->domainServiceFactory->getCartMegaSenaService();
         $this->powerBallCartService = $powerBallCartService ?: $this->domainServiceFactory->getPowerBallCartService();
         $this->currencyConversionService = $currencyConversionService ?: $this->domainServiceFactory->getCurrencyConversionService();
         $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyConversionService);
