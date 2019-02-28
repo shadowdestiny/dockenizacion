@@ -8,6 +8,8 @@ pipeline {
         RANCHER_ENV_KEY = credentials('RANCHER_ENV_KEY_PROD')
         RANCHER_ENV_SECRET = credentials('RANCHER_ENV_SECRET_PROD')
         RANCHER_COMPOSE_CMD_BASE = "rancher-compose --url $RANCHER_ENV_URL --access-key $RANCHER_ENV_KEY --secret-key $RANCHER_ENV_SECRET -p ${RANCHER_STACK_NAME} -f docker-compose.prod.yml -f docker-compose.rollback.yml -r rancher-compose.prod.yml -e .env.prod"
+
+        ANSIBLE_VAULT_PASSWORD_FILE = credentials('ansible_vault_password_web')
     }
     agent {
         label 'aws-slave'
@@ -32,6 +34,8 @@ pipeline {
                     def build_target = params.BUILD_TARGET
                     assert build_target.isNumber()
                 }
+
+                sh('ansible-playbook --vault-password-file ${ANSIBLE_VAULT_PASSWORD_FILE} ${WORKSPACE}/devOps/playbook_jenkins.yml')
 
                 sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
 

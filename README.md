@@ -117,3 +117,15 @@ docker run --rm -v $(pwd)/src:/src antonienko/compass-watch compile --force /src
 ```
 
 This will compile all .scss files on /src/compass_web
+
+# Ansible Vault variable files
+
+````
+- Decrypt:
+
+ansible-vault decrypt devOps/vars/secure_prod.yml --ask-vault-pass
+
+- Encrypt
+
+ansible-vault encrypt devOps/vars/secure_prod.yml --ask-vault-pass
+````

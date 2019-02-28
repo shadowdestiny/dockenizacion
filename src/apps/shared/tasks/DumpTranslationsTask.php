@@ -8,7 +8,7 @@ use Aws\Exception\AwsException;
 
 class DumpTranslationsTask extends TaskBase
 {
-    private $allowedEnvsExport = array('beta');
+    private $allowedEnvsExport = array('staging');
     private $allowedEnvsImport = array('development');
     private $bucketName = 'euromillions-dumps';
 
