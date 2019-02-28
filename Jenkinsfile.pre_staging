@@ -90,7 +90,7 @@ pipeline {
                 stage('build css'){
                     steps{
                         //Compile Web SASS
-                        sh('sudo docker run --rm -u 1000 -v $(pwd)/src:/src antonienko/compass-watch compile --force --quiet --boring --no-debug-info /src/compass_web || true')
+                        sh('sudo docker run --rm -u 1000 -v $(pwd)/src:/src panamedialottery/compass-watch compile --force --quiet --boring --no-debug-info /src/compass_web || true')
                     }
                     post {
                         always {
