@@ -11,6 +11,7 @@ use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\widecard\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
 use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use Money\Money;
 use Phalcon\Http\Client\Response;
 
@@ -100,6 +101,6 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
 
     public function type()
     {
-        return "FORM";
+        return new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD);
     }
 }

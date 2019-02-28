@@ -48,4 +48,9 @@ final class PaymentsCollection
             throw new \Exception("Invalid key $key.");
         }
     }
+
+    public function getAllItems()
+    {
+        return $this->payments;
+    }
 }

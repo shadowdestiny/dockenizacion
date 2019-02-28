@@ -16,6 +16,7 @@ use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixConfig;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixGatewayClientWrapper;
 use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use Money\Money;
 
 class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGateway
@@ -74,6 +75,6 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
 
     public function type()
     {
-        return "IFRAME";
+        return new PaymentSelectorType(PaymentSelectorType::OTHER_METHOD);
     }
 }
