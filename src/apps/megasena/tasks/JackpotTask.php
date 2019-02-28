@@ -34,7 +34,7 @@ class JackpotTask extends TaskBase
         $this->lotteryService = $lotteryService ?: $this->domainServiceFactory->getLotteryService();
     }
 
-    public function updateNextDrawJackpotEuroJackpotAction()
+    public function updateNextDrawJackpotMegaSenaAction()
     {
         $this->lotteriesDataService->updateNextDrawJackpotLottery('MegaSena');
 
