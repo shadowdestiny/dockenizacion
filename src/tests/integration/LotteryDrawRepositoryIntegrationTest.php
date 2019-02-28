@@ -2,9 +2,11 @@
 namespace EuroMillions\tests\integration;
 
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
+use EuroMillions\web\vo\EuroMillionsJackpot;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
@@ -16,6 +18,7 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     protected $sut;
     /** @var  LotteryRepository */
     protected $lotteryRepository;
+
 
     public function setUp()
     {
@@ -138,6 +141,58 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         $date = new \DateTime('2015-10-02 12:00:00');
         $actual = count($this->sut->getNextDraw($lottery, $date));
         $this->assertGreaterThanOrEqual(1, $actual);
+    }
+
+    /**
+     * method getNextDraw
+     * when calledWhenJackpotTaskPowerBall
+     * should returnError
+     */
+    public function test_getNextDraw_calledWhenJackpotTaskPowerBall_returnError()
+    {
+        $draw = new EuroMillionsDraw();
+
+        $lottery = $this->lotteryRepository->getLotteryByName('PowerBall');
+        $draw_date= $lottery->getNextDrawDate();
+
+        $draw->initialize([
+            'draw_date' => $draw_date,
+            'jackpot' => EuroMillionsJackpot::fromAmountIncludingDecimals(4000000000),
+            'lottery' => $lottery
+        ]);
+
+        $this->entityManager->persist($draw);
+        $this->entityManager->flush();
+
+        $actual = $this->sut->getNextDraw($lottery, $draw_date);
+
+        $this->assertNotEquals($draw_date, $actual->getDrawDate());
+    }
+
+    /**
+     * method getNextDraw
+     * when calledWhenJackpotTaskMegaMillions
+     * should returnError
+     */
+    public function test_getNextDraw_calledWhenJackpotTaskMegaMillions_returnError()
+    {
+        $draw = new EuroMillionsDraw();
+
+        $lottery = $this->lotteryRepository->getLotteryByName('Megamillions');
+        $draw_date= $lottery->getNextDrawDate();
+
+        $draw->initialize([
+            'draw_date' => $draw_date,
+            'jackpot' => EuroMillionsJackpot::fromAmountIncludingDecimals(4000000000),
+            'lottery' => $lottery
+        ]);
+
+        $this->entityManager->persist($draw);
+        $this->entityManager->flush();
+
+        $actual = $this->sut->getNextDraw($lottery, $draw_date);
+
+        $this->assertNotEquals($draw_date, $actual->getDrawDate());
     }
 
     /**
