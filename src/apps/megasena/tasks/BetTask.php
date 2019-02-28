@@ -43,7 +43,7 @@ class BetTask extends TaskBase
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
     }
 
-    public function placeEuroJackpotBetsAction($args = null)
+    public function placeMegaSenaBetsAction($args = null)
     {
         $this->placeLotteryBets('MegaSena', $args);
     }
