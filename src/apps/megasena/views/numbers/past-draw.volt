@@ -104,7 +104,7 @@
             <div class="wrapper">
                 <h3 class="mobile--only">
                     <br />
-                    {{ language.translate("draw") }}
+                    {{ language.translate("lastDraw_title") }}
                     {{ language.translate(draw_day) }}, {{ past_draw_date_format }}
                 </h3>
 
@@ -141,8 +141,15 @@
                     <div class="left-section result-section">
 
                         <div class="box-current-winners--new">
+                            <h1 class="winners--h1">
+                                {% if mobile == 1 %}
+                                    {{ language.translate("results_pow_mobile_h1") }}
+                                {% else %}
+                                    {{ language.translate("resultsMS_h1") }}
+                                {% endif %}
+                            </h1>
                             <h2 class="h2">
-                                {{ language.translate("resultsdate_h2") }}
+                                {{ language.translate("resultsMS_h2") }}
                                 {#Euromillions Results & price breakdown for Tuesday 02 November 2016#}
                             </h2>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
@@ -163,7 +170,7 @@
                                             <td class="td-ball">
                                                 <span>
                                                 {#TODO : Add real variables here#}
-                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("prizePool_ball") }}
+                                                    {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("pastNumbers_ball") }}
                                                 </span>
                                             </td>
                                             <td class="td-winners">
@@ -189,7 +196,7 @@
 
                                     <a href="/megasena/results" class="btn-theme--big">
                                         <span class="resizeme">
-                                            {{ language.translate("resultsdate_btn") }}
+                                            {{ language.translate("morePastResults_btn") }}
                                         </span>
                                     </a>
 
@@ -198,6 +205,17 @@
 
                         </div>
                     </div>
+                </div>
+
+                <div class="bottom--banner"></div>
+
+                <div class="block--text--accordion">
+                    <h2>
+                        {{ language.translate("resultsMS_title_par") }}
+                    </h2>
+                    <p>
+                        {{ language.translate("resultsMS_par") }}
+                    </p>
                 </div>
             </div>
         </div>
