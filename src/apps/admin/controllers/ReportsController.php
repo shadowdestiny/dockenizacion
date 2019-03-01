@@ -139,9 +139,9 @@ class ReportsController extends AdminControllerBase
         $paginatorSubsInactives = $this->getPaginatorAsArray(!empty($mySubsInactives) ? $mySubsInactives : [], 4, $pageSubsInactives);
         $paginatorViewSubsInactives = (new PaginationWidgetAdmin($paginatorSubsInactives, $this->request->getQuery(), [], 'pageSubsInactives'))->render();
 
-        $myGamesInactives = new PastDrawsCollectionDTO($this->reportsService->getPastGamesWithPrizes($user->getId()), 1);
+        $myGamesInactives = new PastDrawsCollectionDTO($this->reportsService->getPastGamesWithPrizes($user->getId()));
         $pageInactives = (!empty($this->request->get('pageInactives'))) ? $this->request->get('pageInactives') : 1;
-        $paginatorInactives = $this->getPaginatorAsArray(!empty($myGamesInactives->result) ? $myGamesInactives->result : [], 2, $pageInactives);
+        $paginatorInactives = $this->getPaginatorAsArray(!empty($myGamesInactives->result['dates']) ? $myGamesInactives->result['dates'] : [], 4, $pageInactives);
         $paginatorViewInactives = (new PaginationWidgetAdmin($paginatorInactives, $this->request->getQuery(), [], 'pageInactives'))->render();
 
         $userBets = $this->reportsService->getAutomaticAndTicketPurchaseByUserId($this->request->get('id'));
