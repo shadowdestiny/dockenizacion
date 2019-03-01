@@ -21,7 +21,7 @@ final class CriteriaSelector implements IPaymentsCriteria
     public function meetCriteria(PaymentsCollection $paymentsCollection)
     {
         $newPaymentsCollection = new PaymentsCollection();
-        foreach($paymentsCollection->getAllItems() as $k => $payment)
+        foreach($paymentsCollection->getIterator() as $k => $payment)
         {
             if($payment->getType() == $this->paymentSelectorType)
             {

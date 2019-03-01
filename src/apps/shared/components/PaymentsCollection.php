@@ -53,4 +53,11 @@ final class PaymentsCollection
     {
         return $this->payments;
     }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->payments);
+
+    }
+
 }
