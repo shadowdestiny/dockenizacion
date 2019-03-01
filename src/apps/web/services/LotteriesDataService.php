@@ -3,6 +3,7 @@
 namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\emailTemplates\CheckResultsOrigin;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\entities\Lottery;
@@ -378,7 +379,7 @@ class LotteriesDataService
     {
         $draw = new EuroMillionsDraw();
         $draw->initialize([
-            'draw_date' => $next_draw_date,
+            'draw_date' => DateTimeUtil::convertDateTimeBetweenTimeZones($next_draw_date, $next_draw_date->timezone, $lottery->getTimeZone(), $lottery->getName()),
             'jackpot' => $jackpot,
             'lottery' => $lottery
         ]);
