@@ -248,7 +248,7 @@ class LotteryService
         $date = $lottery->getNextDrawDate($now);
         if ($showLotteryLocalTime) {
             if ($lottery->getName() !== 'EuroMillions' && $lottery->getName() !== 'Christmas' && $lottery->getName() !== 'EuroJackpot') {
-                return DateTimeUtil::convertDateTimeBetweenTimeZones($date, 'America/New_York', 'Europe/Madrid',$lottery->getName());
+                return DateTimeUtil::convertDateTimeBetweenTimeZones($date, $lottery->getTimeZone(), 'Europe/Madrid',$lottery->getName());
             }
         }
         return $date;

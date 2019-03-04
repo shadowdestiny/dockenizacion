@@ -14,16 +14,16 @@
 
         <div class="lottery-carousel--clock"></div>
 
-        <div class="lottery--countdown countdownpower" style="">
-            <div class="daypower unit" style="">
+        <div class="lottery--countdown countdownsena" style="">
+            <div class="daysena unit" style="">
                 <span class="val" style=""><b>%-d</b>{% if show_p_days == '1' %}D{% else %}D{% endif %}</span>
             </div>
-            <div class="dotspower"></div>
-            <div class="hourpower unit" style="">
+            <div class="dotssena"></div>
+            <div class="hoursena unit" style="">
                 <span class="val" style=""><b>%-H</b>H</span>
             </div>
-            <div class="dotspower" style="">:</div>
-            <div class="minutepower unit" style="">
+            <div class="dotssena" style="">:</div>
+            <div class="minutesena unit" style="">
                 <span class="val" style=""><b>%-M</b>M</span>
             </div>
             {#<div class="resizeme">3<span>D</span> 22<span>H</span>:45<span>M</span></div>#}
