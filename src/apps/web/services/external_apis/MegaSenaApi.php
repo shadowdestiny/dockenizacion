@@ -11,6 +11,8 @@ namespace EuroMillions\web\services\external_apis;
 use Phalcon\Di;
 use Phalcon\Http\Client\Provider\Curl;
 use EuroMillions\web\services\CurrencyConversionService;
+use Money\Currency;
+use Money\Money;
 
 class MegaSenaApi extends LottorisqApi
 {
@@ -21,4 +23,20 @@ class MegaSenaApi extends LottorisqApi
         $this->currencyConversionService =  $currencyConversionService ? $currencyConversionService : Di::getDefault()->get('domainServiceFactory')->getCurrencyConversionService();
     }
 
+    public function getJackpotForDate($lotteryName, $date = null)
+    {
+        if (!$date) {
+            $date = (new \DateTime())->format('Y-m-d');
+        }
+        try {
+            $drawBody = $this->sendCurl('/results'.'/'.$date);
+            $draw = json_decode($drawBody, true);
+            $currency = $this->currencyConversionService->convert(new Money((int) $draw['jackpot']['total'], new Currency('BRL')),
+                new Currency('EUR'));
+            return new Money((int) floor($currency->getAmount() / 1000000) * 100000000, new Currency('EUR'));
+        } catch (\Exception $e)
+        {
+            throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the EuroJackpot');
+        }
+    }
 }

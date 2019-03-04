@@ -70,7 +70,7 @@ class LotterySeeder extends AbstractSeed
                 'name' => 'MegaSena',
                 'jackpot_api' => 'MegaSena',
                 'frequency' => 'w0010010',
-                'draw_time' => '22:00:00',
+                'draw_time' => '16:00:00',
                 'result_api' => 'MegaSena',
                 'single_bet_price_amount' => '350',
                 'single_bet_price_currency_name' => 'EUR',

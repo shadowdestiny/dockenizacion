@@ -113,12 +113,12 @@
         if(item.name == 'MegaSena')
         {
             setCountDownByLottery(item.date,
-            'countdowneuroj',
-            'dayeuroj',
-            'dotseuroj',
-            'minuteeuroj',
-            'secondseuroj',
-            'houreuroj'
+            'countdownsena',
+            'daysena',
+            'dotssena',
+            'minutesena',
+            'secondssena',
+            'hoursena'
             );
         }
     });

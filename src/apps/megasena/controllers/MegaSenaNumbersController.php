@@ -86,7 +86,7 @@ final class MegaSenaNumbersController extends PublicSiteControllerBase
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('MegaSena')->modify('-1 hours'))->format('%a'),
             'actual_year' => $actualDate->format('Y'),
-            'pageController' => 'euroPastResult',
+            'pageController' => 'megasenaNumbersIndex',
             'draw_day' => $MegaSenaDraw->getDrawDate()->format('l'),
             'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
             'past_draw_date_format' => $MegaSenaDraw->getDrawDate()->format('d.m.Y'),
@@ -134,7 +134,7 @@ final class MegaSenaNumbersController extends PublicSiteControllerBase
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('MegaSena')->modify('-1 hours'))->format('%a'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
-            'pageController' => 'MegaSenaNumbersPast',
+            'pageController' => 'megaSenaNumbersPast',
         ]);
     }
 
@@ -201,7 +201,7 @@ final class MegaSenaNumbersController extends PublicSiteControllerBase
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('MegaSena')->modify('-1 hours'))->format('%a'),
             'actual_year' => $actualDate->format('Y'),
-            'pageController' => 'euroPastResult',
+            'pageController' => 'megasenaNumbersPast',
             'draw_day' => $MegaSenaDraw->getDrawDate()->format('l'),
             'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
             'past_draw_date_format' => $MegaSenaDraw->getDrawDate()->format('d.m.Y'),
