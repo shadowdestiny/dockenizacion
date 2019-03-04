@@ -12,6 +12,7 @@ use Phalcon\Di;
 use Phalcon\Http\Client\Provider\Curl;
 use EuroMillions\web\services\CurrencyConversionService;
 use Money\Currency;
+use EuroMillions\web\exceptions\ValidDateRangeException;
 use Money\Money;
 
 class MegaSenaApi extends LottorisqApi
