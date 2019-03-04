@@ -1,7 +1,8 @@
-<div class="item lottery-carousel lottery-carousel--powerball">
+<div class="item lottery-carousel lottery-carousel--megasena">
+
     <div class="top-block">
         <div class="title">
-            <span class="resizeme" style="">Megasena</span>
+            <span class="resizeme">{{ language.translate("MegaSena") }}</span>
         </div>
         <div class="lottery--value">
             <span class="resizeme" style="">{{ jackpot_value }}</span>
@@ -31,7 +32,7 @@
             <a href="/{{ language.translate("link_megasena_play") }}"
                class="lottery-carousel--btn" style="">
                             <span class="resizeme"  style="">
-                                Play now
+                                {{ language.translate("banner1_btn") }}
                             </span>
             </a>
         </div>
