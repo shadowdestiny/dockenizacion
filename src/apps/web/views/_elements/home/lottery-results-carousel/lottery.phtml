@@ -5,7 +5,11 @@
         </div>
     </div>
     <div class="center-block">
-        <?php foreach($lotteryResults as $result) {?>
+        <?php foreach($lotteryResults as $result) {
+            if ($lotteryName === "MegaSena"){
+                $result["regular_numbers"][] = $result["lucky_numbers"][1];
+            }
+        ?>
             <div class="result-row" style="cursor: pointer;" onclick="window.location='<?= $link ?>/<?= $result["draw_date"]->format('Y-m-d')?>'">
                 <div class="row--date">
                    <?=
@@ -25,7 +29,7 @@
                         <div class="ball star">
                             <?= $result['raffle']?>X
                         </div>
-                    <?php }else{ ?>
+                    <?php }else if (!in_array($lotteryName, ['MegaSena'])){ ?>
                     <?php foreach($result["lucky_numbers"] as $lucky_number) {?>
                         <div class="ball star">
                             <?= $lucky_number ?>
