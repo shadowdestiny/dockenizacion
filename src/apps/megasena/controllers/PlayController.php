@@ -11,6 +11,8 @@ namespace EuroMillions\megasena\controllers;
 
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\ViewHelper;
+use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\web\components\TrackingCodesHelper;
 use Money\Currency;
 
 final class PlayController extends \EuroMillions\shared\controllers\PlayController
@@ -40,11 +42,12 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
             $this->singleBetPriceCurrency = $this->currencyConversionService->convert($this->singleBetPrice, new Currency($user->getUserCurrency()->getName()));
         }
 
-        //$this->play_dates = $this->lotteryService->getRecurrentDrawDates('MegaSena');
+        $this->play_dates = $this->lotteryService->getRecurrentDrawDates('MegaSena');
         $this->draw = $this->lotteryService->getNextDateDrawByLottery('MegaSena');
+        $dateTimeToClose =  $this->lotteryService->getNextDateDrawByLottery('MegaSena',null,true);
         $date_time_util = new DateTimeUtil();
         $this->dayOfWeek = $date_time_util->getDayOfWeek($this->draw);
-        $this->checkOpenTicket = $date_time_util->checkTimeForClosePlay($this->draw);
+        $this->checkOpenTicket = $date_time_util->checkTimeForClosePlay($dateTimeToClose);
         $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('MegaSena');
         $this->automaticRandom = $this->request->get('random');
         $this->bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO('MegaSena');
@@ -52,8 +55,16 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
         $this->betValue = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
 
+        $this->tag->prependTitle($this->languageService->translate('play_megas_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('play_megas_desc'));
+
+        if($this->request->get('register'))
+        {
+            $this->view->setVar('register', TrackingCodesHelper::trackingAffiliatePlatformCodeWhenUserIsRegistered());
+        }
+
         return $this->view->setVars([
-            'play_dates' => [(new \DateTime())->format('Y-m-d')],
+            'play_dates' => $this->play_dates,
             'next_draw' => $this->dayOfWeek,
             'next_draw_format' => $this->draw->format('l j M G:i'),
             'currency_symbol' => $this->currencySymbol,
