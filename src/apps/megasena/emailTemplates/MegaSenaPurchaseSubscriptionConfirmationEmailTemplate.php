@@ -19,10 +19,10 @@ class MegaSenaPurchaseSubscriptionConfirmationEmailTemplate extends PowerBallPur
         $language = $this->user->getDefaultLanguage();
 
         if ($language == "ru") {
-            $template_id = "8769556";
+            $template_id = "10395066";
             $subject = 'Поздравляем';
         } else {
-            $template_id = "8769451";
+            $template_id = "10394667";
             $subject = 'Congratulations';
         }
 
