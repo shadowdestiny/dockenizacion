@@ -1584,6 +1584,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megasena)+}/{play:(jugar|gioca|speel|играть)+}", array(
+            "module" => "megasena",
+            'controller' => 'play',
+            'action' => 'index',
+        ));
+
         $router->mount(new HowToPlayRoutes());
         $router->mount(new MegaMillionsPlayRoutes());
         $router->mount(new MegaMillionsResultRoutes());

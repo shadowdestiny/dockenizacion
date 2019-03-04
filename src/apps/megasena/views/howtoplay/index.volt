@@ -17,7 +17,7 @@
                 <div class="title-block">
                     <h1>
                         <span class="resizeme">
-                            {{ language.translate("howToEJ_h1") }}
+                            {{ language.translate("howToMS_h1") }}
                         </span>
                     </h1>
                 </div>
@@ -32,28 +32,28 @@
 
                             <div class="accordion-block-outer">
 
-                                <h2 class="h2 yellow">{{ language.translate("howToEJ_h2_1") }}</h2>
+                                <h2 class="h2 yellow">{{ language.translate("howToMS_h2_1") }}</h2>
 
                                 <div class="accordion-block-outer--contet">
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_1q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_1a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_1q") }}</h3>
+                                        <p>{{ language.translate("howToMS_1a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_2q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_2a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_2q") }}</h3>
+                                        <p>{{ language.translate("howToMS_2a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_3q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_3a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_3q") }}</h3>
+                                        <p>{{ language.translate("howToMS_3a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_4q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_4a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_4q") }}</h3>
+                                        <p>{{ language.translate("howToMS_4a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_5q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_5a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_5q") }}</h3>
+                                        <p>{{ language.translate("howToMS_5a") }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -61,78 +61,70 @@
 
                             <div class="accordion-block-outer">
 
-                                <h2 class="h2 yellow">{{ language.translate("howToEJ_h2_2") }}</h2>
+                                <h2 class="h2 yellow">{{ language.translate("howToMS_h2_2") }}</h2>
 
                                 <div class="accordion-block-outer--contet">
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_6q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_6a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_6q") }}</h3>
+                                        <p>{{ language.translate("howToMS_6a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_7q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_7a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_7q") }}</h3>
+                                        <p>{{ language.translate("howToMS_7a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_8q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_8a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_8q") }}</h3>
+                                        <p>{{ language.translate("howToMS_8a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_9q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_9a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_9q") }}</h3>
+                                        <p>{{ language.translate("howToMS_9a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_10q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_10a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_10q") }}</h3>
+                                        <p>{{ language.translate("howToMS_10a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_11q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_11a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_11q") }}</h3>
+                                        <p>{{ language.translate("howToMS_11a") }}</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="accordion-block-outer">
-                                <h2 class="h2 yellow">{{ language.translate("howToEJ_h2_3") }}</h2>
+                                <h2 class="h2 yellow">{{ language.translate("howToMS_h2_3") }}</h2>
 
                                 <div class="accordion-block-outer--contet">
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_12q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_12a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_12q") }}</h3>
+                                        <p>{{ language.translate("howToMS_12a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_13q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_13a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_13q") }}</h3>
+                                        <p>{{ language.translate("howToMS_13a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_14q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_14a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_14q") }}</h3>
+                                        <p>{{ language.translate("howToMS_14a") }}</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="accordion-block-outer">
-                                <h2 class="h2 yellow">{{ language.translate("howToEJ_h2_4") }}</h2>
+                                <h2 class="h2 yellow">{{ language.translate("howToMS_h2_4") }}</h2>
 
                                 <div class="accordion-block-outer--contet">
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_15q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_15a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_15q") }}</h3>
+                                        <p>{{ language.translate("howToMS_15a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_16q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_16a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_16q") }}</h3>
+                                        <p>{{ language.translate("howToMS_16a") }}</p>
                                     </div>
                                     <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_17q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_17a") }}</p>
-                                    </div>
-                                    <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_18q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_18a") }}</p>
-                                    </div>
-                                    <div class="accordion-block">
-                                        <h3 class="h3">{{ language.translate("howToEJ_19q") }}</h3>
-                                        <p>{{ language.translate("howToEJ_19a") }}</p>
+                                        <h3 class="h3">{{ language.translate("howToMS_17q") }}</h3>
+                                        <p>{{ language.translate("howToMS_17a") }}</p>
                                     </div>
                                 </div>
                             </div>
