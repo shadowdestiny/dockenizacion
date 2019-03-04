@@ -25,11 +25,11 @@ class LatestResultsMegaSenaEmailTemplate extends LatestResultsPowerBallEmailTemp
 
         if ($language == "ru") {
             // Welcome Email Russian Version Template ID= 3997341
-            $template_id = "8776278";
+            $template_id = "10394790";
             $subject = 'Результаты розыгрышей последней лотереи';
         } else {
             // Welcome Email English Version Template ID= 4021147
-            $template_id = "8775922";
+            $template_id = "10394789";
             $subject = 'Latest results';
         }
 
