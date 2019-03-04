@@ -192,6 +192,13 @@ class Lottery extends EntityBase implements IEntity
             $this->getDateWithDrawTime($date->$iterationMethod(new \DateInterval('P1D')));
     }
 
+    private function returnDateByLottery($date)
+    {
+        return ($this->isPowerBall() || $this->isMegaMillions() || $this->isMegaSena()) ?
+            DateTimeUtil::convertDateTimeBetweenTimeZones($date, 'Europe/Madrid', $this->getTimeZone(), $this->getName()) :
+            $date;
+    }
+
     protected function getDrawFromWeekly($configParams, \DateTime $date, $iterationMethod, $increment, callable $hourCondition)
     {
         $weekday_index = (int)$date->format('N') - 1;
@@ -202,18 +209,14 @@ class Lottery extends EntityBase implements IEntity
         
         while ($days_to_check) {
             if (1 === (int)$configParams[$weekday_index] && ($days_to_check < 7 || $hourCondition($hour))) {
-                return ($this->isPowerBall() || $this->isMegaMillions()) ?
-                    DateTimeUtil::convertDateTimeBetweenTimeZones($result_date, 'Europe/Madrid', 'America/New_York', $this->getName()) :
-                    $result_date;
+                return $this->returnDateByLottery($result_date);
             }
             $result_date = $result_date->$iterationMethod($one_day);
             $weekday_index = PositiveModulus::calc($weekday_index + $increment, 7);
             $days_to_check--;
         }
         if (1 === (int)$configParams[$weekday_index] && ($days_to_check < 7 || $hourCondition($hour))) {
-            return ($this->isPowerBall() || $this->isMegaMillions()) ?
-                DateTimeUtil::convertDateTimeBetweenTimeZones($result_date, 'Europe/Madrid', 'America/New_York', $this->getName()) :
-                $result_date;
+             return $this->returnDateByLottery($result_date);
         }
 
         throw new NotDrawFound('Couldn\'t find the draw');

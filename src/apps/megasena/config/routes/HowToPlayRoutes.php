@@ -37,35 +37,35 @@ class HowToPlayRoutes extends RouterGroup
 
         //*********************MEGASENA ROUTES***********************************//
         $this->add("/megasena/how-to-play", array(
-            'lottery' => 5,
+            'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'en',
         ));
 
         $this->add("/es/megasena/como-se-juega", array(
-            'lottery' => 5,
+            'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'es',
         ));
 
         $this->add("/it/megasena/come-giocare", array(
-            'lottery' => 5,
+            'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'it',
         ));
 
         $this->add("/nl/megasena/speluitleg", array(
-            'lottery' => 5,
+            'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'nl',
         ));
 
         $this->add("/ru/megasena/как-играть", array(
-            'lottery' => 5,
+            'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'ru',

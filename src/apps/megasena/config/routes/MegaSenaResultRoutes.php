@@ -14,12 +14,6 @@ class MegaSenaResultRoutes extends RouterGroup
     public function initialize()
     {
 
-        $this->add("/{language:(es|it|nl|ru)+}/{lottery:(megasena)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}", array(
-            "module" => "megasena",
-            'controller' => 'mega-sena-numbers',
-            'action' => 'pastList',
-        ));
-
         //LAST RESULTS
         $this->add("/{lottery:(megasena)+}/results", array(
             "module" => "megasena",
@@ -35,34 +29,31 @@ class MegaSenaResultRoutes extends RouterGroup
         ));
 
         //PAST DATES
-        /*
-        $this->add("/{lottery:(megasena)+}/results/draw-history/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
+        $this->add("/{lottery:(megasena)+}/results/draw-history-page/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
             "module" => "megasena",
             'controller' => 'mega-sena-numbers',
             'action' => 'pastResult',
             'language' => 'en'
         ));
-        */
-        $this->add("/{language:(es|it|nl|ru)+}/{lottery:(megasena)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenislagen|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
-            "module" => "megasena",
-            'controller' => 'mega-sena-numbers',
-            'action' => 'index',
-        ));
 
-        $this->add("/{lottery:(megasena)+}/results/draw-history/:params", array(
+        $this->add("/{language:(es|it|nl|ru)+}/{lottery:(megasena)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenis|история-розыгрышей)+}/{date:([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])+)}", array(
             "module" => "megasena",
             'controller' => 'mega-sena-numbers',
             'action' => 'pastResult',
-            'params' => 2,
-            'language' => 'en',
         ));
 
         //DRAW HISTORY
-        $this->add("/{lottery:(megasena)+}/results/draw-history", array(
+        $this->add("/{lottery:(megasena)+}/results/draw-history-page", array(
             "module" => "megasena",
             'controller' => 'mega-sena-numbers',
             'action' => 'pastList',
             'language' => 'en'
+        ));
+
+        $this->add("/{language:(es|it|nl|ru)+}/{lottery:(megasena)+}/{result:(resultados|estrazioni|uitslagen|результаты)+}/{lastdraw:(sorteos-anteriores|archivio|trekking-geschiedenis|история-розыгрышей)+}", array(
+            "module" => "megasena",
+            'controller' => 'mega-sena-numbers',
+            'action' => 'pastList',
         ));
     }
 }
