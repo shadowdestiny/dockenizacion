@@ -33,14 +33,6 @@ class ResultPurchaseRoutes extends RouterGroup
             'action' => 'success',
             'language' => 'en'
         ));
-
-        $this->add("/result/success/{lottery}", array(
-            "module" => "megasena",
-            'lottery' => 6,
-            'controller' => 'mega-sena-result',
-            'action' => 'success',
-        ));
-
     }
 
 }
