@@ -345,8 +345,6 @@ class LotteryService
                 return 'EuroMillions\megasena\vo\dto\\'.$lotteryName.'DrawDTO';
             case 'MegaMillions':
                 return 'EuroMillions\megamillions\vo\dto\\'.$lotteryName.'DrawDTO';
-            case 'MegaSena':
-                return 'EuroMillions\megasena\vo\dto\\'.$lotteryName.'DrawDTO';
             default:
                 return 'EuroMillions\web\vo\dto\\'.$lotteryName.'DrawDTO';
         }
