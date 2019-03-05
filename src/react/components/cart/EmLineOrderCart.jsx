@@ -50,6 +50,13 @@ var EmLineOrder = new React.createClass({
                             )
                         }
                         {
+                            (this.props.megasena  ?
+                                    stars.map(function(star,i) {
+                                        return <li key={i}>{star}</li>})
+                                    : ""
+                            )
+                        }
+                        {
                             (!this.props.megamillions && !this.props.powerball && !this.props.eurojackpot && !this.props.megasena ?
                                 stars.map(function(star,i) {
                                     return <li className="star" key={i}>{star}</li>})
