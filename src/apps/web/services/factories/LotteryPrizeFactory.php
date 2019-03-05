@@ -19,7 +19,9 @@ class LotteryPrizeFactory
     {
         if ($lottery->isEuroJackpot()) {
             return new EuroJackpotPrize($breakDown, $result);
-        } else if ($lottery->isMegaSena()) {
+        }
+
+        if ($lottery->isMegaSena()) {
             return new MegaSenaPrize($breakDown, $result);
         }
 

@@ -15,18 +15,19 @@ class MegaSenaPrize extends LotteryPrize
     public function mappingArray()
     {
         return [
-            '2,1' => 'getCategoryTwelve',
-            '1,2' => 'getCategoryEleven',
-            '3,0' => 'getCategoryTen',
-            '3,1' => 'getCategoryNine',
-            '2,2' => 'getCategoryEight',
-            '3,2' => 'getCategorySeven',
-            '4,0' => 'getCategorySix',
-            '4,1' => 'getCategoryFive',
-            '4,2' => 'getCategoryFour',
-            '5,0' => 'getCategoryThree',
-            '5,1' => 'getCategoryTwo',
-            '5,2' => 'getCategoryOne'
+            '3,1' => 'getCategoryThree',
+            '4,0' => 'getCategoryThree',
+            '4,1' => 'getCategoryTwo',
+            '5,0' => 'getCategoryTwo',
+            '5,1' => 'getCategoryOne',
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrize()
+    {
+        return $this->prize->multiply(100);
     }
 }
