@@ -101,6 +101,7 @@ class PrizesTask extends TaskBase
     {
         $result = $this->serviceFactory->getCloudService($resultConfigQueue)->cloud()->queue()->receiveMessage();
         if (count($result->get('Messages')) > 0) {
+            $this->checkDatabaseConnection();
             $backOff = 0;
             foreach ($result->get('Messages') as $message) {
                 $body = json_decode($message['Body'], true);
@@ -130,6 +131,7 @@ class PrizesTask extends TaskBase
     {
         $result = $this->serviceFactory->getCloudService($prizeConfigQueue)->cloud()->queue()->receiveMessage();
         if (count($result->get('Messages')) > 0) {
+            $this->checkDatabaseConnection();
             $backOff = 0;
             foreach ($result->get('Messages') as $message) {
                 $body = json_decode($message['Body'], true);
