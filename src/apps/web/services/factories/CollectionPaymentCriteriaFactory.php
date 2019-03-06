@@ -6,6 +6,7 @@ namespace EuroMillions\web\services\factories;
 
 use EuroMillions\shared\components\PaymentsCollection;
 use EuroMillions\web\interfaces\IPaymentsCriteria;
+use EuroMillions\web\services\criteria_strategies\AndCriteria;
 use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 
@@ -18,9 +19,9 @@ class CollectionPaymentCriteriaFactory
     }
 
 
-    public static function createCollectionFromSelectorCriteriaAndOtherCriteria(CriteriaSelector $criteriaSelector, IPaymentsCriteria $criteria)
+    public static function createCollectionFromSelectorCriteriaAndOtherCriteria(PaymentsCollection $paymentsCollection, CriteriaSelector $criteriaSelector, IPaymentsCriteria $criteria)
     {
-
+        return  (new AndCriteria($criteriaSelector,$criteria))->meetCriteria($paymentsCollection);
     }
 
 }

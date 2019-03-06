@@ -17,6 +17,8 @@ use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixConf
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixGatewayClientWrapper;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
+use EuroMillions\web\vo\PaymentCountry;
+use EuroMillions\web\vo\PaymentWeight;
 use Money\Money;
 
 class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGateway
@@ -28,12 +30,21 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
 
     protected $data;
 
+    /**
+     * @var PaymentCountry $paymentCountry
+     */
+    protected $paymentCountry;
+
+    protected $paymentWeight;
+
 
 
     public function __construct(MoneyMatrixConfig $config, $gateway = null)
     {
         $this->gatewayClient = $gateway ?: new MoneyMatrixGatewayClientWrapper($config);
         $this->config = $config;
+        $this->paymentCountry = new PaymentCountry('RU');
+        $this->paymentWeight= new PaymentWeight(100);
     }
 
     /**
@@ -76,5 +87,21 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
     public function type()
     {
         return new PaymentSelectorType(PaymentSelectorType::OTHER_METHOD);
+    }
+
+    /**
+     * @return PaymentCountry
+     */
+    public function getPaymentCountry()
+    {
+        return $this->paymentCountry;
+    }
+
+    /**
+     * @return PaymentWeight
+     */
+    public function getPaymentWeight()
+    {
+        return $this->paymentWeight;
     }
 }
