@@ -134,7 +134,7 @@ final class MegaSenaNumbersController extends PublicSiteControllerBase
             'show_s_days' => (new \DateTime())->diff($this->lotteryService->getNextDateDrawByLottery('MegaSena')->modify('-1 hours'))->format('%a'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
-            'pageController' => 'megaSenaNumbersPast',
+            'pageController' => 'megasenaNumbersPast',
         ]);
     }
 

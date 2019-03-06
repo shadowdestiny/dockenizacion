@@ -150,16 +150,16 @@
 
             </div>
 
-            <div id="closeticket" class="modal" style="width: 1000px;height: 500px;">
-                <div style="text-align: center;color:white">
-                    It is too late to buy Powerball tickets for the draw held in Paris tonight at 20:45 CET.
-                    In a few moments you will be able to purchase Powerball tickets for the next draw that will take
-                    place on Tuesday.
+            <div id="closeticket" class="modal" style="width: {% if mobile == 1 %}250px;{% else %}1000px;{% endif %}height: 500px;">
+                                        <div style="text-align: center;color:white">
+                                            It is too late to buy MegaSena tickets for the draw held tonight at 20:45 CET.
+                                            In a few moments you will be able to purchase EuroJackpot tickets for the next draw that will take
+                                            place on {{ draw_day  }}.
 
-                    <br><br>Thank you for your pacience.<br>
+                                            <br><br>Thank you for your pacience.<br>
 
-                    The EuroMillions.com Support Team
-                </div>
+                                            The EuroMillions.com Support Team
+                                        </div>
             </div>
             <div id="closeticketbylimitbet" class="modal" style="width: 1000px;height: 500px;">
                 <div style="text-align: center;color:white">

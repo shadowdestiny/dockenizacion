@@ -1,5 +1,6 @@
 @import "../_variables";
 @import "../mixins";
+@import "./_partial/init";
 // megasena right section
 
 .right-section {
@@ -50,16 +51,16 @@
         display: block;
         position: absolute;
         border: 30px solid transparent;
-        border-right: 30px solid #4698e5;
-        border-top: 30px solid #4698e5;
+        border-right: 30px solid $clear_dark;
+        border-top: 30px solid $clear_dark;
         right: -22px;
         top: -30px;
 
         @media only screen and (min-width: $screen-desktop) {
 
           border: 21px solid transparent;
-          border-right: 21px solid #4698e5;
-          border-top: 21px solid #4698e5;
+          border-right: 21px solid $clear_dark;
+          border-top: 21px solid $clear_dark;
           right: -14px;
           top: -18px;
         }
@@ -70,16 +71,16 @@
         display: block;
         position: absolute;
         border: 30px solid transparent;
-        border-right: 30px solid #0250a3;
-        border-top: 30px solid #0250a3;
+        border-right: 30px solid $clear_dark;
+        border-top: 30px solid $clear_dark;
         right: -22px;
         top: -30px;
 
         @media only screen and (min-width: $screen-desktop) {
 
           border: 21px solid transparent;
-          border-right: 21px solid #0250a3;
-          border-top: 21px solid #0250a3;
+          border-right: 21px solid $clear_dark;
+          border-top: 21px solid $clear_dark;
           right: -14px;
           top: -18px;
         }
