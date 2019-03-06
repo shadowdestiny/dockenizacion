@@ -50,6 +50,7 @@ use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Raffle;
 use Phalcon\Http\Client\Provider\Curl;
 use EuroMillions\shared\enums\PurchaseConfirmationEnum;
+use EuroMillions\shared\components\builder\LotteryDrawDTOBuilder;
 
 class LotteryService
 {
@@ -315,7 +316,6 @@ class LotteryService
             try {
                 $euroMillionsDraws = $this->lotteryDrawRepository->getDraws($lottery, $limit);
                 $drawsDTO = [];
-                $drawDtoObject = $this->getDTO($lotteryName);
                 //TODO please, we need move results, jackpot from Draws to another service. Inject this depencencies for example
                 /** @var EuroMillionsDraw[] $euroMillionsDraws */
                 foreach ($euroMillionsDraws as $euroMillionsDraw) {
@@ -324,7 +324,10 @@ class LotteryService
                         $drawsDTO[] = new EuroMillionsDrawDTO($euromillionsBreakDownDataDTO, $euroMillionsDraw);
                         continue;
                     }
-                    $drawsDTO[] = new $drawDtoObject($euroMillionsDraw, $emTranslationAdapter);
+                    $drawsDTO[] = (new LotteryDrawDTOBuilder())->setEmTranslationAdapter($emTranslationAdapter)
+                        ->setEuromillionsDraw($euroMillionsDraw)
+                        ->setLotteryName($lotteryName)
+                        ->build();
                 }
                 return new ActionResult(true, $drawsDTO);
             } catch (DataMissingException $e) {
@@ -332,23 +335,6 @@ class LotteryService
             }
         }
         return new ActionResult(false);
-    }
-
-    /** return Class */
-    private function getDTO($lotteryName){
-
-        switch($lotteryName)
-        {
-            case 'EuroJackpot':
-                return 'EuroMillions\eurojackpot\vo\dto\\'.$lotteryName.'DrawDTO';
-            case 'MegaSena':
-                return 'EuroMillions\megasena\vo\dto\\'.$lotteryName.'DrawDTO';
-            case 'MegaMillions':
-                return 'EuroMillions\megamillions\vo\dto\\'.$lotteryName.'DrawDTO';
-            default:
-                return 'EuroMillions\web\vo\dto\\'.$lotteryName.'DrawDTO';
-        }
-
     }
 
     public function getDrawsDTO($lotteryName, $limit = 13)
