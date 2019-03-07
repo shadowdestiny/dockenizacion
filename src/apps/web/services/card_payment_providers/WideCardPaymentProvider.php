@@ -41,7 +41,7 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
     {
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
         $this->config = $config;
-        $this->paymentCountry = null;
+        $this->paymentCountry = new PaymentCountry('ES');
         $this->paymentWeight= new PaymentWeight(50);
     }
 

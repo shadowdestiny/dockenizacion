@@ -61,7 +61,7 @@ final class PaymentsCollection
 
     public function getIteratorSortByWeight()
     {
-        usort((new \ArrayIterator($this->payments))->getArrayCopy(), function($itemA,$itemB){
+        return usort((new \ArrayIterator($this->payments))->getArrayCopy(), function($itemA,$itemB){
                 return $itemA->getPaymentWeight() > $itemB->getPaymentWeight();
         });
     }

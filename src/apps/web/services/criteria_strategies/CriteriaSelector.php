@@ -23,7 +23,7 @@ final class CriteriaSelector implements IPaymentsCriteria
         $newPaymentsCollection = new PaymentsCollection();
         foreach($paymentsCollection->getIterator() as $k => $payment)
         {
-            if($payment->getType() == $this->paymentSelectorType)
+            if($payment->get()->type()->value() == $this->paymentSelectorType->value())
             {
                 $newPaymentsCollection->addItem($k,$payment);
             }
