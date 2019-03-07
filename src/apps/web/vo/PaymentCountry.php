@@ -4,22 +4,26 @@
 namespace EuroMillions\web\vo;
 
 
-use Assert\Assertion;
-use EuroMillions\web\vo\base\StringLiteral;
+use http\Exception\InvalidArgumentException;
 
-class PaymentCountry extends StringLiteral
+class PaymentCountry
 {
 
-    public function __construct($value)
-    {
-        Assertion::notEmpty($value);
-        parent::__construct($value);
-    }
+    protected $value;
 
+    public function __construct(array $value)
+    {
+        $this->value=$value;
+    }
 
     public static function createPaymentCountry($value)
     {
         return new self($value);
+    }
+
+    public function countries()
+    {
+        return $this->value;
     }
 
 }

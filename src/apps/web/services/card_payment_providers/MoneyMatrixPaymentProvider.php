@@ -43,7 +43,7 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
     {
         $this->gatewayClient = $gateway ?: new MoneyMatrixGatewayClientWrapper($config);
         $this->config = $config;
-        $this->paymentCountry = new PaymentCountry('RU');
+        $this->paymentCountry = new PaymentCountry(['RU']);
         $this->paymentWeight= new PaymentWeight(100);
     }
 

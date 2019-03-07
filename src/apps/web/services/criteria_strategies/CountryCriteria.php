@@ -23,9 +23,9 @@ class CountryCriteria implements IPaymentsCriteria
     public function meetCriteria(PaymentsCollection $paymentsCollection)
     {
         $newPaymentsCollection = new PaymentsCollection();
-        foreach($paymentsCollection->getIterator() as $k => $payment)
+        foreach($paymentsCollection->getIteratorSortByWeight() as $k => $payment)
         {
-            if($payment->get()->getPaymentCountry() == $this->paymentCountry->toNative())
+            if(array_intersect($payment->get()->getPaymentCountry()->countries(),$this->paymentCountry->countries()))
             {
                 $newPaymentsCollection->addItem($k,$payment);
             }

@@ -5,8 +5,9 @@ namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\shared\components\PaymentsCollection;
+use EuroMillions\tests\base\PaymentsCollectionRelatedTest;
 use EuroMillions\tests\base\UnitTestBase;
-use EuroMillions\web\services\card_payment_providers\MoneyMatrixPaymentStrategy;
+use EuroMillions\web\services\card_payment_providers\FakeCardPaymentStrategy;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy;
 use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
@@ -14,6 +15,7 @@ use EuroMillions\web\vo\enum\PaymentSelectorType;
 class CriteriaSelectorUnitTest extends UnitTestBase
 {
 
+    use PaymentsCollectionRelatedTest;
     /**
      * method meetCriteria
      * when called
@@ -23,11 +25,10 @@ class CriteriaSelectorUnitTest extends UnitTestBase
     {
         $expected = new PaymentsCollection();
         $expected->addItem('WideCardPaymentStrategy',new WideCardPaymentStrategy());
-        $paymentsCollection = new PaymentsCollection();
-        $paymentsCollection->addItem('WideCardPaymentStrategy',new WideCardPaymentStrategy());
-        $paymentsCollection->addItem('MoneyMatrixPaymentStrategy',new MoneyMatrixPaymentStrategy());
-        $actual = $this->getSut(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD));
-        $this->assertEquals($expected,$actual->meetCriteria($paymentsCollection));
+        $expected->addItem('FakePaymentStrategy',new FakeCardPaymentStrategy());
+        $paymentsCollection = $this->getPaymentsCollectionTest();
+        $actual = $this->getSut(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))->meetCriteria($paymentsCollection);
+        $this->assertEquals($expected,$actual);
     }
 
     private function getSut(PaymentSelectorType $paymentSelectorType)
