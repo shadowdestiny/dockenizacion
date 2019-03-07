@@ -10,6 +10,7 @@ use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\web\services\card_payment_providers\MoneyMatrixPaymentStrategy;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy;
 use EuroMillions\web\services\criteria_strategies\CountryCriteria;
+use EuroMillions\web\vo\enum\CountrySelectorType;
 use EuroMillions\web\vo\PaymentCountry;
 
 class CountryCriteriaUnitTest extends UnitTestBase
@@ -27,7 +28,7 @@ class CountryCriteriaUnitTest extends UnitTestBase
         $expected = new PaymentsCollection();
         $expected->addItem('WideCardPaymentStrategy',new WideCardPaymentStrategy());
         $paymentsCollection = $this->getPaymentsCollectionTest();
-        $actual = $this->getSut(['ALL'])->meetCriteria($paymentsCollection);
+        $actual = $this->getSut([CountrySelectorType::ALL_COUNTRIES])->meetCriteria($paymentsCollection);
         $this->assertEquals($expected,$actual);
     }
 
@@ -40,7 +41,7 @@ class CountryCriteriaUnitTest extends UnitTestBase
     public function test_meetCriteria_calledWithSelectorCriteriaAndCountryWithMultiplesMatchingForRussiaCountry_returnFakeProviderInFirstCollectionPosition()
     {
         $paymentsCollection = $this->getPaymentsCollectionTest();
-        $actual = $this->getSut(['RU'])->meetCriteria($paymentsCollection)->getIterator()->current();
+        $actual = $this->getSut([CountrySelectorType::RUSSIA])->meetCriteria($paymentsCollection)->getIterator()->current();
         $this->assertInstanceOf(MoneyMatrixPaymentStrategy::class,$actual);
     }
 

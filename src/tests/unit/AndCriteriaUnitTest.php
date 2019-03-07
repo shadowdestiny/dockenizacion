@@ -12,6 +12,7 @@ use EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy;
 use EuroMillions\web\services\criteria_strategies\AndCriteria;
 use EuroMillions\web\services\criteria_strategies\CountryCriteria;
 use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
+use EuroMillions\web\vo\enum\CountrySelectorType;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
 
@@ -32,7 +33,7 @@ class AndCriteriaUnitTest extends UnitTestBase
         $expected = new PaymentsCollection();
         $expected->addItem('WideCardPaymentStrategy',new WideCardPaymentStrategy());
         $collection = $this->getPaymentsCollectionTest();
-        $actual = $this->getSut( PaymentSelectorType::CREDIT_CARD_METHOD, ['ALL'])->meetCriteria($collection);
+        $actual = $this->getSut( PaymentSelectorType::CREDIT_CARD_METHOD, [CountrySelectorType::ALL_COUNTRIES])->meetCriteria($collection);
         $this->assertEquals($expected,$actual);
     }
 
@@ -45,7 +46,7 @@ class AndCriteriaUnitTest extends UnitTestBase
     {
         $expected = new PaymentsCollection();
         $collection = $this->getPaymentsCollectionTest();
-        $actual = $this->getSut( PaymentSelectorType::CREDIT_CARD_METHOD, ['ES'])->meetCriteria($collection);
+        $actual = $this->getSut( PaymentSelectorType::CREDIT_CARD_METHOD, [CountrySelectorType::SPAIN])->meetCriteria($collection);
         $this->assertEquals($expected,$actual);
     }
 
@@ -58,7 +59,7 @@ class AndCriteriaUnitTest extends UnitTestBase
     public function test_meetCriteria_calledWithSelectorCriteriaAndCountryWithMultiplesMatchingForRussiaCountry_returnFakeProviderInFirstCollectionPosition()
     {
         $collection = $this->getPaymentsCollectionTest();
-        $actual = $this->getSut( PaymentSelectorType::CREDIT_CARD_METHOD, ['RU'])->meetCriteria($collection)->getIterator()->current();
+        $actual = $this->getSut( PaymentSelectorType::CREDIT_CARD_METHOD, [CountrySelectorType::RUSSIA])->meetCriteria($collection)->getIterator()->current();
         $this->assertInstanceOf(FakeCardPaymentStrategy::class,$actual);
     }
     
