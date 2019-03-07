@@ -128,17 +128,18 @@ class AwardprizesTaskCest
         $line = EuroMillionsLineMother::aMegaSenaLine();
         $date = new DateTime('2020-01-01');
         $playConfig = PlayConfigMother::aPlayConfigSetForUser($user)
+            ->withId(1600)
             ->withLine($line)
             ->withLottery($megaSenaLottery)
             ->withStartDrawDate($date)
             ->withLastDrawDate($date)
             ->build();
         $draw = EuroMillionsDrawMother::aMegaSenaDrawWithJackpotAndBreakDown($date)
+            ->withId(1500)
             ->withResult($line)->build();
         $bet = BetMother::aSingleBet($playConfig, $draw);
         $bet->setPrize(new \Money\Money(10000, new \Money\Currency('EUR')));
 
-        $I->haveInDatabase('users',$user->toArray());
         $I->haveInDatabase('euromillions_draws', $draw->toArray());
         $I->haveInDatabase('play_configs', $playConfig->toArray());
         $I->haveInDatabase('bets', $bet->toArray());
