@@ -65,4 +65,20 @@ class WinEmailMegaSenaAboveTemplate extends WinEmailPowerBallAboveTemplate
 
         return $vars;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getStarBalls()
+    {
+        return null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNummBalls()
+    {
+        return $this->nummBalls + $this->starBalls;
+    }
 }
