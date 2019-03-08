@@ -26,18 +26,18 @@ class CartService
 
     private $entityManager;
 
-    protected $orderStorageStrategy;
+    private $orderStorageStrategy;
 
-    protected $userRepository;
+    private $userRepository;
 
     /** @var LotteryRepository $lotteryRepository */
-    protected $lotteryRepository;
+    private $lotteryRepository;
 
     /** @var SiteConfigService $siteConfigService */
-    protected $siteConfigService;
+    private $siteConfigService;
 
     /** @var PlayConfigRepository $playConfigRepository */
-    protected $playConfigRepository;
+    private $playConfigRepository;
 
     /** @var PlayService $playService */
     protected $playService;

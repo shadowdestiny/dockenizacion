@@ -177,7 +177,9 @@ function numCharLine($line){
                                     </li>
                                 {% endfor %}
                             {% elseif (lottery_name == 'MegaSena') %}
-
+                               <li>
+                                   <?php echo sprintf("%02s", $lucky_arr[1]);?>
+                               </li>
                             {% else %}
                                 {% for lucky_number in lucky_arr %}
                                     <li class="star">

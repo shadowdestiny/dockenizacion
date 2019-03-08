@@ -2,7 +2,6 @@
 namespace EuroMillions\web\services\factories;
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\web\services\CartServiceMegaSena;
 use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\EmTranslationAdapter;
@@ -25,7 +24,6 @@ use EuroMillions\web\services\LoggedAuthServiceStrategy;
 use EuroMillions\web\services\LoggedUserServiceStrategy;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\LotteryService;
-use EuroMillions\web\services\MegaSenaService;
 use EuroMillions\web\services\OrderService;
 use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\play_strategies\RedisCheckerOrderStrategy;
@@ -199,25 +197,6 @@ class DomainServiceFactory
         );
     }
 
-    public function getMegaSenaService()
-    {
-        return new MegaSenaService(
-            $this->entityManager,
-            $this->getLotteryService(),
-            new RedisPlayStorageStrategy(
-                $this->serviceFactory->getDI()->get('redisCache')
-            ),
-            new RedisOrderStorageStrategy(
-                $this->serviceFactory->getDI()->get('redisCache')
-            ),
-            $this->getCartMegaSenaService(),
-            $this->getWalletService(),
-            $this->serviceFactory->getDI()->get('paymentProviderFactory'),
-            $this->getBetService(),
-            $this->serviceFactory->getEmailService()
-        );
-    }
-
     public function getBetService()
     {
         return new BetService(
@@ -236,15 +215,6 @@ class DomainServiceFactory
     public function getCartService()
     {
         return new CartService(
-            $this->entityManager,
-            new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache')),
-            new SiteConfigService($this->entityManager,$this->getCurrencyConversionService()),
-            $this->getWalletService()
-        );
-    }
-    public function getCartMegaSenaService()
-    {
-        return new CartServiceMegaSena(
             $this->entityManager,
             new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache')),
             new SiteConfigService($this->entityManager,$this->getCurrencyConversionService()),
