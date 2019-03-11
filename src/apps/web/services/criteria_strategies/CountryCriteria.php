@@ -23,7 +23,11 @@ class CountryCriteria implements IPaymentsCriteria
     public function meetCriteria(PaymentsCollection $paymentsCollection)
     {
         $newPaymentsCollection = new PaymentsCollection();
-        foreach($paymentsCollection->getIteratorSortByWeight() as $k => $payment)
+        foreach($paymentsCollection->getIteratorSortByWeight(
+            function($itemA,$itemB){
+                return $itemA->get()->getPaymentWeight()->getValue() < $itemB->get()->getPaymentWeight()->getValue();
+            }
+        ) as $k => $payment)
         {
             if(array_intersect($payment->get()->getPaymentCountry()->countries(),$this->paymentCountry->countries()))
             {
