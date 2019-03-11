@@ -18,7 +18,7 @@ class PaymentCountry
 
     public static function createPaymentCountry($value)
     {
-        return new self($value);
+        return new self([$value]);
     }
 
     public function countries()
