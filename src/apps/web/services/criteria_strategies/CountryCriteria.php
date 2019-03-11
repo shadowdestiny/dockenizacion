@@ -35,6 +35,5 @@ class CountryCriteria implements IPaymentsCriteria
             }
         }
         return $newPaymentsCollection;
-
     }
 }

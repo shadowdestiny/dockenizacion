@@ -7,6 +7,7 @@ namespace EuroMillions\tests\unit;
 use EuroMillions\shared\components\PaymentsCollection;
 use EuroMillions\tests\base\PaymentsCollectionRelatedTest;
 use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\web\services\card_payment_providers\FakeCardPaymentStrategy;
 use EuroMillions\web\services\card_payment_providers\MoneyMatrixPaymentStrategy;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy;
 use EuroMillions\web\services\criteria_strategies\CountryCriteria;
@@ -27,8 +28,9 @@ class CountryCriteriaUnitTest extends UnitTestBase
     {
         $expected = new PaymentsCollection();
         $expected->addItem('WideCardPaymentStrategy',new WideCardPaymentStrategy());
+        $expected->addItem('MoneyMatrixPaymentStrategy',new MoneyMatrixPaymentStrategy());
         $paymentsCollection = $this->getPaymentsCollectionTest();
-        $actual = $this->getSut([CountrySelectorType::ALL_COUNTRIES])->meetCriteria($paymentsCollection);
+        $actual = $this->getSut([CountrySelectorType::SPAIN])->meetCriteria($paymentsCollection);
         $this->assertEquals($expected,$actual);
     }
 
@@ -42,7 +44,7 @@ class CountryCriteriaUnitTest extends UnitTestBase
     {
         $paymentsCollection = $this->getPaymentsCollectionTest();
         $actual = $this->getSut([CountrySelectorType::RUSSIA])->meetCriteria($paymentsCollection)->getIterator()->current();
-        $this->assertInstanceOf(MoneyMatrixPaymentStrategy::class,$actual);
+        $this->assertInstanceOf(FakeCardPaymentStrategy::class,$actual);
     }
 
 

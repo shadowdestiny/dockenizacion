@@ -25,7 +25,7 @@ class FakeCardPaymentProvider implements ICardPaymentProvider
     public function __construct()
     {
         $this->paymentCountry = new PaymentCountry(['RU']);
-        $this->paymentWeight= new PaymentWeight(70);
+        $this->paymentWeight= new PaymentWeight(100);
     }
 
 

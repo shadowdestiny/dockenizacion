@@ -16,9 +16,9 @@ class PaymentCountry
         $this->value=$value;
     }
 
-    public static function createPaymentCountry($value)
+    public static function createPaymentCountry(array $value)
     {
-        return new self([$value]);
+        return new self($value);
     }
 
     public function countries()

@@ -8,6 +8,7 @@ use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
+use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
 use EuroMillions\web\services\card_payment_providers\widecard\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
 use EuroMillions\web\vo\CreditCard;
@@ -19,6 +20,8 @@ use Phalcon\Http\Client\Response;
 
 class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGateway
 {
+
+    use CountriesCollection;
 
     private $gatewayClient;
     /** @var  User $user */
@@ -41,7 +44,7 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
     {
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
         $this->config = $config;
-        $this->paymentCountry = new PaymentCountry(['ALL','RU']);
+        $this->paymentCountry = new PaymentCountry($this->countries());
         $this->paymentWeight= new PaymentWeight(50);
     }
 

@@ -15,6 +15,7 @@ use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixConfig;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixGatewayClientWrapper;
+use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
@@ -23,6 +24,8 @@ use Money\Money;
 
 class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGateway
 {
+
+    use CountriesCollection;
 
     protected $gatewayClient;
 
@@ -43,8 +46,8 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
     {
         $this->gatewayClient = $gateway ?: new MoneyMatrixGatewayClientWrapper($config);
         $this->config = $config;
-        $this->paymentCountry = new PaymentCountry(['ALL']);
-        $this->paymentWeight= new PaymentWeight(100);
+        $this->paymentCountry = new PaymentCountry($this->countries());
+        $this->paymentWeight= new PaymentWeight(90);
     }
 
     /**

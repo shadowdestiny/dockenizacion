@@ -29,11 +29,10 @@ class AndCriteriaUnitTest extends UnitTestBase
      */
     public function test_meetCriteria_calledWithSelectorCriteriaAndCountryCriteria_returnProperCollectionWithItems()
     {
-
         $expected = new PaymentsCollection();
         $expected->addItem('WideCardPaymentStrategy',new WideCardPaymentStrategy());
         $collection = $this->getPaymentsCollectionTest();
-        $actual = $this->getSut( PaymentSelectorType::CREDIT_CARD_METHOD, [CountrySelectorType::ALL_COUNTRIES])->meetCriteria($collection);
+        $actual = $this->getSut( PaymentSelectorType::CREDIT_CARD_METHOD, [CountrySelectorType::SPAIN])->meetCriteria($collection);
         $this->assertEquals($expected,$actual);
     }
 
@@ -46,7 +45,7 @@ class AndCriteriaUnitTest extends UnitTestBase
     {
         $expected = new PaymentsCollection();
         $collection = $this->getPaymentsCollectionTest();
-        $actual = $this->getSut( PaymentSelectorType::CREDIT_CARD_METHOD, [CountrySelectorType::SPAIN])->meetCriteria($collection);
+        $actual = $this->getSut( PaymentSelectorType::CREDIT_CARD_METHOD, [CountrySelectorType::ALL_COUNTRIES])->meetCriteria($collection);
         $this->assertEquals($expected,$actual);
     }
 

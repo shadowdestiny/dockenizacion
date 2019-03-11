@@ -150,12 +150,6 @@ abstract class BootstrapStrategyBase
                 $class = "\\EuroMillions\\web\\services\\card_payment_providers\\" . $class_strategy;
                 $paymentsCollection->addItem($class_strategy,new $class($di->get('config')[$configPaymentGatewayLoader[$k]]));
             }
-
-//            $collection = CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
-//                $paymentsCollection,
-//                new CriteriaSelector(new PaymentSelectorType(PaymentSelectorType::OTHER_METHOD)),
-//                new CountryCriteria(new PaymentCountry('RU'))
-//            );
             return $paymentsCollection;
         } catch (\Exception $e)
         {
