@@ -379,7 +379,7 @@ class LotteriesDataService
     {
         $draw = new EuroMillionsDraw();
         $draw->initialize([
-            'draw_date' => DateTimeUtil::convertDateTimeBetweenTimeZones($next_draw_date, $next_draw_date->timezone, $lottery->getTimeZone(), $lottery->getName()),
+            'draw_date' => DateTimeUtil::convertDateTimeBetweenTimeZones($next_draw_date, $next_draw_date->getTimeZone()->getName(), $lottery->getTimeZone(), $lottery->getName()),
             'jackpot' => $jackpot,
             'lottery' => $lottery
         ]);
