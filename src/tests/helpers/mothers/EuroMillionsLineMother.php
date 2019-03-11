@@ -58,7 +58,37 @@ class EuroMillionsLineMother
         );
     }
 
+    public static function anEuroJackpotLine()
+    {
+        return new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(26),
+                new EuroMillionsRegularNumber(28),
+                new EuroMillionsRegularNumber(30),
+                new EuroMillionsRegularNumber(40),
+            ],
+            [
+                new EuroMillionsLuckyNumber(1),
+                new EuroMillionsLuckyNumber(4),
+            ]
+        );
+    }
 
-
-
+    public static function anotherEuroJackpotLine()
+    {
+        return new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(26),
+                new EuroMillionsRegularNumber(28),
+                new EuroMillionsRegularNumber(35),
+                new EuroMillionsRegularNumber(46),
+            ],
+            [
+                new EuroMillionsLuckyNumber(2),
+                new EuroMillionsLuckyNumber(3),
+            ]
+        );
+    }
 }

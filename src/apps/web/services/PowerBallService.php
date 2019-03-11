@@ -4,6 +4,7 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 
+use EuroMillions\shared\enums\PurchaseConfirmationEnum;
 use EuroMillions\shared\vo\RedisOrderKey;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\PowerBallPurchaseConfirmationEmailTemplate;
@@ -23,6 +24,8 @@ use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\external_apis\EuroJackpotApi;
+use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\external_apis\LottorisqApi;
 use EuroMillions\web\services\external_apis\MegaMillionsApi;
 use EuroMillions\web\services\factories\DomainServiceFactory;
@@ -152,9 +155,7 @@ class PowerBallService
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
                 $powerPlay = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user_id,$lottery->getId())->key());
-
                 $powerPlay = (int)json_decode($powerPlay->returnValues())->play_config[0]->powerPlay;
-
                 $result_order = $this->cartService->get($user_id, $lottery->getName(),$isWallet);
 
                 if ($result_order->success()) {
@@ -204,12 +205,9 @@ class PowerBallService
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                     if ($result_payment->success() && $orderIsToNextDraw) {
                         $APIPlayConfigs = json_encode($order->getPlayConfig());
-                        if($lottery->getName()== 'PowerBall')
-                        {
-                            $result_validation = json_decode((new LottorisqApi())->book($APIPlayConfigs)->body);
-                        }else{
-                            $result_validation = json_decode((new MegaMillionsApi())->book($APIPlayConfigs)->body);
-                        }
+                        $externalApi=LotteryApisFactory::bookApi($lottery);
+                        $result_validation=json_decode($externalApi->book($APIPlayConfigs)->body);
+
                         $walletBefore = $user->getWallet();
                         $config = $di->get('config');
                         if ($config->application->send_single_validations) {
@@ -311,12 +309,11 @@ class PowerBallService
 
     public function sendEmailPurchase(User $user, $orderLines, $lotteryName)
     {
-        $path=($lotteryName=='MegaMillions'?'megamillions':'web');
-        $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseConfirmationEmailTemplate";
+        $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName);
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
         if ($orderLines[0]->getFrequency() >= 4) {
-            $template="EuroMillions\\".$path."\\emailTemplates\\".$lotteryName."PurchaseSubscriptionConfirmationEmailTemplate";
+            $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName, true);
             $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
             $emailTemplate->setDraws($orderLines[0]->getFrequency());
             $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));

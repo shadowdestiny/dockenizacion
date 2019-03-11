@@ -8,7 +8,7 @@ abstract class Colleague
 {
 
     /**
-     * @var NotificationMediatorNotification $mediator
+     * @var NotificationMediator $mediator
      */
     protected $mediator;
 

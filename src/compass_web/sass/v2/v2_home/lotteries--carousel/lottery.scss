@@ -1,17 +1,13 @@
 .lottery-carousel {
-  width: 143px;
+  width: 100%;
   height: 114px;
   margin-left: auto;
   margin-right: auto;
-  //height: 154px;
 
   @media only screen and (min-width: $screen-ipad-v) {
-    //width: 364px;
-    width: 354px;
     height: 145px;
   }
   @media only screen and (min-width: $screen-ipad-h) {
-    width: 100%;
     height: 145px;
   }
 
@@ -127,6 +123,13 @@
       }
       span {
         font-weight: 400;
+
+        b{
+          font-weight: 700;
+        }
+      }
+      b{
+        font-weight: 700;
       }
     }
 

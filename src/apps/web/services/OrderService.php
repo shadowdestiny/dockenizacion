@@ -13,7 +13,7 @@ use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
-use EuroMillions\web\services\notification_mediator\NotificationMediatorNotification;
+use EuroMillions\web\services\notification_mediator\NotificationMediator;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
@@ -51,7 +51,7 @@ class OrderService
         $this->transactionService = $transactionService;
         $this->logger = $logger;
         $this->redisOrderChecker = $redisOrderChecker;
-        $this->mediator= new NotificationMediatorNotification($this->walletService,$this->playService,$this->transactionService,(new LoggerFactory(""))->paymentStream());
+        $this->mediator= new NotificationMediator($this->walletService,$this->playService,$this->transactionService,(new LoggerFactory(""))->paymentStream());
     }
 
 

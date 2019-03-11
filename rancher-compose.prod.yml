@@ -41,12 +41,12 @@ services:
       start_first: true
     health_check:
       healthy_threshold: 2
-      response_timeout: 5000
+      response_timeout: 1000
       port: 6379
       unhealthy_threshold: 3
-      initializing_timeout: 10000
+      initializing_timeout: 3000
       interval: 2000
-      strategy: none
+      strategy: recreate
       reinitializing_timeout: 1000
 
   web:
@@ -58,11 +58,11 @@ services:
       healthy_threshold: 2
       port: 80
       unhealthy_threshold: 3
-      initializing_timeout: 60000
+      initializing_timeout: 3000
       interval: 30000
       strategy: recreate
       request_line: GET "/readme.txt" "HTTP/1.0"
-      reinitializing_timeout: 60000
+      reinitializing_timeout: 1000
 
   php:
     scale: 1
@@ -70,10 +70,10 @@ services:
       start_first: true
     health_check:
       healthy_threshold: 2
-      response_timeout: 2000
+      response_timeout: 1000
       port: 9000
       unhealthy_threshold: 3
-      initializing_timeout: 10000
+      initializing_timeout: 3000
       interval: 2000
       strategy: recreate
       reinitializing_timeout: 1000

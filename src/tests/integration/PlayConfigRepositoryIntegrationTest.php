@@ -164,7 +164,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $date = new \DateTime('2016-01-01');
         $lottery = LotteryMother::anEuroMillions();
         $actual = $this->sut->updateToInactives($date,$lottery);
-        $this->assertEquals(7, $actual);
+        $this->assertEquals(8, $actual);
     }
 
 

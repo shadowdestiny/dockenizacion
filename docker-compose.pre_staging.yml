@@ -1,0 +1,81 @@
+version: '2'
+services:
+
+  redis:
+    image: redis:latest
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+      io.rancher.container.pull_image: always
+      em_container_service: redis
+      em_service: euromillions-web
+    mem_reservation: 52428800 #50MB
+
+  web:
+    image: panamedialottery/euromillions-web:${TARGET_IMAGE_TAG}
+    volumes_from:
+      - php
+    depends_on:
+      - php
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: php
+      em_container_service: web
+      em_service: euromillions-web
+    mem_reservation: 52428800 #50MB
+    mem_limit: 268435456 #256MB
+    environment:
+      EM_ENV: ${EM_ENV}
+
+  php:
+    image: panamedialottery/euromillions-php:${TARGET_IMAGE_TAG}
+    depends_on:
+      - redis
+      - database
+    labels:
+      io.rancher.container.pull_image: always
+      em_container_service: php
+      em_service: euromillions-web
+    mem_reservation: 268435456 #256MB
+    mem_limit: 1073741824 #1024MB
+    environment:
+      EM_ENV: ${EM_ENV}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+
+  phpcron:
+    image: panamedialottery/euromillions-php:cron_${TARGET_IMAGE_TAG}
+    depends_on:
+      - redis
+      - database
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+      io.rancher.container.pull_image: always
+      em_container_service: phpcron
+      em_service: euromillions-web
+    mem_reservation: 268435456 #256MB
+    mem_limit: 1073741824 #1024MB
+    environment:
+      EM_ENV: ${EM_ENV}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+
+  database:
+    image: mysql:5.6
+    labels:
+      io.rancher.scheduler.affinity:host_label: em_hostname=staging-03
+      io.rancher.container.pull_image: always
+      em_container_service: database
+      em_service: euromillions-web
+    volumes:
+      - "database_master_volume:/var/lib/mysql"
+      - "database_master_logs_volume:/var/log/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_master
+      MYSQL_USER: euromillions
+      MYSQL_PASSWORD: master
+      MYSQL_DATABASE: euromillions
+
+volumes:
+  database_master_volume:
+  database_master_logs_volume:

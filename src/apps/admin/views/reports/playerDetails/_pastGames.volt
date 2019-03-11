@@ -17,14 +17,21 @@
         </tr>
         </thead>
         <tbody>
-        {% for index,game in my_games_inactives %}
+        {% for index,lotteries in my_games_inactives %}
+        <?php $band=false; ?>;
+        {% for lottery,game in lotteries %}
+
             <tr>
                 <td class="date" align="center">
                     <?php
-                            $date = new \DateTime($index);
-                            $startDrawDate = $date->format('Y M j');
-                    ?>
-                    {{ startDrawDate }}
+                            if(!$band)
+                            {
+                                $band=true;
+                                $date = new \DateTime($index);
+                                $startDrawDate = $date->format('Y M j');
+                                echo($startDrawDate);
+                            }
+                            ?>
                 </td>
                 <?php $rowslottery = count($game);?>
                 <?php
@@ -96,6 +103,7 @@
                     </table>
                 </td>
             </tr>
+        {% endfor %}
         {% endfor %}
         </tbody>
     </table>

@@ -10,10 +10,10 @@ class BetMother
 {
 
 
-    public static function aSingleBet()
+    public static function aSingleBet($playConfig = null, $draw = null)
     {
-        $playConfig = PlayConfigMother::aPlayConfigSetForUser(UserMother::aUserWith50Eur()->build())->build();
-        $draw= EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build();
+        $playConfig = $playConfig ?: PlayConfigMother::aPlayConfigSetForUser(UserMother::aUserWith50Eur()->build())->build();
+        $draw= $draw ?: EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build();
 
         $bet= new BetBuilder($playConfig, $draw);
         return $bet->build();

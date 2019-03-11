@@ -205,13 +205,27 @@ class ReportsService
      *
      * @return mixed
      */
-    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions)
+    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot)
     {
-        $subscriptionsActives = $this->reportsRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions);
+        $subscriptionsActives = $this->reportsRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot);
         foreach ($subscriptionsActives as $subscriptionsActiveKey => $subscriptionsActiveValue) {
             $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
             $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
-            $subscriptionsActives[$subscriptionsActiveKey]['lottery'] = $subscriptionsActiveValue['lottery_id'] == 1 ? 'Euromillions' : $subscriptionsActiveValue['lottery_id'] == 3 ? 'PowerBall' : 'MegaMillions';
+            switch( $subscriptionsActiveValue['lottery_id'])
+            {
+                case "1":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'Euromillions';
+                    break;
+                case "3":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'PowerBall';
+                    break;
+                case "4":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'MegaMillions';
+                    break;
+                case "5":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'EuroJackpot';
+                    break;
+            }
         }
         return $subscriptionsActives;
     }
@@ -227,7 +241,21 @@ class ReportsService
         foreach ($subscriptionsActives as $subscriptionsActiveKey =>  $subscriptionsActiveValue) {
             $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
             $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
-            $subscriptionsActives[$subscriptionsActiveKey]['lottery'] = $subscriptionsActiveValue['lottery_id'] == 1 ? 'Euromillions' : $subscriptionsActiveValue['lottery_id'] == 3 ? 'PowerBall' : 'MegaMillions';
+            switch( $subscriptionsActiveValue['lottery_id'])
+            {
+                case "1":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'Euromillions';
+                    break;
+                case "3":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'PowerBall';
+                    break;
+                case "4":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'MegaMillions';
+                    break;
+                case "5":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'EuroJackpot';
+                    break;
+            }
         }
         return $subscriptionsActives;
     }
@@ -329,6 +357,20 @@ class ReportsService
         $nextDrawDate = clone $actualDraw->modify('+27 hours');
         $actualDrawDate = $this->getNextDateDrawByLottery('MegaMillions', $actualDraw->modify('-5 days'))->setTime(03, 00, 00);
         $actualDrawDate = $actualDrawDate->modify('+1 day');
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
+    /**
+     * @param $date
+     *
+     * @return array
+     */
+    public function getEuroJackpotDrawsActualAfterDatesByDrawDate($date)
+    {
+        $actualDraw = new \DateTime($date);
+        $nextDrawDate = clone $actualDraw->setTime(19, 30, 00);
+        $actualDrawDate = $this->getNextDateDrawByLottery('EuroJackpot', $actualDraw->modify('-8 days'))->setTime(19, 30, 00);
 
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
     }
@@ -508,6 +550,22 @@ class ReportsService
             $salesDraw[$keyDraw]['grossSales'] = $drawData['grossSales'];
             $salesDraw[$keyDraw]['grossMargin'] = $drawData['grossMargin'];
             $salesDraw[$keyDraw]['totalMegaplier'] = $drawData['totalMegaplier'];
+        }
+        return $salesDraw;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function fetchSalesDrawEuroJackpot()
+    {
+        $salesDraw = $this->reportsRepository->getSalesDrawEuroJackpot();
+        foreach ($salesDraw as $keyDraw => $valueDraw) {
+            $drawDates = $this->getEuroJackpotDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
+            $drawData = $this->reportsRepository->getEuroJackpotDrawDetailsBetweenDrawDates($drawDates);
+            $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
+            $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
+            $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];
         }
         return $salesDraw;
     }
@@ -710,6 +768,9 @@ class ReportsService
                     break;
                 case "acceptingEmails":
                     //Pasamos array con accepting emails de todos los usuarios a la vista
+                    break;
+                case "affiliate";
+                    $selectPlayersReports .= ' u.affiliate as affiliate,';
                     break;
             }
         }

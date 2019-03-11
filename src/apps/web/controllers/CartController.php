@@ -208,6 +208,7 @@ class CartController extends PublicSiteControllerBase
             'controller' => $controller,
             'action' => $action,
             'params' => json_encode($params),
+            'lottery' => $this->lottery
         ]);
     }
 
@@ -378,11 +379,9 @@ class CartController extends PublicSiteControllerBase
             $this->di->get('config')
         );
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider);
-        $this->paymentProviderService->setEventsManager($this->eventsManager);
-        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
         if($this->cartPaymentProvider->type() == 'IFRAME' && $cashierViewDTO->transactionID != null)
         {
-          // $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
+           $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
         }
 
 

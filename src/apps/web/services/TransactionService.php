@@ -132,19 +132,30 @@ class TransactionService extends Colleague
     //Shit function
     private function getLotteryName(LotteryRepository $lotteryRepository,Transaction $transaction)
     {
-
         try {
             /** @var Lottery$lottery */
-            $lottery = null;
-            if($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction) return "";
+            if ($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction or $transaction instanceof WinningsReceivedTransaction) return "";
+
+            if (method_exists($transaction, 'getLotteryName')) {
+                return $transaction->getLotteryName();
+            }
+
+            if (method_exists($transaction, 'getLotteryId')) {
+                $lotteryId = $transaction->getLotteryId();
+                $lottery = $lotteryRepository->find($lotteryId);
+                return $lottery->getName();
+            }
+
             $transaction->fromString();
-            $lottery = $lotteryRepository->findBy(["id" => ($transaction->getLotteryId()) ? $transaction->getLotteryId() : 1]);
-            return $lottery[0]->getName();
+
+            $playConfig = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'PlayConfig');
+
+            return  $playConfig->find($transaction->getPlayConfigs()[0])
+                ->getLottery()->getName();
         } catch (\Exception $e)
         {
             return "";
         }
-
     }
 
     public function getTransaction($id)

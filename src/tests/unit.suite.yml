@@ -2,3 +2,6 @@ class_name: UnitTester
 modules:
     enabled:
         - \Helper\Unit
+        - Asserts
+        - Db:
+              cleanup: true

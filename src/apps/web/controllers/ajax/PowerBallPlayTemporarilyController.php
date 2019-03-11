@@ -9,6 +9,7 @@ use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\LastDrawDate;
+use EuroMillions\web\vo\LastDrawDatePowerBall;
 use EuroMillions\web\vo\PlayFormToStorage;
 
 class PowerBallPlayTemporarilyController extends AjaxControllerBase
@@ -25,7 +26,7 @@ class PowerBallPlayTemporarilyController extends AjaxControllerBase
         $draw_day_play = $this->request->getPost('draw_day_play');
         $threshold = $this->request->getPost('threshold');
         $authService = $this->domainServiceFactory->getAuthService();
-        $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
+        $lastDrawDate = new LastDrawDatePowerBall($startDrawDate,$frequency);
         $date_time_util = new DateTimeUtil();
         $result = null;
         $playFormToStorage_collection = [];

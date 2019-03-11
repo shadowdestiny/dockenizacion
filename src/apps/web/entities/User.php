@@ -62,6 +62,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $lastConnection;
     protected $defaultLanguage;
     protected $disabledDate;
+    protected $affiliate;
 
     public function __construct(){
         $this->playConfig = new ArrayCollection();
@@ -606,5 +607,21 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
             ->orWhere(Criteria::expr()->eq('lastDrawDate', $date));
 
         return $this->getPlayConfig()->matching($criteria);
+    }
+
+    /**
+     * @param mixed $affiliate
+     */
+    public function setAffiliate($affiliate)
+    {
+        $this->affiliate = $affiliate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAffiliate()
+    {
+        return $this->affiliate;
     }
 }

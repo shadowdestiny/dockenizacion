@@ -1,7 +1,8 @@
 var React = require('react');
 
 var EuroMillionsStar = React.createClass({
-
+    time_delay_to_appear_selected:[],
+    time_delay_to_disappear:[],
     getDefaultProps: function()
     {
         return {
@@ -31,25 +32,33 @@ var EuroMillionsStar = React.createClass({
             var increase_to_appear_selected = Math.random() * this.props.timeout_star_selected;
             var delay_to_appear_selected = this.props.timeout_star_not_selected + increase_to_appear_selected;
             var delay_to_disappear = delay_to_appear_non_selected + Math.random() * this.props.timeout_star_selected;
+            let number = this.props.number;
             if(nextProps.selected) {
-                window.setTimeout(() => {
+                if (this.time_delay_to_appear_selected[number])
+                    clearTimeout(this.time_delay_to_appear_selected[number]);
+
+                this.time_delay_to_appear_selected[number] = window.setTimeout(() => {
                     this.setState({ active : true })
                 }, delay_to_appear_selected);
             } else {
-                window.setTimeout(() => {
+                if (this.time_delay_to_appear_selected[number])
+                    clearTimeout(this.time_delay_to_appear_selected[number]);
+
+                this.time_delay_to_appear_selected[number] = window.setTimeout(() => {
                     this.setState({
                         active: true
                     });
                 }, delay_to_appear_non_selected);
-                window.setTimeout(() => {
+
+                if (this.time_delay_to_disappear[number])
+                    clearTimeout(this.time_delay_to_disappear[number]);
+                this.time_delay_to_disappear[number] = window.setTimeout(() => {
                     this.setState({
                         active: false
                     });
                 }, delay_to_disappear);
             }
-        }
-
-        if(!nextProps.random_animation) {
+        } else {
             this.setState({
                 active : false
             });

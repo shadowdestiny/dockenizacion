@@ -3,6 +3,7 @@
 .vagrant
 .idea
 .env
+.ansible_vault_password
 *.retry
 *.log
 phpinfo.php

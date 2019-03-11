@@ -1,0 +1,131 @@
+// Play page - mobile version
+
+.eurojackpot--page {
+  @media only screen and (max-width: $width-pre-tablet) {
+    .play-page-mobile {
+
+
+      .bet-line {
+        .ticket-number {
+          margin-right: 8px;
+          margin-bottom: 1px;
+          width: 32px;
+          height: 32px;
+          color: #696969;
+          border-color: #696969;
+          background-color: #fff;
+
+          &.star {
+            border: 1px solid #af7800;
+            color: #af7800;
+          }
+
+        }
+      }
+
+      .ticket {
+        .numbers-section {
+          &.regular {
+            .ticket-number {
+              width: 36px;
+              height: 36px;
+              line-height: 33px;
+              margin-right: 14px;
+              margin-bottom: 10px;
+              color: #696969!important;
+              border-color: #696969!important;
+              background-color: #fff!important;
+
+              &.selected {
+                background-color: #ffc74d!important;
+              }
+            }
+          }
+
+          &.stars {
+            .ticket-number.star {
+              width: 36px;
+              height: 36px;
+              margin-right: 5px;
+              line-height: 33px;
+              margin-bottom: 10px;
+              float: right;
+              clear: both;
+              border-color: #af7800 !important;
+              color: #af7800 !important;
+
+              &.selected {
+                background: #af7800 !important;
+                color: #fff !important;
+              }
+            }
+          }
+        }
+      }
+
+      .btn--pick {
+        margin-bottom: 24px;
+      }
+
+      .draws-section {
+        .section-title {
+          text-transform: none;
+        }
+
+        .section-sub-title {
+          margin-bottom: 24px;
+        }
+
+        .buttons {
+          .bundle-btn {
+            margin-right: 10px;
+
+            &:last-of-type {
+              margin-right: 0;
+            }
+
+            .btn {
+              width: 52px;
+              height: 52px;
+            }
+          }
+        }
+      }
+
+      .price-per-line {
+        margin-bottom: 6px;
+      }
+
+      .buy-for-date {
+        margin-bottom: 3px;
+
+        padding-top: 15px;
+        font-size: 18px;
+      }
+
+      .btn--clear-big {
+        width: 50px;
+        height: 47px;
+      }
+
+      .ticket-layout {
+        .clear-button-big-block {
+          margin-bottom: 15px;
+        }
+      }
+
+      .btn--clear-small,
+      .btn--random-second {
+        height: 40px;
+        max-width: 144px;
+        margin-bottom: 10px;
+      }
+
+      .btn--clear-small {
+        background-position: 37px 50%;
+        padding-left: 65px;
+      }
+
+    }
+  }
+}

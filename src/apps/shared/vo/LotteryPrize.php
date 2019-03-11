@@ -22,7 +22,14 @@ class LotteryPrize extends Prize
     {
         $countCombination = implode(',',$this->categoryCombination);
 
-        $mappingArray = [
+        $mappingArray = $this->mappingArray();
+
+        $this->prize = $this->breakDown->$mappingArray[$countCombination]()->getLotteryPrize();
+    }
+
+    public function mappingArray()
+    {
+        return [
             '0,1,0' => 'getCategorySeventeen',
             '0,1,1' => 'getCategorySixteen',
             '1,1,0' => 'getCategoryFifteen',
@@ -41,8 +48,6 @@ class LotteryPrize extends Prize
             '5,1,0' => 'getCategoryTwo',
             '5,0,1' => 'getCategoryOne'
         ];
-        $this->prize = $this->breakDown->$mappingArray[$countCombination]()->getLotteryPrize();
     }
-
 
 }

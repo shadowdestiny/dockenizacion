@@ -80,7 +80,8 @@ $(function(){
                                 {#<div class="line-txt">{{ language.translate("Log in") }}</div>#}
                             {#</div>#}
                         </div>
-                        {% set url_signin = '/euromillions/cart/login' %}
+                        {% set url_signin = lottery is defined ? '/' ~ lottery ~ '/cart/login' : '/euromillions/cart/login' %}
+
                         {% include "sign-in/_log-in.volt" %}
                     </div>
                 {#</div>#}

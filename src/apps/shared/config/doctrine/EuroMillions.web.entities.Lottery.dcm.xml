@@ -17,6 +17,7 @@
         <field name="jackpot_api" type="string" nullable="true" />
         <field name="result_api" type="string" nullable="true" />
         <field name="draw_time" type="string"/>
+        <field name="time_zone" type="string" nullable="true" />
         <embedded name="single_bet_price" class="Money\Money" use-column-prefix="true" />
     </entity>
 </doctrine-mapping>

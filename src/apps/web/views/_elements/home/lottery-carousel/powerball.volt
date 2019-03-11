@@ -16,22 +16,16 @@
 
         <div class="lottery--countdown countdownpower" style="">
             <div class="daypower unit" style="">
-                <span class="val" style="">%-d{% if show_p_days == '1' %}D{% else %}D{% endif %}</span>
+                <span class="val" style=""><b>%-d</b>{% if show_p_days == '1' %}D{% else %}D{% endif %}</span>
             </div>
             <div class="dotspower"></div>
             <div class="hourpower unit" style="">
-                <span class="val" style="">%-HH</span>
+                <span class="val" style=""><b>%-H</b>H</span>
             </div>
             <div class="dotspower" style="">:</div>
             <div class="minutepower unit" style="">
-                <span class="val" style="">%-MM</span>
+                <span class="val" style=""><b>%-M</b>M</span>
             </div>
-            {% if show_p_days == '1' %}
-                <div class="dotspower" style="">:</div>
-                <div class="secondspower unit" style="">
-                    <span class="val" style="">%-SS</span>
-                </div>
-            {% endif %}
             {#<div class="resizeme">3<span>D</span> 22<span>H</span>:45<span>M</span></div>#}
         </div>
 

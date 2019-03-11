@@ -419,7 +419,7 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
             'credit_card_form' => $creditCardForm,
             'emerchant_data' => $this->getEmerchantData(),
             'power_play' => method_exists($order,'getPowerPlay') ? $order->getPowerPlay() : false,
-            'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay(),
+            'power_play_price' => $this->domainServiceFactory->getPlayService()->getPowerPlay(), //EMTD get powerPlay from playConfig
             'lottery_name' => ucfirst($this->lottery),
         ]);
     }

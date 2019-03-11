@@ -17,43 +17,35 @@
         </tr>
         </thead>
         <tbody>
-        {% for index,upcoming in my_games_actives %}
-        <div>
-            <?php $rows = count($my_games_actives[$index]); ?>
-            <?php
-                $numColumn = 0;
-                for($i=0;$i<$rows;$i++){
-                    $game = $my_games_actives[$index][$numColumn];
-                    $game = $game->get(0);
-                    $lottery = $game->lotteryName;
-            ?>
-            <tr>
-                <td align="center">
-                    {{ nextDrawDate }}
-                </td>
-                <td align="center">
-                    <strong>{{ lottery }}</strong>
-                </td>
-                <td class="numbers">
-                    <?php $regular = explode(',', $game->lines['bets']['regular']);?>
-                    <?php $lucky = explode(',', $game->lines['bets']['lucky']);?>
+        {% for lottery, my_game_active in my_games_actives %}
+            {% for date, my_games in my_game_active %}
+                {% for index,upcoming in my_games %}
+                    <div>
+                        <tr>
+                            <td align="center">
+                                <strong>{{ date }}</strong>
+                            </td>
+                            <td align="center">
+                                {{ lottery }}
+                            </td>
+                            <td class="numbers">
+                                {% for regular_number in  upcoming.regular_numbers %}
+                                    <span class="num">{{ regular_number }}</span>
+                                {% endfor %}
 
-                    {% for regular_number in regular  %}
-                        <span class="num">{{ regular_number }}</span>
-                    {% endfor %}
-                    {% if lottery === 'PowerBall' or lottery === 'MegaMillions'%}
-                        <span class="num yellow">{{ lucky[1] }}</span>
-                    {% else %}
-                        {% for lucky_number in lucky  %}
-                                <span class="num yellow">{{ lucky_number }}</span>
-                        {% endfor %}
-                    {% endif %}
-                    <?php $numColumn=$numColumn+1;?>
-                    <?php } ?>
-                </td>
-            </tr>
-        </div>
+                                {% if lottery === 'PowerBall' or lottery === 'MegaMillions'%}
+                                    <span class="num yellow">{{ upcoming.lucky_numbers[1] }}</span>
+                                {% else %}
+                                    {% for lucky_number in upcoming.lucky_numbers  %}
+                                        <span class="num yellow">{{ lucky_number }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </div>
 
+                {% endfor %}
+            {% endfor %}
         {% endfor %}
         </tbody>
     </table>

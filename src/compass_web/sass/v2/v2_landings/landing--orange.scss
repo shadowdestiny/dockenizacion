@@ -50,6 +50,7 @@
       .landing--banner-block--content--left {
         padding-left: vw(340);
         float: left;
+        max-width: 67%;
       }
       .landing--banner-block--content--right {
         float: right;
@@ -71,9 +72,9 @@
 
       .landing--banner-block--prize {
         color: #333333;
-        font-size: vw(250);
+        font-size: vw(195);
         font-weight: 710;
-        line-height: 0.7;
+        line-height: 0.85;
         text-align: center;
         text-transform: uppercase;
         margin-bottom: vw(40);
@@ -125,13 +126,13 @@
       .landing--banner-block--title-mobile, .landing--banner-block--title-mobile-bottom, .landing--banner-block--countdown-block-mobile {
         display: none;
       }
-      
+
       .landing--banner-block--star {
         color: #000000;
         font-size: vw(24);
         font-weight: 500;
         text-align: center;
-        margin-bottom: vw(125);
+        margin-bottom: vw(100);
       }
 
       .landing--banner-block--steps {

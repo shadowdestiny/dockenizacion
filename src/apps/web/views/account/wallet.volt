@@ -323,7 +323,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="box-balance--row  cl" style="height:267px">
+                        <div class="box-balance--row  cl" style="height:355px">
                             <div class="txt">{{ language.translate("balance_yourSubscription") }} </div>
                             <div class="txt">{{ language.translate("EuroMillions") }} <span
                                         class="value">{{ wallet.subscriptionBalanceEuromillions}}</span></div>
@@ -331,6 +331,10 @@
                                         class="value">{{ wallet.subscriptionBalancePowerBall}}</span></div>
                             <div class="txt">{{ language.translate("MegaMillions") }} <span
                                         class="value">{{ wallet.subscriptionBalanceMegaMillions}}</span></div>
+                            <div class="txt">
+                                 EuroJackpot
+                                 <span class="value">{{ wallet.subscriptionBalanceEuroJackpot}}</span>
+                            </div>
 
                         </div>
                         <div class="box-balance--row  cl">
@@ -352,16 +356,16 @@
 
                     </div>
                 </div>
-                <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/addFunds">
+                {#<form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/addFunds">
                                     {% set component='{"where": "account"}'|json_decode %}
                                     {% include "account/_add-card.volt" %}
                                     <input type="hidden" id="csid" name="csid"/>
-                </form>
-                {#<form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency">
+                </form>#}
+                <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency">
                     {% set component='{"where": "account"}'|json_decode %}
                     {% include "account/_add-money-matrix.volt" %}
                     <input type="hidden" id="csid" name="csid"/>
-                </form>#}
+                </form>
                 <div class="box-bank {% if which_form != 'withdraw' %}hidden{% endif %}">
                     {% if msg %}
                         <div class="box success">
