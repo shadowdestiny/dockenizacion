@@ -15,7 +15,7 @@ use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\Order;
 use Phalcon\Logger;
 
-class NotificationMediatorNotification implements IMediatorNotification
+class NotificationMediator implements IMediatorNotification
 {
 
     /**
