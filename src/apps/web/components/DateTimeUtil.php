@@ -128,7 +128,7 @@ class DateTimeUtil
 
     public static function convertDateTimeBetweenTimeZones(\DateTime $date, $from,$to,$lotteryName)
     {
-        if($lotteryName == 'EuroMillions' || $lotteryName == 'Christmas')
+        if($lotteryName == 'EuroMillions' || $lotteryName == 'Christmas' || $lotteryName == 'EuroJackpot')
         {
             return $date;
         }

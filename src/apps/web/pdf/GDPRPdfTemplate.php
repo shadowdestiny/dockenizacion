@@ -168,15 +168,19 @@ $html .= '
 <table border="1">
 <tr>
 <th>Draw date</th>
+<th>Lottery</th>
 <th>Numbers played</th>
 </tr>';
 if( count($lastTickets) > 0 ) {
-    foreach ($lastTickets['dates'] as $d => $draws) {
-        $html .= '<tr><td>'.$d.'</td><td>';
-        foreach ($draws as $numbers) {
-            $html .= implode(',',array_keys($numbers->numbers)). ' ' . implode(',',array_keys($numbers->stars)) . '<br>';
+    foreach($lastTickets['dates'] as $d => $lottery)
+    {
+        foreach ($lottery as $lotteryName => $draws) {
+            $html .= '<tr><td>'.$d.'</td><td>'.$lotteryName.'</td><td>';
+            foreach ($draws as $numbers) {
+                $html .= implode(',',array_keys($numbers->numbers)). ' ' . implode(',',array_keys($numbers->stars)) . '<br>';
+            }
+            $html .= '</td></tr>';
         }
-        $html .= '</td></tr>';
     }
 } else {
     $html .= '<tr><td></td><td></td></tr>';

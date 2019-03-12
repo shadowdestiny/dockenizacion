@@ -45,7 +45,7 @@ class PastDrawsCollectionDTO extends DTOBase implements IDto
         if($this->playConfigs) {
             foreach($this->playConfigs as $result) {
                 $startDrawDate = $result['startDrawDate']->format('Y-m-d');
-                $collection['dates'][$startDrawDate][] = new PastDrawDTO($result);
+                $collection['dates'][$startDrawDate][$result[0]->getPlayConfig()->getLottery()->getName()][] = new PastDrawDTO($result);
             }
         }
 

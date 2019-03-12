@@ -38,6 +38,7 @@
 
         .landing--banner-block--content--left {
           width: 100%;
+          max-width: 100%;
           padding: 0;
           float: none;
           margin-bottom:vwm(10);
@@ -56,11 +57,10 @@
           margin-top: vw(20);
           letter-spacing: vw(-2.4);
           padding-top: vw(110);
-          padding-left: vw(80)
         }
 
         .landing--banner-block--prize {
-          font-size: vwm(70);
+          font-size: vwm(60);
           text-align: center;
           left: 0;
           letter-spacing: vwm(-2);
@@ -120,7 +120,6 @@
             margin-top: 0;
             letter-spacing: vw(-2.4);
             padding-top: vwm(3);
-            padding-left: vw(80);
             margin-bottom: vwm(15);
           }
 
