@@ -8,6 +8,7 @@ use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\services\notification_mediator\Colleague;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\dto\WalletDTO;
@@ -16,8 +17,9 @@ use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderChristmas;
 use Money\Currency;
 use Money\Money;
+use Phalcon\Logger;
 
-class WalletService
+class WalletService extends Colleague
 {
     private $entityManager;
     private $currencyConversionService;
@@ -368,6 +370,26 @@ class WalletService
     }
 
 
+    public function ticketPurchaseFromNotification(User $user, Order $order, $transactionID, $walletBefore)
+    {
+        $dataTransaction = [
+            'lottery_id' => $order->getLottery()->getId(),
+            'transactionID' => $transactionID,
+            'numBets' => count($order->getPlayConfig()),
+            'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
+            'amountWithWallet' => $order->amountForTicketPurchaseTransaction(),
+            'walletBefore' => $walletBefore,
+            'amountWithCreditCard' => 0,
+            'playConfigs' => array_map(function ($val) {
+                return $val->getId();
+            }, $order->getPlayConfig()),
+            'discount' => $order->getDiscount()->getValue(),
+        ];
+        $this->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+        $this->mediator->log('ticketPurchaseFromNotification','TicketPurchase created->'.$transactionID,Logger::INFO);
+        $this->mediator->sendEmail();
+    }
+
     public function withDraw(User $user, Money $amount)
     {
         try {
@@ -519,6 +541,21 @@ class WalletService
             throw new \Exception($e->getMessage());
         }
     }
+
+
+    /**
+     * @param User $user
+     * @param Order $order
+     * @param $transactionID
+     * @param $walletBefore
+     */
+    public function initPaymentFlowFromNotification(User $user, Order $order, $transactionID, $walletBefore)
+    {
+        $order->getPlayConfig()[0]->setLottery($order->getLottery());
+        $user = $this->payOrder($user,$order);
+        $this->mediator->updateTransaction($user, $order, $transactionID, $walletBefore);
+    }
+
 
     /**
      * @param User $user

@@ -122,9 +122,6 @@ class NotificationMediator implements IMediatorNotification
 
     public function sendEmail()
     {
-
-
-
         if($this->order->getLottery()->getName() == 'EuroMillions')
         {
             $this->playService->sendEmailPurchase($this->user,$this->order->getPlayConfig());
