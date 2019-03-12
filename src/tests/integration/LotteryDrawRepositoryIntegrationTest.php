@@ -155,7 +155,8 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
 
         $lottery = $this->lotteryRepository->getLotteryByName('PowerBall');
         $draw_date= $lottery->getNextDrawDate();
-        $draw_date= DateTimeUtil::convertDateTimeBetweenTimeZones($draw_date, $draw_date->timezone, $lottery->getTimeZone(), $lottery->getName());
+        $lottery->setTimeZone('America/New_York');
+        $draw_date= DateTimeUtil::convertDateTimeBetweenTimeZones($draw_date, $draw_date->getTimeZone()->getName(), $lottery->getTimeZone(), $lottery->getName());
         $draw->initialize([
             'draw_date' => $draw_date,
             'jackpot' => EuroMillionsJackpot::fromAmountIncludingDecimals(4000000000),
@@ -181,7 +182,8 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
 
         $lottery = $this->lotteryRepository->getLotteryByName('Megamillions');
         $draw_date= $lottery->getNextDrawDate();
-        $draw_date= DateTimeUtil::convertDateTimeBetweenTimeZones($draw_date, $draw_date->timezone, $lottery->getTimeZone(), $lottery->getName());
+        $lottery->setTimeZone('America/New_York');
+        $draw_date= DateTimeUtil::convertDateTimeBetweenTimeZones($draw_date, $draw_date->getTimeZone()->getName(), $lottery->getTimeZone(), $lottery->getName());
         $draw->initialize([
             'draw_date' => $draw_date,
             'jackpot' => EuroMillionsJackpot::fromAmountIncludingDecimals(4000000000),
