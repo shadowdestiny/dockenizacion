@@ -48,4 +48,21 @@ final class PaymentsCollection
             throw new \Exception("Invalid key $key.");
         }
     }
+
+    public function getAllItems()
+    {
+        return $this->payments;
+    }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->payments);
+    }
+
+    public function getIteratorSortByWeight(callable $function)
+    {
+        uasort($this->payments, $function);
+        return new \ArrayIterator($this->payments);
+    }
+
 }

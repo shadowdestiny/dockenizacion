@@ -17,6 +17,7 @@ use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\dto\WithdrawResponseStatusDTO;
 use EuroMillions\web\vo\enum\MoneyMatrixStatusCode;
 use EuroMillions\web\vo\enum\OrderType;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
 use Exception;
@@ -66,6 +67,35 @@ class PaymentProviderService implements EventsAwareInterface
             throw new Exception($e->getMessage());
         }
     }
+
+
+    public function cashier(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData, $transactionID=null)
+    {
+        try
+        {
+            $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
+            if($paymentMethod->type() == PaymentSelectorType::CREDIT_CARD_METHOD)
+            {
+                if($hasOrder->success())
+                {
+                    return new ChasierDTO(null,null,"Order processing...", $paymentMethod->type());
+                }
+            }
+            //EMTD factory unique transaction id
+            if($transactionID == null)
+            {
+                $transactionID = $this->transactionService->getUniqueTransactionId();
+            }
+            $orderData->setTransactionID($transactionID);
+            $orderData->exChangeObject();
+            $response = $paymentMethod->call($orderData->toJson(),$orderData->action(),'post');
+            return new ChasierDTO(json_decode($response, true),$transactionID,"",$paymentMethod->type());
+        } catch (\Exception $e)
+        {
+            throw new Exception($e->getMessage());
+        }
+    }
+
 
 
     public function withdrawStatus(IHandlerPaymentGateway $paymentMethod, $transactionID)

@@ -21,7 +21,9 @@ class ChasierDTO  extends DTOBase implements IDto
 
     public $message;
 
-    public function __construct(array $data=null, $transactionID=null,$message = "")
+    public $type;
+
+    public function __construct(array $data=null, $transactionID=null,$message = "", $type)
     {
         if($data == null)
         {
@@ -32,6 +34,7 @@ class ChasierDTO  extends DTOBase implements IDto
             $this->guard($data);
         }
         $this->message = $message;
+        $this->type= $type;
     }
 
 
@@ -53,5 +56,13 @@ class ChasierDTO  extends DTOBase implements IDto
     public function exChangeObject()
     {
         // TODO: Implement exChangeObject() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

@@ -24,7 +24,7 @@ class OrderNotificationContext
     private $strategy;
 
 
-    public function __construct($status, $transactionID, Transaction $transaction,CloudWatch $logger, CartService $cartService)
+    public function __construct(Transaction $transaction,CloudWatch $logger, CartService $cartService)
     {
         switch($transaction->getLotteryName())
         {

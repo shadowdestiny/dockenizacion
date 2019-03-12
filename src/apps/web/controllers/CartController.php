@@ -3,6 +3,7 @@ namespace EuroMillions\web\controllers;
 
 use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\shared\services\SiteConfigService;
+use EuroMillions\web\components\GeoIPUtil;
 use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
@@ -12,8 +13,11 @@ use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\BlogService;
 use EuroMillions\web\services\CartService;
 use EuroMillions\web\services\ChristmasService;
+use EuroMillions\web\services\criteria_strategies\CountryCriteria;
+use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
 use EuroMillions\web\services\CurrencyConversionService;
 use EuroMillions\web\services\CurrencyService;
+use EuroMillions\web\services\factories\CollectionPaymentCriteriaFactory;
 use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\services\LanguageService;
 use EuroMillions\web\services\LotteryService;
@@ -24,7 +28,9 @@ use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\PaymentCountry;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Validation\Message;
@@ -378,7 +384,20 @@ class CartController extends PublicSiteControllerBase
              ],
             $this->di->get('config')
         );
-        $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider);
+
+
+        /**** Instance payment method ***/
+
+
+
+        $cardPaymentProvider= CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
+                $this->paymentsCollection,
+                new CriteriaSelector(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD)),
+                new CountryCriteria(PaymentCountry::createPaymentCountry('ES'))
+        );
+
+
+        $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider,$orderDataToPaymentProvider);
         if($this->cartPaymentProvider->type() == 'IFRAME' && $cashierViewDTO->transactionID != null)
         {
            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
