@@ -263,7 +263,8 @@ class CartController extends PublicSiteControllerBase
             );
             $this->paymentProviderService->setEventsManager($this->eventsManager);
             $this->eventsManager->attach('orderservice', $this->orderService);
-            $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider,$transactionID);
+            $cardPaymentProvider = $this->createCardPaymentProvider();
+            $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(),$orderDataToPaymentProvider,$transactionID);
             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$order->getTotal(),$transactionID);
             $this->cartService->store($order);
             echo json_encode($cashierViewDTO);
@@ -387,26 +388,11 @@ class CartController extends PublicSiteControllerBase
 
 
         /**** Instance payment method ***/
-
-
-
-        $cardPaymentProvider= CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
-                $this->paymentsCollection,
-                new CriteriaSelector(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD)),
-                new CountryCriteria(PaymentCountry::createPaymentCountry('ES'))
-        );
-
-        $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider,$orderDataToPaymentProvider);
-        if($this->cartPaymentProvider->type() == 'IFRAME' && $cashierViewDTO->transactionID != null)
-        {
-           $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
-        }
-
-
-
-
-
-
+        $this->paymentProviderService->setEventsManager($this->eventsManager);
+        $this->eventsManager->attach('orderservice', $this->orderService);
+        $cardPaymentProvider = $this->createCardPaymentProvider();
+        $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(),$orderDataToPaymentProvider);
+        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
 
         return $this->view->setVars([
             'order' => $play_config_dto,
@@ -461,6 +447,19 @@ class CartController extends PublicSiteControllerBase
             'thm_guid' => md5(rand()),
             'thm_params' => 'org_id=' . $thm_org_id . '&session_id=' . $thm_session_id
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function createCardPaymentProvider()
+    {
+        $cardPaymentProvider = CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
+            $this->paymentsCollection,
+            new CriteriaSelector(new PaymentSelectorType(PaymentSelectorType::OTHER_METHOD)),
+            new CountryCriteria(PaymentCountry::createPaymentCountry(['ES']))
+        );
+        return $cardPaymentProvider;
     }
 
 }

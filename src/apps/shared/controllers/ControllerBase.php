@@ -108,10 +108,18 @@ class ControllerBase extends Controller
 
     protected function checkBannedCountry()
     {
-        $geoip = new MaxMindWrapper($this->config->geoip->database_files_path);
+        $config = $this->di->get('config');
+        $geoip = new MaxMindWrapper($config->geoip->database_files_path);
         if($geoip->isIpForbidden($this->request->getClientAddress(true))) {
             $this->view->pick('/landings/restricted');
         }
+    }
+
+    protected function setPaymentCountry()
+    {
+        $config = $this->di->get('config');
+        $geoip = new MaxMindWrapper($config->geoip->database_files_path);
+        $this->paymentCountry= new PaymentCountry([$geoip->getCountryFromIp(GeoIPUtil::giveMeRealIP())]);
     }
 
     protected function setTrackingAffiliatePlatform()
