@@ -22,6 +22,7 @@ use EuroMillions\web\vo\enum\OrderType;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\TransactionId;
 use Exception;
 use LegalThings\CloudWatchLogger;
 use Money\Money;
@@ -78,8 +79,7 @@ class PaymentProviderService implements EventsAwareInterface
             $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
             if($transactionID == null)
             {
-                //EMTD extract to factory class and called from CashierBuilderContext
-                $transactionID = $this->transactionService->getUniqueTransactionId();
+                $transactionID = TransactionId::create();
             }
             return (new CashierBuilderContext($paymentMethod,$orderData,$transactionID,$hasOrder))->builder()->build();
         } catch (\Exception $e)
