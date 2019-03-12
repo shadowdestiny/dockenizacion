@@ -48,7 +48,7 @@ class NotificationController extends MoneymatrixController
         $transaction->fromString();
 
 
-        $orderNotification = new OrderNotificationContext($status,$transactionID,$transaction,$logger,$this->cartService);
+        $orderNotification = new OrderNotificationContext($transaction,$logger,$this->cartService);
         $order = $orderNotification->execute();
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $orderNotificationValidator = new ValidatorOrderNotificationsContext($transaction,

@@ -24,7 +24,7 @@ class PaymentsCollectionUnitTest extends UnitTestBase
     public function test_getAll_called_returnACollectionFromGateways()
     {
         $sut = $this->getSut();
-        $this->assertSame(2, count($sut->getAll()));
+        $this->assertSame(3, count($sut->getAll()));
     }
 
 

@@ -6,6 +6,8 @@ namespace EuroMillions\web\services;
 
 use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
 use EuroMillions\shared\components\OrderActionContext;
+use EuroMillions\web\components\cashier_builder\CashierDTOBuilder;
+use EuroMillions\web\components\CashierBuilderContext;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
@@ -17,8 +19,10 @@ use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\dto\WithdrawResponseStatusDTO;
 use EuroMillions\web\vo\enum\MoneyMatrixStatusCode;
 use EuroMillions\web\vo\enum\OrderType;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\TransactionId;
 use Exception;
 use LegalThings\CloudWatchLogger;
 use Money\Money;
@@ -66,6 +70,34 @@ class PaymentProviderService implements EventsAwareInterface
             throw new Exception($e->getMessage());
         }
     }
+
+
+    public function cashier(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData, $transactionID=null)
+    {
+        try
+        {
+            $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
+            if($transactionID == null)
+            {
+                $transactionID = TransactionId::create();
+            }
+            return (new CashierBuilderContext($paymentMethod,$orderData,$transactionID,$hasOrder))->builder()->build();
+        } catch (\Exception $e)
+        {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+
+    public function checkHasOrderInProcessAndReturnCashierDTO(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
+    {
+        $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
+        if($hasOrder->success())
+        {
+            return new ChasierDTO(null,null,"Order processing...", $paymentMethod->type());
+        }
+    }
+
 
 
     public function withdrawStatus(IHandlerPaymentGateway $paymentMethod, $transactionID)

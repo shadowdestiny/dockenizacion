@@ -5,12 +5,14 @@ use EuroMillions\shared\dto\RestrictedAccessConfig;
 use EuroMillions\shared\components\restrictedAccessStrategies\RestrictionByIpAndHttpAuth;
 use EuroMillions\shared\components\RestrictedAccess;
 use EuroMillions\shared\vo\HttpUser;
+use EuroMillions\web\components\GeoIPUtil;
 use EuroMillions\web\components\MaxMindWrapper;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\factories\DomainServiceFactory;
+use EuroMillions\web\vo\PaymentCountry;
 use Phalcon\Http\Response\CookiesInterface;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
@@ -26,10 +28,15 @@ class ControllerBase extends Controller
 
     protected $metaTag;
 
+    protected $paymentCountry;
+
+    private $config;
+
     public function initialize()
     {
         $this->domainServiceFactory = $this->di->get('domainServiceFactory');
         $this->tag->setTitle(' | EuroMillions.com');
+        $this->config = $this->di->get('config');
 //        $this->redirectFinalSlashUrl();
 //        $this->redirectSeoStrategy();
     }
@@ -70,6 +77,7 @@ class ControllerBase extends Controller
         $this->insertGoogleAnalyticsCodeViaEnvironment();
         $this->setTrackingAffiliatePlatform();
 
+
     }
 
     private function checkRestrictedAccess()
@@ -105,6 +113,13 @@ class ControllerBase extends Controller
         if($geoip->isIpForbidden($this->request->getClientAddress(true))) {
             $this->view->pick('/landings/restricted');
         }
+    }
+
+    protected function setPaymentCountry()
+    {
+        $config = $this->di->get('config');
+        $geoip = new MaxMindWrapper($config->geoip->database_files_path);
+        $this->paymentCountry= new PaymentCountry([$geoip->getCountryFromIp(GeoIPUtil::giveMeRealIP())]);
     }
 
     protected function setTrackingAffiliatePlatform()

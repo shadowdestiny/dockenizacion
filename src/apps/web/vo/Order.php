@@ -40,7 +40,6 @@ class Order implements \JsonSerializable
 
     protected $orderType;
 
-
     protected $hasSubscription;
 
 
