@@ -20,11 +20,15 @@ use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
+use EuroMillions\shared\components\PaymentsCollection;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
+use EuroMillions\web\services\criteria_strategies\CountryCriteria;
+use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
 use EuroMillions\web\services\email_templates_strategies\ErrorDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\factories\CollectionPaymentCriteriaFactory;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\LotteryValidatorsFactory;
 use EuroMillions\web\services\notification_mediator\Colleague;
@@ -32,12 +36,14 @@ use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\BundlePlayCollectionDTO;
 use EuroMillions\web\vo\dto\BundlePlayDTO;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderChristmas;
+use EuroMillions\web\vo\PaymentCountry;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
 use Exception;
@@ -146,9 +152,10 @@ class PlayService extends Colleague
      * @param bool $withAccountBalance
      * @param null $isWallet
      * @param string $lotteryName
+
      * @return ActionResult
      */
-    public function playWithQueue($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, $lotteryName = "PowerBall")
+    public function playWithQueue($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, $lotteryName = "PowerBall", PaymentsCollection $paymentsCollection)
     {
         try {
             $di = \Phalcon\Di::getDefault();
@@ -175,8 +182,21 @@ class PlayService extends Colleague
                 $order->setAmountWallet($user->getWallet()->getBalance());
                 $uniqueId = $this->walletService->getUniqueTransactionId();
                 if ($credit_card != null) {
-                    $this->cardPaymentProvider->user($user);
-                    $result_payment = $this->walletService->onlyPay($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
+
+                    //TODO: refactor this
+                    $this->cardPaymentProvider = CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
+                        $paymentsCollection,
+                        new CriteriaSelector(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD)),
+                        //new CountryCriteria(PaymentCountry::createPaymentCountry([$this->paymentCountry]))
+                        new CountryCriteria(PaymentCountry::createPaymentCountry(['ES']))
+                    );
+                    //TODO: end
+
+
+                    $provider = $this->cardPaymentProvider->getIterator()->current()->get();
+                    $provider->user($user);
+                    $provider->idTransaction=$uniqueId;
+                    $result_payment = $this->walletService->onlyPay($provider, $credit_card, $user, $uniqueId, $order, $isWallet);
                 } else {
                     if ($order->getHasSubscription()) {
                         $this->walletService->createSubscriptionTransaction($user, $uniqueId, $order);
@@ -188,6 +208,8 @@ class PlayService extends Colleague
             return new ActionResult(false);
         }catch(\Exception $e)
         {
+            echo $e->getMessage();
+            die();
         }
     }
 

@@ -79,7 +79,7 @@ class PaymentProviderService implements EventsAwareInterface
             $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
             if($transactionID == null)
             {
-                $transactionID = TransactionId::create();
+                $transactionID = TransactionId::create(); //TODO: llevar la creación de $transactionID al 'Order'
             }
             return (new CashierBuilderContext($paymentMethod,$orderData,$transactionID,$hasOrder))->builder()->build();
         } catch (\Exception $e)
