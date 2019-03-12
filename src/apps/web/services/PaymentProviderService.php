@@ -6,6 +6,8 @@ namespace EuroMillions\web\services;
 
 use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
 use EuroMillions\shared\components\OrderActionContext;
+use EuroMillions\web\components\cashier_builder\CashierDTOBuilder;
+use EuroMillions\web\components\CashierBuilderContext;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
@@ -74,25 +76,25 @@ class PaymentProviderService implements EventsAwareInterface
         try
         {
             $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
-            if($paymentMethod->type() == PaymentSelectorType::CREDIT_CARD_METHOD)
-            {
-                if($hasOrder->success())
-                {
-                    return new ChasierDTO(null,null,"Order processing...", $paymentMethod->type());
-                }
-            }
-            //EMTD factory unique transaction id
             if($transactionID == null)
             {
+                //EMTD extract to factory class and called from CashierBuilderContext
                 $transactionID = $this->transactionService->getUniqueTransactionId();
             }
-            $orderData->setTransactionID($transactionID);
-            $orderData->exChangeObject();
-            $response = $paymentMethod->call($orderData->toJson(),$orderData->action(),'post');
-            return new ChasierDTO(json_decode($response, true),$transactionID,"",$paymentMethod->type());
+            return (new CashierBuilderContext($paymentMethod,$orderData,$transactionID,$hasOrder))->builder()->build();
         } catch (\Exception $e)
         {
             throw new Exception($e->getMessage());
+        }
+    }
+
+
+    public function checkHasOrderInProcessAndReturnCashierDTO(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
+    {
+        $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
+        if($hasOrder->success())
+        {
+            return new ChasierDTO(null,null,"Order processing...", $paymentMethod->type());
         }
     }
 
