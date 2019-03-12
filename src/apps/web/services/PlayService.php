@@ -140,6 +140,58 @@ class PlayService
 
     /**
      * @param $user_id
+     * @param Money|null $funds
+     * @param CreditCard|null $credit_card
+     * @param bool $withAccountBalance
+     * @param null $isWallet
+     * @param string $lotteryName
+     * @return ActionResult
+     */
+    public function playWithQueue($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, $lotteryName = "PowerBall")
+    {
+        try {
+            $di = \Phalcon\Di::getDefault();
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryService->getLotteryConfigByName($lotteryName);
+            /** @var User $user */
+            $user = $this->userRepository->find(['id' => $user_id]);
+            $powerPlay = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user_id,$lottery->getId())->key());
+            //$powerPlay = (int)json_decode($powerPlay->returnValues())->play_config[0]->powerPlay;
+
+            $result_order = $this->cartService->get($user_id, $lottery->getName(),$isWallet);
+            if ($result_order->success()) {
+                /** @var Order $order */
+                $order = $result_order->getValues();
+                if (is_null($credit_card) && $withAccountBalance) {
+                    if ($order->totalOriginal()->getAmount() > $user->getBalance()->getAmount()) {
+                        return new ActionResult(false);
+                    }
+                }
+                $order->setIsCheckedWalletBalance($withAccountBalance);
+                $order->setLottery($lottery);
+              //  $order->setPowerPlay($powerPlay);
+                //$order->addFunds($order->getTotal());
+                $order->setAmountWallet($user->getWallet()->getBalance());
+                $uniqueId = $this->walletService->getUniqueTransactionId();
+                if ($credit_card != null) {
+                    $this->cardPaymentProvider->user($user);
+                    $result_payment = $this->walletService->onlyPay($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
+                } else {
+                    if ($order->getHasSubscription()) {
+                        $this->walletService->createSubscriptionTransaction($user, $uniqueId, $order);
+                    }
+                    $result_payment = new ActionResult(true, $order);
+                }
+                return new ActionResult($result_payment, $order);
+            }
+            return new ActionResult(false);
+        }catch(\Exception $e)
+        {
+        }
+    }
+
+    /**
+     * @param $user_id
      * @param Money $funds
      * @param CreditCard $credit_card
      * @param bool $withAccountBalance

@@ -105,6 +105,30 @@ class WalletService
         return $payment_result;
     }
 
+
+
+    public function onlyPay(ICardPaymentProvider $provider,
+                            CreditCard $card,
+                            User $user,
+                            $uniqueID = null,
+                            Order $order,
+                            $isWallet = null)
+    {
+        $creditCardCharge = $order->getCreditCardCharge();
+        $payment_result = $this->pay($provider, $card, $creditCardCharge);
+        if ($payment_result->success()) {
+            try
+            {
+                $this->entityManager->persist($user);
+                $this->entityManager->flush($user);
+            } catch(\Exception $e)
+            {
+
+            }
+        }
+        return $payment_result;
+    }
+
     public function payOrder(User $user, Order $order)
     {
         if($order->getHasSubscription())
