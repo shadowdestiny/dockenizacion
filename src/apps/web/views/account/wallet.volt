@@ -387,7 +387,8 @@
                             </div>
                         </div>
                     {% endif %}
-                     <h2 class="h3 yellow">{{ language.translate("withdraw_head") }}</h2>
+
+                    {#<h2 class="h3 yellow">{{ language.translate("withdraw_head") }}</h2>
 
                                         <form action="/withdraw" method="post" id="form-withdraw" class="box-add-bank">
                                             <div class="box-details {#{% if which_form == 'edit' %} hidden {% endif %}#}">
@@ -478,10 +479,10 @@
                                                     <input id="new-bank" type="submit" class="hidden">
                                                 </label>
                                             </div>
-                                        </form>
-                    {#<form id="form-withdraw" class="box-add-bank">
+                                        </form>#}
+                    <form id="form-withdraw" class="box-add-bank">
                             {% include "account/_add-money-matrix-withdraw.volt" %}
-                    </form>#}
+                    </form>
                 </div>
             </div>
         </div>
