@@ -77,7 +77,7 @@ class PaymentProviderService implements EventsAwareInterface
         try
         {
             $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
-            return (new CashierBuilderContext($paymentMethod,$orderData,$transactionID,$hasOrder))->builder()->build();
+            return (new CashierBuilderContext($paymentMethod,$orderData,$hasOrder))->builder()->build();
         } catch (\Exception $e)
         {
             throw new Exception($e->getMessage());

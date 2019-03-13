@@ -260,13 +260,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "action" => "success"
         ));
 
-        /*
+        //TODO: Remove this endpoint from MoneyMatrix API and use next one
         $router->add('/paymentmx/notification', array(
             "module" => "web",
             "controller" => "notification",
             "action" => "notification"
         ));
-        */
 
         $router->add('/payment/notification', array(
             "module" => "web",

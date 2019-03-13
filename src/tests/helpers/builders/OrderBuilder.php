@@ -11,6 +11,7 @@ use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\TransactionId;
 use Money\Currency;
 use Money\Money;
 use EuroMillions\tests\helpers\mothers\UserMother;
@@ -36,6 +37,8 @@ class OrderBuilder
     /** @var EuroMillionsDraw $draw */
     protected $draw;
 
+    protected $transactionId;
+
     protected $isCheckedWalletBalance;
 
 
@@ -50,6 +53,7 @@ class OrderBuilder
         $this->fee = new Money(self::DEFAULT_FEE, new Currency('EUR'));
         $this->fee_limit_value = new Money(self::DEFAULT_FEE_LIMIT_VALUE, new Currency('EUR'));
         $this->single_bet_price = new Money(self::DEFAULT_SINGLE_BET_PRICE, new Currency('EUR'));
+        $this->transactionId = TransactionId::create();
     }
 
     public static function anOrder()
@@ -141,20 +145,20 @@ class OrderBuilder
      */
     public function build()
     {
-        $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value);
+        $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value, $this->transactionId);
         return $order;
     }
 
 
     public function buildANewWay()
     {
-        $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value,null, false,$this->lottery, $this->draw);
+        $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value,null, false,$this->lottery, $this->draw, $this->transactionId);
         return $order;
     }
 
     public function buildWithWallet()
     {
-        $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value,null, true,$this->lottery, $this->draw);
+        $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value,null, true,$this->lottery, $this->draw, $this->transactionId);
         return $order;
     }
 
