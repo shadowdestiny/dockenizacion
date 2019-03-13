@@ -21,12 +21,12 @@ class OrderPowerBall extends Order
 
     private $powerPlay;
 
-    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw)
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw, TransactionId $transactionId)
     {
 
         $this->powerPlay = (int)$play_config[0]->getPowerPlay();
         $this->powerPlayPrice = new Money($lottery->getPowerPlayValue(), new Currency('EUR'));
-        parent::__construct($play_config, $single_bet_price, $fee, $fee_limit, $discount, $withWallet, $lottery,$draw);
+        parent::__construct($play_config, $single_bet_price, $fee, $fee_limit, $discount, $withWallet, $lottery,$draw,$transactionId);
     }
 
 
