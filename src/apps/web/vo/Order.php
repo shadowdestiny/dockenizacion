@@ -45,7 +45,7 @@ class Order implements \JsonSerializable
     protected $transactionId;
 
 
-    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null,$withWallet=false, Lottery $lottery, $draw, TransactionId $transactionId)
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null,$withWallet=false, Lottery $lottery, $draw, TransactionId $transactionId=null)
     {
         $this->play_config = $play_config;
         $this->single_bet_price = $single_bet_price;

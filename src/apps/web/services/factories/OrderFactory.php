@@ -19,6 +19,7 @@ use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderChristmas;
 use EuroMillions\web\vo\OrderPowerBall;
 use EuroMillions\web\vo\OrderDeposit;
+use EuroMillions\web\vo\TransactionId;
 use EuroMillions\web\vo\WithdrawOrder;
 use Money\Money;
 
@@ -34,7 +35,7 @@ class OrderFactory
                                   Lottery $lottery,
                                   $draw,
                                   $withWallet,
-                                  $transactionId = null
+                                  TransactionId $transactionId = null
     )
     {
         /** @var User $user */
@@ -75,7 +76,6 @@ class OrderFactory
             $order->setAmountWallet($user->getWallet()->getBalance());
             return $order;
         }
-
         $order = new Order($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw,$transactionId);
         $order->setAmountWallet($user->getWallet()->getBalance());
         return $order;

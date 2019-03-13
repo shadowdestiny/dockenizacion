@@ -24,7 +24,7 @@ final class OrderEuroJackpot extends Order
     private $powerPlay;
 
 
-    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw,TransactionId $transactionId)
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw,TransactionId $transactionId=null)
     {
         parent::__construct($play_config, $single_bet_price, $fee, $fee_limit, $discount, $withWallet, $lottery,$draw,$transactionId);
     }

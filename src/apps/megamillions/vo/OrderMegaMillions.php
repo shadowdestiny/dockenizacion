@@ -25,7 +25,7 @@ class OrderMegaMillions extends Order
 
     private $powerPlay;
 
-    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw,TransactionId $transactionId)
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw,TransactionId $transactionId=null)
     {
 
         $this->powerPlay = (int)$play_config[0]->getPowerPlay();
