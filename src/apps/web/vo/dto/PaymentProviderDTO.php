@@ -3,8 +3,6 @@
 
 namespace EuroMillions\web\vo\dto;
 
-
-use EuroMillions\web\entities\PaymentMethod;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\dto\base\DTOBase;
@@ -79,7 +77,7 @@ class PaymentProviderDTO extends DTOBase implements IDto, \JsonSerializable
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize ()
+    public function jsonSerialize()
     {
         return $this->toArray();
     }
