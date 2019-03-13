@@ -63,6 +63,8 @@ class NotificationController extends MoneymatrixController
             $order->setNextDraw($nextDrawForOrder);
             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $transaction->getUser(), $order->getTotal(), $status, $statusCode);
         }
+
+        exit();
     }
 
 

@@ -197,9 +197,7 @@ class PlayService extends Colleague
 
                     $provider = $this->cardPaymentProvider->getIterator()->current()->get();
                     $provider->user($user);
-                    $provider->idTransaction=$uniqueId;
-
-
+                    $provider->idTransaction=$order->getTransactionId();
 
                     $result_payment = $this->walletService->onlyPay($provider, $credit_card, $user, $uniqueId, $order, $isWallet);
                 } else {
@@ -208,11 +206,11 @@ class PlayService extends Colleague
                     }
                     $result_payment = new ActionResult(true, $order);
                 }
-                return new ActionResult($result_payment, $order);
+                return new ActionResult($result_payment->success(), $order);
             }
             return new ActionResult(false);
-        }catch(\Exception $e)
-        {
+        }
+        catch(\Exception $e) {
             echo $e->getMessage();
             die();
         }
