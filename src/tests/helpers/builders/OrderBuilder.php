@@ -145,7 +145,7 @@ class OrderBuilder
      */
     public function build()
     {
-        $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value, $this->transactionId);
+        $order = new Order($this->playConfig, $this->single_bet_price, $this->fee, $this->fee_limit_value);
         return $order;
     }
 

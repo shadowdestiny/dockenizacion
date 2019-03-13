@@ -1,13 +1,16 @@
 <?php
 namespace EuroMillions\web\services\card_payment_providers;
-use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\vo\CardHolderName;
+use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\dto\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
+use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\PaymentCountry;
 use EuroMillions\web\vo\PaymentWeight;
-use Money\Money;
 
 class FakeCardPaymentProvider implements ICardPaymentProvider
 {
@@ -29,19 +32,15 @@ class FakeCardPaymentProvider implements ICardPaymentProvider
     }
 
 
-    public function charge(Money $amount, CreditCard $card)
+    /**
+     * @param PaymentProviderDTO $data
+     * @return ActionResult
+     */
+    public function charge(PaymentProviderDTO $data)
     {
+        $card = $this->createFakeCard($data->toArray());
         $result = $card->getLastNumbersOfCreditCard() % 2 == 0;
         return new ActionResult($result);
-    }
-
-
-    /**
-     * @param User $user
-     * @return mixed
-     */
-    public function user(User $user)
-    {
     }
 
     public function type()
@@ -63,6 +62,15 @@ class FakeCardPaymentProvider implements ICardPaymentProvider
     public function getPaymentCountry()
     {
         return $this->paymentCountry;
+    }
+
+    private function createFakeCard(array $data) {
+        return new CreditCard(
+            new CardHolderName($data['cardHolderName']),
+            new CardNumber($data['creditCardNumber']),
+            new ExpiryDate($data['expirationMonth'].'/'.$data['expirationYear']),
+            new CVV($data['cvv'])
+        );
     }
 
 }

@@ -11,6 +11,8 @@ use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\services\notification_mediator\Colleague;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
+use EuroMillions\web\vo\dto\PaymentProviderDTO;
+use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\WalletDTO;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
@@ -46,10 +48,10 @@ class WalletService extends Colleague
                                            User $user,
                                            CreditCardCharge $creditCardCharge)
     {
-        $provider->user($user);
-        $uniqueId = $this->getUniqueTransactionId();
-        $provider->idTransaction = $uniqueId;
-        $payment_result = $this->pay($provider, $card, $creditCardCharge);
+        //$provider->user($user);
+        //$uniqueId = $this->getUniqueTransactionId();
+        //$provider->idTransaction = $uniqueId;
+        $payment_result = $this->pay($provider, $user, null, $card); //TODO: There is no Order here. Fix it!
         if ($payment_result->success()) {
             $walletBefore = $user->getWallet();
             $user->reChargeWallet($creditCardCharge->getNetAmount());
@@ -82,7 +84,7 @@ class WalletService extends Colleague
 
         $creditCardCharge = $order->getCreditCardCharge();
 
-        $payment_result = $this->pay($provider, $card, $creditCardCharge);
+        $payment_result = $this->pay($provider, $user, $order, $card);
         if ($payment_result->success()) {
             try {
                 $walletBefore = $user->getWallet();
@@ -116,8 +118,9 @@ class WalletService extends Colleague
                             Order $order,
                             $isWallet = null)
     {
-        $creditCardCharge = $order->getCreditCardCharge();
-        $payment_result = $this->pay($provider, $card, $creditCardCharge);
+        //$creditCardCharge = $order->getCreditCardCharge();
+        //$payment_result = $this->pay($provider, $card, $creditCardCharge);
+        $payment_result = $this->pay($provider, $user, $order, $card);
         if ($payment_result->success()) {
             try
             {
@@ -216,7 +219,7 @@ class WalletService extends Colleague
     {
 
         $creditCardCharge = $order->getCreditCardCharge();
-        $payment_result = $this->pay($provider, $card, $creditCardCharge);
+        $payment_result = $this->pay($provider, $user, $order, $card);
         if ($payment_result->success()) {
             try {
                 $walletBefore = $user->getWallet();
@@ -235,11 +238,11 @@ class WalletService extends Colleague
     }
 
 
-    public function pay(ICardPaymentProvider $provider, CreditCard $card, CreditCardCharge $creditCardCharge)
+    public function pay(ICardPaymentProvider $provider, User $user, Order $order, CreditCard $card)
     {
         try {
-            $amount = $creditCardCharge->getFinalAmount();
-            return $provider->charge($amount, $card);
+            $amount = $order->getCreditCardCharge()->getFinalAmount();
+            return $provider->charge(new PaymentProviderDTO(new UserDTO($user), $order, $amount, $card));
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }

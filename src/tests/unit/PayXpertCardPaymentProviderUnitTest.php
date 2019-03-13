@@ -1,8 +1,12 @@
 <?php
 namespace EuroMillions\tests\unit;
 
+use EuroMillions\tests\helpers\mothers\OrderMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentProvider;
+use EuroMillions\web\vo\dto\PaymentProviderDTO;
+use EuroMillions\web\vo\dto\UserDTO;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -58,6 +62,8 @@ class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
         $originator_id = '111';
         $amount = '3000';
         $money = new Money((int)$amount, new Currency($currency));
+        $user = UserMother::aJustRegisteredUser()->build();
+        $order = OrderMother::aJustOrder()->buildANewWay();
         $gateway = $this->prophesize('\EuroMillions\web\services\card_payment_providers\payxpert\GatewayClientWrapper');
         $transaction = $this->prophesize('\EuroMillions\web\services\card_payment_providers\payxpert\GatewayTransactionWrapper');
 
@@ -87,10 +93,8 @@ class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
         $transaction->send()->willReturn($expected_result);
 
         $gateway->newTransaction('CCSale')->willReturn($transaction->reveal());
-
-
         $sut = new PayXpertCardPaymentProvider(new PayXpertConfig($originator_id, $originator_name, $api_key), $gateway->reveal());
-        $actual = $sut->charge($money, $creditCard);
+        $actual = $sut->charge(new PaymentProviderDTO(new UserDTO($user), $order, $money, $creditCard));
         $this->assertEquals($success, $actual->success());
         $this->assertEquals($expected_result, $actual->returnValues());
     }

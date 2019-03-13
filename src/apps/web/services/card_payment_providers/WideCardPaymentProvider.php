@@ -5,13 +5,12 @@ namespace EuroMillions\web\services\card_payment_providers;
 
 
 use EuroMillions\shared\vo\results\PaymentProviderResult;
-use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
 use EuroMillions\web\services\card_payment_providers\widecard\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
-use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\dto\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
 use EuroMillions\web\vo\PaymentWeight;
@@ -24,10 +23,10 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
     use CountriesCollection;
 
     private $gatewayClient;
-    /** @var  User $user */
-    private $user;
-    private $data = [];
-    /** @var WideCardConfig $config */
+
+    /**
+     * @var WideCardConfig $config
+     */
     private $config;
 
     /**
@@ -48,6 +47,7 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         $this->paymentWeight= new PaymentWeight(50);
     }
 
+    /*
     public function __get($name) {
         return $this->data[$name];
     }
@@ -55,15 +55,17 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
     public function __set($name, $value) {
         $this->data[$name] = $value;
     }
+    */
 
     /**
-     * @param Money $amount
-     * @param CreditCard $card
+     * @param PaymentProviderDTO $data
      * @return PaymentProviderResult
+     * @throws \Exception
      */
-    public function charge(Money $amount, CreditCard $card)
+    public function charge(PaymentProviderDTO $data)
     {
-        $params = $this->createArrayData($amount, $card);
+        $params = $this->createArrayData($data->toArray());
+
         /** @var Response $result */
         $result = $this->gatewayClient->send($params);
         $header = $result->header;
@@ -84,25 +86,16 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         return $result;
     }
 
-    /**
-     * @param User $user
-     * @return mixed
-     */
-    public function user(User $user)
-    {
-        $this->user = $user;
-    }
-
-    private function createArrayData(Money $amount, CreditCard $card) {
+    private function createArrayData(array $data) {
         return [
-            'idTransaction' => $this->data['idTransaction'],
-            'userId' => $this->user->getId(),
-            'amount' => $amount->getAmount(),
-            'creditCardNumber' => $card->cardNumber()->toNative(),
-            'cvc' => $card->cvv()->toNative(),
-            'expirationYear' => $card->expiryDate()->getYear(),
-            'expirationMonth' => $card->expiryDate()->getMonth(),
-            'cardHolderName' => $card->cardHolderName()->toNative()
+            'idTransaction' => $data['idTransaction'],
+            'userId' => $data['userId'],
+            'amount' => $data['amount'],
+            'creditCardNumber' => $data['creditCardNumber'],
+            'cvc' => $data['cvv'], //TODO: cvc != cvv ?
+            'expirationYear' => $data['expirationYear'],
+            'expirationMonth' => $data['expirationMonth'],
+            'cardHolderName' => $data['cardHolderName']
         ];
     }
 

@@ -21,8 +21,11 @@ class PaymentProviderDTO extends DTOBase implements IDto, \JsonSerializable
 
     protected $idTransaction;
     protected $userId;
+    protected $userEmail;
+    protected $userIp;
     protected $amount;
-    protected $creditCarNumber;
+    protected $currency;
+    protected $creditCardNumber;
     protected $cvv;
     protected $expirationYear;
     protected $expirationMonth;
@@ -41,8 +44,11 @@ class PaymentProviderDTO extends DTOBase implements IDto, \JsonSerializable
     {
         $this->idTransaction = $this->orderVo->getTransactionId();
         $this->userId = $this->userDto->getUserId();
+        $this->userEmail = $this->userDto->getEmail();
+        $this->userIp = $this->userDto->getIp();
         $this->amount = $this->amountVo->getAmount();
-        $this->creditCarNumber = $this->cardVo->getCardNumbers();
+        $this->currency = $this->amountVo->getCurrency()->getName();
+        $this->creditCardNumber = $this->cardVo->getCardNumbers();
         $this->cvv = $this->cardVo->getCVV();
         $this->expirationYear = $this->cardVo->getExpiryYear();
         $this->expirationMonth = $this->cardVo->getExpiryMonth();
@@ -53,9 +59,12 @@ class PaymentProviderDTO extends DTOBase implements IDto, \JsonSerializable
     {
         return [
             'idTransaction' => $this->idTransaction,
-            'userId' => (string) $this->userDto->getUserId(),
+            'userId' => (string) $this->userId,
+            'userEmail' => $this->userEmail,
+            'userIp' => $this->userIp,
             'amount' => $this->amount,
-            'creditCarNumber' => $this->creditCarNumber,
+            'currency' => $this->currency,
+            'creditCardNumber' => $this->creditCardNumber,
             'cvv' => $this->cvv,
             'expirationYear' => $this->expirationYear,
             'expirationMonth' => $this->expirationMonth,

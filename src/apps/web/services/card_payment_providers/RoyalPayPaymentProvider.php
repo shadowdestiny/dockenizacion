@@ -12,6 +12,7 @@ use EuroMillions\web\services\card_payment_providers\royalpay\GatewayClientWrapp
 use EuroMillions\web\services\card_payment_providers\royalpay\RoyalPayConfig;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
 use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\dto\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
 use EuroMillions\web\vo\PaymentWeight;
@@ -24,11 +25,7 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
     use CountriesCollection;
 
     private $gatewayClient;
-    private $data = [];
-    /**
-     * @var  User $user
-     */
-    private $user;
+
     /**
      * @var RoyalPayConfig $config
      */
@@ -47,25 +44,17 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
         $this->config = $config;
         $this->paymentCountry = new PaymentCountry($this->countries());
-        $this->paymentWeight= new PaymentWeight(100);
-    }
-
-    public function __get($name) {
-        return $this->data[$name];
-    }
-
-    public function __set($name, $value) {
-        $this->data[$name] = $value;
+        $this->paymentWeight = new PaymentWeight(100);
     }
 
     /**
-     * @param Money $amount
-     * @param CreditCard $card
+     * @param PaymentProviderDTO $data
      * @return PaymentProviderResult
+     * @throws \Exception
      */
-    public function charge(Money $amount, CreditCard $card)
+    public function charge(PaymentProviderDTO $data)
     {
-        $params = $this->createArrayData($amount, $card);
+        $params = $this->createArrayData($data->toArray());
 
         /** @var Response $result */
         $result = $this->gatewayClient->send($params, 'deposit');
@@ -85,30 +74,21 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         throw new \BadFunctionCallException();
     }
 
-    /**
-     * @param User $user
-     * @return mixed
-     */
-    public function user(User $user)
-    {
-        $this->user = $user;
-    }
-
-    private function createArrayData(Money $amount, CreditCard $card) {
+    private function createArrayData(array $data) {
         return [
-            'orderID' => $this->data['idTransaction'],
-            'userID' => (string) $this->user->getId(),
-            'amount' => $amount->getAmount(),
-            'currency' => $amount->getCurrency()->getName(),
-            "CallbackUrl" => "https://8bd12105.eu.ngrok.io/notification",
-	        "SuccessUrl" => "https://dev.euromillions.com/euromillions/result/success",
-            "FailUrl" => "https://dev.euromillions.com/euromillions/result/failure",
-            "PendingUrl" => "https://dev.euromillions.com/euromillions/result/success",
-            'cardNumber' => $card->cardNumber()->toNative(),
-            'cardCvv' => $card->cvv()->toNative(),
-            'cardYear' => $card->expiryDate()->getYear(),
-            'cardMonth' => $card->expiryDate()->getMonth(),
-            'cardHolderName' => $card->cardHolderName()->toNative()
+            'orderID' => $data['idTransaction'],
+            'userID' => (string) $data['userId'],
+            'amount' => $data['amount'],
+            'currency' => $data['currency'],
+            "CallbackUrl" => "https://8bd12105.eu.ngrok.io/notification", //TODO: extract
+	        "SuccessUrl" => "https://dev.euromillions.com/euromillions/result/success", //TODO: extract
+            "FailUrl" => "https://dev.euromillions.com/euromillions/result/failure", //TODO: extract
+            "PendingUrl" => "https://dev.euromillions.com/euromillions/result/success", //TODO: extract
+            'cardNumber' => $data['creditCardNumber'],
+            'cardCvv' => $data['cvv'],
+            'cardYear' => $data['expirationYear'],
+            'cardMonth' => $data['expirationMonth'],
+            'cardHolderName' => $data['cardHolderName']
         ];
     }
 

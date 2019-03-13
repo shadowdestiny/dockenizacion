@@ -9,18 +9,15 @@
 namespace EuroMillions\web\services\card_payment_providers;
 
 
-use EuroMillions\shared\vo\results\PaymentProviderResult;
-use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixConfig;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixGatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
-use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\dto\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
 use EuroMillions\web\vo\PaymentWeight;
-use Money\Money;
 
 class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGateway
 {
@@ -30,8 +27,6 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
     protected $gatewayClient;
 
     protected $config;
-
-    protected $data;
 
     /**
      * @var PaymentCountry $paymentCountry
@@ -51,20 +46,10 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
     }
 
     /**
-     * @param Money $amount
-     * @param CreditCard $card
-     * @return PaymentProviderResult
+     * @param PaymentProviderDTO $data
+     * @return void
      */
-    public function charge(Money $amount, CreditCard $card)
-    {
-        throw new \BadFunctionCallException();
-    }
-
-    /**
-     * @param User $user
-     * @return mixed
-     */
-    public function user(User $user)
+    public function charge(PaymentProviderDTO $data)
     {
         throw new \BadFunctionCallException();
     }
