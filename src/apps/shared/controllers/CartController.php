@@ -248,14 +248,15 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
                 'currency' => $userCurrency->getName(),
                 'lottery' => $lottery,
                 'isWallet' => (bool) $isWallet,
-                'isMobile' => SiteHelpers::detectDevice()
+                'isMobile' => SiteHelpers::detectDevice(),
+                'transactionId' => $order->getTransactionId(),
             ],
                 $this->di->get('config')
             );
             $this->paymentProviderService->setEventsManager($this->eventsManager);
             $this->eventsManager->attach('orderservice', $this->orderService);
             $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider,$transactionID);
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$order->getTotal(),$transactionID);
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
            // $this->cartService->store($order);
             echo json_encode($cashierViewDTO);
         } catch (\Exception $e)
@@ -376,7 +377,8 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
             'currency' => $user_currency->getName(),
             'lottery' => $this->lottery,
             'isWallet' => $checked_wallet,
-            'isMobile' => SiteHelpers::detectDevice()
+            'isMobile' => SiteHelpers::detectDevice(),
+            'transactionId' => $order->getTransactionId(),
         ],
             $this->di->get('config')
         );

@@ -33,7 +33,8 @@ class OrderFactory
                                   Discount $discount,
                                   Lottery $lottery,
                                   $draw,
-                                  $withWallet
+                                  $withWallet,
+                                  $transactionId = null
     )
     {
         /** @var User $user */
@@ -75,7 +76,7 @@ class OrderFactory
             return $order;
         }
 
-        $order = new Order($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
+        $order = new Order($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw,$transactionId);
         $order->setAmountWallet($user->getWallet()->getBalance());
         return $order;
     }

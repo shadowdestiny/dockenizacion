@@ -17,17 +17,14 @@ final class CashierFormBuilder implements ICashierDTOBuilder
 
     private $orderData;
 
-    private $transactionID;
-
-    public function __construct(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData, $transactionID)
+    public function __construct(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
         $this->paymentMethod= $paymentMethod;
         $this->orderData= $orderData;
-        $this->transactionID= $transactionID;
     }
 
     public function build()
     {
-        return new ChasierDTO(null,$this->transactionID,"",$this->paymentMethod->type());
+        return new ChasierDTO(null,$this->orderData->getTransactionID(),"",$this->paymentMethod->type());
     }
 }

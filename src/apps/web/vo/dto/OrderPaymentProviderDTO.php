@@ -46,6 +46,7 @@ class OrderPaymentProviderDTO  extends DTOBase implements IDto
         $this->isMobile = $data['isMobile'] == 3 ? 'Desktop' : 'Mobile';
         $this->urlEuroMillions = $config['domain']->url;
         $this->notificationEndpoint = $config['moneymatrix']->endpoint;
+        $this->transactionID = $data['transactionId'];
         $this->config = $config;
         $this->user->getId();
         $this->exChangeObject();

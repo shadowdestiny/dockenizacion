@@ -18,21 +18,16 @@ class CashierIframeBuilder implements ICashierDTOBuilder
 
     private $orderData;
 
-    private $transactionID;
-
-    public function __construct(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData, $transactionID)
+    public function __construct(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
         $this->paymentMethod= $paymentMethod;
         $this->orderData= $orderData;
-        $this->transactionID= $transactionID;
     }
 
     public function build()
     {
-        //EMTD @David please remove instanceof, when you will do the refactor transactionID in Order object
-        $this->orderData->setTransactionID($this->transactionID instanceof  TransactionId ? $this->transactionID->id() : $this->transactionID);
         $this->orderData->exChangeObject();
         $response = $this->paymentMethod->call($this->orderData->toJson(),$this->orderData->action(),'post');
-        return new ChasierDTO(json_decode($response, true),$this->transactionID,"",$this->paymentMethod->type());
+        return new ChasierDTO(json_decode($response, true),$this->orderData->getTransactionID(),"",$this->paymentMethod->type());
     }
 }

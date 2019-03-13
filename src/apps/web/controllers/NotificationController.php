@@ -61,7 +61,7 @@ class NotificationController extends MoneymatrixController
             $this->eventsManager->attach('orderservice', $this->orderService);
             $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName(), !empty($testDate) ? $testDate : null)->getValues();
             $order->setNextDraw($nextDrawForOrder);
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,$status,$statusCode);
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $transaction->getUser(), $order->getTotal(), $status, $statusCode);
         }
     }
 

@@ -250,22 +250,23 @@ class CartController extends PublicSiteControllerBase
             $cartService = $this->cartService->get($user_id,$lottery);
             /** @var Order $order */
             $order = $cartService->getValues();
-            $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(),$order->getLottery(), $order->getNextDraw(),$isWallet);
+            $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(),$order->getLottery(), $order->getNextDraw(), $isWallet, $order->getTransactionId());
             $orderDataToPaymentProvider = new OrderPaymentProviderDTO( [
                 'user' => $user,
                 'total' => $order->getTotal()->getAmount(),
                 'currency' => $userCurrency->getName(),
                 'lottery' => $lottery,
                 'isWallet' => (bool) $isWallet,
-                'isMobile' => SiteHelpers::detectDevice()
+                'isMobile' => SiteHelpers::detectDevice(),
+                'transactionId' => $order->getTransactionId(),
             ],
                 $this->di->get('config')
             );
             $this->paymentProviderService->setEventsManager($this->eventsManager);
             $this->eventsManager->attach('orderservice', $this->orderService);
             $cardPaymentProvider = $this->createCardPaymentProvider();
-            $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(),$orderDataToPaymentProvider,$transactionID);
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$user,$order->getTotal(),$transactionID);
+            $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(),$orderDataToPaymentProvider);
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
             $this->cartService->store($order);
             echo json_encode($cashierViewDTO);
         } catch (\Exception $e)
@@ -363,7 +364,7 @@ class CartController extends PublicSiteControllerBase
             $draw = $this->lotteryService->getNextDateDrawByLottery($this->lottery);
             $this->lotteryService->getNextDateDrawByLottery($lottery->getName());
             $order = OrderFactory::create($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$lottery, $draw, $checked_wallet);
-            $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$lottery,$draw, $checked_wallet);
+            $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$lottery,$draw, $checked_wallet, $order->getTransactionId());
             $this->cartService->store($order);
         }
 
@@ -381,7 +382,8 @@ class CartController extends PublicSiteControllerBase
                 'currency' => $user_currency->getName(),
                 'lottery' => $this->lottery,
                 'isWallet' => $checked_wallet,
-                'isMobile' => SiteHelpers::detectDevice()
+                'isMobile' => SiteHelpers::detectDevice(),
+                'transactionId' => $order->getTransactionId(),
              ],
             $this->di->get('config')
         );
@@ -391,8 +393,8 @@ class CartController extends PublicSiteControllerBase
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
         $cardPaymentProvider = $this->createCardPaymentProvider();
-        $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(),$orderDataToPaymentProvider);
-        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
+        $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
+        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $order_eur->getCreditCardCharge()->getFinalAmount());
 
         return $this->view->setVars([
             'order' => $play_config_dto,
@@ -462,6 +464,7 @@ class CartController extends PublicSiteControllerBase
             //new CountryCriteria(PaymentCountry::createPaymentCountry([$this->paymentCountry]))
             new CountryCriteria(PaymentCountry::createPaymentCountry(['ES']))
         );
+
         return $cardPaymentProvider;
     }
 

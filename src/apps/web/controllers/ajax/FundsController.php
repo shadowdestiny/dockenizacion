@@ -50,7 +50,7 @@ class FundsController extends CartController
 
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider);
 
-        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()), $amount, $cashierViewDTO->transactionID);
+        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $amount);
 
         $this->noRender();
 

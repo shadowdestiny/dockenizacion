@@ -95,6 +95,10 @@ class CartService
                     }
                     $fee = $this->siteConfigService->getFee();
                     $fee_limit = $this->siteConfigService->getFeeToLimitValue();
+
+                    $arrayFromjson = json_decode($result->getValues(), TRUE); //TODO: refactor.
+
+                    //TODO: check $result->getValues to var
                     $order = OrderFactory::create(
                         $bets,
                         $lottery->getSingleBetPrice(),
@@ -102,7 +106,8 @@ class CartService
                         new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()),
                         $lottery,
                         $result->getValues(),
-                        $withWallet
+                        $withWallet,
+                        $arrayFromjson['transactionId']
                     );
                     if (null !== $order) {
                         return new ActionResult(true, $order);

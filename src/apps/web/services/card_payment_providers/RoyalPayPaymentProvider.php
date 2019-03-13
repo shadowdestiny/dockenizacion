@@ -10,24 +10,44 @@ use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\royalpay\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\royalpay\RoyalPayConfig;
+use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
 use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
+use EuroMillions\web\vo\PaymentCountry;
+use EuroMillions\web\vo\PaymentWeight;
 use Money\Money;
 use Phalcon\Http\Client\Response;
 
 class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGateway
 {
 
+    use CountriesCollection;
+
     private $gatewayClient;
-    /** @var  User $user */
-    private $user;
     private $data = [];
-    /** @var RoyalPayConfig $config */
+    /**
+     * @var  User $user
+     */
+    private $user;
+    /**
+     * @var RoyalPayConfig $config
+     */
     private $config;
+    /**
+     * @var PaymentCountry $paymentCountry
+     */
+    protected $paymentCountry;
+    /**
+     * @var PaymentWeight $paymentWeight
+     */
+    protected $paymentWeight;
 
     public function __construct(RoyalPayConfig $config, $gatewayClient = null)
     {
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
         $this->config = $config;
+        $this->paymentCountry = new PaymentCountry($this->countries());
+        $this->paymentWeight= new PaymentWeight(100);
     }
 
     public function __get($name) {
@@ -80,7 +100,7 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
             'userID' => (string) $this->user->getId(),
             'amount' => $amount->getAmount(),
             'currency' => $amount->getCurrency()->getName(),
-            "CallbackUrl" => "https://719ab784.eu.ngrok.io/notification",
+            "CallbackUrl" => "https://8bd12105.eu.ngrok.io/notification",
 	        "SuccessUrl" => "https://dev.euromillions.com/euromillions/result/success",
             "FailUrl" => "https://dev.euromillions.com/euromillions/result/failure",
             "PendingUrl" => "https://dev.euromillions.com/euromillions/result/success",
@@ -104,6 +124,22 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
 
     public function type()
     {
-        return "FORM";
+        return new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD);
+    }
+
+    /**
+     * @return PaymentCountry
+     */
+    public function getPaymentCountry()
+    {
+        return $this->paymentCountry;
+    }
+
+    /**
+     * @return PaymentWeight
+     */
+    public function getPaymentWeight()
+    {
+        return $this->paymentWeight;
     }
 }

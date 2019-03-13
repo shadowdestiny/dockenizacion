@@ -16,7 +16,7 @@ class CashierBuilderContext
 
     private $cashierDTO;
 
-    public function __construct(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData, $transactionID, $hasOrder)
+    public function __construct(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData, $hasOrder)
     {
         if($hasOrder)
         {
@@ -24,11 +24,11 @@ class CashierBuilderContext
         }
         if($paymentMethod->type() == PaymentSelectorType::CREDIT_CARD_METHOD)
         {
-            $this->cashierDTO= new CashierFormBuilder($paymentMethod,$orderData,$transactionID);
+            $this->cashierDTO= new CashierFormBuilder($paymentMethod,$orderData);
         }
         if($paymentMethod->type() == PaymentSelectorType::OTHER_METHOD)
         {
-            $this->cashierDTO= new CashierIframeBuilder($paymentMethod,$orderData,$transactionID);
+            $this->cashierDTO= new CashierIframeBuilder($paymentMethod,$orderData);
         }
     }
 

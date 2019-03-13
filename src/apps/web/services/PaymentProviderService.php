@@ -72,15 +72,11 @@ class PaymentProviderService implements EventsAwareInterface
     }
 
 
-    public function cashier(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData, $transactionID=null)
+    public function cashier(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
         try
         {
             $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
-            if($transactionID == null)
-            {
-                $transactionID = TransactionId::create(); //TODO: llevar la creación de $transactionID al 'Order'
-            }
             return (new CashierBuilderContext($paymentMethod,$orderData,$transactionID,$hasOrder))->builder()->build();
         } catch (\Exception $e)
         {
@@ -114,18 +110,19 @@ class PaymentProviderService implements EventsAwareInterface
         }
     }
 
-    public function createOrUpdateDepositTransactionWithPendingStatus(Order $order, User $user,Money $amount, $transactionID, $status='PENDING', $statusCode='8')
+    public function createOrUpdateDepositTransactionWithPendingStatus(Order $order, User $user, Money $amount, $status = 'PENDING', $statusCode = '8')
     {
         try
         {
-            $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID);
+            $transactionId = $order->getTransactionId();
+            $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionId);
 
             //TODO: David -> with your refactor transaction builder
             $dataTransaction = [
                 'lottery_id' => $order->getLottery() != null ? $order->getLottery()->getId() : 1,
                 'numBets' => count($order->getPlayConfig()),
                 'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                'transactionID' => $transactionID,
+                'transactionID' => $transactionId,
                 'amountWithWallet' => 0,
                 'playConfigs' => $order ? $order->getPlayConfig()[0]->getId() : 0,
                 'amount' => $amount->getAmount(),
@@ -171,7 +168,7 @@ class PaymentProviderService implements EventsAwareInterface
                 $transaction[0]->setLotteryName($order->getLottery()->getName());
                 $transaction[0]->toString();
                 $this->transactionService->updateTransaction($transaction[0]);
-                $orderActionContext = new OrderActionContext($status,$order,$transactionID,$this->_eventsManager, $statusCode);
+                $orderActionContext = new OrderActionContext($status,$order, $transactionId,$this->_eventsManager, $statusCode);
                 $orderActionContext->execute();
             }
         } catch( Exception $e )
