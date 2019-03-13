@@ -81,7 +81,7 @@ services:
       EM_ENV: ${EM_ENV}
       AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
       AWS_SECRET_ACCESS_KEY: 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
-      XDEBUG_CONFIG: remote_host=172.10.10.10 remote_enable=1 remote_autostart=1 remote_log=/tmp/xdebug.log
+      XDEBUG_CONFIG: remote_host=172.10.0.1 remote_enable=1 remote_autostart=1 remote_log=/tmp/xdebug.log
 
   phpcron:
     build:
