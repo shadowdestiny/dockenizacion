@@ -12,8 +12,11 @@ use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\BlogService;
 use EuroMillions\web\services\CartService;
 use EuroMillions\web\services\ChristmasService;
+use EuroMillions\web\services\criteria_strategies\CountryCriteria;
+use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
 use EuroMillions\web\services\CurrencyConversionService;
 use EuroMillions\web\services\CurrencyService;
+use EuroMillions\web\services\factories\CollectionPaymentCriteriaFactory;
 use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\services\LanguageService;
 use EuroMillions\web\services\LotteryService;
@@ -24,7 +27,10 @@ use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\PaymentCountry;
+use EuroMillions\web\vo\TransactionId;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Validation\Message;
@@ -359,7 +365,7 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
             $draw = $this->lotteryService->getNextDateDrawByLottery($this->lottery);
             $this->lotteryService->getNextDateDrawByLottery($lottery->getName());
             $order = OrderFactory::create($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$lottery, $draw, $checked_wallet);
-            $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$lottery,$draw, $checked_wallet);
+            $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$lottery,$draw, $checked_wallet, new TransactionId($order->getTransactionId()));
             $this->cartService->store($order);
         }
         //convert to user currency
@@ -383,11 +389,12 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
             $this->di->get('config')
         );
 
-        $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider);
-        if($this->cartPaymentProvider->type() == 'IFRAME' && $cashierViewDTO->transactionID != null)
-        {
-           // $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$this->userService->getUser($user->getId()),$order_eur->getCreditCardCharge()->getFinalAmount(),$cashierViewDTO->transactionID);
-        }
+        /**** Instance payment method ***/
+        $this->paymentProviderService->setEventsManager($this->eventsManager);
+        $this->eventsManager->attach('orderservice', $this->orderService);
+        $cardPaymentProvider = $this->createCardPaymentProvider();
+        $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
+        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $order_eur->getCreditCardCharge()->getFinalAmount());
 
         return $this->view->setVars([
             'order' => $play_config_dto,
@@ -442,6 +449,23 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
             'thm_guid' => md5(rand()),
             'thm_params' => 'org_id=' . $thm_org_id . '&session_id=' . $thm_session_id
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function createCardPaymentProvider()
+    {
+        //TODO: añadir el OTHER_METHOD / CREDIT_CAR como param en el CriteriaSelector(...) PaymentSelectorType
+
+        $cardPaymentProvider = CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
+            $this->paymentsCollection,
+            new CriteriaSelector(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD)),
+            //new CountryCriteria(PaymentCountry::createPaymentCountry([$this->paymentCountry]))
+            new CountryCriteria(PaymentCountry::createPaymentCountry(['ES']))
+        );
+
+        return $cardPaymentProvider;
     }
 
 }

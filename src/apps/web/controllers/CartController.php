@@ -31,6 +31,7 @@ use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PaymentCountry;
+use EuroMillions\web\vo\TransactionId;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Validation\Message;
@@ -364,7 +365,7 @@ class CartController extends PublicSiteControllerBase
             $draw = $this->lotteryService->getNextDateDrawByLottery($this->lottery);
             $this->lotteryService->getNextDateDrawByLottery($lottery->getName());
             $order = OrderFactory::create($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$lottery, $draw, $checked_wallet);
-            $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$lottery,$draw, $checked_wallet, $order->getTransactionId());
+            $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount,$lottery,$draw, $checked_wallet, new TransactionId($order->getTransactionId()));
             $this->cartService->store($order);
         }
 

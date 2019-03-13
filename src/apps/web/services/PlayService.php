@@ -158,16 +158,11 @@ class PlayService extends Colleague
     public function playWithQueue($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, $lotteryName = "PowerBall", PaymentsCollection $paymentsCollection)
     {
         try {
-            $di = \Phalcon\Di::getDefault();
             /** @var Lottery $lottery */
             $lottery = $this->lotteryService->getLotteryConfigByName($lotteryName);
             /** @var User $user */
             $user = $this->userRepository->find(['id' => $user_id]);
-            $powerPlay = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user_id,$lottery->getId())->key());
-            //$powerPlay = (int)json_decode($powerPlay->returnValues())->play_config[0]->powerPlay;
-
             $result_order = $this->cartService->get($user_id, $lottery->getName(),$isWallet);
-
             if ($result_order->success()) {
                 /** @var Order $order */
                 $order = $result_order->getValues();
@@ -176,12 +171,10 @@ class PlayService extends Colleague
                         return new ActionResult(false);
                     }
                 }
+                //EMTD use OrderFactory
                 $order->setIsCheckedWalletBalance($withAccountBalance);
                 $order->setLottery($lottery);
-              //  $order->setPowerPlay($powerPlay);
-                //$order->addFunds($order->getTotal());
                 $order->setAmountWallet($user->getWallet()->getBalance());
-
                 $uniqueId = $this->walletService->getUniqueTransactionId();
                 if ($credit_card != null) {
 
@@ -193,12 +186,9 @@ class PlayService extends Colleague
                         new CountryCriteria(PaymentCountry::createPaymentCountry(['ES']))
                     );
                     //TODO: end
-
-
                     $provider = $this->cardPaymentProvider->getIterator()->current()->get();
                     //$provider->user($user);
                     //$provider->idTransaction=$order->getTransactionId();
-
                     $result_payment = $this->walletService->onlyPay($provider, $credit_card, $user, $uniqueId, $order, $isWallet);
                 } else {
                     if ($order->getHasSubscription()) {
