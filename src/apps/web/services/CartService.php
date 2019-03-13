@@ -18,6 +18,7 @@ use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderPowerBall;
+use EuroMillions\web\vo\TransactionId;
 use Money\Currency;
 use Money\Money;
 
@@ -107,7 +108,7 @@ class CartService
                         $lottery,
                         $result->getValues(),
                         $withWallet,
-                        $arrayFromjson['transactionId']
+                        new TransactionId($arrayFromjson['transactionId'])
                     );
                     if (null !== $order) {
                         return new ActionResult(true, $order);
