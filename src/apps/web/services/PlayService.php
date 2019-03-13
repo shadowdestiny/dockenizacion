@@ -196,8 +196,8 @@ class PlayService extends Colleague
 
 
                     $provider = $this->cardPaymentProvider->getIterator()->current()->get();
-                    $provider->user($user);
-                    $provider->idTransaction=$order->getTransactionId();
+                    //$provider->user($user);
+                    //$provider->idTransaction=$order->getTransactionId();
 
                     $result_payment = $this->walletService->onlyPay($provider, $credit_card, $user, $uniqueId, $order, $isWallet);
                 } else {
