@@ -103,7 +103,7 @@
                                 <tbody>
                                 {% for draw in list_draws %}
                                     <tr class="more" style="cursor: pointer"
-                                        onclick="document.location='/megasena/results/draw-history/{{ draw.drawDateParam }}'">
+                                        onclick="document.location='/{{ language.translate('link_megasena_draw_history') }}/{{ draw.drawDateParam }}'">
                                         <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
                                         <td class="td-ball-numbers">{{ draw.resultNumbers }}</td>
                                     </tr>
