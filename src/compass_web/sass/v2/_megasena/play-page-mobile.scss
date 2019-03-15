@@ -1,15 +1,37 @@
 @import "../_variables";
 @import "../mixins";
+@import "_partial/init";
 // Play page - mobile version
 
 .megasena--page {
   @media only screen and (max-width: $width-pre-tablet) {
     .play-page-mobile {
 
+      .ticket .numbers .numbers-section.regular{
+        width:100%;
+      }
+
+      .bet-line .ticket-number{
+        border: 1px solid $medium_color;
+        color: $medium_color;
+        background: none;
+      }
+
+      .btn--random,.btn--pick{
+        max-width: inherit;
+        text-align: center;
+        padding-left: inherit;
+        margin-left: inherit;
+        margin-right: initial;
+      }
+
+      .price-per-line{
+        text-align: center;
+      }
 
       .bet-line {
         .ticket-number {
-            margin-right: 8px;
+            margin-right: 26px;
             margin-bottom: 1px;
         }
       }
@@ -18,7 +40,7 @@
           .ticket-number {
             width: 36px;
             height: 36px;
-            margin-right: 6px;
+            margin-right: 28px;
             line-height:33px;
             margin-bottom: 8px;
           }
