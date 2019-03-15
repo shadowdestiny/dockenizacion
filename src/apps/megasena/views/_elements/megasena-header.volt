@@ -13,13 +13,13 @@
             {{ language.translate('PlayMS_about') }}
         </div>
         <div class="bottom">
-            <a href="/{{ language.translate('link_megamillions_help') }}" class="a-hiw">
+            <a href="/{{ language.translate('link_megasena_help') }}" class="a-hiw">
                 {{ language.translate('PlayMS_howto') }}
             </a>
-            <a href="/{{ language.translate('link_megamillions_results') }}" class="a-results">
+            <a href="/{{ language.translate('link_megasena_results') }}" class="a-results">
                 {{ language.translate('PlayMS_results') }}
             </a>
-            <a href="/{{ language.translate('link_megamillions_faq') }}" class="a-faq">
+            <a href="/{{ language.translate('link_megasena_faq') }}" class="a-faq">
                 {{ language.translate('PlayMS_faq') }}
             </a>
         </div>
