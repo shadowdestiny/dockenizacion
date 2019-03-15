@@ -10,6 +10,7 @@ use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\services\OrderService;
 use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\vo\Order;
+use Phalcon\Logger;
 
 class DepositNotificationValidator implements IValidatorOrderNotifications
 {
