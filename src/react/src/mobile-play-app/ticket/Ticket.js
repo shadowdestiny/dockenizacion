@@ -110,17 +110,21 @@ export default class Ticket extends Component {
             )}
           </div>
 
+          {BET_STARS_COUNT[gameMode] > 0 ?
           <div className="numbers-section stars">
-            {starNumbers.map(number =>
-              <TicketNumber
-                key={number}
-                number={number}
-                type={TICKET_NUMBER_TYPE_STAR}
-                selected={stars.indexOf(number) != -1}
-                onClick={this.toggleStarNumber}
-              />
-            )}
+              {starNumbers.map(number =>
+                <TicketNumber
+                    key={number}
+                    number={number}
+                    type={TICKET_NUMBER_TYPE_STAR}
+                    selected={stars.indexOf(number) != -1}
+                    onClick={this.toggleStarNumber}
+                />
+              )}
           </div>
+          : ""}
+
+
         </div>
 
         {nextDrawFormat
