@@ -29,12 +29,11 @@
 50 22 * * 5      /usr/local/bin/php /var/www/apps/cli.php result start EuroJackpot > /proc/1/fd/1 2> /proc/1/fd/2
 
 #MegaSena
-
-10 22 * * 3,6      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php jackpot updateNextDrawJackpotMegaSena > /proc/1/fd/1 2> /proc/1/fd/2
-20 22 * * 3,6      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php result updateMegaSenaResult > /proc/1/fd/1 2> /proc/1/fd/2
-30 22 * * 3,6      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php bet placeMegaSenaBets > /proc/1/fd/1 2> /proc/1/fd/2
-40 22 * * 3,6      /usr/local/bin/php /var/www/apps/shared/shared-cli.php Play-config updateLottery now MegaSena > /proc/1/fd/1 2> /proc/1/fd/2
-50 22 * * 3,6      /usr/local/bin/php /var/www/apps/cli.php result start MegaSena > /proc/1/fd/1 2> /proc/1/fd/2
+10 22 * * 4,7      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php jackpot updateNextDrawJackpotMegaSena > /proc/1/fd/1 2> /proc/1/fd/2
+20 22 * * 4,7      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php result updateMegaSenaResult > /proc/1/fd/1 2> /proc/1/fd/2
+30 22 * * 4,7      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php bet placeMegaSenaBets > /proc/1/fd/1 2> /proc/1/fd/2
+40 22 * * 4,7      /usr/local/bin/php /var/www/apps/shared/shared-cli.php Play-config updateLottery now MegaSena > /proc/1/fd/1 2> /proc/1/fd/2
+50 22 * * 4,7      /usr/local/bin/php /var/www/apps/cli.php result start MegaSena > /proc/1/fd/1 2> /proc/1/fd/2
 
 # Clear cache
 30 0 * * *      /usr/local/bin/php /var/www/apps/cli.php clear-cache clear > /proc/1/fd/1 2> /proc/1/fd/2
