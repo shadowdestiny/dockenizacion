@@ -42,6 +42,28 @@ $megasena-color--main : $color--main;
 
   .gameplay--section.megasena-game {
 
+    @media only screen and (min-width: $screen-tablet) {
+      #box-action {
+        text-align: center;
+      }
+      .right{
+        float:inherit;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .black{
+        text-align: center;
+      }
+      .box-bottom .draws-section .button-draw-list{
+        border-width: 0;
+        background:$grill_play_color;
+      }
+      .btn.add-cart{
+        text-transform: uppercase;
+      }
+    }
+
     .h4 {
       display: block;
 
