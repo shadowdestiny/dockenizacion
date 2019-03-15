@@ -62,7 +62,7 @@ class WithdrawNotificationValidator implements IValidatorOrderNotifications
     private function validateThisNotification()
     {
         $this->transaction->fromString();
-        if($this->transaction->getStatus() == 'SUCCESS')
+        if($this->transaction->getStatus() == 'PENDING_APPROVAL' || $this->transaction->getStatus() == 'SUCCESS')
         {
             $this->logger->log(
                 Logger::INFO,
