@@ -247,11 +247,10 @@ class CartController extends PublicSiteControllerBase
             $user = $this->userService->getUser($user_id);
             $lottery = strtolower($this->request->getPost("lottery"));
             $isWallet = $this->request->getPost('wallet') == 'true' ? true : false;
-            $transactionID = $this->request->getPost('tsid');
             $cartService = $this->cartService->get($user_id,$lottery);
             /** @var Order $order */
             $order = $cartService->getValues();
-            $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(),$order->getLottery(), $order->getNextDraw(), $isWallet, $order->getTransactionId());
+            $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(),$order->getLottery(), $order->getNextDraw(), $isWallet, new TransactionId($order->getTransactionId()));
             $orderDataToPaymentProvider = new OrderPaymentProviderDTO( [
                 'user' => $user,
                 'total' => $order->getTotal()->getAmount(),

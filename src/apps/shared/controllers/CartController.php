@@ -247,7 +247,7 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
             $cartService = $this->cartService->get($user_id,$lottery);
             /** @var Order $order */
             $order = $cartService->getValues();
-            $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(),$order->getLottery(), $order->getNextDraw(),$isWallet);
+            $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(),$order->getLottery(), $order->getNextDraw(),$isWallet, new TransactionId($order->getTransactionId()));
             $orderDataToPaymentProvider = new OrderPaymentProviderDTO( [
                 'user' => $user,
                 'total' => $order->getTotal()->getAmount(),
@@ -261,9 +261,12 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
             );
             $this->paymentProviderService->setEventsManager($this->eventsManager);
             $this->eventsManager->attach('orderservice', $this->orderService);
-            $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider,$transactionID);
+            $cardPaymentProvider = $this->paymentProviderService->create($this->paymentCountry, PaymentSelectorType::CREDIT_CARD_METHOD);
+            $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
-           // $this->cartService->store($order);
+
+            var_dump($cashierViewDTO); die();
+
             echo json_encode($cashierViewDTO);
         } catch (\Exception $e)
         {
@@ -305,10 +308,6 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
 
                 $this->paymentProviderService->setEventsManager($this->eventsManager);
                 $this->eventsManager->attach('orderservice', $this->orderService);
-
-                if ($type === null || $type === '') {
-                    throw new \Exception('type not valid');
-                }
 
                 $this->cartPaymentProvider = $this->paymentProviderService->create($this->paymentCountry, $type);
 
