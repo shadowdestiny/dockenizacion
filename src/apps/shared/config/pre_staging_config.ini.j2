@@ -23,7 +23,7 @@ password=slave
 dbname=euromillions
 
 [domain]
-url=pre.euromillions.com/
+url=royalpay.euromillions.com/
 
 [redis]
 host=redis
@@ -111,7 +111,10 @@ endpoint_withdraw= https://api.euromillions.com/beta/withdraw
 api_key={{ wirecard_api_key }}
 
 [moneymatrix]
-endpoint=https://rancher-beta.euromillions.com:49167
+endpoint=https://rancher-staging-02.euromillions.com:9443
+
+[royalpay]
+endpoint=https://rancher-staging-02.euromillions.com:15443
 
 [lotto_api]
 endpoint= https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball
@@ -132,8 +135,11 @@ secret_access_key={{ AWS_SECRET_ACCESS_KEY }}
 access_key_id={{ AWS_ACCESS_KEY_ID }}
 
 [payment_gateway]
-class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
-config= wirecard,moneymatrix
+;class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
+;config=wirecard,moneymatrix
+
+class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy,RoyalPayPaymentStrategy
+config=wirecard,moneymatrix,royalpay
 
 [geoip_strategy]
 normal=WideCardPaymentStrategy
@@ -161,3 +167,7 @@ EuroJackpot=index
 
 [geoip]
 database_files_path=/var/www/data/geoipdatabase
+
+[featureflag_api]
+endpoint=https://tg5wg2gree.execute-api.eu-west-1.amazonaws.com/beta
+api_key={{ featureflag_api_api_key }}
