@@ -4,6 +4,7 @@
 namespace EuroMillions\web\services\card_payment_providers;
 
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
@@ -12,7 +13,7 @@ use EuroMillions\web\services\card_payment_providers\royalpay\GatewayClientWrapp
 use EuroMillions\web\services\card_payment_providers\royalpay\RoyalPayConfig;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
 use EuroMillions\web\vo\CreditCard;
-use EuroMillions\web\vo\dto\PaymentProviderDTO;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
 use EuroMillions\web\vo\PaymentWeight;
@@ -54,7 +55,7 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
      */
     public function charge(PaymentProviderDTO $data)
     {
-        $params = $this->createArrayData($data->toArray());
+        $params = $data->toArray();
 
         /** @var Response $result */
         $result = $this->gatewayClient->send($params, 'deposit');
@@ -72,24 +73,6 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
     public function withDraw(Money $amount, $idTransaction)
     {
         throw new \BadFunctionCallException();
-    }
-
-    private function createArrayData(array $data) {
-        return [
-            'orderID' => $data['idTransaction'],
-            'userID' => (string) $data['userId'],
-            'amount' => $data['amount'],
-            'currency' => $data['currency'],
-            "CallbackUrl" => "https://8bd12105.eu.ngrok.io/notification", //TODO: extract
-	        "SuccessUrl" => "https://dev.euromillions.com/euromillions/result/success", //TODO: extract
-            "FailUrl" => "https://dev.euromillions.com/euromillions/result/failure", //TODO: extract
-            "PendingUrl" => "https://dev.euromillions.com/euromillions/result/success", //TODO: extract
-            'cardNumber' => $data['creditCardNumber'],
-            'cardCvv' => $data['cvv'],
-            'cardYear' => $data['expirationYear'],
-            'cardMonth' => $data['expirationMonth'],
-            'cardHolderName' => $data['cardHolderName']
-        ];
     }
 
     public function getConfig()
@@ -121,5 +104,10 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
     public function getPaymentWeight()
     {
         return $this->paymentWeight;
+    }
+
+    public function getName()
+    {
+        return PaymentProviderEnum::ROYALPAY;
     }
 }

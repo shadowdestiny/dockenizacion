@@ -4,13 +4,14 @@
 namespace EuroMillions\web\services\card_payment_providers;
 
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
 use EuroMillions\web\services\card_payment_providers\widecard\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
-use EuroMillions\web\vo\dto\PaymentProviderDTO;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
 use EuroMillions\web\vo\PaymentWeight;
@@ -47,16 +48,6 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         $this->paymentWeight= new PaymentWeight(50);
     }
 
-    /*
-    public function __get($name) {
-        return $this->data[$name];
-    }
-
-    public function __set($name, $value) {
-        $this->data[$name] = $value;
-    }
-    */
-
     /**
      * @param PaymentProviderDTO $data
      * @return PaymentProviderResult
@@ -64,7 +55,7 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
      */
     public function charge(PaymentProviderDTO $data)
     {
-        $params = $this->createArrayData($data->toArray());
+        $params = $data->toArray();
 
         /** @var Response $result */
         $result = $this->gatewayClient->send($params);
@@ -84,19 +75,6 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
 
         //TODO: in this case, is called from admin only
         return $result;
-    }
-
-    private function createArrayData(array $data) {
-        return [
-            'idTransaction' => $data['idTransaction'],
-            'userId' => $data['userId'],
-            'amount' => $data['amount'],
-            'creditCardNumber' => $data['creditCardNumber'],
-            'cvc' => $data['cvv'], //TODO: cvc != cvv ?
-            'expirationYear' => $data['expirationYear'],
-            'expirationMonth' => $data['expirationMonth'],
-            'cardHolderName' => $data['cardHolderName']
-        ];
     }
 
     public function getConfig()
@@ -128,5 +106,10 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
     public function getPaymentWeight()
     {
         return $this->paymentWeight;
+    }
+
+    public function  getName()
+    {
+        return PaymentProviderEnum::WIRECARD;
     }
 }

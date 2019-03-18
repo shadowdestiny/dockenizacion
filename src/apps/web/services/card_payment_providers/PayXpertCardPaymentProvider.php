@@ -1,11 +1,12 @@
 <?php
 namespace EuroMillions\web\services\card_payment_providers;
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\payxpert\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
-use EuroMillions\web\vo\dto\PaymentProviderDTO;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use Money\Currency;
 
 class PayXpertCardPaymentProvider implements ICardPaymentProvider
@@ -40,5 +41,10 @@ class PayXpertCardPaymentProvider implements ICardPaymentProvider
         $transaction->setShopperInformation('NA', 'NA', 'NA', 'NA', 'NA', 'ZZ', 'NA', 'NA');
         $result = $transaction->send();
         return new PaymentProviderResult($result->errorCode === "000", $result);
+    }
+
+    public function getName()
+    {
+        return PaymentProviderEnum::PAYXPERT;
     }
 }

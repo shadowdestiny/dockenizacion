@@ -9,12 +9,13 @@
 namespace EuroMillions\web\services\card_payment_providers;
 
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixConfig;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixGatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
-use EuroMillions\web\vo\dto\PaymentProviderDTO;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
 use EuroMillions\web\vo\PaymentWeight;
@@ -34,8 +35,6 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
     protected $paymentCountry;
 
     protected $paymentWeight;
-
-
 
     public function __construct(MoneyMatrixConfig $config, $gateway = null)
     {
@@ -91,5 +90,10 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
     public function getPaymentWeight()
     {
         return $this->paymentWeight;
+    }
+
+    public function  getName()
+    {
+        return PaymentProviderEnum::MONEYMATRIX;
     }
 }

@@ -19,7 +19,7 @@ class RoyalPayPaymentStrategy implements ICreditCardStrategy
 
     public function get()
     {
-        return new RoyalPayPaymentProvider(new RoyalPayConfig($this->config['endpoint']));
+        return new RoyalPayPaymentProvider(new RoyalPayConfig($this->config['endpoint'], $this->config['api_key']));
     }
 
 

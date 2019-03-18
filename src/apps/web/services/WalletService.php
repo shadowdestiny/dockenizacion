@@ -3,6 +3,7 @@
 namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\components\builder\PaymentProviderDTOBuilder;
 use EuroMillions\shared\interfaces\IResult;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\PlayConfig;
@@ -242,7 +243,17 @@ class WalletService extends Colleague
     {
         try {
             $amount = $order->getCreditCardCharge()->getFinalAmount();
-            return $provider->charge(new PaymentProviderDTO(new UserDTO($user), $order, $amount, $card));
+
+            $paymentProviderDTO = (new PaymentProviderDTOBuilder())
+                ->setProvider($provider)
+                ->setUser(new UserDTO($user))
+                ->setOrder($order)
+                ->setAmount($amount)
+                ->setCard($card)
+                ->build()
+            ;
+
+            return $provider->charge($paymentProviderDTO);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }

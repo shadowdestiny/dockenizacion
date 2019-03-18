@@ -1,12 +1,13 @@
 <?php
 namespace EuroMillions\web\services\card_payment_providers;
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
-use EuroMillions\web\vo\dto\PaymentProviderDTO;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\PaymentCountry;
@@ -30,7 +31,6 @@ class FakeCardPaymentProvider implements ICardPaymentProvider
         $this->paymentCountry = new PaymentCountry(['RU']);
         $this->paymentWeight= new PaymentWeight(100);
     }
-
 
     /**
      * @param PaymentProviderDTO $data
@@ -71,6 +71,11 @@ class FakeCardPaymentProvider implements ICardPaymentProvider
             new ExpiryDate($data['expirationMonth'].'/'.$data['expirationYear']),
             new CVV($data['cvv'])
         );
+    }
+
+    public function  getName()
+    {
+        return PaymentProviderEnum::FAKECARD;
     }
 
 }

@@ -8,7 +8,7 @@ use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\vo\CreditCard;
-use EuroMillions\web\vo\dto\PaymentProviderDTO;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\EmPayCypher;
 use EuroMillions\web\vo\Order;
 use Money\Money;
@@ -86,6 +86,11 @@ class EPayIframeTag extends Tag implements ICardPaymentProvider
      * @throws \Exception
      */
     public function charge(PaymentProviderDTO $data)
+    {
+        throw new \Exception();
+    }
+
+    public function getName()
     {
         throw new \Exception();
     }

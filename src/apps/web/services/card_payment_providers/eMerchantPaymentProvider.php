@@ -4,11 +4,12 @@
 namespace EuroMillions\web\services\card_payment_providers;
 
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\emerchant\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\emerchant\eMerchantConfig;
-use EuroMillions\web\vo\dto\PaymentProviderDTO;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use Phalcon\Http\Client\Response;
 
 class eMerchantPaymentProvider implements ICardPaymentProvider
@@ -27,7 +28,7 @@ class eMerchantPaymentProvider implements ICardPaymentProvider
      */
     public function charge(PaymentProviderDTO $data)
     {
-        $params = $this->createArrayData($data->toArray());
+        $params = $data->toArray();
         /** @var Response $result */
         $result = $this->gatewayClient->send($params);
         $header = $result->header;
@@ -38,18 +39,8 @@ class eMerchantPaymentProvider implements ICardPaymentProvider
         return new PaymentProviderResult($body->status === "ok", $header->statusMessage);
     }
 
-    private function createArrayData(array $data) {
-        return [
-            'idTransaction' => $data['idTransaction'],
-            'userId' => $data['userId'],
-            'amount' => $data['amount'],
-            'creditCardNumber' => $data['creditCardNumber'],
-            'cvc' => $data['cvv'],
-            'expirationYear' => substr($data['expirationYear'], 2),
-            'expirationMonth' => $data['expirationMonth'],
-            'cardHolderName' => $data['cardHolderName'],
-            'email' => $data['userEmail'],
-            'ip' => $data['userIp'],
-        ];
+    public function getName()
+    {
+        return PaymentProviderEnum::EMERCHANT;
     }
 }
