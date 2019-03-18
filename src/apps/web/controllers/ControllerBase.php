@@ -75,6 +75,7 @@ class ControllerBase extends Controller
         $this->checkRestrictedAccess();
         $this->insertGoogleAnalyticsCodeViaEnvironment();
         $this->setTrackingAffiliatePlatform();
+        $this->setPaymentCountry();
     }
 
     private function checkRestrictedAccess()
@@ -116,7 +117,7 @@ class ControllerBase extends Controller
     {
         $config = $this->di->get('config');
         $geoip = new MaxMindWrapper($config->geoip->database_files_path);
-        $this->paymentCountry= new PaymentCountry([$geoip->getCountryFromIp(GeoIPUtil::giveMeRealIP())]);
+        $this->paymentCountry = new PaymentCountry([$geoip->getCountryFromIp(GeoIPUtil::giveMeRealIP())]); //TODO: Check if is a valid PaymentCountry
     }
 
 

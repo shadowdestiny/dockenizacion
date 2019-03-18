@@ -82,8 +82,6 @@ class PublicSiteControllerBase extends ControllerBase
     /** @var OrderService $orderService */
     protected $orderService;
 
-    protected $paymentsCollection;
-
     public function initialize(LotteryService $lotteryService = null,
                                LanguageService $languageService = null,
                                CurrencyService $currencyService = null,
@@ -118,8 +116,6 @@ class PublicSiteControllerBase extends ControllerBase
         $this->cartPaymentProvider = $this->getDI()->get('paymentProviderFactory');
         $this->paymentProviderService = $this->di->get('domainServiceFactory')->getPaymentProviderService();
         $this->orderService = $this->domainServiceFactory->getOrderService();
-        //EMTD find a better place
-        $this->paymentsCollection = $this->di->get('paymentsCollection');
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)

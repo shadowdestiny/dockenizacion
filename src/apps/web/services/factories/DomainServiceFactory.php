@@ -112,7 +112,11 @@ class DomainServiceFactory
         return new LoggedUserServiceStrategy(
             $this->getCurrencyConversionService(),
             $this->serviceFactory->getEmailService(),
-            new PaymentProviderService($this->getTransactionService(),new RedisCheckerOrderStrategy($this->serviceFactory->getDI()->get('redisCache'))),
+            new PaymentProviderService(
+                $this->getTransactionService(),
+                new RedisCheckerOrderStrategy($this->serviceFactory->getDI()->get('redisCache')),
+                $this->serviceFactory->getDI()->get('paymentsCollection')
+            ),
             $this->getWalletService(),
             $this->entityManager,
             $this->serviceFactory->getLogService()
@@ -208,7 +212,8 @@ class DomainServiceFactory
     {
         return new PaymentProviderService(
             $this->getTransactionService(),
-            new RedisCheckerOrderStrategy($this->serviceFactory->getDI()->get('redisCache'))
+            new RedisCheckerOrderStrategy($this->serviceFactory->getDI()->get('redisCache')),
+            $this->serviceFactory->getDI()->get('paymentsCollection')
         );
     }
 

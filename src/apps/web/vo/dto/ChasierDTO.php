@@ -34,7 +34,7 @@ class ChasierDTO  extends DTOBase implements IDto
             $this->guard($data);
         }
         $this->message = $message;
-        $this->type= $type;
+        $this->type = $type->value();
     }
 
 

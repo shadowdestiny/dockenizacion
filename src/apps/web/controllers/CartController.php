@@ -265,13 +265,66 @@ class CartController extends PublicSiteControllerBase
             );
             $this->paymentProviderService->setEventsManager($this->eventsManager);
             $this->eventsManager->attach('orderservice', $this->orderService);
-            $cardPaymentProvider = $this->createCardPaymentProvider();
+            $cardPaymentProvider = $this->paymentProviderService->create($this->paymentCountry, PaymentSelectorType::CREDIT_CARD_METHOD);
             $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(),$orderDataToPaymentProvider);
             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
             $this->cartService->store($order);
             echo json_encode($cashierViewDTO);
         } catch (\Exception $e)
         {
+            echo json_encode([
+                'errorMsg' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function getCashierAction()
+    {
+        $this->noRender();
+        try {
+
+            if ($this->request->isPost()) {
+                $userCurrency = $this->userPreferencesService->getCurrency();
+                $user_id = $this->authService->getCurrentUser()->getId();
+                /** @var User $user */
+                $user = $this->userService->getUser($user_id);
+                $lottery = strtolower($this->request->getPost("lottery"));
+                $isWallet = $this->request->getPost('wallet') == 'true' ? true : false;
+                $type = strtolower($this->request->getPost("type"));
+                $cartService = $this->cartService->get($user_id, $lottery);
+
+                /** @var Order $order */
+                $order = $cartService->getValues();
+                $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(), $order->getLottery(), $order->getNextDraw(), $isWallet);
+                $orderDataToPaymentProvider = new OrderPaymentProviderDTO([
+                    'user' => $user,
+                    'total' => $order->getTotal()->getAmount(),
+                    'currency' => $userCurrency->getName(),
+                    'lottery' => $lottery,
+                    'isWallet' => (bool)$isWallet,
+                    'isMobile' => SiteHelpers::detectDevice(),
+                    'transactionId' => $order->getTransactionId(),
+                ],
+                    $this->di->get('config')
+                );
+
+                $this->paymentProviderService->setEventsManager($this->eventsManager);
+                $this->eventsManager->attach('orderservice', $this->orderService);
+
+                if ($type === null || $type === '') {
+                    throw new \Exception('type not valid');
+                }
+
+                $this->cartPaymentProvider = $this->paymentProviderService->create($this->paymentCountry, $type);
+
+                $cashierViewDTO = $this->paymentProviderService->cashier($this->cartPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
+                $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
+
+                echo json_encode($cashierViewDTO);
+            }
+
+        }
+        catch (\Exception $e) {
             echo json_encode([
                 'errorMsg' => $e->getMessage()
             ]);
@@ -393,7 +446,7 @@ class CartController extends PublicSiteControllerBase
         /**** Instance payment method ***/
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
-        $cardPaymentProvider = $this->createCardPaymentProvider();
+        $cardPaymentProvider = $this->paymentProviderService->create($this->paymentCountry, PaymentSelectorType::CREDIT_CARD_METHOD);
         $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
         $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $order_eur->getCreditCardCharge()->getFinalAmount());
 
@@ -451,22 +504,4 @@ class CartController extends PublicSiteControllerBase
             'thm_params' => 'org_id=' . $thm_org_id . '&session_id=' . $thm_session_id
         ];
     }
-
-    /**
-     * @return mixed
-     */
-    protected function createCardPaymentProvider()
-    {
-        //TODO: añadir el OTHER_METHOD / CREDIT_CAR como param en el CriteriaSelector(...) PaymentSelectorType
-
-        $cardPaymentProvider = CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
-            $this->paymentsCollection,
-            new CriteriaSelector(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD)),
-            //new CountryCriteria(PaymentCountry::createPaymentCountry([$this->paymentCountry]))
-            new CountryCriteria(PaymentCountry::createPaymentCountry(['ES']))
-        );
-
-        return $cardPaymentProvider;
-    }
-
 }

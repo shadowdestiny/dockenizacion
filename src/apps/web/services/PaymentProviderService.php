@@ -6,6 +6,7 @@ namespace EuroMillions\web\services;
 
 use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
 use EuroMillions\shared\components\OrderActionContext;
+use EuroMillions\shared\components\PaymentsCollection;
 use EuroMillions\web\components\cashier_builder\CashierDTOBuilder;
 use EuroMillions\web\components\CashierBuilderContext;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
@@ -14,6 +15,10 @@ use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
+
+use EuroMillions\web\services\criteria_strategies\CountryCriteria;
+use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
+use EuroMillions\web\services\factories\CollectionPaymentCriteriaFactory;
 use EuroMillions\web\vo\dto\ChasierDTO;
 use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\dto\WithdrawResponseStatusDTO;
@@ -22,6 +27,7 @@ use EuroMillions\web\vo\enum\OrderType;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\PaymentCountry;
 use EuroMillions\web\vo\TransactionId;
 use Exception;
 use LegalThings\CloudWatchLogger;
@@ -42,35 +48,30 @@ class PaymentProviderService implements EventsAwareInterface
     /** @var IPlayStorageStrategy $redisOrderChecker */
     protected $redisOrderChecker;
 
-    public function __construct(TransactionService $transactionService, IPlayStorageStrategy $redisOrderChecker)
+    protected $paymentsCollection;
+
+    public function __construct(TransactionService $transactionService, IPlayStorageStrategy $redisOrderChecker, PaymentsCollection $paymentsCollection)
     {
         $this->transactionService = $transactionService;
         $this->redisOrderChecker = $redisOrderChecker;
+        $this->paymentsCollection = $paymentsCollection;
     }
 
-    public function getCashierViewDTOFromMoneyMatrix(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData, $transactionID=null)
+    /**
+     * @param PaymentCountry $country
+     * @param PaymentSelectorType $paymentSelectorType
+     * @return CollectionPaymentCriteriaFactory
+     */
+    public function create(PaymentCountry $country, $paymentSelectorType)
     {
-        try
-        {
-            $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
-            if($hasOrder->success())
-            {
-                return new ChasierDTO(null,null,"Order processing...");
-            }
-            if($transactionID == null)
-            {
-                $transactionID = $this->transactionService->getUniqueTransactionId();
-            }
-            $orderData->setTransactionID($transactionID);
-            $orderData->exChangeObject();
-            $response = $paymentMethod->call($orderData->toJson(),$orderData->action(),'post');
-            return new ChasierDTO(json_decode($response, true),$transactionID);
-        } catch (\Exception $e)
-        {
-            throw new Exception($e->getMessage());
-        }
-    }
+        $cardPaymentProvider = CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
+            $this->paymentsCollection,
+            new CriteriaSelector(new PaymentSelectorType($paymentSelectorType)),
+            new CountryCriteria(PaymentCountry::createPaymentCountry($country->countries()))
+        );
 
+        return $cardPaymentProvider;
+    }
 
     public function cashier(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
@@ -84,7 +85,6 @@ class PaymentProviderService implements EventsAwareInterface
         }
     }
 
-
     public function checkHasOrderInProcessAndReturnCashierDTO(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
         $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
@@ -93,8 +93,6 @@ class PaymentProviderService implements EventsAwareInterface
             return new ChasierDTO(null,null,"Order processing...", $paymentMethod->type());
         }
     }
-
-
 
     public function withdrawStatus(IHandlerPaymentGateway $paymentMethod, $transactionID)
     {
