@@ -461,7 +461,7 @@ class CartController extends PublicSiteControllerBase
 
         $cardPaymentProvider = CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
             $this->paymentsCollection,
-            new CriteriaSelector(new PaymentSelectorType(PaymentSelectorType::OTHER_METHOD)),
+            new CriteriaSelector(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD)),
             //new CountryCriteria(PaymentCountry::createPaymentCountry([$this->paymentCountry]))
             new CountryCriteria(PaymentCountry::createPaymentCountry(['ES']))
         );
