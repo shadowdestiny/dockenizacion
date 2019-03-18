@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rmrbest
- * Date: 12/11/18
- * Time: 9:30
- */
+
 
 namespace EuroMillions\shared\components\validations_order_notifications;
 
@@ -16,9 +11,8 @@ use EuroMillions\web\services\OrderService;
 use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\vo\Order;
 
-class WithdrawNotificationValidator implements IValidatorOrderNotifications
+class DepositNotificationValidator implements IValidatorOrderNotifications
 {
-
     private $order;
 
     private $status;
@@ -62,7 +56,7 @@ class WithdrawNotificationValidator implements IValidatorOrderNotifications
     private function validateThisNotification()
     {
         $this->transaction->fromString();
-        if($this->transaction->getStatus() == 'PENDING_APPROVAL' || $this->transaction->getStatus() == 'SUCCESS')
+        if($this->transaction->getStatus() == 'SUCCESS')
         {
             $this->logger->log(
                 Logger::INFO,
