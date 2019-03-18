@@ -108,7 +108,7 @@ class PaymentProviderDTOUnitTest extends UnitTestBase
      */
     public function test_royalpay_toArray_called_returnArrayWithProperData($value)
     {
-        $provider = new RoyalPayPaymentProvider(new RoyalPayConfig([],''), $this->royalpay_gatewayClient_double->reveal());
+        $provider = new RoyalPayPaymentProvider(new RoyalPayConfig('',''), $this->royalpay_gatewayClient_double->reveal());
         $sut = (new PaymentProviderDTOBuilder())
             ->setProvider($provider)
             ->setUser(new UserDTO($this->user))
@@ -133,7 +133,7 @@ class PaymentProviderDTOUnitTest extends UnitTestBase
     public function test_royalpay_jsonSerialize_called_returnSerializableJsonData()
     {
 
-        $provider = new RoyalPayPaymentProvider(new RoyalPayConfig([],''), $this->royalpay_gatewayClient_double->reveal());
+        $provider = new RoyalPayPaymentProvider(new RoyalPayConfig('',''), $this->royalpay_gatewayClient_double->reveal());
         $sut = (new PaymentProviderDTOBuilder())
             ->setProvider($provider)
             ->setUser(new UserDTO($this->user))
