@@ -181,6 +181,24 @@ return [
             'wallet_after_subscription_currency_name' => 'EUR',
             'entity_type' => 'ticket_purchase',
             'data' => '1##2400#'
+        ],
+        [
+            'user_id' => '9098299B-14AC-4124-8DB0-19571EDABE60',
+            'date' => '2019-03-15',
+            'wallet_before_uploaded_amount' => 0,
+            'wallet_before_uploaded_currency_name' => 'EUR',
+            'wallet_before_winnings_amount' => 0,
+            'wallet_before_winnings_currency_name' => 0,
+            'wallet_after_uploaded_amount' => 0,
+            'wallet_after_uploaded_currency_name' => 'EUR',
+            'wallet_after_winnings_amount' => 0,
+            'wallet_after_winnings_currency_name' => 0,
+            'wallet_before_subscription_amount' => 25728,
+            'wallet_before_subscription_currency_name' => 'EUR',
+            'wallet_after_subscription_amount' => 25028,
+            'wallet_after_subscription_currency_name' => 'EUR',
+            'entity_type' => 'ticket_purchase',
+            'data' => '1#335#PENDING#1#EuroMillions#0'
         ]
     ]
 ];

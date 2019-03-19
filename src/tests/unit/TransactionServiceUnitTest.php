@@ -146,6 +146,41 @@ class TransactionServiceUnitTest extends UnitTestBase
         $this->assertNull($actual);
     }
 
+    /**
+    * method getPendingTransactions
+    * when called
+    * should returnAProperListOfPendingTransactions
+    */
+    public function test_getPendingTransactions_called_returnAProperListOfPendingTransactions()
+    {
+        $expected = [
+            ["id" => 1],
+        ];
+
+        $sut = $this->getSut();
+        $this->transactionsRepository_double->getPendingTransactionsEntityId(48*60)->willReturn($expected);
+        $this->transactionsRepository_double->removeTransactionByEntityId(1)->willReturn(1);
+        $actual = $sut->getPendingTransactionsEntityId(48*60);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method removeTransactionByEntityId
+     * when called
+     * should returnAProperNumberOfDeletedTransactions
+     */
+    public function test_removeTransactionByEntityId_called_returnAProperNumberOfDeletedTransactions()
+    {
+        $expected = 1;
+
+        $sut = $this->getSut();
+        $this->transactionsRepository_double->removeTransactionByEntityId(1)->willReturn($expected);
+        $actual = $sut->removeTransactionByEntityId(1);
+
+        $this->assertEquals($expected, $actual);
+    }
+
 
     private function getSut()
     {
