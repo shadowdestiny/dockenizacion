@@ -243,7 +243,6 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
             $user = $this->userService->getUser($user_id);
             $lottery = strtolower($this->request->getPost("lottery"));
             $isWallet = $this->request->getPost('wallet') == 'true' ? true : false;
-            $transactionID = $this->request->getPost('tsid');
             $cartService = $this->cartService->get($user_id,$lottery);
             /** @var Order $order */
             $order = $cartService->getValues();
