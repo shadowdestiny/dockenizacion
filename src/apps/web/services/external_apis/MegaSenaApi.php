@@ -34,7 +34,10 @@ class MegaSenaApi extends LottorisqApi
             $draw = json_decode($drawBody, true);
             $currency = $this->currencyConversionService->convert(new Money((int) $draw['jackpot']['total'], new Currency('BRL')),
                 new Currency('EUR'));
-            return new Money((int) floor($currency->getAmount() / 1000000) * 100000000, new Currency('EUR'));
+            $amount = (($currency->getAmount() / 1000000) < 1) ?
+                ((int) floor($currency->getAmount() / 100000)  * 10000000) :
+                ((int) floor($currency->getAmount() / 1000000) * 100000000);
+            return new Money($amount, new Currency('EUR'));
         } catch (\Exception $e)
         {
             throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the EuroJackpot');
