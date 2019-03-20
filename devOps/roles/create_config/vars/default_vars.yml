@@ -76,6 +76,8 @@ wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
 moneymatrix_endpoint: 'https://rancher-staging-02.euromillions.com:9443'
 
+royalpay_endpoint: 'https://rancher-staging-02.euromillions.com:15443'
+
 lottorisq_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball'
 lottorisq_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
