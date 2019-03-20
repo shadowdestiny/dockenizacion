@@ -58,19 +58,19 @@ class PaymentProviderService implements EventsAwareInterface
     }
 
     /**
-     * @param PaymentCountry $country
      * @param PaymentSelectorType $paymentSelectorType
+     * @param PaymentCountry $country
      * @return CollectionPaymentCriteriaFactory
      */
-    public function create(PaymentCountry $country, $paymentSelectorType)
+    public function createCollectionFromTypeAndCountry($paymentSelectorType, PaymentCountry $country)
     {
-        $cardPaymentProvider = CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
+        $newPaymentsCollection = CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
             $this->paymentsCollection,
             new CriteriaSelector(new PaymentSelectorType($paymentSelectorType)),
             new CountryCriteria(PaymentCountry::createPaymentCountry($country->countries()))
         );
 
-        return $cardPaymentProvider;
+        return $newPaymentsCollection;
     }
 
     public function cashier(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)

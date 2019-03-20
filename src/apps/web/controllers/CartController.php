@@ -264,7 +264,7 @@ class CartController extends PublicSiteControllerBase
             );
             $this->paymentProviderService->setEventsManager($this->eventsManager);
             $this->eventsManager->attach('orderservice', $this->orderService);
-            $cardPaymentProvider = $this->paymentProviderService->create($this->paymentCountry, PaymentSelectorType::CREDIT_CARD_METHOD);
+            $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(PaymentSelectorType::CREDIT_CARD_METHOD, $this->paymentCountry);
             $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(),$orderDataToPaymentProvider);
             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
             $this->cartService->store($order);
@@ -314,7 +314,7 @@ class CartController extends PublicSiteControllerBase
                     throw new \Exception('type not valid');
                 }
 
-                $this->cartPaymentProvider = $this->paymentProviderService->create($this->paymentCountry, $type);
+                $this->cartPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry($type, $this->paymentCountry);
 
                 $cashierViewDTO = $this->paymentProviderService->cashier($this->cartPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
                 $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
@@ -445,7 +445,7 @@ class CartController extends PublicSiteControllerBase
         /**** Instance payment method ***/
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
-        $cardPaymentProvider = $this->paymentProviderService->create($this->paymentCountry, PaymentSelectorType::CREDIT_CARD_METHOD);
+        $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(PaymentSelectorType::CREDIT_CARD_METHOD, $this->paymentCountry);
         $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
         $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $order_eur->getCreditCardCharge()->getFinalAmount());
 
