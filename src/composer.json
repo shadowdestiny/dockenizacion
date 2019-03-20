@@ -26,10 +26,10 @@
     "textmagic/smsphp": "dev-master",
     "ramsey/uuid-doctrine": "^1.2",
     "wildbit/postmark-php": "dev-master",
-    "geoip/geoip": "~1.16",
     "tecnickcom/tcpdf" : "dev-master",
     "aws/aws-sdk-php": "^3.62",
     "legalthings/cloudwatch-logger-php": "^0.1.3",
+    "geoip2/geoip2": "~2.0",
     "ext-spltype": "*"
   },
   "autoload" : {

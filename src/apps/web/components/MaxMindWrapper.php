@@ -2,35 +2,30 @@
 
 namespace EuroMillions\web\components;
 
+use Phalcon\Di;
+use GeoIp2\WebService\Client;
 use EuroMillions\web\interfaces\IGeoIPServiceAPI;
 
 class MaxMindWrapper implements IGeoIPServiceAPI
 {
-    CONST DATABASE_IPV4_FILE = 'GeoIP.dat';
-    CONST DATABASE_IPV6_FILE = 'GeoIPV6.dat';
-
-    protected $filesPath;
     protected $reader;
 
     private static $forbbidenCountries = ['DE', 'FR'];
 
-    public function __construct($filesPath)
+    public function __construct($filesPath = null)
     {
-        $this->filesPath = $filesPath;
+        $accountId = Di::getDefault()->get('config')['geoip_strategy']->account_id;
+        $licenseKey = Di::getDefault()->get('config')['geoip_strategy']->license_key;
+        $this->reader = new Client($accountId, $licenseKey);
     }
 
     public function getCountryFromIp($ip)
     {
-        $this->swapReaderByIpType($ip);
-        return geoip_country_code_by_addr($this->reader,$ip);
-    }
+        try {
+            $record = $this->reader->country($ip);
+            return $record->country->isoCode;
+        } catch (\GeoIp2\Exception\AddressNotFoundException $e) {
 
-    private function swapReaderByIpType($ip)
-    {
-        if(strpos($ip, ":") !== false) {
-            $this->reader = geoip_open($this->filesPath.'/'.self::DATABASE_IPV6_FILE, GEOIP_STANDARD);
-        } else {
-            $this->reader = geoip_open($this->filesPath.'/'.self::DATABASE_IPV4_FILE, GEOIP_STANDARD);
         }
     }
 
