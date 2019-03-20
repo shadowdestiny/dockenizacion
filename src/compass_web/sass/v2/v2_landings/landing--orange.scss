@@ -50,6 +50,7 @@
       .landing--banner-block--content--left {
         padding-left: vw(340);
         float: left;
+        max-width: 67%;
       }
       .landing--banner-block--content--right {
         float: right;
@@ -71,7 +72,7 @@
 
       .landing--banner-block--prize {
         color: #333333;
-        font-size: vw(220);
+        font-size: vw(195);
         font-weight: 710;
         line-height: 0.85;
         text-align: center;

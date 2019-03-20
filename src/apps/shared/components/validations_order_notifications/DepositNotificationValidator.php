@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rmrbest
- * Date: 12/11/18
- * Time: 9:30
- */
+
 
 namespace EuroMillions\shared\components\validations_order_notifications;
 
@@ -17,9 +12,8 @@ use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\vo\Order;
 use Phalcon\Logger;
 
-class WithdrawNotificationValidator implements IValidatorOrderNotifications
+class DepositNotificationValidator implements IValidatorOrderNotifications
 {
-
     private $order;
 
     private $status;
