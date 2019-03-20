@@ -74,4 +74,18 @@ class MaxMindWrapperCest
         $result = $this->maxMindWrapper->getCountryFromIp($ip);
         $I->assertEquals('ES', $result);
     }
+
+    /**
+     * method getCountryFromIp
+     * when ipV6FromJapan
+     * should returnsJP
+     * @param UnitTester $I
+     * @group geoip
+     */
+    public function test_getCountryFromIp_ipV6FromJapan_returnsJP(\UnitTester $I)
+    {
+        $ip = '2001:0000:85a3:0000:0000:8a2e:0370:7334';
+        $result = $this->maxMindWrapper->getCountryFromIp($ip);
+        $I->assertEquals('JP', $result);
+    }
 }
