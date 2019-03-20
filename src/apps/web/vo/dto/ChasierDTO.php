@@ -8,40 +8,43 @@
 
 namespace EuroMillions\web\vo\dto;
 
-
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
 
-class ChasierDTO  extends DTOBase implements IDto
+class ChasierDTO extends DTOBase implements IDto
 {
+    public $transactionID;
 
     public $cashierUrl;
 
-    public $transactionID;
+    public $type;
+
+    public $error;
 
     public $message;
 
-    public $type;
-
-    public function __construct(array $data=null, $transactionID=null,$message = "", $type)
+    public function __construct($type, array $data = null, $transactionID = null, $error = false, $message = "")
     {
-        if($data == null)
-        {
+        if ($data == null) {
             $this->cashierUrl = null;
             $this->transactionID = $transactionID;
         } else {
             $this->transactionID = $transactionID;
             $this->guard($data);
         }
+
+        $this->error = $error;
         $this->message = $message;
-        $this->type = $type->value();
+
+        if ($this->error == false) {
+            $this->type = $type->value();
+        }
     }
 
 
     private function guard(array $data)
     {
-        if(!isset($data['cashierUrl']))
-        {
+        if (!isset($data['cashierUrl'])) {
             $this->cashierUrl = null;
         } else {
             $this->cashierUrl = $data['cashierUrl'];
