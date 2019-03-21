@@ -59,7 +59,7 @@ class PaymentProviderService implements EventsAwareInterface
 
     /**
      * @param PaymentCountry $country
-     * @param PaymentSelectorType $paymentSelectorType
+     * @param $paymentSelectorType
      * @return CollectionPaymentCriteriaFactory
      */
     public function create(PaymentCountry $country, $paymentSelectorType)

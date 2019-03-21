@@ -314,7 +314,7 @@ class CartController extends PublicSiteControllerBase
                     throw new \Exception('type not valid');
                 }
 
-                $this->cartPaymentProvider = $this->paymentProviderService->create($this->paymentCountry, $type);
+                $this->cartPaymentProvider = $this->paymentProviderService->create($this->paymentCountry, PaymentSelectorType::CREDIT_CARD_METHOD);
 
                 $cashierViewDTO = $this->paymentProviderService->cashier($this->cartPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
                 $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
