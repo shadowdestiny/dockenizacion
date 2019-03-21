@@ -54,7 +54,7 @@ final class WithdrawOrderAction implements IOrderAction
             );
         }
 
-        if( $statusCode == "PENDING_APPROVAL")
+        if( $statusCode == "PENDING_APPROVAL" || $statusCode == "SUCCESS")
         {
             $this->eventsManager->fire('orderservice:withdraw',
                                                  $this,
