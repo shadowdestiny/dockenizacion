@@ -18,4 +18,8 @@ class PaymentProviderEnum extends \SplEnum
 
     const EMERCHANT = 'emerchant';
 
+    public function value()
+    {
+        return (string) $this;
+    }
 }
