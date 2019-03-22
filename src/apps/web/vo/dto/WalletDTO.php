@@ -219,7 +219,7 @@ class WalletDTO
         if($sumLotteries !== $walletSubscriptionBalance)
         {
             $substractBalances = $walletSubscriptionBalance - $sumLotteries;
-            $this->subscriptionBalanceEuromillions = $substractBalances + $euroMillionsSubscription + $euroMegaSenaSubscription;
+            $this->subscriptionBalanceEuromillions = $substractBalances + $euroMillionsSubscription;
         }
     }
 
