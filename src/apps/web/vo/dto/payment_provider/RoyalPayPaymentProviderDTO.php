@@ -13,6 +13,7 @@ class RoyalPayPaymentProviderDTO extends PaymentProviderDTO implements IDto, \Js
         return [
             'orderID' => $this->idTransaction,
             'userID' => (string) $this->userId,
+            'userPhoneNumber' => (string) $this->userPhoneNumber,
             'amount' => $this->amount,
             'currency' => $this->currency,
             "CallbackUrl" => $this->provider->getConfig()->getEndpointCallbacks(),

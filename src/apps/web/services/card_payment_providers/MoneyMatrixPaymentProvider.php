@@ -68,7 +68,6 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
         } catch ( \Exception $e ) {
             throw new \Exception($e->getMessage());
         }
-
     }
 
     public function type()

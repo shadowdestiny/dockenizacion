@@ -13,7 +13,6 @@ use Money\Money;
 
 abstract class PaymentProviderDTO extends DTOBase implements IDto, \JsonSerializable
 {
-
     private $userDto;
     private $orderVo;
     private $amountVo;
@@ -23,6 +22,7 @@ abstract class PaymentProviderDTO extends DTOBase implements IDto, \JsonSerializ
     protected $userId;
     protected $userEmail;
     protected $userIp;
+    protected $userPhoneNumber;
     protected $amount;
     protected $currency;
     protected $creditCardNumber;
@@ -49,6 +49,7 @@ abstract class PaymentProviderDTO extends DTOBase implements IDto, \JsonSerializ
         $this->userId = $this->userDto->getUserId();
         $this->userEmail = $this->userDto->getEmail();
         $this->userIp = $this->userDto->getIp();
+        $this->userPhoneNumber = $this->userDto->getPhoneNumber();
         $this->amount = $this->amountVo->getAmount();
         $this->currency = $this->amountVo->getCurrency()->getName();
         $this->creditCardNumber = $this->cardVo->getCardNumbers();
