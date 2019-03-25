@@ -3,16 +3,11 @@
 
 namespace EuroMillions\web\services;
 
-
-use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
 use EuroMillions\shared\components\OrderActionContext;
 use EuroMillions\shared\components\PaymentsCollection;
-use EuroMillions\web\components\cashier_builder\CashierDTOBuilder;
 use EuroMillions\web\components\CashierBuilderContext;
-use EuroMillions\web\components\logger\Adapter\CloudWatch;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
-use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 
@@ -28,13 +23,10 @@ use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PaymentCountry;
-use EuroMillions\web\vo\TransactionId;
 use Exception;
-use LegalThings\CloudWatchLogger;
 use Money\Money;
 use Phalcon\Events\EventsAwareInterface;
 use Phalcon\Events\ManagerInterface;
-use Phalcon\Logger;
 
 class PaymentProviderService implements EventsAwareInterface
 {
@@ -58,8 +50,8 @@ class PaymentProviderService implements EventsAwareInterface
     }
 
     /**
-     * @param PaymentSelectorType $paymentSelectorType
      * @param PaymentCountry $country
+     * @param $paymentSelectorType
      * @return CollectionPaymentCriteriaFactory
      */
     public function createCollectionFromTypeAndCountry($paymentSelectorType, PaymentCountry $country)
@@ -75,12 +67,10 @@ class PaymentProviderService implements EventsAwareInterface
 
     public function cashier(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
-        try
-        {
+        try {
             $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
-            return (new CashierBuilderContext($paymentMethod,$orderData,$hasOrder))->builder()->build();
-        } catch (\Exception $e)
-        {
+            return (new CashierBuilderContext($paymentMethod, $orderData, $hasOrder))->builder()->build();
+        } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
@@ -88,30 +78,25 @@ class PaymentProviderService implements EventsAwareInterface
     public function checkHasOrderInProcessAndReturnCashierDTO(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
         $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
-        if($hasOrder->success())
-        {
-            return new ChasierDTO(null,null,"Order processing...", $paymentMethod->type());
+        if ($hasOrder->success()) {
+            return new ChasierDTO($paymentMethod->type(), null, null, false, "Order processing...");
         }
     }
 
     public function withdrawStatus(IHandlerPaymentGateway $paymentMethod, $transactionID)
     {
-        try
-        {
-            $response = $paymentMethod->call("","withdraw/status/".$transactionID,'get');
+        try {
+            $response = $paymentMethod->call("", "withdraw/status/".$transactionID, 'get');
             return new WithdrawResponseStatusDTO(
                 json_decode($response, true)
             );
-        }catch(\Exception $e)
-        {
-
+        } catch (\Exception $e) {
         }
     }
 
     public function createOrUpdateDepositTransactionWithPendingStatus(Order $order, User $user, Money $amount, $status = 'PENDING', $statusCode = '8')
     {
-        try
-        {
+        try {
             $transactionId = $order->getTransactionId();
             $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionId);
 
@@ -137,40 +122,33 @@ class PaymentProviderService implements EventsAwareInterface
                 'state' => $status
             ];
             //TODO Complexity, a lot of conditionals
-            if($transaction == null)
-            {
-                if($order->getHasSubscription())
-                {
+            if ($transaction == null) {
+                if ($order->getHasSubscription()) {
                     $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
-                } elseif($order->getOrderType() == OrderType::DEPOSIT){
+                } elseif ($order->getOrderType() == OrderType::DEPOSIT) {
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
-                }
-                else
-                {
+                } else {
                     $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $dataTransaction);
                 }
             } else {
                 //TODO Workaround. It should the same way as transaction builder
-                if(!$transaction[0] instanceof WinningsWithdrawTransaction)
-                {
+                if (!$transaction[0] instanceof WinningsWithdrawTransaction) {
                     $transaction[0]->setAmountAdded($order->getCreditCardCharge()->getFinalAmount()->getAmount());
                     $transaction[0]->setHasFee($order->getCreditCardCharge()->getIsChargeFee());
                     $transaction[0]->setLotteryId($order->getLottery()->getId());
                     $transaction[0]->setWithWallet($order->isIsCheckedWalletBalance() ? 1 :0);
                     $transaction[0]->setStatus($status);
-                } else
-                {
+                } else {
                     $moneyMatrixStatus = new MoneyMatrixStatusCode();
                     $transaction[0]->setState($moneyMatrixStatus->getValue($statusCode));
                 }
                 $transaction[0]->setLotteryName($order->getLottery()->getName());
                 $transaction[0]->toString();
                 $this->transactionService->updateTransaction($transaction[0]);
-                $orderActionContext = new OrderActionContext($status,$order, $transactionId,$this->_eventsManager, $statusCode);
+                $orderActionContext = new OrderActionContext($status, $order, $transactionId, $this->_eventsManager, $statusCode);
                 $orderActionContext->execute();
             }
-        } catch( Exception $e )
-        {
+        } catch (Exception $e) {
         }
     }
 

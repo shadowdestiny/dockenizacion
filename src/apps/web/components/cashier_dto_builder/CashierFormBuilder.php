@@ -25,6 +25,6 @@ final class CashierFormBuilder implements ICashierDTOBuilder
 
     public function build()
     {
-        return new ChasierDTO(null,$this->orderData->getTransactionID(),"",$this->paymentMethod->type());
+        return new ChasierDTO($this->paymentMethod->type(),null, $this->orderData->getTransactionID());
     }
 }

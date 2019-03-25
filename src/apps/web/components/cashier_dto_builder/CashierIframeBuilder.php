@@ -28,6 +28,6 @@ class CashierIframeBuilder implements ICashierDTOBuilder
     {
         $this->orderData->exChangeObject();
         $response = $this->paymentMethod->call($this->orderData->toJson(),$this->orderData->action(),'post');
-        return new ChasierDTO(json_decode($response, true),$this->orderData->getTransactionID(),"",$this->paymentMethod->type());
+        return new ChasierDTO($this->paymentMethod->type(), json_decode($response, true), $this->orderData->getTransactionID());
     }
 }

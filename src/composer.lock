@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "382b58d9e697194607aa12c37a364396",
+    "content-hash": "dbfb994246e001ffd91a4f523d36311f",
     "packages": [
         {
             "name": "alcohol/iso4217",
@@ -4859,7 +4859,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "ext-spl_types": "*"
+        "ext-spl_types": "*",
+        "ext-json": "*"
     },
     "platform-dev": []
 }
