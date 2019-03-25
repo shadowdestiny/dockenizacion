@@ -91,6 +91,7 @@ class CartService
                     $bets = [];
                     foreach ($json->play_config as $bet) {
                         $playConfig = new PlayConfig();
+                        $playConfig->setLottery($lottery);
                         $playConfig->formToEntity($user, $bet, $bet->euromillions_line);
                         $bets[] = $playConfig;
                     }

@@ -38,6 +38,11 @@ lottery-carousel--christmas
                     {% set draw_date = slide.drawDateFormat %}
                     {% include "_elements/home/lottery-carousel/eurojackpot.volt" %}
                 {%  endif %}
+                {% if slide.lotteryName == 'MegaSena' %}
+                    {% set jackpot_value = slide.jackpot %}
+                    {% set draw_date = slide.drawDateFormat %}
+                    {% include "_elements/home/lottery-carousel/megasena.volt" %}
+                {%  endif %}
 
             {%  endfor %}
         </div>

@@ -1,3 +1,5 @@
+@import "./_variables";
+@import "./mixins";
 // Review and pay page
 
 .review_and_pay-section {
@@ -1468,6 +1470,8 @@
               @include review_and_pay_separation();
               @include review_and_pay('ellipse_eurojackpot','../img/home/result-block/desktop/ellipse_eurojackpot.svg',#fff);
               @include review_and_pay_separation('ellipse_eurojackpot');
+              @include review_and_pay('ellipse_megasena','../img/home/result-block/desktop/ellipse_eurojackpot.svg',#fff);
+              @include review_and_pay_separation('ellipse_megasena');
 
             }
 

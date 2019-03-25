@@ -162,6 +162,11 @@ class JackpotAndCountDownWidget extends \Phalcon\Mvc\User\Component
         {
             return $this->translationAdapter->query('link_eurojackpot_play');
         }
+
+        if($this->lottery->getName() == 'MegaSena')
+        {
+            return $this->translationAdapter->query('link_megasena_play');
+        }
     }
 
     protected function getTitle()
@@ -182,6 +187,10 @@ class JackpotAndCountDownWidget extends \Phalcon\Mvc\User\Component
         {
             return $this->translationAdapter->query('eurjackpot_estimate');
         }
+        if($this->lottery->getName() == 'MegaSena')
+        {
+            return $this->translationAdapter->query('msjackpot_estimate');
+        }
     }
 
     protected function getCornerCss()
@@ -199,6 +208,10 @@ class JackpotAndCountDownWidget extends \Phalcon\Mvc\User\Component
             return "corner";
         }
         if($this->lottery->getName() == 'EuroJackpot')
+        {
+            return "corner";
+        }
+        if($this->lottery->getName() == 'MegaSena')
         {
             return "corner";
         }

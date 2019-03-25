@@ -48,6 +48,9 @@ class WithdrawController extends CartController
             $this->di->get('config')
         );
 
+
+        $this->paymentProviderService->setEventsManager($this->eventsManager);
+        $this->eventsManager->attach('orderservice', $this->orderService);
         $cashierViewDTO = $this->paymentProviderService->getCashierViewDTOFromMoneyMatrix($this->cartPaymentProvider,$orderDataToPaymentProvider);
         $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $amount);
 

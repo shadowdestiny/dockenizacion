@@ -25,6 +25,7 @@ class UserBuilder
     const DEFAULT_VALIDATED = 0;
     const DEFAULT_USER_CURRENCY = 'EUR';
     const DEFAULT_IP_ADDRESS = '127.0.0.1';
+    const DEFAULT_AFFILIATE = 0;
 
     private $name = self::DEFAULT_NAME;
     private $surname = self::DEFAULT_SURNAME;
@@ -45,6 +46,7 @@ class UserBuilder
     private $ip_address;
     private $birth_date;
     private $show_modal_winning;
+    private $affiliate;
 
 
 
@@ -67,6 +69,7 @@ class UserBuilder
         $this->ip_address = new IPAddress(self::DEFAULT_IP_ADDRESS);
         $this->birth_date = new BirthDate('2000-10-10');
         $this->show_modal_winning= 1;
+        $this->affiliate= 1;
     }
 
     /**
@@ -143,6 +146,15 @@ class UserBuilder
         return $this;
     }
 
+    /**
+     * @param boolean $affiliate
+     * @return UserBuilder
+     */
+    public function withAffiliate($affiliate)
+    {
+        $this->affiliate = $affiliate;
+        return $this;
+    }
 
     /**
      * @return UserBuilder

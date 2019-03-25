@@ -205,9 +205,9 @@ class ReportsService
      *
      * @return mixed
      */
-    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot)
+    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot, $nextDrawDateMegaSena)
     {
-        $subscriptionsActives = $this->reportsRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot);
+        $subscriptionsActives = $this->reportsRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot, $nextDrawDateMegaSena);
         foreach ($subscriptionsActives as $subscriptionsActiveKey => $subscriptionsActiveValue) {
             $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
             $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
@@ -224,6 +224,9 @@ class ReportsService
                     break;
                 case "5":
                     $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'EuroJackpot';
+                    break;
+                case "6":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'MegaSena';
                     break;
             }
         }
@@ -254,6 +257,9 @@ class ReportsService
                     break;
                 case "5":
                     $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'EuroJackpot';
+                    break;
+                case "6":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'MegaSena';
                     break;
             }
         }

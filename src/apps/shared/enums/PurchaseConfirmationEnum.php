@@ -17,13 +17,14 @@ class PurchaseConfirmationEnum extends \SplEnum
 
     const EuroJackpot = 'eurojackpot';
 
+    const MegaSena = 'megasena';
 
     public function findTemplatePathByLotteryName($lotteryName,$isSubscription=false)
     {
         $declaredElems = $this->getConstList();
         $template = $isSubscription ? 'PurchaseSubscriptionConfirmationEmailTemplate' : 'PurchaseConfirmationEmailTemplate';
         if(array_key_exists($lotteryName, $declaredElems)) {
-            if(strtolower($lotteryName) == self::EuroJackpot || strtolower($lotteryName)== self::MegaMillions)
+            if(strtolower($lotteryName) == self::EuroJackpot || strtolower($lotteryName)== self::MegaMillions || strtolower($lotteryName)== self::MegaSena)
             {
                 return "EuroMillions\\".strtolower($lotteryName)."\\emailTemplates\\".$lotteryName.$template;
             }

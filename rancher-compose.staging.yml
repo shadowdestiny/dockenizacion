@@ -31,6 +31,18 @@ services:
         service: euromillions-pre-staging/web
         source_port: 80
         target_port: 80
+      - hostname: royalpay.euromillions.com
+        priority: 5
+        protocol: https
+        service: euromillions-royalpay/web
+        source_port: 443
+        target_port: 80
+      - hostname: royalpay.euromillions.com
+        priority: 6
+        protocol: http
+        service: euromillions-royalpay/web
+        source_port: 80
+        target_port: 80
     stickiness_policy:
       cookie: EM_LB
       indirect: false

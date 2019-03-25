@@ -93,7 +93,6 @@ You can view their logs via **$ docker log -f <container-name>**
 1) cd src/compass_web/
 2) compass watch
 
-
 ##V2 SASS - new design style
 
 1) Use "npm install" command to install plugins for the SCSS (from the package.json file list)

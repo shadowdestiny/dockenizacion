@@ -136,7 +136,6 @@ class OrderService
             $transactions[0]->setWalletAfter($user->getWallet());
             $transactions[0]->toString();
             $this->transactionService->updateTransaction($transactions[0]);
-
         }catch(\Exception $e)
         {
 
