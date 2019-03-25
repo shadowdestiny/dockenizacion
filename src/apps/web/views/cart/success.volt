@@ -162,7 +162,11 @@ function numCharLine($line){
 
                         <ul class="no-li inline numbers small">
                             {% for regular_number in regular_arr %}
-                                <li><?php echo sprintf("%02s", $regular_number);?></li>
+                                 {% if (lottery_name == 'MegaSena') %}
+                                    <li class="circle_megasena"><?php echo sprintf("%02s", $regular_number);?></li>
+                                 {% else %}
+                                    <li><?php echo sprintf("%02s", $regular_number);?></li>
+                                 {% endif %}
                             {% endfor %}
                             {% if (lottery_name == 'PowerBall') %}
                                 <li class="star_red"><?php echo sprintf("%02s", $lucky_arr[1]);?></li>
@@ -177,7 +181,7 @@ function numCharLine($line){
                                     </li>
                                 {% endfor %}
                             {% elseif (lottery_name == 'MegaSena') %}
-                               <li>
+                               <li class="circle_megasena">
                                    <?php echo sprintf("%02s", $lucky_arr[1]);?>
                                </li>
                             {% else %}
