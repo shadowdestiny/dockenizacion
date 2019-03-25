@@ -8,6 +8,7 @@
 
 namespace EuroMillions\tests\unit;
 
+use Phalcon\Di;
 use EuroMillions\web\components\MaxMindWrapper;
 
 class MaxMindWrapperCest
@@ -16,7 +17,7 @@ class MaxMindWrapperCest
 
     public function _before(\UnitTester $I)
     {
-        $this->maxMindWrapper = new MaxMindWrapper();
+        $this->maxMindWrapper = new MaxMindWrapper(Di::getDefault()->get('config')['geoip_strategy']);
     }
 
     /**

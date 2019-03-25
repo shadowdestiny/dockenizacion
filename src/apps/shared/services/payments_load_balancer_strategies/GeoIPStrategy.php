@@ -57,7 +57,7 @@ class GeoIPStrategy implements ILoadBalancingPayment
     {
         $service = "\\EuroMillions\\web\\services\\" . $params->geoip;
         $geoIpWrapper = "\\EuroMillions\\web\\components\\". $params->geoIpImpl;
-        $wrapper = new $geoIpWrapper($params->database_path);
+        $wrapper = new $geoIpWrapper($params);
         return new $service($wrapper);
     }
 

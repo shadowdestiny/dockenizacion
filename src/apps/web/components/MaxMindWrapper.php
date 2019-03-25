@@ -2,7 +2,6 @@
 
 namespace EuroMillions\web\components;
 
-use Phalcon\Di;
 use GeoIp2\WebService\Client;
 use EuroMillions\web\interfaces\IGeoIPServiceAPI;
 
@@ -12,11 +11,9 @@ class MaxMindWrapper implements IGeoIPServiceAPI
 
     private static $forbbidenCountries = ['DE', 'FR'];
 
-    public function __construct($filesPath = null)
+    public function __construct($geoipConfig)
     {
-        $accountId = Di::getDefault()->get('config')['geoip_strategy']->account_id;
-        $licenseKey = Di::getDefault()->get('config')['geoip_strategy']->license_key;
-        $this->reader = new Client($accountId, $licenseKey);
+            $this->reader = new Client($geoipConfig->account_id, $geoipConfig->license_key);
     }
 
     public function getCountryFromIp($ip)
