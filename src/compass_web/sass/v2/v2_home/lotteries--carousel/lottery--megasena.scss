@@ -1,0 +1,9 @@
+@import "../../_megasena/_partial/init";
+
+.lottery-carousel--megasena {
+  .top-block {
+
+    @include degraded-section();
+
+  }
+}

@@ -1,0 +1,8 @@
+@import "./colors";
+@mixin degraded-section(){
+  background: -webkit-linear-gradient(90deg, $medium_color 0%, $clear_color 0%, $clear_dark 100%);
+  background: -moz-linear-gradient(90deg, $medium_color 0%, $clear_color 0%, $clear_dark 100%);
+  background: -o-linear-gradient(90deg, $medium_color 0%, $clear_color 0%, $clear_dark 100%);
+  background: -ms-linear-gradient(90deg, $medium_color 0%, $clear_color 0%, $clear_dark 100%);
+  background: linear-gradient(0deg, $medium_color 0%, $clear_color 0%, $clear_dark 100%);
+}

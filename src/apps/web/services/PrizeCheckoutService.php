@@ -248,8 +248,8 @@ class PrizeCheckoutService
         $lottery = $bet->getPlayConfig()->getLottery();
         $template = (new WinEmailEnum())->findTemplatePathByLotteryName($lottery->getName(), $isBig);
         $emailTemplate = new $template($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-        $luckyNumbers = $this->getLuckyNumbers($bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers(), $lottery);
-        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . $luckyNumbers;
+        $luckyNumbers = $this->getLuckyNumbers($bet->getPlayConfig()->getLine()->getLuckyNumbers(), $lottery);
+        $numLine = $bet->getPlayConfig()->getLine()->getRegularNumbers() . $luckyNumbers;
         $emailTemplate->setWinningLine($numLine);
         $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
         $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
@@ -317,6 +317,10 @@ class PrizeCheckoutService
             return '( ' . $numbers . ' )';
         }
 
+        if ($lottery->isMegaSena()) {
+            return ','. $balls[1];
+        }
+
         return ' ( ' . $balls[1] . ' )';
     }
 
@@ -344,6 +348,10 @@ class PrizeCheckoutService
     {
         if ($lottery->isEuroJackpot()) {
             return $this->betRepository->getMatchesPlayConfigAndUserFromEuroJackpotByDrawDate($date, $lottery->getId());
+        }
+
+        if ($lottery->isMegaSena()) {
+            return $this->betRepository->getMatchesPlayConfigAndUserFromMegaSenaByDrawDate($date, $lottery->getId());
         }
 
         return $this->betRepository->getMatchesPlayConfigAndUserFromLotteryByDrawDate($date, $lottery->getId());

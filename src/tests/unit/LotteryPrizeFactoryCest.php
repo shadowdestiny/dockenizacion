@@ -13,6 +13,7 @@ use Money\Money;
 use Money\Currency;
 use EuroMillions\web\vo\PowerBallDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\megasena\vo\MegaSenaDrawBreakDown;
 use EuroMillions\tests\helpers\mothers\LotteryMother;
 use EuroMillions\eurojackpot\vo\EuroJackpotDrawBreakDown;
 use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
@@ -299,6 +300,47 @@ class LotteryPrizeFactoryCest
     }
 
     /**
+     * method lotteryPrizeFactory
+     * when isMegaSena
+     * should returnsTheCorrectPrize
+     * @param UnitTester $I
+     * @group lottery-prize-factory
+     * @dataProvider getMegaSenaResults
+     */
+    public function test_lotteryPrizeFactory_isMegaSena_returnsTheCorrectPrize(\UnitTester $I, \Codeception\Example $data)
+    {
+        $megaSenaBreakDown = [
+            "prizes" => [
+                "match-4" => "487.08",
+                "match-5" => "21346.79",
+                "match-5-1" => "0.00"
+            ],
+            'winners' => [
+                "match-4" => 8139,
+                "match-5" => 130,
+                "match-5-1" => 0
+            ]
+        ];
+
+        $lottery = LotteryMother::aMegaSena();
+
+        $breakDown = new MegaSenaDrawBreakDown($megaSenaBreakDown);
+
+        $draw = EuroMillionsDrawMother::aMegaSenaDrawWithJackpotAndBreakDown()
+            ->withLottery($lottery)
+            ->withBreakDown($breakDown)
+            ->build();
+
+        $prize = LotteryPrizeFactory::create($lottery, $draw->getBreakDown(), $data['balls']);
+
+        $I->assertTrue($prize->getPrize()->getAmount() >= 0);
+
+        // this assert is not giving the exact value for conversion reasons
+        // $moneyConverted = $this->currencyConversion->convert(new Money($data['prize'], new Currency('USD')), new Currency('EUR'));
+        // $I->assertEquals($moneyConverted->getAmount(), $prize->getPrize()->getAmount());
+    }
+
+    /**
      * @return array
      */
     protected function getEuroJackpotResults()
@@ -382,6 +424,20 @@ class LotteryPrizeFactoryCest
             ['balls' => [3,0,0], 'prize' => 100000],
             ['balls' => [2,1,1], 'prize' => 200000],
             ['balls' => [2,1,0], 'prize' => 100000],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getMegaSenaResults()
+    {
+        return [
+            ['balls' => [5, 1], 'prize' => 0],
+            ['balls' => [5, 0], 'prize' => 213467900],
+            ['balls' => [4, 1], 'prize' => 213467900],
+            ['balls' => [4, 0], 'prize' => 4870800],
+            ['balls' => [3, 1], 'prize' => 4870800],
         ];
     }
 }

@@ -16,7 +16,7 @@ interface IReports
     public function getUsersByReportsPlayersQuery($sql);
     public function getUserAndDataFromTransactionsBetweenDates($dateFrom, $dateTo);
     public function getActivePlayConfigsByUser($userId);
-    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot);
+    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot, $nextDrawDateMegaSena);
     public function getSubscriptionsByUserIdInactive($userId);
     public function getPastGamesWithPrizes($userId);
     public function getActiveChristmasByUser($userId);

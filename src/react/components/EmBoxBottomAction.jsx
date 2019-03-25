@@ -4,23 +4,31 @@ var EuroMillionsAdvancedPlayBtn = require('./EmAdvancedPlayBtn.jsx');
 var EuroMillionsAddToCart = require('./EmAddToCart.jsx');
 var EmSelectDrawDate = require('./EmSelectDrawDate.jsx');
 
-const GAME_MODE_POWERBALL = 'powerball'
-const GAME_MODE_MEGAMILLIONS = 'megamillions'
-const GAME_MODE_EUROMILLIONS = 'euromillions'
+import {
+    GAME_MODE_POWERBALL,
+    GAME_MODE_EUROMILLIONS,
+    GAME_MODE_MEGAMILLIONS,
+    GAME_MODE_EUROJACKPOT,
+    GAME_MODE_MEGASENA,
+    numberSets
+} from '../config/constants';
 
 var EuroMillionsBoxBottomAction = React.createClass({
 
     addToCart : function () {
+        
         if(openTicket) {
             showModalTicketClose();
             return false;
         }
         var params = '';
-        const { mode } = this.props
-        const maxNumbers = 5
-        const maxStars = mode == GAME_MODE_POWERBALL || mode == GAME_MODE_MEGAMILLIONS ? 1 : 2
+
+        const { mode } = this.props;
+        const maxNumbers    = numberSets[mode].maxNumbers;
+        const maxStars      = numberSets[mode].maxStars;
+
         this.props.lines.forEach(function(bet,i){
-            if(bet.numbers.length == maxNumbers && bet.stars.length == maxStars ) {
+            if(bet.numbers.length === maxNumbers && bet.stars.length === maxStars ) {
                 params += 'bet['+i+']='+ bet.numbers +","+ bet.stars + '&';
             }
         });
