@@ -413,6 +413,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'addFunds'
         ));
 
+        $router->add("/profile/getCashier", array(
+            "module" => "web",
+            'namespace' => 'EuroMillions\web\controllers\profile\payment',
+            'controller' => 'funds',
+            'action' => 'getCashier'
+        ));
 
         $router->add("/account", array(
             "module" => "web",
