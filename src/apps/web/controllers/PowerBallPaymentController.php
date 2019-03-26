@@ -96,7 +96,7 @@ class PowerBallPaymentController extends CartController
                         $result = $this->setPowerBallService($powerball_service)
                             ->setPlayService($playService)
                             ->setPaymentProviderServiceTrait($this->paymentProviderService)
-                            ->setPaymentCountryTrait(new PaymentCountry(['ES']))
+                            ->setPaymentCountryTrait($this->paymentCountry)
                             ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
                             ->payFromPlay(
                                 $user_id,

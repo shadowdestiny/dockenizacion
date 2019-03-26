@@ -98,7 +98,7 @@ class PaymentController extends CartController
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
                         $result = $this->setPlayService($play_service)
                             ->setPaymentProviderServiceTrait($this->paymentProviderService)
-                            ->setPaymentCountryTrait(new PaymentCountry(['ES']))
+                            ->setPaymentCountryTrait($this->paymentCountry)
                             ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
                             ->payFromPlay(
                                 $user_id,
