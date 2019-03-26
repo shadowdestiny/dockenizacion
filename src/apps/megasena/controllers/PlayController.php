@@ -14,6 +14,7 @@ use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\TrackingCodesHelper;
 use Money\Currency;
+use EuroMillions\web\vo\cutoff\MegaSenaCutOff;
 
 final class PlayController extends \EuroMillions\shared\controllers\PlayController
 {
@@ -47,7 +48,7 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         $dateTimeToClose =  $this->lotteryService->getNextDateDrawByLottery('MegaSena',null,true);
         $date_time_util = new DateTimeUtil();
         $this->dayOfWeek = $date_time_util->getDayOfWeek($this->draw);
-        $this->checkOpenTicket = $date_time_util->checkTimeForClosePlay($dateTimeToClose);
+        $this->checkOpenTicket = (new MegaSenaCutOff($dateTimeToClose))->isClosed();
         $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('MegaSena');
         $this->automaticRandom = $this->request->get('random');
         $this->bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO('MegaSena');

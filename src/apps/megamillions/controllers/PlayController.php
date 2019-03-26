@@ -12,6 +12,7 @@ namespace EuroMillions\megamillions\controllers;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\components\ViewHelper;
+use EuroMillions\web\vo\cutoff\MegaMillionsCutOff;
 use function GuzzleHttp\Psr7\str;
 use Money\Currency;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
@@ -48,7 +49,7 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         $dateTimeToClose =  $this->lotteryService->getNextDateDrawByLottery('MegaMillions',null,true);
         $date_time_util = new DateTimeUtil();
         $this->dayOfWeek = $date_time_util->getDayOfWeek($this->draw);
-        $this->checkOpenTicket = $date_time_util->checkTimeForClosePlay($dateTimeToClose);
+        $this->checkOpenTicket = (new MegaMillionsCutOff($dateTimeToClose))->isClosed();
         $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('MegaMillions');
         $this->automaticRandom = $this->request->get('random');
         $this->bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO('MegaMillions');
