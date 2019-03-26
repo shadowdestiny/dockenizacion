@@ -219,8 +219,6 @@ class TransactionService extends Colleague
 
         $collection = $this->transactionRepository->getLastDepositsDataByUserId($userId, 1);
 
-        var_dump($collection); die();
-
         $fakeArray = ['wirecard', 'royalpay', 'moneymatrix']; //TODO: Remove
         $provider = array();
         foreach($collection as $item){
