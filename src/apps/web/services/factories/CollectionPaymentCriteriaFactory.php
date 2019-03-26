@@ -4,6 +4,7 @@
 namespace EuroMillions\web\services\factories;
 
 use EuroMillions\shared\components\PaymentsCollection;
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\interfaces\IPaymentsCriteria;
 use EuroMillions\web\services\criteria_strategies\AndCriteria;
 use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
@@ -22,16 +23,8 @@ class CollectionPaymentCriteriaFactory
         return  (new AndCriteria($criteriaSelector, $criteria))->meetCriteria($paymentsCollection);
     }
 
-    public static function createCollectionFromProviderName(PaymentsCollection $paymentsCollection, $providerName)
+    public static function createADefaultPaymentProviderByName(PaymentsCollection $paymentsCollection,PaymentProviderEnum $providerName)
     {
-        $newPaymentsCollection = new PaymentsCollection();
-
-        foreach ($paymentsCollection->getIterator() as $k => $payment) {
-            if ($payment->get()->getName() == $providerName) {
-                $newPaymentsCollection->addItem($k, $payment);
-            }
-        }
-
-        return $newPaymentsCollection;
+        return $paymentsCollection->getItemByName($providerName);
     }
 }

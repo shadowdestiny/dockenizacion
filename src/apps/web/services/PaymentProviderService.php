@@ -5,11 +5,14 @@ namespace EuroMillions\web\services;
 
 use EuroMillions\shared\components\OrderActionContext;
 use EuroMillions\shared\components\PaymentsCollection;
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\components\CashierBuilderContext;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
+use EuroMillions\web\interfaces\IPaymentProvider;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
+use EuroMillions\web\services\card_payment_providers\ICreditCardStrategy;
 use EuroMillions\web\services\criteria_strategies\CountryCriteria;
 use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
 use EuroMillions\web\services\criteria_strategies\NameCriteria;
@@ -52,7 +55,7 @@ class PaymentProviderService implements EventsAwareInterface
     /**
      * @param PaymentCountry $country
      * @param $paymentSelectorType
-     * @return CollectionPaymentCriteriaFactory
+     * @return PaymentsCollection
      */
     public function createCollectionFromTypeAndCountry($paymentSelectorType, PaymentCountry $country)
     {
@@ -66,17 +69,17 @@ class PaymentProviderService implements EventsAwareInterface
     }
 
     /**
-     * @param PaymentCountry $providerName
-     * @return PaymentsCollection
+     * @param string $providerName
+     * @return ICreditCardStrategy
      */
     public function createCollectionFromProviderName($providerName)
     {
-        $newPaymentsCollection = CollectionPaymentCriteriaFactory::createCollectionFromProviderName(
+        $aPaymentProvider = CollectionPaymentCriteriaFactory::createADefaultPaymentProviderByName(
             $this->paymentsCollection,
-            $providerName
+            new PaymentProviderEnum($providerName)
         );
 
-        return $newPaymentsCollection;
+        return $aPaymentProvider;
     }
 
     public function cashier(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)

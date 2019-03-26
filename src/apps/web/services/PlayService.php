@@ -46,6 +46,7 @@ use EuroMillions\web\vo\OrderChristmas;
 use EuroMillions\web\vo\PaymentCountry;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\vo\TransactionId;
 use Exception;
 use Money\Currency;
 use Money\Money;
@@ -175,20 +176,9 @@ class PlayService extends Colleague
                 $order->setIsCheckedWalletBalance($withAccountBalance);
                 $order->setLottery($lottery);
                 $order->setAmountWallet($user->getWallet()->getBalance());
-                $uniqueId = $this->walletService->getUniqueTransactionId();
+                $uniqueId = TransactionId::create();
                 if ($credit_card != null) {
-
-                    //TODO: refactor this
-                    $this->cardPaymentProvider = CollectionPaymentCriteriaFactory::createCollectionFromSelectorCriteriaAndOtherCriteria(
-                        $paymentsCollection,
-                        new CriteriaSelector(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD)),
-                        //new CountryCriteria(PaymentCountry::createPaymentCountry([$this->paymentCountry]))
-                        new CountryCriteria(PaymentCountry::createPaymentCountry(['ES']))
-                    );
-                    //TODO: end
-                    $provider = $this->cardPaymentProvider->getIterator()->current()->get();
-                    //$provider->user($user);
-                    //$provider->idTransaction=$order->getTransactionId();
+                    $provider = $paymentsCollection->getIterator()->current()->get();
                     $result_payment = $this->walletService->onlyPay($provider, $credit_card, $user, $uniqueId, $order, $isWallet);
                 } else {
                     if ($order->getHasSubscription()) {

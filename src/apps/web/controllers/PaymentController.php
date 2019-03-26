@@ -12,7 +12,9 @@ use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\ExpiryDate;
+use EuroMillions\web\vo\PaymentCountry;
 use Money\Currency;
 use Money\Money;
 
@@ -89,7 +91,15 @@ class PaymentController extends CartController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
-                        $result = $play_service->playWithQueue($user_id, $amount, $card, $payWallet, $isWallet, 'EuroMillions', $this->paymentsCollection);
+
+                        $result = $play_service->playWithQueue(
+                            $user_id,
+                            $amount,
+                            $card,
+                            $payWallet,
+                            $isWallet,
+                            'EuroMillions',
+                            $this->paymentProviderService->createCollectionFromTypeAndCountry(PaymentSelectorType::CREDIT_CARD_METHOD,new PaymentCountry(['ES'])));
                         return $this->playResult($result);
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();

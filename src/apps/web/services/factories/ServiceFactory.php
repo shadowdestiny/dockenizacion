@@ -5,13 +5,16 @@ use EuroMillions\shared\components\AwsCloud;
 use EuroMillions\shared\components\AwsQueueImpl;
 use EuroMillions\shared\services\AWSService;
 use EuroMillions\shared\services\CloudService;
+use EuroMillions\shared\services\FeatureFlagApiService;
 use EuroMillions\web\components\PostMarkWrapper;
 use EuroMillions\web\services\EmailService;
+use EuroMillions\web\services\external_apis\FeatureFlagApi;
 use EuroMillions\web\services\GeoService;
 use EuroMillions\web\services\LoggerFactory;
 use EuroMillions\web\services\LogService;
 use Phalcon\Config;
 use Phalcon\DiInterface;
+use Phalcon\Http\Client\Provider\Curl;
 
 class ServiceFactory
 {
@@ -45,6 +48,15 @@ class ServiceFactory
             )
         );
 
+    }
+
+    public function getFeatureFlagApiService()
+    {
+        return new FeatureFlagApiService(
+            new FeatureFlagApi(
+                new Curl()
+            )
+        );
     }
 
     public function getEmailService()
