@@ -15,7 +15,6 @@ use EuroMillions\web\services\CartService;
 use EuroMillions\web\services\CurrencyConversionService;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\external_apis\CurrencyConversion\CurrencyLayerApi;
-use EuroMillions\web\services\external_apis\FeatureFlagApi;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\external_apis\CurrencyConversion\RedisCurrencyApiCache;
 use EuroMillions\web\services\LanguageService;
@@ -41,7 +40,6 @@ use EuroMillions\web\services\UserNotificationsService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\services\WalletService;
-use EuroMillions\shared\services\FeatureFlagApiService;
 use LegalThings\CloudWatchLogger;
 use Phalcon\Di;
 use Phalcon\DiInterface;
@@ -286,15 +284,6 @@ class DomainServiceFactory
     {
         return new BlogService(
             $this->entityManager
-        );
-    }
-
-    public function getFeatureFlagApiService()
-    {
-        return new FeatureFlagApiService(
-            new FeatureFlagApi(
-                new Curl()
-            )
         );
     }
 

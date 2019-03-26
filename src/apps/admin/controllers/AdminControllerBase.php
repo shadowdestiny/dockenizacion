@@ -8,6 +8,7 @@ use EuroMillions\admin\services\AuthUserService;
 use EuroMillions\admin\services\DomainAdminServiceFactory;
 use EuroMillions\admin\services\ReportsService;
 use EuroMillions\shared\helpers\PaginatedControllerTrait;
+use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
 
@@ -21,11 +22,14 @@ class AdminControllerBase extends Controller
     protected $domainAdminServiceFactory;
     /** @var  ReportsService */
     protected $reportsService;
+    /** @var ServiceFactory */
+    protected $serviceFactory;
 
     public function initialize()
     {
         $this->domainAdminServiceFactory = $this->di->get('domainAdminServiceFactory');
         $this->reportsService = $this->domainAdminServiceFactory->getReportsService();
+        $this->serviceFactory = new ServiceFactory($this->di);
     }
 
     protected function noRender()

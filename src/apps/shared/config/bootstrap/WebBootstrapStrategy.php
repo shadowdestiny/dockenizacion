@@ -101,6 +101,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return $view;
     }
 
+
     protected function configViewMegaMillions()
     {
         $view = new Phalcon\Mvc\View();

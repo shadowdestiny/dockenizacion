@@ -11,6 +11,7 @@ use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy;
+use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
@@ -72,7 +73,17 @@ class FundsController extends AccountController
                         $payXpertCardPaymentStrategy = $this->wirecard();//$this->di->get('paymentProviderFactory');
                         $currency_euros_to_payment = $this->currencyConversionService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
                         $credit_card_charge = new CreditCardCharge($currency_euros_to_payment,$this->siteConfigService->getFee(),$this->siteConfigService->getFeeToLimitValue());
+
+
+
                         $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $credit_card_charge);
+
+
+
+
+
+
+
                         if($result->success()) {
                             $converted_net_amount_currency = $this->currencyConversionService->convert($credit_card_charge->getNetAmount(), $user->getUserCurrency());
                             $msg .= 'We added ' . $symbol . ' '  . number_format($converted_net_amount_currency->getAmount() / 100,2,'.',',') . ' to your Wallet Balance';
