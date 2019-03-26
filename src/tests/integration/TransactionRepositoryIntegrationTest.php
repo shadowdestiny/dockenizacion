@@ -210,6 +210,7 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
      */
     public function test_getLastDepositsDataByUserId_called_ReturnArray()
     {
+        $this->markTestIncomplete('Finish test'); //TODO
         $date = new \DateTime();
         $user = UserMother::aJustRegisteredUser()->build();
         $this->entityManager->persist($user);
