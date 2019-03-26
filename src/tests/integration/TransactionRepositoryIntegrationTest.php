@@ -202,4 +202,42 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         $actual = $this->sut->getPendingTransactionsEntityId(48*60);
         $this->assertNotEmpty($actual);
     }
+
+    /**
+     * method getLastDepositsDataByUserId
+     * when called
+     * should ReturnArray
+     */
+    public function test_getLastDepositsDataByUserId_called_ReturnArray()
+    {
+        $date = new \DateTime();
+        $user = UserMother::aJustRegisteredUser()->build();
+        $this->entityManager->persist($user);
+        $data = [
+            'lottery_id' => 1,
+            'lotteryName' => 'EuroMillions',
+            'numBets' => 3,
+            'amount' =>  2000,
+            'amountWithWallet' => 2000,
+            'amountWithCreditCard' => 0,
+            'feeApplied' => 0,
+            'user' => $user,
+            'walletBefore' => new Wallet(),
+            'walletAfter' => new Wallet(),
+            'transactionID' => '123456',
+            'now' => $date,
+            'playConfigs' => [1,2],
+            'discount' => 0,
+            'status' => 'SUCCESS',
+            'withWallet' => 1
+        ];
+        $depositTransaction= new DepositTransaction($data);
+        $depositTransaction->toString();
+        $this->sut->add($depositTransaction);
+        $this->entityManager->flush($depositTransaction);
+
+        $actual = $this->sut->getLastDepositsDataByUserId($user->getId());
+        $this->assertArrayHasKey('id', $actual[0]);
+        $this->assertArrayHasKey('data', $actual[0]);
+    }
 }

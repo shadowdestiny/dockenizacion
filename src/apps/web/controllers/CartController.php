@@ -386,6 +386,24 @@ class CartController extends PublicSiteControllerBase
         $errors,
         $orderView = true
     ) {
+
+
+        $name = $this->transactionService->getLastDepositProviderByUserId($user->getId());
+
+        /*
+        $name = $this->transactionService->getLastDepositProviderByUserId($user->getId());
+        if($name !== null) {
+            $cardPaymentProvider = $this->paymentProviderService->createCollectionFromName($name);
+        }
+        //$cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndName(PaymentSelectorType::CREDIT_CARD_METHOD, $name);
+
+        var_dump($cardPaymentProvider);
+
+        //$cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
+
+        die();
+        */
+
         $locale = $this->request->getBestLanguage();
         $user_currency = $user->getUserCurrency();
         $fee_value = $this->siteConfigService->getFeeValueWithCurrencyConverted($user_currency);

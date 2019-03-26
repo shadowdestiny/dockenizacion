@@ -6,7 +6,7 @@ namespace EuroMillions\web\entities;
 
 use EuroMillions\shared\vo\Wallet;
 
-abstract class Transaction extends EntityBase
+class Transaction extends EntityBase
 {
 
     CONST DEPOSIT_TRANSACTION_TYPE = 'deposit';

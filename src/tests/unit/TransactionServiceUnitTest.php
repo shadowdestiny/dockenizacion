@@ -181,6 +181,40 @@ class TransactionServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+    * method getLastDepositProviderByUserId
+    * when called
+    * should returnAProperArrayOfProviders
+    */
+    public function test_getLastDepositProviderByUserId_called_returnAProperArrayOfProviders()
+    {
+        $expected = [
+            ['id' => 1, 'data' => "1#385#PENDING#3#PowerBall#0#royalpay"],
+            ['id' => 2, 'data' =>"1#335#PENDING#1#EuroMillions#moneymatrix"],
+        ];
+
+        $sut = $this->getSut();
+        $this->transactionsRepository_double->getLastDepositsDataByUserId(1, 1)->willReturn($expected);
+        $actual = $sut->getLastDepositProviderByUserId(1);
+
+        $this->assertEquals('royalpay', $actual);
+    }
+
+    /**
+     * method getLastDepositProviderByUserId
+     * when called
+     * should returnAProperEmptyArray
+     */
+    public function test_getLastDepositProviderByUserId_called_returnAProperEmptyArray()
+    {
+        $expected = [];
+
+        $sut = $this->getSut();
+        $this->transactionsRepository_double->getLastDepositsDataByUserId(1, 1)->willReturn($expected);
+        $actual = $sut->getLastDepositProviderByUserId(1);
+
+        $this->assertEquals(null, $actual);
+    }
 
     private function getSut()
     {

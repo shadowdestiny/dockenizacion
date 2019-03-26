@@ -6,6 +6,7 @@ namespace EuroMillions\web\repositories;
 use Doctrine\ORM\Query\ResultSetMapping;
 use EuroMillions\web\entities\Transaction;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use EuroMillions\web\vo\enum\TransactionType;
 
 class TransactionRepository extends RepositoryBase
 {
@@ -85,6 +86,21 @@ class TransactionRepository extends RepositoryBase
                 FROM transactions as t
                 WHERE t.entity_type in ("deposit", "subscription_purchase") and t.user_id = "' . $userId . '"
                 order by t.date desc',
+                $rsm
+            )->getResult();
+    }
+
+    public function getLastDepositsDataByUserId($userId, $max = 5)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addEntityResult(Transaction::class, 't');
+        return $this->getEntityManager()
+            ->createNativeQuery(
+                'SELECT *
+                FROM transactions as t
+                WHERE user_id = \''.$userId.'\' AND entity_type = "deposit" AND `data` LIKE \'%#SUCCESS#%\'
+                ORDER BY date DESC 
+                LIMIT '.$max.' ',
                 $rsm
             )->getResult();
     }
@@ -220,4 +236,5 @@ class TransactionRepository extends RepositoryBase
             'DELETE FROM transactions WHERE id = ' . $id . ' LIMIT 1'
         );
     }
+
 }

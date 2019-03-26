@@ -10,9 +10,9 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
-
 use EuroMillions\web\services\criteria_strategies\CountryCriteria;
 use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
+use EuroMillions\web\services\criteria_strategies\NameCriteria;
 use EuroMillions\web\services\factories\CollectionPaymentCriteriaFactory;
 use EuroMillions\web\vo\dto\ChasierDTO;
 use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
@@ -60,6 +60,20 @@ class PaymentProviderService implements EventsAwareInterface
             $this->paymentsCollection,
             new CriteriaSelector(new PaymentSelectorType($paymentSelectorType)),
             new CountryCriteria(PaymentCountry::createPaymentCountry($country->countries()))
+        );
+
+        return $newPaymentsCollection;
+    }
+
+    /**
+     * @param PaymentCountry $providerName
+     * @return PaymentsCollection
+     */
+    public function createCollectionFromProviderName($providerName)
+    {
+        $newPaymentsCollection = CollectionPaymentCriteriaFactory::createCollectionFromProviderName(
+            $this->paymentsCollection,
+            $providerName
         );
 
         return $newPaymentsCollection;

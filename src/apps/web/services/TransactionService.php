@@ -17,6 +17,7 @@ use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\notification_mediator\Colleague;
 use EuroMillions\web\vo\dto\TransactionDTO;
+use EuroMillions\web\vo\enum\TransactionType;
 use Money\Currency;
 use Money\Money;
 
@@ -212,5 +213,26 @@ class TransactionService extends Colleague
         } else {
             return false;
         }
+    }
+
+    public function getLastDepositProviderByUserId($userId){
+
+        $collection = $this->transactionRepository->getLastDepositsDataByUserId($userId, 1);
+
+        var_dump($collection); die();
+
+        $fakeArray = ['wirecard', 'royalpay', 'moneymatrix']; //TODO: Remove
+        $provider = array();
+        foreach($collection as $item){
+            $array = explode("#",$item['data']);
+            $array[6] = $fakeArray[rand(0,2)]; //TODO: Retrieve from the correct position in data field.
+            $provider[] = $array[6];
+        }
+
+        if(empty($provider)){
+            return null;
+        }
+
+        return $provider[0];
     }
 }
