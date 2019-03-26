@@ -21,6 +21,7 @@ use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\shared\components\PaymentsCollection;
+use EuroMillions\web\services\card_payment_providers\ICreditCardStrategy;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
@@ -153,7 +154,7 @@ class PlayService extends Colleague
      * @param bool $withAccountBalance
      * @param null $isWallet
      * @param string $lotteryName
-
+     * @param PaymentsCollection $paymentsCollection
      * @return ActionResult
      */
     public function playWithQueue($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, $lotteryName = "PowerBall", PaymentsCollection $paymentsCollection)
@@ -203,8 +204,9 @@ class PlayService extends Colleague
      * @param bool $withAccountBalance
      * @return ActionResult
      */
-    public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null)
+    public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, ICreditCardStrategy $paymentStrategy)
     {
+        $this->cardPaymentProvider = $paymentStrategy->get();
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();
@@ -231,8 +233,6 @@ class PlayService extends Colleague
                     $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
                     $uniqueId = $this->walletService->getUniqueTransactionId();
                     if ($credit_card != null) {
-                        $this->cardPaymentProvider->user($user);
-                        $this->cardPaymentProvider->idTransaction = $uniqueId;
                         $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
                     } else {
                         if($order->getHasSubscription())

@@ -49,12 +49,12 @@ class NotificationController extends MoneymatrixController
 
         $orderNotification = new OrderNotificationContext($transaction, $logger, $this->cartService);
         $order = $orderNotification->execute();
-        $this->paymentProviderService->setEventsManager($this->eventsManager);
+        $this->paymentProviderServiceTrait->setEventsManager($this->eventsManager);
         $orderNotificationValidator = new ValidatorOrderNotificationsContext(
             $transaction,
             $status,
             $order,
-            $this->paymentProviderService,
+            $this->paymentProviderServiceTrait,
             $this->orderService,
             $logger
         );
@@ -62,7 +62,7 @@ class NotificationController extends MoneymatrixController
             $this->eventsManager->attach('orderservice', $this->orderService);
             $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName(), !empty($testDate) ? $testDate : null)->getValues();
             $order->setNextDraw($nextDrawForOrder);
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $transaction->getUser(), $order->getTotal(), $status, $statusCode);
+            $this->paymentProviderServiceTrait->createOrUpdateDepositTransactionWithPendingStatus($order, $transaction->getUser(), $order->getTotal(), $status, $statusCode);
         }
 
         exit();
@@ -74,7 +74,7 @@ class NotificationController extends MoneymatrixController
             $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
             $this->response->setHeader('Content-type', 'application/json');
             $data = $this->request->getJsonRawBody();
-            $response = $this->paymentProviderService->withdrawStatus($this->getDI()->get('paymentProviderFactory'), $data->MerchantReference);
+            $response = $this->paymentProviderServiceTrait->withdrawStatus($this->getDI()->get('paymentProviderFactory'), $data->MerchantReference);
             echo json_encode($response);
         } catch (\Exception $e) {
             $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
