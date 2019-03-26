@@ -1,4 +1,4 @@
-FROM node:8-jessie
+FROM node:8-stretch
 
 COPY ./provision-react.sh /provision-react.sh
 COPY ./provision-grunt.sh /provision-grunt.sh
