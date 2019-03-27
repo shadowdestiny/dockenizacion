@@ -4,9 +4,12 @@ var EmLineOrderCart = require('../components/cart/EmLineOrderCart.jsx');
 var EmLineOrderConfig = require('../components/cart/EmLineOrderConfig.jsx');
 var EmResumeOrder = require('../components/cart/EmResumeOrder.jsx');
 var EmTotalCart = require('../components/cart/EmTotalCart.jsx');
+var EmAmountCart = require('../components/cart/EmAmountCart.jsx');
 var EmLineFeeCart = require('../components/cart/EmLineFeeCart.jsx');
 var EmWallet = require('../components/cart/EmWallet.jsx');
 var EmBtnPayment = require('../components/cart/EmBtnPayment.jsx');
+var EmCard = require('../components/payment/EmCard');
+var EmOptionSelector = require('../components/payment/EmOptionSelector');
 
 var _eurojackpot;
 try{
@@ -38,7 +41,9 @@ var CartPage = new React.createClass({
             show_fee_value : true,
             total : 0,
             pre_total : 0,
-            mmxloading: false
+            mmxloading: false,
+            show_payment_section:false,
+            typePayment:1,
         }
     },
 
@@ -105,17 +110,33 @@ var CartPage = new React.createClass({
         this.setState({mmxloading : value});
     },
 
+    selectTypePayment : function(option) {
+        this.setState({typePayment : option});
+    },
 
     handleCheckedWallet : function (value)
     {
         var self = this;
-        if(value) {
+        /*if(value) {
             $('.payment').hide();
             $('.box-bottom').show();
-        }
+        }*/
         this.state.checked_wallet = value;
-        $(document).on("disableiframeclick",{disabled: false},function(e, disabled) {
-            self.disableCheckedWallet(disabled);
+
+        $(document).on("disableiframeclick",{disabled: false},function(e, _object) {
+            console.log(_object);
+            self.disableCheckedWallet(_object.disabled);
+            let data = JSON.parse(_object.data);
+            if (data === null){
+                self.setState({
+                    show_payment_section : false
+                });
+            } else if(data.type === 'credit_card') {
+                self.setState({
+                    show_payment_section : !value
+                });
+            }
+
         });
         this.moneyMatrix();
         this.handleUpdatePrice();
@@ -246,7 +267,10 @@ var CartPage = new React.createClass({
             single_bet = this.props.single_bet_price;
         }
 
+        let total_to_pay_formated =  CurrencyFormat.getCurrencyFormattedFromValue(single_bet * _playConfigList.bets.length);
+
         CurrencyFormat.value = single_bet;
+
         var price_and_symbol_order_line = CurrencyFormat.getCurrencyFormatted();
 
         for (let i=0; i< _playConfigList.bets.length; i++) {
@@ -351,6 +375,7 @@ var CartPage = new React.createClass({
                                          total_lines={total_lines}
                                          powerplayprice={this.props.powerplayprice}
                                          config={JSON.parse(this.props.config)}
+                                         each_price={price_and_symbol_order_line}
             />;
         }
 
@@ -376,10 +401,18 @@ var CartPage = new React.createClass({
                                txt_for={this.props.txt_for}
                                txt_since={this.props.txt_since}
                                txt_weeks={this.props.txt_weeks}
-                               txt_lottery={this.props.txt_lottery}/>
+                               txt_lottery={this.props.txt_lottery}
+                               txt_lottery_title={this.props.txt_lottery_title}
+                               txt_number_of_draws={this.props.txt_number_of_draws}
+                               txt_starting_date={this.props.txt_starting_date}
+                               txt_ending_date={this.props.txt_ending_date}
+                />
 
                 <div className={'box-order'}>
                     {_euroMillionsLine}
+                    <br />
+                    <EmAmountCart pricetopay={total_to_pay_formated} txt_amount={this.props.txt_amount}/>
+                    {wallet_component}
                     <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList}
                                        pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration} wednesday={this.props.wednesday}
                                        saturday={this.props.saturday} txt_for={this.props.txt_for}
@@ -389,16 +422,27 @@ var CartPage = new React.createClass({
                     {line_fee_component}
                 </div>
                 <EmTotalCart pricetopay={this.state.total} funds={Funds.funds_value} total_price={this.state.total}
-                             txt_currencyAlert={this.props.txt_currencyAlert} txt_total={this.props.txt_total} />
-                {wallet_component}
-                <EmBtnPayment href={href_payment} databtn={data_btn} price={price_txt_btn}
-                              classBtn={class_button_payment} text={txt_button_payment} powerplay={this.props.powerplay}
-                              total_lines={total_lines}
-                              powerplayprice={this.props.powerplayprice}
-                              moneymatrixiframeloading={this.state.mmxloading}
-                              total_price={this.props.total}
-                              fee={this.props.fee_charge}
-                              currency_symbol={this.props.currency_symbol} config={JSON.parse(this.props.config)}/>
+                             txt_currencyAlert={this.props.txt_currencyAlert} txt_total={this.props.txt_total}
+                             txtMultTotalPrice={this.props.txtMultTotalPrice}
+                             emBtnPayment={<EmBtnPayment href={href_payment} databtn={data_btn} price={price_txt_btn}
+                                                         classBtn={class_button_payment} text={txt_button_payment} powerplay={this.props.powerplay}
+                                                         total_lines={total_lines}
+                                                         powerplayprice={this.props.powerplayprice}
+                                                         moneymatrixiframeloading={this.state.mmxloading}
+                                                         total_price={this.props.total}
+                                                         fee={this.props.fee_charge}
+                                                         currency_symbol={this.props.currency_symbol} config={JSON.parse(this.props.config)}/>}
+                />
+                {this.state.show_payment_section ?
+                    <div>
+                        <EmOptionSelector option_select_callback={this.selectTypePayment}/>
+                        {this.state.typePayment === 1 ?
+                            <EmCard payment_object={this.props.payment_object} />
+                            : ""
+                        }
+                    </div>
+                    : ""
+                }
             </div>
         )
     }
@@ -415,7 +459,10 @@ var CurrencyFormat = {
     currency_symbol : '',
 
     getCurrencyFormatted : function() {
-        return accounting.formatMoney( CurrencyFormat.value, CurrencyFormat.currency_symbol + " ", 2 );
+        return accounting.formatMoney( CurrencyFormat.value, CurrencyFormat.currency_symbol + "", 2 );
+    },
+    getCurrencyFormattedFromValue : function(value){
+        return accounting.formatMoney( value, CurrencyFormat.currency_symbol + "", 2 );
     }
 };
 
@@ -593,11 +640,18 @@ ReactDOM.render(<CartPage total={total_price}
                           eurojackpot={_eurojackpot}
                           megasena={_megasena}
                           txt_lottery={txt_lottery}
+                          txt_lottery_title={txt_lottery_title}
+                          txt_number_of_draws={txt_number_of_draws}
+                          txt_starting_date={txt_starting_date}
+                          txt_ending_date={txt_ending_date}
                           playingPP={playingPP}
                           playingMM={playingMM}
                           txt_for={txt_for}
                           txt_since={txt_since}
                           txt_weeks={txt_weeks}
+                          txt_amount={txt_amount}
+                          txtMultTotalPrice={txtMultTotalPrice}
+                          payment_object={payment_object}
 />, document.getElementById('cart-order'));
 
 

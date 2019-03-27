@@ -43,14 +43,31 @@ var EmLineFeeCart = new React.createClass({
             show_fee_text = txt_checkout_fee;
         }
 
-        var fee_value = this.props.symbol_position ? + this.props.fee_charge + ' '  + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.props.fee_charge;
+        var fee_value = this.props.symbol_position ? + this.props.fee_charge : this.props.currency_symbol + '' + this.props.fee_charge;
+        if (this.props.symbol_position){
+            fee_value = this.props.currency_symbol +""+ fee_value;
+        }
         if(!this.props.show_fee_value) {
             fee_value = '';
         }
         return (
-            <div className="row cl">
-                <div className="txt-fee">{show_fee_text}</div>
-                <div className="summary val">{fee_value}</div>
+            <div className="row cl" style={{paddingTop:"10px"}}>
+                <table className={"order-table-balance"}>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div className="txt-fee">
+                                <span style={{textTransform:'none'}} className={"order-text-format font-base"}>{show_fee_text}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="summary val">{fee_value}</div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
                 {/* <div className="box-funds cl">
                     <a className="add-funds" onClick={this.handleClick} href="javascript:void(0)">Add Funds to avoid charges</a>
                     {addFundComponent}

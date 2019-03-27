@@ -7,7 +7,8 @@ var EmWallet = new React.createClass({
     getInitialState : function ()
     {
         return {
-            checked : this.props.show_checked
+            checked     : this.props.show_checked,
+            each_price  : this.props.each_price
         }
     },
 
@@ -60,13 +61,29 @@ var EmWallet = new React.createClass({
         var value = accounting.formatMoney(wallet_value, this.props.currency_symbol, 2);
         var total_value = this.props.symbol_position ? operand_value + ' ' + value  :  operand_value + ' ' + value;
         return (
-            <div className="row cl">
-
-                <div className={disabled_value}>{total_value}</div>
-                <div className="box-wallet cl disabled" style={{opacity : style}}>
-                    <label onClick={this.handleClickLabel} className="txt">{this.props.txt_payWithBalanceOption}</label>
-                    <input id="pay-wallet" onChange={this.handleChange} type="checkbox" className="checkbox" checked={this.state.checked} />
-                </div>
+            <div className="row cl" style={{paddingLeft:0}}>
+                <table className={"order-table-balance"}>
+                    <tbody>
+                    <tr>
+                        <td className={"padding-text"} width="40px">
+                            <div className="box-wallet cl disabled" style={{opacity : style}}>
+                                <div className="roundedTwo" style={{textAlign:'left'}}>
+                                    <input id="pay-wallet" onChange={this.handleChange} type="checkbox" className="checkbox" checked={this.state.checked} />
+                                    <label htmlFor="pay-wallet" onClick={this.handleClickLabel} className={this.state.checked ? "checked" : ""}></label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="txt order-text-format" onClick={this.handleClickLabel} style={{opacity : style}}>
+                                {this.props.txt_payWithBalanceOption}
+                            </div>
+                        </td>
+                        <td className={"right"}>
+                            <div className={disabled_value}>{total_value}</div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         )
     }

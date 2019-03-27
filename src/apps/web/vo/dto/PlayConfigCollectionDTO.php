@@ -30,6 +30,8 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
 
     public $lastDrawDate;
 
+    public $lastDrawDateTime;
+
     /** @var  User $user */
     public $user;
 

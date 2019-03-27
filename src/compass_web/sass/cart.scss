@@ -86,7 +86,14 @@
   .change, .add-funds, .txt-currency{font-size:$small;}
   .txt-fee, .detail, .type{float:left;}
   .change{position:relative; top:-2px;}
-  .txt-currency{float:left; font-style:italic; color:$grey-light}
+  .txt-currency{
+    float:left;
+    font-style:italic;
+    color:$grey-light;
+    &.base-format{
+      font-style:normal;
+    }
+  }
   .txt-black{float:left; font-style:italic; color:$black}
   .txt-black-upper{float:left; font-style:normal; color:$black}
   .terms{
@@ -141,6 +148,109 @@
     a{
       text-decoration:none;
       &:hover, &:focus{text-decoration:underline;}
+    }
+  }
+  .box-left-table-width{
+    width:180px;
+  }
+  .txt-bold.format{
+    font-size: 17px;
+  }
+  .order-text-format span{
+    font-size: 15px;
+    font-weight: normal;
+    &.title-base{
+      color:#333333;
+      text-transform: uppercase;
+    }
+    &.title-base-2{
+      color:#333333;
+    }
+    &.right span{
+      float: right;
+      text-align: right;
+    }
+  }
+  .edit-btn-container{
+    bottom: 0;
+    vertical-align: bottom;
+    margin-bottom: 0;
+    margin-top: 60px;
+    position: relative;
+  }
+  .order-table-resume td{
+    padding-top:5px;
+    padding-bottom:5px;
+    vertical-align: middle;
+    div{
+      float: none
+    }
+  }
+  .order-table-balance td{
+    vertical-align: middle;
+    div{
+      float: none
+    }
+    &.right{
+      float:right;
+      div{
+        float: right !important;
+        text-align: right !important;
+      }
+    }
+  }
+  .order-table-balance td.padding-text{
+    padding-left:5px;
+  }
+  .order-separator-container{
+    border-top: 1px solid #ddd !important;
+    padding: 10px;
+  }
+  $activeColor:red;
+  $darkenColor:blue;
+  .roundedTwo {
+    width: 26px;
+    height: 26px;
+    position: relative;
+    margin: 9px auto;
+    border-radius: 50px;
+    label {
+      width: 26px;
+      height: 26px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+      background: #fad425;
+      border-radius: 50px;
+      &:after {
+        content: '';
+        width: 11px;
+        height: 6px;
+        position: absolute;
+        top: 8px;
+        left:7px;
+        border: 2px solid #ffffff;
+        border-top: none;
+        border-right: none;
+        background: transparent;
+        opacity: 0;
+        transform: rotate(-45deg);
+      }
+      &:hover::after {
+        opacity: 0.3;
+      }
+    }
+    label.checked{
+      &:after {
+        opacity: 1;
+      }
+    }
+    input[type=checkbox] {
+      visibility: hidden;
+      &:checked + label:after {
+        opacity: 1;
+      }
     }
   }
   .box-order .numbers.small li{
