@@ -7,6 +7,7 @@ use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\cutoff\PowerBallCutOff;
 use Money\Currency;
 
 class PowerballPlayController extends PublicSiteControllerBase
@@ -44,7 +45,7 @@ class PowerballPlayController extends PublicSiteControllerBase
         $dateTimeToClose =  $this->lotteryService->getNextDateDrawByLottery('PowerBall',null,true);
         $date_time_util = new DateTimeUtil();
         $dayOfWeek = $date_time_util->getDayOfWeek($draw);
-        $checkOpenTicket = $date_time_util->checkTimeForClosePlay($dateTimeToClose);
+        $checkOpenTicket = (new PowerBallCutOff($dateTimeToClose))->isClosed();
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('PowerBall');
         $automatic_random = $this->request->get('random');
         $bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrievePowerBallBundlePriceDTO('PowerBall');

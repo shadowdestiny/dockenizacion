@@ -22,6 +22,8 @@ var EmLineOrder = new React.createClass({
             }
         }
 
+        let self = this;
+
         return (
             <div className={"row cl"}>
                 <div className={"desc"}>
@@ -33,7 +35,10 @@ var EmLineOrder = new React.createClass({
                     <ul className="no-li inline numbers small">
                         {
                             numbers.map(function(number,i) {
-                                return <li key={i}>{number}</li>
+                                let _class = '';
+                                if (self.props.megasena)
+                                    _class = 'circle_megasena';
+                                return <li key={i} className={_class}>{number}</li>
                             })
                         }
                         {
@@ -50,7 +55,7 @@ var EmLineOrder = new React.createClass({
                             )
                         }
                         {
-                            (this.props.megasena  ? <li>{stars[1]}</li> : "")
+                            (this.props.megasena  ? <li className={"circle_megasena"}>{stars[1]}</li> : "")
                         }
                         {
                             (!this.props.megamillions && !this.props.powerball && !this.props.eurojackpot && !this.props.megasena ?
