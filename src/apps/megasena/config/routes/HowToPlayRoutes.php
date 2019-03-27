@@ -27,7 +27,7 @@ class HowToPlayRoutes extends RouterGroup
         // All the routes start with /megasena
         //$this->setPrefix('/megasena'); #validate this, since it affects the prefixes that have a name at the beginning
 
-        $this->add("/megasena/help",
+        $this->add("/mega-sena/help",
             array(
                 'controller' => 'help',
                 'action' => 'index',
@@ -36,35 +36,35 @@ class HowToPlayRoutes extends RouterGroup
         );
 
         //*********************MEGASENA ROUTES***********************************//
-        $this->add("/megasena/how-to-play", array(
+        $this->add("/mega-sena/how-to-play", array(
             'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'en',
         ));
 
-        $this->add("/es/megasena/como-se-juega", array(
+        $this->add("/es/mega-sena/como-se-juega", array(
             'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'es',
         ));
 
-        $this->add("/it/megasena/come-giocare", array(
+        $this->add("/it/mega-sena/come-giocare", array(
             'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'it',
         ));
 
-        $this->add("/nl/megasena/speluitleg", array(
+        $this->add("/nl/mega-sena/speluitleg", array(
             'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'nl',
         ));
 
-        $this->add("/ru/megasena/как-играть", array(
+        $this->add("/ru/mega-sena/как-играть", array(
             'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',

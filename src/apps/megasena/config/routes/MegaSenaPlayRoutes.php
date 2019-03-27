@@ -22,7 +22,7 @@ class MegaSenaPlayRoutes extends RouterGroup
             ]
         );
         // All the routes start with /eurojackpot
-        $this->setPrefix('/megasena');
+        $this->setPrefix('/mega-sena');
 
         $this->add("/play", array(
             "module" => "megasena",

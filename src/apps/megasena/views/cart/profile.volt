@@ -80,7 +80,7 @@ $(function(){
                                 {#<div class="line-txt">{{ language.translate("Log in") }}</div>#}
                             {#</div>#}
                         </div>
-                        {% set url_signin = '/megasena/cart/login' %}
+                        {% set url_signin = '/mega-sena/cart/login' %}
                         {% include "../../shared/views/sign-in/_log-in.volt" %}
                     </div>
                 {#</div>#}
@@ -92,7 +92,7 @@ $(function(){
                                 {#<div class="line-sep"></div>#}
                                 {#<div class="line-txt">{{ language.translate("Sign Up") }}</div>#}
                             {#</div>#}
-                            {% set url_signup = '/megasena/cart/profile' %}
+                            {% set url_signup = '/mega-sena/cart/profile' %}
                             {% include "../../shared/views/sign-in/_sign-up.volt" %}
                         </div>
                     </div>
