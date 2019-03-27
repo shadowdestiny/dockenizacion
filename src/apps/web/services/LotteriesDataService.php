@@ -3,6 +3,7 @@
 namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\emailTemplates\CheckResultsOrigin;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\entities\Lottery;

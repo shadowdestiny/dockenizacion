@@ -6,7 +6,7 @@ namespace EuroMillions\web\controllers\ajax;
 
 use EuroMillions\shared\vo\RedisOrderKey;
 use EuroMillions\web\components\DateTimeUtil;
-use EuroMillions\web\vo\LastDrawDate;
+use EuroMillions\web\vo\LastDrawDatePowerBall;
 use EuroMillions\web\vo\PlayFormToStorage;
 
 final class MegasenaPlayTemporarilyController extends PowerBallPlayTemporarilyController
@@ -21,7 +21,7 @@ final class MegasenaPlayTemporarilyController extends PowerBallPlayTemporarilyCo
         $draw_day_play = $this->request->getPost('draw_day_play');
         $threshold = $this->request->getPost('threshold');
         $authService = $this->domainServiceFactory->getAuthService();
-        $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
+        $lastDrawDate = new LastDrawDatePowerBall($startDrawDate,$frequency);
         $date_time_util = new DateTimeUtil();
         $result = null;
         $playFormToStorage_collection = [];
