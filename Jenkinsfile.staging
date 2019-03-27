@@ -138,7 +138,7 @@ pipeline {
                 sh("""
                     script --return --quiet --command \"${RANCHER_CMD_BASE} exec euromillions-staging-web-php-1 bash /post-deploy.sh \"
                 """)
-                sh('chmod +x devOps/ci/post_success.sh; devOps/ci/post_deploy.sh')
+                sh('chmod +x devOps/ci/post_deploy.sh; devOps/ci/post_deploy.sh')
             }
         }
     }
