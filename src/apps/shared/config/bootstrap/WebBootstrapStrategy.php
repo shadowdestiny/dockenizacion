@@ -635,21 +635,21 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'payment',
         ));
 
-        $router->add("/{lottery:(megasena)+}/payment", array(
+        $router->add("/{lottery:(mega-sena)+}/payment", array(
             "module" => "megasena",
             'lottery' => 6,
             'controller' => 'mega-sena-payment',
             'action' => 'payment',
         ));
 
-        $router->add("/{lottery:(megasena)+}/payment/payment(.*?)", array(
+        $router->add("/{lottery:(mega-sena)+}/payment/payment(.*?)", array(
             "module" => "megasena",
             'lottery' => 6,
             'controller' => 'mega-sena-payment',
             'action' => 'payment',
         ));
 
-        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|megasena)+}/cart/login", array(
+        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|mega-sena)+}/cart/login", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'cart',
@@ -694,7 +694,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|megasena)+}/result/success/:params", array(
+        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|mega-sena)+}/result/success/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'result',
@@ -1584,7 +1584,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megasena)+}/{play:(jugar|gioca|speel|играть)+}", array(
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(mega-sena)+}/{play:(jugar|gioca|speel|играть)+}", array(
             "module" => "megasena",
             'controller' => 'play',
             'action' => 'index',
