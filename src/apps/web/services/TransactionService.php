@@ -223,7 +223,7 @@ class TransactionService extends Colleague
         $provider = array();
         foreach($collection as $item){
             $array = explode("#",$item['data']);
-            $array[6] = $fakeArray[rand(0,2)]; //TODO: Retrieve from the correct position in data field.
+            $array[6] = $fakeArray[1]; //TODO: Retrieve from the correct position in data field.
             $provider[] = $array[6];
         }
 

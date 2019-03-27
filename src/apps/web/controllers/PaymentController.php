@@ -3,7 +3,6 @@
 
 namespace EuroMillions\web\controllers;
 
-
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
@@ -20,11 +19,8 @@ use Money\Money;
 
 class PaymentController extends CartController
 {
-
-
     public function paymentAction()
     {
-
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
         $funds_value = $this->request->getPost('funds');
@@ -46,8 +42,7 @@ class PaymentController extends CartController
         }
         $result = $play_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
         $msg = '';
-        if($this->orderService->hasOrderProcessing($user_id))
-        {
+        if ($this->orderService->hasOrderProcessing($user_id)) {
             $this->response->redirect('/' . $this->lottery . '/cart/profile');
             return false;
         }
@@ -99,7 +94,8 @@ class PaymentController extends CartController
                             $payWallet,
                             $isWallet,
                             'EuroMillions',
-                            $this->paymentProviderService->createCollectionFromTypeAndCountry(PaymentSelectorType::CREDIT_CARD_METHOD,new PaymentCountry(['ES'])));
+                            $this->paymentProviderService->createCollectionFromTypeAndCountry(PaymentSelectorType::CREDIT_CARD_METHOD, new PaymentCountry(['ES']))
+                        );
                         return $this->playResult($result);
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
@@ -128,6 +124,4 @@ class PaymentController extends CartController
             return false;
         }
     }
-
-
 }

@@ -18,6 +18,7 @@ use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\ChasierDTO;
 use EuroMillions\web\vo\dto\DepositPaymentProviderDTO;
+use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\ExpiryDate;
 use Money\Currency;
 use Money\Money;
@@ -166,21 +167,8 @@ class FundsController extends AccountController
                 ]);
                 $order = OrderFactory::create([$playconfig], $amount, $money, $money, new Discount(0, []), $depositLottery, 'Deposit', false);
 
-                $orderDataToPaymentProvider = new DepositPaymentProviderDTO(
-                    [
-                    'user' => $user,
-                    'total' => $amount->getAmount(),
-                    'currency' => 'EUR',
-                    'lottery' => '',
-                    'isWallet' => false,
-                    'isMobile' => SiteHelpers::detectDevice(),
-                    'transactionId' => $order->getTransactionId(),
-                ],
-                    $this->di->get('config')
-                );
-
                 $this->cartPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry($type, $this->paymentCountry);
-
+                $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($this->cartPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
                 $cashierViewDTO = $this->paymentProviderService->cashier($this->cartPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
 
                 $this->paymentProviderService->setEventsManager($this->eventsManager);

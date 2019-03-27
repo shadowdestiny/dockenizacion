@@ -232,7 +232,11 @@
 
     <div style="border:2px solid red;">
         {{ view_debug }}
+
+
         <hr>
+
+        {{  apayment_provider }}
 
         <hr>
     </div>
@@ -428,9 +432,11 @@
                         </div>
                     {% endif %}
 
+
                     <form id="form-withdraw" class="box-add-bank">
-                        {% include "account/_add-money-matrix-withdraw.volt" %}
+                        {% include "account/_add-withdraw.volt" %}
                     </form>
+
                 </div>
             </div>
         </div>

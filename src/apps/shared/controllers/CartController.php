@@ -22,8 +22,8 @@ use EuroMillions\web\services\TransactionService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\Discount;
-use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
+use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\TransactionId;
@@ -34,6 +34,8 @@ use Phalcon\Validation\Message;
 class CartController extends \EuroMillions\web\controllers\PublicSiteControllerBase
 {
     const IP_DEFAULT = '127.0.0.1';
+
+    const DEBUG_PAYMENT_SELECTOR_TYPE = PaymentSelectorType::CREDIT_CARD_METHOD; //TODO: remove. Must equals value at web/.../CartController.php
 
     protected $eventsManager;
 
@@ -70,10 +72,10 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
 
         $this->view->pick('cart/index');
         return $this->view->setVars([
-            'which_form'  => 'in',
-            'signinform'  => $sign_in_form,
-            'signupform'  => $sign_up_form,
-            'errors'      => $errors,
+            'which_form' => 'in',
+            'signinform' => $sign_in_form,
+            'signupform' => $sign_up_form,
+            'errors' => $errors,
             'form_errors' => $form_errors,
             'controller' => $controller,
             'action' => $action,
@@ -115,11 +117,11 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
                 }
             } else {
                 $result = $this->authService->registerFromCheckout([
-                    'name'     => $this->request->getPost('name'),
-                    'surname'  => $this->request->getPost('surname'),
+                    'name' => $this->request->getPost('name'),
+                    'surname' => $this->request->getPost('surname'),
                     'password' => $this->request->getPost('password'),
-                    'email'    => $this->request->getPost('email'),
-                    'country'  => $this->request->getPost('country'),
+                    'email' => $this->request->getPost('email'),
+                    'country' => $this->request->getPost('country'),
                     'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
                 ], $user->getId());
                 if ($result->success()) {
@@ -135,11 +137,11 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
 
         $this->tag->prependTitle('Log In or Sign Up');
         return $this->view->setVars([
-            'which_form'  => 'up',
-            'signinform'  => $sign_in_form,
+            'which_form' => 'up',
+            'signinform' => $sign_in_form,
             'form_errors_login' => $this->getErrorsArray(),
-            'signupform'  => $sign_up_form,
-            'errors'      => $errors,
+            'signupform' => $sign_up_form,
+            'errors' => $errors,
             'form_errors' => $form_errors,
             'controller' => $controller,
             'action' => $action,
@@ -173,7 +175,7 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
                 }
             } else {
                 $userCheck = $this->authService->check([
-                    'email'    => $this->request->getPost('email'),
+                    'email' => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     false,
                     'ipaddress' => !empty($this->request->getClientAddress(true)) ? $this->request->getClientAddress(true) : self::IP_DEFAULT,
@@ -198,10 +200,10 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
         }
         $this->view->pick('cart/profile');
         return $this->view->setVars([
-            'which_form'  => 'in',
-            'signinform'  => $sign_in_form,
-            'signupform'  => $sign_up_form,
-            'errors'      => $errors,
+            'which_form' => 'in',
+            'signinform' => $sign_in_form,
+            'signupform' => $sign_up_form,
+            'errors' => $errors,
             'form_errors' => $this->getErrorsArray(),
             'form_errors_login' => $form_errors,
             'controller' => $controller,
@@ -231,7 +233,7 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
     {
         $this->noRender();
         try {
-            $userCurrency=$this->userPreferencesService->getCurrency();
+            $userCurrency = $this->userPreferencesService->getCurrency();
             $user_id = $this->authService->getCurrentUser()->getId();
             /** @var User $user */
             $user = $this->userService->getUser($user_id);
@@ -241,21 +243,10 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
             /** @var Order $order */
             $order = $cartService->getValues();
             $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(), $order->getLottery(), $order->getNextDraw(), $isWallet, new TransactionId($order->getTransactionId()));
-            $orderDataToPaymentProvider = new OrderPaymentProviderDTO(
-                [
-                'user' => $user,
-                'total' => $order->getTotal()->getAmount(),
-                'currency' => $userCurrency->getName(),
-                'lottery' => $lottery,
-                'isWallet' => (bool) $isWallet,
-                'isMobile' => SiteHelpers::detectDevice(),
-                'transactionId' => $order->getTransactionId(),
-            ],
-                $this->di->get('config')
-            );
             $this->paymentProviderService->setEventsManager($this->eventsManager);
             $this->eventsManager->attach('orderservice', $this->orderService);
-            $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(PaymentSelectorType::CREDIT_CARD_METHOD, $this->paymentCountry);
+            $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::DEBUG_PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
+            $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($cardPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
             $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
             //$this->cartService->store($order);
@@ -284,24 +275,10 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
                 /** @var Order $order */
                 $order = $cartService->getValues();
                 $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(), $order->getLottery(), $order->getNextDraw(), $isWallet);
-                $orderDataToPaymentProvider = new OrderPaymentProviderDTO(
-                    [
-                    'user' => $user,
-                    'total' => $order->getTotal()->getAmount(),
-                    'currency' => $userCurrency->getName(),
-                    'lottery' => $lottery,
-                    'isWallet' => (bool)$isWallet,
-                    'isMobile' => SiteHelpers::detectDevice(),
-                    'transactionId' => $order->getTransactionId(),
-                ],
-                    $this->di->get('config')
-                );
-
                 $this->paymentProviderService->setEventsManager($this->eventsManager);
                 $this->eventsManager->attach('orderservice', $this->orderService);
-
                 $this->cartPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry($type, $this->paymentCountry);
-
+                $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($this->cartPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
                 $cashierViewDTO = $this->paymentProviderService->cashier($this->cartPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
                 $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
                 echo json_encode($cashierViewDTO);
@@ -334,12 +311,12 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
     protected function getErrorsArray()
     {
         $form_errors = [
-            'email'            => '',
-            'password'         => '',
-            'name'             => '',
-            'surname'          => '',
+            'email' => '',
+            'password' => '',
+            'name' => '',
+            'surname' => '',
             'confirm_password' => '',
-            'country'          => '',
+            'country' => '',
             'card-number' => '',
             'card-holder' => '',
             'card-cvv' => '',
@@ -410,32 +387,19 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
             $order_eur = OrderFactory::create($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount, $lottery, $draw, $checked_wallet, new TransactionId($order->getTransactionId()));
             $this->cartService->store($order);
         }
-        //convert to user currency
 
+        //convert to user currency
         $total_price = ($this->currencyConversionService->convert($play_config_dto->singleBetPriceWithDiscount, $user_currency)->getAmount() * $play_config_dto->numPlayConfigs) * $play_config_dto->frequency;
         $symbol_position = $this->currencyConversionService->getSymbolPosition($locale, $user_currency);
         $currency_symbol = $this->currencyConversionService->getSymbol($wallet_balance, $locale);
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user_currency);
         $this->tag->prependTitle('Review and Buy');
 
-
-        $orderDataToPaymentProvider = new OrderPaymentProviderDTO(
-            [
-            'user' => $user,
-            'total' => $order_eur->getCreditCardCharge()->getFinalAmount()->getAmount(),
-            'currency' => $user_currency->getName(),
-            'lottery' => $this->lottery,
-            'isWallet' => $checked_wallet,
-            'isMobile' => SiteHelpers::detectDevice(),
-            'transactionId' => $order->getTransactionId(),
-        ],
-            $this->di->get('config')
-        );
-
         /**** Instance payment method ***/
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
-        $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(PaymentSelectorType::CREDIT_CARD_METHOD, $this->paymentCountry);
+        $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::DEBUG_PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
+        $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($cardPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
         $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
         $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $order_eur->getCreditCardCharge()->getFinalAmount());
 

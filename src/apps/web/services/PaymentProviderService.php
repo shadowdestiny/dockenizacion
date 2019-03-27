@@ -7,18 +7,18 @@ use EuroMillions\shared\components\OrderActionContext;
 use EuroMillions\shared\components\PaymentsCollection;
 use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\components\CashierBuilderContext;
+use EuroMillions\web\components\OrderDataPaymentProviderBuilderContext;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
-use EuroMillions\web\interfaces\IPaymentProvider;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\services\card_payment_providers\ICreditCardStrategy;
 use EuroMillions\web\services\criteria_strategies\CountryCriteria;
 use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
-use EuroMillions\web\services\criteria_strategies\NameCriteria;
 use EuroMillions\web\services\factories\CollectionPaymentCriteriaFactory;
 use EuroMillions\web\vo\dto\ChasierDTO;
-use EuroMillions\web\vo\dto\OrderPaymentProviderDTO;
+use EuroMillions\web\vo\dto\order_payment_provider\OrderPaymentProviderDTO;
+use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\WithdrawResponseStatusDTO;
 use EuroMillions\web\vo\enum\MoneyMatrixStatusCode;
 use EuroMillions\web\vo\enum\OrderType;
@@ -28,6 +28,7 @@ use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PaymentCountry;
 use Exception;
 use Money\Money;
+use Phalcon\Config;
 use Phalcon\Events\EventsAwareInterface;
 use Phalcon\Events\ManagerInterface;
 
@@ -85,8 +86,26 @@ class PaymentProviderService implements EventsAwareInterface
     public function cashier(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
         try {
-            $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
+            $hasOrder = $this->redisOrderChecker->findByKey($orderData->getUser()->getUserId());
             return (new CashierBuilderContext($paymentMethod, $orderData, $hasOrder))->builder()->build();
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * @param IHandlerPaymentGateway $paymentMethod
+     * @param UserDTO $userDto
+     * @param Order $order
+     * @param array $data
+     * @param Config $config
+     * @return OrderPaymentProviderDTO $orderData
+     * @throws Exception
+     */
+    public function orderDataPaymentProvider(IHandlerPaymentGateway $paymentMethod, UserDTO $userDto, Order $order, array $data, Config $config)
+    {
+        try {
+            return (new OrderDataPaymentProviderBuilderContext($paymentMethod, $userDto, $order, $data, $config))->build();
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -94,7 +113,7 @@ class PaymentProviderService implements EventsAwareInterface
 
     public function checkHasOrderInProcessAndReturnCashierDTO(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
-        $hasOrder = $this->redisOrderChecker->findByKey($orderData->user->getId());
+        $hasOrder = $this->redisOrderChecker->findByKey($orderData->getUser()->getUserId());
         if ($hasOrder->success()) {
             return new ChasierDTO($paymentMethod->type(), null, null, false, "Order processing...");
         }
