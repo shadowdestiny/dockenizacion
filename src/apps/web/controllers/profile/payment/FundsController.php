@@ -9,6 +9,8 @@ use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\forms\BankAccountForm;
 use EuroMillions\web\forms\CreditCardForm;
+use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
+use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
 use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
@@ -17,7 +19,6 @@ use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\ChasierDTO;
-use EuroMillions\web\vo\dto\DepositPaymentProviderDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\ExpiryDate;
 use Money\Currency;
@@ -70,20 +71,33 @@ class FundsController extends AccountController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month.'/'.'20'.$expiry_date_year), new CVV($cvv));
                         $wallet_service = $this->domainServiceFactory->getWalletService();
-                        //TODO: Workaround to get wirecard instead moneymatrix
-                        $payXpertCardPaymentStrategy = $this->wirecard();//$this->di->get('paymentProviderFactory');
+
+                        $paymentProvider = $this->wirecard();//$this->di->get('paymentProviderFactory');
                         $currency_euros_to_payment = $this->currencyConversionService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
                         $credit_card_charge = new CreditCardCharge($currency_euros_to_payment, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue());
 
+                        $money = new Money(0, new Currency('EUR'));
+                        $amount = $credit_card_charge->getFinalAmount();
 
-                        $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $credit_card_charge);
+                        $user_id = $this->authService->getCurrentUser()->getId();
+                        $user = $this->userService->getUser($user_id);
 
+                        $playconfig = new PlayConfig();
+                        $playconfig->setFrequency(1);
+                        $playconfig->setUser($user);
 
+                        $depositLottery = new Lottery();
+                        $depositLottery->initialize([
+                            'id' => 1,
+                            'name' => 'Deposit',
+                            'active' => 1,
+                            'frequency' => 'freq',
+                            'draw_time' => 'draw',
+                            'single_bet_price' => new Money(23500, new Currency('EUR')),
+                        ]);
+                        $order = OrderFactory::create([$playconfig], $amount, $money, $money, new Discount(0, []), $depositLottery, 'Deposit', false);
 
-
-
-
-
+                        $result = $wallet_service->rechargeWithCreditCard($paymentProvider, $card, $user, $order, $credit_card_charge);
                         if ($result->success()) {
                             $converted_net_amount_currency = $this->currencyConversionService->convert($credit_card_charge->getNetAmount(), $user->getUserCurrency());
                             $msg .= 'We added ' . $symbol . ' '  . number_format($converted_net_amount_currency->getAmount() / 100, 2, '.', ',') . ' to your Wallet Balance';
@@ -134,8 +148,8 @@ class FundsController extends AccountController
         $config = $this->di->get('config')['wirecard'];
         return new  WideCardPaymentProvider(
             new WideCardConfig(
-            $config->endpoint,
-            $config->api_key
+                $config->endpoint,
+                $config->api_key
         )
         );
     }
