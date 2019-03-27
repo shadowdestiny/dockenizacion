@@ -41,25 +41,26 @@ class WalletService extends Colleague
      * @param ICardPaymentProvider $provider
      * @param CreditCard $card
      * @param User $user
+     * @param Order $order
      * @param CreditCardCharge $creditCardCharge
      * @return IResult
+     * @throws \Exception
      */
     public function rechargeWithCreditCard(ICardPaymentProvider $provider,
                                            CreditCard $card,
                                            User $user,
+                                           Order $order,
                                            CreditCardCharge $creditCardCharge)
     {
-        //$provider->user($user);
-        //$uniqueId = $this->getUniqueTransactionId();
-        //$provider->idTransaction = $uniqueId;
-        $payment_result = $this->pay($provider, $user, null, $card); //TODO: There is no Order here. Fix it!
+        $payment_result = $this->pay($provider, $user, $order, $card);
         if ($payment_result->success()) {
             $walletBefore = $user->getWallet();
-            $user->reChargeWallet($creditCardCharge->getNetAmount());
+            $user->reChargeWallet($creditCardCharge->getNetAmount()); //TODO: We can get CreditCardCharge from the Order?
+
             try {
                 $this->entityManager->persist($user);
                 $this->entityManager->flush($user);
-                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueId, $walletBefore);
+                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore);
                 $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
             } catch (\Exception $e) {
                 //EMTD Log and warn the admin

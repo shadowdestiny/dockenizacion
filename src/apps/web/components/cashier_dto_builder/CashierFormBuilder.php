@@ -14,7 +14,7 @@ final class CashierFormBuilder implements ICashierDTOBuilder
 
     private $orderData;
 
-    public function k__construct(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
+    public function __construct(IHandlerPaymentGateway $paymentMethod, OrderPaymentProviderDTO $orderData)
     {
         $this->paymentMethod = $paymentMethod;
         $this->orderData = $orderData;
