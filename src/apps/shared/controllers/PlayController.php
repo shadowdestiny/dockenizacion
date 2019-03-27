@@ -12,6 +12,7 @@ use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\cutoff\EuroMillionsCutOff;
 use Money\Currency;
 
 class PlayController extends PublicSiteControllerBase
@@ -57,7 +58,7 @@ class PlayController extends PublicSiteControllerBase
         $this->draw = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
         $date_time_util = new DateTimeUtil();
         $this->dayOfWeek = $date_time_util->getDayOfWeek($this->draw);
-        $this->checkOpenTicket = $date_time_util->checkTimeForClosePlay($this->draw);
+        $this->checkOpenTicket = (new EuroMillionsCutOff($this->draw))->isClosed();
         $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $this->automaticRandom = $this->request->get('random');
         $this->bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO('EuroMillions');
