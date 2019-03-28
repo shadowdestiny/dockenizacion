@@ -22,8 +22,6 @@ use Money\Money;
 final class EuroJackpotPaymentController extends PowerBallPaymentController
 {
 
-    use PlayToPay;
-
     public function paymentAction()
     {
         $credit_card_form = new CreditCardForm();
@@ -89,8 +87,8 @@ final class EuroJackpotPaymentController extends PowerBallPaymentController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
+                        $aPaymentProvider = true; //$this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
                         $result = $this->setPowerBallService($powerball_service)
-                            ->setPlayService($playService)
                             ->setPaymentProviderServiceTrait($this->paymentProviderService)
                             ->setPaymentCountryTrait($this->paymentCountry)
                             ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
@@ -101,7 +99,7 @@ final class EuroJackpotPaymentController extends PowerBallPaymentController
                                 $payWallet,
                                 $isWallet,
                                 'EuroJackpot',
-                                $this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
+                                $aPaymentProvider
                             );
                         return $this->playResult($result, 'EuroJackpot');
                     } catch (\Exception $e) {

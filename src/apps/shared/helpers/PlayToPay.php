@@ -3,9 +3,6 @@
 
 namespace EuroMillions\shared\helpers;
 
-
-use EuroMillions\shared\components\PaymentsCollection;
-use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\PowerBallService;
@@ -43,19 +40,26 @@ trait PlayToPay
     protected $paymentCountryTrait;
 
 
-    public function payFromPlay($user_id,
-                                Money $amount = null,
-                                CreditCard $card = null,
-                                $withAccountBalance = false,
-                                $isWallet = null,
-                                $lotteryName = "PowerBall",
-                                $apiFeatureStatus
-    )
-    {
+    public function payFromPlay(
+        $user_id,
+        Money $amount = null,
+        CreditCard $card = null,
+        $withAccountBalance = false,
+        $isWallet = null,
+        $lotteryName = "PowerBall",
+        $aPaymentProvider
+    ) {
         $play = $this->playService == null ? $this->powerBallService : $this->playService;
-        if (empty($apiFeatureStatus)) {
-            $paymentsCollection = $this->paymentProviderServiceTrait->createCollectionFromProviderName(new PaymentProviderEnum('wirecard'));
-            return $play->play($user_id, $amount, $card, $withAccountBalance, $isWallet, $paymentsCollection);
+        if ($aPaymentProvider || $aPaymentProvider == 'true') {
+            $paymentsCollection = $this->paymentProviderServiceTrait->createCollectionFromTypeAndCountry($this->paymentSelectorTypeTrait, $this->paymentCountryTrait);
+
+            if ($this->powerBallService !== null) {
+                //Play from PowerBallService
+                return $play->play($user_id, $amount, $card, $withAccountBalance, $isWallet, $lotteryName, $paymentsCollection->getIterator()->current()->get());
+            } else {
+                //Play from playService
+                return $play->play($user_id, $amount, $card, $withAccountBalance, $isWallet, $lotteryName, $paymentsCollection->getIterator()->current()->get());
+            }
         }
 
         return $play->playWithQueue(
@@ -65,9 +69,11 @@ trait PlayToPay
             $withAccountBalance,
             $isWallet,
             $lotteryName,
-            $this->paymentProviderServiceTrait->createCollectionFromTypeAndCountry($this->paymentSelectorTypeTrait,
-                $this->paymentCountryTrait));
-
+            $this->paymentProviderServiceTrait->createCollectionFromTypeAndCountry(
+                $this->paymentSelectorTypeTrait,
+                $this->paymentCountryTrait
+            )
+        );
     }
 
 
@@ -120,6 +126,4 @@ trait PlayToPay
         $this->paymentSelectorTypeTrait = $paymentSelectorTypeTrait;
         return $this;
     }
-
-
 }

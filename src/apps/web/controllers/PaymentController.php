@@ -93,6 +93,7 @@ class PaymentController extends CartController
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number),
                             new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
+                        $aPaymentProvider = true; //$this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
                         $result = $this->setPlayService($play_service)
                             ->setPaymentProviderServiceTrait($this->paymentProviderService)
                             ->setPaymentCountryTrait($this->paymentCountry)
@@ -104,7 +105,7 @@ class PaymentController extends CartController
                                 $payWallet,
                                 $isWallet,
                                 'EuroMillions',
-                                $this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
+                                $aPaymentProvider
                         );
                         return $this->playResult($result);
                     } catch (\Exception $e) {

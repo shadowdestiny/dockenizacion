@@ -20,12 +20,15 @@ use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\ChasierDTO;
 use EuroMillions\web\vo\dto\UserDTO;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\ExpiryDate;
 use Money\Currency;
 use Money\Money;
 
 class FundsController extends AccountController
 {
+
+    const PAYMENT_SELECTOR_TYPE = PaymentSelectorType::CREDIT_CARD_METHOD;  //TODO: remove when the selector on the frontend is done.
 
     /**
      * @return \Phalcon\Mvc\View
@@ -72,7 +75,6 @@ class FundsController extends AccountController
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month.'/'.'20'.$expiry_date_year), new CVV($cvv));
                         $wallet_service = $this->domainServiceFactory->getWalletService();
 
-                        $paymentProvider = $this->wirecard();//$this->di->get('paymentProviderFactory');
                         $currency_euros_to_payment = $this->currencyConversionService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
                         $credit_card_charge = new CreditCardCharge($currency_euros_to_payment, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue());
 
@@ -97,7 +99,25 @@ class FundsController extends AccountController
                         ]);
                         $order = OrderFactory::create([$playconfig], $amount, $money, $money, new Discount(0, []), $depositLottery, 'Deposit', false);
 
-                        $result = $wallet_service->rechargeWithCreditCard($paymentProvider, $card, $user, $order, $credit_card_charge);
+                        $onlyPay = true;
+
+                        $apaymentProvider = true; //$this->domainServiceFactory->getServiceFactory()->getFeatureFlagApiService()->getItem("apayment-provider")->getStatus();
+
+                        if ($apaymentProvider === false) {
+                            $this->paymentProviderService->setEventsManager($this->eventsManager);
+                            $this->eventsManager->attach('orderservice', $this->orderService);
+                            $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
+                            $paymentProvider = $cardPaymentProvider->getIterator()->current()->get();
+                            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
+                        }
+                        else { //Legacy Deposit with only one provider
+                            $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
+                            $paymentProvider = $cardPaymentProvider->getIterator()->current()->get();
+                            $onlyPay = false;
+                        }
+
+                        $result = $wallet_service->rechargeWithCreditCard($onlyPay, $paymentProvider, $card, $user, $order, $credit_card_charge);
+
                         if ($result->success()) {
                             $converted_net_amount_currency = $this->currencyConversionService->convert($credit_card_charge->getNetAmount(), $user->getUserCurrency());
                             $msg .= 'We added ' . $symbol . ' '  . number_format($converted_net_amount_currency->getAmount() / 100, 2, '.', ',') . ' to your Wallet Balance';
@@ -112,7 +132,7 @@ class FundsController extends AccountController
                             ";
                             $credit_card_form->clear();
                         } else {
-                            $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
+                            $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->errorMessage();
                         }
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
@@ -143,6 +163,7 @@ class FundsController extends AccountController
         ]);
     }
 
+    /*
     protected function wirecard()
     {
         $config = $this->di->get('config')['wirecard'];
@@ -153,6 +174,7 @@ class FundsController extends AccountController
         )
         );
     }
+    */
 
     public function getCashierAction()
     {

@@ -192,7 +192,7 @@ class AccountController extends PublicSiteControllerBase
      */
     public function walletAction()
     {
-        $apaymentProvider = $this->domainServiceFactory->getServiceFactory()->getFeatureFlagApiService()->getItem("apayment-provider");
+        $apaymentProvider = true; //$this->domainServiceFactory->getServiceFactory()->getFeatureFlagApiService()->getItem("apayment-provider")->getStatus();
         $user = $this->authService->getLoggedUser();
         $userDetails['Name'] = (!is_null($user->getName())) ? $user->getName() : '';
         $userDetails['Surname'] = (!is_null($user->getSurname())) ? $user->getSurname() : '';
@@ -210,7 +210,7 @@ class AccountController extends PublicSiteControllerBase
         $type = ViewHelper::getNamePaymentType($this->getDI()->get('paymentProviderFactory')); //TODO: check if this is still valid
         $view = $type == 'iframe' ? 'account/wallet_iframe' : 'account/wallet';
 
-        if ($apaymentProvider->getStatus() == 'false') { //New frontend template for integrate the type of payment selector
+        if ($apaymentProvider === false) { //New frontend template for integrate the type of payment selector
             $view = $type = 'account/wallet_new';
         }
 
@@ -236,10 +236,6 @@ class AccountController extends PublicSiteControllerBase
             'show_box_basic' => true,
             'site_config' => $site_config_dto,
             'emerchant_data' => $this->getEmerchantData(),
-            'apayment_provider' => $apaymentProvider->getStatus(),
-
-            //TODO: remove this vars
-            'view_debug' => $view,
         ]);
     }
 

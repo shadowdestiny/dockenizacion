@@ -21,10 +21,7 @@ use Money\Money;
 
 final class MegaSenaPaymentController extends PowerBallPaymentController
 {
-    use PlayToPay;
-
     private $lotteryName = "MegaSena";
-
 
     public function paymentAction()
     {
@@ -91,7 +88,8 @@ final class MegaSenaPaymentController extends PowerBallPaymentController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
-                        $result = $this->setPlayService($playService)
+                        $aPaymentProvider = true; //$this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
+                        $result = $this->setPowerBallService($powerball_service)
                             ->setPaymentProviderServiceTrait($this->paymentProviderService)
                             ->setPaymentCountryTrait($this->paymentCountry)
                             ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
@@ -102,7 +100,7 @@ final class MegaSenaPaymentController extends PowerBallPaymentController
                                 $payWallet,
                                 $isWallet,
                                 'MegaSena',
-                                $this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
+                                $aPaymentProvider
                             );
                         return $this->playResult($result, 'megasena');
                     } catch (\Exception $e) {

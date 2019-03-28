@@ -228,19 +228,6 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-
-
-    <div style="border:2px solid red;">
-        {{ view_debug }}
-
-
-        <hr>
-
-        {{  apayment_provider }}
-
-        <hr>
-    </div>
-
     <main id="content" class="account-page">
         <div class="wrapper">
             {% include "account/_breadcrumbs.volt" %}

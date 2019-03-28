@@ -3,13 +3,11 @@
 
 namespace EuroMillions\web\services\card_payment_providers\royalpay;
 
-
 use Phalcon\Http\Client\Provider\Curl;
 use Phalcon\Http\Client\Response;
 
 class GatewayClientWrapper
 {
-
     private $config;
 
     private $curlWrapper;
@@ -20,12 +18,14 @@ class GatewayClientWrapper
         $this->curlWrapper = $curlWrapper ? $curlWrapper : new Curl();
     }
 
-    public function send(array $params, $action) {
+    public function send(array $params, $action)
+    {
         try {
             /** @var Response  $response */
-            $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST,false);
-            $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER,false);
-            $response = $this->curlWrapper->post($this->config->getEndpoint().'/'.$action,
+            $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST, false);
+            $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, false);
+            $response = $this->curlWrapper->post(
+                $this->config->getEndpoint().'/'.$action,
                 json_encode($params),
                 true,
                 array(
@@ -33,10 +33,8 @@ class GatewayClientWrapper
                 )
             );
             return $response;
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
-
     }
-
 }

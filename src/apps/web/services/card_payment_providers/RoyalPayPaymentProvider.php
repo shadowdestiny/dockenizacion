@@ -3,16 +3,13 @@
 
 namespace EuroMillions\web\services\card_payment_providers;
 
-
 use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
-use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\royalpay\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\royalpay\RoyalPayConfig;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
-use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
@@ -20,9 +17,8 @@ use EuroMillions\web\vo\PaymentWeight;
 use Money\Money;
 use Phalcon\Http\Client\Response;
 
-class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGateway
+class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGateway
 {
-
     use CountriesCollection;
 
     private $gatewayClient;
@@ -61,13 +57,11 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         $result = $this->gatewayClient->send($params, 'deposit');
         $header = $result->header;
         $body = json_decode($result->body);
-
-        if( $header->statusCode != 201 ) {
+        if ($header->statusCode != 201) {
             return new PaymentProviderResult(false, $header->statusMessage, $header->statusMessage);
         }
 
         return new PaymentProviderResult($body->status === "created", $header->statusMessage);
-
     }
 
     public function withDraw(Money $amount, $idTransaction)
@@ -80,7 +74,7 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         return $this->config;
     }
 
-    public function call($data,$action,$method)
+    public function call($data, $action, $method)
     {
         // TODO: Implement call() method.
     }

@@ -39,7 +39,7 @@ class CartController extends PublicSiteControllerBase
 {
     const IP_DEFAULT = '127.0.0.1';
 
-    const DEBUG_PAYMENT_SELECTOR_TYPE = PaymentSelectorType::CREDIT_CARD_METHOD;  //TODO: remove. Must equals value at shared/.../CartController.php
+    const PAYMENT_SELECTOR_TYPE = PaymentSelectorType::CREDIT_CARD_METHOD;  //TODO: remove when the selector on the frontend is done. Must equals value at shared/.../CartController.php
 
     protected $eventsManager;
 
@@ -256,7 +256,7 @@ class CartController extends PublicSiteControllerBase
             $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(), $order->getLottery(), $order->getNextDraw(), $isWallet, new TransactionId($order->getTransactionId()));
             $this->paymentProviderService->setEventsManager($this->eventsManager);
             $this->eventsManager->attach('orderservice', $this->orderService);
-            $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::DEBUG_PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
+            $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
             $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($cardPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
             $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
@@ -405,7 +405,7 @@ class CartController extends PublicSiteControllerBase
         /**** Instance payment method ***/
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
-        $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::DEBUG_PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
+        $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
         $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($cardPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
         $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
         $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $order_eur->getCreditCardCharge()->getFinalAmount());

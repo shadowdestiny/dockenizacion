@@ -202,11 +202,16 @@ class PlayService extends Colleague
      * @param Money $funds
      * @param CreditCard $credit_card
      * @param bool $withAccountBalance
+     * @param null $isWallet
+     * @param ICardPaymentProvider $paymentProvider
      * @return ActionResult
      */
-    public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, ICreditCardStrategy $paymentStrategy)
+    public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, ICardPaymentProvider $paymentProvider)
     {
-        $this->cardPaymentProvider = $paymentStrategy->get();
+        if($paymentProvider !== null) {
+            $this->cardPaymentProvider = $paymentProvider;
+        }
+
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();

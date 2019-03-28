@@ -38,6 +38,7 @@ class WalletService extends Colleague
     }
 
     /**
+     * @param bool $onlyPay
      * @param ICardPaymentProvider $provider
      * @param CreditCard $card
      * @param User $user
@@ -46,24 +47,30 @@ class WalletService extends Colleague
      * @return IResult
      * @throws \Exception
      */
-    public function rechargeWithCreditCard(ICardPaymentProvider $provider,
+    public function rechargeWithCreditCard($onlyPay,
+                                           ICardPaymentProvider $provider,
                                            CreditCard $card,
                                            User $user,
                                            Order $order,
                                            CreditCardCharge $creditCardCharge)
     {
-        $payment_result = $this->pay($provider, $user, $order, $card);
-        if ($payment_result->success()) {
-            $walletBefore = $user->getWallet();
-            $user->reChargeWallet($creditCardCharge->getNetAmount()); //TODO: We can get CreditCardCharge from the Order?
+        if($onlyPay) {
+            $payment_result = $this->onlyPay($provider,$card, $user, null, $order);
+        }
+        else {
+            $payment_result = $this->pay($provider, $user, $order, $card);
+            if ($payment_result->success()) {
+                $walletBefore = $user->getWallet();
+                $user->reChargeWallet($creditCardCharge->getNetAmount()); //TODO: We can get CreditCardCharge from the Order?
 
-            try {
-                $this->entityManager->persist($user);
-                $this->entityManager->flush($user);
-                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore);
-                $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
-            } catch (\Exception $e) {
-                //EMTD Log and warn the admin
+                try {
+                    $this->entityManager->persist($user);
+                    $this->entityManager->flush($user);
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore);
+                    $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
+                } catch (\Exception $e) {
+                    //EMTD Log and warn the admin
+                }
             }
         }
         return $payment_result;
@@ -73,8 +80,11 @@ class WalletService extends Colleague
      * @param ICardPaymentProvider $provider
      * @param CreditCard $card
      * @param User $user
-     * @param CreditCardCharge $creditCardCharge
+     * @param null $uniqueID
+     * @param Order $order
+     * @param null $isWallet
      * @return IResult
+     * @throws \Exception
      */
     public function payWithCreditCard(ICardPaymentProvider $provider,
                                       CreditCard $card,
@@ -92,14 +102,14 @@ class WalletService extends Colleague
                 $walletBefore = $user->getWallet();
                 if (!$order->getHasSubscription()) {
                     $user->reChargeWallet($creditCardCharge->getNetAmount());
-                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore,$order);
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore,$order);
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
                 } else {
                     $user->reChargeSubscriptionWallet($creditCardCharge->getNetAmount());
                     if ($isWallet) {
                         $user->removeSubscriptionWithWallet($creditCardCharge->getNetAmount());
                     }
-                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore,$order);
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore,$order);
                     $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
                 }
                 $this->entityManager->persist($user);
@@ -581,6 +591,7 @@ class WalletService extends Colleague
                                                  Order $order = null)
     {
 
+        //TODO: remove $uniqueID, because transactionID comes from Order.
         //This is a big shit
         $isChargeFee = '';
         $finalAmount = '';
