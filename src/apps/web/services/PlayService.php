@@ -21,15 +21,11 @@ use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\shared\components\PaymentsCollection;
-use EuroMillions\web\services\card_payment_providers\ICreditCardStrategy;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
-use EuroMillions\web\services\criteria_strategies\CountryCriteria;
-use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
 use EuroMillions\web\services\email_templates_strategies\ErrorDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
-use EuroMillions\web\services\factories\CollectionPaymentCriteriaFactory;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\LotteryValidatorsFactory;
 use EuroMillions\web\services\notification_mediator\Colleague;
@@ -37,14 +33,12 @@ use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\dto\BundlePlayCollectionDTO;
 use EuroMillions\web\vo\dto\BundlePlayDTO;
-use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderChristmas;
-use EuroMillions\web\vo\PaymentCountry;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\TransactionId;
@@ -54,7 +48,6 @@ use Money\Money;
 
 class PlayService extends Colleague
 {
-
     const NUM_BETS_PER_REQUEST = 5;
 
     private $entityManager;
@@ -87,16 +80,17 @@ class PlayService extends Colleague
     private $emailService;
 
     //EMTD refactor this class: a lot of dependencies
-    public function __construct(EntityManager $entityManager,
-                                LotteryService $lotteryService,
-                                IPlayStorageStrategy $playStorageStrategy,
-                                IPlayStorageStrategy $orderStorageStrategy,
-                                CartService $cartService,
-                                WalletService $walletService,
-                                ICardPaymentProvider $payXpertCardPaymentStrategy,
-                                BetService $betService,
-                                EmailService $emailService)
-    {
+    public function __construct(
+        EntityManager $entityManager,
+        LotteryService $lotteryService,
+        IPlayStorageStrategy $playStorageStrategy,
+        IPlayStorageStrategy $orderStorageStrategy,
+        CartService $cartService,
+        WalletService $walletService,
+        ICardPaymentProvider $payXpertCardPaymentStrategy,
+        BetService $betService,
+        EmailService $emailService
+    ) {
         $this->entityManager = $entityManager;
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
         $this->lotteryService = $lotteryService;
@@ -164,7 +158,7 @@ class PlayService extends Colleague
             $lottery = $this->lotteryService->getLotteryConfigByName($lotteryName);
             /** @var User $user */
             $user = $this->userRepository->find(['id' => $user_id]);
-            $result_order = $this->cartService->get($user_id, $lottery->getName(),$isWallet);
+            $result_order = $this->cartService->get($user_id, $lottery->getName(), $isWallet);
             if ($result_order->success()) {
                 /** @var Order $order */
                 $order = $result_order->getValues();
@@ -190,8 +184,7 @@ class PlayService extends Colleague
                 return new ActionResult($result_payment->success(), $order);
             }
             return new ActionResult(false);
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
             die();
         }
@@ -206,9 +199,9 @@ class PlayService extends Colleague
      * @param ICardPaymentProvider $paymentProvider
      * @return ActionResult
      */
-    public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, ICardPaymentProvider $paymentProvider)
+    public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, ICardPaymentProvider $paymentProvider = null)
     {
-        if($paymentProvider !== null) {
+        if ($paymentProvider !== null) {
             $this->cardPaymentProvider = $paymentProvider;
         }
 
@@ -219,7 +212,7 @@ class PlayService extends Colleague
                 $lottery = $this->lotteryService->getLotteryConfigByName('EuroMillions');
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
-                $result_order = $this->cartService->get($user_id, $lottery->getName(),$isWallet);
+                $result_order = $this->cartService->get($user_id, $lottery->getName(), $isWallet);
                 $numPlayConfigs = 0;
                 if ($result_order->success()) {
                     /** @var Order $order */
@@ -240,9 +233,8 @@ class PlayService extends Colleague
                     if ($credit_card != null) {
                         $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
                     } else {
-                        if($order->getHasSubscription())
-                        {
-                            $this->walletService->createSubscriptionTransaction($user,$uniqueId,$order);
+                        if ($order->getHasSubscription()) {
+                            $this->walletService->createSubscriptionTransaction($user, $uniqueId, $order);
                         }
                         $result_payment = new ActionResult(true, $order);
                     }
@@ -317,7 +309,6 @@ class PlayService extends Colleague
                     //error
                 }
             } catch (\Exception $e) {
-
             }
         }
         return new ActionResult(false);
@@ -409,8 +400,6 @@ class PlayService extends Colleague
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-
-
     }
 
     /**
@@ -423,7 +412,6 @@ class PlayService extends Colleague
     public function playChristmas($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, $resultOrder)
     {
         if ($user_id) {
-
             try {
                 $di = \Phalcon\Di::getDefault();
                 /** @var Lottery $lottery */
@@ -442,8 +430,11 @@ class PlayService extends Colleague
                     $draw = $this->lotteryService->getNextDrawByLottery('Christmas');
                     //Workaround temporal
                     $config = $di->get('config')['wirecard'];
-                    $this->cardPaymentProvider = new WideCardPaymentProvider(new WideCardConfig($config->endpoint,
-                            $config->api_key)
+                    $this->cardPaymentProvider = new WideCardPaymentProvider(
+                        new WideCardConfig(
+                        $config->endpoint,
+                        $config->api_key
+                    )
                     );
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
@@ -476,7 +467,6 @@ class PlayService extends Colleague
                             foreach (str_split($play_config->getNumber()) as $number) {
                                 $numberLine[] = new EuroMillionsRegularNumber(intval($number), $lottery->getId());
                                 $numberDiscount = $numberDiscount . intval($number);
-
                             }
                             if (in_array($numberDiscount, $numbers)) {
                                 $discountNumFraction++;
@@ -506,7 +496,6 @@ class PlayService extends Colleague
                         $walletBefore = $user->getWallet();
                         /* @var PlayConfig $playConfigChristmas */
                         foreach ($allPlayConfigsChristmas as $playConfigChristmas) {
-
                             $result_validation = $this->betService->validationChristmas($playConfigChristmas, $draw->getValues(), $lottery->getNextDrawDate());
 
                             if (!$result_validation->success()) {
@@ -542,7 +531,6 @@ class PlayService extends Colleague
                     //error
                 }
             } catch (\Exception $e) {
-
             }
         }
         return new ActionResult(false);
@@ -553,7 +541,7 @@ class PlayService extends Colleague
     {
         try {
             /** @var ActionResult $result */
-            $result = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user->getId(),$this->getLottery($lottery)->getId())->key());
+            $result = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user->getId(), $this->getLottery($lottery)->getId())->key());
             if ($result->success()) {
                 $form_decode = json_decode($result->returnValues());
                 $bets = [];
@@ -767,33 +755,28 @@ class PlayService extends Colleague
     public function validatorResult(Lottery $lottery, $play_config, ActionResult $draw, Order $order)
     {
         //TODO: workaround to avoid calls to lottorisq
-        static $calls=0;
+        static $calls = 0;
         static $response = null;
         $calls++;
-        try
-        {
+        try {
             $lotteryValidator = LotteryValidatorsFactory::create($lottery->getName());
-            if ($lottery->getName() == 'EuroMillions')
-            {
+            if ($lottery->getName() == 'EuroMillions') {
                 return $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate(), null, $lotteryValidator);
             }
-            if($calls == 1)
-            {
+            if ($calls == 1) {
                 $response = json_decode($lotteryValidator->book(json_encode($order->getPlayConfig()))->body);
                 return new ActionResult(true, $response);
             }
-        }catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return new ActionResult(false);
         }
 
         return new ActionResult(true, $response);
     }
 
-    public function persistBetDistinctEuroMillions($play_config,ActionResult $draw, Order $order, $resultValidation)
+    public function persistBetDistinctEuroMillions($play_config, ActionResult $draw, Order $order, $resultValidation)
     {
-        if($order->getLottery()->getName() !== 'EuroMillions')
-        {
+        if ($order->getLottery()->getName() !== 'EuroMillions') {
             return $this->betService->validationLottery($play_config, $draw->getValues(), $order->getLottery()->getNextDrawDate(), null, $resultValidation->uuid);
         }
         return new ActionResult(true);
@@ -828,7 +811,4 @@ class PlayService extends Colleague
         $emailTemplate->setUser($user);
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
-
-
-
 }

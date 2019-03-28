@@ -62,7 +62,7 @@ class PaymentController extends CartController
                 try {
                     $card = null;
                     $amount = new Money((int)$charge, new Currency('EUR'));
-                    $result = $play_service->play($user_id, $amount, $card, true, $isWallet);
+                    $result = $play_service->play($user_id, $amount, $card, true, $isWallet, null);
                     return $this->playResult($result);
                 } catch (\Exception $e) {
                     $errors[] = $e->getMessage();
