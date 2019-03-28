@@ -219,6 +219,9 @@ class AccountController extends PublicSiteControllerBase
         $errors = $this->request->getQuery('failure', null, 'none') != 'none'?[$this->request->getQuery('failure')]:[];
         $success = $this->request->getQuery('success', null, 'none') != 'none'?$this->request->getQuery('success'):[];
         $redirectFromIframe = !empty($errors) or !empty($success) ? true : false;
+
+//        var_dump($this->flash);
+
         return $this->view->setVars([
             'redirectFromIframe' => $redirectFromIframe,
             'which_form' => 'wallet',

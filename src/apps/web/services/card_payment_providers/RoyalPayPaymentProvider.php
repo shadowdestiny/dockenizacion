@@ -61,7 +61,7 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGa
             return new PaymentProviderResult(false, $header->statusMessage, $header->statusMessage);
         }
 
-        return new PaymentProviderResult($body->status === "created", $header->statusMessage);
+        return new PaymentProviderResult($body->status === "created", $header->statusMessage, $body->message);
     }
 
     public function withDraw(Money $amount, $idTransaction)
