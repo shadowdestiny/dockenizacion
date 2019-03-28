@@ -290,7 +290,10 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
                 $this->cartPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry($type, $this->paymentCountry);
                 $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($this->cartPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
                 $cashierViewDTO = $this->paymentProviderService->cashier($this->cartPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
+
+                //TODO: Enable this for async transaction updates
                 $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
+
                 echo json_encode($cashierViewDTO);
             } else {
                 throw new \Exception('Method not allowed');
