@@ -112,8 +112,8 @@ class PlayService extends Colleague
             return new ActionResult(false);
         }
         try {
-            /** @var ActionResult $result_find_playstorage */
             $lottery = $this->getLottery($lottery);
+            /** @var ActionResult $result_find_playstorage */
             $result_find_playstorage = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user_id, $lottery->getId())->key());
             if ($result_find_playstorage->success()) {
                 $this->playStorageStrategy->save($result_find_playstorage->returnValues(), RedisOrderKey::create($current_user_id, $lottery->getId())->key());
@@ -124,7 +124,7 @@ class PlayService extends Colleague
                     foreach ($form_decode->play_config as $bet) {
                         $playConfig = new PlayConfig();
                         $playConfig->formToEntity($user, $bet, $bet->euroMillionsLines);
-                        $playConfig->setLottery($this->getLottery($lottery));
+                        $playConfig->setLottery($lottery);
                         $playConfig->setDiscount(new Discount($bet->frequency, $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
                         $bets[] = $playConfig;
                     }
@@ -722,7 +722,6 @@ class PlayService extends Colleague
         return $this->playConfigRepository->getAllSubscriptionsPlayedByLotteryId($lotteryId, $this->lotteryService->getNextDateDrawByLottery('Euromillions'));
     }
 
-    //EMTD workaround, now only once lottery we have. In the future should pass lottery as param
     private function getLottery($lottery)
     {
         return $this->lotteryService->getLotteryConfigByName($lottery);

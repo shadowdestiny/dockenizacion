@@ -288,7 +288,6 @@ class CartController extends PublicSiteControllerBase
                 $order = OrderFactory::create($order->getPlayConfig(), $order->getSingleBetPrice(), $order->getFee(), $order->getFeeLimit(), $order->getDiscount(), $order->getLottery(), $order->getNextDraw(), $isWallet, new TransactionId($order->getTransactionId()));
                 $this->paymentProviderService->setEventsManager($this->eventsManager);
                 $this->eventsManager->attach('orderservice', $this->orderService);
-
                 $this->cartPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry($type, $this->paymentCountry);
                 $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($this->cartPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
                 $cashierViewDTO = $this->paymentProviderService->cashier($this->cartPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);

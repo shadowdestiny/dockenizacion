@@ -57,8 +57,8 @@ trait PlayToPay
                 //Play from PowerBallService
                 return $play->play($user_id, $amount, $card, $withAccountBalance, $isWallet, $lotteryName, $paymentsCollection->getIterator()->current()->get());
             } else {
-                //Play from playService
-                return $play->play($user_id, $amount, $card, $withAccountBalance, $isWallet, $lotteryName, $paymentsCollection->getIterator()->current()->get());
+                //Play from PlayService
+                return $play->play($user_id, $amount, $card, $withAccountBalance, $isWallet, $paymentsCollection->getIterator()->current()->get());
             }
         }
 
