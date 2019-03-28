@@ -46,7 +46,7 @@ class LottorisqApi implements IResultApi, IJackpotApi, IBookApi
             $draw = json_decode($drawBody, true);
             $currency = $this->currencyConversionService->convert(new Money((int) $draw['jackpot']['total'], new Currency('USD')),
                 new Currency('EUR'));
-            return new Money((int) floor($currency->getAmount() / 1000000) * 100000000, new Currency('EUR'));
+            return new Money((int) round($currency->getAmount() / 1000000) * 100000000, new Currency('EUR'));
         } catch (\Exception $e)
         {
             throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the Lottorisq');
