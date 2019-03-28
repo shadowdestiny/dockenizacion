@@ -347,7 +347,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="box-balance--row  cl" style="height:355px">
+                        <div class="box-balance--row  cl" style="height:360px">
                             <div class="txt">{{ language.translate("balance_yourSubscription") }} </div>
                             <div class="txt">{{ language.translate("EuroMillions") }} <span
                                         class="value">{{ wallet.subscriptionBalanceEuromillions}}</span></div>
