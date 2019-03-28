@@ -28,7 +28,7 @@ use Phalcon;
 use Phalcon\Di;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
-
+use EuroMillions\web\services\factories\ModuleFactory;
 
 class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapStrategy
 {
@@ -75,93 +75,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $application = new Phalcon\Mvc\Application($di);
         $this->configureModules($application, $di);
         echo $application->handle()->getContent();
-    }
-
-    protected function configView($module)
-    {
-        $view = new Phalcon\Mvc\View();
-        $compiled_path = $this->assetsPath . 'compiled_templates/';
-        $view->setViewsDir($this->appPath . 'web/views/');
-        if ($module === 'admin') {
-            $view->setViewsDir($this->appPath . 'admin/views/');
-        }
-
-        $view->registerEngines(array(
-            ".volt" => function ($view, $di) use ($compiled_path) {
-                $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
-                $volt->setOptions($this->voltConfigByEnvironment($compiled_path));
-                $compiler = $volt->getCompiler();
-                $compiler->addFilter('number_format', 'number_format');
-                $compiler->addFunction('currency_css', function ($currency) {
-                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
-                });
-                return $volt;
-            }
-        ));
-        return $view;
-    }
-
-    protected function configViewMegaMillions()
-    {
-        $view = new Phalcon\Mvc\View();
-        $compiled_path = $this->assetsPath . 'compiled_templates/';
-        $view->setViewsDir($this->appPath . 'megamillions/views/');
-        $view->setLayoutsDir('shared/views/');
-        $view->registerEngines(array(
-            ".volt" => function ($view, $di) use ($compiled_path) {
-                $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
-                $volt->setOptions($this->voltConfigByEnvironment($compiled_path));
-                $compiler = $volt->getCompiler();
-                $compiler->addFilter('number_format', 'number_format');
-                $compiler->addFunction('currency_css', function ($currency) {
-                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
-                });
-                return $volt;
-            }
-        ));
-        return $view;
-    }
-
-    protected function configViewMegaSena()
-    {
-        $view = new Phalcon\Mvc\View();
-        $compiled_path = $this->assetsPath . 'compiled_templates/';
-        $view->setViewsDir($this->appPath . 'megasena/views/');
-        $view->setLayoutsDir('shared/views/');
-        $view->registerEngines(array(
-            ".volt" => function ($view, $di) use ($compiled_path) {
-                $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
-                $volt->setOptions($this->voltConfigByEnvironment($compiled_path));
-                $compiler = $volt->getCompiler();
-                $compiler->addFilter('number_format', 'number_format');
-                $compiler->addFunction('currency_css', function ($currency) {
-                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
-                });
-                return $volt;
-            }
-        ));
-        return $view;
-    }
-
-    protected function configViewEuroJackpot()
-    {
-        $view = new Phalcon\Mvc\View();
-        $compiled_path = $this->assetsPath . 'compiled_templates/';
-        $view->setViewsDir($this->appPath . 'eurojackpot/views/');
-        $view->setLayoutsDir('shared/views/');
-        $view->registerEngines(array(
-            ".volt" => function ($view, $di) use ($compiled_path) {
-                $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
-                $volt->setOptions($this->voltConfigByEnvironment($compiled_path));
-                $compiler = $volt->getCompiler();
-                $compiler->addFilter('number_format', 'number_format');
-                $compiler->addFunction('currency_css', function ($currency) {
-                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
-                });
-                return $volt;
-            }
-        ));
-        return $view;
     }
 
     protected function configRouter()
@@ -1742,72 +1655,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $eventsManager = new Phalcon\Events\Manager();
         $eventsManager->attach('application:beforeStartModule', function ($event, $application) use ($di) {
             $module_name = $event->getData();
-
-            if ($module_name === 'web') {
-                $web_module = $application->getModule($module_name);
-                /** @var ModuleDefinitionInterface $object */
-                $object = $di->get($web_module['className']);
-                $di->set('language', $this->configLanguage($di), true);
-                $di->set('view', $this->configView($module_name), true);
-                //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
-                $object->registerServices($di);
-            }
-            if ($module_name === 'admin') {
-                $admin_module = $application->getModule($module_name);
-                $di->set('view', $this->configView($module_name), true);
-                $object = $di->get($admin_module['className']);
-                $object->registerServices($di);
-            }
-            if ($module_name === 'megamillions') {
-                $web_module = $application->getModule($module_name);
-                /** @var ModuleDefinitionInterface $object */
-                $object = $di->get($web_module['className']);
-                $di->set('language', $this->configLanguage($di), true);
-                $di->set('view', $this->configViewMegaMillions(), true);
-                //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
-                $object->registerServices($di);
-            }
-            if ($module_name === 'eurojackpot') {
-                $web_module = $application->getModule($module_name);
-                /** @var ModuleDefinitionInterface $object */
-                $object = $di->get($web_module['className']);
-                $di->set('language', $this->configLanguage($di), true);
-                $di->set('view', $this->configViewEuroJackpot(), true);
-                //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
-                $object->registerServices($di);
-            }
-            if ($module_name === 'megasena') {
-                $web_module = $application->getModule($module_name);
-                /** @var ModuleDefinitionInterface $object */
-                $object = $di->get($web_module['className']);
-                $di->set('language', $this->configLanguage($di), true);
-                $di->set('view', $this->configViewMegaSena(), true);
-                $object->registerServices($di);
-            }
+            $diParent = parent::dependencyInjector();
+            $module = ModuleFactory::create($module_name, $application, $di, $this->appPath, $this->assetsPath, $diParent);
+            $module->configure();
         });
         $application->setEventsManager($eventsManager);
-    }
-
-
-    protected function voltConfigByEnvironment($compiled_path)
-    {
-        $di = parent::dependencyInjector();
-        $environment = $di->get('environmentDetector');
-        if ($environment->get() !== 'development' || $environment->get() !== 'test') {
-            return [
-                "compiledPath" => $compiled_path,
-                "compiledExtension" => ".compiled",
-                "stat" => true,
-                "compileAlways" => true,
-            ];
-        } else {
-            return [
-                "compiledPath" => $compiled_path,
-                "compiledExtension" => ".compiled",
-                "stat" => true,
-                "compileAlways" => true,
-            ];
-        }
-
     }
 }
