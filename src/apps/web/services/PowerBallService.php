@@ -233,7 +233,7 @@ class PowerBallService
 
                         $dataTransaction = [
                             'lottery_id' => $lottery->getId(),
-                            'transactionID' => $uniqueId,
+                            'transactionID' => $order->getTransactionId(),
                             'numBets' => count($order->getPlayConfig()),
                             'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
                             'amountWithWallet' => $amount,
