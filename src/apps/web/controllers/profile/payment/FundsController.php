@@ -27,7 +27,6 @@ use Money\Money;
 
 class FundsController extends AccountController
 {
-
     const PAYMENT_SELECTOR_TYPE = PaymentSelectorType::CREDIT_CARD_METHOD;  //TODO: remove when the selector on the frontend is done.
 
     /**
@@ -66,7 +65,7 @@ class FundsController extends AccountController
                  */
                 //check date
                 foreach ($messages as $field => $field_messages) {
-                    $errors[] = $field_messages[0]->getMessage();
+                    $this->flash->error($field_messages[0]->getMessage());
                     $form_errors[$field] = ' error';
                 }
             } else {
@@ -100,7 +99,6 @@ class FundsController extends AccountController
                         $order = OrderFactory::create([$playconfig], $amount, $money, $money, new Discount(0, []), $depositLottery, 'Deposit', false);
 
                         $onlyPay = true;
-
                         $apaymentProvider = true; //$this->domainServiceFactory->getServiceFactory()->getFeatureFlagApiService()->getItem("apayment-provider")->getStatus();
 
                         if ($apaymentProvider === false) {
@@ -109,8 +107,7 @@ class FundsController extends AccountController
                             $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
                             $paymentProvider = $cardPaymentProvider->getIterator()->current()->get();
                             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
-                        }
-                        else { //Legacy Deposit with only one provider
+                        } else { //Legacy Deposit with only one provider
                             $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
                             $paymentProvider = $cardPaymentProvider->getIterator()->current()->get();
                             $onlyPay = false;
@@ -124,57 +121,30 @@ class FundsController extends AccountController
                             if ($credit_card_charge->getIsChargeFee()) {
                                 $msg .= ', and charged you an additional '. $site_config_dto->fee .' because it is a transfer below ' . $site_config_dto->feeLimit;
                             }
+                            /*
                             echo "
                             <script src='/w/js/vendor/ganalytics.min.js'></script>
                             <script>
                                 ga('send', 'event', 'Button', 'Deposit');
                             </script>
                             ";
+                            */
                             $credit_card_form->clear();
+                            $this->flash->success($msg);
                         } else {
-                            $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->errorMessage();
+                            $this->flash->error('An error occurred. The response with our payment provider was: ' . $result->errorMessage());
                         }
                     } catch (\Exception $e) {
-                        $errors[] = $e->getMessage();
-                        $form_errors['month'] = ' error';
+                        $this->flash->error($e->getMessage());
                     }
                 }
             }
         } else {
-            $errors[] = $this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend');
+            $this->flash->error($this->languageService->translate('signup_emailconfirm') . '<br>'  . $this->languageService->translate('signup_emailresend'));
         }
 
-        $this->view->pick('account/wallet');
-
-        return $this->view->setVars([
-            'which_form' => 'wallet',
-            'form_errors' => $form_errors,
-            'errors' => $errors,
-            'symbol' => (empty($symbol)) ? $user->getUserCurrency()->getName() : $symbol,
-            'credit_card_form' => $credit_card_form,
-            'msg' => $msg,
-            'ratio' => $ratio,
-            'bank_account_form' => $bank_account_form,
-            'site_config' => $site_config_dto,
-            'show_form_add_fund' => true,
-            'show_winning_copy' => 0,
-            'wallet' => $wallet_dto,
-            'show_box_basic' => false,
-        ]);
+        $this->response->redirect('/account/wallet');
     }
-
-    /*
-    protected function wirecard()
-    {
-        $config = $this->di->get('config')['wirecard'];
-        return new  WideCardPaymentProvider(
-            new WideCardConfig(
-                $config->endpoint,
-                $config->api_key
-        )
-        );
-    }
-    */
 
     public function getCashierAction()
     {

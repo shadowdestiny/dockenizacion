@@ -155,7 +155,9 @@
     checkRadio("#card-list tr, #bank-list tr");
     deleteLnk("#card-list .action a, #bank-list .action a");
     });
-	$('.submit').on('click', function(e){
+
+    /* //Disabled for now the moneymatrix iframe
+    $('.submit').on('click', function(e){
 
 		var amount=$('#funds-value').val();
 		amount=parseInt(amount)*100;
@@ -178,6 +180,8 @@
                                            });
         }
     });
+    */
+
     $('.submit_withdraw').on('click', function(e){
     		var amount=$('.funds-value-withdraw').val();
     		amount=parseInt(amount)*100;
@@ -306,6 +310,26 @@
                                 <ul class="no-li">{% for error in errors %}
                                         <li>{{ error }}</li>{% endfor %}</ul>
                             </div>
+                        </div>
+                    {% endif %}
+                    {% if flash.has('error') %}
+                        <div class="box error">
+                            <svg class="ico v-warning">
+                                <use xlink:href="/w/svg/icon.svg#v-warning"/>
+                            </svg>
+                            <div class="txt">
+                                <ul class="no-li">
+                                        <li> {{ flash.output() }} </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if flash.has('success') %}
+                        <div class="box success">
+                            <svg class="ico v-checkmark">
+                                <use xlink:href="/w/svg/icon.svg#v-checkmark"/>
+                            </svg>
+                            <span class="txt">{{ flash.output() }}</span>
                         </div>
                     {% endif %}
 
