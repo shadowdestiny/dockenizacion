@@ -4,6 +4,7 @@
 namespace EuroMillions\eurojackpot\controllers;
 
 
+use EuroMillions\shared\helpers\PlayToPay;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\controllers\PowerBallPaymentController;
@@ -20,6 +21,9 @@ use Money\Money;
 
 final class EuroJackpotPaymentController extends PowerBallPaymentController
 {
+
+    use PlayToPay;
+
     public function paymentAction()
     {
         $credit_card_form = new CreditCardForm();
@@ -85,14 +89,20 @@ final class EuroJackpotPaymentController extends PowerBallPaymentController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
-                        $result = $playService->playWithQueue(
-                            $user_id,
-                            $amount,
-                            $card,
-                            $payWallet,
-                            $isWallet,
-                            'EuroJackpot',
-                            $this->paymentProviderService->createCollectionFromTypeAndCountry(PaymentSelectorType::CREDIT_CARD_METHOD,new PaymentCountry(['ES'])));
+                        $result = $this->setPowerBallService($powerball_service)
+                            ->setPlayService($playService)
+                            ->setPaymentProviderServiceTrait($this->paymentProviderService)
+                            ->setPaymentCountryTrait($this->paymentCountry)
+                            ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
+                            ->payFromPlay(
+                                $user_id,
+                                $amount,
+                                $card,
+                                $payWallet,
+                                $isWallet,
+                                'EuroJackpot',
+                                $this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
+                            );
                         return $this->playResult($result, 'EuroJackpot');
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();

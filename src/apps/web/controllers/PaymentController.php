@@ -3,10 +3,14 @@
 
 namespace EuroMillions\web\controllers;
 
+
+use EuroMillions\shared\enums\PaymentProviderEnum;
+use EuroMillions\shared\helpers\PlayToPay;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
+use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
@@ -19,6 +23,8 @@ use Money\Money;
 
 class PaymentController extends CartController
 {
+    use PlayToPay;
+
     public function paymentAction()
     {
         $credit_card_form = new CreditCardForm();
@@ -84,17 +90,21 @@ class PaymentController extends CartController
                 $user = $this->userService->getUser($user_id);
                 if (null != $user) {
                     try {
-                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
+                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number),
+                            new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
-
-                        $result = $play_service->playWithQueue(
-                            $user_id,
-                            $amount,
-                            $card,
-                            $payWallet,
-                            $isWallet,
-                            'EuroMillions',
-                            $this->paymentProviderService->createCollectionFromTypeAndCountry(PaymentSelectorType::CREDIT_CARD_METHOD, new PaymentCountry(['ES']))
+                        $result = $this->setPlayService($play_service)
+                            ->setPaymentProviderServiceTrait($this->paymentProviderService)
+                            ->setPaymentCountryTrait($this->paymentCountry)
+                            ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
+                            ->payFromPlay(
+                                $user_id,
+                                $amount,
+                                $card,
+                                $payWallet,
+                                $isWallet,
+                                'EuroMillions',
+                                $this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
                         );
                         return $this->playResult($result);
                     } catch (\Exception $e) {
