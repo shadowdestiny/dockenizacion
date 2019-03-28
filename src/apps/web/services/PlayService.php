@@ -171,7 +171,7 @@ class PlayService extends Colleague
                 $order->setIsCheckedWalletBalance($withAccountBalance);
                 $order->setLottery($lottery);
                 $order->setAmountWallet($user->getWallet()->getBalance());
-                $uniqueId = TransactionId::create();
+                $uniqueId = TransactionId::create(); //TODO: Remove this UniqueID
                 if ($credit_card != null) {
                     $provider = $paymentsCollection->getIterator()->current()->get();
                     $result_payment = $this->walletService->onlyPay($provider, $credit_card, $user, $uniqueId, $order, $isWallet);
@@ -229,12 +229,11 @@ class PlayService extends Colleague
                     $order->addFunds($funds);
                     $order->setAmountWallet($user->getWallet()->getBalance());
                     $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
-                    $uniqueId = $this->walletService->getUniqueTransactionId();
                     if ($credit_card != null) {
-                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
+                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $order, $isWallet);
                     } else {
                         if ($order->getHasSubscription()) {
-                            $this->walletService->createSubscriptionTransaction($user, $uniqueId, $order);
+                            $this->walletService->createSubscriptionTransaction($user, $order->getTransactionId(), $order);
                         }
                         $result_payment = new ActionResult(true, $order);
                     }
@@ -288,7 +287,7 @@ class PlayService extends Colleague
 
                         $dataTransaction = [
                             'lottery_id' => 1,
-                            'transactionID' => $uniqueId,
+                            'transactionID' => $order->getTransactionId(),
                             'numBets' => count($order->getPlayConfig()),
                             'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
                             'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),

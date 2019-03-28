@@ -80,7 +80,6 @@ class WalletService extends Colleague
      * @param ICardPaymentProvider $provider
      * @param CreditCard $card
      * @param User $user
-     * @param null $uniqueID
      * @param Order $order
      * @param null $isWallet
      * @return IResult
@@ -89,7 +88,6 @@ class WalletService extends Colleague
     public function payWithCreditCard(ICardPaymentProvider $provider,
                                       CreditCard $card,
                                       User $user,
-                                      $uniqueID = null,
                                       Order $order,
                                       $isWallet = null)
     {
@@ -97,6 +95,7 @@ class WalletService extends Colleague
         $creditCardCharge = $order->getCreditCardCharge();
 
         $payment_result = $this->pay($provider, $user, $order, $card);
+
         if ($payment_result->success()) {
             try {
                 $walletBefore = $user->getWallet();
@@ -418,7 +417,6 @@ class WalletService extends Colleague
     public function withDraw(User $user, Money $amount)
     {
         try {
-            $walletBefore = $user->getWallet();
             $newWallet = $user->getWallet()->withdraw($amount);
             if ($newWallet == null) {
                 throw new \Exception('You don\'t have enough winning amount to complete transaction');
@@ -426,15 +424,6 @@ class WalletService extends Colleague
             $user->setWallet($newWallet);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            $data = [];
-            $data['now'] = new \DateTime();
-            $data['walletBefore'] = $walletBefore;
-            $data['walletAfter'] = $user->getWallet();
-            $data['user'] = $user;
-            $data['accountBankId'] = '1';
-            $data['amountWithdrawed'] = $amount->getAmount();
-            $data['state'] = 'pending';
-            $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $data);
             return new ActionResult(true);
         } catch (\Exception $e) {
             return new ActionResult(false, $e->getMessage());
@@ -592,7 +581,9 @@ class WalletService extends Colleague
      * @param CreditCardCharge $creditCardCharge
      * @param $uniqueID
      * @param $walletBefore
+     * @param Order|null $order
      * @return array
+     * @throws \Exception
      */
     private function buildDepositTransactionData(User $user,
                                                  CreditCardCharge $creditCardCharge = null,

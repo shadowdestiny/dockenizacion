@@ -259,8 +259,8 @@ class CartController extends PublicSiteControllerBase
             $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
             $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($cardPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
             $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
-            //$this->cartService->store($order);
+            //$this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
+            $this->cartService->store($order);
             echo json_encode($cashierViewDTO);
         } catch (\Exception $e) {
             echo json_encode([
@@ -291,7 +291,7 @@ class CartController extends PublicSiteControllerBase
                 $this->cartPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry($type, $this->paymentCountry);
                 $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($this->cartPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
                 $cashierViewDTO = $this->paymentProviderService->cashier($this->cartPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
-                $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
+                //$this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
                 echo json_encode($cashierViewDTO);
             } else {
                 throw new \Exception('Method not allowed');
@@ -402,12 +402,17 @@ class CartController extends PublicSiteControllerBase
         $this->tag->prependTitle('Review and Buy');
 
         /**** Instance payment method ***/
+        if(empty($order)){
+            $order = $this->cartService->get($user->getId(),$lottery->getName(),$checked_wallet)->getValues();
+            $order_eur = clone $order;
+        }
+
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
         $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
         $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($cardPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
         $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
-        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $order_eur->getCreditCardCharge()->getFinalAmount());
+        //$this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $order_eur->getCreditCardCharge()->getFinalAmount());
 
         return $this->view->setVars([
             'order' => $play_config_dto,

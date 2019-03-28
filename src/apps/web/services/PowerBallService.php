@@ -160,17 +160,13 @@ class PowerBallService
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->setLottery($lottery);
                     $order->setPowerPlay($powerPlay);
-                    //$order->addFunds($order->getTotal());
                     $order->setAmountWallet($user->getWallet()->getBalance());
                     $draw = $this->lotteryService->getNextDrawByLottery($lotteryName);
-                    $uniqueId = $this->walletService->getUniqueTransactionId();
                     if ($credit_card != null) {
-                        //$this->cardPaymentProvider->user($user);
-                        //$this->cardPaymentProvider->idTransaction = $uniqueId;
-                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
+                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $order, $isWallet);
                     } else {
                         if ($order->getHasSubscription()) {
-                            $this->walletService->createSubscriptionTransaction($user, $uniqueId, $order);
+                            $this->walletService->createSubscriptionTransaction($user, $order->getTransactionId(), $order);
                         }
                         $result_payment = new ActionResult(true, $order);
                     }
