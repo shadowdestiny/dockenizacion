@@ -4,6 +4,7 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\components\builder\PaymentProviderDTOBuilder;
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\interfaces\IResult;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\PlayConfig;
@@ -95,20 +96,19 @@ class WalletService extends Colleague
         $creditCardCharge = $order->getCreditCardCharge();
 
         $payment_result = $this->pay($provider, $user, $order, $card);
-
         if ($payment_result->success()) {
             try {
                 $walletBefore = $user->getWallet();
                 if (!$order->getHasSubscription()) {
                     $user->reChargeWallet($creditCardCharge->getNetAmount());
-                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore,$order);
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore,$order, $provider->getName());
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
                 } else {
                     $user->reChargeSubscriptionWallet($creditCardCharge->getNetAmount());
                     if ($isWallet) {
                         $user->removeSubscriptionWithWallet($creditCardCharge->getNetAmount());
                     }
-                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore,$order);
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore,$order, $provider->getName());
                     $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
                 }
                 $this->entityManager->persist($user);
@@ -582,6 +582,7 @@ class WalletService extends Colleague
      * @param $uniqueID
      * @param $walletBefore
      * @param Order|null $order
+     * @param string $paymentProviderName
      * @return array
      * @throws \Exception
      */
@@ -589,7 +590,8 @@ class WalletService extends Colleague
                                                  CreditCardCharge $creditCardCharge = null,
                                                  $uniqueID,
                                                  $walletBefore,
-                                                 Order $order = null)
+                                                 Order $order = null,
+                                                 $paymentProviderName = PaymentProviderEnum::WIRECARD)
     {
 
         //TODO: remove $uniqueID, because transactionID comes from Order.
@@ -616,7 +618,8 @@ class WalletService extends Colleague
             'walletAfter' => $user->getWallet(),
             'now' => new \DateTime(),
             'lotteryName' =>  $order != null && $order->getLottery() != null ? $order->getLottery()->getName() : '',
-            'withWallet' => $order != null ? $order->isIsCheckedWalletBalance() : ''
+            'withWallet' => $order != null ? $order->isIsCheckedWalletBalance() : '',
+            'paymentProviderName' => $paymentProviderName
         ];
         return $dataTransaction;
     }
