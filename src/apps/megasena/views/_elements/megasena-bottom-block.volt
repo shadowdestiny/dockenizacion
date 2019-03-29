@@ -43,9 +43,9 @@
         <p>
             {{ language.translate("PlayMS_h2_text") }}
         </p>
-        <p>
+        <h2>
             {{ language.translate("PlayMS_h2_2") }}
-        </p>
+        </h2>
         <p>
             {{ language.translate("PlayMS_h2_text2") }}
         </p>
