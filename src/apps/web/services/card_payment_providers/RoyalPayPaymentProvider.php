@@ -7,6 +7,7 @@ use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
+use EuroMillions\web\services\card_payment_providers\royalpay\dto\RoyalPayBodyResponse;
 use EuroMillions\web\services\card_payment_providers\royalpay\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\royalpay\RoyalPayConfig;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
@@ -56,12 +57,11 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGa
         /** @var Response $result */
         $result = $this->gatewayClient->send($params, 'deposit');
         $header = $result->header;
-        $body = json_decode($result->body);
+        $body = RoyalPayBodyResponse::create(json_decode($result->body), $header->statusMessage);
         if ($header->statusCode != 201) {
             return new PaymentProviderResult(false, $header->statusMessage, $header->statusMessage);
         }
-
-        return new PaymentProviderResult($body->status === "created", $header->statusMessage, $body->message);
+        return new PaymentProviderResult($body->getStatus(), $body->getStatusMessage(), $body->getMessage());
     }
 
     public function withDraw(Money $amount, $idTransaction)
