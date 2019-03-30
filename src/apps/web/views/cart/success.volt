@@ -57,7 +57,7 @@ localStorage.removeItem('bet_line');
         var finish_action = function(){
         $('.box-next-draw .btn.red').remove();
 
-        {% if (lottery_name == '.MegaSena') %}
+        {% if (lottery_name == 'MegaSena') %}
         // I'm not proud of this script but it resolves, I would have preferred to modify the core to avoid these tricks, just as I was doing in the revision: c42364e701cecbaed91c998f31aa8d8b3bfeaed9 and f8899d71fcd2a47f43b95afe5f74345460d1da46
         var li_order = [];
         var megasena_elements = $(".circle_megasena");
