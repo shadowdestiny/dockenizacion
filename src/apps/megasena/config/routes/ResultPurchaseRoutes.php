@@ -25,9 +25,8 @@ class ResultPurchaseRoutes extends RouterGroup
             ]
         );
         // All the routes start with /megasena
-        $this->setPrefix('/mega-sena');
 
-        $this->add("/results/success", array(
+        $this->add("/megasena/results/success", array(
             "module" => "megasena",
             'controller' => 'result',
             'action' => 'success',
