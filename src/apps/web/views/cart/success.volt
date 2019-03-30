@@ -33,6 +33,24 @@ localStorage.removeItem('bet_line');
     localStorage.removeItem('ms_bet_line');
 {%endif%}
 
+{% if (lottery_name == 'MegaSena') %}
+    // I'm not proud of this script but it resolves, I would have preferred to modify the core to avoid these tricks, just as I was doing in the revision: c42364e701cecbaed91c998f31aa8d8b3bfeaed9 and f8899d71fcd2a47f43b95afe5f74345460d1da46
+    var megasena_elements = $("ul.numbers");
+    megasena_elements.each(function(i,elem){
+        var li_order = [];
+        $(this).find(".circle_megasena").each(function(i){
+            li_order.push(parseInt($(this).text()));
+        });
+        var li = '';
+        li_order = li_order.sort(function(a,b){
+            return a - b;
+        });
+        $.each(li_order,function(i,val){
+            li+= '<li class="circle_megasena">'+((val.toString().length < 10) ? ("0" + val): val)+'</li>'
+        });
+        $(this).html(li);
+    });
+{% endif %}
 
 </script>
 {% endblock %}
@@ -57,24 +75,7 @@ localStorage.removeItem('bet_line');
         var finish_action = function(){
         $('.box-next-draw .btn.red').remove();
 
-        {% if (lottery_name == 'MegaSena') %}
-        // I'm not proud of this script but it resolves, I would have preferred to modify the core to avoid these tricks, just as I was doing in the revision: c42364e701cecbaed91c998f31aa8d8b3bfeaed9 and f8899d71fcd2a47f43b95afe5f74345460d1da46
-        var li_order = [];
-        var megasena_elements = $(".circle_megasena");
-        megasena_elements.each(function(i,elem){
-            li_order.push(parseInt($(this).text()));
-        });
 
-        var li = '';
-        li_order.sort(function(a,b){
-            return a - b;
-        }).each(function(i,val){
-           li+= '<li class="circle_megasena">'+val+'</li>'
-        });
-
-        megasena_elements.empty();
-        megasena_elements.append(li);
-        {% endif %}
     }
     var date = '{{ date_draw }}'; {# To test "2015/11/17 10:49:00"  #}
     var finish_text = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
