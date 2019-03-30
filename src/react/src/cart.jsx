@@ -311,7 +311,7 @@ var CartPage = new React.createClass({
             price_txt_btn = this.state.total;
         } else if(_megasena === true) {
             txt_button_payment = this.props.txt_buy_btn;
-            href_payment = '/mega-sena/payment/payment?method=wallet&charge='+this.state.fund_value;
+            href_payment = '/megasena/payment/payment?method=wallet&charge='+this.state.fund_value;
             data_btn = 'wallet';
             price_txt_btn = this.state.total;
         } else {
