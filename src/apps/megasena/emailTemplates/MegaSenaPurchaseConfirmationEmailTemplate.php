@@ -73,9 +73,4 @@ class MegaSenaPurchaseConfirmationEmailTemplate extends PowerBallPurchaseConfirm
 
         return $vars;
     }
-
-    private function cmp($a, $b)
-    {
-        return $a['number'] - $b['number'];
-    }
 }
