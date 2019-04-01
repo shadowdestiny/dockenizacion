@@ -360,16 +360,16 @@
 
                     </div>
                 </div>
-                {#<form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/addFunds">
+                <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/addFunds">
                                     {% set component='{"where": "account"}'|json_decode %}
                                     {% include "account/_add-card.volt" %}
                                     <input type="hidden" id="csid" name="csid"/>
-                </form>#}
-                <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency">
-                    {% set component='{"where": "account"}'|json_decode %}
-                    {% include "account/_add-money-matrix.volt" %}
-                    <input type="hidden" id="csid" name="csid"/>
                 </form>
+                {#<form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency">#}
+                    {#{% set component='{"where": "account"}'|json_decode %}#}
+                    {#{% include "account/_add-money-matrix.volt" %}#}
+                    {#<input type="hidden" id="csid" name="csid"/>#}
+                {#</form>#}
                 <div class="box-bank {% if which_form != 'withdraw' %}hidden{% endif %}">
                     {% if msg %}
                         <div class="box success">
