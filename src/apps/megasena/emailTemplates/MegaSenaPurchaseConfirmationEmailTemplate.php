@@ -25,6 +25,28 @@ class MegaSenaPurchaseConfirmationEmailTemplate extends PowerBallPurchaseConfirm
             $template_id = "10394410";
             $subject = 'Congratulations';
         }
+
+        $arr= $this->getLine();
+
+        foreach($arr as &$item)
+        {
+            usort($item['regular_numbers'], function ($a, $b)
+            {
+                return $a['number'] - $b['number'];
+            });
+
+            if($item['regular_numbers'][4]['number']>$item['lucky_numbers'][0]['number'])
+            {
+                $aux=$item['lucky_numbers'][0]['number'];
+                $item['lucky_numbers'][0]['number']=$item['regular_numbers'][4]['number'];
+                $item['regular_numbers'][4]['number']= $aux;
+            }
+            usort($item['regular_numbers'], function ($a, $b)
+            {
+                return $a['number'] - $b['number'];
+            });
+        }
+
         $vars = [
             'template' => $template_id,
             'subject' => $subject,
@@ -32,7 +54,7 @@ class MegaSenaPurchaseConfirmationEmailTemplate extends PowerBallPurchaseConfirm
                 [
                     [
                         'name' => 'line',
-                        'content' => $this->getLine(),
+                        'content' => $arr,
                     ],
                     [
                         'name'    => 'user_name',
@@ -50,5 +72,10 @@ class MegaSenaPurchaseConfirmationEmailTemplate extends PowerBallPurchaseConfirm
         ];
 
         return $vars;
+    }
+
+    private function cmp($a, $b)
+    {
+        return $a['number'] - $b['number'];
     }
 }
