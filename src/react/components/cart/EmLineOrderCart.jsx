@@ -22,7 +22,28 @@ var EmLineOrder = new React.createClass({
             }
         }
 
-        let self = this;
+        let list_number_ball = [];
+        let list_ball = [];
+        let _class = '';
+
+        numbers.map(function(number,i) {
+            list_number_ball.push(parseInt(number));
+        });
+
+        // only megasena
+        if(this.props.megasena){
+            _class = 'circle_megasena';
+            list_number_ball.push(parseInt(stars[1]));
+            list_ball = list_number_ball
+                .sort((a, b) => a - b )
+                .map(function(number,i) {
+                    return <li key={i} className={_class}>{((number.toString().length < 10) ? ("0" + number): number)}</li>
+                });
+        } else {
+            list_ball = list_number_ball.map(function(number,i) {
+                return <li key={i} className={_class}>{number}</li>
+            });
+        }
 
         return (
             <div className={"row cl"}>
@@ -34,12 +55,7 @@ var EmLineOrder = new React.createClass({
                 <div className={'detail'}>
                     <ul className="no-li inline numbers small">
                         {
-                            numbers.map(function(number,i) {
-                                let _class = '';
-                                if (self.props.megasena)
-                                    _class = 'circle_megasena';
-                                return <li key={i} className={_class}>{number}</li>
-                            })
+                            list_ball
                         }
                         {
                             (this.props.powerball ?  <li className="star_red">{stars[1]}</li> : "")
@@ -53,9 +69,6 @@ var EmLineOrder = new React.createClass({
                                     return <li className="ellipse_eurojackpot" key={i}>{star}</li>})
                                 : ""
                             )
-                        }
-                        {
-                            (this.props.megasena  ? <li className={"circle_megasena"}>{stars[1]}</li> : "")
                         }
                         {
                             (!this.props.megamillions && !this.props.powerball && !this.props.eurojackpot && !this.props.megasena ?

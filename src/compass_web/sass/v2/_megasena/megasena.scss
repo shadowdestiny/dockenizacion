@@ -64,6 +64,13 @@ $megasena-color--main : $color--main;
       }
     }
 
+    @media only screen and (min-width: $screen-ipad-h) {
+      .right{
+        float:right;
+        text-align: right;
+      }
+    }
+
     .h4 {
       display: block;
 

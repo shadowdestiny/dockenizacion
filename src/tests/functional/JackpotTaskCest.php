@@ -19,6 +19,105 @@ class JackpotTaskCest
     {
     }
 
+    public function jackpotValitionRound(FunctionalTester $I){
+        $I->wantTo('Validation play value draw');
+
+        $I->haveInDatabase('trackingCodes',
+            [
+                'id'                    => 1,
+                'name'                  => 'test',
+                'description'           => 'test',
+            ]
+        );
+
+        $I->haveInDatabase('languages',
+            [
+                'id'                => 1,
+                'ccode'             => 'en',
+                'active'            => 1,
+                'defaultLocale'     => 'en_US',
+            ]
+        );
+
+        $I->haveInDatabase('lotteries', \EuroMillions\tests\helpers\mothers\LotteryMother::aMegaMillions()->toArray());
+        $I->haveInDatabase('lotteries', \EuroMillions\tests\helpers\mothers\LotteryMother::anEuroMillions()->toArray());
+        $I->haveInDatabase('lotteries', \EuroMillions\tests\helpers\mothers\LotteryMother::aEuroJackpot()->toArray());
+        $I->haveInDatabase('lotteries', \EuroMillions\tests\helpers\mothers\LotteryMother::aPowerBall()->toArray());
+        $I->haveInDatabase('lotteries', \EuroMillions\tests\helpers\mothers\LotteryMother::aMegaSena()->toArray());
+
+        $I->haveInDatabase(
+            'euromillions_draws',
+            EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()
+                ->withDrawDate(new \DateTime())
+                ->withJackpot(new Money((int) round(6682079997.86 / 1000000) * 100000000, new Currency('EUR')))
+                ->build()
+                ->toArray()
+        );
+
+        $I->haveInDatabase(
+            'euromillions_draws',
+            EuroMillionsDrawMother::anPowerBallDrawWithJackpotAndBreakDown()
+                ->withDrawDate(new \DateTime())
+                ->withJackpot(new Money((int) round(3600000000 / 1000000) * 100000000, new Currency('EUR')))
+                ->build()
+                ->toArray()
+        );
+
+        $I->haveInDatabase(
+            'euromillions_draws',
+            EuroMillionsDrawMother::anPowerBallDrawWithJackpotAndBreakDown()
+                ->withLottery(LotteryMother::aMegaMillions())
+                ->withJackpot(new Money((int) round(6682079997.86 / 1000000) * 100000000, new Currency('EUR')))
+                ->withId(4)
+                ->withDrawDate(new \DateTime())
+                ->build()
+                ->toArray()
+        );
+
+        $I->haveInDatabase(
+            'euromillions_draws',
+            EuroMillionsDrawMother::anPowerBallDrawWithJackpotAndBreakDown()
+                ->withLottery(LotteryMother::aEuroJackpot())
+                ->withJackpot(new Money((int) round(1900000000 / 1000000) * 100000000, new Currency('EUR')))
+                ->withId(5)
+                ->withDrawDate(new \DateTime())
+                ->build()
+                ->toArray()
+        );
+
+
+        $I->haveInDatabase(
+            'euromillions_draws',
+            EuroMillionsDrawMother::anPowerBallDrawWithJackpotAndBreakDown()
+                ->withLottery(LotteryMother::aMegaSena())
+                ->withJackpot(new Money((int) round(200000000 / 1000000) * 100000000, new Currency('EUR')))
+                ->withId(6)
+                ->withDrawDate(new \DateTime())
+                ->build()
+                ->toArray()
+        );
+
+        $current_rate_usd = 1.124037; //actual rate
+        $unit = 10000;
+
+        $format = function($jackpot){
+            return "$".preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents(round($jackpot)));
+        };
+
+        $I->expect('The Jackpot amount is greater than the minimum amount for the lottery');
+        $jackpot_amount_euromillions    = ($I->grabFromDatabase('euromillions_draws', 'jackpot_amount', ['id'=>1]) * $current_rate_usd) / (1000000 * $unit);
+        $jackpot_amount_powerball       = ($I->grabFromDatabase('euromillions_draws', 'jackpot_amount', ['id'=>3])* $current_rate_usd) / (1000000 * $unit);
+        $jackpot_amount_megamillions    = ($I->grabFromDatabase('euromillions_draws', 'jackpot_amount', ['id'=>4])* $current_rate_usd) / (1000000 * $unit);
+        $jackpot_amount_eurojackpot     = ($I->grabFromDatabase('euromillions_draws', 'jackpot_amount', ['id'=>5])* $current_rate_usd) / (1000000 * $unit);
+        $jackpot_amount_megasena        = ($I->grabFromDatabase('euromillions_draws', 'jackpot_amount', ['id'=>6])* $current_rate_usd) / (1000000 * $unit);
+
+        $I->assertEquals("$75", $format($jackpot_amount_euromillions));
+        $I->assertEquals("$40", $format($jackpot_amount_powerball));
+        $I->assertEquals("$75", $format($jackpot_amount_megamillions));
+        $I->assertEquals("$21", $format($jackpot_amount_eurojackpot));
+        $I->assertEquals("$2", $format($jackpot_amount_megasena));
+    }
+
     public function jackpotValidatorOfCache(FunctionalTester $I){
         $I->wantTo('Update the Jackpot for next draw');
 

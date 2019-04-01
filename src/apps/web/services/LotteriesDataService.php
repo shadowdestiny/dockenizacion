@@ -256,7 +256,7 @@ class LotteriesDataService
                         new Money((int) $lotteryDraw['jackpot']['total'], new Currency($lotteryDraw['currency']) ),
                         new Currency('EUR')
                     );
-                    $jack = new Money((int) floor($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
+                    $jack = new Money((int) round($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
                     $draw->setJackpot($jack);
                     if ($lottery->isNotEuroJackpot() && $lottery->isNotMegaSena()) {
                         $draw->setRaffle(new Raffle($lotteryDraw['numbers'][$lottery->isPowerBall() ? 'powerplay' : 'megaplier']));
