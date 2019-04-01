@@ -55,10 +55,10 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGa
         $params = $data->toArray();
 
         /** @var Response $result */
-        $result = $this->gatewayClient->send($params, 'deposit');
+        $result = $this->gatewayClient->send($params, 'payment');
         $header = $result->header;
         $body = RoyalPayBodyResponse::create(json_decode($result->body), $header->statusMessage);
-        if ($header->statusCode != 201) {
+        if ($header->statusCode != 200) {
             return new PaymentProviderResult(false, $header->statusMessage, $header->statusMessage);
         }
         return new PaymentProviderResult($body->getStatus(), $body->getStatusMessage(), $body->getMessage());

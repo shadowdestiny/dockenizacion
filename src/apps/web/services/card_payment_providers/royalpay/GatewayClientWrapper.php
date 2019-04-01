@@ -29,6 +29,7 @@ class GatewayClientWrapper
                 json_encode($params),
                 true,
                 array(
+                    "x-api-key: " .$this->config->getApiKey(),
                     "Content-Type: application/json; charset=utf-8",
                 )
             );
