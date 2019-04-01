@@ -34,9 +34,9 @@ class RoyalPayPaymentProviderUnitTest extends UnitTestBase
     {
         $expected = new PaymentProviderResult(true);
         $response = new Response();
-        $response->header->statusCode = 201;
+        $response->header->statusCode = 200;
         $response->body = '{ "status": "created" }';
-        $this->gatewayClient_double->send(Argument::type('Array'), 'deposit')->willReturn($response);
+        $this->gatewayClient_double->send(Argument::type('Array'), 'payment')->willReturn($response);
         $royalPayProvider = new RoyalPayPaymentProvider(new RoyalPayConfig('',''),$this->gatewayClient_double->reveal());
         $paymentProviderDTO = PaymentProviderMother::aPaymentProvider($royalPayProvider);
         $actual = $royalPayProvider->charge($paymentProviderDTO);
@@ -53,9 +53,9 @@ class RoyalPayPaymentProviderUnitTest extends UnitTestBase
     {
         $expected = new PaymentProviderResult(false);
         $response = new Response();
-        $response->header->statusCode = 201;
+        $response->header->statusCode = 200;
         $response->body = '{ "status": "error" }';
-        $this->gatewayClient_double->send(Argument::type('Array'), 'deposit')->willReturn($response);
+        $this->gatewayClient_double->send(Argument::type('Array'), 'payment')->willReturn($response);
         $royalPayProvider = new RoyalPayPaymentProvider(new RoyalPayConfig('',''),$this->gatewayClient_double->reveal());
         $paymentProviderDTO = PaymentProviderMother::aPaymentProvider($royalPayProvider);
         $actual = $royalPayProvider->charge($paymentProviderDTO);
