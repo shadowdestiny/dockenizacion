@@ -34,7 +34,7 @@ class RoyalPayPaymentProviderUnitTest extends UnitTestBase
     {
         $expected = new PaymentProviderResult(true);
         $response = new Response();
-        $response->header->statusCode = 200;
+        $response->header->statusCode = 201;
         $response->body = '{ "status": "created" }';
         $this->gatewayClient_double->send(Argument::type('Array'), 'payment')->willReturn($response);
         $royalPayProvider = new RoyalPayPaymentProvider(new RoyalPayConfig('',''),$this->gatewayClient_double->reveal());
@@ -53,7 +53,7 @@ class RoyalPayPaymentProviderUnitTest extends UnitTestBase
     {
         $expected = new PaymentProviderResult(false);
         $response = new Response();
-        $response->header->statusCode = 200;
+        $response->header->statusCode = 201;
         $response->body = '{ "status": "error" }';
         $this->gatewayClient_double->send(Argument::type('Array'), 'payment')->willReturn($response);
         $royalPayProvider = new RoyalPayPaymentProvider(new RoyalPayConfig('',''),$this->gatewayClient_double->reveal());
