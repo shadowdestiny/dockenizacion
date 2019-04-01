@@ -54,7 +54,7 @@ class MegaSenaPurchaseSubscriptionConfirmationEmailTemplate extends PowerBallPur
                 [
                     [
                         'name' => 'line',
-                        'content' => $this->getLine(),
+                        'content' => $arr,
                     ],
                     [
                         'name' => 'user_name',
