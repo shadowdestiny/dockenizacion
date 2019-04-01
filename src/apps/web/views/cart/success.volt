@@ -46,7 +46,7 @@ localStorage.removeItem('bet_line');
             return a - b;
         });
         $.each(li_order,function(i,val){
-            li+= '<li class="circle_megasena">'+((val.toString().length < 10) ? ("0" + val): val)+'</li>'
+            li+= '<li class="circle_megasena">'+((val < 10) ? ("0" + val): val)+'</li>'
         });
         $(this).html(li);
     });
