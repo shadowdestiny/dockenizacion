@@ -37,7 +37,6 @@ var EmLineOrder = new React.createClass({
             list_ball = list_number_ball
                 .sort((a, b) => a - b )
                 .map(function(number,i) {
-                    console.log(parseInt(number.toString()));
                     return <li key={i} className={_class}>{(( parseInt(number.toString()) < 10) ? ("0" + number): number)}</li>
                 });
         } else {
