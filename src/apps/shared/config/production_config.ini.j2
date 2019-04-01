@@ -110,16 +110,20 @@ api_key={{ wirecard_api_key }}
 endpoint=https://rancher-beta.euromillions.com:49167/deposit
 
 [lotto_api]
-endpoint= https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/powerball
+endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/powerball
 api_key={{ lotto_api_api_key }}
 
 [megamillions_api]
-endpoint= https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/megamillions
+endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/megamillions
 api_key={{ megamillions_api_api_key }}
 
 [eurojackpot_api]
 endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/eurojackpot
 api_key={{ eurojackpot_api_api_key }}
+
+[megasena_api]
+endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/megasena
+api_key={{ megasena_api_api_key }}
 
 [aws]
 queue_results_endpoint=https://sqs.eu-west-1.amazonaws.com/498794605962/results
@@ -148,12 +152,14 @@ EuroMillions=numbers,powerball-numbers
 PowerBall=numbers,powerball-numbers
 MegaMillions= megamillions-numbers
 EuroJackpot=euro-jackpot-numbers
+MegaSena=mega-sena-numbers
 
 [result_widget]
 EuroMillions=index
 PowerBall=index
 MegaMillions=index
 EuroJackpot=index
+MegaSena=index
 
 [geoip]
 database_files_path=/var/www/data/geoipdatabase
