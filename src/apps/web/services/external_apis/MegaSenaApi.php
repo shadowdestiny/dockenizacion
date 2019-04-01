@@ -35,8 +35,8 @@ class MegaSenaApi extends LottorisqApi
             $currency = $this->currencyConversionService->convert(new Money((int) $draw['jackpot']['total'], new Currency('BRL')),
                 new Currency('EUR'));
             $amount = (($currency->getAmount() / 1000000) < 1) ?
-                ((int) round($currency->getAmount() / 100000)  * 10000000) :
-                ((int) round($currency->getAmount() / 1000000) * 100000000);
+                ((int) floor($currency->getAmount() / 100000)  * 10000000) :
+                ((int) floor($currency->getAmount() / 1000000) * 100000000);
             return new Money($amount, new Currency('EUR'));
         } catch (\Exception $e)
         {
