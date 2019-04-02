@@ -41,7 +41,7 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGa
     {
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
         $this->config = $config;
-        $this->paymentCountry = new PaymentCountry($this->countries());
+        $this->paymentCountry = new PaymentCountry(['ES', 'RU']);
         $this->paymentWeight = new PaymentWeight(100);
     }
 
