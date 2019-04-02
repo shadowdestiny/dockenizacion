@@ -67,7 +67,7 @@ class WalletService extends Colleague
                 try {
                     $this->entityManager->persist($user);
                     $this->entityManager->flush($user);
-                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore);
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore, null, $provider->getName());
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
                 } catch (\Exception $e) {
                     //EMTD Log and warn the admin
