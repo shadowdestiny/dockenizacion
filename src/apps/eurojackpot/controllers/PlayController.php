@@ -11,6 +11,7 @@ namespace EuroMillions\eurojackpot\controllers;
 use EuroMillions\web\components\TrackingCodesHelper;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\ViewHelper;
+use EuroMillions\web\vo\cutoff\EuroJackpotCutOff;
 use Money\Currency;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 
@@ -45,7 +46,7 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         $this->draw = $this->lotteryService->getNextDateDrawByLottery('EuroJackpot');
         $date_time_util = new DateTimeUtil();
         $this->dayOfWeek = $date_time_util->getDayOfWeek($this->draw);
-        $this->checkOpenTicket = $date_time_util->checkTimeForClosePlay($this->draw);
+        $this->checkOpenTicket = (new EuroJackpotCutOff($this->draw))->isClosed();
         $this->singleBetPrice = $this->lotteryService->getSingleBetPriceByLottery('EuroJackpot');
         $this->automaticRandom = $this->request->get('random');
         $this->bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO('EuroJackpot');

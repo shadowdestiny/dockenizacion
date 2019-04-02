@@ -18,14 +18,14 @@
             $row-results-eurojackpot--obb--start : #bb8b22;
             $row-results-eurojackpot--obb--end : #c08f26;
 
-            @include degraded-section();
+            background: $medium_color;
 
 
             &:nth-child(even) {
               $row-results-eurojackpot--even--start : #d1a74e;
               $row-results-eurojackpot--even--end : #dcb35b;
 
-              @include degraded-section();
+              background: $clear_color;
 
             }
 
