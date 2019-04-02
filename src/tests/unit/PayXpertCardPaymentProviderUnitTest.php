@@ -1,8 +1,13 @@
 <?php
 namespace EuroMillions\tests\unit;
 
+use EuroMillions\shared\components\builder\PaymentProviderDTOBuilder;
+use EuroMillions\tests\helpers\mothers\OrderMother;
+use EuroMillions\tests\helpers\mothers\PaymentProviderMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentProvider;
+use EuroMillions\web\vo\dto\UserDTO;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -87,10 +92,9 @@ class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
         $transaction->send()->willReturn($expected_result);
 
         $gateway->newTransaction('CCSale')->willReturn($transaction->reveal());
-
-
         $sut = new PayXpertCardPaymentProvider(new PayXpertConfig($originator_id, $originator_name, $api_key), $gateway->reveal());
-        $actual = $sut->charge($money, $creditCard);
+        $paymentProviderDTO = PaymentProviderMother::aPaymentProvider($sut, $money, $creditCard);
+        $actual = $sut->charge($paymentProviderDTO);
         $this->assertEquals($success, $actual->success());
         $this->assertEquals($expected_result, $actual->returnValues());
     }

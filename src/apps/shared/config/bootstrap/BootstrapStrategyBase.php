@@ -19,8 +19,13 @@ use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy
 use EuroMillions\web\services\card_payment_providers\pgwlb\RandomStrategy;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy;
 use EuroMillions\shared\services\payments_load_balancer_strategies\GeoIPStrategy;
+use EuroMillions\web\services\criteria_strategies\CountryCriteria;
+use EuroMillions\web\services\criteria_strategies\CriteriaSelector;
+use EuroMillions\web\services\factories\CollectionPaymentCriteriaFactory;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\ServiceFactory;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
+use EuroMillions\web\vo\PaymentCountry;
 use Phalcon\Config;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Crypt;

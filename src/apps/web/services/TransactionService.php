@@ -3,7 +3,6 @@
 
 namespace EuroMillions\web\services;
 
-
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
@@ -11,22 +10,19 @@ use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\DepositTransaction;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\SubscriptionPurchaseTransaction;
-use EuroMillions\web\entities\TicketPurchaseTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\WinningsReceivedTransaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\repositories\LotteryRepository;
+use EuroMillions\web\services\notification_mediator\Colleague;
 use EuroMillions\web\vo\dto\TransactionDTO;
-use EuroMillions\web\vo\Order;
-use Exception;
+use EuroMillions\web\vo\enum\TransactionType;
 use Money\Currency;
 use Money\Money;
 
-
-class TransactionService
+class TransactionService extends Colleague
 {
-
     protected $entityManager;
     protected $transactionRepository;
     protected $currencyConversionService;
@@ -39,9 +35,10 @@ class TransactionService
     }
 
 
-    public function storeTransaction($transactionType,
-                                     array $data)
-    {
+    public function storeTransaction(
+        $transactionType,
+        array $data
+    ) {
         if ($data['now'] == null) {
             $data['now'] = new \DateTime();
         }
@@ -60,23 +57,21 @@ class TransactionService
 
     public function updateTransaction($entity)
     {
-        try
-        {
+        try {
             $this->entityManager->persist($entity);
             $this->entityManager->flush();
-        }catch(\Exception $e)
-        {
+            if (!is_null($this->mediator)) {
+                $this->mediator->playConfigValidate();
+            }
+        } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
-
     }
 
     public function getTransactionsDTOByUser(User $user, $page = null)
     {
-
         $result = $this->transactionRepository->getTransactionsDTOByUser($user->getId(), $page);
-        if(!is_null($page))
-        {
+        if (!is_null($page)) {
             $totalElements= count($result);
         }
 
@@ -86,19 +81,19 @@ class TransactionService
             $lotteryRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'Lottery');
             /** @var Transaction $transaction */
             foreach ($result as $transaction) {
-                if ($transaction instanceof BigWinTransaction) continue;
+                if ($transaction instanceof BigWinTransaction) {
+                    continue;
+                }
                 $transactionDTO = new TransactionDTO($transaction);
-                $transactionDTO->lotteryId = $this->getLotteryName($lotteryRepository,$transaction);
+                $transactionDTO->lotteryId = $this->getLotteryName($lotteryRepository, $transaction);
                 //TODO: refactor subscription purchase with wallet
-                if( $transaction instanceof SubscriptionPurchaseTransaction && $transactionDTO->pendingBalanceMovement->getAmount() == 0) {
+                if ($transaction instanceof SubscriptionPurchaseTransaction && $transactionDTO->pendingBalanceMovement->getAmount() == 0) {
                     continue;
                 }
-                if($transaction->checkTransactionType('PENDING'))
-                {
+                if ($transaction->checkTransactionType('PENDING')) {
                     continue;
                 }
-                if ($transaction instanceof WinningsWithdrawTransaction && $transaction->getState()=='PENDING')
-                {
+                if ($transaction instanceof WinningsWithdrawTransaction && $transaction->getState()=='PENDING') {
                     continue;
                 }
                 $movement = $this->currencyConversionService->convert($transactionDTO->movement, new Currency('EUR'));
@@ -115,8 +110,7 @@ class TransactionService
                 $transactionDTO->ticketPrice = $this->currencyConversionService->toString($ticketPrice, $user->getLocale());
                 $transactionDtoCollection[] = $transactionDTO;
             }
-            if(!is_null($page))
-            {
+            if (!is_null($page)) {
                 return ['transactionDtoCollection' => $transactionDtoCollection, 'totalElements' => $totalElements];
             }
             return $transactionDtoCollection;
@@ -125,11 +119,13 @@ class TransactionService
     }
 
     //Shit function
-    private function getLotteryName(LotteryRepository $lotteryRepository,Transaction $transaction)
+    private function getLotteryName(LotteryRepository $lotteryRepository, Transaction $transaction)
     {
         try {
             /** @var Lottery$lottery */
-            if ($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction or $transaction instanceof WinningsReceivedTransaction) return "";
+            if ($transaction instanceof WinningsWithdrawTransaction or $transaction instanceof DepositTransaction or $transaction instanceof WinningsReceivedTransaction) {
+                return "";
+            }
 
             if (method_exists($transaction, 'getLotteryName')) {
                 return $transaction->getLotteryName();
@@ -147,8 +143,7 @@ class TransactionService
 
             return  $playConfig->find($transaction->getPlayConfigs()[0])
                 ->getLottery()->getName();
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return "";
         }
     }
@@ -175,20 +170,29 @@ class TransactionService
         }
     }
 
+    public function getPendingTransactionsEntityId($since)
+    {
+        return $this->transactionRepository->getPendingTransactionsEntityId($since);
+    }
+
+    public function removeTransactionByEntityId($id)
+    {
+        return $this->transactionRepository->removeTransactionByEntityId($id);
+    }
+
     public function getSubscriptionByLotteryAndUserId($lotteryName, $userId)
     {
         try {
             /** @var LotteryRepository $lotteryRepository */
             $lotteryRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'Lottery');
             $lottery = $lotteryRepository->getLotteryByName($lotteryName);
-            return new Money((int) $this->transactionRepository->getSubscriptionBalanceByLottery($lottery->getId(), $userId),
+            return new Money(
+                (int) $this->transactionRepository->getSubscriptionBalanceByLottery($lottery->getId(), $userId),
                 new Currency('EUR')
             );
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
-
     }
 
     public function getUniqueTransactionId()
@@ -204,13 +208,29 @@ class TransactionService
     public function getWinningTransactions()
     {
         $date = new \DateTime();
-        if ($this->transactionRepository->getAwardedByDate($date->format('Y-m-d')))
-        {
+        if ($this->transactionRepository->getAwardedByDate($date->format('Y-m-d'))) {
             return true;
         } else {
             return false;
         }
     }
 
+    public function getLastDepositProviderByUserId($userId){
 
+        $collection = $this->transactionRepository->getLastDepositsDataByUserId($userId, 1);
+
+        $fakeArray = ['wirecard', 'royalpay', 'moneymatrix']; //TODO: Remove
+        $provider = array();
+        foreach($collection as $item){
+            $array = explode("#",$item['data']);
+            $array[6] = $fakeArray[1]; //TODO: Retrieve from the correct position in data field.
+            $provider[] = $array[6];
+        }
+
+        if(empty($provider)){
+            return null;
+        }
+
+        return $provider[0];
+    }
 }

@@ -101,6 +101,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return $view;
     }
 
+
     protected function configViewMegaMillions()
     {
         $view = new Phalcon\Mvc\View();
@@ -285,7 +286,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "action" => "success"
         ));
 
+        //TODO: Remove this endpoint from MoneyMatrix API and use next one
         $router->add('/paymentmx/notification', array(
+            "module" => "web",
+            "controller" => "notification",
+            "action" => "notification"
+        ));
+
+        $router->add('/payment/notification', array(
             "module" => "web",
             "controller" => "notification",
             "action" => "notification"
@@ -406,6 +414,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'addFunds'
         ));
 
+        $router->add("/profile/getCashier", array(
+            "module" => "web",
+            'namespace' => 'EuroMillions\web\controllers\profile\payment',
+            'controller' => 'funds',
+            'action' => 'getCashier'
+        ));
 
         $router->add("/account", array(
             "module" => "web",

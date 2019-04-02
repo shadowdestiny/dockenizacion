@@ -4,25 +4,29 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
+use EuroMillions\shared\helpers\PlayToPay;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
+use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\ExpiryDate;
+use EuroMillions\web\vo\PaymentCountry;
 use Money\Currency;
 use Money\Money;
 
 class PaymentController extends CartController
 {
-
+    use PlayToPay;
 
     public function paymentAction()
     {
-
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
         $funds_value = $this->request->getPost('funds');
@@ -44,8 +48,7 @@ class PaymentController extends CartController
         }
         $result = $play_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
         $msg = '';
-        if($this->orderService->hasOrderProcessing($user_id))
-        {
+        if ($this->orderService->hasOrderProcessing($user_id)) {
             $this->response->redirect('/' . $this->lottery . '/cart/profile');
             return false;
         }
@@ -59,7 +62,7 @@ class PaymentController extends CartController
                 try {
                     $card = null;
                     $amount = new Money((int)$charge, new Currency('EUR'));
-                    $result = $play_service->play($user_id, $amount, $card, true, $isWallet);
+                    $result = $play_service->play($user_id, $amount, $card, true, $isWallet, null);
                     return $this->playResult($result);
                 } catch (\Exception $e) {
                     $errors[] = $e->getMessage();
@@ -87,9 +90,23 @@ class PaymentController extends CartController
                 $user = $this->userService->getUser($user_id);
                 if (null != $user) {
                     try {
-                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
+                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number),
+                            new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
-                        $result = $play_service->play($user_id, $amount, $card, $payWallet, $isWallet);
+                        $aPaymentProvider = true; //$this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
+                        $result = $this->setPlayService($play_service)
+                            ->setPaymentProviderServiceTrait($this->paymentProviderService)
+                            ->setPaymentCountryTrait($this->paymentCountry)
+                            ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
+                            ->payFromPlay(
+                                $user_id,
+                                $amount,
+                                $card,
+                                $payWallet,
+                                $isWallet,
+                                'EuroMillions',
+                                $aPaymentProvider
+                        );
                         return $this->playResult($result);
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
@@ -118,6 +135,4 @@ class PaymentController extends CartController
             return false;
         }
     }
-
-
 }

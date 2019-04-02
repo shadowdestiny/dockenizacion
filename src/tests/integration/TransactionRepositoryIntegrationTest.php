@@ -107,7 +107,7 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     public function test_getLast_called_returnNextIdFromTransactionTable()
     {
         $actual = $this->sut->getNextId();
-        $this->assertEquals(11, $actual);
+        $this->assertEquals(12, $actual);
     }
 
     /**
@@ -156,5 +156,89 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         $arr=$this->sut->getDepositsByUserId($user->getId());
         $this->assertArrayHasKey('entity_type', $arr[0]);
     }
-    
+
+    /**
+     * method removeTransactionByEntityId
+     * when existTransaction
+     * should ReturnInteger
+     */
+    public function test_removeTransactionByEntityId_existTransaction_ReturnInteger()
+    {
+        $date = new \DateTime();
+        $user = UserMother::aJustRegisteredUser()->build();
+        $this->entityManager->persist($user);
+        $data = [
+            'lottery_id' => 1,
+            'lotteryName' => 'EuroMillions',
+            'numBets' => 3,
+            'amount' =>  2000,
+            'amountWithWallet' => 2000,
+            'amountWithCreditCard' => 0,
+            'feeApplied' => 0,
+            'user' => $user,
+            'walletBefore' => new Wallet(),
+            'walletAfter' => new Wallet(),
+            'transactionID' => '123456',
+            'now' => $date,
+            'playConfigs' => [1,2],
+            'discount' => 0,
+            'status' => 'SUCCESS',
+            'withWallet' => 1
+        ];
+        $transaction= new DepositTransaction($data);
+        $this->sut->add($transaction);
+        $this->entityManager->flush($transaction);
+        $actual = $this->sut->removeTransactionByEntityId(1);
+        $this->assertEquals(1, $actual);
+    }
+
+    /**
+     * method getPendingTransactionsEntityId
+     * when existTransactionPending
+     * should ReturnArray
+     */
+    public function test_getPendingTransactionsEntityId_existTransactionPending_ReturnArray()
+    {
+        $actual = $this->sut->getPendingTransactionsEntityId(48*60);
+        $this->assertNotEmpty($actual);
+    }
+
+    /**
+     * method getLastDepositsDataByUserId
+     * when called
+     * should ReturnArray
+     */
+    public function test_getLastDepositsDataByUserId_called_ReturnArray()
+    {
+        $this->markTestIncomplete('Finish test'); //TODO
+        $date = new \DateTime();
+        $user = UserMother::aJustRegisteredUser()->build();
+        $this->entityManager->persist($user);
+        $data = [
+            'lottery_id' => 1,
+            'lotteryName' => 'EuroMillions',
+            'numBets' => 3,
+            'amount' =>  2000,
+            'amountWithWallet' => 2000,
+            'amountWithCreditCard' => 0,
+            'feeApplied' => 0,
+            'user' => $user,
+            'walletBefore' => new Wallet(),
+            'walletAfter' => new Wallet(),
+            'transactionID' => '123456',
+            'now' => $date,
+            'playConfigs' => [1,2],
+            'discount' => 0,
+            'status' => 'SUCCESS',
+            'withWallet' => 1
+        ];
+        $depositTransaction= new DepositTransaction($data);
+        $depositTransaction->toString();
+        $this->sut->add($depositTransaction);
+        $this->entityManager->flush($depositTransaction);
+
+        $actual = $this->sut->getLastDepositsDataByUserId($user->getId());
+        $this->assertArrayHasKey('id', $actual[0]);
+        $this->assertArrayHasKey('data', $actual[0]);
+    }
 }

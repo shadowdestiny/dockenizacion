@@ -1,11 +1,16 @@
 <?php
 namespace EuroMillions\tests\unit;
+use EuroMillions\shared\components\builder\PaymentProviderDTOBuilder;
+use EuroMillions\tests\helpers\mothers\OrderMother;
+use EuroMillions\tests\helpers\mothers\PaymentProviderMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\ExpiryDate;
 use Money\Currency;
 use Money\Money;
@@ -22,9 +27,11 @@ class FakeCardPaymentProviderUnitTest extends UnitTestBase
     public function test_charge_creditCarNumberIsEven_returnOkOtherwiseKo($cardNumber, $success)
     {
         $card = new CreditCard(new CardHolderName('azofaifo'), new CardNumber($cardNumber), new ExpiryDate('12/2020'), new CVV('239'));
+        $amount = new Money(300, new Currency('EUR'));
         $sut = new FakeCardPaymentProvider();
+        $paymentProviderDTO = PaymentProviderMother::aPaymentProvider($sut, $amount, $card);
         /** @var ActionResult $actual */
-        $actual = $sut->charge(new Money(300, new Currency('EUR')), $card);
+        $actual = $sut->charge($paymentProviderDTO);
         $this->assertEquals($success, $actual->success());
     }
 

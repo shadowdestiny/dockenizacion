@@ -9,6 +9,7 @@
 namespace EuroMillions\megamillions\controllers;
 
 
+use EuroMillions\shared\helpers\PlayToPay;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\controllers\PowerBallPaymentController;
@@ -18,12 +19,15 @@ use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\ExpiryDate;
+use EuroMillions\web\vo\PaymentCountry;
 use Money\Currency;
 use Money\Money;
 
 class MegaMillionsPaymentController extends PowerBallPaymentController
 {
+
     public function paymentAction()
     {
         $credit_card_form = new CreditCardForm();
@@ -37,6 +41,7 @@ class MegaMillionsPaymentController extends PowerBallPaymentController
         $payWallet = $this->request->getPost('paywallet') !== 'false';
         $isWallet = false;
         $powerball_service = $this->domainServiceFactory->getPowerBallService();
+        $playService = $this->domainServiceFactory->getPlayService();
         $errors = [];
         $user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */
@@ -88,7 +93,20 @@ class MegaMillionsPaymentController extends PowerBallPaymentController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
-                        $result = $powerball_service->play($user_id, $amount, $card, $payWallet, $isWallet,'MegaMillions');
+                        $aPaymentProvider = true; //$this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
+                        $result = $this->setPowerBallService($powerball_service)
+                            ->setPaymentProviderServiceTrait($this->paymentProviderService)
+                            ->setPaymentCountryTrait($this->paymentCountry)
+                            ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
+                            ->payFromPlay(
+                                $user_id,
+                                $amount,
+                                $card,
+                                $payWallet,
+                                $isWallet,
+                                'MegaMillions',
+                                $aPaymentProvider
+                            );
                         return $this->playResult($result, 'megamillions');
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();

@@ -22,7 +22,7 @@ class OrderController extends CartController
         $msg = '';
         $errors = [];
         if(!empty($user_id)) {
-            $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id,$this->lottery);
+            $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id,'EuroMillions');
             $user = $this->userService->getUser($current_user_id);
         } else {
             /** @var User $user */
@@ -31,28 +31,17 @@ class OrderController extends CartController
                 $this->response->redirect('/'.$this->lottery.'/play');
                 return false;
             }
-            $result = $play_service->getPlaysFromTemporarilyStorage($user, $this->lottery);
+
+            $result = $play_service->getPlaysFromTemporarilyStorage($user, 'EuroMillions');
         }
-//        var_dump($result);die();
         if(!$result->success()) {
             $this->response->redirect('/'.$this->lottery.'/play');
             return false;
         }
 
-//        $transactionId = $this->paymentProviderService->transactionId();
-//        $this->orderDataToPaymentProvider->setTransactionId($transactionId);
-
-        //este metodo devuelve un DTO entre los datos hay o NO URL.
-//        $cashierViewDTO = $this->paymentProviderService->cashierViewDto($this->$orderDataToPaymentProvider);
-
-
-
-
         $type = ViewHelper::getNamePaymentType($this->getDI()->get('paymentProviderFactory'));
-
         $view = $type == 'iframe' ? 'cart/order_iframe' : 'cart/order';
         $this->view->pick($view);
-//        $this->view->setVar('cashierView', $cashierViewDTOURL);
         return $this->dataOrderView($user, $result, $form_errors, $msg, $credit_card_form, $errors);
     }
 
