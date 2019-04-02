@@ -109,6 +109,10 @@ api_key={{ wirecard_api_key }}
 [moneymatrix]
 endpoint=https://rancher-beta.euromillions.com:49167/deposit
 
+[royalpay]
+endpoint=https://7ejmaidn4e.execute-api.eu-west-1.amazonaws.com/prod/royalpay
+api_key={{ royalpay_api_key }}
+
 [lotto_api]
 endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/powerball
 api_key={{ lotto_api_api_key }}
@@ -132,8 +136,8 @@ secret_access_key={{ AWS_SECRET_ACCESS_KEY }}
 access_key_id={{ AWS_ACCESS_KEY_ID }}
 
 [payment_gateway]
-class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
-config= wirecard,moneymatrix
+class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy,RoyalPayPaymentStrategy
+config=wirecard,moneymatrix,royalpay
 
 [geoip_strategy]
 normal=WideCardPaymentStrategy
@@ -165,7 +169,7 @@ MegaSena=index
 database_files_path=/var/www/data/geoipdatabase
 
 [featureflag_api]
-endpoint= https://tg5wg2gree.execute-api.eu-west-1.amazonaws.com/prod
+endpoint=https://tg5wg2gree.execute-api.eu-west-1.amazonaws.com/prod
 api_key={{ featureflag_api_api_key }}
 
 [payments_notifications]
