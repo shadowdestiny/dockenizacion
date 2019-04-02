@@ -155,7 +155,9 @@
     checkRadio("#card-list tr, #bank-list tr");
     deleteLnk("#card-list .action a, #bank-list .action a");
     });
-	$('.submit').on('click', function(e){
+
+    /* //Disabled for now the moneymatrix iframe
+    $('.submit').on('click', function(e){
 
 		var amount=$('#funds-value').val();
 		amount=parseInt(amount)*100;
@@ -178,6 +180,8 @@
                                            });
         }
     });
+    */
+
     $('.submit_withdraw').on('click', function(e){
     		var amount=$('.funds-value-withdraw').val();
     		amount=parseInt(amount)*100;
@@ -308,6 +312,26 @@
                             </div>
                         </div>
                     {% endif %}
+                    {% if flash.has('error') %}
+                        <div class="box error">
+                            <svg class="ico v-warning">
+                                <use xlink:href="/w/svg/icon.svg#v-warning"/>
+                            </svg>
+                            <div class="txt">
+                                <ul class="no-li">
+                                        <li> {{ flash.output() }} </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if flash.has('success') %}
+                        <div class="box success">
+                            <svg class="ico v-checkmark">
+                                <use xlink:href="/w/svg/icon.svg#v-checkmark"/>
+                            </svg>
+                            <span class="txt">{{ flash.output() }}</span>
+                        </div>
+                    {% endif %}
 
                     <div class="box-balance">
                         <div class="box-balance--row cl">
@@ -323,7 +347,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="box-balance--row  cl" style="height:355px">
+                        <div class="box-balance--row  cl" style="height:360px">
                             <div class="txt">{{ language.translate("balance_yourSubscription") }} </div>
                             <div class="txt">{{ language.translate("EuroMillions") }} <span
                                         class="value">{{ wallet.subscriptionBalanceEuromillions}}</span></div>
@@ -365,11 +389,13 @@
                                     {% include "account/_add-card.volt" %}
                                     <input type="hidden" id="csid" name="csid"/>
                 </form>
-                {#<form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency">#}
-                    {#{% set component='{"where": "account"}'|json_decode %}#}
-                    {#{% include "account/_add-money-matrix.volt" %}#}
-                    {#<input type="hidden" id="csid" name="csid"/>#}
-                {#</form>#}
+                {#
+                <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency">
+                    {% set component='{"where": "account"}'|json_decode %}
+                    {% include "account/_add-money-matrix.volt" %}
+                    <input type="hidden" id="csid" name="csid"/>
+                </form>
+                #}
                 <div class="box-bank {% if which_form != 'withdraw' %}hidden{% endif %}">
                     {% if msg %}
                         <div class="box success">
@@ -454,7 +480,7 @@
                                         {{ language.translate("withdraw_county") }} <span class="asterisk">*</span>
                                     </label>
                                     <div class="selectbox">
-                                        {{ bank_account_form.render('country', {'disabled':'disabled','class':'select'~form_errors['country']}) }}
+                                    {{ bank_account_form.render('country', {'disabled':'disabled','class':'select'~form_errors['country']}) }}
                                     </div>
 
                                     <label class="label" for="add-bank-address">
@@ -483,9 +509,9 @@
                             </label>
                         </div>
                     </form>
-                   {#<form id="form-withdraw" class="box-add-bank">#}
-                            {#{% include "account/_add-money-matrix-withdraw.volt" %}#}
-                    {#</form>#}
+                    {#<form id="form-withdraw" class="box-add-bank">
+                            {% include "account/_add-money-matrix-withdraw.volt" %}
+                    </form>#}
                 </div>
             </div>
         </div>

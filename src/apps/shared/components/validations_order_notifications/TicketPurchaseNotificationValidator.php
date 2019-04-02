@@ -87,7 +87,7 @@ class TicketPurchaseNotificationValidator implements IValidatorOrderNotification
                 Logger::INFO,
                 'ERRORNotificationController:Notification error with transactionID: ' . $this->transaction->getId()
             );
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($this->order,$this->transaction->getUser(),$this->order->getTotal(),$this->transaction->getId(),$this->status);
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($this->order, $this->transaction->getUser(), $this->order->getTotal());
             $this->orderService->sendErrorEmail($this->order, $this->transaction->getDate());
             $this->logger->log(
                 Logger::INFO,

@@ -58,8 +58,8 @@
                                     </td>
                                     <td>
                                         <select class="select" name="status" id="editStatus" >
-                                            <option value="1">ON</option>
-                                            <option value="0">OFF</option>
+                                            <option value="true">ON</option>
+                                            <option value="false">OFF</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -100,7 +100,7 @@
                                         {{ feature.getDescription() }}
                                     </td>
                                     <td>
-                                        {% if feature.getStatus() %}
+                                        {% if feature.getStatus() == 'true' %}
                                             <div style="background-color: green; text-align: center;">ON</div>
                                         {% else %}
                                             <div style="background-color: red; text-align: center;">OFF</div>

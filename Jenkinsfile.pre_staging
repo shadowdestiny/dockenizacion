@@ -1,10 +1,10 @@
 pipeline {
     environment {
         EM_ENVIRONMENT = "pre_staging"
-        EM_DOMAIN = "pre.euromillions.com"
+        EM_DOMAIN = "${env.EM_DOMAIN}"
 
-        BUILD_IMAGE_TAG = "${env.EM_ENVIRONMENT}_${env.BUILD_NUMBER}"
-        TARGET_IMAGE_TAG = "${env.EM_ENVIRONMENT}"
+        BUILD_IMAGE_TAG = "${env.RANCHER_SUFFIX}_${env.BUILD_NUMBER}"
+        TARGET_IMAGE_TAG = "${env.RANCHER_SUFFIX}"
 
         DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
         DOCKER_HUB_USER = "${env.DOCKER_HUB_CREDENTIALS_USR}"

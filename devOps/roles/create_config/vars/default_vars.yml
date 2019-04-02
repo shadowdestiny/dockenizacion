@@ -76,6 +76,9 @@ wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
 moneymatrix_endpoint: 'https://rancher-staging-02.euromillions.com:9443'
 
+royalpay_endpoint: 'https://7ejmaidn4e.execute-api.eu-west-1.amazonaws.com/beta/royalpay'
+royalpay_apikey: 'ON6GhNYmLM9afi9fibTVKXCt7fa0lsv3RLTQ3hd4'
+
 lottorisq_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball'
 lottorisq_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
@@ -125,3 +128,5 @@ payment_balancing_dependencies: 'geoip_strategy'
 
 featureflag_api_endpoint: 'https://tg5wg2gree.execute-api.eu-west-1.amazonaws.com/beta'
 featureflag_api_apikey: 'mJPvu4rrzi43McgJY6ruf4GTdTiwP18K9OojNYjx'
+
+payments_notifications_token: 'not-a-real-token'

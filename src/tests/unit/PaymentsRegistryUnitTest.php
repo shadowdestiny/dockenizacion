@@ -22,22 +22,12 @@ class PaymentsRegistryUnitTest extends UnitTestBase
      */
     public function test_getInstances_called_returnArrayWithInstances()
     {
+        $this->markTestSkipped('Currently does not make sense');
         $configArr = ['wirecard','emerchant'];
         $sut = new PaymentsRegistry($configArr);
         $actual = $sut->getInstances();
         $this->assertInstanceOf('EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy',$actual[0]);
         $this->assertInstanceOf('EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy',$actual[0]);
     }
-
-    /**
-     * method getInstances
-     * when calledIncorrectConfig
-     * should returnEmptyArray
-     */
-    public function test_getInstances_calledIncorrectConfig_returnEmptyArray()
-    {
-
-    }
-
 
 }

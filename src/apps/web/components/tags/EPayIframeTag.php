@@ -8,6 +8,7 @@ use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\EmPayCypher;
 use EuroMillions\web\vo\Order;
 use Money\Money;
@@ -80,22 +81,17 @@ class EPayIframeTag extends Tag implements ICardPaymentProvider
     }
 
     /**
-     * @param Money $amount
-     * @param CreditCard $card
-     * @return PaymentProviderResult
+     * @param PaymentProviderDTO $data
+     * @return void
      * @throws \Exception
      */
-    public function charge(Money $amount, CreditCard $card)
+    public function charge(PaymentProviderDTO $data)
     {
         throw new \Exception();
     }
 
-    /**
-     * @param User $user
-     * @return mixed
-     */
-    public function user(User $user)
+    public function getName()
     {
-        // TODO: Implement user() method.
+        throw new \Exception();
     }
 }
