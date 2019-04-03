@@ -37,7 +37,7 @@ pipeline {
             }
             steps {
                 sh("""
-                    script --return --quiet --command \"${RANCHER_CMD_BASE} exec ${RANCHER_STACK_NAME}-web-php-1 bash /post-deploy.sh; exit $? \"
+                    script --return --quiet --command \"${RANCHER_CMD_BASE} exec ${RANCHER_STACK_NAME}-web-php-1 bash /post-deploy.sh; exit \$? \"
                 """)
             }
         }
