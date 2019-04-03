@@ -2,6 +2,7 @@
 
 namespace EuroMillions\web\components;
 
+use GeoIp2\Database\Reader;
 use GeoIp2\WebService\Client;
 use EuroMillions\web\interfaces\IGeoIPServiceAPI;
 
@@ -13,7 +14,9 @@ class MaxMindWrapper implements IGeoIPServiceAPI
 
     public function __construct($geoipConfig)
     {
-            $this->reader = new Client($geoipConfig->account_id, $geoipConfig->license_key);
+        $this->reader = $geoipConfig->use_database ?
+            new Reader($geoipConfig->database_path.'/'.$geoipConfig->database_name) :
+            new Client($geoipConfig->account_id, $geoipConfig->license_key);
     }
 
     public function getCountryFromIp($ip)

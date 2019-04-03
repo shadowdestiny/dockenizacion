@@ -48,6 +48,7 @@ ansible/roles/external/*
 /src/angular-admin/npm-debug.log*
 /src/data/geoipdatabase/GeoIP.dat
 /src/data/geoipdatabase/GeoIPv6.dat
+/src/data/geoipdatabase/GeoIP.mmdb
 /src/public/a/js/angular-admin/app/app.component.js.map
 /src/public/a/js/angular-admin/app/components/add-language.component.js.map
 /src/public/a/js/angular-admin/app/components/contacto.component.js.map
