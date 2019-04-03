@@ -95,7 +95,7 @@ class OrderService
         $this->playService->sendErrorEmail($user, $order, $dateOrder);
     }
 
-    public function addDepositFounds($event,$component,array $data)
+    public function addDepositFounds($event, $component,array $data)
     {
         $this->logger->log(Logger::INFO,
             'checkout:New deposit order with transactionID= ' . $data['transactionID']);
@@ -108,8 +108,9 @@ class OrderService
         $this->redisOrderChecker->save($transactionID,$user->getId());
         try
         {
-                $walletBefore = $user->getWallet();
-                $user=$this->updateOrderTransaction($user, $order, $transactionID, $walletBefore);
+                //$walletBefore = $user->getWallet();
+                //$user=$this->updateOrderTransaction($user, $order, $transactionID, $walletBefore);
+                $user = $this->walletService->payOrder($user, $order);
                 $this->redisOrderChecker->delete($user->getId());
         } catch(\Exception $e)
         {

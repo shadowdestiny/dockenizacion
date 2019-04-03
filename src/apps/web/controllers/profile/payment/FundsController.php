@@ -3,6 +3,7 @@
 
 namespace EuroMillions\web\controllers\profile\payment;
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\web\controllers\AccountController;
 use EuroMillions\web\entities\Lottery;
@@ -101,15 +102,17 @@ class FundsController extends AccountController
                         $onlyPay = true;
                         $apaymentProvider = true; //$this->domainServiceFactory->getServiceFactory()->getFeatureFlagApiService()->getItem("apayment-provider")->getStatus();
 
-                        if ($apaymentProvider === false) {
+                        $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
+                        $paymentProvider = $cardPaymentProvider->getIterator()->current()->get();
+
+                        if ($apaymentProvider === false || $paymentProvider->getName() == PaymentProviderEnum::ROYALPAY) {
                             $this->paymentProviderService->setEventsManager($this->eventsManager);
                             $this->eventsManager->attach('orderservice', $this->orderService);
-                            $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
-                            $paymentProvider = $cardPaymentProvider->getIterator()->current()->get();
                             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal(), $paymentProvider->getName());
+
                         } else { //Legacy Deposit with only one provider
-                            $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
-                            $paymentProvider = $cardPaymentProvider->getIterator()->current()->get();
+                            //$cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
+                            //$paymentProvider = $cardPaymentProvider->getIterator()->current()->get();
                             $onlyPay = false;
                         }
 
