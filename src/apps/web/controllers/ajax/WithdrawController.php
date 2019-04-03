@@ -47,7 +47,7 @@ class WithdrawController extends CartController
         $this->cartPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(PaymentSelectorType::CREDIT_CARD_METHOD, $this->paymentCountry);
         $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($this->cartPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
         $cashierViewDTO = $this->paymentProviderService->cashier($this->cartPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
-        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $amount);
+        $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $amount, $this->cartPaymentProvider->getIterator()->current()->get()->getName());
 
         $this->noRender();
 

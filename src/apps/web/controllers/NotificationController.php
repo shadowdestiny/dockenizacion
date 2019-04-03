@@ -48,6 +48,7 @@ class NotificationController extends MoneymatrixController
 
         $orderNotification = new OrderNotificationContext($transaction, $logger, $this->cartService);
         $order = $orderNotification->execute();
+        $this->paymentProviderService->setEventsManager($this->eventsManager);
         $orderNotificationValidator = new ValidatorOrderNotificationsContext(
             $transaction,
             $status,
@@ -57,11 +58,10 @@ class NotificationController extends MoneymatrixController
             $logger
         );
         if ($orderNotificationValidator->result()) {
-            $this->paymentProviderService->setEventsManager($this->eventsManager);
             $this->eventsManager->attach('orderservice', $this->orderService);
             $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName(), !empty($testDate) ? $testDate : null)->getValues();
             $order->setNextDraw($nextDrawForOrder);
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $transaction->getUser(), $order->getTotal(), $status, $statusCode);
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $transaction->getUser(), $order->getTotal(), $transaction->getPaymentProviderName(), $status, $statusCode);
         }
 
         exit();

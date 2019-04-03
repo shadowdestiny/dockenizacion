@@ -106,7 +106,7 @@ class FundsController extends AccountController
                             $this->eventsManager->attach('orderservice', $this->orderService);
                             $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
                             $paymentProvider = $cardPaymentProvider->getIterator()->current()->get();
-                            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
+                            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal(), $paymentProvider->getName());
                         } else { //Legacy Deposit with only one provider
                             $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
                             $paymentProvider = $cardPaymentProvider->getIterator()->current()->get();
@@ -179,7 +179,7 @@ class FundsController extends AccountController
 
                 $this->paymentProviderService->setEventsManager($this->eventsManager);
                 $this->eventsManager->attach('orderservice', $this->orderService);
-                $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
+                $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal(), $this->cartPaymentProvider->getIterator()->current()->get()->getName());
 
                 echo json_encode($cashierViewDTO);
             } else {

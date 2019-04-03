@@ -4,6 +4,7 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 
+use EuroMillions\shared\enums\PurchaseConfirmationEnum;
 use EuroMillions\shared\vo\RedisOrderKey;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\ErrorEmailTemplate;
@@ -807,6 +808,23 @@ class PlayService extends Colleague
         }
         $emailTemplate->setLine($orderLines);
         $emailTemplate->setUser($user);
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    }
+
+    public function sendEmailPurchaseQueue(User $user, $orderLines, $lotteryName)
+    {
+        $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName);
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+        if ($orderLines[0]->getFrequency() >= 4) {
+            $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName, true);
+            $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+            $emailTemplate->setDraws($orderLines[0]->getFrequency());
+            $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
+        }
+        $emailTemplate->setLine($orderLines);
+        $emailTemplate->setUser($user);
+
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 }
