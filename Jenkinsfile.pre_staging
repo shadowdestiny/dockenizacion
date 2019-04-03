@@ -27,6 +27,105 @@ pipeline {
         timeout( time: 1, unit: 'HOURS' )
     }
     stages {
+        stage('pre-build') {
+            steps {
+                // send build started notifications
+                slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+
+                sh('chmod +x devOps/ci/pre_build.sh; devOps/ci/pre_build.sh')
+            }
+        }
+        stage('test') {
+            steps {
+                sh('chmod +x devOps/ci/test.sh; devOps/ci/test.sh')
+            }
+            post {
+                always {
+                    // Shutdown test
+                    sh('sudo docker-compose -p test -f docker-compose.test.yml down')
+
+                    // Delete .env file
+                    sh('rm .env')
+
+                    //Publish junit tests
+                    junit "src/tests/junit.xml"
+                }
+            }
+        }
+        stage('build static images') {
+            parallel {
+                stage('build cron image') {
+                    steps {
+                        sh('sudo docker build -t panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG} -f devOps/docker/php/Dockerfile --target cron .')
+                        sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
+                        sh('sudo docker push panamedialottery/euromillions-php:cron_${BUILD_IMAGE_TAG}')
+                    }
+                }
+                stage('build web image') {
+                    steps {
+                        sh('sudo docker build -t panamedialottery/euromillions-web:${BUILD_IMAGE_TAG} --target staging --build-arg EM_ENVIRONMENT=${EM_ENVIRONMENT} --build-arg EM_DOMAIN=${EM_DOMAIN} devOps/docker/web')
+                        sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
+                        sh('sudo docker push panamedialottery/euromillions-web:${BUILD_IMAGE_TAG}')
+                    }
+                }
+                stage('build util-nodejs image') {
+                    steps {
+                        sh('sudo docker build -t panamedialottery/euromillions-util-nodejs devOps/docker/util-nodejs')
+                    }
+                }
+            }
+        }
+        stage('build frontend and php') {
+            parallel {
+                stage('build react'){
+                    steps{
+                        sh('sudo docker run --rm -v $(pwd)/src:/var/www -v /tmp:/tmp -e "NPM_CONFIG_CACHE=/tmp/npm_cache" panamedialottery/euromillions-util-nodejs ./provision-react.sh')
+                    }
+                }
+                stage('build grunt'){
+                    steps{
+                        sh('sudo docker run --rm -v $(pwd)/src:/var/www -v /tmp:/tmp -e "NPM_CONFIG_CACHE=/tmp/npm_cache" panamedialottery/euromillions-util-nodejs ./provision-grunt.sh')
+                    }
+                }
+                stage('build css'){
+                    steps{
+                        //Compile Web SASS
+                        sh('sudo docker run --rm -u 1000 -v $(pwd)/src:/src antonienko/compass-watch compile --force --quiet --boring --no-debug-info /src/compass_web || true')
+                    }
+                    post {
+                        always {
+                            //Delete sass cache folder
+                            sh('rm -rf $(pwd)/src/.sass-cache/*')
+                        }
+                    }
+                }
+                stage('composer php'){
+                    steps{
+                        sh('sudo docker run --rm -v $(pwd)/src:/var/www -v /tmp:/tmp -e "COMPOSER_HOME=/tmp/composer_home" panamedialottery/euromillions-php:tools composer install --no-progress --no-dev --optimize-autoloader')
+                    }
+                }
+            }
+        }
+        stage('build php image') {
+            steps {
+                sh('sudo docker build -t panamedialottery/euromillions-php:${BUILD_IMAGE_TAG} -f devOps/docker/php/Dockerfile --target staging --build-arg EM_ENVIRONMENT=${EM_ENVIRONMENT} .')
+                sh('sudo docker login --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD')
+                sh('sudo docker push panamedialottery/euromillions-php:${BUILD_IMAGE_TAG}')
+            }
+        }
+        stage('deploy') {
+            steps {
+                sh('chmod +x devOps/ci/deploy.sh; devOps/ci/deploy.sh')
+                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u')
+                sh('${RANCHER_COMPOSE_CMD_BASE} up -d -p -u --force-upgrade web php phpcron')
+            }
+            post {
+                success {
+                    // Confirm the deploy on Rancher
+                    sh('${RANCHER_COMPOSE_CMD_BASE} up -d -c')
+                }
+            }
+        }
         stage('post-deploy') {
              environment {
                 RANCHER_API_URL = "http://34.247.7.73:8080/v2-beta/schemas"
@@ -37,7 +136,7 @@ pipeline {
             }
             steps {
                 sh("""
-                    script --return --quiet --command \"${RANCHER_CMD_BASE} exec ${RANCHER_STACK_NAME}-web-php-1 bash /post-deploy.sh; exit \$? \"
+                    script --return --quiet --command \"${RANCHER_CMD_BASE} exec ${RANCHER_STACK_NAME}-web-php-1 bash /post-deploy.sh \"
                 """)
             }
         }
