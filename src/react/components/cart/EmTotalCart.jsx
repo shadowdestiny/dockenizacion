@@ -24,8 +24,8 @@ var EmTotalCart = new React.createClass({
                             </span>
                         </td>
                         <td className={"order-text-format right"}>
-                            <span className={"summary val title-base"}>
-                                {this.props.total_price}
+                            <span className={"summary val title-base"} style={{fontWeight:"bold"}}>
+                                {this.props.total_price }
                             </span>
                         </td>
                     </tr>

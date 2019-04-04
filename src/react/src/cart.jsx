@@ -425,7 +425,7 @@ var CartPage = new React.createClass({
                              txt_currencyAlert={this.props.txt_currencyAlert} txt_total={this.props.txt_total}
                              txtMultTotalPrice={this.props.txtMultTotalPrice}
                              emBtnPayment={<EmBtnPayment href={href_payment} databtn={data_btn} price={price_txt_btn}
-                                                         classBtn={class_button_payment} text={txt_button_payment} powerplay={this.props.powerplay}
+                                                         classBtn={class_button_payment} text={this.props.txt_buy_btn} powerplay={this.props.powerplay}
                                                          total_lines={total_lines}
                                                          powerplayprice={this.props.powerplayprice}
                                                          moneymatrixiframeloading={this.state.mmxloading}
@@ -434,13 +434,21 @@ var CartPage = new React.createClass({
                                                          currency_symbol={this.props.currency_symbol} config={JSON.parse(this.props.config)}/>}
                 />
                 {this.state.show_payment_section ?
-                    <div>
-                        <EmOptionSelector option_select_callback={this.selectTypePayment}/>
-                        {this.state.typePayment === 1 ?
-                            <EmCard payment_object={this.props.payment_object} />
-                            : ""
-                        }
+                    <div className={"card-section-responsive"}>
+                        <div className="cart-section">
+                            <br />
+                            <div className={"line-general-separator"}>&nbsp;</div>
+                            <EmOptionSelector option_select_callback={this.selectTypePayment}/>
+                            {this.state.typePayment === 1 ?
+                                <EmCard payment_object={this.props.payment_object}
+                                        pricetopay={this.state.total}
+                                        txt_deposit_buy_btn={this.props.txt_deposit_buy_btn}
+                                />
+                                : ""
+                            }
+                        </div>
                     </div>
+
                     : ""
                 }
             </div>
@@ -652,6 +660,7 @@ ReactDOM.render(<CartPage total={total_price}
                           txt_amount={txt_amount}
                           txtMultTotalPrice={txtMultTotalPrice}
                           payment_object={payment_object}
+                          txt_deposit_buy_btn={txt_depositBuy_btn}
 />, document.getElementById('cart-order'));
 
 

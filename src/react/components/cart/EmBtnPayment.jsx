@@ -21,19 +21,17 @@ var EmBtnPayment = new React.createClass({
 
             return (
                 <div className="box-bottom cl" style={{opacity: style}}>
-                    <a href={this.props.href} data-btn={this.props.databtn}
-                       className={this.props.classBtn}>{this.props.text}</a>
+                    <a href={this.props.href} data-btn={this.props.databtn} className={this.props.classBtn}>
+                        {this.props.text}
+                    </a>
                 </div>
             )
         } else {
+            const pay = this.props.text;
             return (
                 <div className="box-bottom cl" style={{opacity : style}}>
-                    <a href={this.props.href} data-btn={this.props.databtn} className={this.props.classBtn}>
-                        {this.props.text}
-                        <span className="gap">
-                           |
-                        </span>
-                        {this.props.price}
+                    <a href={this.props.href} data-btn='wallet' className={this.props.classBtn}>
+                        {pay}
                     </a>
                 </div>
             )

@@ -57,7 +57,7 @@ var EmLineFeeCart = new React.createClass({
                     <tr>
                         <td>
                             <div className="txt-fee">
-                                <span style={{textTransform:'none'}} className={"order-text-format font-base"}>{show_fee_text}</span>
+                                <span style={{textTransform:'none',fontWeight: 'normal'}} className={"order-text-format font-base"}>{show_fee_text}</span>
                             </div>
                         </td>
                         <td>

@@ -33,34 +33,40 @@ var EmOptionSelector = new React.createClass({
     {
         return (
             <div className={"emOptionsSelector"}>
-                <div className={"line-separator"}>&nbsp;</div>
-                <div className={"section-option"}>
-                    <div className={"flex"} onClick={() => this.selectRadio(1)}>
-                        <div className={"option"}>
-                            <div className={"radio "+this.state.radio_option_1}>
-                                <div>
-                                    &nbsp;
+                <section className={"section--card--details"}>
+                    <div className="top-row">
+                        <h1 className="h2">
+                            PAYMENT
+                        </h1>
+                    </div>
+                    <div className={"section-option"}>
+                        <div className={"flex "+this.state.radio_option_1} onClick={() => this.selectRadio(1)}>
+                            <div className={"option"}>
+                                <div className={"radio "+this.state.radio_option_1}>
+                                    <div>
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div className={"text"}>
+                                    CREDIT CARD
                                 </div>
                             </div>
-                            <div className={"text"}>
-                                CREDIT CARD
+                        </div>
+                        <div className={"flex "+this.state.radio_option_2} onClick={() => this.selectRadio(2)}>
+                            <div className={"option"}>
+                                <div className={"radio "+this.state.radio_option_2}>
+                                    <div>
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div className={"text"}>
+                                    MONEY MATRIX
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className={"flex"} onClick={() => this.selectRadio(2)}>
-                        <div className={"option"}>
-                            <div className={"radio "+this.state.radio_option_2}>
-                                <div>
-                                    &nbsp;
-                                </div>
-                            </div>
-                            <div className={"text"}>
-                                MONEY MATRIX
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className={"line-separator"}>&nbsp;</div>
+                    <div className={"line-separator"}>&nbsp;</div>
+                </section>
             </div>
         )
     }
