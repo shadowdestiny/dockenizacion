@@ -12,7 +12,7 @@ class WireCardPaymentProviderDTO extends PaymentProviderDTO implements IDto, \Js
     {
         return [
             'idTransaction' => $this->idTransaction,
-            'userID' => (string) $this->userId,
+            'userId' => (string) $this->userId,
             'amount' => $this->amount,
             'creditCardNumber' => $this->creditCardNumber,
             'cvc' => $this->cvv, //TODO: cvc != cvv ?
