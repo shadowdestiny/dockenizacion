@@ -299,7 +299,7 @@ class PaymentProviderDTOUnitTest extends UnitTestBase
     {
         return [
             ['idTransaction'],
-            ['userID'],
+            ['userId'],
             ['amount'],
             ['creditCardNumber'],
             ['cvc'],
