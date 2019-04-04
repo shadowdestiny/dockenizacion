@@ -9,7 +9,7 @@
 namespace EuroMillions\shared\config\bootstrap\modules;
 
 
-class MEgaSenaModule extends Module
+class MegaSenaModule extends Module
 {
     protected function getViewDir()
     {
