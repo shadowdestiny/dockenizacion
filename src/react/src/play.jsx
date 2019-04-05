@@ -431,7 +431,7 @@ var PlayPage = React.createClass({
         console.log("Active " + betsActive);
         var show_clear_all = this.checkNumbersOnLineStored() > 0;
         this.setState( { price : total,
-                         how_clear_all : show_clear_all,
+                         show_clear_all : show_clear_all,
                          clear_all : false,
                          random_all : false}
         );
