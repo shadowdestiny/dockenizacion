@@ -409,14 +409,14 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
         $this->tag->prependTitle('Review and Buy');
 
         /**** Instance payment method ***/
-        if(empty($order)){
+        if(empty($order) || empty($order_eur)){
             $order = $this->cartService->get($user->getId(),$lottery->getName(),$checked_wallet)->getValues();
             $order_eur = clone $order;
         }
         $this->paymentProviderService->setEventsManager($this->eventsManager);
         $this->eventsManager->attach('orderservice', $this->orderService);
         $cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
-        $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($cardPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
+        $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($cardPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order_eur, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
         $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
 
         //TODO: Enable this for async transaction updates
