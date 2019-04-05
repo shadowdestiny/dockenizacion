@@ -205,13 +205,30 @@ class ReportsService
      *
      * @return mixed
      */
-    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot)
+    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot, $nextDrawDateMegaSena)
     {
-        $subscriptionsActives = $this->reportsRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot);
+        $subscriptionsActives = $this->reportsRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot, $nextDrawDateMegaSena);
         foreach ($subscriptionsActives as $subscriptionsActiveKey => $subscriptionsActiveValue) {
             $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
             $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
-            $subscriptionsActives[$subscriptionsActiveKey]['lottery'] = $subscriptionsActiveValue['lottery_id'] == 1 ? 'Euromillions' : $subscriptionsActiveValue['lottery_id'] == 3 ? 'PowerBall' : $subscriptionsActiveValue['lottery_id'] == 4 ? 'MegaMillions' : 'EuroJackpot';
+            switch( $subscriptionsActiveValue['lottery_id'])
+            {
+                case "1":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'Euromillions';
+                    break;
+                case "3":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'PowerBall';
+                    break;
+                case "4":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'MegaMillions';
+                    break;
+                case "5":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'EuroJackpot';
+                    break;
+                case "6":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'MegaSena';
+                    break;
+            }
         }
         return $subscriptionsActives;
     }
@@ -227,7 +244,24 @@ class ReportsService
         foreach ($subscriptionsActives as $subscriptionsActiveKey =>  $subscriptionsActiveValue) {
             $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
             $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
-            $subscriptionsActives[$subscriptionsActiveKey]['lottery'] = $subscriptionsActiveValue['lottery_id'] == 1 ? 'Euromillions' : $subscriptionsActiveValue['lottery_id'] == 3 ? 'PowerBall' : $subscriptionsActiveValue['lottery_id'] == 4 ? 'MegaMillions' : 'EuroJackpot';
+            switch( $subscriptionsActiveValue['lottery_id'])
+            {
+                case "1":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'Euromillions';
+                    break;
+                case "3":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'PowerBall';
+                    break;
+                case "4":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'MegaMillions';
+                    break;
+                case "5":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'EuroJackpot';
+                    break;
+                case "6":
+                    $subscriptionsActives[$subscriptionsActiveKey]['lottery']= 'MegaSena';
+                    break;
+            }
         }
         return $subscriptionsActives;
     }
@@ -740,6 +774,9 @@ class ReportsService
                     break;
                 case "acceptingEmails":
                     //Pasamos array con accepting emails de todos los usuarios a la vista
+                    break;
+                case "affiliate";
+                    $selectPlayersReports .= ' u.affiliate as affiliate,';
                     break;
             }
         }

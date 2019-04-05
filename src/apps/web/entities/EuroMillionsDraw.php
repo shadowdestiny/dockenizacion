@@ -2,6 +2,7 @@
 namespace EuroMillions\web\entities;
 
 use EuroMillions\eurojackpot\vo\EuroJackpotDrawBreakDown;
+use EuroMillions\megasena\vo\MegaSenaDrawBreakDown;
 use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
@@ -139,6 +140,14 @@ class EuroMillionsDraw extends EntityBase implements IEntity
         elseif ($this->lottery->getName() == 'EuroJackpot')
         {
             $className=EuroJackpotDrawBreakDown::class;
+            $breakDowns=[
+                'prizes' => $result['prizes'],
+                'winners' => $result['winners']
+            ];
+        }
+        elseif ($this->lottery->getName() == 'MegaSena')
+        {
+            $className=MegaSenaDrawBreakDown::class;
             $breakDowns=[
                 'prizes' => $result['prizes'],
                 'winners' => $result['winners']

@@ -41,14 +41,14 @@
         </h2>
 
         <p>
-            {{ language.translate("PlayEJ_h1_text") }}
+            {{ language.translate("PlayEJ_h2_text") }}
         </p>
         <h2>
             {{ language.translate("PlayEJ_h2_2") }}
         </h2>
 
         <p>
-            {{ language.translate("PlayEJ_h2_text") }}
+            {{ language.translate("PlayEJ_h2_text2") }}
         </p>
 
     </div>

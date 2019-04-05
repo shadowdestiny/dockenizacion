@@ -58,7 +58,9 @@
                                 {% for regular_number,badArray in play_config.regular_numbers %}
                                     <span>{{ badArray }}</span>
                                 {% endfor %}
-                                {% if (play_config.lotteryName == 'PowerBall') or  (play_config.lotteryName == 'MegaMillions')%}
+                                {% if (play_config.lotteryName == 'MegaSena')%}
+                                <span>{{ lucky[1] }}</span>
+                                {% elseif (play_config.lotteryName == 'PowerBall') or  (play_config.lotteryName == 'MegaMillions')%}
                                     <span class="star">{{ lucky[1] }}</span>
                                 {% else %}
                                     {% for lucky_number,badArray in play_config.lucky_numbers %}

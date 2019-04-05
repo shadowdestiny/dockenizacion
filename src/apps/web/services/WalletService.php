@@ -347,7 +347,6 @@ class WalletService
     public function withDraw(User $user, Money $amount)
     {
         try {
-            $walletBefore = $user->getWallet();
             $newWallet = $user->getWallet()->withdraw($amount);
             if ($newWallet == null) {
                 throw new \Exception('You don\'t have enough winning amount to complete transaction');
@@ -355,15 +354,6 @@ class WalletService
             $user->setWallet($newWallet);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            $data = [];
-            $data['now'] = new \DateTime();
-            $data['walletBefore'] = $walletBefore;
-            $data['walletAfter'] = $user->getWallet();
-            $data['user'] = $user;
-            $data['accountBankId'] = '1';
-            $data['amountWithdrawed'] = $amount->getAmount();
-            $data['state'] = 'pending';
-            $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $data);
             return new ActionResult(true);
         } catch (\Exception $e) {
             return new ActionResult(false, $e->getMessage());
@@ -406,6 +396,10 @@ class WalletService
                     $this->transactionService->getSubscriptionByLotteryAndUserId('EuroJackpot', $user->getId()),
                     $user->getUserCurrency()
                 ), $user->getLocale());
+                $amountSubscriptionBalanceMegaSena = $this->currencyConversionService->toString( $this->currencyConversionService->convert(
+                    $this->transactionService->getSubscriptionByLotteryAndUserId('MegaSena', $user->getId()),
+                    $user->getUserCurrency()
+                ), $user->getLocale());
                 $wallet_dto = new WalletDTO([
                     'amountBalance' => $amount_balance,
                     'amountWinnings' => $amount_winnings,
@@ -416,6 +410,7 @@ class WalletService
                     'amountSubscriptionBalancePowerBall' => $amountSubscriptionBalancePowerBall,
                     'amountSubscriptionBalanceMegaMillions' => $amountSubscriptionBalanceMegaMillions,
                     'amountSubscriptionBalanceEuroJackpot' => $amountSubscriptionBalanceEuroJackpot,
+                    'amountSubscriptionBalanceMegaSena' => $amountSubscriptionBalanceMegaSena,
                 ]);
                 $balance = $this->currencyConversionService->toString($wallet->getBalance(), $user->getLocale());
                 $winnings = $this->currencyConversionService->toString($wallet->getWithdrawable(), $user->getLocale());

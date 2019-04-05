@@ -14,3 +14,6 @@ mv GeoIPv6.dat ${WORKSPACE}/src/data/geoipdatabase
 
 # Build php tool image
 sudo docker build --target tools -f ${WORKSPACE}/devOps/docker/php/Dockerfile -t panamedialottery/euromillions-php:tools ${WORKSPACE}
+
+# Run Ansible Playbook
+ansible-playbook --vault-password-file ${ANSIBLE_VAULT_PASSWORD_FILE} ${WORKSPACE}/devOps/playbook_jenkins.yml

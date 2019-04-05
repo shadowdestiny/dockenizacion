@@ -313,7 +313,7 @@ function isMobile(){
 //v2
 $(document).ready(function () {
 
- let lottery_carousel =  $(".lotteries--carousel");
+ var lottery_carousel =  $(".lotteries--carousel");
  const items = lottery_carousel.find(".lottery-carousel").length;
 
   // Homepage lotteries carousel
@@ -518,7 +518,7 @@ $(document).ready(function () {
 
     $( "#sign-up-form" ).on('change', '#country', function() {
         $.ajax({
-            url:'https://restcountries.eu/rest/v2/name/'+$("#country option:selected").text()+'?fullText=true',
+            url:'https://restcountries.eu/rest/v2/name/'+$("#country option:selected").text(),
             type:'get',
             dataType:"json",
             success:function(json){

@@ -1,6 +1,6 @@
 ARG PHP_VERSION=5.6.38
 
-FROM php:${PHP_VERSION}-fpm-jessie as base
+FROM php:${PHP_VERSION}-fpm-stretch as base
 #FROM panamedialottery/euromillions-base-php as base
 
 ARG PHALCON_BRANCH=phalcon-v2.0.9
@@ -46,7 +46,7 @@ COPY cron/php.ini $PHP_INI_DIR/php.ini
 COPY cron/entrypoint.sh /entrypoint.sh
 COPY cron/euromillions.crons /etc/cron.d/euromillions.crons
 
-RUN apt-get update && apt-get install -y cron supervisor \
+RUN apt-get update && apt-get install -y cron supervisor mysql-client gzip \
     && chmod -v +x /entrypoint.sh \
     && crontab /etc/cron.d/euromillions.crons \
     && rm -rf /var/lib/apt/lists/* \

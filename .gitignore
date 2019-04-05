@@ -3,6 +3,7 @@
 .vagrant
 .idea
 .env
+.ansible_vault_password
 *.retry
 *.log
 phpinfo.php
@@ -62,4 +63,5 @@ ansible/roles/external/*
 src/compass_web/.sass-cache/
 src/public/w/css/v2/head.css
 src/public/w/css/v2/
+src/public/w/css/main_v2.css
 node_modules/

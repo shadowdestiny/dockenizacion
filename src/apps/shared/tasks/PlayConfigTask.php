@@ -37,14 +37,14 @@ class PlayConfigTask extends TaskBase
         if(!$today) {
             $today = new \DateTime();
         }
-        if(isset($args[1]) && in_array($args[1],['MegaMillions', 'EuroMillions', 'PowerBall']))
+        if(isset($args[1]) && in_array($args[1],['MegaMillions', 'EuroMillions', 'PowerBall', 'EuroJackpot', 'MegaSena']))
         {
             $lottery=$this->lotteryService->getLotteryByName($args[1]);
             $this->betService->updatePlayConfigsToInactive($today, $lottery->getId());
         }
         else
         {
-            echo("add lottery name ('MegaMillions', 'EuroMillions', 'PowerBall')");
+            echo("add lottery name ('MegaMillions', 'EuroMillions', 'PowerBall', 'EuroJackpot', 'MegaSena')");
         }
     }
 

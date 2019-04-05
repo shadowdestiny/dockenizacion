@@ -5,10 +5,14 @@ var EuroMillionsClearLine = require('./EmClearLine.js');
 var EuroMillionsCheckMark = require('./EmIcoCheckMark.js');
 var EuroMillionsRandomBtn = require('./EmRandomBtn.js');
 
-const GAME_MODE_POWERBALL = 'powerball'
-const GAME_MODE_EUROMILLIONS = 'euromillions'
-const GAME_MODE_MEGAMILLIONS = 'megamillions'
-const GAME_MODE_EUROJACKPOT = 'eurojackpot'
+import {
+    GAME_MODE_POWERBALL,
+    GAME_MODE_EUROMILLIONS,
+    GAME_MODE_MEGAMILLIONS,
+    GAME_MODE_EUROJACKPOT,
+    GAME_MODE_MEGASENA,
+    numberSets,
+} from '../config/constants';
 
 var EuroMillionsLine = React.createClass({
 
@@ -28,12 +32,6 @@ var EuroMillionsLine = React.createClass({
           numbers = storage.numbers;
           stars   = storage.stars;
         }
-        const numberSets = {
-          [GAME_MODE_POWERBALL]    : { maxStars : 1, highestNumber : 69, highestStar : 26 },
-          [GAME_MODE_EUROMILLIONS] : { maxStars : 2, highestNumber : 50, highestStar : 12 },
-          [GAME_MODE_MEGAMILLIONS] : { maxStars : 1, highestNumber : 70, highestStar : 25 },
-          [GAME_MODE_EUROJACKPOT]  : { maxStars : 2, highestNumber : 50, highestStar : 10 },
-        }
         return {
             isAnimated : false,
             show_btn_clear : showClearBtn,
@@ -41,7 +39,7 @@ var EuroMillionsLine = React.createClass({
                 'numbers': numbers,
                 'stars': stars
             },
-            maxNumbers    : 5,
+            maxNumbers    : numberSets[gameMode].maxNumbers,
             ...numberSets[gameMode],
         };
     },

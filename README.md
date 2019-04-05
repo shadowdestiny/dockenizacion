@@ -93,7 +93,6 @@ You can view their logs via **$ docker log -f <container-name>**
 1) cd src/compass_web/
 2) compass watch
 
-
 ##V2 SASS - new design style
 
 1) Use "npm install" command to install plugins for the SCSS (from the package.json file list)
@@ -117,3 +116,15 @@ docker run --rm -v $(pwd)/src:/src antonienko/compass-watch compile --force /src
 ```
 
 This will compile all .scss files on /src/compass_web
+
+# Ansible Vault variable files
+
+````
+- Decrypt:
+
+ansible-vault decrypt devOps/vars/secure_prod.yml --ask-vault-pass
+
+- Encrypt
+
+ansible-vault encrypt devOps/vars/secure_prod.yml --ask-vault-pass
+````

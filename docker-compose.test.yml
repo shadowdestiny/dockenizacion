@@ -1,6 +1,5 @@
 # This docker-compose.yml is for test environment only.
 version: '3.4'
-
 services:
 
   redis:
@@ -13,22 +12,6 @@ services:
       MYSQL_USER: euromillions
       MYSQL_PASSWORD: tpl9
       MYSQL_DATABASE: euromillions
-
-#  web:
-#    build:
-#      context: .
-#      dockerfile: devOps/docker/web/Dockerfile
-#      target: prod
-#    volumes:
-#      - "./src:/var/www"
-#    depends_on:
-#      - php
-#    links:
-#      - php:php
-#    networks:
-#      - backend
-#    environment:
-#      EM_ENV: test
 
   php:
     build:
@@ -45,5 +28,5 @@ services:
       - database
     environment:
       EM_ENV: test
-      AWS_ACCESS_KEY_ID: AKIAJ4KKQDQVDECKXUNQ
-      AWS_SECRET_ACCESS_KEY: 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
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}

@@ -3,3 +3,5 @@ modules:
     enabled:
         - \Helper\Unit
         - Asserts
+        - Db:
+              cleanup: true

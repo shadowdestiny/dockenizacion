@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  vars:
+    em_environment: "{{ lookup('env','EM_ENVIRONMENT') }}"
+    workspace: "{{ lookup('env','WORKSPACE') }}"
+
+    app_config_filename:
+      staging: staging
+      prod: production
+      pre_staging: pre_staging
+
+    # for local debug uncomment following vars:
+    #em_environment: pre_staging
+    #workspace: "{{ playbook_dir }}/.."
+
+  tasks:
+    - name: include variables for environment
+      include_vars: vars/secure_{{ em_environment }}.yml
+
+    - name: Generate environment file for Docker Compose ( Test Environment )
+      template: src="{{ workspace }}/.env.test.j2" dest="{{ workspace }}/.env.test"
+
+    - name: Generate environment file for Docker Compose
+      template: src="{{ workspace }}/.env.{{ em_environment }}.j2" dest="{{ workspace }}/.env.{{ em_environment }}"
+
+    - name: Generate config file for App
+      template: src="{{ workspace }}/src/apps/shared/config/{{ app_config_filename[em_environment] }}_config.ini.j2" dest="{{ workspace }}/src/apps/shared/config/{{ app_config_filename[em_environment] }}_config.ini"
+
+    - name: Generate config file for Phinx
+      template: src="{{ workspace }}/src/phinx.yml" dest="{{ workspace }}/src/phinx.yml"

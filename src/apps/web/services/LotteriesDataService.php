@@ -3,6 +3,7 @@
 namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\emailTemplates\CheckResultsOrigin;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\entities\Lottery;
@@ -204,15 +205,9 @@ class LotteriesDataService
                 $draw = $this->createDraw($lastDrawDate, null, $lottery);
             }
 
-            $draw->createResult(
-                $result['numbers']['main'],
-                $lottery->isEuroJackpot() ? $result['numbers']['euro'] : [
-                    0,
-                    $result['numbers'][$lottery->isPowerBall() ? 'powerball' : 'megaball']
-                ]
-            );
+            $draw= $this->createResult($draw, $lottery, $result['numbers']);
 
-            if ($lottery->isNotEuroJackpot()) {
+            if ($lottery->isNotEuroJackpot() && $lottery->isNotMegaSena()) {
                 $draw->setRaffle(new Raffle($result['numbers'][$lottery->isPowerBall() ? 'powerplay' : 'megaplier']));
             }
 
@@ -256,14 +251,14 @@ class LotteriesDataService
                     }
 
                     $draw = $this->createDraw(new \DateTime($lotteryDraw['date']), null, $lottery);
-                    $draw->createResult($lotteryDraw['numbers']['main'], $lottery->isEuroJackpot() ? $lotteryDraw['numbers']['euro'] : [0, $lotteryDraw['numbers'][$lottery->isPowerBall() ? 'powerball' : 'megaball']]);
+                    $draw= $this->createResult($draw, $lottery, $lotteryDraw['numbers']);
                     $jackpotEUR = $currencyConversionService->convert(
                         new Money((int) $lotteryDraw['jackpot']['total'], new Currency($lotteryDraw['currency']) ),
                         new Currency('EUR')
                     );
                     $jack = new Money((int) floor($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
                     $draw->setJackpot($jack);
-                    if ($lottery->isNotEuroJackpot()) {
+                    if ($lottery->isNotEuroJackpot() && $lottery->isNotMegaSena()) {
                         $draw->setRaffle(new Raffle($lotteryDraw['numbers'][$lottery->isPowerBall() ? 'powerplay' : 'megaplier']));
                     }
                     $draw->createBreakDown($lotteryDraw);
@@ -382,6 +377,32 @@ class LotteriesDataService
             'jackpot' => $jackpot,
             'lottery' => $lottery
         ]);
+        return $draw;
+    }
+
+    /**
+     * @param $draw
+     * @param $lottery
+     * @param $numbers
+     * @return EuroMillionsDraw
+     */
+    protected function createResult($draw ,$lottery, $numbers)
+    {
+        switch($lottery->getName())
+        {
+            case 'EuroJackpot':
+                $draw->createResult($numbers['main'], $numbers['euro'] );
+                break;
+            case 'MegaMillions':
+                $draw->createResult($numbers['main'], [0, $numbers['megaball']] );
+                break;
+            case 'PowerBall':
+                $draw->createResult($numbers['main'], [0, $numbers['powerball']] );
+                break;
+            case 'MegaSena':
+                $draw->createResult($numbers['main'], $numbers['sena']);
+                break;
+        }
         return $draw;
     }
 }

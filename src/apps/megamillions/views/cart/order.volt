@@ -34,6 +34,7 @@
     var txt_link_play = "{{ language.translate("link_euromillions_play") }}";
     var txt_link_powerball = "{{ language.translate("link_powerball_play") }}";
     var txt_link_megamillions = "{{ language.translate("link_megamillions_play") }}";
+    var txt_link_eurojackpot = "{{ language.translate("link_eurojackpot_play") }}";
     var txt_line = '{{ language.translate('line_x') }}';
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';
@@ -41,6 +42,7 @@
     var saturday = '{{ language.translate('saturday') }}';
     var powerball = false;
     var megamillions = true;
+    var megasena = false;
     var powerplay = <?php echo $power_play; ?>;
     var powerplayprice = <?php echo $power_play_price; ?>;
     var txt_lottery = '<?php echo $lottery_name; ?>';

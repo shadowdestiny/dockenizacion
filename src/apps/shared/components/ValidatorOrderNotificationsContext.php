@@ -40,7 +40,11 @@ class ValidatorOrderNotificationsContext
         } elseif($order->getOrderType() == OrderType::WINNINGS_WITHDRAW)
         {
             $this->strategy = new WithdrawNotificationValidator($order, $status,$transaction,$paymentProviderService,$orderService,$logger);
-        }else
+        }elseif($order->getOrderType() == OrderType::DEPOSIT)
+        {
+            $this->strategy = new WithdrawNotificationValidator($order, $status,$transaction,$paymentProviderService,$orderService,$logger);
+        }
+        else
         {
             $this->strategy = new FakeNotificationValidator();
         }

@@ -13,10 +13,15 @@ const MAX_MOBILE_WIDTH = 768
 const TABLET_PORTRAIT_WIDTH = 992
 const TABLET_LANDSCAPE_WIDTH = 1024
 
-const GAME_MODE_POWERBALL = 'powerball'
-const GAME_MODE_EUROMILLIONS = 'euromillions'
-const GAME_MODE_MEGAMILLIONS = 'megamillions'
-const GAME_MODE_EUROJACKPOT = 'eurojackpot'
+
+import {
+    GAME_MODE_EUROMILLIONS,
+    GAME_MODE_POWERBALL,
+    GAME_MODE_MEGAMILLIONS,
+    GAME_MODE_EUROJACKPOT,
+    GAME_MODE_MEGASENA,
+    numberSets
+} from '../config/constants'
 
 var PlayPage = React.createClass({
 
@@ -95,24 +100,18 @@ var PlayPage = React.createClass({
     },
 
     getStorageKey : function () {
-      const storageKeys = {
-        [GAME_MODE_POWERBALL] : 'pb_bat_line', // <- typo "bat"
-        [GAME_MODE_EUROMILLIONS] : 'bet_line',
-        [GAME_MODE_MEGAMILLIONS] : 'mm_bet_line',
-        [GAME_MODE_EUROJACKPOT] : 'ej_bet_line',
-      }
-      return storageKeys[this.props.mode]
+      return numberSets[this.props.mode].className;
     },
 
     getNumLinesThatAreFilled : function ()
     {
         var current_lines = this.state.storage;
         var num_valid_lines = 0;
-        const { mode } = this.props
-        const maxStars = (mode == GAME_MODE_EUROMILLIONS || mode == GAME_MODE_EUROJACKPOT) ? 2 : 1 // MegaMillions and Powerball both have a dropdown with one possible selected number
+        const { mode } = this.props;
+        const maxStars = numberSets[this.props.mode].maxStars; // MegaMillions and Powerball both have a dropdown with one possible selected number
 
         current_lines.forEach(function(value) {
-            if(value.numbers.length == 5 && value.stars.length == maxStars) {
+            if(value.numbers.length === numberSets[mode].maxNumbers && value.stars.length === maxStars) {
                 num_valid_lines++;
             }
         });
@@ -444,14 +443,14 @@ var PlayPage = React.createClass({
 
     getTotalPriceWithDiscount: function (draws)
     {
-        var lines = JSON.parse(this.props.discount_lines);
-        var singlePrice = 0;
+        let lines = JSON.parse(this.props.discount_lines);
+        let singlePrice = 0;
         lines.forEach(function(line){
-            if (line.draws == draws){
+            if (line.draws === draws){
                 singlePrice = (line.singleBetPriceWithDiscount / 100).toFixed(2);
             }
         });
-        if (singlePrice == 0){
+        if (singlePrice === 0){
             return this.state.price * draws;
         } else {
             return singlePrice * this.getNumLinesThatAreFilled() * draws;
@@ -513,6 +512,7 @@ var PlayPage = React.createClass({
           [GAME_MODE_POWERBALL]    : 'powerball-game',
           [GAME_MODE_MEGAMILLIONS] : 'megamillions-game',
           [GAME_MODE_EUROJACKPOT] : 'eurojackpot-game',
+          [GAME_MODE_MEGASENA]      : 'megasena-game',
         }
 
         return (

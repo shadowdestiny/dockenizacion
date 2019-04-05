@@ -1,3 +1,4 @@
+# {{ ansible_managed }}
 paths:
     migrations: %%PHINX_CONFIG_DIR%%/apps/web/migrations
     seeds: %%PHINX_CONFIG_DIR%%/apps/web/seeds
@@ -28,8 +29,17 @@ environments:
         adapter: mysql
         host: stagingdatabases.cywoihxulkwc.eu-west-1.rds.amazonaws.com
         name: euromillions
+        user: '{{ staging.database_user }}'
+        pass: '{{ staging.database_pass }}'
+        port: 3306
+        charset: utf8
+
+    pre_staging:
+        adapter: mysql
+        host: database
+        name: euromillions
         user: euromillions
-        pass: 'je96bmdhaVdH6oCt'
+        pass: 'master'
         port: 3306
         charset: utf8
 
@@ -37,8 +47,8 @@ environments:
         adapter: mysql
         host: euromillionsweb.cywoihxulkwc.eu-west-1.rds.amazonaws.com
         name: euromillions
-        user: euromillions
-        pass: 'Panamedia190'
+        user: '{{ production.database_user }}'
+        pass: '{{ production.database_pass }}'
         port: 3306
         charset: utf8
 

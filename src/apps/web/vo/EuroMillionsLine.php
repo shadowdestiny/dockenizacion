@@ -78,7 +78,7 @@ class EuroMillionsLine implements IArraySerializable
      * @param $type
      * @return bool
      */
-    private function checkTypeAndRepeated($numbers, $type)
+    protected function checkTypeAndRepeated($numbers, $type)
     {
         $existing_numbers = [];
         foreach ($numbers as $number) {

@@ -22,7 +22,8 @@ class PowerballNumbersController extends PublicSiteControllerBase
         $date = $this->request->get('date');
         $lotteryName = 'PowerBall';
         $date = empty($date) ? $this->lotteryService->getLastDrawDate('PowerBall') : new \DateTime($date);
-        $result = $this->lotteryService->getDrawsDTO($lotteryName);
+        $webLanguageStrategy = new WebLanguageStrategy($this->session,$this->di->get('request'));
+        $result = $this->lotteryService->getLotteryDrawsDTO($lotteryName, 13, $webLanguageStrategy);
         $draw_result = $this->lotteryService->getLastDrawWithBreakDownByDate($lotteryName, $date);
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('PowerBall'));
         $numbers = preg_replace('/[A-Z,.]/','',ViewHelper::formatJackpotNoCents($jackpot));
