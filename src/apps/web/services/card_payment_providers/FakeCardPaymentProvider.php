@@ -3,6 +3,7 @@ namespace EuroMillions\web\services\card_payment_providers;
 use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
@@ -78,4 +79,11 @@ class FakeCardPaymentProvider implements ICardPaymentProvider
         return PaymentProviderEnum::FAKECARD;
     }
 
+    /**
+     * @return IPaymentResponseRedirect
+     */
+    public function getResponseRedirect()
+    {
+        // TODO: Implement getResponseRedirect() method.
+    }
 }

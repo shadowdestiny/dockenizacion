@@ -53,7 +53,7 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         $this->config = $config;
         $this->paymentCountry = new PaymentCountry($this->countries());
         $this->paymentWeight= new PaymentWeight(50);
-        $this->responseRedirect = new WirecardRedirectResponseStrategy($this->gatewayClient->curlWrapper);
+        $this->responseRedirect = new WirecardRedirectResponseStrategy();
 
     }
 
