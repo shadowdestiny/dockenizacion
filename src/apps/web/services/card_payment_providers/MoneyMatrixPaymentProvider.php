@@ -12,6 +12,7 @@ namespace EuroMillions\web\services\card_payment_providers;
 use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
+use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixConfig;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixGatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
@@ -94,5 +95,13 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
     public function  getName()
     {
         return PaymentProviderEnum::MONEYMATRIX;
+    }
+
+    /**
+     * @return IPaymentResponseRedirect
+     */
+    public function getResponseRedirect()
+    {
+        // TODO: Implement getResponseRedirect() method.
     }
 }

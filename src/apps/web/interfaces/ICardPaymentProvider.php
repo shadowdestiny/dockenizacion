@@ -18,4 +18,9 @@ interface ICardPaymentProvider
      * @return string
      */
     public function getName();
+
+    /**
+     * @return IPaymentResponseRedirect
+     */
+    public function getResponseRedirect();
 }

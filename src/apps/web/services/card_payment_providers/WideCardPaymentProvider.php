@@ -8,8 +8,10 @@ use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
+use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
 use EuroMillions\web\services\card_payment_providers\widecard\GatewayClientWrapper;
+use EuroMillions\web\services\card_payment_providers\widecard\redirect_response\WirecardRedirectResponseStrategy;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
 use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
@@ -40,12 +42,19 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
      */
     protected $paymentWeight;
 
+    /**
+     * @var WirecardRedirectResponseStrategy
+     */
+    protected $responseRedirect;
+
     public function __construct(WideCardConfig $config, $gatewayClient = null)
     {
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
         $this->config = $config;
         $this->paymentCountry = new PaymentCountry($this->countries());
         $this->paymentWeight= new PaymentWeight(50);
+        $this->responseRedirect = new WirecardRedirectResponseStrategy($this->gatewayClient->curlWrapper);
+
     }
 
     /**
@@ -111,5 +120,13 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
     public function  getName()
     {
         return PaymentProviderEnum::WIRECARD;
+    }
+
+    /**
+     * @return IPaymentResponseRedirect
+     */
+    public function getResponseRedirect()
+    {
+        return $this->responseRedirect;
     }
 }

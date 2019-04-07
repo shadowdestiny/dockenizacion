@@ -182,12 +182,12 @@ class PlayService extends Colleague
                     }
                     $result_payment = new ActionResult(true, $order);
                 }
+
                 return new ActionResult($result_payment->success(), $order);
             }
             return new ActionResult(false);
         } catch (\Exception $e) {
             echo $e->getMessage();
-            die();
         }
     }
 
@@ -301,6 +301,12 @@ class PlayService extends Colleague
                         ];
                         $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
                         $this->sendEmailPurchase($user, $order->getPlayConfig());
+                        /*$this->cardPaymentProvider->getResponseRedirect()->redirectTo([
+                                'url' => '/test',
+                                'lottery' => strtolower($order->getLottery()->getName()),
+                                'status' => $result_payment->success()
+                            ]
+                        );*/
                         return new ActionResult(true, $order);
                     } else {
                         return new ActionResult($result_payment->success(), $order);
