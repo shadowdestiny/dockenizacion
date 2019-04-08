@@ -36,13 +36,16 @@ pipeline {
             }
         }
         stage('test') {
+            environment {
+                TEST_PROJECT_NAME = "${BUILD_IMAGE_TAG}"
+            }
             steps {
                 sh('chmod +x devOps/ci/test.sh; devOps/ci/test.sh')
             }
             post {
                 always {
                     // Shutdown test
-                    sh('sudo docker-compose -p test -f docker-compose.test.yml down')
+                    sh('sudo docker-compose -p ${TEST_PROJECT_NAME} -f docker-compose.test.yml down')
 
                     // Delete .env file
                     sh('rm .env')
