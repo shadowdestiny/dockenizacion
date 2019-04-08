@@ -37,7 +37,7 @@ pipeline {
         }
         stage('test') {
             environment {
-                TEST_PROJECT_NAME = "${JOB_BASE_NAME}_${BUILD_IMAGE_TAG}"
+                TEST_PROJECT_NAME = "${env.JOB_BASE_NAME}_${env.BUILD_NUMBER}"
             }
             steps {
                 sh('chmod +x devOps/ci/test.sh; devOps/ci/test.sh')
