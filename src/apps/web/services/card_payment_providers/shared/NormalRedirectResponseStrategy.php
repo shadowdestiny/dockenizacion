@@ -11,24 +11,19 @@ use Phalcon\Http\Response;
 class NormalRedirectResponseStrategy implements IPaymentResponseRedirect
 {
 
-    protected $client;
-
     protected $lotteryName;
 
-    public function __construct(Response $response, $lotteryName)
+    public function __construct($lotteryName)
     {
-        $this->client = $response;
         $this->lotteryName = strtolower($lotteryName);
     }
 
     public function redirectTo(PaymentBodyResponse $paymentBodyResponse)
     {
         if($paymentBodyResponse->getStatus()) {
-            $this->client->redirect('/' . $this->lotteryName . '/result/success');
-            $this->client->send();
+            header("Location: " . "https://" . $_SERVER['HTTP_HOST'] .'/'.$this->lotteryName. '/result/success');
         } else {
-            $this->client->redirect('/' . $this->lotteryName . '/result/failure');
-            $this->client->send();
+            header("Location: " . "https://" . $_SERVER['HTTP_HOST'] .'/'.$this->lotteryName. '/result/failure');
         }
     }
 }

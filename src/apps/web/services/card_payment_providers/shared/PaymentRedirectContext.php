@@ -20,9 +20,9 @@ class PaymentRedirectContext
     public function __construct(ICardPaymentProvider $paymentProvider, $lotteryName)
     {
         if($paymentProvider->getName() == PaymentProviderEnum::WIRECARD) {
-            $this->strategy = new WirecardRedirectResponseStrategy(new Response(), $lotteryName);
+            $this->strategy = new WirecardRedirectResponseStrategy($lotteryName);
         } else {
-            $this->strategy = new NormalRedirectResponseStrategy(new Response(), $lotteryName);
+            $this->strategy = new NormalRedirectResponseStrategy($lotteryName);
         }
 
     }

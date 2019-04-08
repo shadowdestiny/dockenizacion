@@ -6,28 +6,23 @@ namespace EuroMillions\web\services\card_payment_providers\widecard\redirect_res
 
 use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\services\card_payment_providers\shared\dto\PaymentBodyResponse;
-use Phalcon\Http\Response;
 
 class WirecardRedirectResponseStrategy implements IPaymentResponseRedirect
 {
 
-    protected $client;
-
     protected $lotteryName;
 
-    public function __construct(Response $response, $lotteryName)
+    public function __construct($lotteryName)
     {
-        $this->client = $response;
         $this->lotteryName = strtolower($lotteryName);
     }
 
     public function redirectTo(PaymentBodyResponse $paymentBodyResponse)
     {
         if($paymentBodyResponse->getStatus()) {
-            $this->client->redirect('/' . $this->lotteryName . '/result/success');
-            $this->client->send();
+            header("Location: " . "https://" . $_SERVER['HTTP_HOST'] .'/'.$this->lotteryName. '/result/success');
+        } else {
+            header("Location: " . "https://" . $_SERVER['HTTP_HOST'] .'/'.$this->lotteryName. '/result/failure');
         }
-        $this->client->redirect('/' . $this->lotteryName . '/result/failure');
-        $this->client->send();
     }
 }
