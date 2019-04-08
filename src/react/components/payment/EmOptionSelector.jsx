@@ -34,11 +34,15 @@ var EmOptionSelector = new React.createClass({
         return (
             <div className={"emOptionsSelector"}>
                 <section className={"section--card--details"}>
-                    <div className="top-row">
-                        <h1 className="h2">
-                            PAYMENT
-                        </h1>
-                    </div>
+
+                    { this.props.section_payment===true ?
+                        <div className="top-row">
+                            <h1 className="h2">
+                                PAYMENT
+                            </h1>
+                        </div> : ""
+                    }
+
                     <div className={"section-option"}>
                         <div className={"flex "+this.state.radio_option_1} onClick={() => this.selectRadio(1)}>
                             <div className={"option"}>

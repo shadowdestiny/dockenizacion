@@ -1,4 +1,4 @@
-<ul class="no-li">
+<ul class="no-li wallet-ul">
 
     <li><a {% if activeSubnav.myClass == "wallet" %}class="active"{% endif %} href="/account/wallet">
             {{ language.translate("myAccount_balance", ['balance' :   user_balance ]) }}

@@ -13,7 +13,30 @@
 })(this);
 </script>
 {% endblock %}
+
 {% block template_scripts_code %}
+    var txt_depositBuy_btn = "ADD";
+    var txt_lottery_title = 'LOTTERY';
+    var txt_number_of_draws = 'NUMBER OF DRAWS';
+    var txt_starting_date = 'STARTING DATE';
+    var txt_ending_date = 'ENDING DATE';
+    var txt_amount = 'AMOUNT';
+    var txtMultTotalPrice = '{{ language.translate('mult_total1') }}';
+    var payment_object = {};
+
+        var form = $(".form-currency");
+        payment_object.path         = form.attr("action");
+        payment_object.csid         = form.find("#csid").val();
+        payment_object.id_payment   = form.find("#id_payment").val();
+        payment_object.session_id   = form.find("[name='thm_session_id']").val();
+        payment_object.translations = {
+            cardNumber : '{{ language.translate("card_number") }}',
+            cardHolder : '{{ language.translate("card_name") }}',
+            expiryDateMonth : '{{ language.translate("card_date") }}',
+            cardCvv : '{{ language.translate("card_cvv") }}',
+            dataMessage : '{{ language.translate('ccv_message') }}',
+            totalValue: ' {{ language.translate("Pay {total_value}") }}'
+        };
 
     function deleteLnk(id){
     $(id).click(function(e){
@@ -54,7 +77,7 @@
 
 
     $('.btn.add-funds').on('click',function(){
-    $('.box.error,  .box.success').show();
+    $('#payment-section-wallet,.box.error,  .box.success').show();
     });
     $('.back').on('click',function(){
     $('.box.error, .box.success').hide();
@@ -111,23 +134,24 @@
 
 
     $('#funds-value').on('keyup',function(){
-    var fee_limit = "<?php echo $site_config->feeLimit;?>";
-    var value = $(this).val();
-    if(value == '') value = 0.00;
-    fee_limit = fee_limit.split(/[^\\0-9.]/).join("");
-    if(parseFloat(value).toFixed(2) >= parseFloat(fee_limit)) {
-    $('.box-wallet.overview > label.submit').removeClass('gray').addClass('green');
-    } else {
-    $('.box-wallet.overview > label.submit').removeClass('green').addClass('gray');
-    }
-    if( '{{ symbol }}' !== '€'){
-    $('.charge').show();
-    $('.value.charge').text('{{ symbol }}' + parseFloat(value).toFixed(2));
-    var convert = parseFloat(value).toFixed(2)/parseFloat(<?php echo $ratio; ?>).toFixed(2);
-    $('.value.convert').text('(€' + parseFloat(convert).toFixed(2)+ ')');
-    } else {
-    $('.value.charge').text('{{ symbol }}' + parseFloat(value).toFixed(2));
-    }
+        var fee_limit = "<?php echo $site_config->feeLimit;?>";
+        var value = $(this).val();
+        if(value == '') value = 0.00;
+        fee_limit = fee_limit.split(/[^\\0-9.]/).join("");
+        if(parseFloat(value).toFixed(2) >= parseFloat(fee_limit)) {
+            $('.box-wallet.overview > label.submit').removeClass('gray').addClass('green');
+        } else {
+            $('.box-wallet.overview > label.submit').removeClass('green').addClass('gray');
+        }
+        if( '{{ symbol }}' !== '€'){
+            $('.charge').show();
+            $('.value.charge').text('{{ symbol }}' + parseFloat(value).toFixed(2));
+            var convert = parseFloat(value).toFixed(2)/parseFloat(<?php echo $ratio; ?>).toFixed(2);
+            $('.value.convert').text('(€' + parseFloat(convert).toFixed(2)+ ')');
+        } else {
+            $('.value.charge').text('{{ symbol }}' + parseFloat(value).toFixed(2));
+        }
+        $(document).trigger("refreshValuePayment", [ $('.value.charge').text() ]);
     });
 
     $('#funds-value').on('blur', function(e){
@@ -206,7 +230,10 @@
         });
 {% endblock %}
 {% block template_scripts_after %}
-    <script src="/w/js/react/tooltip.js"></script>{% endblock %}
+    <script src="/w/js/react/tooltip.js"></script>
+    <script src="/w/js/react/payment.js"></script>
+{% endblock %}
+
 {% block header %}
     {% set activeNav='{"myClass": "account"}'|json_decode %}
     {% include "_elements/header.volt" %}
@@ -258,9 +285,6 @@
             </div>
 
             <div class="content dashboard-menu--mobile--content">
-                <div class="{% if show_box_basic == true %}hidden{% endif %} right back cl">
-                    <a class="btn" href="javascript:void(0);">{{ language.translate("balance_back_btn") }}</a>
-                </div>
 
                 {#<h1 class="h1 title yellow">{{ language.translate("balance_head", ['balance' :   user_balance ]) }}</h1>#}
 
@@ -384,18 +408,21 @@
 
                     </div>
                 </div>
-                <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/addFunds">
+                <div class="balance-section">
+                {#<form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/addFunds">
                                     {% set component='{"where": "account"}'|json_decode %}
                                     {% include "account/_add-card.volt" %}
                                     <input type="hidden" id="csid" name="csid"/>
-                </form>
-                {#
+                </form>#}
                 <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency">
                     {% set component='{"where": "account"}'|json_decode %}
                     {% include "account/_add-money-matrix.volt" %}
                     <input type="hidden" id="csid" name="csid"/>
                 </form>
-                #}
+                <br />
+                <div id="payment-section-wallet" style="display:none"></div>
+                <div>
+                </div>
                 <div class="box-bank {% if which_form != 'withdraw' %}hidden{% endif %}">
                     {% if msg %}
                         <div class="box success">

@@ -18,6 +18,7 @@ var config = {
     entry: {
        play : './src/play.jsx',
        cart : './src/cart.jsx',
+       payment : './src/payment.jsx',
        tooltip : './src/tooltip.jsx',
     },
     devtool: 'source-map',

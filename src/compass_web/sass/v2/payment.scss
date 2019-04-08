@@ -1,0 +1,796 @@
+@import "./_variables";
+@import "./mixins";
+.section--card--details {
+
+  input.card-number-icon{
+    padding-left: 17px;
+    &.master{
+      background: white url('../img/review-and-pay/desktop/mastercard2.0.png') right no-repeat;
+    }
+    &.visa{
+      background: white url('../img/review-and-pay/desktop/visa2.0.png') right no-repeat;
+    }
+    background-position-x: 96%;
+  }
+
+  .section--content {
+
+    .inputs-card-columns{
+      display: block;
+      width: 100%;
+      .inputs--card-column{
+        display: inline-table;
+        width: 50%;
+        padding-left: 10%;
+        float: left;
+        img{
+          width:42px;
+        }
+      }
+    }
+    .section-card-left{
+      display: initial;
+      width: 100%;
+      .section-card-left-cols{
+        width: 50%;
+        display: initial;
+        &.left{
+          width:33%;
+        }
+        &.right{
+          width:67%
+        }
+        ul{
+          li{
+            padding-right: 5px;
+          }
+        }
+      }
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      padding-right: 36px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      padding: 33px 52px;
+      padding-right: 36px;
+      padding-bottom: 19px;
+    }
+  }
+
+  h1 {
+    font-size: 16px;
+    line-height: 1.1;
+    padding-top: 8px;
+    color: #333;
+
+    @media only screen and (min-width: $screen-xs) {
+      font-size: 11px;
+      padding-top: 0;
+      line-height: 50px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      font-size: 33.3px;
+      line-height: 80px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      font-size: 40px;
+      line-height: 125px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 22px;
+      line-height: 60px;
+      padding-left: 0px;
+    }
+  }
+
+  h1:before {
+    background-image: url('../img/review-and-pay/desktop/ico-card.png');
+    background-repeat: no-repeat;
+    -webkit-background-size: 31px;
+    background-size: 31px;
+    width: 31px;
+    height: 31px;
+    left: -39px;
+    top: 12px;
+
+    @media only screen and (min-width: $screen-xs) {
+      background-image: url('../img/review-and-pay/desktop/ico-card.png');
+      background-repeat: no-repeat;
+      -webkit-background-size: 47px;
+      background-size: 47px;
+      width: 77px;
+      height: 68px;
+      left: -62px;
+      top: 11px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      background-image: url('../img/review-and-pay/desktop/ico-card.png');
+      background-repeat: no-repeat;
+      -webkit-background-size: 47px;
+      background-size: 47px;
+      width: 77px;
+      height: 68px;
+      left: -62px;
+      top: 17px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      -webkit-background-size: 38px;
+      background-size: 38px;
+      width: 77px;
+      height: 68px;
+      left: -102px;
+      top: 22px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      -webkit-background-size: 31px;
+      background-size: 31px;
+      width: 33px;
+      height: 68px;
+      left: -80px;
+      top: 16px;
+    }
+  }
+
+  .box-add-card {
+
+    > div{
+      display: flex;
+      > div.content-card{
+        width: 100%;
+      }
+    }
+
+    .card-rows{
+      width:100%;
+      @media only screen and (min-width: 0 ) {
+        display: block;
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        display: inline-table;
+      }
+      .card-row{
+        display: inline-table;
+        width: 50%;
+        padding-left: 10%;
+        text-align: left;
+        img{
+          width: 30px;
+        }
+        &.left{
+          width: 70%;
+        }
+        &.right{
+          width: 30%;
+        }
+        @media only screen and (min-width: 0 ) {
+          display: block;
+          &.left{
+            width: 100%;
+          }
+          &.right{
+            width: 100%;
+          }
+        }
+        @media only screen and (min-width: $screen-desktop) {
+          display: inline-table;
+          &.left{
+            width: 70%;
+          }
+          &.right{
+            width: 30%;
+          }
+        }
+      }
+    }
+
+    .card-text{
+      font-size: 14px;
+      &.padding-left{
+        padding-left: 17%;
+      }
+    }
+    .term-condition{
+      color: #f5cf21;
+    }
+
+    padding-top: 14px;
+    padding-left: 0px;
+
+    @media only screen and (min-width: $screen-xs) {
+      padding-top: 19px;
+      padding-left: 4px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      padding-top: 19px;
+      padding-left: 4px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      padding-top: 13px;
+      padding-left: 10px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      padding-top: 13px;
+      padding-left: 10px;
+    }
+
+    h2 {
+      //font-family: WorkSans;
+      color: #333333;
+      font-size: 24px;
+      font-weight: 900;
+      text-align: left;
+      margin-bottom: 52px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        //font-family: WorkSans;
+        color: #333333;
+        font-size: 24px;
+        font-weight: 900;
+        text-align: left;
+        margin-bottom: 52px;
+      }
+    }
+
+    label {
+      //font-family: WorkSans;
+      color: #333333;
+      //font-size: 24px;
+      font-size: 16px;
+      font-weight: 400;
+      text-align: left;
+      display: block;
+      margin-bottom: 11px;
+      text-transform: uppercase;
+
+      //display: none;
+
+      @media only screen and (min-width: $screen-xs) {
+        color: #333333;
+        font-size: 24px;
+        font-weight: 400;
+        text-align: left;
+        display: block;
+        margin-bottom: 11px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        //font-family: WorkSans;
+        color: #333333;
+        font-size: 24px;
+        font-weight: 400;
+        text-align: left;
+        display: block;
+        margin-bottom: 11px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        margin-bottom: 18px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin-bottom: 11px;
+        font-size: 18px;
+      }
+
+      .asterisk {
+        color: inherit;
+      }
+    }
+
+    input {
+      border-radius: 0px;
+      border-width: 1px;
+      border-color: #b7b7b7;
+      border-style: solid;
+      max-width: none;
+      height: 40px;
+      margin-bottom: 10px;
+      padding-bottom: 0px;
+
+      @include input-placeholder {
+        color: $v2-placeholder-color;
+      }
+
+      @media only screen and (min-width: $screen-xs) {
+        border-radius: 4px;
+        border-width: 1px;
+        border-color: #b7b7b7;
+        border-style: solid;
+        max-width: none;
+        height: 62px;
+        margin-bottom: 20px;
+        padding-bottom: 2px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        border-radius: 4px;
+        border-width: 1px;
+        border-color: #b7b7b7;
+        border-style: solid;
+        max-width: none;
+        height: 62px;
+        margin-bottom: 20px;
+        padding-bottom: 2px;
+
+        /*@include input-placeholder {
+          color: transparent!important;
+        }*/
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        max-width: 640px;
+
+        height: 48px;
+        margin-bottom: 20px;
+        padding-bottom: 2px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        max-width: 480px;
+        height: 36px;
+        margin-bottom: 12px;
+        padding-bottom: 2px;
+      }
+
+      &#expiry-date-month,
+      &#expiry-date-year {
+        width: 60px!important;
+        //margin-right: 20px;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+        margin-right: 0px;
+        float: left;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 124px!important;
+          //margin-right: 20px;
+          padding-left: 0;
+          padding-right: 0;
+          text-align: center;
+          margin-right: 15px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 124px!important;
+          //margin-right: 20px;
+          padding-left: 0;
+          padding-right: 0;
+          text-align: center;
+          margin-right: 15px;
+          float: none;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          width: 83px!important;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 60px!important;
+          margin-right: 11px;
+        }
+      }
+
+      &#expiry-date-year {
+        width: 80px!important;
+        margin-left: 3px;
+
+        @media only screen and (min-width: $screen-xs) {
+          width: 124px!important;
+          margin-left: 0;
+        }
+        @media only screen and (min-width: $screen-desktop) {
+          width: 61px!important;
+        }
+      }
+
+    }
+
+    .card-detail {
+      padding-top: 0px;
+      padding-bottom: 3px;
+
+      @media only screen and (min-width: $screen-xs) {
+        padding-top: 15px;
+        padding-bottom: 3px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        padding-top: 15px;
+        padding-bottom: 3px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        padding-top: 0;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        padding-top: 0;
+      }
+
+
+      label {
+        display: block;
+        //padding-left: 10px;
+        padding-left: 0px;
+        float: left;
+        padding-top: 8px;
+        margin-right: 49px;
+        font-size: 16px;
+
+        &.card-cvv {
+          //display: none;
+        }
+
+        @media only screen and (min-width: $screen-xs) {
+          color: #333;
+          font-size: 24px;
+          font-weight: 400;
+          text-align: left;
+          display: block;
+          margin-bottom: 11px;
+          float: none;
+          padding-top: 0;
+          padding-left: 0;
+          margin-right: 0;
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .selectbox {
+      max-width: none;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        max-width: none;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        max-width: 640px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        max-width: 640px;
+      }
+    }
+
+
+    // CVV Div
+    .cvv {
+      float: none;
+      //width: 298px !important;
+      width: 100% !important;
+      //margin-bottom: 0;
+
+      @media only screen and (min-width: $screen-xs) {
+        //width: 280px !important;
+        width: 100% !important;
+        //margin-bottom: 10px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        /*float: right;*/
+        width: 125px !important;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        clear: both;
+        float: none;
+
+        width: 184px !important
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        clear: both;
+        float: none;
+
+        width: 139px !important
+      }
+
+      label {
+        text-transform: uppercase;
+
+        //display: none;
+
+        @media only screen and (min-width: $screen-xs) {
+          display: block;
+        }
+      }
+
+      // CVV input
+      #card-cvv {
+        //width: 298px !important;
+        width: 100%!important;
+        text-align: left;
+        float: left;
+        margin-bottom: 0;
+
+        @media only screen and (min-width: $screen-xs) {
+          //width: 269px!important;
+          width: 100%!important;
+          text-align: left;
+          float: left;
+          margin-bottom: 10px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          width: 125px!important;
+          float: none;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          width: 184px !important
+        }
+
+        @media only screen and (min-width: $screen-desktop) {
+          //width: 184px !important
+          width: 60px !important
+        }
+      }
+    }
+
+    .btn:active,
+    .btn:focus,
+    .btn {
+      @include btn-account();
+      float: none;
+      clear: both;
+      height: 48px;
+      line-height: 48px;
+
+      font-size: 17px;
+
+      @media only screen and (min-width: $screen-xs) {
+        @include btn-account();
+        float: none;
+        clear: both;
+        height: 61px;
+        line-height: 60px;
+        font-size: 29px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        @include btn-account();
+        float: none;
+        clear: both;
+
+        font-size: 29px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        float: right;
+        //margin-top: -20px;
+        margin-top: -5px;
+        padding: 0 57px 0 41px;
+        font-size: 24px;
+        cursor: pointer;
+        margin-right: -34px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        float: right;
+        /*margin-top: -33px;*/
+        padding: 0 38px 0 37px;
+        font-size: 18px;
+        cursor: pointer;
+        margin-right: -9px;
+        height: 47px;
+        line-height: 47px;
+      }
+    }
+
+  }
+
+  .cards-block {
+
+    //height: 55px;
+    //line-height: 55px;
+    //text-align: center;
+    //margin-bottom: 37px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      height: 55px;
+      line-height: 55px;
+      text-align: center;
+      margin-bottom: 37px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      margin-top: -15px;
+      margin-left: -40px;
+      margin-bottom: 15px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      //margin-top: -15px;
+      //margin-left: -40px;
+      //margin-bottom: 15px;
+      width: 680px;
+      margin-left: -40px;
+      margin-top: -30px;
+      display: inline-block;
+    }
+
+    ul {
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        overflow: hidden;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        overflow: hidden;
+      }
+    }
+
+    li {
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        //float: left;
+        //padding: 0;
+        //margin: 0;
+
+        margin: 0 50px 0 0;
+        float: left;
+
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        float: left;
+        padding: 0;
+        margin: 0;
+      }
+
+      &.visa-li {
+        @media only screen and (min-width: $screen-desktop) {
+
+        }
+      }
+    }
+
+    li a.visa-a {
+      //width: 50px;
+      //top: 3px;
+      //left: 28px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        width: 50px;
+        top: 3px;
+        left: 28px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        width: 50px;
+        top: 3px;
+        left: 28px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        width: 60px;
+        top: 0;
+        left: 0;
+        margin-left: 9px;
+        margin-right: 42px;
+      }
+    }
+
+    li a.master-a {
+      //width: 43px;
+      //top: 7px;
+      //left: 0px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        width: 43px;
+        top: 7px;
+        left: 0px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        width: 43px;
+        top: 7px;
+        left: 0px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        width: 55px;
+        top: 0px;
+        left: 0px;
+        margin-top: 5px;
+        margin-right: 40px;
+      }
+    }
+
+    li a.paysafe-a {
+      //width: 125px;
+      //top: 5px;
+      //left: -31px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        width: 125px;
+        top: 5px;
+        left: -31px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        width: 125px;
+        top: 5px;
+        left: -31px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        width: 151px;
+        top: 0px;
+        left: 0;
+        margin-top: 1px;
+        margin-right: 45px;
+
+      }
+    }
+
+    li a.neteller-a {
+      //width: 110px;
+      //top: 3px;
+      //left: -61px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        width: 110px;
+        top: 3px;
+        left: -61px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        width: 110px;
+        top: 3px;
+        left: -61px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        width: 132px;
+        top: 0px;
+        left: 0;
+        margin-right: 44px;
+      }
+    }
+
+    li a.skrill-a {
+      //width: 58px;
+      //top: 10px;
+      //left: -90px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        width: 58px;
+        top: 10px;
+        left: -90px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        width: 58px;
+        top: 10px;
+        left: -90px;
+      }
+
+      @media only screen and (min-width: $screen-desktop) {
+        width: 72px;
+        top: 0px;
+        left: 0;
+        margin-top: 4px;
+      }
+    }
+
+
+  }
+
+}

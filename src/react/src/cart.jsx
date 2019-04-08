@@ -438,7 +438,7 @@ var CartPage = new React.createClass({
                         <div className="cart-section">
                             <br />
                             <div className={"line-general-separator"}>&nbsp;</div>
-                            <EmOptionSelector option_select_callback={this.selectTypePayment}/>
+                            <EmOptionSelector section_payment={true} option_select_callback={this.selectTypePayment}/>
                             {this.state.typePayment === 1 ?
                                 <EmCard payment_object={this.props.payment_object}
                                         pricetopay={this.state.total}

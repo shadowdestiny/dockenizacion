@@ -139,7 +139,7 @@ var EmCard = new React.createClass({
                                     </div>
                                     <div className={"card-row right"}>
                                         <input id="new-card" type="submit" className="hidden2" />
-                                        <label className="left btn submit big green" htmlFor="new-card">{this.props.txt_deposit_buy_btn +"&nbsp;"+ this.props.pricetopay}</label>
+                                        <label className="left btn submit big green" htmlFor="new-card">{this.props.txt_deposit_buy_btn}&nbsp;{this.props.pricetopay}</label>
                                     </div>
                                 </div>
 
