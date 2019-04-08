@@ -313,6 +313,23 @@ class ReportsService
      *
      * @return array
      */
+    public function getEuroJackpotDrawsActualAfterDatesById($id)
+    {
+        /** @var EuroMillionsDraw $actualDraw */
+        $actualDraw = $this->lotteryDrawRepository->find($id);
+        $nextDrawDate = clone $actualDraw->getDrawDate()->setTime(03, 00, 00);
+        $nextDrawDate = $nextDrawDate->modify('+1 day');
+        $actualDrawDate = $this->getNextDateDrawByLottery('EuroJackpot', $actualDraw->getDrawDate()->modify('-8 days'))->setTime(03, 00, 00);
+        $actualDrawDate = $actualDrawDate->modify('+1 day');
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
+    /**
+     * @param $id
+     *
+     * @return array
+     */
     public function getChristmasDrawsActualAfterDatesById($id)
     {
         /** @var EuroMillionsDraw $actualDraw */
@@ -433,6 +450,39 @@ class ReportsService
     {
 
         $drawDetails = $this->generateMovement($this->reportsRepository->getPowerBallDrawDetailsByIdAndDates($id, $drawDates));
+        foreach ($drawDetails as $drawKey => $drawValue) {
+            if ($drawValue['entity_type'] == 'ticket_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[5])) {
+                    $betIds = explode(',', $drawData[5]);
+                    $cont = 0;
+                    foreach ($betIds as $betId) {
+                        $drawDetails[$drawKey]['betIds']['id'][$cont] = $betId;
+                        $drawDetails[$drawKey]['betIds']['numbers'][$cont] = implode(", ", $this->reportsRepository->getNumbersPlayedByBetId($betId));
+                        $cont++;
+                    }
+                }
+            } elseif ($drawValue['entity_type'] == 'automatic_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[2])) {
+                    $drawDetails[$drawKey]['betIds']['id'][0] = $drawData[2];
+                    $drawDetails[$drawKey]['betIds']['numbers'][0] = implode(", ", $this->reportsRepository->getNumbersPlayedByBetId($drawData[2]));
+                }
+            }
+        }
+
+        return $drawDetails;
+    }
+
+    /**
+     * @param $id
+     * @param $drawDates
+     *
+     * @return array
+     */
+    public function getEuroJackpotDrawDetailsByIdAndDates($id, $drawDates)
+    {
+        $drawDetails = $this->generateMovement($this->reportsRepository->getEuroJackpotDrawDetailsByIdAndDates($id, $drawDates));
         foreach ($drawDetails as $drawKey => $drawValue) {
             if ($drawValue['entity_type'] == 'ticket_purchase') {
                 $drawData = explode('#', $drawValue['data']);
