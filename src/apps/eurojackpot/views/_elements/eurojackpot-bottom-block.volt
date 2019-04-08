@@ -26,9 +26,9 @@
         <img src="/w/img/eurojackpot/play-bottom-eurojackpot.png"/>
     </div>
     <div class="play-bottom-block--center">
-        <h2>
+        <h1>
             {{ language.translate("PlayEJ_h1") }}
-        </h2>
+        </h1>
 
         <p>
             {{ language.translate("PlayEJ_h1_text") }}
