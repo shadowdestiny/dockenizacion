@@ -10,6 +10,7 @@ interface IReports
     public function getSalesDrawPowerBall();
     public function getSalesDrawMegaMillions();
     public function getSalesDrawEuroJackpot();
+    public function getSalesDrawMegaSena();
     public function getSalesDrawChristmas();
     public function getMonthlySales();
     public function getCustomersData();
@@ -27,6 +28,7 @@ interface IReports
     public function getEuroJackpotDrawDetailsBetweenDrawDates($drawDates);
     public function getPowerBallDrawDetailsBetweenDrawDates($drawDates, $amount, $amountPowerBall);
     public function getMegaMillionsDrawDetailsBetweenDrawDates($drawDates, $amount, $amountMegaBall);
+    public function getMegaSenaDrawDetailsBetweenDrawDates($drawDates);
     public function getChristmasDrawDetailsBetweenDrawDates($drawDates);
     public function getNewRegistrations($data);
     public function getNewDepositors($data);
