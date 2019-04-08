@@ -12,6 +12,7 @@ use EuroMillions\web\services\card_payment_providers\royalpay\dto\RoyalPayBodyRe
 use EuroMillions\web\services\card_payment_providers\royalpay\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\royalpay\RoyalPayConfig;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
+use EuroMillions\web\services\card_payment_providers\shared\dto\PaymentBodyResponse;
 use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
@@ -60,9 +61,9 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGa
         $header = $result->header;
         $body = RoyalPayBodyResponse::create(json_decode($result->body), $header->statusMessage);
         if ($header->statusCode != 201) {
-            return new PaymentProviderResult(false, $header->statusMessage, $header->statusMessage);
+            return new PaymentProviderResult(false, $body);
         }
-        return new PaymentProviderResult($body->getStatus(), $body->getStatusMessage(), $body->getMessage());
+        return new PaymentProviderResult($body->getStatus(), $body);
     }
 
     public function withDraw(Money $amount, $idTransaction)
@@ -106,11 +107,4 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGa
         return PaymentProviderEnum::ROYALPAY;
     }
 
-    /**
-     * @return IPaymentResponseRedirect
-     */
-    public function getResponseRedirect()
-    {
-        // TODO: Implement getResponseRedirect() method.
-    }
 }

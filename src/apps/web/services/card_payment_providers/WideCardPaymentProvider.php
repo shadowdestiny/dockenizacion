@@ -10,6 +10,8 @@ use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
+use EuroMillions\web\services\card_payment_providers\shared\dto\PaymentBodyResponse;
+use EuroMillions\web\services\card_payment_providers\widecard\dto\WirecardBodyResponse;
 use EuroMillions\web\services\card_payment_providers\widecard\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\widecard\redirect_response\WirecardRedirectResponseStrategy;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
@@ -53,8 +55,6 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         $this->config = $config;
         $this->paymentCountry = new PaymentCountry($this->countries());
         $this->paymentWeight= new PaymentWeight(50);
-        $this->responseRedirect = new WirecardRedirectResponseStrategy();
-
     }
 
     /**
@@ -69,11 +69,11 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         /** @var Response $result */
         $result = $this->gatewayClient->send($params);
         $header = $result->header;
-        $body = json_decode($result->body);
+        $body = WirecardBodyResponse::create(json_decode($result->body), $header->statusMessage);
         if( $header->statusCode != 200 ) {
-            return new PaymentProviderResult(false,$header->statusMessage,$header->statusMessage);
+            return new PaymentProviderResult(false,$body);
         }
-        return new PaymentProviderResult($body->status === "ok", $header->statusMessage);
+        return new PaymentProviderResult($body->getStatus(), $body);
 
     }
 
@@ -122,11 +122,4 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         return PaymentProviderEnum::WIRECARD;
     }
 
-    /**
-     * @return IPaymentResponseRedirect
-     */
-    public function getResponseRedirect()
-    {
-        return $this->responseRedirect;
-    }
 }

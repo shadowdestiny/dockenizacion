@@ -1,12 +1,12 @@
 <?php
 
 
-namespace EuroMillions\web\services\card_payment_providers\royalpay\dto;
+namespace EuroMillions\web\services\card_payment_providers\widecard\dto;
 
 
 use EuroMillions\web\services\card_payment_providers\shared\dto\PaymentBodyResponse;
 
-class RoyalPayBodyResponse extends PaymentBodyResponse
+class WirecardBodyResponse extends PaymentBodyResponse
 {
 
     protected $status;
@@ -17,7 +17,7 @@ class RoyalPayBodyResponse extends PaymentBodyResponse
 
     public function __construct(\stdClass $body, $headerMessage)
     {
-        $this->status = $body->status === "created";
+        $this->status = $body->status === "ok";
         $this->statusMessage = !empty($headerMessage) ? $headerMessage : "";
         $this->message = !empty($body->message) ? $body->message : "";
     }
@@ -51,6 +51,4 @@ class RoyalPayBodyResponse extends PaymentBodyResponse
     {
         return $this->message;
     }
-
-
 }

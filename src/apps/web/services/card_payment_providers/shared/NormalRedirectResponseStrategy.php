@@ -1,14 +1,14 @@
 <?php
 
 
-namespace EuroMillions\web\services\card_payment_providers\widecard\redirect_response;
+namespace EuroMillions\web\services\card_payment_providers\shared;
 
 
 use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\services\card_payment_providers\shared\dto\PaymentBodyResponse;
 use Phalcon\Http\Response;
 
-class WirecardRedirectResponseStrategy implements IPaymentResponseRedirect
+class NormalRedirectResponseStrategy implements IPaymentResponseRedirect
 {
 
     protected $client;
@@ -26,8 +26,9 @@ class WirecardRedirectResponseStrategy implements IPaymentResponseRedirect
         if($paymentBodyResponse->getStatus()) {
             $this->client->redirect('/' . $this->lotteryName . '/result/success');
             $this->client->send();
+        } else {
+            $this->client->redirect('/' . $this->lotteryName . '/result/failure');
+            $this->client->send();
         }
-        $this->client->redirect('/' . $this->lotteryName . '/result/failure');
-        $this->client->send();
     }
 }

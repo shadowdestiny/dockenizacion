@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\interfaces;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\card_payment_providers\shared\dto\PaymentBodyResponse;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
@@ -19,8 +20,4 @@ interface ICardPaymentProvider
      */
     public function getName();
 
-    /**
-     * @return IPaymentResponseRedirect
-     */
-    public function getResponseRedirect();
 }
