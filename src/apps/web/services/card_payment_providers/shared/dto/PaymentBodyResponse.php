@@ -13,6 +13,8 @@ abstract class PaymentBodyResponse
 
     protected $message;
 
+    protected $metadata;
+
     /**
      * @return mixed
      */
@@ -35,6 +37,14 @@ abstract class PaymentBodyResponse
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMetadata()
+    {
+        return $this->metadata;
     }
 
 

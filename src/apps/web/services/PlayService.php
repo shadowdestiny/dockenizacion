@@ -179,21 +179,22 @@ class PlayService extends Colleague
                 $order->setAmountWallet($user->getWallet()->getBalance());
                 $uniqueId = TransactionId::create(); //TODO: Remove this UniqueID
                 if ($credit_card != null) {
-                    $provider = $paymentsCollection->getIterator()->current()->get();
-                    $result_payment = $this->walletService->onlyPay($provider, $credit_card, $user, $uniqueId, $order, $isWallet);
+                    $this->cardPaymentProvider = $paymentsCollection->getIterator()->current()->get();
+                    $result_payment = $this->walletService->onlyPay($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
                     /** @var PaymentBodyResponse $paymentBodyResponse */
                     $paymentBodyResponse = $result_payment->returnValues();
                 } else {
                     if ($order->getHasSubscription()) {
                         $this->walletService->createSubscriptionTransaction($user, $uniqueId, $order);
                     }
-                    $result_payment = new ActionResult(true, $order);
+                    $paymentBodyResponse = new NormalBodyResponse(true);
+                    $this->cardPaymentProvider = new FakeCardPaymentProvider();
+                    //$result_payment = new ActionResult(true, $order);
                 }
-                // TODO: Context redirect strategy
-                (new PaymentRedirectContext($provider,$lotteryName))->execute($paymentBodyResponse);
+                return (new PaymentRedirectContext($this->cardPaymentProvider,$order->getLottery()->getName()))->execute($paymentBodyResponse);
                 //return new ActionResult($result_payment->success(), $order);
             }
-            return new ActionResult(false);
+            //return new ActionResult(false);
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
