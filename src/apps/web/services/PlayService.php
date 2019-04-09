@@ -445,7 +445,9 @@ class PlayService extends Colleague
                     $this->cardPaymentProvider = new WideCardPaymentProvider(
                         new WideCardConfig(
                         $config->endpoint,
-                        $config->api_key
+                        $config->api_key,
+                        $config->weight,
+                        $config->countries
                     )
                     );
                     if ($credit_card != null) {

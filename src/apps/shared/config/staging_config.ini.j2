@@ -109,13 +109,20 @@ master_sign_key={{ gcp_master_sign_key }}
 endpoint= https://api.euromillions.com/beta/wirecard-payment
 endpoint_withdraw= https://api.euromillions.com/beta/withdraw
 api_key={{ wirecard_api_key }}
+countries=
+weight=5
 
 [moneymatrix]
 endpoint=https://rancher-staging-02.euromillions.com:9443
+api_key=not-set
+countries=
+weight=10
 
 [royalpay]
 endpoint=https://7ejmaidn4e.execute-api.eu-west-1.amazonaws.com/beta/royalpay
 api_key={{ royalpay_api_key }}
+countries=RU,UA
+weight=10
 
 [lotto_api]
 endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball

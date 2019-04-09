@@ -1,59 +1,23 @@
 <?php
 
-
 namespace EuroMillions\web\services\card_payment_providers\royalpay;
 
-
+use EuroMillions\web\services\card_payment_providers\shared\CardPaymentProviderConfig;
 use Phalcon\Di;
 
-class RoyalPayConfig
+class RoyalPayConfig extends CardPaymentProviderConfig
 {
-
-    private $endpoint;
     private $endpoint_callbacks;
-    private $apiKey;
     private $merchantDomain;
 
-    public function __construct($endpoint, $apiKey)
+    public function __construct($endpoint, $apiKey, $weight = 100, $countries = null)
     {
+        parent::__construct($endpoint, $apiKey, $weight, $countries);
+
         $di = Di::getDefault();
 
-        $this->endpoint = $endpoint;
         $this->endpoint_callbacks = $endpoint."/notification";
-        $this->apiKey = $apiKey;
         $this->merchantDomain = $di->get('config')['domain']['url'];
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEndpoint()
-    {
-        return $this->endpoint;
-    }
-
-    /**
-     * @param mixed $endpoint
-     */
-    public function setEndpoint($endpoint)
-    {
-        $this->endpoint = $endpoint;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getApiKey()
-    {
-        return $this->apiKey;
-    }
-
-    /**
-     * @param mixed $apiKey
-     */
-    public function setApiKey($apiKey)
-    {
-        $this->apiKey = $apiKey;
     }
 
     /**

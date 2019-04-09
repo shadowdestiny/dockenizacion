@@ -7,12 +7,9 @@ use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
-use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\services\card_payment_providers\royalpay\dto\RoyalPayBodyResponse;
 use EuroMillions\web\services\card_payment_providers\royalpay\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\royalpay\RoyalPayConfig;
-use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
-use EuroMillions\web\services\card_payment_providers\shared\dto\PaymentBodyResponse;
 use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
@@ -22,8 +19,6 @@ use Phalcon\Http\Client\Response;
 
 class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGateway
 {
-    use CountriesCollection;
-
     private $gatewayClient;
 
     /**
@@ -43,8 +38,8 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGa
     {
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
         $this->config = $config;
-        $this->paymentCountry = new PaymentCountry(['ES','RU']); //Only from Mother Russia
-        $this->paymentWeight = new PaymentWeight(100);
+        $this->paymentCountry = $config->getFilterConfig()->getCountries();
+        $this->paymentWeight = $config->getFilterConfig()->getWeight();
     }
 
     /**
@@ -106,5 +101,4 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGa
     {
         return PaymentProviderEnum::ROYALPAY;
     }
-
 }
