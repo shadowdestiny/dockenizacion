@@ -19,6 +19,8 @@ class PurchaseConfirmationEnum extends \SplEnum
 
     const MegaSena = 'megasena';
 
+    const Christmas = 'web';
+
     public function findTemplatePathByLotteryName($lotteryName,$isSubscription=false)
     {
         $declaredElems = $this->getConstList();
@@ -28,6 +30,15 @@ class PurchaseConfirmationEnum extends \SplEnum
             {
                 return "EuroMillions\\".strtolower($lotteryName)."\\emailTemplates\\".$lotteryName.$template;
             }
+
+            if(strtolower($lotteryName) == "euromillions") {
+                return "EuroMillions\\web\\emailTemplates\\".$template;
+            }
+
+            if(strtolower($lotteryName) == "christmas") { //no subscription case.
+                return "EuroMillions\\web\\emailTemplates\\PurchaseConfirmationChristmasEmailTemplate";
+            }
+
             return "EuroMillions\\web\\emailTemplates\\".$lotteryName.$template;
         }
         throw new \UnexpectedValueException('Lottery unknown');
