@@ -103,7 +103,11 @@ final class MegaSenaPaymentController extends PowerBallPaymentController
                                 'MegaSena',
                                 $aPaymentProvider
                             );
-                        return $this->playResult($result, 'megasena');
+
+                        if(!empty($result)) {
+                            return $this->playResult($result, 'megasena');
+                        }
+                        return false; //When we use the "PaymentRedirectContext" we force to return false.
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
@@ -128,7 +132,7 @@ final class MegaSenaPaymentController extends PowerBallPaymentController
             $this->response->redirect('/' . mb_strtolower($lotteryName) . '/result/success/'.mb_strtolower($lotteryName));
             return false;
         } else {
-            $this->response->redirect('/megasena/result/failure');
+            $this->response->redirect('/euromillions/result/failure');
             return false;
         }
     }
