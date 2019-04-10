@@ -10,8 +10,7 @@ use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\forms\BankAccountForm;
 use EuroMillions\web\forms\CreditCardForm;
-use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
-use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
+use EuroMillions\web\services\card_payment_providers\shared\PaymentRedirectContext;
 use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
@@ -109,16 +108,16 @@ class FundsController extends AccountController
                             $this->paymentProviderService->setEventsManager($this->eventsManager);
                             $this->eventsManager->attach('orderservice', $this->orderService);
                             $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal(), $paymentProvider->getName());
-
                         } else { //Legacy Deposit with only one provider
                             //$cardPaymentProvider = $this->paymentProviderService->createCollectionFromTypeAndCountry(self::PAYMENT_SELECTOR_TYPE, $this->paymentCountry);
                             //$paymentProvider = $cardPaymentProvider->getIterator()->current()->get();
                             $onlyPay = false;
                         }
 
-                        $result = $wallet_service->rechargeWithCreditCard($onlyPay, $paymentProvider, $card, $user, $order, $credit_card_charge);
+                        $result_payment = $wallet_service->rechargeWithCreditCard($onlyPay, $paymentProvider, $card, $user, $order, $credit_card_charge);
+                        $paymentBodyResponse = $result_payment->returnValues();
 
-                        if ($result->success()) {
+                        if ($result_payment->success()) {
                             $converted_net_amount_currency = $this->currencyConversionService->convert($credit_card_charge->getNetAmount(), $user->getUserCurrency());
                             $msg .= 'We added ' . $symbol . ' '  . number_format($converted_net_amount_currency->getAmount() / 100, 2, '.', ',') . ' to your Wallet Balance';
                             if ($credit_card_charge->getIsChargeFee()) {
@@ -135,8 +134,10 @@ class FundsController extends AccountController
                             $credit_card_form->clear();
                             $this->flash->success($msg);
                         } else {
-                            $this->flash->error('An error occurred. The response with our payment provider was: ' . $result->errorMessage());
+                            $this->flash->error('An error occurred. The response with our payment provider was: ' . $paymentBodyResponse->getMessage());
                         }
+                        
+                        return (new PaymentRedirectContext($paymentProvider, $order->getLottery()->getName()))->execute($paymentBodyResponse);
                     } catch (\Exception $e) {
                         $this->flash->error($e->getMessage());
                     }

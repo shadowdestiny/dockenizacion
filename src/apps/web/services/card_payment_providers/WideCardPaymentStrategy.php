@@ -3,13 +3,10 @@
 
 namespace EuroMillions\web\services\card_payment_providers;
 
-
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
-
 
 class WideCardPaymentStrategy implements ICreditCardStrategy
 {
-
     private $config;
 
     public function __construct($config = null)
@@ -19,8 +16,13 @@ class WideCardPaymentStrategy implements ICreditCardStrategy
 
     public function get()
     {
-        return new WideCardPaymentProvider(new WideCardConfig($this->config['endpoint'], $this->config['api_key']));
+        return new WideCardPaymentProvider(
+            new WideCardConfig(
+                $this->config['endpoint'],
+                $this->config['api_key'],
+                $this->config['weight'],
+                $this->config['countries']
+            )
+        );
     }
-
-
 }

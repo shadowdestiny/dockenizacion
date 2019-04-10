@@ -1,24 +1,10 @@
 <?php
 
-
 namespace EuroMillions\web\services\card_payment_providers\moneymatrix;
 
+use EuroMillions\web\services\card_payment_providers\shared\CardPaymentProviderConfig;
 
-class MoneyMatrixConfig
+class MoneyMatrixConfig extends CardPaymentProviderConfig
 {
 
-    private $endpoint;
-
-    public function __construct($endpoint)
-    {
-        $this->endpoint = $endpoint;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEndpoint()
-    {
-        return $this->endpoint;
-    }
 }
