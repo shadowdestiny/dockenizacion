@@ -17,7 +17,7 @@ class PaymentRedirectContext
 {
 
     /** @var IPaymentResponseRedirect $strategy */
-    private $strategy;
+    protected $strategy;
 
     public function __construct(ICardPaymentProvider $paymentProvider, $lotteryName)
     {
