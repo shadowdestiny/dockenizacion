@@ -18,7 +18,7 @@ class RoyalPayPaymentProviderDTO extends PaymentProviderDTO implements IDto, \Js
             'currency' => $this->currency,
             "CallbackUrl" => $this->provider->getConfig()->getEndpointCallbacks(),
 	        "SuccessUrl" => "https://".$this->provider->getConfig()->getMerchantDomain().$this->lotteryName."/result/success",
-            "FailUrl" => "https://".$this->provider->getConfig()->getMerchantDomain().$this->lotteryName."/result/failure",
+            "FailUrl" => "https://".$this->provider->getConfig()->getMerchantDomain()."euromillions/result/failure",
             "PendingUrl" => "https://".$this->provider->getConfig()->getMerchantDomain().$this->lotteryName."/result/success",
             'cardNumber' => $this->creditCardNumber,
             'cardCvv' => $this->cvv,
