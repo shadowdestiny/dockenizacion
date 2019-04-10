@@ -108,7 +108,12 @@ class MegaMillionsPaymentController extends PowerBallPaymentController
                                 'MegaMillions',
                                 $aPaymentProvider
                             );
-                        return $this->playResult($result, 'megamillions');
+
+                        if(!empty($result)) {
+                            return $this->playResult($result, 'megamillions');
+                        }
+                        return false; //When we use the "PaymentRedirectContext" we force to return false.
+
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
