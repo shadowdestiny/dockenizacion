@@ -106,16 +106,23 @@ master_gw_id={{ gcp_master_gw_id}}
 master_sign_key={{ gcp_master_sign_key }}
 
 [wirecard]
-endpoint= {{ wirecard_endpoint }}
-endpoint_withdraw= {{ wirecard_endpoint_withdraw }}
+endpoint={{ wirecard_endpoint }}
+endpoint_withdraw={{ wirecard_endpoint_withdraw }}
 api_key={{ wirecard_apikey }}
+countries=
+weight=5
 
 [moneymatrix]
 endpoint={{ moneymatrix_endpoint }}
+api_key=not-set
+countries=
+weight=10
 
 [royalpay]
 endpoint={{ royalpay_endpoint }}
 api_key={{ royalpay_apikey }}
+countries=RU,UA
+weight=10
 
 [lotto_api]
 endpoint= {{ lottorisq_endpoint }}

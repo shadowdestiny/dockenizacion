@@ -10,7 +10,6 @@ use EuroMillions\web\interfaces\IHandlerPaymentGateway;
 use EuroMillions\web\services\card_payment_providers\royalpay\dto\RoyalPayBodyResponse;
 use EuroMillions\web\services\card_payment_providers\royalpay\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\royalpay\RoyalPayConfig;
-use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
 use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\PaymentCountry;
@@ -20,8 +19,6 @@ use Phalcon\Http\Client\Response;
 
 class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGateway
 {
-    use CountriesCollection;
-
     private $gatewayClient;
 
     /**
@@ -41,8 +38,8 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGa
     {
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
         $this->config = $config;
-        $this->paymentCountry = new PaymentCountry(['RU']); //Only from Mother Russia
-        $this->paymentWeight = new PaymentWeight(100);
+        $this->paymentCountry = $config->getFilterConfig()->getCountries();
+        $this->paymentWeight = $config->getFilterConfig()->getWeight();
     }
 
     /**
@@ -59,9 +56,9 @@ class RoyalPayPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGa
         $header = $result->header;
         $body = RoyalPayBodyResponse::create(json_decode($result->body), $header->statusMessage);
         if ($header->statusCode != 201) {
-            return new PaymentProviderResult(false, $header->statusMessage, $header->statusMessage);
+            return new PaymentProviderResult(false, $body);
         }
-        return new PaymentProviderResult($body->getStatus(), $body->getStatusMessage(), $body->getMessage());
+        return new PaymentProviderResult($body->getStatus(), $body);
     }
 
     public function withDraw(Money $amount, $idTransaction)

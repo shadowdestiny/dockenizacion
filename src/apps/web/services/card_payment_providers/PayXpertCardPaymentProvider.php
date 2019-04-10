@@ -4,6 +4,7 @@ namespace EuroMillions\web\services\card_payment_providers;
 use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\services\card_payment_providers\payxpert\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
 use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
@@ -46,5 +47,13 @@ class PayXpertCardPaymentProvider implements ICardPaymentProvider
     public function getName()
     {
         return PaymentProviderEnum::PAYXPERT;
+    }
+
+    /**
+     * @return IPaymentResponseRedirect
+     */
+    public function getResponseRedirect()
+    {
+        // TODO: Implement getResponseRedirect() method.
     }
 }

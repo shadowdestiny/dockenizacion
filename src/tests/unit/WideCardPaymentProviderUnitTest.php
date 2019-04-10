@@ -7,6 +7,7 @@ namespace tests\unit;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\tests\helpers\mothers\PaymentProviderMother;
+use EuroMillions\web\services\card_payment_providers\widecard\dto\WirecardBodyResponse;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
 use EuroMillions\web\vo\dto\PaymentProviderDTO;
@@ -35,7 +36,9 @@ class WideCardPaymentProviderUnitTest extends UnitTestBase
      */
     public function test_charge_calledWithValidParams_returnPaymentProviderResultSuccess()
     {
-        $expected = new PaymentProviderResult(true);
+        $body = new \stdClass();
+        $body->status= 'ok';
+        $expected = new PaymentProviderResult(true, new WirecardBodyResponse($body, ""));
         $response = new Response();
         $response->header->statusCode = 200;
         $response->body = '{ "status": "ok" }';
@@ -53,7 +56,9 @@ class WideCardPaymentProviderUnitTest extends UnitTestBase
      */
     public function test_charge_calledWithInvalidParams_returnPaymentProviderResultFalse()
     {
-        $expected = new PaymentProviderResult(false);
+        $body = new \stdClass();
+        $body->status= false;
+        $expected = new PaymentProviderResult(false, new WirecardBodyResponse($body, ""));
         $response = new Response();
         $response->header->statusCode = 200;
         $response->body = '{ "status": "ko" }';
