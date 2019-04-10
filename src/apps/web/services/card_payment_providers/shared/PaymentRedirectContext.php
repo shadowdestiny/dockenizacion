@@ -24,7 +24,7 @@ class PaymentRedirectContext
         if($paymentProvider->getName() == PaymentProviderEnum::WIRECARD) {
             $this->strategy = new WirecardRedirectResponseStrategy($lotteryName);
         } else if($paymentProvider->getName() == PaymentProviderEnum::ROYALPAY)
-            $this->strategy = new RoyalPayRedirectResponseStrategy(new Curl());
+            $this->strategy = new RoyalPayRedirectResponseStrategy(new Curl(), $lotteryName);
         else {
             $this->strategy = new NormalRedirectResponseStrategy($lotteryName);
         }

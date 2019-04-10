@@ -3,27 +3,24 @@
 
 namespace EuroMillions\web\services\card_payment_providers\royalpay\redirect_response;
 
-
 use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\services\card_payment_providers\shared\dto\PaymentBodyResponse;
 use Phalcon\Http\Client\Provider\Curl;
 
 class RoyalPayRedirectResponseStrategy implements IPaymentResponseRedirect
 {
-
-
     protected $client;
+    protected $lotteryName;
 
-
-    public function __construct(Curl $curl)
+    public function __construct(Curl $curl, $lotteryName)
     {
         $this->client = $curl;
+        $this->lotteryName = strtolower($lotteryName);
     }
 
 
     public function redirectTo(PaymentBodyResponse $paymentBodyResponse)
     {
-
         if ($paymentBodyResponse->getStatus()) {
             try {
                 $method = $paymentBodyResponse->getMetadata()['redirect_method'];
@@ -42,8 +39,11 @@ class RoyalPayRedirectResponseStrategy implements IPaymentResponseRedirect
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);
                     curl_setopt($ch, CURLINFO_HEADER_OUT, 0);
                     curl_setopt($ch, CURLOPT_POSTREDIR, 3);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS,
-                        http_build_query($paymentBodyResponse->getMetadata()['redirect_params']));
+                    curl_setopt(
+                        $ch,
+                        CURLOPT_POSTFIELDS,
+                        http_build_query($paymentBodyResponse->getMetadata()['redirect_params'])
+                    );
                     curl_exec($ch);
                     $redirectURL = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
                     curl_close($ch);
@@ -52,7 +52,11 @@ class RoyalPayRedirectResponseStrategy implements IPaymentResponseRedirect
                 throw new \Exception($e->getMessage());
             }
         } else {
-            header("Location: " . "https://" . $_SERVER['HTTP_HOST'] . '/euromillions/result/failure');
+            if ($this->lotteryName === "deposit") {
+                header("Location: " . "https://" . $_SERVER['HTTP_HOST'] . '/account/wallet');
+            } else {
+                header("Location: " . "https://" . $_SERVER['HTTP_HOST'] . '/euromillions/result/failure');
+            }
         }
     }
 }

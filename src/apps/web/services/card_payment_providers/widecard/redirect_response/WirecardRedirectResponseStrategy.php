@@ -19,10 +19,15 @@ class WirecardRedirectResponseStrategy implements IPaymentResponseRedirect
 
     public function redirectTo(PaymentBodyResponse $paymentBodyResponse)
     {
-        if($paymentBodyResponse->getStatus()) {
-            header("Location: " . "https://" . $_SERVER['HTTP_HOST'] .'/'.$this->lotteryName. '/result/success');
-        } else {
-            header("Location: " . "https://" . $_SERVER['HTTP_HOST'] .'/'.$this->lotteryName. '/result/failure');
+        if($this->lotteryName === "deposit") {
+            header("Location: " . "https://" . $_SERVER['HTTP_HOST'] . '/account/wallet');
+        }
+        else {
+            if ($paymentBodyResponse->getStatus()) {
+                header("Location: " . "https://" . $_SERVER['HTTP_HOST'] . '/' . $this->lotteryName . '/result/success');
+            } else {
+                header("Location: " . "https://" . $_SERVER['HTTP_HOST'] . '/euromillions/result/failure');
+            }
         }
     }
 }

@@ -17,9 +17,9 @@ class RoyalPayPaymentProviderDTO extends PaymentProviderDTO implements IDto, \Js
             'amount' => $this->amount,
             'currency' => $this->currency,
             "CallbackUrl" => $this->provider->getConfig()->getEndpointCallbacks(),
-	        "SuccessUrl" => "https://".$this->provider->getConfig()->getMerchantDomain().$this->lotteryName."/result/success",
-            "FailUrl" => "https://".$this->provider->getConfig()->getMerchantDomain()."euromillions/result/failure",
-            "PendingUrl" => "https://".$this->provider->getConfig()->getMerchantDomain().$this->lotteryName."/result/success",
+	        "SuccessUrl" => $this->getSucessUrl(),
+            "FailUrl" => $this->getFailUrl(),
+            "PendingUrl" => $this->getPendingUrl(),
             'cardNumber' => $this->creditCardNumber,
             'cardCvv' => $this->cvv,
             'cardYear' => $this->expirationYear,
@@ -38,5 +38,32 @@ class RoyalPayPaymentProviderDTO extends PaymentProviderDTO implements IDto, \Js
     public function jsonSerialize()
     {
         return $this->toArray();
+    }
+
+    private function getSucessUrl()
+    {
+        $url = "https://".$this->provider->getConfig()->getMerchantDomain().$this->lotteryName."/result/success";
+
+        if($this->lotteryName == "deposit") {
+            $url = "https://".$this->provider->getConfig()->getMerchantDomain()."account/wallet";
+        }
+
+        return $url;
+    }
+
+    private function getFailUrl()
+    {
+        $url = "https://".$this->provider->getConfig()->getMerchantDomain()."euromillions/result/failure";
+
+        if($this->lotteryName == "deposit") {
+            $url = "https://".$this->provider->getConfig()->getMerchantDomain()."account/wallet";
+        }
+
+        return $url;
+    }
+
+    private function getPendingUrl()
+    {
+        return $this->getSucessUrl();
     }
 }
