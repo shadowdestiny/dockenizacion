@@ -5,9 +5,6 @@ class MoneyMatrix extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            typePayment : 1,
-        }
     }
 
     componentWillMount() {
