@@ -102,7 +102,12 @@ final class EuroJackpotPaymentController extends PowerBallPaymentController
                                 'EuroJackpot',
                                 $aPaymentProvider
                             );
-                        return $this->playResult($result, 'EuroJackpot');
+
+                        if(!empty($result)) {
+                            return $this->playResult($result, 'EuroJackpot');
+                        }
+                        return false; //When we use the "PaymentRedirectContext" we force to return false.
+
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
