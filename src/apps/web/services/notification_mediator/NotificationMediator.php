@@ -120,24 +120,11 @@ class NotificationMediator implements IMediatorNotification
 
     }
 
-    public function sendEmail() //TODO: Use only the method: sendEmailPurchaseQueue() it is posible?
+    public function sendEmail()
     {
-        if($this->order->getLottery()->getName() == 'EuroMillions')
-        {
-            $this->playService->sendEmailPurchase($this->user,$this->order->getPlayConfig());
-            $this->log('sendEmail','Email Euromillions sent',Logger::INFO);
-        }
-        else if($this->order->getLottery()->getName() == 'PowerBall')
-        {
-            $this->playService->sendEmailPowerBallPurchase($this->user,$this->order->getPlayConfig());
-            $this->log('sendEmail','Email PowerBall sent',Logger::INFO);
-        }
-        else {
-            $this->playService->sendEmailPurchaseQueue($this->user, $this->order->getPlayConfig(), $this->order->getLottery()->getName());
-            $this->log('sendEmail','Email PurchaseQueue sent',Logger::INFO);
-        }
+        $this->playService->sendEmailPurchaseQueue($this->user, $this->order->getPlayConfig(), $this->order->getLottery()->getName());
+        $this->log('sendEmail','Email PurchaseQueue sent',Logger::INFO);
     }
-
 
     public function updateTransaction(User $user, Order $order, $transactionID, $walletBefore)
     {
