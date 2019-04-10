@@ -429,7 +429,7 @@
       }
     }
 
-    .cvv {
+    /*.cvv {
       float: none;
       width: 182px !important;
 
@@ -466,14 +466,14 @@
         }
       }
 
-      #card-cvv {
+      !*#card-cvv {
         width: 182px !important;
 
         @media only screen and (min-width: $screen-desktop) {
           width: 142px !important;
         }
-      }
-    }
+      }*!
+    }*/
 
     .btn:active,
     .btn:focus,

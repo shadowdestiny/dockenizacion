@@ -25,7 +25,7 @@
     var payment_object = {};
 
         var form = $(".form-currency");
-        payment_object.path         = form.attr("action");
+        payment_object.path         = "/addFunds";
         payment_object.csid         = form.find("#csid").val();
         payment_object.id_payment   = form.find("#id_payment").val();
         payment_object.session_id   = form.find("[name='thm_session_id']").val();
@@ -143,15 +143,18 @@
         } else {
             $('.box-wallet.overview > label.submit').removeClass('green').addClass('gray');
         }
+        var value_clean;
         if( '{{ symbol }}' !== '€'){
             $('.charge').show();
             $('.value.charge').text('{{ symbol }}' + parseFloat(value).toFixed(2));
             var convert = parseFloat(value).toFixed(2)/parseFloat(<?php echo $ratio; ?>).toFixed(2);
             $('.value.convert').text('(€' + parseFloat(convert).toFixed(2)+ ')');
+            value_clean = parseFloat(convert).toFixed(2);
         } else {
             $('.value.charge').text('{{ symbol }}' + parseFloat(value).toFixed(2));
+            value_clean = parseFloat(value).toFixed(2);
         }
-        $(document).trigger("refreshValuePayment", [ $('.value.charge').text() ]);
+        $(document).trigger("refreshValuePayment", [ $('.value.charge').text(), value_clean,$('#csid').val()]);
     });
 
     $('#funds-value').on('blur', function(e){
@@ -536,9 +539,9 @@
                             </label>
                         </div>
                     </form>
-                    {#<form id="form-withdraw" class="box-add-bank">
+                    {<form id="form-withdraw" class="box-add-bank">
                             {% include "account/_add-money-matrix-withdraw.volt" %}
-                    </form>#}
+                    </form>}
                 </div>
             </div>
         </div>

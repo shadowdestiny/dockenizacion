@@ -10,6 +10,7 @@ var EmWallet = require('../components/cart/EmWallet.jsx');
 var EmBtnPayment = require('../components/cart/EmBtnPayment.jsx');
 var EmCard = require('../components/payment/EmCard');
 var EmOptionSelector = require('../components/payment/EmOptionSelector');
+import MoneyMatrix from "../components/payment/moneymatrix";
 
 var _eurojackpot;
 try{
@@ -44,6 +45,8 @@ var CartPage = new React.createClass({
             mmxloading: false,
             show_payment_section:false,
             typePayment:1,
+            csid : '',
+            moneymatrix_url : ''
         }
     },
 
@@ -133,7 +136,9 @@ var CartPage = new React.createClass({
                 });
             } else if(data.type === 'credit_card') {
                 self.setState({
-                    show_payment_section : !value
+                    show_payment_section : !value,
+                    csid : _object.csid,
+                    moneymatrix_url : data.cashierUrl
                 });
             }
 
@@ -434,7 +439,7 @@ var CartPage = new React.createClass({
                                                          currency_symbol={this.props.currency_symbol} config={JSON.parse(this.props.config)}/>}
                 />
                 {this.state.show_payment_section ?
-                    <div className={"card-section-responsive"}>
+                    <div className={"card-section-responsive "+(this.state.typePayment === 2 ? "moneymatrix-dinamic--a" : "")}>
                         <div className="cart-section">
                             <br />
                             <div className={"line-general-separator"}>&nbsp;</div>
@@ -443,9 +448,12 @@ var CartPage = new React.createClass({
                                 <EmCard payment_object={this.props.payment_object}
                                         pricetopay={this.state.total}
                                         txt_deposit_buy_btn={this.props.txt_deposit_buy_btn}
+                                        csid={this.state.csid}
                                 />
-                                : ""
+                                :
+                                <MoneyMatrix moneymatrix_url={this.state.moneymatrix_url}/>
                             }
+
                         </div>
                     </div>
 

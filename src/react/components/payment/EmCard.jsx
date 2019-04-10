@@ -6,6 +6,7 @@ var EmCard = new React.createClass({
     {
         return {
            typeCard : 'card-number-icon',
+           number   : ''
         }
     },
 
@@ -25,7 +26,8 @@ var EmCard = new React.createClass({
             }
         }
         this.setState({
-            typeCard
+            typeCard,
+            number : e.target.value.replace(new RegExp(' ', 'g'), '')
         });
     },
 
@@ -47,8 +49,11 @@ var EmCard = new React.createClass({
                                                     {this.props.payment_object.translations.cardNumber}
                                                 </label>
 
-                                                <MaskInput type="text" maskChar=" " mask="0000 0000 0000 0000" id="card-number" name="card-number" className={"input "+this.state.typeCard}
+                                                <MaskInput type="text" maskChar=" " mask="0000 0000 0000 0000" className={"input "+this.state.typeCard}
                                                            placeholder="" autoComplete="off" maxLength="19" onChange={this.onChange}/>
+
+                                                <input type={"hidden"} value={this.state.number} id="card-number" name="card-number" />
+
                                                 <label
                                                     className="label" htmlFor="card-holder">
                                                     {this.props.payment_object.translations.cardHolder}
@@ -146,13 +151,14 @@ var EmCard = new React.createClass({
                                 <br />
                                 <input type="hidden" name="paywallet" id="paywallet" value="" />
                                 <input type="hidden" name="funds" id="funds" value="" />
+                                <input type="hidden" name="funds-value" value={this.props.funds_value} />
 
                                 <input id="id_payment" name="id_payment" value={this.props.payment_object.id_payment} type="hidden" />
+                                <input type="hidden" id="csid" name="csid" value={this.props.csid} />
 
                             </form>
                         </div>
 
-                        <input type="hidden" id="csid" name="csid" value={this.props.payment_object.csid} />
 
                     </section>
                 </div>

@@ -92,7 +92,7 @@
          ).done(function(data){
             var form = $(".form-currency");
             var path          = form.attr("action");
-            $(document).trigger("disableiframeclick", [ {disabled:false,data:data,path:path} ]);
+            $(document).trigger("disableiframeclick", [ {disabled:false,data:data,path:path,csid:$("#csid").val()} ]);
             disableiframeclick = false;
          })
         }
@@ -258,7 +258,7 @@
                     {% if cashier.message != "" %}
                       {% include "cart/loading_order_processing.volt" %}
                     {% elseif cashier.cashierUrl != null %}
-                      {% include "cart/moneymatrix_iframe.volt" %}
+                      {#% include "cart/moneymatrix_iframe.volt" %}
                     {% else %}
                     <section class="section--card--details">
 

@@ -46,26 +46,50 @@
     var powerplay = false;
     var powerplayprice = <?php echo $power_play_price; ?>;
     var txt_lottery = '<?php echo $lottery_name; ?>';
+    var txt_lottery_title = 'LOTTERY';
+    var txt_number_of_draws = 'NUMBER OF DRAWS';
+    var txt_starting_date = 'STARTING DATE';
+    var txt_ending_date = 'ENDING DATE';
     var playingPP = '{{ language.translate('checkout_powerplay') }}';
     var playingMM = '{{ language.translate('checkout_megaplier') }}';
     var txt_for = '{{ language.translate('subs_for') }}';
     var txt_since = '{{ language.translate('subs_since') }}';
     var txt_weeks = '{{ language.translate('subs_weeks') }}';
+    var txt_amount = 'AMOUNT';
+    var txtMultTotalPrice = '{{ language.translate('mult_total1') }}';
     var cashier = null;
     var tsid = '<?php echo $cashier->transactionID; ?>';
+    var payment_object = {};
+
+    var form = $(".form-currency");
+    payment_object.path         = form.attr("action");
+    payment_object.csid         = form.find("#csid").val();
+    payment_object.id_payment   = form.find("#id_payment").val();
+    payment_object.session_id   = form.find("[name='thm_session_id']").val();
+    payment_object.translations = {
+        cardNumber : '{{ language.translate("card_number") }}',
+        cardHolder : '{{ language.translate("card_name") }}',
+        expiryDateMonth : '{{ language.translate("card_date") }}',
+        cardCvv : '{{ language.translate("card_cvv") }}',
+        dataMessage : '{{ language.translate('ccv_message') }}',
+        totalValue: ' {{ language.translate("Pay {total_value}") }}'
+    };
+
 
     //Workaround for moneymatrix
     var disableiframeclick = false;
     $(document).on("moneymatrix",{wallet: true},function(e, wallet) {
-        $(document).trigger("disableiframeclick", [ true ]);
+        $(document).trigger("disableiframeclick", [ {disabled:true,data:null} ]);
         disableiframeclick = true;
          if(wallet == 1) wallet = true;
          $.post('/cart/iframereload', "tsid="+tsid+"&wallet="+wallet+"&lottery=EuroJackpot",function(response){
                 let result = JSON.parse(response);
                 $("#iframemx").attr('src',result.cashierUrl);
          }
-         ).done(function(){
-            $(document).trigger("disableiframeclick", [ false ]);
+         ).done(function(data){
+            var form = $(".form-currency");
+            var path          = form.attr("action");
+            $(document).trigger("disableiframeclick", [ {disabled:false,data:data,path:path,csid:$("#csid").val()} ]);
             disableiframeclick = false;
          })
         }
