@@ -17,7 +17,6 @@ class MaxMindWrapperUnitTest extends UnitTestBase
      */
     public function test_isIpForbidden_called_returnTrue()
     {
-        $this->markTestIncomplete('Config shippable');
         $config = \Phalcon\Di::getDefault()->get('config')['geoip_strategy'];
         $sut = new MaxMindWrapper($config);
         $ip = '77.156.225.7';
@@ -32,10 +31,9 @@ class MaxMindWrapperUnitTest extends UnitTestBase
      */
     public function test_isIpForbidden_called_returnFalse()
     {
-        $this->markTestIncomplete('Config shippable');
         $config = \Phalcon\Di::getDefault()->get('config')['geoip_strategy'];
         $sut = new MaxMindWrapper($config);
-        $ip = '87.156.225.7';
+        $ip = '195.208.218.98'; //From Russia
         $actual = $sut->isIpForbidden($ip);
         $this->assertFalse($actual);
     }

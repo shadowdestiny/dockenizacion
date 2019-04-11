@@ -8,41 +8,38 @@
     do_docker_setup: false # should install docker and docker-compose on host?
 
   pre_tasks:
-  - name: Check if GeoIP IPv4 database exist
+  - name: Check if GeoIP database exist
     stat:
       path: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIP.dat"
-    register: check_geoipv4
+    register: check_geoip
 
-  - name: Get GeoIP IPv4 database
+  - name: Get GeoIP
     get_url:
-      #url: http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
-      url: https://s3-eu-west-1.amazonaws.com/geoip-euromillions-hotfix/GeoIP.dat.gz
-      dest: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIP.dat.gz"
-    when: not check_geoipv4.stat.exists or update_geoip_database
+      url: https://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz
+      dest: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoLite2-Country.tar.gz"
+    when: not check_geoip.stat.exists or update_geoip_database
 
   - name: Uncompress geoip database
-    shell: gzip -fd GeoIP.dat.gz
+    shell: tar -zxvf GeoLite2-Country.tar.gz
     args:
       chdir: "{{ playbook_dir }}/../src/data/geoipdatabase"
-    when: not check_geoipv4.stat.exists or update_geoip_database
+      warn: false
+    when: not check_geoip.stat.exists or update_geoip_database
 
-  - name: Check if GeoIP IPv6 database exist
-    stat:
-      path: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIPv6.dat"
-    register: check_geoipv6
 
-  - name: Get GeoIP IPv6 database
-    get_url:
-      #url: http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
-      url: https://s3-eu-west-1.amazonaws.com/geoip-euromillions-hotfix/GeoIPv6.dat.gz
-      dest: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIPv6.dat.gz"
-    when: not check_geoipv6.stat.exists or update_geoip_database
-
-  - name: Uncompress geoip database
-    shell: gzip -fd GeoIPv6.dat.gz
+  - name: Move geoip to final location
+    shell: mv GeoLite2-Country_*/GeoLite2-Country.mmdb GeoLite2-Country.mmdb
     args:
       chdir: "{{ playbook_dir }}/../src/data/geoipdatabase"
-    when: not check_geoipv6.stat.exists or update_geoip_database
+      warn: false
+    when: not check_geoip.stat.exists or update_geoip_database
+
+  - name: Cleanup geoip
+    shell: rm -rf GeoLite2-Country.tar.gz GeoLite2-Country_*
+    args:
+      chdir: "{{ playbook_dir }}/../src/data/geoipdatabase"
+      warn: false
+    when: not check_geoip.stat.exists or update_geoip_database
 
   - name: Set correct permissions on folders where webserver writes on it
     file:
