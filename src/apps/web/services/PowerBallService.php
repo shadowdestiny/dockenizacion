@@ -14,7 +14,11 @@ use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
+use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\card_payment_providers\shared\dto\NormalBodyResponse;
+use EuroMillions\web\services\card_payment_providers\shared\dto\PaymentBodyResponse;
+use EuroMillions\web\services\card_payment_providers\shared\PaymentRedirectContext;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\vo\CreditCard;
@@ -164,11 +168,17 @@ class PowerBallService
                     $draw = $this->lotteryService->getNextDrawByLottery($lotteryName);
                     if ($credit_card != null) {
                         $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $order, $isWallet);
+                        /** @var PaymentBodyResponse $paymentBodyResponse */
+                        $paymentBodyResponse = $result_payment->returnValues();
+
                     } else {
                         if ($order->getHasSubscription()) {
                             $this->walletService->createSubscriptionTransaction($user, $order->getTransactionId(), $order);
                         }
                         $result_payment = new ActionResult(true, $order);
+                        $paymentBodyResponse = new NormalBodyResponse($result_payment->success());
+                        $this->cardPaymentProvider = new FakeCardPaymentProvider();
+
                     }
 
                     if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
@@ -244,9 +254,9 @@ class PowerBallService
                             }, $order->getPlayConfig()),
                             'discount' => $discount,
                         ];
-
                         $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
                         $this->sendEmailPurchase($user, $order->getPlayConfig(), $order->getLottery()->getName());
+                        (new PaymentRedirectContext($this->cardPaymentProvider,$order->getLottery()->getName()))->execute($paymentBodyResponse);
                         return new ActionResult(true, $order);
                     } else {
                         return new ActionResult($result_payment->success(), $order);
