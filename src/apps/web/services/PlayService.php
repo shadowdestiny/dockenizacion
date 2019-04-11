@@ -4,6 +4,7 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 
+use EuroMillions\shared\enums\PurchaseConfirmationEnum;
 use EuroMillions\shared\vo\RedisOrderKey;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\ErrorEmailTemplate;
@@ -21,7 +22,11 @@ use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\shared\components\PaymentsCollection;
+use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\card_payment_providers\shared\dto\NormalBodyResponse;
+use EuroMillions\web\services\card_payment_providers\shared\dto\PaymentBodyResponse;
+use EuroMillions\web\services\card_payment_providers\shared\PaymentRedirectContext;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider;
 use EuroMillions\web\services\email_templates_strategies\ErrorDataEmailTemplateStrategy;
@@ -159,6 +164,7 @@ class PlayService extends Colleague
             /** @var User $user */
             $user = $this->userRepository->find(['id' => $user_id]);
             $result_order = $this->cartService->get($user_id, $lottery->getName(), $isWallet);
+            $paymentBodyResponse = null;
             if ($result_order->success()) {
                 /** @var Order $order */
                 $order = $result_order->getValues();
@@ -173,20 +179,24 @@ class PlayService extends Colleague
                 $order->setAmountWallet($user->getWallet()->getBalance());
                 $uniqueId = TransactionId::create(); //TODO: Remove this UniqueID
                 if ($credit_card != null) {
-                    $provider = $paymentsCollection->getIterator()->current()->get();
-                    $result_payment = $this->walletService->onlyPay($provider, $credit_card, $user, $uniqueId, $order, $isWallet);
+                    $this->cardPaymentProvider = $paymentsCollection->getIterator()->current()->get();
+                    $result_payment = $this->walletService->onlyPay($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
+                    /** @var PaymentBodyResponse $paymentBodyResponse */
+                    $paymentBodyResponse = $result_payment->returnValues();
                 } else {
                     if ($order->getHasSubscription()) {
                         $this->walletService->createSubscriptionTransaction($user, $uniqueId, $order);
                     }
-                    $result_payment = new ActionResult(true, $order);
+                    $paymentBodyResponse = new NormalBodyResponse(true);
+                    $this->cardPaymentProvider = new FakeCardPaymentProvider();
+                    //$result_payment = new ActionResult(true, $order);
                 }
-                return new ActionResult($result_payment->success(), $order);
+                return (new PaymentRedirectContext($this->cardPaymentProvider,$order->getLottery()->getName()))->execute($paymentBodyResponse);
+                //return new ActionResult($result_payment->success(), $order);
             }
-            return new ActionResult(false);
+            //return new ActionResult(false);
         } catch (\Exception $e) {
             echo $e->getMessage();
-            die();
         }
     }
 
@@ -214,6 +224,7 @@ class PlayService extends Colleague
                 $user = $this->userRepository->find(['id' => $user_id]);
                 $result_order = $this->cartService->get($user_id, $lottery->getName(), $isWallet);
                 $numPlayConfigs = 0;
+                $paymentBodyResponse=null;
                 if ($result_order->success()) {
                     /** @var Order $order */
                     $order = $result_order->getValues();
@@ -231,11 +242,15 @@ class PlayService extends Colleague
                     $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
                     if ($credit_card != null) {
                         $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $order, $isWallet);
+                        /** @var PaymentBodyResponse $paymentBodyResponse */
+                        $paymentBodyResponse = $result_payment->returnValues();
                     } else {
                         if ($order->getHasSubscription()) {
                             $this->walletService->createSubscriptionTransaction($user, $order->getTransactionId(), $order);
                         }
                         $result_payment = new ActionResult(true, $order);
+                        $paymentBodyResponse = new NormalBodyResponse($result_payment->success());
+                        $this->cardPaymentProvider = new FakeCardPaymentProvider();
                     }
                     if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
@@ -300,7 +315,7 @@ class PlayService extends Colleague
                         ];
                         $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
                         $this->sendEmailPurchase($user, $order->getPlayConfig());
-                        return new ActionResult(true, $order);
+                        (new PaymentRedirectContext($this->cardPaymentProvider,$order->getLottery()->getName()))->execute($paymentBodyResponse);
                     } else {
                         return new ActionResult($result_payment->success(), $order);
                     }
@@ -310,7 +325,6 @@ class PlayService extends Colleague
             } catch (\Exception $e) {
             }
         }
-        return new ActionResult(false);
     }
 
 
@@ -432,7 +446,9 @@ class PlayService extends Colleague
                     $this->cardPaymentProvider = new WideCardPaymentProvider(
                         new WideCardConfig(
                         $config->endpoint,
-                        $config->api_key
+                        $config->api_key,
+                        $config->weight,
+                        $config->countries
                     )
                     );
                     if ($credit_card != null) {
@@ -796,17 +812,20 @@ class PlayService extends Colleague
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
-    public function sendEmailPowerBallPurchase(User $user, $orderLines)
+    public function sendEmailPurchaseQueue(User $user, $orderLines, $lotteryName)
     {
+        $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName);
         $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new PowerBallPurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+        $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
         if ($orderLines[0]->getFrequency() >= 4) {
-            $emailTemplate = new PowerballPurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+            $template = (new PurchaseConfirmationEnum())->findTemplatePathByLotteryName($lotteryName, true);
+            $emailTemplate = new $template($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
             $emailTemplate->setDraws($orderLines[0]->getFrequency());
             $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
         }
         $emailTemplate->setLine($orderLines);
         $emailTemplate->setUser($user);
+
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 }

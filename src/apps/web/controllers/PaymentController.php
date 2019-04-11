@@ -107,7 +107,12 @@ class PaymentController extends CartController
                                 'EuroMillions',
                                 $aPaymentProvider
                         );
-                        return $this->playResult($result);
+
+                        if(!empty($result)) {
+                            return $this->playResult($result);
+                        }
+                        return false; //When we use the "PaymentRedirectContext" we force to return false.
+
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
@@ -131,7 +136,7 @@ class PaymentController extends CartController
             $this->response->redirect('/' . $this->lottery . '/result/success');
             return false;
         } else {
-            $this->response->redirect('/' . $this->lottery . '/result/failure');
+            $this->response->redirect('/euromillions/result/failure');
             return false;
         }
     }

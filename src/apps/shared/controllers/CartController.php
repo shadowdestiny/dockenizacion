@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\shared\controllers;
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\helpers\SiteHelpers;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\TrackingCodesHelper;
@@ -256,8 +257,13 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
             $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($cardPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
             $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
 
+            $cardPaymentProviderName = $cardPaymentProvider->getIterator()->current()->get()->getName();
+            if($cardPaymentProviderName === PaymentProviderEnum::ROYALPAY) {
+                $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal(), $cardPaymentProvider);
+            }
+
             //TODO: Enable this for async transaction updates
-            //$this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
+            //$this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal(), $cardPaymentProvider);
 
             $this->cartService->store($order);
             echo json_encode($cashierViewDTO);
@@ -292,7 +298,7 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
                 $cashierViewDTO = $this->paymentProviderService->cashier($this->cartPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
 
                 //TODO: Enable this for async transaction updates
-                $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal());
+                //$this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $user, $order->getTotal(), $this->cartPaymentProvider->getIterator()->current()->get()->getName());
 
                 echo json_encode($cashierViewDTO);
             } else {
@@ -419,6 +425,10 @@ class CartController extends \EuroMillions\web\controllers\PublicSiteControllerB
         $orderDataToPaymentProvider = $this->paymentProviderService->orderDataPaymentProvider($cardPaymentProvider->getIterator()->current()->get(), new UserDTO($user), $order_eur, ['isMobile' => SiteHelpers::detectDevice()], $this->di->get('config'));
         $cashierViewDTO = $this->paymentProviderService->cashier($cardPaymentProvider->getIterator()->current()->get(), $orderDataToPaymentProvider);
 
+        $cardPaymentProviderName = $cardPaymentProvider->getIterator()->current()->get()->getName();
+        if($cardPaymentProviderName === PaymentProviderEnum::ROYALPAY) {
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $order_eur->getCreditCardCharge()->getFinalAmount(), $cardPaymentProviderName);
+        }
         //TODO: Enable this for async transaction updates
         //$this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $this->userService->getUser($user->getId()), $order_eur->getCreditCardCharge()->getFinalAmount());
 

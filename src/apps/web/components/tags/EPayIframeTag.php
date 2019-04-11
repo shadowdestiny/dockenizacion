@@ -7,6 +7,7 @@ namespace EuroMillions\web\components\tags;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\EmPayCypher;
@@ -93,5 +94,13 @@ class EPayIframeTag extends Tag implements ICardPaymentProvider
     public function getName()
     {
         throw new \Exception();
+    }
+
+    /**
+     * @return IPaymentResponseRedirect
+     */
+    public function getResponseRedirect()
+    {
+        // TODO: Implement getResponseRedirect() method.
     }
 }

@@ -87,7 +87,7 @@ class NotificationCest
     public function canSeeNewTicketPurchaseAndUpdatedDepositTransaction(FunctionalTester $I)
     {
         $date = new \DateTime();
-        $orderJson = '{"total":0,"fee":35,"fee_limit":1200,"single_bet_price":"300","num_lines":1,"play_config":[{"id":1,"startDrawDate":"2020-01-10 00:00:00","lastDrawDate":"2020-01-10 00:00:00","frequency":1,"euromillions_line":[{"regular":[6,16,34,36,44],"lucky":[3,12]}],"user":{"id":"9098299B-14AC-4124-8DB0-19571EDABE55"},"powerPlay":null}],"lottery":"EuroMillions"}';
+        $orderJson = '{"total":0,"fee":35,"fee_limit":1200,"single_bet_price":"300","num_lines":1,"play_config":[{"id":1,"startDrawDate":"2020-01-10 00:00:00","lastDrawDate":"2020-01-10 00:00:00","frequency":1,"euromillions_line":[{"regular":[6,16,34,36,44],"lucky":[3,12]}],"user":{"id":"9098299B-14AC-4124-8DB0-19571EDABE55"},"powerPlay":null}],"lottery":"EuroMillions","transactionId":"123456"}';
 
         /** @var \EuroMillions\web\entities\User $user */
         $user = UserMother::aUserWith50Eur()->build();
@@ -103,8 +103,8 @@ class NotificationCest
             'amountWithCreditCard' => 0,
             'feeApplied' => 0,
             'user' => $user,
-            'walletBefore' => new Wallet(),
-            'walletAfter' => new Wallet(),
+            'walletBefore' => $user->getWallet(),
+            'walletAfter' => $user->getWallet(),
             'transactionID' => '123456',
             'now' => $date,
             'playConfigs' => [1,2],
@@ -139,7 +139,7 @@ class NotificationCest
         );
 
         $I->amOnPage("/paymentmx/notification?transaction=123456&status=SUCCESS&date=2020-01-10");
-        $I->canSeeInDatabase('transactions', ['data' => '1#335#SUCCESS#1#EuroMillions#0']);
+        $I->canSeeInDatabase('transactions', ['id' => 1,'data' => '1#335#SUCCESS#1#EuroMillions#0#wirecard','wallet_after_uploaded_amount' => 5300]);
     }
 
 }

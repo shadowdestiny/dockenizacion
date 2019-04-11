@@ -130,7 +130,7 @@ class PaymentProviderService implements EventsAwareInterface
         }
     }
 
-    public function createOrUpdateDepositTransactionWithPendingStatus(Order $order, User $user, Money $amount, $status = 'PENDING', $statusCode = '8')
+    public function createOrUpdateDepositTransactionWithPendingStatus(Order $order, User $user, Money $amount, $paymentProviderName = null, $status = 'PENDING', $statusCode = '8')
     {
         try {
             $transactionId = $order->getTransactionId();
@@ -155,7 +155,8 @@ class PaymentProviderService implements EventsAwareInterface
                 'withWallet' => $order->isIsCheckedWalletBalance() ? 1: 0,
                 'accountBankId' => $user->getBankAccount(),
                 'amountWithdrawed' => $amount->getAmount(),
-                'state' => $status
+                'state' => $status,
+                'paymentProviderName' => $paymentProviderName != null ? $paymentProviderName : '',
             ];
             //TODO Complexity, a lot of conditionals
             if ($transaction == null) {
@@ -174,6 +175,7 @@ class PaymentProviderService implements EventsAwareInterface
                     $transaction[0]->setLotteryId($order->getLottery()->getId());
                     $transaction[0]->setWithWallet($order->isIsCheckedWalletBalance() ? 1 :0);
                     $transaction[0]->setStatus($status);
+                    $transaction[0]->setPaymentProviderName($paymentProviderName != null ? $paymentProviderName : '');
                 } else {
                     $moneyMatrixStatus = new MoneyMatrixStatusCode();
                     $transaction[0]->setState($moneyMatrixStatus->getValue($statusCode));

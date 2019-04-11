@@ -73,13 +73,13 @@ class OrderFactory
         }
         elseif($draw == 'Deposit')
         {
-            $order = new OrderDeposit($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
+            $order = new OrderDeposit($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw, $transactionId);
             $order->setAmountWallet($user->getWallet()->getBalance());
             return $order;
         }
         elseif($draw == 'Withdraw')
         {
-            $order = new WithdrawOrder($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
+            $order = new WithdrawOrder($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw, $transactionId);
             $order->setAmountWallet($user->getWallet()->getBalance());
             return $order;
         }

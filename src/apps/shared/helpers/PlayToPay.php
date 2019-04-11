@@ -3,6 +3,7 @@
 
 namespace EuroMillions\shared\helpers;
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\PowerBallService;
@@ -49,18 +50,27 @@ trait PlayToPay
         $lotteryName = "PowerBall",
         $aPaymentProvider
     ) {
-        $play = $this->playService == null ? $this->powerBallService : $this->playService;
-        if ($aPaymentProvider || $aPaymentProvider == 'true') {
-            $paymentsCollection = $this->paymentProviderServiceTrait->createCollectionFromTypeAndCountry($this->paymentSelectorTypeTrait, $this->paymentCountryTrait);
 
-            if ($this->powerBallService !== null) {
-                //Play from PowerBallService
-                return $play->play($user_id, $amount, $card, $withAccountBalance, $isWallet, $lotteryName, $paymentsCollection->getIterator()->current()->get());
-            } else {
-                //Play from PlayService
-                return $play->play($user_id, $amount, $card, $withAccountBalance, $isWallet, $paymentsCollection->getIterator()->current()->get());
+
+
+        $paymentsCollection = $this->paymentProviderServiceTrait->createCollectionFromTypeAndCountry($this->paymentSelectorTypeTrait, $this->paymentCountryTrait);
+
+        if( $paymentsCollection->getIterator()->current()->get()->getName() !== PaymentProviderEnum::ROYALPAY ) {
+
+            if ($aPaymentProvider || $aPaymentProvider == 'true') {
+                if ($lotteryName !== 'EuroMillions') { //TODO: nasty hack for use powerball service
+                    //Play from PowerBallService
+                    $play = $this->powerBallService;
+                    return $play->play($user_id, $amount, $card, $withAccountBalance, $isWallet, $lotteryName, $paymentsCollection->getIterator()->current()->get());
+                } else {
+                    //Play from PlayService
+                    $play = $this->playService;
+                    return $play->play($user_id, $amount, $card, $withAccountBalance, $isWallet, $paymentsCollection->getIterator()->current()->get());
+                }
             }
         }
+
+        $play = $this->playService;
 
         return $play->playWithQueue(
             $user_id,
@@ -69,10 +79,7 @@ trait PlayToPay
             $withAccountBalance,
             $isWallet,
             $lotteryName,
-            $this->paymentProviderServiceTrait->createCollectionFromTypeAndCountry(
-                $this->paymentSelectorTypeTrait,
-                $this->paymentCountryTrait
-            )
+            $paymentsCollection
         );
     }
 
