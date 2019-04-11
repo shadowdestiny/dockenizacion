@@ -117,7 +117,7 @@ weight=10
 [royalpay]
 endpoint=https://7ejmaidn4e.execute-api.eu-west-1.amazonaws.com/prod/royalpay
 api_key={{ royalpay_api_key }}
-countries=RU,UA,ES
+countries=RU,UA,BL
 weight=10
 
 [lotto_api]
@@ -143,10 +143,10 @@ secret_access_key={{ AWS_SECRET_ACCESS_KEY }}
 access_key_id={{ AWS_ACCESS_KEY_ID }}
 
 [payment_gateway]
-;class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy,RoyalPayPaymentStrategy
-;config=wirecard,moneymatrix,royalpay
-class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
-config=wirecard,moneymatrix
+class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy,RoyalPayPaymentStrategy
+config=wirecard,moneymatrix,royalpay
+;class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
+;config=wirecard,moneymatrix
 
 [geoip_strategy]
 normal=WideCardPaymentStrategy
