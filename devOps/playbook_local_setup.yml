@@ -10,7 +10,7 @@
   pre_tasks:
   - name: Check if GeoIP database exist
     stat:
-      path: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoIP.dat"
+      path: "{{ playbook_dir }}/../src/data/geoipdatabase/GeoLite2-Country.mmdb"
     register: check_geoip
 
   - name: Get GeoIP
