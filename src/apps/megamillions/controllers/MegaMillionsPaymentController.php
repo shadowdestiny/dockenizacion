@@ -95,6 +95,7 @@ class MegaMillionsPaymentController extends PowerBallPaymentController
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
                         $aPaymentProvider = true; //$this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
                         $result = $this->setPowerBallService($powerball_service)
+                            ->setPlayService($playService)
                             ->setPaymentProviderServiceTrait($this->paymentProviderService)
                             ->setPaymentCountryTrait($this->paymentCountry)
                             ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
@@ -107,7 +108,12 @@ class MegaMillionsPaymentController extends PowerBallPaymentController
                                 'MegaMillions',
                                 $aPaymentProvider
                             );
-                        return $this->playResult($result, 'megamillions');
+
+                        if(!empty($result)) {
+                            return $this->playResult($result, 'megamillions');
+                        }
+                        return false; //When we use the "PaymentRedirectContext" we force to return false.
+
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }

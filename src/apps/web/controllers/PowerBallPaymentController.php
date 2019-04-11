@@ -95,6 +95,7 @@ class PowerBallPaymentController extends CartController
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
                         $aPaymentProvider = true; //$this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
                         $result = $this->setPowerBallService($powerball_service)
+                            ->setPlayService($playService)
                             ->setPaymentProviderServiceTrait($this->paymentProviderService)
                             ->setPaymentCountryTrait($this->paymentCountry)
                             ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
@@ -107,7 +108,12 @@ class PowerBallPaymentController extends CartController
                                 'PowerBall',
                                 $aPaymentProvider
                             );
-                        return $this->playResult($result,'powerball');
+
+                        if(!empty($result)) {
+                            return $this->playResult($result,'powerball');
+                        }
+                        return false; //When we use the "PaymentRedirectContext" we force to return false.
+
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
@@ -132,7 +138,7 @@ class PowerBallPaymentController extends CartController
             $this->response->redirect('/' . mb_strtolower($lotteryName) . '/result/success/'.mb_strtolower($lotteryName));
             return false;
         } else {
-            $this->response->redirect('/' . mb_strtolower($lotteryName) . '/result/failure');
+            $this->response->redirect('/euromillions/result/failure');
             return false;
         }
     }

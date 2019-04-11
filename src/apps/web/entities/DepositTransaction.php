@@ -31,13 +31,13 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
         $this->setUser($data['user']);
         $this->setLotteryName($data['lotteryName']);
         $this->setStatus(!empty($data['status']) ? $data['status'] : 'SUCCESS');
-        $this->setWithWallet(!empty($data['withWallet']) ? $data['status'] : 0);
+        $this->setWithWallet(!empty($data['withWallet']) ? $data['withWallet'] : 0);
         $this->setPaymentProviderName( !empty($data['paymentProviderName']) ? $data['paymentProviderName'] : PaymentProviderEnum::WIRECARD);
     }
 
     public function toString()
     {
-        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getStatus().'#'.$this->getLotteryId().'#'.$this->getLotteryName().'#'.$this->withWallet.'#' .$this->paymentProviderName;
+        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getStatus().'#'.$this->getLotteryId().'#'.$this->getLotteryName().'#'.$this->withWallet.'#'.$this->paymentProviderName;
     }
 
     public function fromString()

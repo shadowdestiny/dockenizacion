@@ -17,7 +17,7 @@ database_slave_pass: ''
 database_slave_name: ''
 is_development_mode: 'true'
 
-domain_url: 'localhost:443/'
+domain_url: 'dev.euromillions.com/'
 
 redis_host: 'redis'
 redis_prefix: ''

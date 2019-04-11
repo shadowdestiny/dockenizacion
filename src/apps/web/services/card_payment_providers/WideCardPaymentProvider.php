@@ -3,13 +3,13 @@
 
 namespace EuroMillions\web\services\card_payment_providers;
 
-
 use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
-use EuroMillions\web\services\card_payment_providers\shared\CountriesCollection;
+use EuroMillions\web\services\card_payment_providers\widecard\dto\WirecardBodyResponse;
 use EuroMillions\web\services\card_payment_providers\widecard\GatewayClientWrapper;
+use EuroMillions\web\services\card_payment_providers\widecard\redirect_response\WirecardRedirectResponseStrategy;
 use EuroMillions\web\services\card_payment_providers\widecard\WideCardConfig;
 use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\enum\PaymentSelectorType;
@@ -18,11 +18,8 @@ use EuroMillions\web\vo\PaymentWeight;
 use Money\Money;
 use Phalcon\Http\Client\Response;
 
-class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGateway
+class WideCardPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGateway
 {
-
-    use CountriesCollection;
-
     private $gatewayClient;
 
     /**
@@ -40,12 +37,17 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
      */
     protected $paymentWeight;
 
+    /**
+     * @var WirecardRedirectResponseStrategy
+     */
+    protected $responseRedirect;
+
     public function __construct(WideCardConfig $config, $gatewayClient = null)
     {
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
         $this->config = $config;
-        $this->paymentCountry = new PaymentCountry($this->countries());
-        $this->paymentWeight= new PaymentWeight(50);
+        $this->paymentCountry = $config->getFilterConfig()->getCountries();
+        $this->paymentWeight = $config->getFilterConfig()->getWeight();
     }
 
     /**
@@ -60,12 +62,11 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         /** @var Response $result */
         $result = $this->gatewayClient->send($params);
         $header = $result->header;
-        $body = json_decode($result->body);
-        if( $header->statusCode != 200 ) {
-            return new PaymentProviderResult(false,$header->statusMessage,$header->statusMessage);
+        $body = WirecardBodyResponse::create(json_decode($result->body), $header->statusMessage);
+        if ($header->statusCode != 200) {
+            return new PaymentProviderResult(false, $body);
         }
-        return new PaymentProviderResult($body->status === "ok", $header->statusMessage);
-
+        return new PaymentProviderResult($body->getStatus(), $body);
     }
 
     public function withDraw(Money $amount, $idTransaction)
@@ -82,7 +83,7 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         return $this->config;
     }
 
-    public function call($data,$action,$method)
+    public function call($data, $action, $method)
     {
         // TODO: Implement call() method.
     }
@@ -108,7 +109,7 @@ class WideCardPaymentProvider implements ICardPaymentProvider,IHandlerPaymentGat
         return $this->paymentWeight;
     }
 
-    public function  getName()
+    public function getName()
     {
         return PaymentProviderEnum::WIRECARD;
     }

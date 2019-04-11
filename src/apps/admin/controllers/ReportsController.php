@@ -284,6 +284,22 @@ class ReportsController extends AdminControllerBase
         }
     }
 
+    public function salesDrawMegaMillionsDetailsAction()
+    {
+        $this->checkPermissions();
+        if ($this->request->get('id')) {
+            $drawDates = $this->reportsService->getMegaMillionsDrawsActualAfterDatesById($this->request->get('id'));
+
+            $this->view->setVars([
+                'needReportsMenu' => true,
+                'euromillionsDrawId' => $this->request->get('id'),
+                'salesDrawDetailsData' => $this->reportsService->getMegaMillionsDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'countryList' => $this->countries,
+            ]);
+
+        }
+    }
+
     public function salesDrawEuroJackpotDetailsAction()
     {
         $this->checkPermissions();

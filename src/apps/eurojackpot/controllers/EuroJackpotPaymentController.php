@@ -89,6 +89,7 @@ final class EuroJackpotPaymentController extends PowerBallPaymentController
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
                         $aPaymentProvider = true; //$this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
                         $result = $this->setPowerBallService($powerball_service)
+                            ->setPlayService($playService)
                             ->setPaymentProviderServiceTrait($this->paymentProviderService)
                             ->setPaymentCountryTrait($this->paymentCountry)
                             ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
@@ -101,7 +102,12 @@ final class EuroJackpotPaymentController extends PowerBallPaymentController
                                 'EuroJackpot',
                                 $aPaymentProvider
                             );
-                        return $this->playResult($result, 'EuroJackpot');
+
+                        if(!empty($result)) {
+                            return $this->playResult($result, 'EuroJackpot');
+                        }
+                        return false; //When we use the "PaymentRedirectContext" we force to return false.
+
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
