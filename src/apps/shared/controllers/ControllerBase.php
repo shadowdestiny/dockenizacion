@@ -108,7 +108,7 @@ class ControllerBase extends Controller
     protected function checkBannedCountry()
     {
         $config = $this->di->get('config');
-        $geoip = new MaxMindWrapper($config->geoip->database_files_path);
+        $geoip = new MaxMindWrapper($config->geoip_strategy);
         if($geoip->isIpForbidden($this->request->getClientAddress(true))) {
             $this->view->pick('/landings/restricted');
         }
@@ -117,7 +117,7 @@ class ControllerBase extends Controller
     protected function setPaymentCountry()
     {
         $config = $this->di->get('config');
-        $geoip = new MaxMindWrapper($config->geoip->database_files_path);
+        $geoip = new MaxMindWrapper($config->geoip_strategy);
         $this->paymentCountry= new PaymentCountry([$geoip->getCountryFromIp(GeoIPUtil::giveMeRealIP())]); //TODO: Check if is a valid PaymentCountry
     }
 
