@@ -6,7 +6,7 @@
 .ansible_vault_password
 *.retry
 *.log
-phpinfo.php
+src/apps/shared/config/development_config.ini
 src/app/assets/*
 !src/app/assets/README.md
 src/logs/*
