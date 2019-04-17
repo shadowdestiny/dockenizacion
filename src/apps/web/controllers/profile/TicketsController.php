@@ -47,6 +47,11 @@ class TicketsController extends AccountController
         $paginatorSubsInactives = $this->getPaginatorAsArray(!empty($mySubsInactives) ? $mySubsInactives : [],4,$pageSubsInactives);
         $paginatorViewSubsInactive = (new PaginationWidgetAdmin($paginatorSubsInactives, $this->request->getQuery(), [], 'pageSubsInactives'))->render();
 
+        $christmasPast=$this->userService->getMyInactiveChristmas($user->getId());
+        $pageChristmasPast = (!empty($this->request->get('pageChristmasPast'))) ? $this->request->get('pageChristmasPast') : 1;
+        $paginatorPageChristmasPast = $this->getPaginatorAsArray(!empty($christmasPast) ? $christmasPast : [],4,$pageChristmasPast);
+        $paginatorViewChristmasPast = (new PaginationWidgetAdmin($paginatorPageChristmasPast, $this->request->getQuery(), [], 'pageChristmasPast'))->render();
+
         $this->tag->prependTitle('My Tickets');
         return $this->view->setVars([
             'my_games_actives' => $playConfigDTO,
@@ -54,10 +59,11 @@ class TicketsController extends AccountController
             'my_subscription_actives' => $this->userService->getMyActiveSubscriptions($user->getId(), $this->lotteryService->getNextDateDrawByLottery('EuroMillions')),
             'my_subscription_inactives' => $paginatorSubsInactives->getPaginate()->items,
             'my_christmas_actives' => $this->userService->getMyActiveChristmas($user->getId()),
-            'my_christmas_inactives' => $this->userService->getMyInactiveChristmas($user->getId()),
+            'my_christmas_inactives' => $paginatorPageChristmasPast->getPaginate()->items,
             'jackpot_value' => $jackpot,
             'paginator_view' => $paginator_view,
             'paginator_view_subs_inactives' => $paginatorViewSubsInactive,
+            'paginator_christmas_view_subs_inactives' => $paginatorViewChristmasPast,
             'message_actives' => $message_actives,
             'message_inactives' => $message_inactives,
             'nextDrawDate' => $this->lotteryService->getNextDateDrawByLottery('Euromillions')->format('Y M d'),
