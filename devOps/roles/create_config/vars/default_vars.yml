@@ -70,7 +70,7 @@ gcp_visa_sign_key: 'Hn6fjbB8'
 gcp_master_gw_id: '21260002'
 gcp_master_sign_key: '6f6pB46l'
 
-wirecard_endpoint: 'https://api.euromillions.com/beta/wirecard-payment'
+wirecard_endpoint: 'https://api.euromillions.com/beta/payment'
 wirecard_endpoint_withdraw: 'https://api.euromillions.com/beta/withdraw'
 wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
@@ -120,8 +120,13 @@ geoip_normal : 'WideCardPaymentStrategy'
 geoip_blocked: 'MoneyMatrixPaymentStrategy'
 geoip_geoip: 'GeoIPService'
 geoip_geoIpImpl: 'MaxMindWrapper'
-geoip_database_path: '/var/www/data/geoipdatabase'
 geoip_blocked_countries: 'FR'
+geoip_database_path: '/var/www/data/geoipdatabase'
+geoip_database_name: 'GeoLite2-Country.mmdb'
+geoip_account_id: 'none-set'
+geoip_licence_key: 'none-set'
+geoip_use_database: 'true'
+
 
 payment_balancing: 'GeoIPStrategy'
 payment_balancing_dependencies: 'geoip_strategy'

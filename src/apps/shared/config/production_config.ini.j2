@@ -117,7 +117,7 @@ weight=10
 [royalpay]
 endpoint=https://7ejmaidn4e.execute-api.eu-west-1.amazonaws.com/prod/royalpay
 api_key={{ royalpay_api_key }}
-countries=RU,UA,ES
+countries=RU,UA,BL
 weight=10
 
 [lotto_api]
@@ -143,18 +143,22 @@ secret_access_key={{ AWS_SECRET_ACCESS_KEY }}
 access_key_id={{ AWS_ACCESS_KEY_ID }}
 
 [payment_gateway]
-;class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy,RoyalPayPaymentStrategy
-;config=wirecard,moneymatrix,royalpay
-class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
-config=wirecard,moneymatrix
+class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy,RoyalPayPaymentStrategy
+config=wirecard,moneymatrix,royalpay
+;class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
+;config=wirecard,moneymatrix
 
 [geoip_strategy]
 normal=WideCardPaymentStrategy
 blocked=MoneyMatrixPaymentStrategy
 geoip=GeoIPService
 geoIpImpl=MaxMindWrapper
-database_path=/var/www/data/geoipdatabase
 blocked_countries=FR
+database_path=/var/www/data/geoipdatabase
+database_name=GeoLite2-Country.mmdb
+account_id=none-set
+license_key=none-set
+use_database=true
 
 [payment_balancing]
 strategy=GeoIPStrategy

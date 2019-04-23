@@ -5,6 +5,12 @@
     - default_vars
     - development_vars
 
-- name: create template for environment
+- name: check development_config.ini exists
+  stat:
+    path: "{{ playbook_dir }}/../src/apps/shared/config/development_config.ini"
+  register: development_config_file
+
+- name: create development_config.ini if not exists
   template: src=config_tpl.j2 dest={{ playbook_dir }}/../src/apps/shared/config/development_config.ini
+  when: development_config_file.stat.exists == False
   ignore_errors: yes

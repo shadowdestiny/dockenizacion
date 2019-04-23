@@ -237,8 +237,10 @@ $(function () {
 
 
   var first_page = (new Date().valueOf() - $.cookie('lastSeen') > 0);
+  var box_cookies = $('.box-cookies');
+  box_cookies.show();
   if ($.cookie('EM-law') && first_page) { //First time visitor, load cookies
-    $('.box-cookies').remove();
+      box_cookies.remove();
   }
   if (!$.cookie('lastSeen')) {
     $.cookie('lastSeen', new Date().valueOf());

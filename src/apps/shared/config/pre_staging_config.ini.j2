@@ -158,8 +158,12 @@ normal=WideCardPaymentStrategy
 blocked=MoneyMatrixPaymentStrategy
 geoip=GeoIPService
 geoIpImpl=MaxMindWrapper
-database_path=/var/www/data/geoipdatabase
 blocked_countries=FR
+database_path=/var/www/data/geoipdatabase
+database_name=GeoLite2-Country.mmdb
+account_id=none-set
+license_key=none-set
+use_database=true
 
 [payment_balancing]
 strategy=GeoIPStrategy
