@@ -1,0 +1,54 @@
+@import "../../_variables";
+@import "../../mixins";
+@import "../../_megasena/_partial/init";
+.lottery-results--carousel--section{
+  .lottery-results--carousel {
+    .lottery-result {
+      &.lottery-result--megasena {
+        .bottom-block,
+        .top-block {
+          background-color: $clear_dark ;
+        }
+
+
+        .center-block {
+          background-color: #75c994 ;
+
+          .result-row {
+            $row-results-eurojackpot--obb--start : #bb8b22;
+            $row-results-eurojackpot--obb--end : #c08f26;
+
+            background: $medium_color;
+
+
+            &:nth-child(even) {
+              $row-results-eurojackpot--even--start : #d1a74e;
+              $row-results-eurojackpot--even--end : #dcb35b;
+
+              background: $clear_color;
+
+            }
+
+            .row--results {
+              .ball {
+
+                &.star {
+                  color: #018833;
+                  background-color: #fff;
+                  border: 1px solid #fff;
+
+                  &:last-of-type {
+                    color: #018833;
+                    background-color: #fff;
+                    border: 1px solid #fff;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+}

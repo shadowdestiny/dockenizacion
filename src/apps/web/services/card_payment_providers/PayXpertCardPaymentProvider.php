@@ -1,15 +1,14 @@
 <?php
 namespace EuroMillions\web\services\card_payment_providers;
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
-use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\services\card_payment_providers\payxpert\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
-use EuroMillions\web\vo\CreditCard;
-use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use Money\Currency;
-use Money\Money;
 
 class PayXpertCardPaymentProvider implements ICardPaymentProvider
 {
@@ -22,25 +21,39 @@ class PayXpertCardPaymentProvider implements ICardPaymentProvider
     }
 
 
-    public function charge(Money $amount, CreditCard $card)
+    public function charge(PaymentProviderDTO $data)
     {
-        if( $amount->getCurrency() != new Currency('EUR') ) {
+        $arrayData = $data->toArray();
+
+        $amount = $arrayData['amount'];
+        $currency = $arrayData['currency'];
+        $cardNumbers = $arrayData['creditCardNumber'];
+        $cardCvv = $arrayData['cvv'];
+        $cardHolderName= $arrayData['cardHolderName'];
+        $cardExpiryMonth = $arrayData['expirationMonth'];
+        $cardExpiryYear = $arrayData['expirationYear'];
+
+        if( $currency != new Currency('EUR') ) {
             return new PaymentProviderResult(false, (object) ['errorCode' => '916', 'errorMessage' => 'No terminal defined for current currency and card type']);
         }
         $transaction = $this->gatewayClient->newTransaction('CCSale');
-        $transaction->setTransactionInformation($amount->getAmount(), $amount->getCurrency()->getName(), 'EuroMillions Wallet Recharge');
-        $transaction->setCardInformation($card->getCardNumbers(), $card->getCVV(), $card->getHolderName(), $card->getExpiryMonth(), $card->getExpiryYear());
+        $transaction->setTransactionInformation($amount, $currency, 'EuroMillions Wallet Recharge');
+        $transaction->setCardInformation($cardNumbers, $cardCvv, $cardHolderName, $cardExpiryMonth, $cardExpiryYear);
         $transaction->setShopperInformation('NA', 'NA', 'NA', 'NA', 'NA', 'ZZ', 'NA', 'NA');
         $result = $transaction->send();
         return new PaymentProviderResult($result->errorCode === "000", $result);
     }
 
-    /**
-     * @param User $user
-     * @return mixed
-     */
-    public function user(User $user)
+    public function getName()
     {
+        return PaymentProviderEnum::PAYXPERT;
+    }
 
+    /**
+     * @return IPaymentResponseRedirect
+     */
+    public function getResponseRedirect()
+    {
+        // TODO: Implement getResponseRedirect() method.
     }
 }

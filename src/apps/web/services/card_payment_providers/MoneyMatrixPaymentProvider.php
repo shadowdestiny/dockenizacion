@@ -9,47 +9,43 @@
 namespace EuroMillions\web\services\card_payment_providers;
 
 
-use EuroMillions\shared\vo\results\PaymentProviderResult;
-use EuroMillions\web\entities\User;
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IHandlerPaymentGateway;
+use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixConfig;
 use EuroMillions\web\services\card_payment_providers\moneymatrix\MoneyMatrixGatewayClientWrapper;
-use EuroMillions\web\vo\CreditCard;
-use Money\Money;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
+use EuroMillions\web\vo\PaymentCountry;
+use EuroMillions\web\vo\PaymentWeight;
 
 class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymentGateway
 {
-
     protected $gatewayClient;
 
     protected $config;
 
-    protected $data;
+    /**
+     * @var PaymentCountry $paymentCountry
+     */
+    protected $paymentCountry;
 
-
+    protected $paymentWeight;
 
     public function __construct(MoneyMatrixConfig $config, $gateway = null)
     {
         $this->gatewayClient = $gateway ?: new MoneyMatrixGatewayClientWrapper($config);
         $this->config = $config;
+        $this->paymentCountry = $config->getFilterConfig()->getCountries();
+        $this->paymentWeight = $config->getFilterConfig()->getWeight();
     }
 
     /**
-     * @param Money $amount
-     * @param CreditCard $card
-     * @return PaymentProviderResult
+     * @param PaymentProviderDTO $data
+     * @return void
      */
-    public function charge(Money $amount, CreditCard $card)
-    {
-        throw new \BadFunctionCallException();
-    }
-
-    /**
-     * @param User $user
-     * @return mixed
-     */
-    public function user(User $user)
+    public function charge(PaymentProviderDTO $data)
     {
         throw new \BadFunctionCallException();
     }
@@ -69,11 +65,39 @@ class MoneyMatrixPaymentProvider implements ICardPaymentProvider, IHandlerPaymen
         } catch ( \Exception $e ) {
             throw new \Exception($e->getMessage());
         }
-
     }
 
     public function type()
     {
-        return "IFRAME";
+        return new PaymentSelectorType(PaymentSelectorType::OTHER_METHOD);
+    }
+
+    /**
+     * @return PaymentCountry
+     */
+    public function getPaymentCountry()
+    {
+        return $this->paymentCountry;
+    }
+
+    /**
+     * @return PaymentWeight
+     */
+    public function getPaymentWeight()
+    {
+        return $this->paymentWeight;
+    }
+
+    public function  getName()
+    {
+        return PaymentProviderEnum::MONEYMATRIX;
+    }
+
+    /**
+     * @return IPaymentResponseRedirect
+     */
+    public function getResponseRedirect()
+    {
+        // TODO: Implement getResponseRedirect() method.
     }
 }

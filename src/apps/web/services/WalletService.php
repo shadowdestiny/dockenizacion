@@ -3,21 +3,27 @@
 namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\components\builder\PaymentProviderDTOBuilder;
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\interfaces\IResult;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\services\notification_mediator\Colleague;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
+use EuroMillions\web\vo\dto\PaymentProviderDTO;
+use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\WalletDTO;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderChristmas;
 use Money\Currency;
 use Money\Money;
+use Phalcon\Logger;
 
-class WalletService
+class WalletService extends Colleague
 {
     private $entityManager;
     private $currencyConversionService;
@@ -33,31 +39,39 @@ class WalletService
     }
 
     /**
+     * @param bool $onlyPay
      * @param ICardPaymentProvider $provider
      * @param CreditCard $card
      * @param User $user
+     * @param Order $order
      * @param CreditCardCharge $creditCardCharge
      * @return IResult
+     * @throws \Exception
      */
-    public function rechargeWithCreditCard(ICardPaymentProvider $provider,
+    public function rechargeWithCreditCard($onlyPay,
+                                           ICardPaymentProvider $provider,
                                            CreditCard $card,
                                            User $user,
+                                           Order $order,
                                            CreditCardCharge $creditCardCharge)
     {
-        $provider->user($user);
-        $uniqueId = $this->getUniqueTransactionId();
-        $provider->idTransaction = $uniqueId;
-        $payment_result = $this->pay($provider, $card, $creditCardCharge);
-        if ($payment_result->success()) {
-            $walletBefore = $user->getWallet();
-            $user->reChargeWallet($creditCardCharge->getNetAmount());
-            try {
-                $this->entityManager->persist($user);
-                $this->entityManager->flush($user);
-                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueId, $walletBefore);
-                $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
-            } catch (\Exception $e) {
-                //EMTD Log and warn the admin
+        if($onlyPay) {
+            $payment_result = $this->onlyPay($provider,$card, $user, null, $order);
+        }
+        else {
+            $payment_result = $this->pay($provider, $user, $order, $card);
+            if ($payment_result->success()) {
+                $walletBefore = $user->getWallet();
+                $user->reChargeWallet($creditCardCharge->getNetAmount()); //TODO: We can get CreditCardCharge from the Order?
+
+                try {
+                    $this->entityManager->persist($user);
+                    $this->entityManager->flush($user);
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore, null, $provider->getName());
+                    $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
+                } catch (\Exception $e) {
+                    //EMTD Log and warn the admin
+                }
             }
         }
         return $payment_result;
@@ -67,38 +81,64 @@ class WalletService
      * @param ICardPaymentProvider $provider
      * @param CreditCard $card
      * @param User $user
-     * @param CreditCardCharge $creditCardCharge
+     * @param Order $order
+     * @param null $isWallet
      * @return IResult
+     * @throws \Exception
      */
     public function payWithCreditCard(ICardPaymentProvider $provider,
                                       CreditCard $card,
                                       User $user,
-                                      $uniqueID = null,
                                       Order $order,
                                       $isWallet = null)
     {
 
         $creditCardCharge = $order->getCreditCardCharge();
 
-        $payment_result = $this->pay($provider, $card, $creditCardCharge);
+        $payment_result = $this->pay($provider, $user, $order, $card);
         if ($payment_result->success()) {
             try {
                 $walletBefore = $user->getWallet();
                 if (!$order->getHasSubscription()) {
                     $user->reChargeWallet($creditCardCharge->getNetAmount());
-                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore,$order);
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore,$order, $provider->getName());
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
                 } else {
                     $user->reChargeSubscriptionWallet($creditCardCharge->getNetAmount());
                     if ($isWallet) {
                         $user->removeSubscriptionWithWallet($creditCardCharge->getNetAmount());
                     }
-                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore,$order);
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $order->getTransactionId(), $walletBefore,$order, $provider->getName());
                     $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
                 }
                 $this->entityManager->persist($user);
                 $this->entityManager->flush($user);
             } catch (\Exception $e) {
+
+            }
+        }
+        return $payment_result;
+    }
+
+
+
+    public function onlyPay(ICardPaymentProvider $provider,
+                            CreditCard $card,
+                            User $user,
+                            $uniqueID = null,
+                            Order $order,
+                            $isWallet = null)
+    {
+        //$creditCardCharge = $order->getCreditCardCharge();
+        //$payment_result = $this->pay($provider, $card, $creditCardCharge);
+        $payment_result = $this->pay($provider, $user, $order, $card);
+        if ($payment_result->success()) {
+            try
+            {
+                $this->entityManager->persist($user);
+                $this->entityManager->flush($user);
+            } catch(\Exception $e)
+            {
 
             }
         }
@@ -190,7 +230,7 @@ class WalletService
     {
 
         $creditCardCharge = $order->getCreditCardCharge();
-        $payment_result = $this->pay($provider, $card, $creditCardCharge);
+        $payment_result = $this->pay($provider, $user, $order, $card);
         if ($payment_result->success()) {
             try {
                 $walletBefore = $user->getWallet();
@@ -209,11 +249,21 @@ class WalletService
     }
 
 
-    public function pay(ICardPaymentProvider $provider, CreditCard $card, CreditCardCharge $creditCardCharge)
+    public function pay(ICardPaymentProvider $provider, User $user, Order $order, CreditCard $card)
     {
         try {
-            $amount = $creditCardCharge->getFinalAmount();
-            return $provider->charge($amount, $card);
+            $amount = $order->getCreditCardCharge()->getFinalAmount();
+
+            $paymentProviderDTO = (new PaymentProviderDTOBuilder())
+                ->setProvider($provider)
+                ->setUser(new UserDTO($user))
+                ->setOrder($order)
+                ->setAmount($amount)
+                ->setCard($card)
+                ->build()
+            ;
+
+            return $provider->charge($paymentProviderDTO);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
@@ -344,10 +394,29 @@ class WalletService
     }
 
 
+    public function ticketPurchaseFromNotification(User $user, Order $order, $transactionID, $walletBefore)
+    {
+        $dataTransaction = [
+            'lottery_id' => $order->getLottery()->getId(),
+            'transactionID' => $transactionID,
+            'numBets' => count($order->getPlayConfig()),
+            'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
+            'amountWithWallet' => $order->amountForTicketPurchaseTransaction(),
+            'walletBefore' => $walletBefore,
+            'amountWithCreditCard' => 0,
+            'playConfigs' => array_map(function ($val) {
+                return $val->getId();
+            }, $order->getPlayConfig()),
+            'discount' => $order->getDiscount()->getValue(),
+        ];
+        $this->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+        $this->mediator->log('ticketPurchaseFromNotification','TicketPurchase created->'.$transactionID,Logger::INFO);
+        $this->mediator->sendEmail();
+    }
+
     public function withDraw(User $user, Money $amount)
     {
         try {
-            $walletBefore = $user->getWallet();
             $newWallet = $user->getWallet()->withdraw($amount);
             if ($newWallet == null) {
                 throw new \Exception('You don\'t have enough winning amount to complete transaction');
@@ -355,15 +424,6 @@ class WalletService
             $user->setWallet($newWallet);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            $data = [];
-            $data['now'] = new \DateTime();
-            $data['walletBefore'] = $walletBefore;
-            $data['walletAfter'] = $user->getWallet();
-            $data['user'] = $user;
-            $data['accountBankId'] = '1';
-            $data['amountWithdrawed'] = $amount->getAmount();
-            $data['state'] = 'pending';
-            $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $data);
             return new ActionResult(true);
         } catch (\Exception $e) {
             return new ActionResult(false, $e->getMessage());
@@ -406,6 +466,10 @@ class WalletService
                     $this->transactionService->getSubscriptionByLotteryAndUserId('EuroJackpot', $user->getId()),
                     $user->getUserCurrency()
                 ), $user->getLocale());
+                $amountSubscriptionBalanceMegaSena = $this->currencyConversionService->toString( $this->currencyConversionService->convert(
+                    $this->transactionService->getSubscriptionByLotteryAndUserId('MegaSena', $user->getId()),
+                    $user->getUserCurrency()
+                ), $user->getLocale());
                 $wallet_dto = new WalletDTO([
                     'amountBalance' => $amount_balance,
                     'amountWinnings' => $amount_winnings,
@@ -416,6 +480,7 @@ class WalletService
                     'amountSubscriptionBalancePowerBall' => $amountSubscriptionBalancePowerBall,
                     'amountSubscriptionBalanceMegaMillions' => $amountSubscriptionBalanceMegaMillions,
                     'amountSubscriptionBalanceEuroJackpot' => $amountSubscriptionBalanceEuroJackpot,
+                    'amountSubscriptionBalanceMegaSena' => $amountSubscriptionBalanceMegaSena,
                 ]);
                 $balance = $this->currencyConversionService->toString($wallet->getBalance(), $user->getLocale());
                 $winnings = $this->currencyConversionService->toString($wallet->getWithdrawable(), $user->getLocale());
@@ -496,20 +561,40 @@ class WalletService
         }
     }
 
+
+    /**
+     * @param User $user
+     * @param Order $order
+     * @param $transactionID
+     * @param $walletBefore
+     */
+    public function initPaymentFlowFromNotification(User $user, Order $order, $transactionID, $walletBefore)
+    {
+        $order->getPlayConfig()[0]->setLottery($order->getLottery());
+        $user = $this->payOrder($user,$order);
+        $this->mediator->updateTransaction($user, $order, $transactionID, $walletBefore);
+    }
+
+
     /**
      * @param User $user
      * @param CreditCardCharge $creditCardCharge
      * @param $uniqueID
      * @param $walletBefore
+     * @param Order|null $order
+     * @param string $paymentProviderName
      * @return array
+     * @throws \Exception
      */
     private function buildDepositTransactionData(User $user,
                                                  CreditCardCharge $creditCardCharge = null,
                                                  $uniqueID,
                                                  $walletBefore,
-                                                 Order $order = null)
+                                                 Order $order = null,
+                                                 $paymentProviderName = PaymentProviderEnum::WIRECARD)
     {
 
+        //TODO: remove $uniqueID, because transactionID comes from Order.
         //This is a big shit
         $isChargeFee = '';
         $finalAmount = '';
@@ -533,7 +618,8 @@ class WalletService
             'walletAfter' => $user->getWallet(),
             'now' => new \DateTime(),
             'lotteryName' =>  $order != null && $order->getLottery() != null ? $order->getLottery()->getName() : '',
-            'withWallet' => $order != null ? $order->isIsCheckedWalletBalance() : ''
+            'withWallet' => $order != null ? $order->isIsCheckedWalletBalance() : '',
+            'paymentProviderName' => $paymentProviderName
         ];
         return $dataTransaction;
     }

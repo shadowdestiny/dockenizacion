@@ -14,6 +14,12 @@ try{
 } catch (e) {
     _eurojackpot = false;
 }
+var _megasena;
+try{
+    _megasena = megasena;
+} catch (e) {
+    _megasena = false;
+}
 
 var CartPage = new React.createClass({
 
@@ -259,6 +265,7 @@ var CartPage = new React.createClass({
                 powerball={this.props.powerball}
                 megamillions={this.props.megamillions}
                 eurojackpot={this.props.eurojackpot}
+                megasena={this.props.megasena}
                 playingPP={this.props.playingPP}
                 playingMM={this.props.playingMM}
 
@@ -300,6 +307,11 @@ var CartPage = new React.createClass({
         } else if(_eurojackpot === true) {
             txt_button_payment = this.props.txt_buy_btn;
             href_payment = '/eurojackpot/payment/payment?method=wallet&charge='+this.state.fund_value;
+            data_btn = 'wallet';
+            price_txt_btn = this.state.total;
+        } else if(_megasena === true) {
+            txt_button_payment = this.props.txt_buy_btn;
+            href_payment = '/megasena/payment/payment?method=wallet&charge='+this.state.fund_value;
             data_btn = 'wallet';
             price_txt_btn = this.state.total;
         } else {
@@ -579,6 +591,7 @@ ReactDOM.render(<CartPage total={total_price}
                           powerball={powerball}
                           megamillions={megamillions}
                           eurojackpot={_eurojackpot}
+                          megasena={_megasena}
                           txt_lottery={txt_lottery}
                           playingPP={playingPP}
                           playingMM={playingMM}

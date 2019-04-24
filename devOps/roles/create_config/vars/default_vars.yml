@@ -17,7 +17,7 @@ database_slave_pass: ''
 database_slave_name: ''
 is_development_mode: 'true'
 
-domain_url: 'localhost:443/'
+domain_url: 'dev.euromillions.com/'
 
 redis_host: 'redis'
 redis_prefix: ''
@@ -70,11 +70,14 @@ gcp_visa_sign_key: 'Hn6fjbB8'
 gcp_master_gw_id: '21260002'
 gcp_master_sign_key: '6f6pB46l'
 
-wirecard_endpoint: 'https://api.euromillions.com/beta/wirecard-payment'
+wirecard_endpoint: 'https://api.euromillions.com/beta/payment'
 wirecard_endpoint_withdraw: 'https://api.euromillions.com/beta/withdraw'
 wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
 moneymatrix_endpoint: 'https://rancher-staging-02.euromillions.com:9443'
+
+royalpay_endpoint: 'https://7ejmaidn4e.execute-api.eu-west-1.amazonaws.com/beta/royalpay'
+royalpay_apikey: 'ON6GhNYmLM9afi9fibTVKXCt7fa0lsv3RLTQ3hd4'
 
 lottorisq_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball'
 lottorisq_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
@@ -84,6 +87,9 @@ megamillions_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
 eurojackpot_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/eurojackpot'
 eurojackpot_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
+
+megasena_endpoint: 'https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/megasena'
+megasena_apikey: 'OwhqLS0ue13Gr3tm1BsoKaiYJ8gpnb5t7xNJTTk3'
 
 queue_results_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/results_testing'
 queue_prizes_endpoint: 'https://sqs.eu-west-1.amazonaws.com/498794605962/prizes_test'
@@ -100,11 +106,13 @@ controllers_euromillions: 'numbers,powerball-numbers'
 controllers_powerball: 'numbers,powerball-numbers'
 controllers_megamillions: 'megamillions-numbers'
 controllers_eurojackpot: 'euro-jackpot-numbers'
+controllers_megasena: 'megasena-numbers'
 
 controllers_result_euromillions: 'index'
 controllers_result_powerball: 'index'
 controllers_result_megamillions: 'index'
 controllers_result_eurojackpot: 'index'
+controllers_result_megasena: 'index'
 
 file_databasegeoip_path: '/var/www/data/geoipdatabase'
 
@@ -112,11 +120,18 @@ geoip_normal : 'WideCardPaymentStrategy'
 geoip_blocked: 'MoneyMatrixPaymentStrategy'
 geoip_geoip: 'GeoIPService'
 geoip_geoIpImpl: 'MaxMindWrapper'
-geoip_database_path: '/var/www/data/geoipdatabase'
 geoip_blocked_countries: 'FR'
+geoip_database_path: '/var/www/data/geoipdatabase'
+geoip_database_name: 'GeoLite2-Country.mmdb'
+geoip_account_id: 'none-set'
+geoip_licence_key: 'none-set'
+geoip_use_database: 'true'
+
 
 payment_balancing: 'GeoIPStrategy'
 payment_balancing_dependencies: 'geoip_strategy'
 
 featureflag_api_endpoint: 'https://tg5wg2gree.execute-api.eu-west-1.amazonaws.com/beta'
 featureflag_api_apikey: 'mJPvu4rrzi43McgJY6ruf4GTdTiwP18K9OojNYjx'
+
+payments_notifications_token: 'not-a-real-token'

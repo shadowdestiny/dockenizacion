@@ -15,6 +15,7 @@ use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\services\OrderService;
 use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\vo\Order;
+use Phalcon\Logger;
 
 class WithdrawNotificationValidator implements IValidatorOrderNotifications
 {
@@ -62,7 +63,7 @@ class WithdrawNotificationValidator implements IValidatorOrderNotifications
     private function validateThisNotification()
     {
         $this->transaction->fromString();
-        if($this->transaction->getStatus() == 'SUCCESS')
+        if($this->transaction->getStatus() == 'PENDING_APPROVAL' || $this->transaction->getStatus() == 'SUCCESS')
         {
             $this->logger->log(
                 Logger::INFO,

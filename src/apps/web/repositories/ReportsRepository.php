@@ -94,7 +94,7 @@ class ReportsRepository implements IReports
 
         return $this->entityManager
             ->createNativeQuery(
-                "select 'PB' as em, e.id as id, e.draw_date as draw_date, IF(date_add(CAST(e.draw_date AS DATETIME), INTERVAL 19 HOUR) < now(),'Finished','Open') as draw_status
+                "select 'MM' as em, e.id as id, e.draw_date as draw_date, IF(date_add(CAST(e.draw_date AS DATETIME), INTERVAL 19 HOUR) < now(),'Finished','Open') as draw_status
                   from euromillions_draws e
                   JOIN bets b on b.euromillions_draw_id=e.id
                   join log_validation_api l on l.bet_id=b.id
@@ -113,7 +113,7 @@ class ReportsRepository implements IReports
 
         return $this->entityManager
             ->createNativeQuery(
-                "select 'PB' as em, e.id as id, e.draw_date as draw_date, IF(date_add(CAST(e.draw_date AS DATETIME), INTERVAL 19 HOUR) < now(),'Finished','Open') as draw_status
+                "select 'EJ' as em, e.id as id, e.draw_date as draw_date, IF(date_add(CAST(e.draw_date AS DATETIME), INTERVAL 19 HOUR) < now(),'Finished','Open') as draw_status
                   from euromillions_draws e
                   JOIN bets b on b.euromillions_draw_id=e.id
                   join log_validation_api l on l.bet_id=b.id
@@ -243,7 +243,7 @@ class ReportsRepository implements IReports
             ->createQuery(
                 'SELECT b, p'
                 . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b INNER JOIN b.playConfig p '
-                . ' WHERE p.user = :user_id AND p.active = :active and p.frequency = 1 AND p.lottery IN (1,3,4,5) '
+                . ' WHERE p.user = :user_id AND p.active = :active and p.frequency = 1 AND p.lottery IN (1,3,4,5,6) '
                 . ' GROUP BY p.startDrawDate,p.line.regular_number_one,'
                 . ' p.line.regular_number_two,p.line.regular_number_three, '
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
@@ -270,7 +270,7 @@ class ReportsRepository implements IReports
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
                 . ' p.line.lucky_number_one, p.line.lucky_number_two'
                 . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b JOIN b.playConfig p JOIN b.euromillionsDraw e'
-                . ' WHERE p.user = :user_id AND e.draw_date < :actual_date and p.frequency = 1 AND p.lottery IN (1,3,4,5) '
+                . ' WHERE p.user = :user_id AND e.draw_date < :actual_date and p.frequency = 1 AND p.lottery IN (1,3,4,5,6) '
                 . ' ORDER BY p.startDrawDate DESC ')
             ->setParameters(['user_id' => $userId, 'actual_date' => date('Y-m-d')])
             ->getResult();
@@ -305,12 +305,13 @@ class ReportsRepository implements IReports
                 , $rsm)->getResult();
     }
 
-    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot)
+    public function getSubscriptionsByUserIdActive($userId, $nextDrawDate, $nextDrawDatePowerBall, $nextDrawDateMegaMillions, $nextDrawDateEuroJackpot, $nextDrawDateMegaSena)
     {
         $receivedDate = clone $nextDrawDate;
         $receivedDatePowerBall = clone $nextDrawDatePowerBall;
         $receivedDateMegaMillions = clone $nextDrawDateMegaMillions;
         $receivedDateEuroJackpot = clone $nextDrawDateEuroJackpot;
+        $receivedDateMegaSena = clone $nextDrawDateMegaSena;
         if ($receivedDate->format('N') == 5) {
             $receivedDate->modify('-3 days');
         } else {
@@ -329,10 +330,18 @@ class ReportsRepository implements IReports
         }
         $receivedDateEuroJackpot->modify('-7 days');
 
+        if ($receivedDateMegaSena->format('N') == 6) {
+            $receivedDateMegaSena->modify('-3 days');
+        } else {
+            $receivedDateMegaSena->modify('-4 days');
+        }
+
         $receivedDate->setTime(19, 30, 00);
         $receivedDatePowerBall->setTime(03, 30, 00);
         $receivedDateMegaMillions->setTime(03, 30, 00);
         $receivedDateEuroJackpot->setTime(19, 30, 00);
+        $receivedDateMegaSena->setTime(12, 30, 00);
+
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('start_draw_date', 'start_draw_date');
@@ -357,9 +366,9 @@ class ReportsRepository implements IReports
                             p.line_lucky_number_two'
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
                 . ' INNER JOIN log_validation_api lva ON lva.bet_id = b.id '
-                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 AND p.lottery_id IN (1, 3, 4, 5) '
-                . ' AND IF (p.lottery_id = 1, "' . $nextDrawDate->format('Y-m-d') . '", IF (p.lottery_id = 3, "' . $nextDrawDatePowerBall->format('Y-m-d') . '", IF (p.lottery_id = 4, "' . $nextDrawDateMegaMillions->format('Y-m-d') . '", "'.$nextDrawDateEuroJackpot->format('Y-m-d').'"))) <= last_draw_date '
-                . ' AND IF (p.lottery_id = 1, "' . $receivedDate->format('Y-m-d H:i:s') . '", IF (p.lottery_id =3, "' . $receivedDatePowerBall->format('Y-m-d H:i:s') . '", IF (p.lottery_id =4, "' . $receivedDateMegaMillions->format('Y-m-d H:i:s') . '", "'.$receivedDateEuroJackpot->format('Y-m-d H:i:s').'"))) <= received 
+                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 AND p.lottery_id IN (1, 3, 4, 5, 6) '
+                . ' AND IF (p.lottery_id = 1, "' . $nextDrawDate->format('Y-m-d') . '", IF (p.lottery_id = 3, "' . $nextDrawDatePowerBall->format('Y-m-d') . '", IF (p.lottery_id = 4, "' . $nextDrawDateMegaMillions->format('Y-m-d') . '", IF (p.lottery_id = 5, "' . $nextDrawDateEuroJackpot->format('Y-m-d') . '", "'.$nextDrawDateMegaSena->format('Y-m-d').'")))) <= last_draw_date '
+                . ' AND IF (p.lottery_id = 1, "' . $receivedDate->format('Y-m-d H:i:s') . '", IF (p.lottery_id =3, "' . $receivedDatePowerBall->format('Y-m-d H:i:s') . '", IF (p.lottery_id =4, "' . $receivedDateMegaMillions->format('Y-m-d H:i:s') . '", IF (p.lottery_id = 5, "' . $receivedDateEuroJackpot->format('Y-m-d H:i:s') . '", "'.$receivedDateMegaSena->format('Y-m-d H:i:s').'")))) <= received 
                     GROUP BY p.start_draw_date,
                             p.line_regular_number_one,
                             p.line_regular_number_two,
@@ -396,7 +405,7 @@ class ReportsRepository implements IReports
                             p.line_lucky_number_one,
                             p.line_lucky_number_two'
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
-                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 0 AND p.frequency > 1 AND p.lottery_id IN (1,3,4,5) '
+                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 0 AND p.frequency > 1 AND p.lottery_id IN (1,3,4,5,6) '
                 . '    GROUP BY p.start_draw_date,
                             p.line_regular_number_one,
                             p.line_regular_number_two,
@@ -718,6 +727,66 @@ class ReportsRepository implements IReports
      *
      * @return array
      */
+    public function getMegaMillionsDrawDetailsByIdAndDates($id, $drawDates)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('email', 'email');
+        $rsm->addScalarResult('country', 'country');
+        $rsm->addScalarResult('transactionID', 'transactionID');
+        $rsm->addScalarResult('purchaseDate', 'purchaseDate');
+        $rsm->addScalarResult('entity_type', 'entity_type');
+        $rsm->addScalarResult('data', 'data');
+        $rsm->addScalarResult('automaticMovement', 'automaticMovement');
+
+        return $this->entityManager
+            ->createNativeQuery('SELECT distinct t.id as transactionID, u.email as email, u.country as country, t.date as purchaseDate, t.entity_type, t.data, (wallet_before_subscription_amount - wallet_after_subscription_amount) as automaticMovement
+                            FROM bets b
+                            INNER JOIN play_configs pc ON b.playConfig_id = pc.id
+                            INNER JOIN users u ON pc.user_id = u.id
+                            INNER JOIN transactions t ON pc.user_id = t.user_id
+                            WHERE euromillions_draw_id = ' . $id . ' and (t.entity_type = "ticket_purchase" || t.entity_type = "automatic_purchase") and
+                            t.date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"
+                            and t.data like "4#%"
+                            ORDER BY purchaseDate desc',
+                $rsm)->getResult();
+    }
+
+    /**
+     * @param $id
+     * @param $drawDates
+     *
+     * @return array
+     */
+    public function getEuroJackpotDrawDetailsByIdAndDates($id, $drawDates)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('email', 'email');
+        $rsm->addScalarResult('country', 'country');
+        $rsm->addScalarResult('transactionID', 'transactionID');
+        $rsm->addScalarResult('purchaseDate', 'purchaseDate');
+        $rsm->addScalarResult('entity_type', 'entity_type');
+        $rsm->addScalarResult('data', 'data');
+        $rsm->addScalarResult('automaticMovement', 'automaticMovement');
+
+        return $this->entityManager
+            ->createNativeQuery('SELECT distinct t.id as transactionID, u.email as email, u.country as country, t.date as purchaseDate, t.entity_type, t.data, (wallet_before_subscription_amount - wallet_after_subscription_amount) as automaticMovement
+                            FROM bets b
+                            INNER JOIN play_configs pc ON b.playConfig_id = pc.id
+                            INNER JOIN users u ON pc.user_id = u.id
+                            INNER JOIN transactions t ON pc.user_id = t.user_id
+                            WHERE euromillions_draw_id = ' . $id . ' and (t.entity_type = "ticket_purchase" || t.entity_type = "automatic_purchase") and
+                            t.date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"
+                            and t.data like "5#%"
+                            ORDER BY purchaseDate desc',
+                $rsm)->getResult();
+    }
+
+    /**
+     * @param $id
+     * @param $drawDates
+     *
+     * @return array
+     */
     public function getChristmasDrawDetailsByIdAndDates($id, $drawDates)
     {
         $rsm = new ResultSetMapping();
@@ -784,16 +853,15 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('totalBets', 'totalBets');
         $rsm->addScalarResult('grossSales', 'grossSales');
         $rsm->addScalarResult('grossMargin', 'grossMargin');
-
-        return $this->entityManager
+         return $this->entityManager
             ->createNativeQuery('SELECT sum(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) as totalBets, sum(CASE
-                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 300) 
+                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) - round(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) * (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 7), "#", -1) / 100)))
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
                                         ELSE 0
                                         END
                                     ) as grossSales, sum(CASE
-                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 300) - (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 250)
-                                        WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
+                                        WHEN entity_type = "ticket_purchase" THEN ((((SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) - round(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) * (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 7), "#", -1) / 100))) / SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) - 200 ) * SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1))
+                                        WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 200)
                                         ELSE 0
                                         END
                                     ) as grossMargin
@@ -869,22 +937,21 @@ class ReportsRepository implements IReports
 
         $data = $this->entityManager
             ->createNativeQuery('SELECT sum(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) as totalBets, sum(CASE
-                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1)) 
+                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) - round(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) * (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 7), "#", -1) / 100)))
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
                                         ELSE 0
                                         END
                                     ) as grossSales, sum(CASE
-                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1)) - (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * '. $amount .')
-                                        WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - '. $amount .')
+                                        WHEN entity_type = "ticket_purchase" THEN ((((SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) - round(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) * (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 7), "#", -1) / 100))) / SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) - '.$amount.' ) * SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1))
+                                        WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - '.$amount.')
                                         ELSE 0
                                         END
                                     ) as grossMargin
-                            FROM transactions t
+                            FROM transactions
                             WHERE (entity_type = "ticket_purchase" || entity_type = "automatic_purchase") and data like "4#%" and
                             date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"
                             ORDER BY date DESC'
                 , $rsm)->getResult();
-
 
 
         $rsm = new ResultSetMapping();
@@ -900,9 +967,10 @@ class ReportsRepository implements IReports
                             ORDER BY date DESC'
                 , $rsm)->getResult();
 
-
+ 
         $result = $data[0] + $megaPlier[0];
-        $result['grossMargin'] = $result['grossMargin'] - ($amountMegaBall * (int)$result['totalMegaplier']);
+        $profitMegaplier = (150 - $amountMegaBall ) * $result['totalMegaplier']; 
+        $result['grossMargin'] = $result['grossMargin'] + $profitMegaplier;
 
         return $result;
     }

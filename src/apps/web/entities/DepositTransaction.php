@@ -4,6 +4,7 @@
 namespace EuroMillions\web\entities;
 
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\interfaces\ITransactionData;
 
 class DepositTransaction extends PurchaseTransaction implements ITransactionData
@@ -14,6 +15,7 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
     protected $status;
     protected $lotteryName;
     protected $withWallet;
+    protected $paymentProviderName;
 
 
     public function __construct(array $data)
@@ -29,12 +31,13 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
         $this->setUser($data['user']);
         $this->setLotteryName($data['lotteryName']);
         $this->setStatus(!empty($data['status']) ? $data['status'] : 'SUCCESS');
-        $this->setWithWallet(!empty($data['withWallet']) ? $data['status'] : 0);
+        $this->setWithWallet(!empty($data['withWallet']) ? $data['withWallet'] : 0);
+        $this->setPaymentProviderName( !empty($data['paymentProviderName']) ? $data['paymentProviderName'] : PaymentProviderEnum::WIRECARD);
     }
 
     public function toString()
     {
-        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getStatus().'#'.$this->getLotteryId().'#'.$this->getLotteryName().'#'.$this->withWallet;
+        $this->data = $this->getHasFee().'#'.$this->getAmountAdded().'#'.$this->getStatus().'#'.$this->getLotteryId().'#'.$this->getLotteryName().'#'.$this->withWallet.'#'.$this->paymentProviderName;
     }
 
     public function fromString()
@@ -59,7 +62,7 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
                     list($fee,$amount,$status,$lotteryID,$lotteryName) = $arr;
                     break;
                 default:
-                    list($fee,$amount,$status,$lotteryID,$lotteryName,$withWallet) = $arr;
+                    list($fee,$amount,$status,$lotteryID,$lotteryName,$withWallet,$paymentProviderName) = $arr;
             }
 
             $this->hasFee = isset($fee) && $fee!=''?$fee:0;
@@ -68,6 +71,7 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
             $this->lotteryId = isset($lotteryID) && $lotteryID!=''?$lotteryID:'0';
             $this->lotteryName = isset($lotteryName) && $lotteryName!=''?$lotteryName:'NONE';
             $this->withWallet = isset($withWallet) && $withWallet!=''?$withWallet:0;
+            $this->paymentProviderName = !empty($paymentProviderName) ? $paymentProviderName : PaymentProviderEnum::WIRECARD;
             return $this;
         } catch ( \Exception $e ) {
             throw new BadEntityInitializationException('Invalid data format');
@@ -161,6 +165,21 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
         $this->withWallet = $withWallet;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPaymentProviderName()
+    {
+        return $this->paymentProviderName;
+    }
+
+    /**
+     * @param mixed $paymentProviderName
+     */
+    public function setPaymentProviderName($paymentProviderName)
+    {
+        $this->paymentProviderName = $paymentProviderName;
+    }
 
 
 }

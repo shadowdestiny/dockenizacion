@@ -105,21 +105,36 @@ master_sign_key={{ gcp_master_sign_key }}
 endpoint=https://api.euromillions.com/wirecard/payment
 endpoint_withdraw= https://api.euromillions.com/wirecard/withdraw
 api_key={{ wirecard_api_key }}
+countries=
+weight=5
 
 [moneymatrix]
 endpoint=https://rancher-beta.euromillions.com:49167/deposit
+api_key=not-set
+countries=
+weight=10
+
+[royalpay]
+endpoint=https://7ejmaidn4e.execute-api.eu-west-1.amazonaws.com/prod/royalpay
+api_key={{ royalpay_api_key }}
+countries=RU,UA,BL
+weight=10
 
 [lotto_api]
-endpoint= https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/powerball
+endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/powerball
 api_key={{ lotto_api_api_key }}
 
 [megamillions_api]
-endpoint= https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/megamillions
+endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/megamillions
 api_key={{ megamillions_api_api_key }}
 
 [eurojackpot_api]
 endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/eurojackpot
 api_key={{ eurojackpot_api_api_key }}
+
+[megasena_api]
+endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/prod/megasena
+api_key={{ megasena_api_api_key }}
 
 [aws]
 queue_results_endpoint=https://sqs.eu-west-1.amazonaws.com/498794605962/results
@@ -128,16 +143,22 @@ secret_access_key={{ AWS_SECRET_ACCESS_KEY }}
 access_key_id={{ AWS_ACCESS_KEY_ID }}
 
 [payment_gateway]
-class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
-config= wirecard,moneymatrix
+class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy,RoyalPayPaymentStrategy
+config=wirecard,moneymatrix,royalpay
+;class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
+;config=wirecard,moneymatrix
 
 [geoip_strategy]
 normal=WideCardPaymentStrategy
 blocked=MoneyMatrixPaymentStrategy
 geoip=GeoIPService
 geoIpImpl=MaxMindWrapper
-database_path=/var/www/data/geoipdatabase
 blocked_countries=FR
+database_path=/var/www/data/geoipdatabase
+database_name=GeoLite2-Country.mmdb
+account_id=none-set
+license_key=none-set
+use_database=true
 
 [payment_balancing]
 strategy=GeoIPStrategy
@@ -148,16 +169,21 @@ EuroMillions=numbers,powerball-numbers
 PowerBall=numbers,powerball-numbers
 MegaMillions= megamillions-numbers
 EuroJackpot=euro-jackpot-numbers
+MegaSena=mega-sena-numbers
 
 [result_widget]
 EuroMillions=index
 PowerBall=index
 MegaMillions=index
 EuroJackpot=index
+MegaSena=index
 
 [geoip]
 database_files_path=/var/www/data/geoipdatabase
 
 [featureflag_api]
-endpoint= https://tg5wg2gree.execute-api.eu-west-1.amazonaws.com/prod
+endpoint=https://tg5wg2gree.execute-api.eu-west-1.amazonaws.com/prod
 api_key={{ featureflag_api_api_key }}
+
+[payments_notifications]
+token={{ payments_notifications_token }}

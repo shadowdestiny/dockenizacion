@@ -8,6 +8,7 @@
 
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\shared\helpers\PlayToPay;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
@@ -16,12 +17,17 @@ use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\ExpiryDate;
+use EuroMillions\web\vo\PaymentCountry;
 use Money\Currency;
 use Money\Money;
 
 class PowerBallPaymentController extends CartController
 {
+
+    use PlayToPay;
+
     public function paymentAction()
     {
         $credit_card_form = new CreditCardForm();
@@ -35,6 +41,7 @@ class PowerBallPaymentController extends CartController
         $payWallet = $this->request->getPost('paywallet') !== 'false';
         $isWallet = false;
         $powerball_service = $this->domainServiceFactory->getPowerBallService();
+        $playService = $this->domainServiceFactory->getPlayService();
         $errors = [];
         $user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */
@@ -56,7 +63,7 @@ class PowerBallPaymentController extends CartController
                 try {
                     $card = null;
                     $amount = new Money((int)$charge, new Currency('EUR'));
-                    $result = $powerball_service->play($user_id, $amount, $card, true, $isWallet,$result->getValues()[0]->getLottery()->getName());
+                    $result = $powerball_service->play($user_id, $amount, $card, true, $isWallet,$result->getValues()[0]->getLottery()->getName(), null);
                     return $this->playResult($result,'powerball');
                 } catch (\Exception $e) {
                     $errors[] = $e->getMessage();
@@ -86,8 +93,27 @@ class PowerBallPaymentController extends CartController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
-                        $result = $powerball_service->play($user_id, $amount, $card, $payWallet, $isWallet,$result->getValues()[0]->getLottery()->getName());
-                        return $this->playResult($result,'powerball');
+                        $aPaymentProvider = true; //$this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
+                        $result = $this->setPowerBallService($powerball_service)
+                            ->setPlayService($playService)
+                            ->setPaymentProviderServiceTrait($this->paymentProviderService)
+                            ->setPaymentCountryTrait($this->paymentCountry)
+                            ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
+                            ->payFromPlay(
+                                $user_id,
+                                $amount,
+                                $card,
+                                $payWallet,
+                                $isWallet,
+                                'PowerBall',
+                                $aPaymentProvider
+                            );
+
+                        if(!empty($result)) {
+                            return $this->playResult($result,'powerball');
+                        }
+                        return false; //When we use the "PaymentRedirectContext" we force to return false.
+
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
@@ -112,7 +138,7 @@ class PowerBallPaymentController extends CartController
             $this->response->redirect('/' . mb_strtolower($lotteryName) . '/result/success/'.mb_strtolower($lotteryName));
             return false;
         } else {
-            $this->response->redirect('/' . mb_strtolower($lotteryName) . '/result/failure');
+            $this->response->redirect('/euromillions/result/failure');
             return false;
         }
     }

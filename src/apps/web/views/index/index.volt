@@ -110,6 +110,17 @@
             'houreuroj'
             );
         }
+        if(item.name == 'MegaSena')
+        {
+            setCountDownByLottery(item.date,
+            'countdownsena',
+            'daysena',
+            'dotssena',
+            'minutesena',
+            'secondssena',
+            'hoursena'
+            );
+        }
     });
 {% endblock %}
 

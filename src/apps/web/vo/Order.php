@@ -40,11 +40,12 @@ class Order implements \JsonSerializable
 
     protected $orderType;
 
-
     protected $hasSubscription;
 
+    protected $transactionId;
 
-    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null,$withWallet=false, Lottery $lottery, $draw)
+
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null,$withWallet=false, Lottery $lottery, $draw, TransactionId $transactionId=null)
     {
         $this->play_config = $play_config;
         $this->single_bet_price = $single_bet_price;
@@ -58,6 +59,7 @@ class Order implements \JsonSerializable
         $this->discount = $discount;
         $this->nextDraw = $draw;
         $this->lottery = $lottery;
+        $this->transactionId =  $transactionId == null ? TransactionId::create() : $transactionId;
         $this->initialize();
     }
 
@@ -282,7 +284,8 @@ class Order implements \JsonSerializable
             'single_bet_price' => $this->single_bet_price->getAmount(),
             'num_lines' => $this->num_lines,
             'play_config' => $bets,
-            'lottery' => $this->getLottery()->getName()
+            'lottery' => $this->getLottery()->getName(),
+            'transactionId' => $this->getTransactionId(),
         ];
 
     }
@@ -412,5 +415,13 @@ class Order implements \JsonSerializable
     public function setOrderType($orderType)
     {
         $this->orderType = $orderType;
+    }
+
+    /**
+     * @return static
+     */
+    public function getTransactionId()
+    {
+        return $this->transactionId->id();
     }
 }

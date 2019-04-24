@@ -20,7 +20,7 @@ class OrderActionContext
 
     private $strategy;
 
-
+    //TODO: Remove $transactionID and use $order->getTransactionId()
     public function __construct($status, Order $order, $transactionID, \Phalcon\Events\Manager $eventsManager, $statusCode='8')
     {
         switch($order->getOrderType())

@@ -26,7 +26,8 @@ class UserDTO extends DTOBase implements IDto
     public $bankName;
     public $bankAccount;
     public $bankSwift;
-
+    public $ip;
+    public $default_language;
 
     public function __construct(User $user)
     {
@@ -48,6 +49,8 @@ class UserDTO extends DTOBase implements IDto
         $this->bankAccount = $this->user->getBankAccount();
         $this->bankSwift = $this->user->getBankSwift();
         $this->userId = $this->user->getId();
+        $this->ip = $this->user->getIpAddress()->toNative();
+        $this->default_language = $this->user->getDefaultLanguage();
 
     }
 
@@ -136,4 +139,52 @@ class UserDTO extends DTOBase implements IDto
         $this->userId = $userId;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefaultLanguage()
+    {
+        return $this->default_language;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
 }

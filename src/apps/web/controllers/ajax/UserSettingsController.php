@@ -111,6 +111,10 @@ class UserSettingsController extends AjaxControllerBase
                 'eurojackpotNumbersIndex' => '/eurojackpot/results',
                 'eurojackpotNumbersPast' => '/eurojackpot/results/draw-history-page',
                 'eurojackpotPlay' => '/eurojackpot/play',
+                'megasenaNumbersIndex' => '/mega-sena/results',
+                'megasenaNumbersPast' => '/mega-sena/results/draw-history-page',
+                'megasenaPlay' => '/mega-sena/play',
+                'megasenaHowto' => '/mega-sena/how-to-play',
             ],
             'ru' => [
                 'index' => '/ru',
@@ -144,6 +148,10 @@ class UserSettingsController extends AjaxControllerBase
                 'eurojackpotNumbersIndex' => '/ru/eurojackpot/результаты',
                 'eurojackpotNumbersPast' => '/ru/eurojackpot/результаты/история-розыгрышей',
                 'eurojackpotPlay' => '/ru/eurojackpot/играть',
+                'megasenaNumbersIndex' => '/ru/mega-sena/результаты',
+                'megasenaNumbersPast' => '/ru/mega-sena/результаты/история-розыгрышей',
+                'megasenaPlay' => '/ru/mega-sena/играть',
+                'megasenaHowto' => '/ru/mega-sena/как-играть',
             ],
             'es' => [
                 'index' => '/es',
@@ -177,6 +185,10 @@ class UserSettingsController extends AjaxControllerBase
                 'eurojackpotNumbersIndex' => '/es/eurojackpot/resultados',
                 'eurojackpotNumbersPast' => '/es/eurojackpot/resultados/sorteos-anteriores',
                 'eurojackpotPlay' => '/es/eurojackpot/jugar',
+                'megasenaNumbersIndex' => '/es/mega-sena/resultados',
+                'megasenaNumbersPast' => '/es/mega-sena/resultados/sorteos-anteriores',
+                'megasenaPlay' => '/es/mega-sena/jugar',
+                'megasenaHowto' => '/es/mega-sena/como-se-juega',
             ],
             'it' => [
                 'index' => '/it',
@@ -210,6 +222,10 @@ class UserSettingsController extends AjaxControllerBase
                 'eurojackpotNumbersIndex' => '/it/eurojackpot/estrazioni',
                 'eurojackpotNumbersPast' => '/it/eurojackpot/estrazioni/archivio',
                 'eurojackpotPlay' => '/it/eurojackpot/gioca',
+                'megasenaNumbersIndex' => '/it/mega-sena/estrazioni',
+                'megasenaNumbersPast' => '/it/mega-sena/estrazioni/archivio',
+                'megasenaPlay' => '/it/mega-sena/gioca',
+                'megasenaHowto' => '/it/mega-sena/come-giocare',
             ],
             'nl' => [
                 'index' => '/nl',
@@ -243,6 +259,10 @@ class UserSettingsController extends AjaxControllerBase
                 'eurojackpotNumbersIndex' => '/nl/eurojackpot/uitslagen',
                 'eurojackpotNumbersPast' => '/nl/eurojackpot/uitslagen/trekking-geschiedenis',
                 'eurojackpotPlay' => '/nl/eurojackpot/speel',
+                'megasenaNumbersIndex' => '/nl/mega-sena/uitslagen',
+                'megasenaNumbersPast' => '/nl/mega-sena/uitslagen/trekking-geschiedenis',
+                'megasenaPlay' => '/nl/mega-sena/speel',
+                'megasenaHowto' => '/nl/mega-sena/speluitleg',
             ],
 
         ];

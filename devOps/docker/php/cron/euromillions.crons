@@ -1,4 +1,4 @@
-0,30 * * * *    echo Cron is alive > /proc/1/fd/1 2> /proc/1/fd/2
+0,30 * * * *      echo Cron is alive > /proc/1/fd/1 2> /proc/1/fd/2
 01 * * * 3,6    /usr/local/bin/php /var/www/apps/cli.php jackpot update > /proc/1/fd/1 2> /proc/1/fd/2
 08 * * * 4,7    /usr/local/bin/php /var/www/apps/cli.php jackpot updateNextDrawJackpotPowerBall > /proc/1/fd/1 2> /proc/1/fd/2
 07 * * * 3,6    /usr/local/bin/php /var/www/apps/megamillions/megamillions-cli.php jackpot updateNextDrawJackpotMegaMillions > /proc/1/fd/1 2> /proc/1/fd/2
@@ -22,14 +22,26 @@
 55 6 * * 3,6    /usr/local/bin/php /var/www/apps/cli.php check-automatic-purchase verify > /proc/1/fd/1 2> /proc/1/fd/2
 
 # EuroJackpot
-10 1 * * 6      /usr/local/bin/php /var/www/apps/eurojackpot/eurojackpot-cli.php jackpot updateNextDrawJackpotEuroJackpot > /proc/1/fd/1 2> /proc/1/fd/2
-30 1 * * 6      /usr/local/bin/php /var/www/apps/eurojackpot/eurojackpot-cli.php result updateEuroJackpotResult > /proc/1/fd/1 2> /proc/1/fd/2
-50 1 * * 6      /usr/local/bin/php /var/www/apps/eurojackpot/eurojackpot-cli.php bet placeEuroJackpotBets > /proc/1/fd/1 2> /proc/1/fd/2
-30 2 * * 6      /usr/local/bin/php /var/www/apps/shared/shared-cli.php Play-config updateLottery now EuroJackpot > /proc/1/fd/1 2> /proc/1/fd/2
-40 1 * * 6      /usr/local/bin/php /var/www/apps/cli.php result start EuroJackpot > /proc/1/fd/1 2> /proc/1/fd/2
+10 22 * * 5      /usr/local/bin/php /var/www/apps/eurojackpot/eurojackpot-cli.php jackpot updateNextDrawJackpotEuroJackpot > /proc/1/fd/1 2> /proc/1/fd/2
+20 22 * * 5      /usr/local/bin/php /var/www/apps/eurojackpot/eurojackpot-cli.php result updateEuroJackpotResult > /proc/1/fd/1 2> /proc/1/fd/2
+30 22 * * 5      /usr/local/bin/php /var/www/apps/eurojackpot/eurojackpot-cli.php bet placeEuroJackpotBets > /proc/1/fd/1 2> /proc/1/fd/2
+40 22 * * 5      /usr/local/bin/php /var/www/apps/shared/shared-cli.php Play-config updateLottery now EuroJackpot > /proc/1/fd/1 2> /proc/1/fd/2
+50 22 * * 5      /usr/local/bin/php /var/www/apps/cli.php result start EuroJackpot > /proc/1/fd/1 2> /proc/1/fd/2
+
+#MegaSena
+10 2 * * 4      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php jackpot updateNextDrawJackpotMegaSena > /proc/1/fd/1 2> /proc/1/fd/2
+15 2 * * 4      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php result updateMegaSenaResult > /proc/1/fd/1 2> /proc/1/fd/2
+10 20 * * 6      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php jackpot updateNextDrawJackpotMegaSena > /proc/1/fd/1 2> /proc/1/fd/2
+20 20 * * 6      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php result updateMegaSenaResult > /proc/1/fd/1 2> /proc/1/fd/2
+30 22 * * 4,7      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php bet placeMegaSenaBets > /proc/1/fd/1 2> /proc/1/fd/2
+40 22 * * 4,7      /usr/local/bin/php /var/www/apps/shared/shared-cli.php Play-config updateLottery now MegaSena > /proc/1/fd/1 2> /proc/1/fd/2
+50 22 * * 4,7      /usr/local/bin/php /var/www/apps/cli.php result start MegaSena > /proc/1/fd/1 2> /proc/1/fd/2
 
 # Clear cache
 30 0 * * *      /usr/local/bin/php /var/www/apps/cli.php clear-cache clear > /proc/1/fd/1 2> /proc/1/fd/2
+
+# Clear Pending Transactions created 48h before now (Disabled for now. Not really needed)
+# 00 3 * * *      /usr/local/bin/php /var/www/apps/shared/shared-cli.php clear-transactions clear > /proc/1/fd/1 2> /proc/1/fd/2
 
 # Database dumps
 15 8,20 * * *   if [ $EM_ENV != "production" ]; then /usr/local/bin/php /var/www/apps/shared/shared-cli.php dump-translations > /proc/1/fd/1 2> /proc/1/fd/2; fi

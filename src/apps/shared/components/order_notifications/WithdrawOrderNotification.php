@@ -15,6 +15,7 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\Discount;
+use EuroMillions\web\vo\TransactionId;
 use Money\Currency;
 use Money\Money;
 
@@ -54,7 +55,7 @@ class WithdrawOrderNotification implements IOrderNotificationBuilder
         $playconfig->setUser($this->transaction->getUser());
         $money=new Money(0, new Currency('EUR'));
         $amount=new Money(intval($this->transaction->getAmountWithdrawed()), new Currency('EUR'));
-        $order=OrderFactory::create([$playconfig], $money, $money, $money, new Discount(0, []), $withdrawLottery , 'Withdraw', 0);
+        $order=OrderFactory::create([$playconfig], $money, $money, $money, new Discount(0, []), $withdrawLottery , 'Withdraw', 0, new TransactionId($this->transaction->getTransactionID()));
         $order->addFunds($amount);
         $this->order = $order;
     }}

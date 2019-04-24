@@ -6,7 +6,7 @@
 .ansible_vault_password
 *.retry
 *.log
-phpinfo.php
+src/apps/shared/config/development_config.ini
 src/app/assets/*
 !src/app/assets/README.md
 src/logs/*
@@ -46,8 +46,7 @@ ansible/roles/external/*
 /src/angular-admin/node_modules
 /src/angular-admin/typings
 /src/angular-admin/npm-debug.log*
-/src/data/geoipdatabase/GeoIP.dat
-/src/data/geoipdatabase/GeoIPv6.dat
+/src/data/geoipdatabase/GeoLite2-Country.mmdb
 /src/public/a/js/angular-admin/app/app.component.js.map
 /src/public/a/js/angular-admin/app/components/add-language.component.js.map
 /src/public/a/js/angular-admin/app/components/contacto.component.js.map
@@ -63,4 +62,5 @@ ansible/roles/external/*
 src/compass_web/.sass-cache/
 src/public/w/css/v2/head.css
 src/public/w/css/v2/
+src/public/w/css/main_v2.css
 node_modules/

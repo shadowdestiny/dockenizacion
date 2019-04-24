@@ -65,6 +65,16 @@ class LotterySeeder extends AbstractSeed
                 'single_bet_price_amount' => '300',
                 'single_bet_price_currency_name' => 'EUR',
                 'time_zone' => 'Europe/Madrid'
+            ],
+            [
+                'name' => 'MegaSena',
+                'jackpot_api' => 'MegaSena',
+                'frequency' => 'w0010010',
+                'draw_time' => '16:00:00',
+                'result_api' => 'MegaSena',
+                'single_bet_price_amount' => '250',
+                'single_bet_price_currency_name' => 'EUR',
+                'time_zone' => 'America/Sao_Paulo'
             ]
         ];
 

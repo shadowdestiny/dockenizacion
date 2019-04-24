@@ -129,7 +129,7 @@ class ReportsController extends AdminControllerBase
         $paginatorActives = $this->getPaginatorAsArray(!empty($myGamesActives->result) ? $myGamesActives->result : [], 2, $pageActives);
         $paginatorViewActives = (new PaginationWidgetAdmin($paginatorActives, $this->request->getQuery(), [], 'pageActives'))->render();
 
-        $mySubscriptionActives = $this->reportsService->getSubscriptionsByUserIdActive($user->getId(), $this->reportsService->getNextDateDrawByLottery('EuroMillions'), $this->reportsService->getNextDateDrawByLottery('PowerBall'), $this->reportsService->getNextDateDrawByLottery('MegaMillions'), $this->reportsService->getNextDateDrawByLottery('EuroJackpot'));
+        $mySubscriptionActives = $this->reportsService->getSubscriptionsByUserIdActive($user->getId(), $this->reportsService->getNextDateDrawByLottery('EuroMillions'), $this->reportsService->getNextDateDrawByLottery('PowerBall'), $this->reportsService->getNextDateDrawByLottery('MegaMillions'), $this->reportsService->getNextDateDrawByLottery('EuroJackpot'),  $this->reportsService->getNextDateDrawByLottery('MegaSena'));
         $pageSubsActives = (!empty($this->request->get('pageSubsActives'))) ? $this->request->get('pageSubsActives') : 1;
         $paginatorSubsActives = $this->getPaginatorAsArray(!empty($mySubscriptionActives) ? $mySubscriptionActives : [], 4, $pageSubsActives);
         $paginatorViewSubsActives = (new PaginationWidgetAdmin($paginatorSubsActives, $this->request->getQuery(), [], 'pageSubsActives'))->render();
@@ -139,9 +139,9 @@ class ReportsController extends AdminControllerBase
         $paginatorSubsInactives = $this->getPaginatorAsArray(!empty($mySubsInactives) ? $mySubsInactives : [], 4, $pageSubsInactives);
         $paginatorViewSubsInactives = (new PaginationWidgetAdmin($paginatorSubsInactives, $this->request->getQuery(), [], 'pageSubsInactives'))->render();
 
-        $myGamesInactives = new PastDrawsCollectionDTO($this->reportsService->getPastGamesWithPrizes($user->getId()), 1);
+        $myGamesInactives = new PastDrawsCollectionDTO($this->reportsService->getPastGamesWithPrizes($user->getId()));
         $pageInactives = (!empty($this->request->get('pageInactives'))) ? $this->request->get('pageInactives') : 1;
-        $paginatorInactives = $this->getPaginatorAsArray(!empty($myGamesInactives->result) ? $myGamesInactives->result : [], 2, $pageInactives);
+        $paginatorInactives = $this->getPaginatorAsArray(!empty($myGamesInactives->result['dates']) ? $myGamesInactives->result['dates'] : [], 4, $pageInactives);
         $paginatorViewInactives = (new PaginationWidgetAdmin($paginatorInactives, $this->request->getQuery(), [], 'pageInactives'))->render();
 
         $userBets = $this->reportsService->getAutomaticAndTicketPurchaseByUserId($this->request->get('id'));
@@ -278,6 +278,37 @@ class ReportsController extends AdminControllerBase
                 'needReportsMenu' => true,
                 'euromillionsDrawId' => $this->request->get('id'),
                 'salesDrawDetailsData' => $this->reportsService->getPowerBallDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'countryList' => $this->countries,
+            ]);
+
+        }
+    }
+
+    public function salesDrawMegaMillionsDetailsAction()
+    {
+        $this->checkPermissions();
+        if ($this->request->get('id')) {
+            $drawDates = $this->reportsService->getMegaMillionsDrawsActualAfterDatesById($this->request->get('id'));
+
+            $this->view->setVars([
+                'needReportsMenu' => true,
+                'euromillionsDrawId' => $this->request->get('id'),
+                'salesDrawDetailsData' => $this->reportsService->getMegaMillionsDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'countryList' => $this->countries,
+            ]);
+
+        }
+    }
+
+    public function salesDrawEuroJackpotDetailsAction()
+    {
+        $this->checkPermissions();
+        if ($this->request->get('id')) {
+            $drawDates = $this->reportsService->getEuroJackpotDrawsActualAfterDatesById($this->request->get('id'));
+            $this->view->setVars([
+                'needReportsMenu' => true,
+                'euromillionsDrawId' => $this->request->get('id'),
+                'salesDrawDetailsData' => $this->reportsService->getEuroJackpotDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
                 'countryList' => $this->countries,
             ]);
 

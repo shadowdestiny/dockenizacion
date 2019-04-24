@@ -17,6 +17,7 @@ import {
   GAME_MODE_POWERBALL,
   GAME_MODE_MEGAMILLIONS,
   GAME_MODE_EUROJACKPOT,
+  GAME_MODE_MEGASENA,
 } from '../constants'
 
 /**
@@ -52,7 +53,7 @@ export default class Ticket extends Component {
      */
     nextDrawFormat : PropTypes.string,
 
-    gameMode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS, GAME_MODE_MEGAMILLIONS, GAME_MODE_EUROJACKPOT]),
+    gameMode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS, GAME_MODE_MEGAMILLIONS, GAME_MODE_EUROJACKPOT, GAME_MODE_MEGASENA]),
   }
 
   constructor (props) {
@@ -109,17 +110,21 @@ export default class Ticket extends Component {
             )}
           </div>
 
+          {BET_STARS_COUNT[gameMode] > 0 ?
           <div className="numbers-section stars">
-            {starNumbers.map(number =>
-              <TicketNumber
-                key={number}
-                number={number}
-                type={TICKET_NUMBER_TYPE_STAR}
-                selected={stars.indexOf(number) != -1}
-                onClick={this.toggleStarNumber}
-              />
-            )}
+              {starNumbers.map(number =>
+                <TicketNumber
+                    key={number}
+                    number={number}
+                    type={TICKET_NUMBER_TYPE_STAR}
+                    selected={stars.indexOf(number) != -1}
+                    onClick={this.toggleStarNumber}
+                />
+              )}
           </div>
+          : ""}
+
+
         </div>
 
         {nextDrawFormat

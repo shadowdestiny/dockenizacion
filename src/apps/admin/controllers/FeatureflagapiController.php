@@ -2,18 +2,19 @@
 
 namespace EuroMillions\admin\controllers;
 
-use EuroMillions\admin\services\FeatureFlagApiService;
+
+use EuroMillions\shared\services\FeatureFlagApiService;
 
 class FeatureflagapiController extends AdminControllerBase
 {
-    /** @var FeatureFlagApiService $featureFlagApiService */
+    /** @var FeatureFlagApiService */
     private $featureFlagApiService;
 
     public function initialize()
     {
         $this->checkPermissions();
         parent::initialize();
-        $this->featureFlagApiService = $this->domainServiceFactory->getFeatureFlagApiService();
+        $this->featureFlagApiService = $this->serviceFactory->getFeatureFlagApiService();
     }
 
     /**

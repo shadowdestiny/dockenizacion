@@ -1,3 +1,4 @@
+@import "./_variables";
 // Thank you page
 
 .thank-you-block{
@@ -596,104 +597,110 @@
             margin-bottom: 10px;
           }
 
-          li {
-            text-align: center;
-            width: 27px;
-            height: 27px;
-            line-height: 27px;
-            background-image: url('../img/home/result-block/desktop/ellipse.svg');
-            background-repeat: no-repeat;
-            background-position: 0 0;
-            text-shadow: none;
-            letter-spacing: 0;
-            -webkit-background-size: 27px;
-            background-size: 27px;
-            font-family: "Chivo",sans-serif;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 700;
-            margin-right: 10px;
-            position: relative;
-            top: -1px;
-
-            @media only screen and (min-width: $screen-xs) {
+          @mixin circle_icon_base($className:'',$img: '../img/home/result-block/desktop/ellipse.svg') {
+            li#{$className} {
               text-align: center;
-              width: 25px;
-              height: 25px;
-              line-height: 25px;
-              background-image: url('../img/home/result-block/desktop/ellipse.svg');
+              width: 27px;
+              height: 27px;
+              line-height: 27px;
+              background-image: url($img);
               background-repeat: no-repeat;
               background-position: 0 0;
               text-shadow: none;
               letter-spacing: 0;
-              -webkit-background-size: 25px;
-              background-size: 25px;
-              font-family: "Chivo",sans-serif;
+              -webkit-background-size: 27px;
+              background-size: 27px;
+              font-family: "Chivo", sans-serif;
               color: #fff;
               font-size: 12px;
               font-weight: 700;
               margin-right: 10px;
               position: relative;
               top: -1px;
-            }
 
-            @media only screen and (min-width: $screen-ipad-v) {
-              text-align: center;
-              width: 52px;
-              height: 53px;
-              line-height: 50px;
-              background-image: url('../img/home/result-block/desktop/ellipse.svg');
-              background-repeat: no-repeat;
-              background-position: 0 0;
-              text-shadow: none;
-              letter-spacing: 0;
-              -webkit-background-size: 52px;
-              background-size: 52px;
-              font-family: "Chivo",sans-serif;
-              color: #fff;
-              font-size: 23px;
-              font-weight: 700;
-              margin-right: 20px;
-              position: relative;
-              top: -1px;
-            }
+              @media only screen and (min-width: $screen-xs) {
+                text-align: center;
+                width: 25px;
+                height: 25px;
+                line-height: 25px;
+                background-image: url($img);
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                text-shadow: none;
+                letter-spacing: 0;
+                -webkit-background-size: 25px;
+                background-size: 25px;
+                font-family: "Chivo", sans-serif;
+                color: #fff;
+                font-size: 12px;
+                font-weight: 700;
+                margin-right: 10px;
+                position: relative;
+                top: -1px;
+              }
 
-            @media only screen and (min-width: $screen-ipad-h) {
-              font-size: 18px;
-              font-weight: 700;
-              margin-right: 15px;
-              width: 40px;
-              height: 44px;
-              line-height: 40px;
+              @media only screen and (min-width: $screen-ipad-v) {
+                text-align: center;
+                width: 52px;
+                height: 53px;
+                line-height: 50px;
+                background-image: url($img);
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                text-shadow: none;
+                letter-spacing: 0;
+                -webkit-background-size: 52px;
+                background-size: 52px;
+                font-family: "Chivo", sans-serif;
+                color: #fff;
+                font-size: 23px;
+                font-weight: 700;
+                margin-right: 20px;
+                position: relative;
+                top: -1px;
+              }
 
-              position: static;
+              @media only screen and (min-width: $screen-ipad-h) {
+                font-size: 18px;
+                font-weight: 700;
+                margin-right: 15px;
+                width: 40px;
+                height: 44px;
+                line-height: 40px;
 
-              background-image: url('../img/home/result-block/desktop/ellipse.svg');
-              background-repeat: no-repeat;
-              background-position: 0 0;
-              text-shadow: none;
-              letter-spacing: 0;
-              -webkit-background-size: 40px;
-              background-size: 40px;
-            }
+                position: static;
 
-            @media only screen and (min-width: $screen-desktop) {
-              font-size: 13px;
-              font-weight: 700;
-              margin-right: 9px;
-              width: 30px;
-              height: 30px;
-              line-height: 30px;
-              position: static;
-              background-image: url('../img/home/result-block/desktop/ellipse.svg');
-              background-repeat: no-repeat;
-              background-position: 0 0;
-              text-shadow: none;
-              letter-spacing: 0;
-              -webkit-background-size: 30px;
-              background-size: 30px;
+                background-image: url($img);
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                text-shadow: none;
+                letter-spacing: 0;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+              }
+
+              @media only screen and (min-width: $screen-desktop) {
+                font-size: 13px;
+                font-weight: 700;
+                margin-right: 9px;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                position: static;
+                background-image: url($img);
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                text-shadow: none;
+                letter-spacing: 0;
+                -webkit-background-size: 30px;
+                background-size: 30px;
+              }
             }
           }
+
+          @include circle_icon_base();
+          @include circle_icon_base('.circle_megasena', '../img/home/result-block/desktop/ellipse_green.svg');
+
           @mixin icon_result_right($className:'star',$img: '../img/home/result-block/desktop/star.svg',$fontColor:#333){
             li.#{$className} {
               background-image: url($img);
@@ -788,8 +795,10 @@
           }
 
           $ellipse_eurojackpot : 'ellipse_eurojackpot';
+          $ellipse_megasena : 'ellipse_megasena';
           @include icon_result_right();
           @include icon_result_right($ellipse_eurojackpot,'../img/home/result-block/desktop/ellipse_eurojackpot.svg',#fff);
+          @include icon_result_right($ellipse_megasena,'../img/home/result-block/desktop/ellipse_eurojackpot.svg',#fff);
 
           li.star_red {
             background-image: url('../img/home/result-block/desktop/ellipse_red.svg');
@@ -1003,6 +1012,7 @@
 
           @include icon_result_right_distance('star');
           @include icon_result_right_distance($ellipse_eurojackpot);
+          @include icon_result_right_distance($ellipse_megasena);
         }
 
         .numbers {

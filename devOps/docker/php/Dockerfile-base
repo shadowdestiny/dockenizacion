@@ -11,7 +11,7 @@
 
 ARG PHP_VERSION
 
-FROM php:${PHP_VERSION}-fpm-jessie
+FROM php:${PHP_VERSION}-fpm-stretch
 
 ARG PHALCON_BRANCH
 

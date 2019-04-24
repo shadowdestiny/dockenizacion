@@ -31,6 +31,18 @@ services:
         service: euromillions-pre-staging/web
         source_port: 80
         target_port: 80
+      - hostname: royalpay.euromillions.com
+        priority: 5
+        protocol: https
+        service: euromillions-royalpay/web
+        source_port: 443
+        target_port: 80
+      - hostname: royalpay.euromillions.com
+        priority: 6
+        protocol: http
+        service: euromillions-royalpay/web
+        source_port: 80
+        target_port: 80
     stickiness_policy:
       cookie: EM_LB
       indirect: false
@@ -70,11 +82,11 @@ services:
       healthy_threshold: 2
       port: 80
       unhealthy_threshold: 3
-      initializing_timeout: 3000
+      initializing_timeout: 10000
       interval: 30000
       strategy: recreate
       request_line: GET "/readme.txt" "HTTP/1.0"
-      reinitializing_timeout: 1000
+      reinitializing_timeout: 6000
 
   php:
     scale: 1

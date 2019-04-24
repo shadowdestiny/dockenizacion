@@ -9,6 +9,7 @@
 namespace EuroMillions\shared\components;
 
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\web\services\card_payment_providers\ICreditCardStrategy;
 
 final class PaymentsCollection
@@ -48,4 +49,30 @@ final class PaymentsCollection
             throw new \Exception("Invalid key $key.");
         }
     }
+
+    public function getItemByName(PaymentProviderEnum $providerName)
+    {
+        foreach ($this->getIterator() as $k => $payment) {
+            if ($payment->get()->getName() == $providerName) {
+                return $payment;
+            }
+        }
+    }
+
+    public function getAllItems()
+    {
+        return $this->payments;
+    }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->payments);
+    }
+
+    public function getIteratorSortByWeight(callable $function)
+    {
+        uasort($this->payments, $function);
+        return new \ArrayIterator($this->payments);
+    }
+
 }
