@@ -13,8 +13,8 @@ class MegaSenaCutOff extends CutOff
     protected function getCloseTime()
     {
         return [
-            '3' => '09:00',
-            '6' => '16:00'
+            '3' => '16:00',
+            '6' => '09:00'
         ];
     }
 
