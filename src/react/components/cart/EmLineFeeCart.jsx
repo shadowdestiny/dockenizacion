@@ -61,7 +61,7 @@ var EmLineFeeCart = new React.createClass({
                             </div>
                         </td>
                         <td>
-                            <div className="summary val">{fee_value}</div>
+                            <div className="summary val" style={{textAlign:"right"}}>{fee_value}</div>
                         </td>
                     </tr>
                     </tbody>

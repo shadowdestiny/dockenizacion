@@ -91,7 +91,7 @@ var EmCard = new React.createClass({
                                                                 <input type="text" id="card-cvv" name="card-cvv"
                                                                        className="input" placeholder="" autoComplete="off"/>
                                                             </div>
-                                                            <div className={"col"}>
+                                                            <div className={"col"} style={{textAlign:"left"}}>
                                                                 <img className={"default-img ccv"} src="/w/img/review-and-pay/desktop/ccv.png"/>
                                                             </div>
                                                         </div>
