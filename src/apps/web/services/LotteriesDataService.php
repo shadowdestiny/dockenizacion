@@ -258,7 +258,7 @@ class LotteriesDataService
                     );
                     $jack = new Money((int) floor($jackpotEUR->getAmount() / 1000000) * 100000000, new Currency('EUR'));
                     $draw->setJackpot($jack);
-                    if ($lottery->isNotEuroJackpot() && $lottery->isNotMegaSena()) {
+                    if ($lottery->isNotEuroJackpot()  && $lottery->isNotMegaSena() && $lottery->isNotSuperEnalotto()) {
                         $draw->setRaffle(new Raffle($lotteryDraw['numbers'][$lottery->isPowerBall() ? 'powerplay' : 'megaplier']));
                     }
                     $draw->createBreakDown($lotteryDraw);
@@ -401,6 +401,9 @@ class LotteriesDataService
                 break;
             case 'MegaSena':
                 $draw->createResult($numbers['main'], $numbers['sena']);
+                break;
+            case 'SuperEnalotto':
+                $draw->createResult($numbers['main'], $numbers['super']);
                 break;
         }
         return $draw;

@@ -75,6 +75,16 @@ class LotterySeeder extends AbstractSeed
                 'single_bet_price_amount' => '250',
                 'single_bet_price_currency_name' => 'EUR',
                 'time_zone' => 'America/Sao_Paulo'
+            ],
+            [
+                'name' => 'SuperEnalotto',
+                'jackpot_api' => 'SuperEnalotto',
+                'frequency' => 'w0101010',
+                'draw_time' => '20:00:00',
+                'result_api' => 'SuperEnalotto',
+                'single_bet_price_amount' => '200',
+                'single_bet_price_currency_name' => 'EUR',
+                'time_zone' => 'Europe/Rome'
             ]
         ];
 

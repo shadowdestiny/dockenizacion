@@ -15,6 +15,10 @@ use EuroMillions\megasena\config\routes\HowToPlayRoutes as HowToPlayRoutesMegaSe
 use EuroMillions\megasena\config\routes\MegaSenaPlayRoutes;
 use EuroMillions\megasena\config\routes\MegaSenaResultRoutes;
 use EuroMillions\megasena\config\routes\ResultPurchaseRoutes as ResultPurchaseRoutesMegaSena;
+use EuroMillions\superenalotto\config\routes\HowToPlayRoutes as HowToPlayRoutesSuperEnalotto;
+use EuroMillions\superenalotto\config\routes\SuperEnalottoPlayRoutes;
+use EuroMillions\superenalotto\config\routes\SuperEnalottoResultRoutes;
+use EuroMillions\superenalotto\config\routes\ResultPurchaseRoutes as ResultPurchaseRoutesSuperEnalotto;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconCookiesWrapper;
 use EuroMillions\shared\components\PhalconRequestWrapper;
@@ -128,6 +132,27 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $view = new Phalcon\Mvc\View();
         $compiled_path = $this->assetsPath . 'compiled_templates/';
         $view->setViewsDir($this->appPath . 'megasena/views/');
+        $view->setLayoutsDir('shared/views/');
+        $view->registerEngines(array(
+            ".volt" => function ($view, $di) use ($compiled_path) {
+                $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
+                $volt->setOptions($this->voltConfigByEnvironment($compiled_path));
+                $compiler = $volt->getCompiler();
+                $compiler->addFilter('number_format', 'number_format');
+                $compiler->addFunction('currency_css', function ($currency) {
+                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
+                });
+                return $volt;
+            }
+        ));
+        return $view;
+    }
+
+    protected function configViewSuperEnalotto()
+    {
+        $view = new Phalcon\Mvc\View();
+        $compiled_path = $this->assetsPath . 'compiled_templates/';
+        $view->setViewsDir($this->appPath . 'superenalotto/views/');
         $view->setLayoutsDir('shared/views/');
         $view->registerEngines(array(
             ".volt" => function ($view, $di) use ($compiled_path) {
@@ -663,7 +688,21 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'payment',
         ));
 
-        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|megasena)+}/cart/login", array(
+        $router->add("/{lottery:(superenalotto)+}/payment", array(
+            "module" => "superenalotto",
+            'lottery' => 7,
+            'controller' => 'super-enalotto-payment',
+            'action' => 'payment',
+        ));
+
+        $router->add("/{lottery:(superenalotto)+}/payment/payment(.*?)", array(
+            "module" => "superenalotto",
+            'lottery' => 7,
+            'controller' => 'super-enalotto-payment',
+            'action' => 'payment',
+        ));
+
+        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|megasena|superenalotto)+}/cart/login", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'cart',
@@ -708,7 +747,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|megasena)+}/result/success/:params", array(
+        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|megasena|superenalotto)+}/result/success/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'result',
@@ -1604,6 +1643,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(super-enalotto)+}/{play:(jugar|gioca|speel|играть)+}", array(
+            "module" => "superenalotto",
+            'controller' => 'play',
+            'action' => 'index',
+        ));
+
         $router->mount(new HowToPlayRoutes());
         $router->mount(new MegaMillionsPlayRoutes());
         $router->mount(new MegaMillionsResultRoutes());
@@ -1614,6 +1659,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->mount(new MegaSenaPlayRoutes());
         $router->mount(new MegaSenaResultRoutes());
         $router->mount(new ResultPurchaseRoutesMegaSena());
+
+        $router->mount(new HowToPlayRoutesSuperEnalotto());
+        $router->mount(new SuperEnalottoPlayRoutes());
+        $router->mount(new SuperEnalottoResultRoutes());
+        $router->mount(new ResultPurchaseRoutesSuperEnalotto());
 
         $router->mount(new HowToPlayRoutesEuroJackpot());
         $router->mount(new EuroJackpotPlayRoutes());
@@ -1750,6 +1800,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'megasena' => [
                 'className' => 'EuroMillions\megasena\Module',
                 'path' => '../apps/megasena/Module.php',
+            ],
+            'superenalotto' => [
+                'className' => 'EuroMillions\superenalotto\Module',
+                'path' => '../apps/superenalotto/Module.php',
             ]
         ]);
         $di = $application->getDI();
@@ -1796,6 +1850,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $object = $di->get($web_module['className']);
                 $di->set('language', $this->configLanguage($di), true);
                 $di->set('view', $this->configViewMegaSena(), true);
+                $object->registerServices($di);
+            }
+            if ($module_name === 'superenalotto') {
+                $web_module = $application->getModule($module_name);
+                /** @var ModuleDefinitionInterface $object */
+                $object = $di->get($web_module['className']);
+                $di->set('language', $this->configLanguage($di), true);
+                $di->set('view', $this->configViewSuperEnalotto(), true);
                 $object->registerServices($di);
             }
         });
