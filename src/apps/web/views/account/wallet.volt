@@ -363,6 +363,10 @@
                                  MegaSena
                                  <span class="value">{{ wallet.subscriptionBalanceMegaSena}}</span>
                             </div>
+                            <div class="txt">
+                                SuperEnalotto
+                                <span class="value">{{ wallet.subscriptionBalanceSuperEnalotto}}</span>
+                            </div>
 
                         </div>
                         <div class="box-balance--row  cl">

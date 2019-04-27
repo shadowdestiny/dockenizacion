@@ -34,7 +34,7 @@
                                 {% for regular_number in regular %}
                                     <span>{{ regular_number }}</span>
                                 {% endfor %}
-                                {% if (play_config.lotteryName == 'MegaSena')%}
+                                {% if (play_config.lotteryName == 'MegaSena' || play_config.lotteryName == 'SuperEnalotto') %}
                                     <span>{{ lucky[1] }}</span>
                                 {% elseif (play_config.lotteryName == 'PowerBall') or (play_config.lotteryName == 'MegaMillions')%}
                                     <span class="star">{{ lucky[1] }}</span>

@@ -700,6 +700,7 @@
 
           @include circle_icon_base();
           @include circle_icon_base('.circle_megasena', '../img/home/result-block/desktop/ellipse_green.svg');
+          @include circle_icon_base('.circle_superenalotto', '../img/home/result-block/desktop/ellipse_green.svg');
 
           @mixin icon_result_right($className:'star',$img: '../img/home/result-block/desktop/star.svg',$fontColor:#333){
             li.#{$className} {
@@ -796,9 +797,11 @@
 
           $ellipse_eurojackpot : 'ellipse_eurojackpot';
           $ellipse_megasena : 'ellipse_megasena';
+          $ellipse_superenalotto : 'ellipse_superenalotto';
           @include icon_result_right();
           @include icon_result_right($ellipse_eurojackpot,'../img/home/result-block/desktop/ellipse_eurojackpot.svg',#fff);
           @include icon_result_right($ellipse_megasena,'../img/home/result-block/desktop/ellipse_eurojackpot.svg',#fff);
+          @include icon_result_right($ellipse_superenalotto,'../img/home/result-block/desktop/ellipse_eurojackpot.svg',#fff);
 
           li.star_red {
             background-image: url('../img/home/result-block/desktop/ellipse_red.svg');
@@ -1013,6 +1016,7 @@
           @include icon_result_right_distance('star');
           @include icon_result_right_distance($ellipse_eurojackpot);
           @include icon_result_right_distance($ellipse_megasena);
+          @include icon_result_right_distance($ellipse_superenalotto);
         }
 
         .numbers {

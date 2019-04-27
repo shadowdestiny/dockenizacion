@@ -11,6 +11,7 @@ namespace EuroMillions\web\vo\dto;
 
 use EuroMillions\eurojackpot\vo\EuroJackpotJackpot;
 use EuroMillions\megasena\vo\MegaSenaJackpot;
+use EuroMillions\superenalotto\vo\SuperEnalottoJackpot;
 use EuroMillions\megamillions\vo\MegaMillionsJackpot;
 use EuroMillions\shared\interfaces\IComparable;
 use EuroMillions\web\entities\EuroMillionsDraw;
@@ -98,6 +99,11 @@ class MainJackpotHomeDTO extends DTOBase implements IDto,IComparable
                 'link' => 'link_megasena_play',
                 'css'  => 'lotteries-jackpot--bar--megasena',
                 'include' => '_elements/home/lottery-carousel/megasena'
+            ],
+            'SuperEnalotto' => [
+                'link' => 'link_superenalotto_play',
+                'css'  => 'lotteries-jackpot--bar--superenalotto',
+                'include' => '_elements/home/lottery-carousel/superenalotto'
             ]
         ];
     }
@@ -123,6 +129,10 @@ class MainJackpotHomeDTO extends DTOBase implements IDto,IComparable
         if($this->lotteryName == 'MegaSena')
         {
             return MegaSenaJackpot::fromAmountIncludingDecimals($amount->getAmount());
+        }
+        if($this->lotteryName == 'SuperEnalotto')
+        {
+            return SuperEnalottoJackpot::fromAmountIncludingDecimals($amount->getAmount());
         }
     }
 

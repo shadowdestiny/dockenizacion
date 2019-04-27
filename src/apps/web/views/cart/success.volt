@@ -48,6 +48,25 @@ localStorage.removeItem('bet_line');
         $(this).html(li);
 });
 
+{% if (lottery_name == 'SuperEnalotto') %}
+    localStorage.removeItem('ms_bet_line');
+
+    var superenalotto_elements = $("ul.numbers");
+    superenalotto_elements.each(function(i,elem){
+        var li_order = [];
+        $(this).find(".circle_superenalotto").each(function(i){
+            li_order.push(parseInt($(this).text()));
+        });
+        var li = '';
+        li_order = li_order.sort(function(a,b){
+            return a - b;
+        });
+        $.each(li_order,function(i,val){
+            li+= '<li class="circle_superenalotto">'+(( parseInt(val.toString()) < 10) ? ("0" + val): val)+'</li>'
+        });
+        $(this).html(li);
+    });
+
 {% endif %}
 
 </script>
@@ -182,6 +201,8 @@ function numCharLine($line){
                             {% for regular_number in regular_arr %}
                                  {% if (lottery_name == 'MegaSena') %}
                                     <li class="circle_megasena"><?php echo sprintf("%02s", $regular_number);?></li>
+                                 {% if (lottery_name == 'SuperEnalotto') %}
+                                    <li class="circle_superenalotto"><?php echo sprintf("%02s", $regular_number);?></li>
                                  {% else %}
                                     <li><?php echo sprintf("%02s", $regular_number);?></li>
                                  {% endif %}
@@ -202,6 +223,10 @@ function numCharLine($line){
                                <li class="circle_megasena">
                                    <?php echo sprintf("%02s", $lucky_arr[1]);?>
                                </li>
+                            {% elseif (lottery_name == 'SuperEnalotto') %}
+                                <li class="circle_superenalotto">
+                                    <?php echo sprintf("%02s", $lucky_arr[1]);?>
+                                </li>
                             {% else %}
                                 {% for lucky_number in lucky_arr %}
                                     <li class="star">

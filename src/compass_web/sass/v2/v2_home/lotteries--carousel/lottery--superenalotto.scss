@@ -1,0 +1,9 @@
+@import "../../_superenalotto/_partial/init";
+
+.lottery-carousel--superenalotto {
+  .top-block {
+
+    @include degraded-section();
+
+  }
+}
