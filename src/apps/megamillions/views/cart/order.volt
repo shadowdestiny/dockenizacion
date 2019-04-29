@@ -43,6 +43,7 @@
     var powerball = false;
     var megamillions = true;
     var megasena = false;
+    var superenalotto = false;
     var powerplay = <?php echo $power_play; ?>;
     var powerplayprice = <?php echo $power_play_price; ?>;
     var txt_lottery = '<?php echo $lottery_name; ?>';

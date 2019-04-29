@@ -11,6 +11,7 @@ import {
     GAME_MODE_MEGAMILLIONS,
     GAME_MODE_EUROJACKPOT,
     GAME_MODE_MEGASENA,
+    GAME_MODE_SUPERENALOTTO,
     numberSets,
 } from '../config/constants';
 

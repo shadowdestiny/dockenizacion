@@ -31,8 +31,17 @@ var EmLineOrder = new React.createClass({
         });
 
         // only megasena
-        if(this.props.megasena){
+        if(this.props.megasena) {
             _class = 'circle_megasena';
+            list_number_ball.push(parseInt(stars[1]));
+            list_ball = list_number_ball
+                .sort((a, b) => a - b)
+                .map(function (number, i) {
+                    return <li key={i}
+                               className={_class}>{((parseInt(number.toString()) < 10) ? ("0" + number) : number)}</li>
+                });
+        }else if(this.props.superenalotto){
+            _class = 'circle_superenalotto';
             list_number_ball.push(parseInt(stars[1]));
             list_ball = list_number_ball
                 .sort((a, b) => a - b )
@@ -71,7 +80,7 @@ var EmLineOrder = new React.createClass({
                             )
                         }
                         {
-                            (!this.props.megamillions && !this.props.powerball && !this.props.eurojackpot && !this.props.megasena ?
+                            (!this.props.megamillions && !this.props.powerball && !this.props.eurojackpot && !this.props.megasena && !this.props.superenalotto ?
                                 stars.map(function(star,i) {
                                     return <li className="star" key={i}>{star}</li>})
                                 : ""

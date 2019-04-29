@@ -51,6 +51,7 @@
                 <li><a href="/admin/reports/salesDrawMegaMillions">Sales Draw<br />MegaMillions</a></li>
                 <li><a href="/admin/reports/salesDrawEuroJackpot">Sales Draw<br />EuroJackpot</a></li>
                 <li><a href="/admin/reports/salesDrawMegaSena">Sales Draw<br />MegaSena</a></li>
+                <li><a href="/admin/reports/salesDrawSuperEnalotto">Sales Draw<br />SuperEnalotto</a></li>
                 <li><a href="/admin/reports/salesDrawChristmas">Sales Draw<br />Christmas</a></li>
                 <li><a href="/admin/reports/playersReports">Players Reports</a></li>
                 <!-- li><a href="/admin/reports/salesDraw">Sales Draw</a></li>

@@ -29,6 +29,7 @@
 /*jackpot_widget*/
 @import "v2/section-powerball";
 @import "v2/_megasena/section-megasena";
+@import "v2/_superenalotto/section-superenalotto";
 
 @import "v2/results";
 @import "v2/nav-in-row";
@@ -98,6 +99,7 @@
 @import "v2/v2_home/lotteries--carousel/lottery--powerball";
 @import "v2/v2_home/lotteries--carousel/lottery--eurojackpot";
 @import "v2/v2_home/lotteries--carousel/lottery--megasena";
+@import "v2/v2_home/lotteries--carousel/lottery--superenalotto";
 
 
 @import "v2/v2_home/lottery-results--carousel/lottery-result--carousel";
@@ -108,6 +110,7 @@
 @import "v2/v2_home/lottery-results--carousel/lottery-result--megamillions";
 @import "v2/v2_home/lottery-results--carousel/lottery-result--powerball";
 @import "v2/v2_home/lottery-results--carousel/lottery-result--megasena";
+@import "v2/v2_home/lottery-results--carousel/lottery-result--superenalotto";
 
 // Eurojackpot Start
 @import "v2/_eurojackpot/eurojackpot";
@@ -128,3 +131,13 @@
 @import "v2/_megasena/results";
 @import "v2/_megasena/history";
 // MegaSena End
+
+// SuperEnalotto Start
+@import "v2/_superenalotto/superenalotto";
+@import "v2/_superenalotto/play-bottom-block";
+@import "v2/_superenalotto/top-banner";
+@import "v2/_superenalotto/play-header";
+@import "v2/_superenalotto/play-page-mobile";
+@import "v2/_superenalotto/results";
+@import "v2/_superenalotto/history";
+// SuperEnalotto End

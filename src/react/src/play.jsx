@@ -20,6 +20,7 @@ import {
     GAME_MODE_MEGAMILLIONS,
     GAME_MODE_EUROJACKPOT,
     GAME_MODE_MEGASENA,
+    GAME_MODE_SUPERENALOTTO,
     numberSets
 } from '../config/constants'
 
@@ -513,6 +514,7 @@ var PlayPage = React.createClass({
           [GAME_MODE_MEGAMILLIONS] : 'megamillions-game',
           [GAME_MODE_EUROJACKPOT] : 'eurojackpot-game',
           [GAME_MODE_MEGASENA]      : 'megasena-game',
+          [GAME_MODE_SUPERENALOTTO]      : 'superenalotto-game',
         }
 
         return (
