@@ -15,11 +15,11 @@ class SuperEnalottoPrize extends LotteryPrize
     public function mappingArray()
     {
         return [
-            '3,1' => 'getCategoryThree',
-            '4,0' => 'getCategoryThree',
-            '4,1' => 'getCategoryTwo',
-            '5,0' => 'getCategoryTwo',
-            '5,1' => 'getCategoryOne',
+            '3,0' => 'getCategoryFive',
+            '4,0' => 'getCategoryFour',
+            '5,0' => 'getCategoryThree',
+            '5,1' => 'getCategoryTwo',
+            '6,0' => 'getCategoryOne'
         ];
     }
 

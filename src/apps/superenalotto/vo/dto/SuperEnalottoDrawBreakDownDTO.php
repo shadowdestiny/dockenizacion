@@ -23,6 +23,10 @@ class SuperEnalottoDrawBreakDownDTO extends EuroMillionsDrawBreakDownDTO impleme
 
     public $category_three;
 
+    public $category_four;
+
+    public $category_five;
+
 
     public function __construct(EuroMillionsDrawBreakDown $euroMillionsDrawBreakDown)
     {
@@ -52,24 +56,38 @@ class SuperEnalottoDrawBreakDownDTO extends EuroMillionsDrawBreakDownDTO impleme
     {
         return [
             'category_one' => [
-                'name' => 'match-5-1',
+                'name' => 'match-6',
                 'lottery_prize' => $this->euroMillionsDrawBreakDown->getCategoryOne()->getLotteryPrize()->getAmount(),
                 'winners' => $this->euroMillionsDrawBreakDown->getCategoryOne()->getWinners(),
-                'numbers_corrected' => '5',
-                'stars_corrected' => '1',
+                'numbers_corrected' => '6',
+                'stars_corrected' => '0',
             ],
             'category_two' => [
-                'name' => 'match-5',
+                'name' => 'match-5-j',
                 'lottery_prize' => $this->euroMillionsDrawBreakDown->getCategoryTwo()->getLotteryPrize()->getAmount(),
                 'winners' => $this->euroMillionsDrawBreakDown->getCategoryTwo()->getWinners(),
                 'numbers_corrected' => '5',
-                'stars_corrected' => '0',
+                'stars_corrected' => '1',
             ],
             'category_three' => [
-                'name' => 'match-4',
+                'name' => 'match-5',
                 'lottery_prize' => $this->euroMillionsDrawBreakDown->getCategoryThree()->getLotteryPrize()->getAmount(),
                 'winners' => $this->euroMillionsDrawBreakDown->getCategoryThree()->getWinners(),
+                'numbers_corrected' => '5',
+                'stars_corrected' => '0',
+            ],
+            'category_four' => [
+                'name' => 'match-4',
+                'lottery_prize' => $this->euroMillionsDrawBreakDown->getCategoryFour()->getLotteryPrize()->getAmount(),
+                'winners' => $this->euroMillionsDrawBreakDown->getCategoryFour()->getWinners(),
                 'numbers_corrected' => '4',
+                'stars_corrected' => '0',
+            ],
+            'category_five' => [
+                'name' => 'match-3',
+                'lottery_prize' => $this->euroMillionsDrawBreakDown->getCategoryFive()->getLotteryPrize()->getAmount(),
+                'winners' => $this->euroMillionsDrawBreakDown->getCategoryFive()->getWinners(),
+                'numbers_corrected' => '3',
                 'stars_corrected' => '0',
             ],
         ];
