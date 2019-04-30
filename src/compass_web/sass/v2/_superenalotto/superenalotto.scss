@@ -211,7 +211,7 @@ $superenalotto-color--main : $color--main;
 
         .gwp.active,
         .gwp:hover {
-          background-color: #009b3a;
+          background-color: $hover_color;
           color: #fff;
         }
         .stars {
