@@ -31,17 +31,17 @@ class SuperEnalottoPlayRoutes extends RouterGroup
             'language' => 'en'
         ));
 
-        $this->add( '/superenalotto/cart/profile', [
+        $this->add( '/supe-renalotto/cart/profile', [
             "module" => "superenalotto",
             'lottery' => "superenalotto",
-            'controller' => 'super-enalotto-cart',
+            'controller' => 'superenalotto-cart',
             'action' => 'profile'
         ]);
 
         $this->add('/superenalotto/order', [
             "module" => "superenalotto",
             'lottery' => 'superenalotto',
-            'controller' => 'super-enalotto-order',
+            'controller' => 'superenalotto-order',
             'action' => 'order'
         ]);
     }

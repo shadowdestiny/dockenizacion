@@ -27,27 +27,27 @@
     </div>
     <div class="play-bottom-block--center">
         <h1>
-           {{ language.translate("PlayMS_h1") }}
+           {{ language.translate("PlaySE_h1") }}
         </h1>
 
         <p>
-            {{ language.translate("PlayMS_h1_text") }}
+            {{ language.translate("PlaySE_h1_text") }}
         </p>
 
     </div>
     <div class="play-bottom-block--right">
         <h2>
-            {{ language.translate("PlayMS_h2") }}
+            {{ language.translate("PlaySE_h2") }}
         </h2>
 
         <p>
-            {{ language.translate("PlayMS_h2_text") }}
+            {{ language.translate("PlaySE_h2_text") }}
         </p>
         <h2>
-            {{ language.translate("PlayMS_h2_2") }}
+            {{ language.translate("PlaySE_h2_2") }}
         </h2>
         <p>
-            {{ language.translate("PlayMS_h2_text2") }}
+            {{ language.translate("PlaySE_h2_text2") }}
         </p>
     </div>
 </div>

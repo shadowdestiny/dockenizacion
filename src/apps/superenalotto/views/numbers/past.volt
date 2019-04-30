@@ -70,14 +70,14 @@
                         {#</div>#}
                         <h1 class="h1 title">
                             {% if mobile == 1 %}
-                                {{ language.translate("resultsMS_hist_h1") }}
+                                {{ language.translate("resultsSE_hist_h1") }}
                             {% else %}
-                                {{ language.translate("resultsMS_hist_h1") }}
+                                {{ language.translate("resultsSE_hist_h1") }}
                             {% endif %}
                         </h1>
                         <div class="history-numbers-block">
                             <div class="pad">
-                                <h2 class="h2 purple">{{ language.translate("resultsMS_hist_h2") }}</h2>
+                                <h2 class="h2 purple">{{ language.translate("resultsSE_hist_h2") }}</h2>
                             </div>
                             <table id="history-numbers" class="ui-responsive table2" data-role="table"
                                    data-mode="reflow" style="margin-top:-20px">
@@ -94,9 +94,9 @@
                                  {% else %}
                                     <thead class="thead--powerball">
                                     <tr>
-                                        <th class="td-date"><span class="ico-date"></span>{{ language.translate("resultsMS_hist_date") }}</th>
+                                        <th class="td-date"><span class="ico-date"></span>{{ language.translate("resultsSE_hist_date") }}</th>
                                         <th class="td-ball-numbers--lottery megamillions--lottery-balls"><span
-                                                    class="ico-ball"></span>{{ language.translate("resultsMS_hist_balls") }}</th>
+                                                    class="ico-ball"></span>{{ language.translate("resultsSE_hist_balls") }}</th>
                                     </tr>
                                     </thead>
                                 {% endif %}
@@ -116,7 +116,7 @@
                             <div id="show-more-results">
                                 <div class="btn-theme--big">
                                 <span class="resizme">
-                                    {{ language.translate("resultsMS_hist_loadbtn") }}
+                                    {{ language.translate("resultsSE_hist_loadbtn") }}
                                 </span>
                                 </div>
                             </div>

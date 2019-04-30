@@ -56,8 +56,8 @@ final class PlayController extends \EuroMillions\shared\controllers\PlayControll
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
         $this->betValue = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
 
-        $this->tag->prependTitle($this->languageService->translate('play_megas_name'));
-        MetaDescriptionTag::setDescription($this->languageService->translate('play_megas_desc'));
+        $this->tag->prependTitle($this->languageService->translate('play_super_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('play_super_desc'));
 
         if($this->request->get('register'))
         {
