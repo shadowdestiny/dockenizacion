@@ -21,9 +21,9 @@ class SuperEnalottoPlayRoutes extends RouterGroup
                 'namespace' => 'EuroMillions\superenalotto\controllers',
             ]
         );
-        // All the routes start with /eurojackpot
+        // All the routes start with /superenalotto
 
-        $this->add("/super-enalotto/play", array(
+        $this->add("/superenalotto/play", array(
             "lottery" => 'superenalotto',
             "module" => "superenalotto",
             'controller' => 'play',
