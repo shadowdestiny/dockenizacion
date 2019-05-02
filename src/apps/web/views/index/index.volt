@@ -124,7 +124,7 @@
         if(item.name == 'SuperEnalotto')
         {
             setCountDownByLottery(item.date,
-            'countdownsena',
+            'countdownsuper',
             'daysuper',
             'dotssuper',
             'minutesuper',
