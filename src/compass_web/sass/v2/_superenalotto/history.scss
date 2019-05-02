@@ -86,6 +86,9 @@
     .ico-ball {
       background-color: #fff;
       bottom: -6px;
+      &.jolly{
+        background-color: #ffa500;
+      }
     }
   }
 
