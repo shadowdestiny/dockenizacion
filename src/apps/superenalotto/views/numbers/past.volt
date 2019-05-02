@@ -44,7 +44,7 @@
 {% endblock %}
 {% block body %}
     <main id="content">
-        <div class="result-page--content--previous-result">
+        <div class="result-page--content--previous-result superenalotto-previous-results">
             <div class="banner"></div>
             <div class="wrapper">
                 <br>
@@ -92,11 +92,20 @@
                                     </tr>
                                     </thead>
                                  {% else %}
-                                    <thead class="thead--powerball">
+                                    <thead class="thead--superenalotto">
                                     <tr>
-                                        <th class="td-date"><span class="ico-date"></span>{{ language.translate("resultsSE_hist_date") }}</th>
-                                        <th class="td-ball-numbers--lottery megamillions--lottery-balls"><span
-                                                    class="ico-ball"></span>{{ language.translate("resultsSE_hist_balls") }}</th>
+                                        <th class="td-date"><span class="ico-date"></span>
+                                            {{ language.translate("resultsSE_hist_date") }}
+                                        </th>
+                                        <th class="td-ball-numbers--lottery superenalotto--lottery-balls">
+                                            <span class="ico-ball">
+                                            </span>
+                                            {{ language.translate("resultsSE_hist_balls") }}
+                                        </th>
+                                        <th class="td-ball-numbers--lottery superenalotto--lottery-balls">
+                                            <span class="ico-ball jolly"></span>
+                                            Jolly
+                                        </th>
                                     </tr>
                                     </thead>
                                 {% endif %}
@@ -106,6 +115,13 @@
                                         onclick="document.location='/{{ language.translate('link_superenalotto_draw_history') }}/{{ draw.drawDateParam }}'">
                                         <td class="td-date">{{ draw.drawDate }}, {{ draw.drawDateTranslate }}</td>
                                         <td class="td-ball-numbers">{{ draw.resultNumbers }}</td>
+                                        <td class="td-ball-numbers">
+                                            <?php
+                                                $jolly = explode(",",$draw->luckyNumber);
+                                                if($jolly)
+                                                    print $jolly[0];
+                                            ?>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
