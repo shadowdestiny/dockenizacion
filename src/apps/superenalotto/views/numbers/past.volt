@@ -84,10 +84,13 @@
                                 {% if mobile == 1 %}
                                     <thead class="thead--powerball" style="height:60px">
                                     <tr style="height:60px">
-                                        <th class="td-powerball" style="width:40%">
+                                        <th class="td-powerball" style="width:33.33%">
                                         </th>
-                                        <th class="td-powerball" style="width:40%">
+                                        <th class="td-powerball" style="width:33.33%">
                                                 {{ language.translate("Lucky Numbers") }}
+                                        </th>
+                                        <th class="td-ball-numbers--lottery">
+                                            Jolly
                                         </th>
                                     </tr>
                                     </thead>
