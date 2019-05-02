@@ -144,11 +144,11 @@
                                 {% if mobile == 1 %}
                                     {{ language.translate("results_pow_mobile_h1") }}
                                 {% else %}
-                                    {{ language.translate("resultsMS_h1") }}
+                                    {{ language.translate("resultsSE_h1") }}
                                 {% endif %}
                             </h1>
                             <h2 class="h2">
-                                {{ language.translate("resultsMS_h2") }}
+                                {{ language.translate("resultsSE_h2") }}
                                 {#Euromillions Results & price breakdown for Tuesday 02 November 2016#}
                             </h2>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
@@ -210,10 +210,10 @@
 
                 <div class="block--text--accordion">
                     <h2>
-                        {{ language.translate("resultsMS_title_par") }}
+                        {{ language.translate("resultsSE_title_par") }}
                     </h2>
                     <p>
-                        {{ language.translate("resultsMS_par") }}
+                        {{ language.translate("resultsSE_par") }}
                     </p>
                 </div>
             </div>
