@@ -9,7 +9,7 @@ use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\vo\LastDrawDatePowerBall;
 use EuroMillions\web\vo\PlayFormToStorage;
 
-final class SuperEnalottoPlayTemporarilyController extends PowerBallPlayTemporarilyController
+final class SuperenalottoPlayTemporarilyController extends PowerBallPlayTemporarilyController
 {
 
     public function temporarilyCartAction()
