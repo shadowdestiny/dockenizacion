@@ -122,6 +122,9 @@
                                 </li>
                             {% endif %}
                         {% endfor %}
+                        <li class="star">
+                            <span class="num">{{ jolly_numbers[0] }}</span>
+                        </li>
                     </ul>
 
                     <span class="desktop--only">
@@ -170,6 +173,9 @@
                                                 <span>
                                                 {#TODO : Add real variables here#}
                                                     {{ break_downs[name]['numbers_corrected'] }} {{ language.translate("pastNumbers_ball") }}
+                                                    {% if (break_downs[name]['name'] === 'match-5-j') %}
+                                                        + Jolly Numbers
+                                                    {% endif %}
                                                 </span>
                                             </td>
                                             <td class="td-winners">
