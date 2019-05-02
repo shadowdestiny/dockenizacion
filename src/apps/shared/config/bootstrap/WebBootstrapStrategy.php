@@ -1643,7 +1643,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(superenalotto)+}/{play:(jugar|gioca|speel|играть)+}", array(
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(super-enalotto)+}/{play:(jugar|gioca|speel|играть)+}", array(
             "module" => "superenalotto",
             'controller' => 'play',
             'action' => 'index',

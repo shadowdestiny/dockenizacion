@@ -8,6 +8,7 @@
 
 namespace EuroMillions\web\services\factories;
 
+use EuroMillions\superenalotto\vo\SuperEnalottoPrize;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\shared\vo\LotteryPrize;
 use EuroMillions\eurojackpot\vo\EuroJackpotPrize;
@@ -23,6 +24,11 @@ class LotteryPrizeFactory
 
         if ($lottery->isMegaSena()) {
             return new MegaSenaPrize($breakDown, $result);
+        }
+
+        if ($lottery->isSuperEnalotto())
+        {
+            return new SuperEnalottoPrize($breakDown, $result);
         }
 
         return new LotteryPrize($breakDown, $result);

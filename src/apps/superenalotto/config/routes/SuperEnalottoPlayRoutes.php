@@ -23,7 +23,7 @@ class SuperEnalottoPlayRoutes extends RouterGroup
         );
         // All the routes start with /eurojackpot
 
-        $this->add("/superenalotto/play", array(
+        $this->add("/super-enalotto/play", array(
             "lottery" => 'superenalotto',
             "module" => "superenalotto",
             'controller' => 'play',
@@ -31,7 +31,7 @@ class SuperEnalottoPlayRoutes extends RouterGroup
             'language' => 'en'
         ));
 
-        $this->add( '/supe-renalotto/cart/profile', [
+        $this->add( '/super-enalotto/cart/profile', [
             "module" => "superenalotto",
             'lottery' => "superenalotto",
             'controller' => 'superenalotto-cart',

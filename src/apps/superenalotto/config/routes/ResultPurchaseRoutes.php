@@ -26,7 +26,7 @@ class ResultPurchaseRoutes extends RouterGroup
         );
         // All the routes start with /superenalotto
 
-        $this->add("/superenalotto/results/success", array(
+        $this->add("/super-enalotto/results/success", array(
             "module" => "superenalotto",
             'controller' => 'result',
             'action' => 'success',

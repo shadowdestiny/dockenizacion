@@ -9,6 +9,10 @@
             if ($lotteryName === "MegaSena"){
                 $result["regular_numbers"][] = $result["lucky_numbers"][1];
             }
+            else if ($lotteryName === "SuperEnalotto"){
+                $result["regular_numbers"][] = $result["lucky_numbers"][1];
+                unset( $result["lucky_numbers"][1]);
+            }
         ?>
             <div class="result-row" style="cursor: pointer;" onclick="window.location='<?= $link ?>/<?= $result["draw_date"]->format('Y-m-d')?>'">
                 <div class="row--date">

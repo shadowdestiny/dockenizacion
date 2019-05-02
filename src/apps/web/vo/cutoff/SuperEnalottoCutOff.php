@@ -13,8 +13,9 @@ class SuperEnalottoCutOff extends CutOff
     protected function getCloseTime()
     {
         return [
-            '3' => '16:00',
-            '6' => '09:00'
+            '2' => '19:00',
+            '4' => '19:00',
+            '6' => '19:00'
         ];
     }
 

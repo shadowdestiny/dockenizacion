@@ -20,7 +20,7 @@ class SuperEnalottoApi extends LottorisqApi
     public function __construct(Curl $curlWrapper = null, CurrencyConversionService $currencyConversionService = null)
     {
         $this->curlWrapper = $curlWrapper ? $curlWrapper : new Curl();
-        $this->config = Di::getDefault()->get('config')['eurojackpot_api'];
+        $this->config = Di::getDefault()->get('config')['superenalotto_api'];
         $this->currencyConversionService =  $currencyConversionService ? $currencyConversionService : Di::getDefault()->get('domainServiceFactory')->getCurrencyConversionService();
     }
 

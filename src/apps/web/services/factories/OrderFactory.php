@@ -13,6 +13,7 @@ use EuroMillions\eurojackpot\vo\OrderEuroJackpot;
 use EuroMillions\megasena\vo\OrderMegaSena;
 use EuroMillions\megamillions\vo\OrderMegaMillions;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\superenalotto\vo\OrderSuperEnalotto;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\Discount;
@@ -68,6 +69,12 @@ class OrderFactory
         elseif ($lottery->getName() == 'MegaSena')
         {
             $order = new OrderMegaSena($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
+            $order->setAmountWallet($user->getWallet()->getBalance());
+            return $order;
+        }
+        elseif ($lottery->getName() == 'SuperEnalotto')
+        {
+            $order = new OrderSuperEnalotto($play_config, $single_bet_price, $fee_value, $fee_to_limit_value, $discount,$withWallet,$lottery,$draw);
             $order->setAmountWallet($user->getWallet()->getBalance());
             return $order;
         }

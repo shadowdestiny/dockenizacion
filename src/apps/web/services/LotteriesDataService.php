@@ -207,7 +207,7 @@ class LotteriesDataService
 
             $draw= $this->createResult($draw, $lottery, $result['numbers']);
 
-            if ($lottery->isNotEuroJackpot() && $lottery->isNotMegaSena()) {
+            if ($lottery->isNotEuroJackpot() && $lottery->isNotMegaSena() && $lottery->isNotSuperEnalotto()) {
                 $draw->setRaffle(new Raffle($result['numbers'][$lottery->isPowerBall() ? 'powerplay' : 'megaplier']));
             }
 

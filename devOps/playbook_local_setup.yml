@@ -128,9 +128,11 @@
         docker-compose exec -T phpcron php /var/www/apps/megamillions/megamillions-cli.php result importAllHistoricalDataFromMegamillions;
         docker-compose exec -T phpcron php /var/www/apps/eurojackpot/eurojackpot-cli.php result importAllHistoricalDataFromEuroJackpot;
         docker-compose exec -T phpcron php /var/www/apps/megasena/megasena-cli.php result importAllHistoricalDataFromMegaSena;
+        docker-compose exec -T phpcron php /var/www/apps/superenalotto/superenalotto-cli.php result importAllHistoricalDataFromSuperEnalotto;
         docker-compose exec -T phpcron php /var/www/apps/megamillions/megamillions-cli.php jackpot updateNextDrawJackpotMegaMillions;
         docker-compose exec -T phpcron php /var/www/apps/eurojackpot/eurojackpot-cli.php jackpot updateNextDrawJackpotEuroJackpot;
         docker-compose exec -T phpcron php /var/www/apps/megasena/megasena-cli.php jackpot updateNextDrawJackpotMegaSena;
+        docker-compose exec -T phpcron php /var/www/apps/superenalotto/superenalotto-cli.php jackpot updateNextDrawJackpotSuperEnalotto;
         docker-compose exec -T phpcron php /var/www/apps/cli.php clear-cache clear;
         docker-compose exec -u www-data -T php php /var/www/apps/cli.php clear-cache clear;
       args:

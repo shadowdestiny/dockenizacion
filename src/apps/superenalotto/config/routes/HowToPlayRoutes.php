@@ -27,7 +27,7 @@ class HowToPlayRoutes extends RouterGroup
         // All the routes start with /superenalotto
         //$this->setPrefix('/superenalotto'); #validate this, since it affects the prefixes that have a name at the beginning
 
-        $this->add("/superenalotto/help",
+        $this->add("/super-enalotto/help",
             array(
                 'controller' => 'help',
                 'action' => 'index',
@@ -36,35 +36,35 @@ class HowToPlayRoutes extends RouterGroup
         );
 
         //*********************SUPERENALOTTO ROUTES***********************************//
-        $this->add("/superenalotto/how-to-play", array(
+        $this->add("/super-enalotto/how-to-play", array(
             'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'en',
         ));
 
-        $this->add("/es/superenalotto/como-se-juega", array(
+        $this->add("/es/super-enalotto/como-se-juega", array(
             'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'es',
         ));
 
-        $this->add("/it/superenalotto/come-giocare", array(
+        $this->add("/it/super-enalotto/come-giocare", array(
             'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'it',
         ));
 
-        $this->add("/nl/superenalotto/speluitleg", array(
+        $this->add("/nl/super-enalotto/speluitleg", array(
             'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
             'language' => 'nl',
         ));
 
-        $this->add("/ru/superenalotto/как-играть", array(
+        $this->add("/ru/super-enalotto/как-играть", array(
             'lottery' => 6,
             'controller' => 'help',
             'action' => 'index',
