@@ -164,7 +164,7 @@ final class SuperEnalottoNumbersController extends PublicSiteControllerBase
             $this->view->setVar('trillions', false);
         }
         $this->view->setVar('language', $this->languageService->getLocale());
-        $date = $params[0];
+        $date = $params['date'];
         $lotteryName = 'SuperEnalotto';
         $actualDate = new \DateTime();
         $date = empty($date) ? new \DateTime() : new \DateTime($date);
