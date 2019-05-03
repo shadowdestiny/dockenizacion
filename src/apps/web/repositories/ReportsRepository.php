@@ -122,6 +122,25 @@ class ReportsRepository implements IReports
             ->getResult();
     }
 
+    public function getSalesDrawSuperEnalotto()
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('em', 'em');
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('draw_date', 'draw_date');
+        $rsm->addScalarResult('draw_status', 'draw_status');
+
+        return $this->entityManager
+            ->createNativeQuery(
+                "select 'SE' as em, e.id as id, e.draw_date as draw_date, IF(date_add(CAST(e.draw_date AS DATETIME), INTERVAL 19 HOUR) < now(),'Finished','Open') as draw_status
+                  from euromillions_draws e
+                  JOIN bets b on b.euromillions_draw_id=e.id
+                  join log_validation_api l on l.bet_id=b.id
+                  where e.lottery_id = 7
+                  GROUP BY e.draw_date DESC", $rsm)
+            ->getResult();
+    }
+
     public function getSalesDrawChristmas()
     {
         $rsm = new ResultSetMapping();
@@ -867,6 +886,35 @@ class ReportsRepository implements IReports
                                     ) as grossMargin
                             FROM transactions
                             WHERE (entity_type = "ticket_purchase" || entity_type = "automatic_purchase") and data like "5#%" and
+                            date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"'
+                , $rsm)->getResult();
+    }
+
+    /**
+     * @param $drawDates
+     *
+     * @return array
+     */
+    public function getSuperEnalottoDrawDetailsBetweenDrawDates($drawDates)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('totalBets', 'totalBets');
+        $rsm->addScalarResult('grossSales', 'grossSales');
+        $rsm->addScalarResult('grossMargin', 'grossMargin');
+         return $this->entityManager
+            ->createNativeQuery('SELECT sum(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) as totalBets, sum(CASE
+                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) - round(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) * (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 7), "#", -1) / 100)))
+                                        WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
+                                        ELSE 0
+                                        END
+                                    ) as grossSales, sum(CASE
+                                        WHEN entity_type = "ticket_purchase" THEN ((((SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) - round(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 3), "#", -1) * (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 7), "#", -1) / 100))) / SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) - 200 ) * SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1))
+                                        WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 200)
+                                        ELSE 0
+                                        END
+                                    ) as grossMargin
+                            FROM transactions
+                            WHERE (entity_type = "ticket_purchase" || entity_type = "automatic_purchase") and data like "7#%" and
                             date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"'
                 , $rsm)->getResult();
     }

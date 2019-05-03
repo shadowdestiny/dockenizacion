@@ -416,6 +416,20 @@ class ReportsService
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
     }
 
+    /**
+     * @param $date
+     *
+     * @return array
+     */
+    public function getSuperEnalottoDrawsActualAfterDatesByDrawDate($date)
+    {
+        $actualDraw = new \DateTime($date);
+        $nextDrawDate = clone $actualDraw->setTime(19, 30, 00);
+        $actualDrawDate = $this->getNextDateDrawByLottery('SuperEnalotto', $actualDraw->modify('-5 days'))->setTime(19, 30, 00);
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
     public function getChristmassDrawsActualAfterDatesByDrawDate($date)
     {
         $actualDraw = new \DateTime($date);
@@ -674,6 +688,22 @@ class ReportsService
         foreach ($salesDraw as $keyDraw => $valueDraw) {
             $drawDates = $this->getEuroJackpotDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
             $drawData = $this->reportsRepository->getEuroJackpotDrawDetailsBetweenDrawDates($drawDates);
+            $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
+            $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
+            $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];
+        }
+        return $salesDraw;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function fetchSalesDrawSuperEnalotto()
+    {
+        $salesDraw = $this->reportsRepository->getSalesDrawSuperEnalotto();
+        foreach ($salesDraw as $keyDraw => $valueDraw) {
+            $drawDates = $this->getSuperEnalottoDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
+            $drawData = $this->reportsRepository->getSuperEnalottoDrawDetailsBetweenDrawDates($drawDates);
             $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
             $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
             $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];

@@ -245,6 +245,15 @@ class ReportsController extends AdminControllerBase
         ]);
     }
 
+    public function salesDrawSuperEnalottoAction()
+    {
+        $this->checkPermissions();
+        $this->view->setVars([
+            'needReportsMenu' => true,
+            'salesDraw' => $this->reportsService->fetchSalesDrawSuperEnalotto()
+        ]);
+    }
+
     public function salesDrawChristmasAction()
     {
         $this->checkPermissions();
