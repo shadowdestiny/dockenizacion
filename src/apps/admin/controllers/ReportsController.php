@@ -254,6 +254,16 @@ class ReportsController extends AdminControllerBase
         ]);
     }
 
+    public function salesDrawMegaSenaAction()
+    {
+        $this->checkPermissions();
+
+        $this->view->setVars([
+            'needReportsMenu' => false,
+            'salesDraw' => $this->reportsService->fetchSalesDrawMegaSena()
+        ]);
+    }
+
     public function salesDrawDetailsAction()
     {
         $this->checkPermissions();
@@ -294,6 +304,21 @@ class ReportsController extends AdminControllerBase
                 'needReportsMenu' => true,
                 'euromillionsDrawId' => $this->request->get('id'),
                 'salesDrawDetailsData' => $this->reportsService->getMegaMillionsDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'countryList' => $this->countries,
+            ]);
+
+        }
+    }
+
+    public function salesDrawMegaSenaDetailsAction()
+    {
+        $this->checkPermissions();
+        if ($this->request->get('id')) {
+            $drawDates = $this->reportsService->getMegaSenaDrawsActualAfterDatesById($this->request->get('id'));
+            $this->view->setVars([
+                'needReportsMenu' => true,
+                'euromillionsDrawId' => $this->request->get('id'),
+                'salesDrawDetailsData' => $this->reportsService->getMegaSenaDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
                 'countryList' => $this->countries,
             ]);
 
