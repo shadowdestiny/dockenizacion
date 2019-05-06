@@ -42,7 +42,7 @@
                                 <th>Total Bets</th>
                                 <th>Gross Sales</th>
                                 <th>Gross Margin</th>
-                                <th>Total Megaplier</th>
+                            <!--    <th>Total Megaplier</th> -->
                             </tr>
                             </thead>
                             <tbody>
@@ -50,13 +50,13 @@
 
                                 <tr>
                                     <td>{{ salesData['em'] }}</td>
-                                    <td><a href="/admin/reports/salesDrawMegaMillionsDetails?id={{ salesData['id'] }}">{{ salesData['id'] }}</a></td>
+                                    <td><a href="/admin/reports/salesDrawSuperEnalottoDetails?id={{ salesData['id'] }}">{{ salesData['id'] }}</a></td>
                                     <td>{{ salesData['draw_date'] }}</td>
                                     <td>{{ salesData['draw_status'] }}</td>
                                     <td>{{ salesData['totalBets'] }}</td>
                                     <td>{{ (salesData['grossSales'] / 100) | number_format (2,',','') }}</td>
                                     <td>{{ (salesData['grossMargin'] / 100) | number_format (2,',','') }}</td>
-                                    <td>{{ salesData['totalMegaplier'] }}</td>
+                                <!--    <td>{{ salesData['totalMegaplier'] }}</td>  -->
                                 </tr>
                             {% endfor %}
                             </tbody>

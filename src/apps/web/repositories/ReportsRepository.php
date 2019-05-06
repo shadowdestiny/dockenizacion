@@ -715,6 +715,36 @@ class ReportsRepository implements IReports
      *
      * @return array
      */
+    public function getSuperEnalottoDrawDetailsByIdAndDates($id, $drawDates)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('email', 'email');
+        $rsm->addScalarResult('country', 'country');
+        $rsm->addScalarResult('transactionID', 'transactionID');
+        $rsm->addScalarResult('purchaseDate', 'purchaseDate');
+        $rsm->addScalarResult('entity_type', 'entity_type');
+        $rsm->addScalarResult('data', 'data');
+        $rsm->addScalarResult('automaticMovement', 'automaticMovement');
+
+        return $this->entityManager
+            ->createNativeQuery('SELECT distinct t.id as transactionID, u.email as email, u.country as country, t.date as purchaseDate, t.entity_type, t.data, (wallet_before_subscription_amount - wallet_after_subscription_amount) as automaticMovement
+                            FROM bets b
+                            INNER JOIN play_configs pc ON b.playConfig_id = pc.id
+                            INNER JOIN users u ON pc.user_id = u.id
+                            INNER JOIN transactions t ON pc.user_id = t.user_id
+                            WHERE euromillions_draw_id = ' . $id . ' and (t.entity_type = "ticket_purchase" || t.entity_type = "automatic_purchase") and
+                            t.date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"
+                            and t.data like "7#%"
+                            ORDER BY purchaseDate desc',
+                $rsm)->getResult();
+    }
+
+    /**
+     * @param $id
+     * @param $drawDates
+     *
+     * @return array
+     */
     public function getPowerBallDrawDetailsByIdAndDates($id, $drawDates)
     {
         $rsm = new ResultSetMapping();
