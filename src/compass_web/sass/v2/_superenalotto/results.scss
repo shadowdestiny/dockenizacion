@@ -7,7 +7,7 @@
 
   .top-banner--section {
     .top-banner--banner {
-      background-image: url("../img/eurojackpot/results-top-bg.jpg");
+      background-image: url("../img/superenalotto/results-top-bg.jpg");
       background-position: 100% 100%;
       background-repeat: no-repeat;
       -webkit-background-size: cover;
@@ -109,7 +109,7 @@
     }
 
     .td-ball {
-      width: 20%;
+      width: 22%;
 
       @media only screen and (max-width: $screen-ipad-h-pre) {
         width: 40%;
@@ -284,7 +284,7 @@
       margin-top: 10px;
       margin-bottom: 10px;
 
-      background-image: url("../img/eurojackpot/results-bottom-bg.png");
+      background-image: url("../img/superenalotto/results-bottom-bg.png");
       background-repeat: no-repeat;
       background-position: 50% 50%;
       //-webkit-background-size: 1024px;

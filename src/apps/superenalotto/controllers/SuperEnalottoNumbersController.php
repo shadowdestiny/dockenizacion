@@ -73,6 +73,7 @@ final class SuperEnalottoNumbersController extends PublicSiteControllerBase
         MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_ms_desc'));
 
         $regularNumbers = $SuperEnalottoDraw->getResult()->getRegularNumbersArray();
+        $jolly_numbers[] = $SuperEnalottoDraw->getResult()->getLuckyNumbersArray()[0];
         $regularNumbers[] = $SuperEnalottoDraw->getResult()->getLuckyNumbersArray()[1];
 
         $this->view->pick('/numbers/past-draw');
@@ -80,6 +81,7 @@ final class SuperEnalottoNumbersController extends PublicSiteControllerBase
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $SuperEnalottoDraw->getId(),
             'last_result' => ['regular_numbers' => $regularNumbers],
+            'jolly_numbers' => $jolly_numbers,
             'last_draw_date' => $SuperEnalottoDraw->getDrawDate()->format('D, d M Y'),
             'date_canonical' => $SuperEnalottoDraw->getDrawDate()->format('Y-m-d'),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('SuperEnalotto')->modify('-1 hours')->format('Y-m-d H:i:s'),
@@ -164,7 +166,7 @@ final class SuperEnalottoNumbersController extends PublicSiteControllerBase
             $this->view->setVar('trillions', false);
         }
         $this->view->setVar('language', $this->languageService->getLocale());
-        $date = $params[0];
+        $date = $params['date'];
         $lotteryName = 'SuperEnalotto';
         $actualDate = new \DateTime();
         $date = empty($date) ? new \DateTime() : new \DateTime($date);

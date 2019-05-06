@@ -23,7 +23,7 @@
 <div class="box-bottom play-bottom-block--superenalotto">
 
     <div class="play-bottom-block--img">
-        <img src="/w/img/superenalotto/superenalotto-skyline-desktop.jpg"/>
+        <img src="/w/img/superenalotto/superenalotto-skyline-desktop.png"/>
     </div>
     <div class="play-bottom-block--center">
         <h1>
