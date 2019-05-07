@@ -218,6 +218,15 @@ class ReportsController extends AdminControllerBase
         ]);
     }
 
+    public function salesDrawSuperEnalottoAction()
+    {
+        $this->checkPermissions();
+        $this->view->setVars([
+            'needReportsMenu' => true,
+            'salesDraw' => $this->reportsService->fetchSalesDrawSuperEnalotto()
+        ]);
+    }
+
     public function salesDrawPowerBallAction()
     {
         $this->checkPermissions();
@@ -265,6 +274,21 @@ class ReportsController extends AdminControllerBase
                 'salesDrawDetailsData' => $this->reportsService->getEuromillionsDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
                 'countryList' => $this->countries,
             ]);
+        }
+    }
+
+    public function salesDrawSuperEnalottoDetailsAction()
+    {
+        $this->checkPermissions();
+        if ($this->request->get('id')) {
+            $drawDates = $this->reportsService->getSuperEnalottoDrawsActualAfterDatesById($this->request->get('id'));
+            $this->view->setVars([
+                'needReportsMenu' => true,
+                'euromillionsDrawId' => $this->request->get('id'),
+                'salesDrawDetailsData' => $this->reportsService->getSuperEnalottoDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'countryList' => $this->countries,
+            ]);
+
         }
     }
 
