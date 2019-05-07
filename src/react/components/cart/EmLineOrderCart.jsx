@@ -43,11 +43,15 @@ var EmLineOrder = new React.createClass({
         }else if(this.props.superenalotto){
             _class = 'circle_superenalotto';
             list_number_ball.push(parseInt(stars[1]));
+            let count = 0;
             list_ball = list_number_ball
                 .sort((a, b) => a - b )
                 .map(function(number,i) {
+                    count = i;
                     return <li key={i} className={_class}>{(( parseInt(number.toString()) < 10) ? ("0" + number): number)}</li>
                 });
+
+            list_ball.push(<li key={count + 1} className={'circle_superenalotto_jolly'}>{ stars[0] }</li>);
         } else {
             list_ball = list_number_ball.map(function(number,i) {
                 return <li key={i} className={_class}>{number}</li>
