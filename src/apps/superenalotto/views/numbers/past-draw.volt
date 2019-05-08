@@ -199,7 +199,7 @@
 
                                 <div class="previous-results--btn">
 
-                                    <a href="/{{ language.translate("link_superenalotto_draw_history") }}" class="btn-theme--big">
+                                    <a href="/{{ language.translate("link_superena_draw_history") }}" class="btn-theme--big">
                                         <span class="resizeme">
                                             {{ language.translate("morePastResults_btn") }}
                                         </span>

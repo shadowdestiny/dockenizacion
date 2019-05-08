@@ -13,13 +13,13 @@
             {{ language.translate('PlaySE_about') }}
         </div>
         <div class="bottom">
-            <a href="/{{ language.translate('link_superenalotto_help') }}" class="a-hiw">
+            <a href="/{{ language.translate('link_superena_help') }}" class="a-hiw">
                 {{ language.translate('PlaySE_howto') }}
             </a>
-            <a href="/{{ language.translate('link_superenalotto_results') }}" class="a-results">
+            <a href="/{{ language.translate('link_superena_results') }}" class="a-results">
                 {{ language.translate('PlaySE_results') }}
             </a>
-            <a href="/{{ language.translate('link_superenalotto_faq') }}" class="a-faq">
+            <a href="/{{ language.translate('link_superena_faq') }}" class="a-faq">
                 {{ language.translate('PlaySE_faq') }}
             </a>
         </div>

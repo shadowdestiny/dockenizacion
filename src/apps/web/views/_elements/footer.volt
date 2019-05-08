@@ -81,10 +81,10 @@
                         <a href="/{{ language.translate('link_megasena_draw_history') }}">{{ language.translate('column2_twelve') }}</a>
                     </li>
                     <li>
-                        <a href="/{{ language.translate('link_superenalotto_results') }}">{{ language.translate('column2_eleven') }}</a>
+                        <a href="/{{ language.translate('link_superena_results') }}">{{ language.translate('column2_eleven') }}</a>
                     </li>
                     <li>
-                        <a href="/{{ language.translate('link_superenalotto_draw_history') }}">{{ language.translate('column2_twelve') }}</a>
+                        <a href="/{{ language.translate('link_superena_draw_history') }}">{{ language.translate('column2_twelve') }}</a>
                     </li>
                 </ul>
             </div>

@@ -31,12 +31,12 @@
     var txt_depositBuy_btn = "{{ language.translate("depositBuy_btn") }}";
     var txt_checkout_fee = "{{ language.translate("checkout_fee") }}";
     var txt_edit = "{{ language.translate("edit_btn") }}";
-    var txt_link_play = "{{ language.translate("link_superenalotto_play") }}";
+    var txt_link_play = "{{ language.translate("link_superena_play") }}";
     var txt_link_powerball = "{{ language.translate("link_powerball_play") }}";
     var txt_link_megamillions = "{{ language.translate("link_megamillions_play") }}";
     var txt_link_eurojackpot = "{{ language.translate("link_eurojackpot_play") }}";
     var txt_link_megasena = "{{ language.translate("link_megasena_play") }}";
-    var txt_link_superenalotto = "{{ language.translate("link_superenalotto_play") }}";
+    var txt_link_superenalotto = "{{ language.translate("link_superena_play") }}";
     var txt_line = '{{ language.translate('line_x') }}';
     var tuesday = '{{ language.translate('tuesday') }}';
     var friday = '{{ language.translate('friday') }}';

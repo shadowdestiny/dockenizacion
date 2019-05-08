@@ -28,7 +28,7 @@
         </div>
 
         <div class="btn-block">
-            <a href="/{{ language.translate("link_superenalotto_play") }}"
+            <a href="/{{ language.translate("link_superena_play") }}"
                class="lottery-carousel--btn" style="">
                             <span class="resizeme"  style="">
                                 {{ language.translate("banner1_btn") }}
