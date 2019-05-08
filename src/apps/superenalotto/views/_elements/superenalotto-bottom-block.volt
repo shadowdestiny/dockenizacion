@@ -1,7 +1,7 @@
 <div class="box-bottom--accordion--superenalotto">
     <div class="block--text--accordion">
         <h2>
-            {{ language.translate("PlayMS_mob_h1") }}
+            {{ language.translate("PlaySE_mob_h1") }}
         </h2>
         <p>
             {#{{ language.translate("play_megamillions_text1") }}#}
