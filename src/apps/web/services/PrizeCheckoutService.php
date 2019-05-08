@@ -354,6 +354,10 @@ class PrizeCheckoutService
             return $this->betRepository->getMatchesPlayConfigAndUserFromMegaSenaByDrawDate($date, $lottery->getId());
         }
 
+        if ($lottery->isSuperEnalotto()) {
+            return $this->betRepository->getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate($date, $lottery->getId());
+        }
+
         return $this->betRepository->getMatchesPlayConfigAndUserFromLotteryByDrawDate($date, $lottery->getId());
     }
 

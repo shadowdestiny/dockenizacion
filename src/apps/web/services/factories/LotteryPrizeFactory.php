@@ -26,8 +26,7 @@ class LotteryPrizeFactory
             return new MegaSenaPrize($breakDown, $result);
         }
 
-        if ($lottery->isSuperEnalotto())
-        {
+        if ($lottery->isSuperEnalotto()) {
             return new SuperEnalottoPrize($breakDown, $result);
         }
 

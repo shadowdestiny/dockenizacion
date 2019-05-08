@@ -16,7 +16,9 @@ class SuperEnalottoPrize extends LotteryPrize
     {
         return [
             '3,0' => 'getCategoryFive',
+            '3,1' => 'getCategoryFive',
             '4,0' => 'getCategoryFour',
+            '4,1' => 'getCategoryFour',
             '5,0' => 'getCategoryThree',
             '5,1' => 'getCategoryTwo',
             '6,0' => 'getCategoryOne'
