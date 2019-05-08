@@ -40,7 +40,7 @@ class PaginationWidgetAdmin extends \Phalcon\Mvc\User\Component {
         $this->before       = $paginatorObj->before;
         $this->next         = $paginatorObj->next;
         $this->last         = $paginatorObj->last;
-        $this->limit = ceil($this->total / $this->total_pages);
+        $this->limit = $this->total_pages > 0 ? ceil($this->total / $this->total_pages) : 0;
 
         // Create url
         if(isset($options['url'])) {
