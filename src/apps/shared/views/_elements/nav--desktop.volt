@@ -30,7 +30,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/{{ language.translate('link_superenalotto_play') }}">
+                    <a href="/{{ language.translate('link_superena_play') }}">
                         {{ language.translate("playsuperenalotto") }}
                     </a>
                 </li>
@@ -75,7 +75,7 @@
                 </a>
             </li>
             <li>
-                <a href="/{{ language.translate('link_superenalotto_results') }}">
+                <a href="/{{ language.translate('link_superena_results') }}">
                     {{ language.translate("results_superenalotto_sub") }}
                 </a>
             </li>

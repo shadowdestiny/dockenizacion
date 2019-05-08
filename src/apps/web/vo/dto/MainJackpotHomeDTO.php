@@ -101,7 +101,7 @@ class MainJackpotHomeDTO extends DTOBase implements IDto,IComparable
                 'include' => '_elements/home/lottery-carousel/megasena'
             ],
             'SuperEnalotto' => [
-                'link' => 'link_superenalotto_play',
+                'link' => 'link_superena_play',
                 'css'  => 'lotteries-jackpot--bar--superenalotto',
                 'include' => '_elements/home/lottery-carousel/superenalotto'
             ]

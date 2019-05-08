@@ -170,7 +170,7 @@ class JackpotAndCountDownWidget extends \Phalcon\Mvc\User\Component
 
         if($this->lottery->getName() == 'SuperEnalotto')
         {
-            return $this->translationAdapter->query('link_superenalotto_play');
+            return $this->translationAdapter->query('link_superena_play');
         }
     }
 

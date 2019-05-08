@@ -37,7 +37,7 @@
                     <a href="/{{ language.translate("link_megamillions_play") }}">{{ language.translate("playmegamillions") }}</a>
                     <a href="/{{ language.translate('link_eurojackpot_play') }}">{{ language.translate("playeurojackpot") }}</a>
                     <a href="/{{ language.translate('link_megasena_play') }}">{{ language.translate("playmegasena") }}</a>
-                    <a href="/{{ language.translate('link_superenalotto_play') }}">{{ language.translate("playsuperenalotto") }}</a>
+                    <a href="/{{ language.translate('link_superena_play') }}">{{ language.translate("playsuperenalotto") }}</a>
                     <a href="/{{ language.translate('link_christmas_play') }}">{{ language.translate("playchris_sub") }}</a>
                     <a href="/{{ language.translate('link_euromillions_help') }}">{{ language.translate("howto_em_sub") }}</a>
                     <a href="/{{ language.translate('link_powerball_howto') }}">{{ language.translate("howto_pow_sub") }}</a>
@@ -51,7 +51,7 @@
                     <a href="/{{ language.translate('link_megam_results') }}">{{ language.translate("results_megam_sub") }}</a>
                     <a href="/{{ language.translate('link_eurojackpot_results') }}">{{ language.translate("results_eurojackpot_sub") }}</a>
                     <a href="/{{ language.translate('link_megasena_results') }}">{{ language.translate("results_megasena_sub") }}</a>
-                    <a href="/{{ language.translate('link_superenalotto_results') }}">{{ language.translate("results_superenalotto_sub") }}</a>
+                    <a href="/{{ language.translate('link_superena_results') }}">{{ language.translate("results_superenalotto_sub") }}</a>
                     <a href="/{{ language.translate('link_christmas_results') }}">{{ language.translate("results_chris_sub") }}</a>
                 </li>
                 <li>
