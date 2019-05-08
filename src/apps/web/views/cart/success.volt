@@ -46,10 +46,11 @@ localStorage.removeItem('bet_line');
             li+= '<li class="circle_megasena">'+(( parseInt(val.toString()) < 10) ? ("0" + val): val)+'</li>'
         });
         $(this).html(li);
-});
+    });
+{%endif%}
 
 {% if (lottery_name == 'SuperEnalotto') %}
-    localStorage.removeItem('ms_bet_line');
+    localStorage.removeItem('se_bet_line');
 
     var superenalotto_elements = $("ul.numbers");
     superenalotto_elements.each(function(i,elem){
@@ -64,6 +65,8 @@ localStorage.removeItem('bet_line');
         $.each(li_order,function(i,val){
             li+= '<li class="circle_superenalotto">'+(( parseInt(val.toString()) < 10) ? ("0" + val): val)+'</li>'
         });
+
+        li += '<li class="circle_superenalotto_jolly">'+$(this).find("li.circle_superenalotto_jolly").text()+'</li>';
         $(this).html(li);
     });
 
@@ -201,7 +204,7 @@ function numCharLine($line){
                             {% for regular_number in regular_arr %}
                                  {% if (lottery_name == 'MegaSena') %}
                                     <li class="circle_megasena"><?php echo sprintf("%02s", $regular_number);?></li>
-                                 {% if (lottery_name == 'SuperEnalotto') %}
+                                 {% elseif (lottery_name == 'SuperEnalotto') %}
                                     <li class="circle_superenalotto"><?php echo sprintf("%02s", $regular_number);?></li>
                                  {% else %}
                                     <li><?php echo sprintf("%02s", $regular_number);?></li>
@@ -226,6 +229,9 @@ function numCharLine($line){
                             {% elseif (lottery_name == 'SuperEnalotto') %}
                                 <li class="circle_superenalotto">
                                     <?php echo sprintf("%02s", $lucky_arr[1]);?>
+                                </li>
+                                <li class="circle_superenalotto_jolly">
+                                    <?php echo sprintf("%02s", $lucky_arr[0]);?>
                                 </li>
                             {% else %}
                                 {% for lucky_number in lucky_arr %}

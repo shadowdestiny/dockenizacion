@@ -597,7 +597,7 @@
             margin-bottom: 10px;
           }
 
-          @mixin circle_icon_base($className:'',$img: '../img/home/result-block/desktop/ellipse.svg') {
+          @mixin circle_icon_base($className:'',$img: '../img/home/result-block/desktop/ellipse.svg',$fontColor:#fff) {
             li#{$className} {
               text-align: center;
               width: 27px;
@@ -611,7 +611,7 @@
               -webkit-background-size: 27px;
               background-size: 27px;
               font-family: "Chivo", sans-serif;
-              color: #fff;
+              color: $fontColor;
               font-size: 12px;
               font-weight: 700;
               margin-right: 10px;
@@ -631,7 +631,7 @@
                 -webkit-background-size: 25px;
                 background-size: 25px;
                 font-family: "Chivo", sans-serif;
-                color: #fff;
+                color: $fontColor;
                 font-size: 12px;
                 font-weight: 700;
                 margin-right: 10px;
@@ -652,7 +652,7 @@
                 -webkit-background-size: 52px;
                 background-size: 52px;
                 font-family: "Chivo", sans-serif;
-                color: #fff;
+                color: $fontColor;
                 font-size: 23px;
                 font-weight: 700;
                 margin-right: 20px;
@@ -701,8 +701,9 @@
           @include circle_icon_base();
           @include circle_icon_base('.circle_megasena', '../img/home/result-block/desktop/ellipse_green.svg');
           @include circle_icon_base('.circle_superenalotto', '../img/home/result-block/desktop/ellipse_superenalotto.svg');
+          @include circle_icon_base('.circle_superenalotto_jolly', '../img/home/result-block/desktop/ellipse_superenalotto_jolly.svg',#ffa500);
 
-          @mixin icon_result_right($className:'star',$img: '../img/home/result-block/desktop/star.svg',$fontColor:#333){
+          @mixin icon_result_right($className:'star',$img: '../img/home/result-block/desktop/star.svg',$fontColor:#fff){
             li.#{$className} {
               background-image: url($img);
               background-repeat: no-repeat;
