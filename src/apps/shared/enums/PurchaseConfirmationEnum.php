@@ -19,6 +19,8 @@ class PurchaseConfirmationEnum extends \SplEnum
 
     const MegaSena = 'megasena';
 
+    const SuperEnalotto = 'superenalotto';
+
     const Christmas = 'web';
 
     public function findTemplatePathByLotteryName($lotteryName,$isSubscription=false)
@@ -26,7 +28,7 @@ class PurchaseConfirmationEnum extends \SplEnum
         $declaredElems = $this->getConstList();
         $template = $isSubscription ? 'PurchaseSubscriptionConfirmationEmailTemplate' : 'PurchaseConfirmationEmailTemplate';
         if(array_key_exists($lotteryName, $declaredElems)) {
-            if(strtolower($lotteryName) == self::EuroJackpot || strtolower($lotteryName)== self::MegaMillions || strtolower($lotteryName)== self::MegaSena)
+            if(strtolower($lotteryName) == self::EuroJackpot || strtolower($lotteryName)== self::MegaMillions || strtolower($lotteryName)== self::MegaSena || strtolower($lotteryName)== self::SuperEnalotto)
             {
                 return "EuroMillions\\".strtolower($lotteryName)."\\emailTemplates\\".$lotteryName.$template;
             }
