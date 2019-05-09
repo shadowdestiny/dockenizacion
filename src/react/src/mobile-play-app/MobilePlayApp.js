@@ -105,7 +105,7 @@ export default class MobilePlayApp extends Component {
       [GAME_MODE_MEGAMILLIONS] : 'mm_bet_line',
       [GAME_MODE_EUROJACKPOT] : 'ej_bet_line',
       [GAME_MODE_MEGASENA] : 'ms_bet_line',
-      [GAME_MODE_SUPERENALOTTO] : 'su_bet_line',
+      [GAME_MODE_SUPERENALOTTO] : 'se_bet_line',
     }
     return storageKeys[this.props.mode]
   }
