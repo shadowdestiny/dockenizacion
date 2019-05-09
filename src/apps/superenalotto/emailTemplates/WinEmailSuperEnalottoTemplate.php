@@ -93,7 +93,7 @@ class WinEmailSuperEnalottoTemplate extends WinEmailPowerBallTemplate
      */
     public function getStarBalls()
     {
-        return null;
+        return $this->nummBalls == 5 && $this->starBalls == 1 ? 'Holly' : null;
     }
 
     /**
@@ -101,6 +101,6 @@ class WinEmailSuperEnalottoTemplate extends WinEmailPowerBallTemplate
      */
     public function getNummBalls()
     {
-        return $this->nummBalls + $this->starBalls;
+        return $this->nummBalls;
     }
 }

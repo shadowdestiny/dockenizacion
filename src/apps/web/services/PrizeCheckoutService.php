@@ -317,7 +317,7 @@ class PrizeCheckoutService
             return '( ' . $numbers . ' )';
         }
 
-        if ($lottery->isMegaSena()) {
+        if ($lottery->isMegaSena() || $lottery->isSuperEnalotto()) {
             return ','. $balls[1];
         }
 
