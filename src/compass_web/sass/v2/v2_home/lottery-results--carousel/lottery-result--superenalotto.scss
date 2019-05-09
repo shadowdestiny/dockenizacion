@@ -12,18 +12,18 @@
 
 
         .center-block {
-          background-color: #75c994 ;
+          background-color: lighten($clear_dark,20%) ;
 
           .result-row {
-            $row-results-eurojackpot--obb--start : #bb8b22;
-            $row-results-eurojackpot--obb--end : #c08f26;
+            $row-results-superenalotto--obb--start : #bb8b22;
+            $row-results-superenalotto--obb--end : #c08f26;
 
             background: $medium_color;
 
 
             &:nth-child(even) {
-              $row-results-eurojackpot--even--start : #d1a74e;
-              $row-results-eurojackpot--even--end : #dcb35b;
+              $row-results-superenalotto--even--start : lighten($clear_dark,30%);
+              $row-results-superenalotto--even--end :lighten($clear_dark,40%);
 
               background: $clear_color;
 
@@ -33,12 +33,12 @@
               .ball {
 
                 &.star {
-                  color: #018833;
+                  color: $clear_dark;
                   background-color: #fff;
                   border: 1px solid #fff;
 
                   &:last-of-type {
-                    color: #018833;
+                    color: $clear_dark;
                     background-color: #fff;
                     border: 1px solid #fff;
                   }
