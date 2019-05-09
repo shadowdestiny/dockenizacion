@@ -94,4 +94,20 @@ class LotteryMother
         ]);
         return $lottery;
     }
+
+    public static function aSuperEnalotto()
+    {
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 7,
+            'name'      => 'SuperEnalotto',
+            'frequency' => 'w0101010',
+            'draw_time' => '20:00:00',
+            'active'    => 1,
+            'single_bet_price' => new Money((int) 200, new Currency('EUR')),
+            'jackpot_api' => 'SuperEnalotto',
+            'result_api' => 'SuperEnalotto'
+        ]);
+        return $lottery;
+    }
 }

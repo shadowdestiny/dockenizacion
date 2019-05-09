@@ -10,6 +10,7 @@ use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\megasena\vo\MegaSenaDrawBreakDown;
 use EuroMillions\eurojackpot\vo\EuroJackpotDrawBreakDown;
 use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
+use EuroMillions\superenalotto\vo\SuperEnalottoDrawBreakDown;
 use EuroMillions\tests\helpers\builders\EurojackpotDrawBuilder;
 use EuroMillions\tests\helpers\builders\EuroMillionsDrawBuilder;
 
@@ -157,6 +158,46 @@ class EuroMillionsDrawMother
             "match-4": 444,
             "match-5": 31,
             "match-5-1": 1
+        }
+    }';
+
+    protected static $superEnalottoJsonResult = '{
+        "currency": "EUR",
+        "date": "2019-05-07",
+        "jackpot": {
+            "rollover": 135,
+            "total": "147700000.00"
+        },
+        "number": 55,
+        "numbers": {
+            "jolly": 77,
+            "main": [
+                5,
+                8,
+                21,
+                49,
+                66
+            ],
+            "superstar": 47,
+            "super": [
+                90,
+                77
+            ]
+        },
+        "prizes": {
+            "match-3": "16.56",
+            "match-4": "185.18",
+            "match-5": "13122.51",
+            "match-5-j": "450123.45",
+            "match-6": "14521478963.24"
+        },
+        "type": "superenalotto",
+        "winners": {
+            "match-3": 38816,
+            "match-4": 1151,
+            "match-5": 16,
+            "match-5-j": 2,
+            "match-6": 1
         }
     }';
 
@@ -325,6 +366,23 @@ class EuroMillionsDrawMother
         $line = EuroMillionsLineMother::aMegaSenaLine();
         return EuroMillionsDrawBuilder::aDraw()
             ->withLottery(LotteryMother::aMegaSena())
+            ->withDrawDate($date)
+            ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
+    }
+
+    public static function aSuperEnalottoDrawWithJackpotAndBreakDown(\DateTime $date = null)
+    {
+        if($date == null) {
+            $date= new \DateTime('2020-01-01');
+        }
+
+        $jackpot = new Money(5000000000, new Currency('EUR'));
+
+        $breakDown =
+            new SuperEnalottoDrawBreakDown(json_decode(self::$superEnalottoJsonResult, TRUE));
+        $line = EuroMillionsLineMother::aSuperEnalottoLine();
+        return EuroMillionsDrawBuilder::aDraw()
+            ->withLottery(LotteryMother::aSuperEnalotto())
             ->withDrawDate($date)
             ->withJackpot($jackpot)->withBreakDown($breakDown)->withResult($line);
     }

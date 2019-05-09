@@ -21,10 +21,10 @@ class WinEmailMegaSenaAboveTemplate extends WinEmailPowerBallAboveTemplate
 
         if ($language == "ru") {
             // Win Email Russian Version Template ID= 4020263
-            $template_id = "11467426";
+            $template_id = "10395883";
             $subject = 'Поздравляем';
         } else {
-            $template_id = "11467321";
+            $template_id = "10395882";
             $subject = 'Congratulations';
         }
 

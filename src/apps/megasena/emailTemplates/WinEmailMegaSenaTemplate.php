@@ -23,11 +23,11 @@ class WinEmailMegaSenaTemplate extends WinEmailPowerBallTemplate
 
         if ($language == "ru") {
             // Welcome Email Russian Version Template ID= 3997341
-            $template_id = "11467447";
+            $template_id = "10396090";
             $subject = 'Поздравляем, Вы выиграли';
         } else {
             // Welcome Email English Version Template ID= 4021147
-            $template_id = "11467427"; //testing
+            $template_id = "10395072"; //testing
             $subject = 'Congratulations you have won!';
         }
         $vars = [

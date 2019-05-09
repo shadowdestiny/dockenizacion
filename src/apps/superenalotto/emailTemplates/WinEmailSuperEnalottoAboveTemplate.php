@@ -21,10 +21,10 @@ class WinEmailSuperEnalottoAboveTemplate extends WinEmailPowerBallAboveTemplate
 
         if ($language == "ru") {
             // Win Email Russian Version Template ID= 4020263
-            $template_id = "10395883";
+            $template_id = "11467426";
             $subject = 'Поздравляем';
         } else {
-            $template_id = "10395882";
+            $template_id = "11467321";
             $subject = 'Congratulations';
         }
 

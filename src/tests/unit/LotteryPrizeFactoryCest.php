@@ -17,6 +17,7 @@ use EuroMillions\megasena\vo\MegaSenaDrawBreakDown;
 use EuroMillions\tests\helpers\mothers\LotteryMother;
 use EuroMillions\eurojackpot\vo\EuroJackpotDrawBreakDown;
 use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
+use EuroMillions\superenalotto\vo\SuperEnalottoDrawBreakDown;
 use EuroMillions\web\services\factories\LotteryPrizeFactory;
 use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
 
@@ -341,6 +342,49 @@ class LotteryPrizeFactoryCest
     }
 
     /**
+     * method lotteryPrizeFactory
+     * when isSuperEnalotto
+     * should returnsTheCorrectPrize
+     * @param UnitTester $I
+     * @group lottery-prize-factory
+     * @dataProvider getSuperEnalottoResults
+     */
+    public function test_lotteryPrizeFactory_isSuperEnalotto_returnsTheCorrectPrize(\UnitTester $I, \Codeception\Example $data)
+    {
+        $superEnalottoBreakDown = [
+            "prizes" => [
+                "match-3" => "8.30",
+                "match-4" => "45.45",
+                "match-5" => "4952.30",
+                "match-5-j" => "450000.00",
+                "match-6" => "150000000.00"
+            ],
+            'winners' => [
+                "match-3" => 813944,
+                "match-4" => 8139,
+                "match-5" => 130,
+                "match-5-j" => 2,
+                "match-6" => 1
+            ]
+        ];
+
+        $lottery = LotteryMother::aSuperEnalotto();
+
+        $breakDown = new SuperEnalottoDrawBreakDown($superEnalottoBreakDown);
+
+        $draw = EuroMillionsDrawMother::aSuperEnalottoDrawWithJackpotAndBreakDown()
+            ->withLottery($lottery)
+            ->withBreakDown($breakDown)
+            ->build();
+
+        $prize = LotteryPrizeFactory::create($lottery, $draw->getBreakDown(), $data['balls']);
+
+        $I->assertTrue($prize->getPrize()->getAmount() >= 0);
+
+        $I->assertEquals($data['prize'], $prize->getPrize()->getAmount());
+    }
+
+    /**
      * @return array
      */
     protected function getEuroJackpotResults()
@@ -438,6 +482,22 @@ class LotteryPrizeFactoryCest
             ['balls' => [4, 1], 'prize' => 213467900],
             ['balls' => [4, 0], 'prize' => 4870800],
             ['balls' => [3, 1], 'prize' => 4870800],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSuperEnalottoResults()
+    {
+        return [
+            ['balls' => [6, 0], 'prize' => 1500000000000],
+            ['balls' => [5, 1], 'prize' => 4500000000],
+            ['balls' => [5, 0], 'prize' => 49523000],
+            ['balls' => [4, 1], 'prize' => 454500],
+            ['balls' => [4, 0], 'prize' => 454500],
+            ['balls' => [3, 1], 'prize' => 83000],
+            ['balls' => [3, 0], 'prize' => 83000],
         ];
     }
 }

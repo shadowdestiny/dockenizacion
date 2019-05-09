@@ -309,7 +309,7 @@ class PrizeCheckoutService
     {
         $balls = explode(',', $numbers);
 
-        if ($lottery->isEuroJackpot() || $lottery->isSuperEnalotto()) {
+        if ($lottery->isEuroJackpot()) {
             return ' ( ' . $balls[0] . ', ' .$balls[1] . ' )';
         };
 

@@ -320,4 +320,322 @@ class BetRepositoryIntegrationCest
 
         $I->assertEquals(0, count($result));
     }
+
+    /**
+     * method getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate
+     * when matches6Balls
+     * should returns6
+     * @param IntegrationTester $I
+     * @group bet-repository-integration
+     */
+    public function test_getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate_matches6Balls_returns6(\IntegrationTester $I)
+    {
+        $superEnalottoLottery = LotteryMother::aSuperEnalotto();
+
+        $date = '2020-01-01';
+        $dateTime = new \DateTime($date);
+
+        $line = new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(20),
+                new EuroMillionsRegularNumber(30),
+                new EuroMillionsRegularNumber(40),
+                new EuroMillionsRegularNumber(50),
+            ],
+            [
+                new EuroMillionsLuckyNumber(60),
+                new EuroMillionsLuckyNumber(70),
+            ]
+        );
+
+        $playLine = new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(20),
+                new EuroMillionsRegularNumber(30),
+                new EuroMillionsRegularNumber(40),
+                new EuroMillionsRegularNumber(50),
+            ],
+            [
+                new EuroMillionsLuckyNumber(0),
+                new EuroMillionsLuckyNumber(70),
+            ]
+        );
+
+        $I->haveInDatabase('lotteries', $superEnalottoLottery->toArray());
+
+        $draw = EuroMillionsDrawMother::aSuperEnalottoDrawWithJackpotAndBreakDown($dateTime)
+            ->withId(100000000)
+            ->withLottery($superEnalottoLottery)
+            ->withResult($line)
+            ->build();
+
+        $I->haveInDatabase('euromillions_draws', $draw->toArray());
+
+        $user = UserMother::aUserWith50Eur()
+            ->withValidated(true)
+            ->withAffiliate('no')
+            ->build();
+
+        $I->haveInDatabase('users', $user->toArray());
+
+        $playConfig = PlayConfigMother::aPlayConfigSetForUser($user)
+            ->withId(100)
+            ->withLine($playLine)
+            ->withLottery($superEnalottoLottery)
+            ->withStartDrawDate($dateTime)
+            ->withLastDrawDate($dateTime)
+            ->build();
+
+        $I->haveInDatabase('play_configs',$playConfig->toArray());
+
+        $bet = BetMother::aSingleBet($playConfig, $draw);
+        $bet->setPrize(new \Money\Money(20000, new \Money\Currency('EUR')));
+        $I->haveInDatabase('bets', $bet->toArray());
+
+        $result = $this->betRepository->getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate($date, 7);
+
+        $I->assertEquals($user->getId(), $result[0]['userId']);
+        $I->assertEquals(6, $result[0]['cnt']);
+        $I->assertEquals(0, $result[0]['cnt_lucky']);
+    }
+
+    /**
+     * method getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate
+     * when matches5BallsAndJolly
+     * should returns51
+     * @param IntegrationTester $I
+     * @group bet-repository-integration
+     */
+    public function test_getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate_matches5BallsAndJolly_returns51(\IntegrationTester $I)
+    {
+        $superEnalottoLottery = LotteryMother::aSuperEnalotto();
+
+        $date = '2020-01-01';
+        $dateTime = new \DateTime($date);
+
+        $line = new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(20),
+                new EuroMillionsRegularNumber(30),
+                new EuroMillionsRegularNumber(40),
+                new EuroMillionsRegularNumber(50),
+            ],
+            [
+                new EuroMillionsLuckyNumber(60),
+                new EuroMillionsLuckyNumber(70),
+            ]
+        );
+
+        $playLine = new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(20),
+                new EuroMillionsRegularNumber(30),
+                new EuroMillionsRegularNumber(40),
+                new EuroMillionsRegularNumber(60),
+            ],
+            [
+                new EuroMillionsLuckyNumber(0),
+                new EuroMillionsLuckyNumber(70),
+            ]
+        );
+
+        $I->haveInDatabase('lotteries', $superEnalottoLottery->toArray());
+
+        $draw = EuroMillionsDrawMother::aSuperEnalottoDrawWithJackpotAndBreakDown($dateTime)
+            ->withId(100000000)
+            ->withLottery($superEnalottoLottery)
+            ->withResult($line)
+            ->build();
+
+        $I->haveInDatabase('euromillions_draws', $draw->toArray());
+
+        $user = UserMother::aUserWith50Eur()
+            ->withValidated(true)
+            ->withAffiliate('no')
+            ->build();
+
+        $I->haveInDatabase('users', $user->toArray());
+
+        $playConfig = PlayConfigMother::aPlayConfigSetForUser($user)
+            ->withId(100)
+            ->withLine($playLine)
+            ->withLottery($superEnalottoLottery)
+            ->withStartDrawDate($dateTime)
+            ->withLastDrawDate($dateTime)
+            ->build();
+
+        $I->haveInDatabase('play_configs',$playConfig->toArray());
+
+        $bet = BetMother::aSingleBet($playConfig, $draw);
+        $bet->setPrize(new \Money\Money(20000, new \Money\Currency('EUR')));
+        $I->haveInDatabase('bets', $bet->toArray());
+
+        $result = $this->betRepository->getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate($date, 7);
+
+        $I->assertEquals($user->getId(), $result[0]['userId']);
+        $I->assertEquals(5, $result[0]['cnt']);
+        $I->assertEquals(1, $result[0]['cnt_lucky']);
+    }
+
+    /**
+     * method getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate
+     * when matches3Balls
+     * should returns3
+     * @param IntegrationTester $I
+     * @group bet-repository-integration
+     */
+    public function test_getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate_matches3Balls_returns3(\IntegrationTester $I)
+    {
+        $superEnalottoLottery = LotteryMother::aSuperEnalotto();
+
+        $date = '2020-01-01';
+        $dateTime = new \DateTime($date);
+
+        $line = new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(20),
+                new EuroMillionsRegularNumber(30),
+                new EuroMillionsRegularNumber(40),
+                new EuroMillionsRegularNumber(50),
+            ],
+            [
+                new EuroMillionsLuckyNumber(60),
+                new EuroMillionsLuckyNumber(70),
+            ]
+        );
+
+        $playLine = new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(20),
+                new EuroMillionsRegularNumber(30),
+                new EuroMillionsRegularNumber(45),
+                new EuroMillionsRegularNumber(55),
+            ],
+            [
+                new EuroMillionsLuckyNumber(0),
+                new EuroMillionsLuckyNumber(75),
+            ]
+        );
+
+        $I->haveInDatabase('lotteries', $superEnalottoLottery->toArray());
+
+        $draw = EuroMillionsDrawMother::aSuperEnalottoDrawWithJackpotAndBreakDown($dateTime)
+            ->withId(100000000)
+            ->withLottery($superEnalottoLottery)
+            ->withResult($line)
+            ->build();
+
+        $I->haveInDatabase('euromillions_draws', $draw->toArray());
+
+        $user = UserMother::aUserWith50Eur()
+            ->withValidated(true)
+            ->withAffiliate('no')
+            ->build();
+
+        $I->haveInDatabase('users', $user->toArray());
+
+        $playConfig = PlayConfigMother::aPlayConfigSetForUser($user)
+            ->withId(100)
+            ->withLine($playLine)
+            ->withLottery($superEnalottoLottery)
+            ->withStartDrawDate($dateTime)
+            ->withLastDrawDate($dateTime)
+            ->build();
+
+        $I->haveInDatabase('play_configs',$playConfig->toArray());
+
+        $bet = BetMother::aSingleBet($playConfig, $draw);
+        $bet->setPrize(new \Money\Money(20000, new \Money\Currency('EUR')));
+        $I->haveInDatabase('bets', $bet->toArray());
+
+        $result = $this->betRepository->getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate($date, 7);
+
+        $I->assertEquals($user->getId(), $result[0]['userId']);
+        $I->assertEquals(3, $result[0]['cnt']);
+        $I->assertEquals(0, $result[0]['cnt_lucky']);
+    }
+
+    /**
+     * method getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate
+     * when matches2Balls
+     * should returnsNoResults
+     * @param IntegrationTester $I
+     * @group bet-repository-integration-2
+     */
+    public function test_getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate_matches2Balls_returnsNoResults(\IntegrationTester $I)
+    {
+        $superEnalottoLottery = LotteryMother::aSuperEnalotto();
+
+        $date = '2020-01-01';
+        $dateTime = new \DateTime($date);
+
+        $line = new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(20),
+                new EuroMillionsRegularNumber(30),
+                new EuroMillionsRegularNumber(40),
+                new EuroMillionsRegularNumber(50),
+            ],
+            [
+                new EuroMillionsLuckyNumber(60),
+                new EuroMillionsLuckyNumber(70),
+            ]
+        );
+
+        $playLine = new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(20),
+                new EuroMillionsRegularNumber(35),
+                new EuroMillionsRegularNumber(45),
+                new EuroMillionsRegularNumber(55),
+            ],
+            [
+                new EuroMillionsLuckyNumber(0),
+                new EuroMillionsLuckyNumber(75),
+            ]
+        );
+
+        $I->haveInDatabase('lotteries', $superEnalottoLottery->toArray());
+
+        $draw = EuroMillionsDrawMother::aSuperEnalottoDrawWithJackpotAndBreakDown($dateTime)
+            ->withId(100000000)
+            ->withLottery($superEnalottoLottery)
+            ->withResult($line)
+            ->build();
+
+        $I->haveInDatabase('euromillions_draws', $draw->toArray());
+
+        $user = UserMother::aUserWith50Eur()
+            ->withValidated(true)
+            ->withAffiliate('no')
+            ->build();
+
+        $I->haveInDatabase('users', $user->toArray());
+
+        $playConfig = PlayConfigMother::aPlayConfigSetForUser($user)
+            ->withId(100)
+            ->withLine($playLine)
+            ->withLottery($superEnalottoLottery)
+            ->withStartDrawDate($dateTime)
+            ->withLastDrawDate($dateTime)
+            ->build();
+
+        $I->haveInDatabase('play_configs',$playConfig->toArray());
+
+        $bet = BetMother::aSingleBet($playConfig, $draw);
+        $bet->setPrize(new \Money\Money(20000, new \Money\Currency('EUR')));
+        $I->haveInDatabase('bets', $bet->toArray());
+
+        $result = $this->betRepository->getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate($date, 7);
+
+        $I->assertEquals(0, count($result));
+    }
 }
