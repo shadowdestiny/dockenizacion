@@ -26,9 +26,9 @@
         <img src="/w/img/megasena/megasena-skyline-desktop.jpg"/>
     </div>
     <div class="play-bottom-block--center">
-        <h2>
+        <h1>
            {{ language.translate("PlayMS_h1") }}
-        </h2>
+        </h1>
 
         <p>
             {{ language.translate("PlayMS_h1_text") }}
@@ -43,9 +43,9 @@
         <p>
             {{ language.translate("PlayMS_h2_text") }}
         </p>
-        <p>
+        <h2>
             {{ language.translate("PlayMS_h2_2") }}
-        </p>
+        </h2>
         <p>
             {{ language.translate("PlayMS_h2_text2") }}
         </p>

@@ -141,7 +141,7 @@ final class MegaSenaNumbersController extends PublicSiteControllerBase
     public function pastResultAction()
     {
         $params = $this->router->getParams();
-        if (!isset($params[0])) {
+        if (!isset($params['date'])) {
             return $this->response->redirect('/'.$this->lottery . '/results');
         }
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrencyAndMillions($this->lotteryService->getNextJackpot('MegaSena'));

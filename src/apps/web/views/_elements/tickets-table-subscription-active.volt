@@ -30,12 +30,12 @@
                             <span>{{ my_subscription_active[i-1]['line_regular_number_three'] }}</span>
                             <span>{{ my_subscription_active[i-1]['line_regular_number_four'] }}</span>
                             <span>{{ my_subscription_active[i-1]['line_regular_number_five'] }}</span>
-                            {% if (my_subscription_active['name'] == 'MegaSena')%}
+                            {% if (my_subscription_active['name'] == 'MegaSena' or my_subscription_active['name'] == 'SuperEnalotto')%}
                                 <span>{{ my_subscription_active[i-1]['line_lucky_number_two'] }}</span>
                             {% elseif (my_subscription_active['name'] != 'PowerBall') and (my_subscription_active['name'] != 'MegaMillions')%}
                                 <span class="star">{{ my_subscription_active[i-1]['line_lucky_number_one'] }}</span>
                             {% endif %}
-                            {% if (my_subscription_active['name'] != 'MegaSena')%}
+                            {% if (my_subscription_active['name'] != 'MegaSena' and my_subscription_active['name'] != 'SuperEnalotto')%}
                                 <span class="star">{{ my_subscription_active[i-1]['line_lucky_number_two'] }}</span>
                             {% endif %}
                         </div>

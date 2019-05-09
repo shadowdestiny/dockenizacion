@@ -15,6 +15,10 @@ use EuroMillions\megasena\config\routes\HowToPlayRoutes as HowToPlayRoutesMegaSe
 use EuroMillions\megasena\config\routes\MegaSenaPlayRoutes;
 use EuroMillions\megasena\config\routes\MegaSenaResultRoutes;
 use EuroMillions\megasena\config\routes\ResultPurchaseRoutes as ResultPurchaseRoutesMegaSena;
+use EuroMillions\superenalotto\config\routes\HowToPlayRoutes as HowToPlayRoutesSuperEnalotto;
+use EuroMillions\superenalotto\config\routes\SuperEnalottoPlayRoutes;
+use EuroMillions\superenalotto\config\routes\SuperEnalottoResultRoutes;
+use EuroMillions\superenalotto\config\routes\ResultPurchaseRoutes as ResultPurchaseRoutesSuperEnalotto;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconCookiesWrapper;
 use EuroMillions\shared\components\PhalconRequestWrapper;
@@ -198,7 +202,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "action" => "success"
         ));
 
+        //TODO: Remove this endpoint from MoneyMatrix API and use next one
         $router->add('/paymentmx/notification', array(
+            "module" => "web",
+            "controller" => "notification",
+            "action" => "notification"
+        ));
+
+        $router->add('/payment/notification', array(
             "module" => "web",
             "controller" => "notification",
             "action" => "notification"
@@ -319,6 +330,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'addFunds'
         ));
 
+        $router->add("/profile/getCashier", array(
+            "module" => "web",
+            'namespace' => 'EuroMillions\web\controllers\profile\payment',
+            'controller' => 'funds',
+            'action' => 'getCashier'
+        ));
 
         $router->add("/account", array(
             "module" => "web",
@@ -562,7 +579,21 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'payment',
         ));
 
-        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|megasena)+}/cart/login", array(
+        $router->add("/{lottery:(superenalotto)+}/payment", array(
+            "module" => "superenalotto",
+            'lottery' => 7,
+            'controller' => 'super-enalotto-payment',
+            'action' => 'payment',
+        ));
+
+        $router->add("/{lottery:(superenalotto)+}/payment/payment(.*?)", array(
+            "module" => "superenalotto",
+            'lottery' => 7,
+            'controller' => 'super-enalotto-payment',
+            'action' => 'payment',
+        ));
+
+        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|megasena|superenalotto)+}/cart/login", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'cart',
@@ -607,7 +638,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
 
-        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|megasena)+}/result/success/:params", array(
+        $router->add("/{lottery:(euromillions|powerball|megamillions|eurojackpot|megasena|superenalotto)+}/result/success/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'result',
@@ -1497,8 +1528,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
-        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(megasena)+}/{play:(jugar|gioca|speel|играть)+}", array(
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(mega-sena)+}/{play:(jugar|gioca|speel|играть)+}", array(
             "module" => "megasena",
+            'controller' => 'play',
+            'action' => 'index',
+        ));
+
+        $router->add("/{language:(es|it|nl|ru)+}/{lottery:(superenalotto)+}/{play:(jugar|gioca|speel|играть)+}", array(
+            "module" => "superenalotto",
             'controller' => 'play',
             'action' => 'index',
         ));
@@ -1513,6 +1550,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->mount(new MegaSenaPlayRoutes());
         $router->mount(new MegaSenaResultRoutes());
         $router->mount(new ResultPurchaseRoutesMegaSena());
+
+        $router->mount(new HowToPlayRoutesSuperEnalotto());
+        $router->mount(new SuperEnalottoPlayRoutes());
+        $router->mount(new SuperEnalottoResultRoutes());
+        $router->mount(new ResultPurchaseRoutesSuperEnalotto());
 
         $router->mount(new HowToPlayRoutesEuroJackpot());
         $router->mount(new EuroJackpotPlayRoutes());
@@ -1649,6 +1691,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'megasena' => [
                 'className' => 'EuroMillions\megasena\Module',
                 'path' => '../apps/megasena/Module.php',
+            ],
+            'superenalotto' => [
+                'className' => 'EuroMillions\superenalotto\Module',
+                'path' => '../apps/superenalotto/Module.php',
             ]
         ]);
         $di = $application->getDI();

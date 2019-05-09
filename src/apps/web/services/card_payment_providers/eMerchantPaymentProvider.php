@@ -4,44 +4,32 @@
 namespace EuroMillions\web\services\card_payment_providers;
 
 
+use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
-use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\services\card_payment_providers\emerchant\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\emerchant\eMerchantConfig;
-use EuroMillions\web\vo\CreditCard;
-use Money\Money;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use Phalcon\Http\Client\Response;
 
 class eMerchantPaymentProvider implements ICardPaymentProvider
 {
 
     private $gatewayClient;
-    /** @var  User $user */
-    private $user;
-    private $data = [];
 
     public function __construct(eMerchantConfig $config, $gatewayClient = null)
     {
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
     }
 
-    public function __get($name) {
-        return $this->data[$name];
-    }
-
-    public function __set($name, $value) {
-        $this->data[$name] = $value;
-    }
-
     /**
-     * @param Money $amount
-     * @param CreditCard $card
+     * @param PaymentProviderDTO $data
      * @return PaymentProviderResult
      */
-    public function charge(Money $amount, CreditCard $card)
+    public function charge(PaymentProviderDTO $data)
     {
-        $params = $this->createArrayData($amount, $card);
+        $params = $data->toArray();
         /** @var Response $result */
         $result = $this->gatewayClient->send($params);
         $header = $result->header;
@@ -52,27 +40,16 @@ class eMerchantPaymentProvider implements ICardPaymentProvider
         return new PaymentProviderResult($body->status === "ok", $header->statusMessage);
     }
 
-    /**
-     * @param User $user
-     * @return mixed
-     */
-    public function user(User $user)
+    public function getName()
     {
-        $this->user = $user;
+        return PaymentProviderEnum::EMERCHANT;
     }
 
-    private function createArrayData(Money $amount, CreditCard $card) {
-        return [
-            'idTransaction' => $this->data['idTransaction'],
-            'userId' => $this->user->getId(),
-            'amount' => $amount->getAmount(),
-            'creditCardNumber' => $card->cardNumber()->toNative(),
-            'cvc' => $card->cvv()->toNative(),
-            'expirationYear' => substr($card->expiryDate()->getYear(), 2),
-            'expirationMonth' => $card->expiryDate()->getMonth(),
-            'cardHolderName' => $card->cardHolderName()->toNative(),
-            'email' => $this->user->getEmail()->toNative(),
-            'ip' => $this->user->getIpAddress()->toNative(),
-        ];
+    /**
+     * @return IPaymentResponseRedirect
+     */
+    public function getResponseRedirect()
+    {
+        // TODO: Implement getResponseRedirect() method.
     }
 }

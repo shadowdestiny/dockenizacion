@@ -13,6 +13,7 @@ use EuroMillions\shared\config\bootstrap\modules\AdminModule;
 use EuroMillions\shared\config\bootstrap\modules\MegaSenaModule;
 use EuroMillions\shared\config\bootstrap\modules\EuroJackpotModule;
 use EuroMillions\shared\config\bootstrap\modules\MegaMillionsModule;
+use EuroMillions\shared\config\bootstrap\modules\SuperEnalottoModule;
 
 class ModuleFactory
 {
@@ -36,6 +37,10 @@ class ModuleFactory
 
         if ($name === 'megasena') {
             return new MegaSenaModule($name, $application, $di, $appPath, $assetsPath, $diView);
+        }
+
+        if ($name === 'superenalotto') {
+            return new SuperEnalottoModule($name, $application, $di, $appPath, $assetsPath, $diView);
         }
     }
 }

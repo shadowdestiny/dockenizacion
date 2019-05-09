@@ -22,6 +22,42 @@ var EmLineOrder = new React.createClass({
             }
         }
 
+        let list_number_ball = [];
+        let list_ball = [];
+        let _class = '';
+
+        numbers.map(function(number,i) {
+            list_number_ball.push(parseInt(number));
+        });
+
+        // only megasena
+        if(this.props.megasena) {
+            _class = 'circle_megasena';
+            list_number_ball.push(parseInt(stars[1]));
+            list_ball = list_number_ball
+                .sort((a, b) => a - b)
+                .map(function (number, i) {
+                    return <li key={i}
+                               className={_class}>{((parseInt(number.toString()) < 10) ? ("0" + number) : number)}</li>
+                });
+        }else if(this.props.superenalotto){
+            _class = 'circle_superenalotto';
+            list_number_ball.push(parseInt(stars[1]));
+            let count = 0;
+            list_ball = list_number_ball
+                .sort((a, b) => a - b )
+                .map(function(number,i) {
+                    count = i;
+                    return <li key={i} className={_class}>{(( parseInt(number.toString()) < 10) ? ("0" + number): number)}</li>
+                });
+
+            list_ball.push(<li key={count + 1} className={'circle_superenalotto_jolly'}>{ stars[0] }</li>);
+        } else {
+            list_ball = list_number_ball.map(function(number,i) {
+                return <li key={i} className={_class}>{number}</li>
+            });
+        }
+
         return (
             <div className={"row cl"}>
                 <div className={"desc"}>
@@ -32,9 +68,7 @@ var EmLineOrder = new React.createClass({
                 <div className={'detail'}>
                     <ul className="no-li inline numbers small">
                         {
-                            numbers.map(function(number,i) {
-                                return <li key={i}>{number}</li>
-                            })
+                            list_ball
                         }
                         {
                             (this.props.powerball ?  <li className="star_red">{stars[1]}</li> : "")
@@ -50,10 +84,7 @@ var EmLineOrder = new React.createClass({
                             )
                         }
                         {
-                            (this.props.megasena  ? <li>{stars[1]}</li> : "")
-                        }
-                        {
-                            (!this.props.megamillions && !this.props.powerball && !this.props.eurojackpot && !this.props.megasena ?
+                            (!this.props.megamillions && !this.props.powerball && !this.props.eurojackpot && !this.props.megasena && !this.props.superenalotto ?
                                 stars.map(function(star,i) {
                                     return <li className="star" key={i}>{star}</li>})
                                 : ""

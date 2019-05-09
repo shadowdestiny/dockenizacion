@@ -100,8 +100,8 @@ class MaintenanceWithdrawService
                 $this->entityManager->flush($user);
                 return new ActionResult(true);
             }
-        } catch(\Exception $e) {
-                return new ActionResult(false);
+        } catch (\Exception $e) {
+            return new ActionResult(false);
         }
     }
 
@@ -115,21 +115,21 @@ class MaintenanceWithdrawService
         }
     }
 
-    public function changeState( $idTransaction , $state, $transaction = null, $message = null )
+    public function changeState($idTransaction, $state, $transaction = null, $message = null)
     {
-        if ( null == $transaction ) {
+        if (null == $transaction) {
             /** @var WinningsWithdrawTransaction $transaction */
             $transaction = $this->transactionRepository->find($idTransaction);
         }
-        if( null !== $transaction &&
-                $transaction instanceof WinningsWithdrawTransaction) {
+        if (null !== $transaction &&
+            $transaction instanceof WinningsWithdrawTransaction) {
             try {
                 $transaction->setState($state);
                 $transaction->setMessage($message);
                 $transaction->toString();
                 $this->transactionRepository->add($transaction);
                 $this->entityManager->flush($transaction);
-            } catch ( \Exception $e ) {
+            } catch (\Exception $e) {
                 throw new \Exception('An error ocurred while try update state');
             }
         } else {

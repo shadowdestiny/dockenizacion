@@ -310,6 +310,12 @@
 }
 
 .common--result-page--content.megasena--result-page--content {
+  @media only screen and (min-width: $screen-wide-full) {
+    .wrapper {
+      width: $screen-full-wrapper;
+      max-width: $screen-full-wrapper;
+    }
+  }
   .result-section .previous-results--common-row{
     .previous-results{
       .previous-results--selectboxes .selectbox select{

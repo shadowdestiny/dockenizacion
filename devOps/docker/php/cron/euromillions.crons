@@ -29,14 +29,28 @@
 50 22 * * 5      /usr/local/bin/php /var/www/apps/cli.php result start EuroJackpot > /proc/1/fd/1 2> /proc/1/fd/2
 
 #MegaSena
-10 22 * * 4,7      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php jackpot updateNextDrawJackpotMegaSena > /proc/1/fd/1 2> /proc/1/fd/2
-20 22 * * 4,7      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php result updateMegaSenaResult > /proc/1/fd/1 2> /proc/1/fd/2
+10 2 * * 4      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php jackpot updateNextDrawJackpotMegaSena > /proc/1/fd/1 2> /proc/1/fd/2
+15 2 * * 4      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php result updateMegaSenaResult > /proc/1/fd/1 2> /proc/1/fd/2
+10 20 * * 6      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php jackpot updateNextDrawJackpotMegaSena > /proc/1/fd/1 2> /proc/1/fd/2
+20 20 * * 6      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php result updateMegaSenaResult > /proc/1/fd/1 2> /proc/1/fd/2
 30 22 * * 4,7      /usr/local/bin/php /var/www/apps/megasena/megasena-cli.php bet placeMegaSenaBets > /proc/1/fd/1 2> /proc/1/fd/2
 40 22 * * 4,7      /usr/local/bin/php /var/www/apps/shared/shared-cli.php Play-config updateLottery now MegaSena > /proc/1/fd/1 2> /proc/1/fd/2
 50 22 * * 4,7      /usr/local/bin/php /var/www/apps/cli.php result start MegaSena > /proc/1/fd/1 2> /proc/1/fd/2
 
+#SuperEnalotto
+10 2 * * 2,4,6      /usr/local/bin/php /var/www/apps/superenalotto/superenalotto-cli.php jackpot updateNextDrawJackpotSuperEnalotto > /proc/1/fd/1 2> /proc/1/fd/2
+15 2 * * 2,4,6      /usr/local/bin/php /var/www/apps/superenalotto/superenalotto-cli.php result updateSuperEnalottoResult > /proc/1/fd/1 2> /proc/1/fd/2
+10 20 * * 2,4,6      /usr/local/bin/php /var/www/apps/superenalotto/superenalotto-cli.php jackpot updateNextDrawJackpotSuperEnalotto > /proc/1/fd/1 2> /proc/1/fd/2
+20 20 * * 2,4,6      /usr/local/bin/php /var/www/apps/superenalotto/superenalotto-cli.php result updateSuperEnalottoResult > /proc/1/fd/1 2> /proc/1/fd/2
+30 22 * * 2,4,6      /usr/local/bin/php /var/www/apps/superenalotto/superenalotto-cli.php bet placeSuperEnalottoBets > /proc/1/fd/1 2> /proc/1/fd/2
+40 22 * * 2,4,6      /usr/local/bin/php /var/www/apps/shared/shared-cli.php Play-config updateLottery now SuperEnalotto > /proc/1/fd/1 2> /proc/1/fd/2
+50 22 * * 2,4,6      /usr/local/bin/php /var/www/apps/cli.php result start SuperEnalotto > /proc/1/fd/1 2> /proc/1/fd/2
+
 # Clear cache
 30 0 * * *      /usr/local/bin/php /var/www/apps/cli.php clear-cache clear > /proc/1/fd/1 2> /proc/1/fd/2
+
+# Clear Pending Transactions created 48h before now (Disabled for now. Not really needed)
+# 00 3 * * *      /usr/local/bin/php /var/www/apps/shared/shared-cli.php clear-transactions clear > /proc/1/fd/1 2> /proc/1/fd/2
 
 # Database dumps
 15 8,20 * * *   if [ $EM_ENV != "production" ]; then /usr/local/bin/php /var/www/apps/shared/shared-cli.php dump-translations > /proc/1/fd/1 2> /proc/1/fd/2; fi

@@ -98,27 +98,38 @@ endpoint= https://api.euromillions.com/emerchant_test/payment
 api_key={{ emerchant_api_api_key }}
 
 [gcp]
-url= https://online-safest.com/DirectInterface
-mid= 21260
-visa_gw_id= 21260001
+url=https://online-safest.com/DirectInterface
+mid=21260
+visa_gw_id=21260001
 visa_sign_key={{ gcp_visa_sign_key }}
 master_gw_id=21260002
 master_sign_key={{ gcp_master_sign_key }}
 
 [wirecard]
-endpoint= https://api.euromillions.com/beta/wirecard-payment
+endpoint= https://api.euromillions.com/beta/payment
 endpoint_withdraw= https://api.euromillions.com/beta/withdraw
 api_key={{ wirecard_api_key }}
+countries=
+weight=5
 
 [moneymatrix]
 endpoint=https://rancher-staging-02.euromillions.com:9443
+api_key=not-set
+countries=
+weight=10
+
+[royalpay]
+endpoint=https://7ejmaidn4e.execute-api.eu-west-1.amazonaws.com/beta/royalpay
+api_key={{ royalpay_api_key }}
+countries=ES,RU,UA
+weight=10
 
 [lotto_api]
-endpoint= https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball
+endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/powerball
 api_key={{ lotto_api_api_key }}
 
 [megamillions_api]
-endpoint= https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/megamillions
+endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/megamillions
 api_key={{ megamillions_api_api_key }}
 
 [eurojackpot_api]
@@ -129,6 +140,10 @@ api_key={{ eurojackpot_api_api_key }}
 endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/megasena
 api_key={{ megasena_api_api_key }}
 
+[superenalotto_api]
+endpoint=https://cd2zqkxcnk.execute-api.us-west-2.amazonaws.com/beta/superenalotto
+api_key={{ superenalotto_api_api_key }}
+
 [aws]
 queue_results_endpoint=https://sqs.eu-west-1.amazonaws.com/498794605962/results_testing
 queue_prizes_endpoint=https://sqs.eu-west-1.amazonaws.com/498794605962/prizes_test
@@ -136,16 +151,22 @@ secret_access_key={{ AWS_SECRET_ACCESS_KEY }}
 access_key_id={{ AWS_ACCESS_KEY_ID }}
 
 [payment_gateway]
-class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
-config= wirecard,moneymatrix
+;class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy
+;config=wirecard,moneymatrix
+class_strategy=WideCardPaymentStrategy,MoneyMatrixPaymentStrategy,RoyalPayPaymentStrategy
+config=wirecard,moneymatrix,royalpay
 
 [geoip_strategy]
 normal=WideCardPaymentStrategy
 blocked=MoneyMatrixPaymentStrategy
 geoip=GeoIPService
 geoIpImpl=MaxMindWrapper
-database_path=/var/www/data/geoipdatabase
 blocked_countries=FR
+database_path=/var/www/data/geoipdatabase
+database_name=GeoLite2-Country.mmdb
+account_id=none-set
+license_key=none-set
+use_database=true
 
 [payment_balancing]
 strategy=GeoIPStrategy
@@ -169,5 +190,8 @@ MegaSena=index
 database_files_path=/var/www/data/geoipdatabase
 
 [featureflag_api]
-endpoint= https://tg5wg2gree.execute-api.eu-west-1.amazonaws.com/beta
+endpoint=https://tg5wg2gree.execute-api.eu-west-1.amazonaws.com/beta
 api_key={{ featureflag_api_api_key }}
+
+[payments_notifications]
+token={{ payments_notifications_token }}

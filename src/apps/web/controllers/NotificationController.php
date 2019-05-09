@@ -8,84 +8,94 @@
 
 namespace EuroMillions\web\controllers;
 
-
 use EuroMillions\shared\components\logger\cloudwatch\ConfigGenerator;
 use EuroMillions\shared\components\OrderNotificationContext;
 use EuroMillions\shared\components\ValidatorOrderNotificationsContext;
 use EuroMillions\web\components\logger\Adapter\CloudWatch;
-use EuroMillions\web\entities\DepositTransaction;
-use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\Transaction;
-use EuroMillions\web\services\factories\OrderFactory;
-use EuroMillions\web\vo\Discount;
-use Money\Currency;
-use Money\Money;
-use EuroMillions\web\vo\Order;
-use EuroMillions\web\entities\PlayConfig;
 use LegalThings\CloudWatchLogger;
-use Phalcon\Logger;
 use Phalcon\Mvc\View;
 
 class NotificationController extends MoneymatrixController
 {
+    public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+    {
+        $token = $this->request->getHeader('Authorization');
+        if (!$this->validateToken($token)) {
+            $this->response->setStatusCode(401);
+            $this->response->send();
+            return false;
+        }
 
+        return true;
+    }
 
     //TODO: send to queue
     public function notificationAction()
     {
-
-
-        error_log(print_r($this->request->getJsonRawBody(true), TRUE),0);
         $transactionID = $this->request->getQuery('transaction');
         $status = $this->request->getQuery('status');
         $statusCode = $this->request->getQuery('statusCode');
+        $testDate = !empty($this->request->getQuery('date')) ? new \DateTime($this->request->getQuery('date')) : null;
 
         $logger = new CloudWatch(new CloudWatchLogger(ConfigGenerator::cloudWatchConfig(
-            'Euromillions', getenv('EM_ENV')
+            'Euromillions',
+            getenv('EM_ENV')
         )));
         /** @var Transaction $transaction */
         $transaction = $this->transactionService->getTransactionByEmTransactionID($transactionID)[0];
         $transaction->fromString();
 
-
-        $orderNotification = new OrderNotificationContext($status,$transactionID,$transaction,$logger,$this->cartService);
+        $orderNotification = new OrderNotificationContext($transaction, $logger, $this->cartService);
         $order = $orderNotification->execute();
-        $orderNotificationValidator = new ValidatorOrderNotificationsContext($transaction,
-                                                                             $status,
-                                                                             $order,
-                                                                             $this->paymentProviderService,
-                                                                             $this->orderService,
-                                                                             $logger
+        $this->paymentProviderService->setEventsManager($this->eventsManager);
+        $orderNotificationValidator = new ValidatorOrderNotificationsContext(
+            $transaction,
+            $status,
+            $order,
+            $this->paymentProviderService,
+            $this->orderService,
+            $logger
         );
-        if($orderNotificationValidator->result())
-        {
-            $this->paymentProviderService->setEventsManager($this->eventsManager);
+        if ($orderNotificationValidator->result()) {
             $this->eventsManager->attach('orderservice', $this->orderService);
-            $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName())->getValues();
+            $nextDrawForOrder = $this->lotteryService->getNextDrawByLottery($transaction->getLotteryName(), !empty($testDate) ? $testDate : null)->getValues();
             $order->setNextDraw($nextDrawForOrder);
-            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order,$transaction->getUser(),$order->getTotal(),$transactionID,$status,$statusCode);
+            $this->paymentProviderService->createOrUpdateDepositTransactionWithPendingStatus($order, $transaction->getUser(), $order->getTotal(), $transaction->getPaymentProviderName(), $status, $statusCode);
         }
-    }
 
+        exit();
+    }
 
     public function statusAction()
     {
-        try
-        {
+        try {
             $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
-            $this->response->setHeader('Content-type','application/json');
+            $this->response->setHeader('Content-type', 'application/json');
             $data = $this->request->getJsonRawBody();
-            $response = $this->paymentProviderService->withdrawStatus($this->getDI()->get('paymentProviderFactory'),$data->MerchantReference);
+            $response = $this->paymentProviderService->withdrawStatus($this->getDI()->get('paymentProviderFactory'), $data->MerchantReference);
             echo json_encode($response);
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
             $this->response->setStatusCode(500);
-            $this->response->setHeader('Content-type','application/json');
+            $this->response->setHeader('Content-type', 'application/json');
             echo json_encode([
                 'Status' => 'Error'
             ]);
         }
+    }
+
+    private function validateToken($token)
+    {
+        if (getenv('EM_ENV') == 'test' || getenv('EM_ENV') == 'development') {
+            return true;
+        }
+
+        if ($token !== null && $token != '' && $token === (string) $this->di->get('config')['payments_notifications']['token']) {
+            return true;
+        }
+
+        return false;
     }
 
 }

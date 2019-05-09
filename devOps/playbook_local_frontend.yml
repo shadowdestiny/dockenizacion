@@ -5,7 +5,7 @@
     - name: start compass web container
       docker_container:
         name: euromillions-compassweb-watcher
-        image: antonienko/compass-watch
+        image: panamedialottery/compass-watch
         cleanup: yes
         state: started
         command: watch --poll /src/compass_web
@@ -18,7 +18,7 @@
     - name: start compass admin container
       docker_container:
         name: euromillions-compassadmin-watcher
-        image: antonienko/compass-watch
+        image: panamedialottery/compass-watch
         cleanup: yes
         state: started
         command: watch --poll /src/compass_admin

@@ -36,13 +36,16 @@ pipeline {
             }
         }
         stage('test') {
+            environment {
+                TEST_PROJECT_NAME = "${env.JOB_BASE_NAME}_${env.BUILD_NUMBER}"
+            }
             steps {
                 sh('chmod +x devOps/ci/test.sh; devOps/ci/test.sh')
             }
             post {
                 always {
                     // Shutdown test
-                    sh('sudo docker-compose -p test -f docker-compose.test.yml down')
+                    sh('sudo docker-compose -p ${TEST_PROJECT_NAME} -f docker-compose.test.yml down')
 
                     // Delete .env file
                     sh('rm .env')
@@ -90,7 +93,7 @@ pipeline {
                 stage('build css'){
                     steps{
                         //Compile Web SASS
-                        sh('sudo docker run --rm -u 1000 -v $(pwd)/src:/src antonienko/compass-watch compile --force --quiet --boring --no-debug-info /src/compass_web || true')
+                        sh('sudo docker run --rm -u 1000 -v $(pwd)/src:/src panamedialottery/compass-watch compile --force --quiet --boring --no-debug-info /src/compass_web || true')
                     }
                     post {
                         always {

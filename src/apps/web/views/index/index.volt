@@ -121,6 +121,17 @@
             'hoursena'
             );
         }
+        if(item.name == 'SuperEnalotto')
+        {
+            setCountDownByLottery(item.date,
+            'countdownsuper',
+            'daysuper',
+            'dotssuper',
+            'minutesuper',
+            'secondssuper',
+            'hoursuper'
+            );
+        }
     });
 {% endblock %}
 

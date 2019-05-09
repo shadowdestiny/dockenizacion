@@ -30,6 +30,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/{{ language.translate('link_superena_play') }}">
+                            {{ language.translate("playsuperenalotto") }}
+                        </a>
+                    </li>
+                    <li>
                         <a href="/{{ language.translate("link_christmas_play") }}">
                             {{ language.translate("playchris_sub") }}
                         </a>
@@ -67,6 +72,11 @@
            <li>
                 <a href="/{{ language.translate('link_megasena_results') }}">
                        {{ language.translate("results_megasena_sub") }}
+                </a>
+            </li>
+            <li>
+                <a href="/{{ language.translate('link_superena_results') }}">
+                    {{ language.translate("results_superenalotto_sub") }}
                 </a>
             </li>
            <li>

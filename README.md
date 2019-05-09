@@ -112,7 +112,7 @@ src/compass_web/sass/
 On the root of the project you can run:
 
 ```
-docker run --rm -v $(pwd)/src:/src antonienko/compass-watch compile --force /src/compass_web
+docker run --rm -v $(pwd)/src:/src panamedialottery/compass-watch compile --force /src/compass_web
 ```
 
 This will compile all .scss files on /src/compass_web

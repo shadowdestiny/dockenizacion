@@ -50,7 +50,7 @@
 
                                 <tr>
                                     <td>{{ salesData['em'] }}</td>
-                                    <td><a href="/admin/reports/salesDrawPowerBallDetails?id={{ salesData['id'] }}">{{ salesData['id'] }}</a></td>
+                                    <td><a href="/admin/reports/salesDrawMegaMillionsDetails?id={{ salesData['id'] }}">{{ salesData['id'] }}</a></td>
                                     <td>{{ salesData['draw_date'] }}</td>
                                     <td>{{ salesData['draw_status'] }}</td>
                                     <td>{{ salesData['totalBets'] }}</td>

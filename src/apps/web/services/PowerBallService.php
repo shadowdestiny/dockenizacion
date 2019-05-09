@@ -7,14 +7,6 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\enums\PurchaseConfirmationEnum;
 use EuroMillions\shared\vo\RedisOrderKey;
 use EuroMillions\web\emailTemplates\EmailTemplate;
-use EuroMillions\web\emailTemplates\PowerBallPurchaseConfirmationEmailTemplate;
-use EuroMillions\web\emailTemplates\PowerBallPurchaseSubscriptionConfirmationEmailTemplate;
-use EuroMillions\megamillions\emailTemplates\MegaMillionsPurchaseConfirmationEmailTemplate;
-use EuroMillions\megamillions\emailTemplates\MegaMillionsPurchaseSubscriptionConfirmationEmailTemplate;
-use EuroMillions\web\emailTemplates\PurchaseConfirmationChristmasEmailTemplate;
-use EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate;
-use EuroMillions\web\emailTemplates\PurchaseSubscriptionConfirmationEmailTemplate;
-use EuroMillions\web\entities\ChristmasTickets;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
@@ -22,24 +14,17 @@ use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
+use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\card_payment_providers\shared\dto\NormalBodyResponse;
+use EuroMillions\web\services\card_payment_providers\shared\dto\PaymentBodyResponse;
+use EuroMillions\web\services\card_payment_providers\shared\PaymentRedirectContext;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
-use EuroMillions\web\services\external_apis\EuroJackpotApi;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
-use EuroMillions\web\services\external_apis\LottorisqApi;
-use EuroMillions\web\services\external_apis\MegaMillionsApi;
-use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Discount;
-use EuroMillions\web\vo\dto\BundlePlayCollectionDTO;
-use EuroMillions\web\vo\dto\BundlePlayDTO;
 use EuroMillions\web\vo\enum\TransactionType;
-use EuroMillions\web\vo\EuroMillionsLine;
-use EuroMillions\web\vo\EuroMillionsLuckyNumber;
-use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\Order;
-use EuroMillions\web\vo\OrderChristmas;
-use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
 use Money\Money;
@@ -78,16 +63,17 @@ class PowerBallService
     private $emailService;
 
     //EMTD refactor this class: a lot of dependencies
-    public function __construct(EntityManager $entityManager,
-                                LotteryService $lotteryService,
-                                IPlayStorageStrategy $playStorageStrategy,
-                                IPlayStorageStrategy $orderStorageStrategy,
-                                CartService $cartService,
-                                WalletService $walletService,
-                                ICardPaymentProvider $payXpertCardPaymentStrategy,
-                                BetService $betService,
-                                EmailService $emailService)
-    {
+    public function __construct(
+        EntityManager $entityManager,
+        LotteryService $lotteryService,
+        IPlayStorageStrategy $playStorageStrategy,
+        IPlayStorageStrategy $orderStorageStrategy,
+        CartService $cartService,
+        WalletService $walletService,
+        ICardPaymentProvider $payXpertCardPaymentStrategy,
+        BetService $betService,
+        EmailService $emailService
+    ) {
         $this->entityManager = $entityManager;
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
         $this->lotteryService = $lotteryService;
@@ -142,10 +128,17 @@ class PowerBallService
      * @param Money $funds
      * @param CreditCard $credit_card
      * @param bool $withAccountBalance
+     * @param null $isWallet
+     * @param string $lotteryName
+     * @param ICardPaymentProvider $paymentProvider
      * @return ActionResult
      */
-    public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, $lotteryName = "PowerBall")
+    public function play($user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null, $lotteryName = "PowerBall", ICardPaymentProvider $paymentProvider = null)
     {
+        if($paymentProvider !== null) {
+            $this->cardPaymentProvider = $paymentProvider;
+        }
+
         if ($user_id) {
             try {
                 $di = \Phalcon\Di::getDefault();
@@ -154,14 +147,14 @@ class PowerBallService
 
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
-                $powerPlay = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user_id,$lottery->getId())->key());
+                $powerPlay = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user_id, $lottery->getId())->key());
                 $powerPlay = (int)json_decode($powerPlay->returnValues())->play_config[0]->powerPlay;
-                $result_order = $this->cartService->get($user_id, $lottery->getName(),$isWallet);
+                $result_order = $this->cartService->get($user_id, $lottery->getName(), $isWallet);
 
                 if ($result_order->success()) {
                     /** @var Order $order */
                     $order = $result_order->getValues();
-                    if (is_null($credit_card) && $withAccountBalance ) {
+                    if (is_null($credit_card) && $withAccountBalance) {
                         if ($order->totalOriginal()->getAmount() > $user->getBalance()->getAmount()) {
                             return new ActionResult(false);
                         }
@@ -171,21 +164,21 @@ class PowerBallService
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->setLottery($lottery);
                     $order->setPowerPlay($powerPlay);
-                    //$order->addFunds($order->getTotal());
                     $order->setAmountWallet($user->getWallet()->getBalance());
                     $draw = $this->lotteryService->getNextDrawByLottery($lotteryName);
-                    $uniqueId = $this->walletService->getUniqueTransactionId();
                     if ($credit_card != null) {
-                        $this->cardPaymentProvider->user($user);
-                        $this->cardPaymentProvider->idTransaction = $uniqueId;
-                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $uniqueId, $order, $isWallet);
+                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider, $credit_card, $user, $order, $isWallet);
+                        /** @var PaymentBodyResponse $paymentBodyResponse */
+                        $paymentBodyResponse = $result_payment->returnValues();
 
                     } else {
-                        if($order->getHasSubscription())
-                        {
-                            $this->walletService->createSubscriptionTransaction($user,$uniqueId,$order);
+                        if ($order->getHasSubscription()) {
+                            $this->walletService->createSubscriptionTransaction($user, $order->getTransactionId(), $order);
                         }
                         $result_payment = new ActionResult(true, $order);
+                        $paymentBodyResponse = new NormalBodyResponse($result_payment->success());
+                        $this->cardPaymentProvider = new FakeCardPaymentProvider();
+
                     }
 
                     if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
@@ -205,8 +198,8 @@ class PowerBallService
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                     if ($result_payment->success() && $orderIsToNextDraw) {
                         $APIPlayConfigs = json_encode($order->getPlayConfig());
-                        $externalApi=LotteryApisFactory::bookApi($lottery);
-                        $result_validation=json_decode($externalApi->book($APIPlayConfigs)->body);
+                        $externalApi = LotteryApisFactory::bookApi($lottery);
+                        $result_validation = json_decode($externalApi->book($APIPlayConfigs)->body);
 
                         $walletBefore = $user->getWallet();
                         $config = $di->get('config');
@@ -250,7 +243,7 @@ class PowerBallService
 
                         $dataTransaction = [
                             'lottery_id' => $lottery->getId(),
-                            'transactionID' => $uniqueId,
+                            'transactionID' => $order->getTransactionId(),
                             'numBets' => count($order->getPlayConfig()),
                             'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
                             'amountWithWallet' => $amount,
@@ -261,9 +254,9 @@ class PowerBallService
                             }, $order->getPlayConfig()),
                             'discount' => $discount,
                         ];
-
                         $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
                         $this->sendEmailPurchase($user, $order->getPlayConfig(), $order->getLottery()->getName());
+                        (new PaymentRedirectContext($this->cardPaymentProvider,$order->getLottery()->getName()))->execute($paymentBodyResponse);
                         return new ActionResult(true, $order);
                     } else {
                         return new ActionResult($result_payment->success(), $order);
@@ -281,7 +274,7 @@ class PowerBallService
     {
         try {
             /** @var ActionResult $result */
-            $result = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user->getId(),$this->getLottery($lottery)->getId())->key());
+            $result = $this->playStorageStrategy->findByKey(RedisOrderKey::create($user->getId(), $this->getLottery($lottery)->getId())->key());
             if ($result->success()) {
                 $form_decode = json_decode($result->returnValues());
                 $bets = [];

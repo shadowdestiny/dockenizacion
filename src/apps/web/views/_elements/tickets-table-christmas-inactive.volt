@@ -36,4 +36,5 @@
             </tr>
         {% endfor %}
     </table>
+    {{ paginator_christmas_view_subs_inactives }}
 </div>

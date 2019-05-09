@@ -177,14 +177,15 @@ class LotteryDrawRepository extends RepositoryBase
             $date = new \DateTime();
         }
 
+        $expression = $date->format('Y-m-d');
         /** @var EuroMillionsDraw $result */
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT ld'
                 . ' FROM ' . $this->getEntityName() . ' ld JOIN ld.lottery l'
-                . ' WHERE l.name = :lottery_name AND ld.draw_date = :date')
-            ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $date->format('Y-m-d')])
-            ->useResultCache(true, 3600)
+                . ' WHERE l.name = :lottery_name AND ld.draw_date = :date AND ld.lottery=l')
+            ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $expression])
+         //   ->useResultCache(true, 3600)
             ->getResult();
 
         return (!empty($result)) ? $result[0] : [];
@@ -197,8 +198,6 @@ class LotteryDrawRepository extends RepositoryBase
             $date = new \DateTime();
         }
         return $this->getBreakDown($lottery, $date);
-
-
     }
 
     public function getBreakDownData(Lottery $lottery, \DateTime $date = null)

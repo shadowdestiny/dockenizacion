@@ -16,6 +16,7 @@ use EuroMillions\web\services\CartService;
 use EuroMillions\web\services\ChristmasService;
 use EuroMillions\web\services\CurrencyConversionService;
 use EuroMillions\web\services\CurrencyService;
+use EuroMillions\web\services\GeoIPService;
 use EuroMillions\web\services\LanguageService;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\services\LotteryService;
@@ -72,6 +73,9 @@ class PublicSiteControllerBase extends ControllerBase
     protected $currencyUrl;
 
     protected $jackpot;
+
+    protected $geoIpService;
+
 
     public function initialize(LotteryService $lotteryService = null,
                                LanguageService $languageService = null,
@@ -134,6 +138,7 @@ class PublicSiteControllerBase extends ControllerBase
         }
         //To avoid clickjacking, add it in ngnix configuration
         $this->response->setHeader('X-Frame-Options', 'SAMEORIGIN');
+
     }
 
     public function checkAuth()
@@ -379,6 +384,9 @@ class PublicSiteControllerBase extends ControllerBase
     {
         $this->view->setVar('currency_symbol_first', true);
     }
+
+
+
 
     private function setVarWinningModal()
     {

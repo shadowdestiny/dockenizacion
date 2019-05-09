@@ -33,6 +33,7 @@ final class LotteryDrawDTOBuilder
     private $mapper = [
         'EuroJackpot' => 'EuroMillions\eurojackpot\vo\dto\\EuroJackpotDrawDTO',
         'MegaSena'    => 'EuroMillions\megasena\vo\dto\\MegaSenaDrawDTO',
+        'SuperEnalotto'    => 'EuroMillions\superenalotto\vo\dto\\SuperEnalottoDrawDTO',
         'PowerBall'   => 'EuroMillions\web\vo\dto\\PowerBallDrawDTO',
         'MegaMillions' => 'EuroMillions\megamillions\vo\dto\\MegaMillionsDrawDTO'
     ];

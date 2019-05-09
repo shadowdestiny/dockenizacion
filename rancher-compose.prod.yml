@@ -58,11 +58,11 @@ services:
       healthy_threshold: 2
       port: 80
       unhealthy_threshold: 3
-      initializing_timeout: 3000
+      initializing_timeout: 10000
       interval: 30000
       strategy: recreate
       request_line: GET "/readme.txt" "HTTP/1.0"
-      reinitializing_timeout: 1000
+      reinitializing_timeout: 6000
 
   php:
     scale: 1

@@ -103,6 +103,9 @@
   .box-balance {
 
     .box-balance--row {
+      &.dynamic-height{
+        height:auto;
+      }
       //border: 1px solid #333333;
 
       //padding-left: 30px;

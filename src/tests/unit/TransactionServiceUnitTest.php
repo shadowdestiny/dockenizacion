@@ -146,6 +146,75 @@ class TransactionServiceUnitTest extends UnitTestBase
         $this->assertNull($actual);
     }
 
+    /**
+    * method getPendingTransactions
+    * when called
+    * should returnAProperListOfPendingTransactions
+    */
+    public function test_getPendingTransactions_called_returnAProperListOfPendingTransactions()
+    {
+        $expected = [
+            ["id" => 1],
+        ];
+
+        $sut = $this->getSut();
+        $this->transactionsRepository_double->getPendingTransactionsEntityId(48*60)->willReturn($expected);
+        $this->transactionsRepository_double->removeTransactionByEntityId(1)->willReturn(1);
+        $actual = $sut->getPendingTransactionsEntityId(48*60);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method removeTransactionByEntityId
+     * when called
+     * should returnAProperNumberOfDeletedTransactions
+     */
+    public function test_removeTransactionByEntityId_called_returnAProperNumberOfDeletedTransactions()
+    {
+        $expected = 1;
+
+        $sut = $this->getSut();
+        $this->transactionsRepository_double->removeTransactionByEntityId(1)->willReturn($expected);
+        $actual = $sut->removeTransactionByEntityId(1);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+    * method getLastDepositProviderByUserId
+    * when called
+    * should returnAProperArrayOfProviders
+    */
+    public function test_getLastDepositProviderByUserId_called_returnAProperArrayOfProviders()
+    {
+        $expected = [
+            ['id' => 1, 'data' => "1#385#PENDING#3#PowerBall#0#royalpay"],
+            ['id' => 2, 'data' =>"1#335#PENDING#1#EuroMillions#moneymatrix"],
+        ];
+
+        $sut = $this->getSut();
+        $this->transactionsRepository_double->getLastDepositsDataByUserId(1, 1)->willReturn($expected);
+        $actual = $sut->getLastDepositProviderByUserId(1);
+
+        $this->assertEquals('royalpay', $actual);
+    }
+
+    /**
+     * method getLastDepositProviderByUserId
+     * when called
+     * should returnAProperEmptyArray
+     */
+    public function test_getLastDepositProviderByUserId_called_returnAProperEmptyArray()
+    {
+        $expected = [];
+
+        $sut = $this->getSut();
+        $this->transactionsRepository_double->getLastDepositsDataByUserId(1, 1)->willReturn($expected);
+        $actual = $sut->getLastDepositProviderByUserId(1);
+
+        $this->assertEquals(null, $actual);
+    }
 
     private function getSut()
     {

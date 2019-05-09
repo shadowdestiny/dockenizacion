@@ -14,6 +14,7 @@ use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\enum\OrderType;
 use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\TransactionId;
 use Money\Currency;
 use Money\Money;
 
@@ -24,12 +25,12 @@ class OrderMegaMillions extends Order
 
     private $powerPlay;
 
-    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw)
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null, $withWallet, Lottery $lottery, $draw,TransactionId $transactionId=null)
     {
 
         $this->powerPlay = (int)$play_config[0]->getPowerPlay();
         $this->powerPlayPrice = $lottery->getPowerPlayValue();
-        parent::__construct($play_config, $single_bet_price, $fee, $fee_limit, $discount, $withWallet, $lottery,$draw);
+        parent::__construct($play_config, $single_bet_price, $fee, $fee_limit, $discount, $withWallet, $lottery,$draw,$transactionId);
     }
 
 

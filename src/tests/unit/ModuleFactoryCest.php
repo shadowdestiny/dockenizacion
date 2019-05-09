@@ -8,6 +8,7 @@ use EuroMillions\shared\config\bootstrap\modules\AdminModule;
 use EuroMillions\shared\config\bootstrap\modules\MegaSenaModule;
 use EuroMillions\shared\config\bootstrap\modules\EuroJackpotModule;
 use EuroMillions\shared\config\bootstrap\modules\MegaMillionsModule;
+use EuroMillions\shared\config\bootstrap\modules\SuperEnalottoModule;
 
 class ModuleFactoryCest
 {
@@ -108,5 +109,19 @@ class ModuleFactoryCest
         $module = ModuleFactory::create('megasena', $this->application, $this->di, $this->appPath, $this->assetsPath, $this->di);
 
         $I->assertTrue($module instanceof MegaSenaModule);
+    }
+
+    /**
+     * method create
+     * when isSuperEnalotto
+     * should returnInstanceOfSuperEnalottoModule
+     * @param UnitTester $I
+     * @group module-factory
+     */
+    public function test_create_isSuperEnalotto_returnInstanceOfSuperEnalottoModule(UnitTester $I)
+    {
+        $module = ModuleFactory::create('superenalotto', $this->application, $this->di, $this->appPath, $this->assetsPath, $this->di);
+
+        $I->assertTrue($module instanceof SuperEnalottoModule);
     }
 }

@@ -4,6 +4,7 @@
 namespace EuroMillions\megasena\controllers;
 
 
+use EuroMillions\shared\helpers\PlayToPay;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\controllers\PowerBallPaymentController;
@@ -12,13 +13,16 @@ use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\enum\PaymentSelectorType;
 use EuroMillions\web\vo\ExpiryDate;
+use EuroMillions\web\vo\PaymentCountry;
 use Money\Currency;
 use Money\Money;
 
 final class MegaSenaPaymentController extends PowerBallPaymentController
 {
     private $lotteryName = "MegaSena";
+
     public function paymentAction()
     {
         $credit_card_form = new CreditCardForm();
@@ -32,6 +36,7 @@ final class MegaSenaPaymentController extends PowerBallPaymentController
         $payWallet = $this->request->getPost('paywallet') !== 'false';
         $isWallet = false;
         $powerball_service = $this->domainServiceFactory->getPowerBallService();
+        $playService = $this->domainServiceFactory->getPlayService();
         $errors = [];
         $user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */
@@ -83,8 +88,26 @@ final class MegaSenaPaymentController extends PowerBallPaymentController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
-                        $result = $powerball_service->play($user_id, $amount, $card, $payWallet, $isWallet,$this->lotteryName);
-                        return $this->playResult($result, $this->lotteryName);
+                        $aPaymentProvider = true; //$this->apiFeatureFlagService->getItem('apayment-provider')->getStatus()
+                        $result = $this->setPowerBallService($powerball_service)
+                            ->setPlayService($playService)
+                            ->setPaymentProviderServiceTrait($this->paymentProviderService)
+                            ->setPaymentCountryTrait($this->paymentCountry)
+                            ->setPaymentSelectorTypeTrait(new PaymentSelectorType(PaymentSelectorType::CREDIT_CARD_METHOD))
+                            ->payFromPlay(
+                                $user_id,
+                                $amount,
+                                $card,
+                                $payWallet,
+                                $isWallet,
+                                'MegaSena',
+                                $aPaymentProvider
+                            );
+
+                        if(!empty($result)) {
+                            return $this->playResult($result, 'megasena');
+                        }
+                        return false; //When we use the "PaymentRedirectContext" we force to return false.
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
@@ -109,7 +132,7 @@ final class MegaSenaPaymentController extends PowerBallPaymentController
             $this->response->redirect('/' . mb_strtolower($lotteryName) . '/result/success/'.mb_strtolower($lotteryName));
             return false;
         } else {
-            $this->response->redirect('/megasena/result/failure');
+            $this->response->redirect('/euromillions/result/failure');
             return false;
         }
     }

@@ -155,7 +155,9 @@
     checkRadio("#card-list tr, #bank-list tr");
     deleteLnk("#card-list .action a, #bank-list .action a");
     });
-	$('.submit').on('click', function(e){
+
+    /* //Disabled for now the moneymatrix iframe
+    $('.submit').on('click', function(e){
 
 		var amount=$('#funds-value').val();
 		amount=parseInt(amount)*100;
@@ -178,6 +180,8 @@
                                            });
         }
     });
+    */
+
     $('.submit_withdraw').on('click', function(e){
     		var amount=$('.funds-value-withdraw').val();
     		amount=parseInt(amount)*100;
@@ -308,6 +312,26 @@
                             </div>
                         </div>
                     {% endif %}
+                    {% if flash.has('error') %}
+                        <div class="box error">
+                            <svg class="ico v-warning">
+                                <use xlink:href="/w/svg/icon.svg#v-warning"/>
+                            </svg>
+                            <div class="txt">
+                                <ul class="no-li">
+                                        <li> {{ flash.output() }} </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if flash.has('success') %}
+                        <div class="box success">
+                            <svg class="ico v-checkmark">
+                                <use xlink:href="/w/svg/icon.svg#v-checkmark"/>
+                            </svg>
+                            <span class="txt">{{ flash.output() }}</span>
+                        </div>
+                    {% endif %}
 
                     <div class="box-balance">
                         <div class="box-balance--row cl">
@@ -323,7 +347,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="box-balance--row  cl" style="height:355px">
+                        <div class="box-balance--row cl dynamic-height">
                             <div class="txt">{{ language.translate("balance_yourSubscription") }} </div>
                             <div class="txt">{{ language.translate("EuroMillions") }} <span
                                         class="value">{{ wallet.subscriptionBalanceEuromillions}}</span></div>
@@ -339,7 +363,10 @@
                                  MegaSena
                                  <span class="value">{{ wallet.subscriptionBalanceMegaSena}}</span>
                             </div>
-
+                            <div class="txt">
+                                SuperEnalotto
+                                <span class="value">{{ wallet.subscriptionBalanceSuperEnalotto}}</span>
+                            </div>
                         </div>
                         <div class="box-balance--row  cl">
                             <div class="txt">{{ language.translate("balance_yourWithdrawable") }} <span
@@ -360,16 +387,18 @@
 
                     </div>
                 </div>
-                {#<form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/addFunds">
+                <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/addFunds">
                                     {% set component='{"where": "account"}'|json_decode %}
                                     {% include "account/_add-card.volt" %}
                                     <input type="hidden" id="csid" name="csid"/>
-                </form>#}
+                </form>
+                {#
                 <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency">
                     {% set component='{"where": "account"}'|json_decode %}
                     {% include "account/_add-money-matrix.volt" %}
                     <input type="hidden" id="csid" name="csid"/>
                 </form>
+                #}
                 <div class="box-bank {% if which_form != 'withdraw' %}hidden{% endif %}">
                     {% if msg %}
                         <div class="box success">
@@ -391,10 +420,101 @@
                             </div>
                         </div>
                     {% endif %}
+                    <h2 class="h3 yellow">{{ language.translate("withdraw_head") }}</h2>
 
-                   <form id="form-withdraw" class="box-add-bank">
-                            {% include "account/_add-money-matrix-withdraw.volt" %}
+                    <form action="/withdraw" method="post" id="form-withdraw" class="box-add-bank">
+                        <div class="box-details {#{% if which_form == 'edit' %} hidden {% endif %}#}">
+                            <div class="cl box-wallet">
+                                <div class="value">
+                                    <span class="purple">{{ language.translate("withdraw_balance") }}</span> {{ wallet.wallet_balance_amount }} {% if symbol != '€' %} ({{ wallet.balance }}) {% endif %}
+                                </div>
+                                <br>
+                                <div class="left value">
+                                    <span class="purple">{{ language.translate("withdraw_withdrawable") }}</span> {{ wallet.wallet_winning_amount }} {% if symbol != '€' %} ({{ wallet.winnings }}) {% endif %}
+                                </div>
+                                <br>
+                                <div class="value">
+                                    <span class="subtxt grey-lighter">{{ language.translate("withdraw_minimum") }}</span>
+                                </div>
+                                <br>
+                                <div class="value">
+                                    <span class="subtxt grey-lighter">{{ language.translate("withdraw_ccyWarning") }}</span>
+                                </div>
+                                <br>
+                                <div class="form-currency cl">
+                                    <br>
+                                    {#<span class="currency">&euro;</span>#}
+                                    {{ bank_account_form.render('amount', {'class':'withdraw_amount input insert'~form_errors['amount']}) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div class="">
+                                <div class="bank-details-block">
+                                    <h2 class="h3 yellow">{{ language.translate("withdraw_bank") }}</h2>
+
+                                    <label class="label" for="add-bank-user">
+                                        {{ language.translate("withdraw_name") }} <span class="asterisk">*</span> <span
+                                                class="subtxt">({{ language.translate("bank account holder name") }}</span>
+                                    </label>
+                                    {{ bank_account_form.render('name', {'class':'input'~form_errors['name']}) }}
+
+                                    <label class="label" for="add-bank-user-surname">
+                                        {{ language.translate("withdraw_surname") }} <span class="asterisk">*</span>
+                                        <span class="subtxt">({{ language.translate("bank account holder") }})</span>
+                                    </label>
+                                    {{ bank_account_form.render('surname', {'class':'input'~form_errors['surname']}) }}
+                                    <label class="label" for="add-bank-name">
+                                        {{ language.translate("withdraw_bankname") }} <span class="asterisk">*</span>
+                                    </label>
+                                    {{ bank_account_form.render('bank-name', {'class':'input'~form_errors['bank-name']}) }}
+                                    <label class="label" for="add-bank-iban">
+                                        {{ language.translate("withdraw_iban") }} <span class="asterisk">*</span>
+                                    </label>
+                                    {{ bank_account_form.render('bank-account', {'class':'input'~form_errors['bank-account']}) }}
+                                    <label class="label" for="add-bank-bic">
+                                        {{ language.translate("withdraw_bic") }} <span class="asterisk">*</span>
+                                    </label>
+                                    {{ bank_account_form.render('bank-swift', {'class':'input'~form_errors['bank-swift']}) }}
+                                </div>
+                                <div class="">
+                                    <label class="label" for="add-bank-country">
+                                        {{ language.translate("withdraw_county") }} <span class="asterisk">*</span>
+                                    </label>
+                                    <div class="selectbox">
+                                    {{ bank_account_form.render('country', {'disabled':'disabled','class':'select'~form_errors['country']}) }}
+                                    </div>
+
+                                    <label class="label" for="add-bank-address">
+                                        {{ language.translate("withdraw_address") }} <span class="asterisk">*</span>
+                                    </label>
+                                    {{ bank_account_form.render('street', {'class':'input'~form_errors['street']}) }}
+                                    <label class="label" for="add-bank-city">
+                                        {{ language.translate("withdraw_city") }} <span class="asterisk">*</span>
+                                    </label>
+                                    {{ bank_account_form.render('city', {'class':'input'~form_errors['city']}) }}
+                                    <label class="label" for="add-bank-postal">
+                                        {{ language.translate("withdraw_zip") }} <span class="asterisk">*</span>
+                                    </label>
+                                    {{ bank_account_form.render('zip', {'class':'input'~form_errors['zip']}) }}
+                                    <label class="label" for="add-bank-phone">
+                                        {{ language.translate("withdraw_phone") }} <span class="asterisk">*</span>
+                                    </label>
+                                    {{ bank_account_form.render('phone_number', {'class':'input'~form_errors['phone_number']}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cl">
+                            <label class="label submit btn gray" style="cursor:default; float: left;" for="new-bank">
+                                {{ language.translate("withdraw_request_btn") }}
+                                <input id="new-bank" type="submit" class="hidden">
+                            </label>
+                        </div>
                     </form>
+                    {#<form id="form-withdraw" class="box-add-bank">
+                            {% include "account/_add-money-matrix-withdraw.volt" %}
+                    </form>#}
                 </div>
             </div>
         </div>

@@ -218,6 +218,15 @@ class ReportsController extends AdminControllerBase
         ]);
     }
 
+    public function salesDrawSuperEnalottoAction()
+    {
+        $this->checkPermissions();
+        $this->view->setVars([
+            'needReportsMenu' => true,
+            'salesDraw' => $this->reportsService->fetchSalesDrawSuperEnalotto()
+        ]);
+    }
+
     public function salesDrawPowerBallAction()
     {
         $this->checkPermissions();
@@ -268,6 +277,21 @@ class ReportsController extends AdminControllerBase
         }
     }
 
+    public function salesDrawSuperEnalottoDetailsAction()
+    {
+        $this->checkPermissions();
+        if ($this->request->get('id')) {
+            $drawDates = $this->reportsService->getSuperEnalottoDrawsActualAfterDatesById($this->request->get('id'));
+            $this->view->setVars([
+                'needReportsMenu' => true,
+                'euromillionsDrawId' => $this->request->get('id'),
+                'salesDrawDetailsData' => $this->reportsService->getSuperEnalottoDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'countryList' => $this->countries,
+            ]);
+
+        }
+    }
+
     public function salesDrawPowerBallDetailsAction()
     {
         $this->checkPermissions();
@@ -278,6 +302,37 @@ class ReportsController extends AdminControllerBase
                 'needReportsMenu' => true,
                 'euromillionsDrawId' => $this->request->get('id'),
                 'salesDrawDetailsData' => $this->reportsService->getPowerBallDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'countryList' => $this->countries,
+            ]);
+
+        }
+    }
+
+    public function salesDrawMegaMillionsDetailsAction()
+    {
+        $this->checkPermissions();
+        if ($this->request->get('id')) {
+            $drawDates = $this->reportsService->getMegaMillionsDrawsActualAfterDatesById($this->request->get('id'));
+
+            $this->view->setVars([
+                'needReportsMenu' => true,
+                'euromillionsDrawId' => $this->request->get('id'),
+                'salesDrawDetailsData' => $this->reportsService->getMegaMillionsDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'countryList' => $this->countries,
+            ]);
+
+        }
+    }
+
+    public function salesDrawEuroJackpotDetailsAction()
+    {
+        $this->checkPermissions();
+        if ($this->request->get('id')) {
+            $drawDates = $this->reportsService->getEuroJackpotDrawsActualAfterDatesById($this->request->get('id'));
+            $this->view->setVars([
+                'needReportsMenu' => true,
+                'euromillionsDrawId' => $this->request->get('id'),
+                'salesDrawDetailsData' => $this->reportsService->getEuroJackpotDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
                 'countryList' => $this->countries,
             ]);
 

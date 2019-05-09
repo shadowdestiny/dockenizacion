@@ -18,6 +18,7 @@ use EuroMillions\web\services\factories\OrderFactory;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderPowerBall;
+use EuroMillions\web\vo\TransactionId;
 use Money\Currency;
 use Money\Money;
 
@@ -96,6 +97,10 @@ class CartService
                     }
                     $fee = $this->siteConfigService->getFee();
                     $fee_limit = $this->siteConfigService->getFeeToLimitValue();
+
+                    $arrayFromjson = json_decode($result->getValues(), TRUE); //TODO: refactor.
+
+                    //TODO: check $result->getValues to var
                     $order = OrderFactory::create(
                         $bets,
                         $lottery->getSingleBetPrice(),
@@ -103,7 +108,8 @@ class CartService
                         new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()),
                         $lottery,
                         $result->getValues(),
-                        $withWallet
+                        $withWallet,
+                        new TransactionId($arrayFromjson['transactionId'])
                     );
                     if (null !== $order) {
                         return new ActionResult(true, $order);

@@ -106,12 +106,23 @@ master_gw_id={{ gcp_master_gw_id}}
 master_sign_key={{ gcp_master_sign_key }}
 
 [wirecard]
-endpoint= {{ wirecard_endpoint }}
-endpoint_withdraw= {{ wirecard_endpoint_withdraw }}
+endpoint={{ wirecard_endpoint }}
+endpoint_withdraw={{ wirecard_endpoint_withdraw }}
 api_key={{ wirecard_apikey }}
+countries=
+weight=5
 
 [moneymatrix]
 endpoint={{ moneymatrix_endpoint }}
+api_key=not-set
+countries=
+weight=10
+
+[royalpay]
+endpoint={{ royalpay_endpoint }}
+api_key={{ royalpay_apikey }}
+countries=RU,UA
+weight=10
 
 [lotto_api]
 endpoint= {{ lottorisq_endpoint }}
@@ -124,6 +135,14 @@ api_key={{ megamillions_apikey }}
 [eurojackpot_api]
 endpoint={{ eurojackpot_endpoint }}
 api_key={{ eurojackpot_apikey }}
+
+[megasena_api]
+endpoint={{ megasena_endpoint }}
+api_key={{ megasena_apikey }}
+
+[superenalotto_api]
+endpoint={{ superenalotto_endpoint }}
+api_key={{ superenalotto_apikey }}
 
 [aws]
 queue_results_endpoint={{ queue_results_endpoint }}
@@ -140,8 +159,12 @@ normal={{geoip_normal}}
 blocked={{geoip_blocked}}
 geoip={{geoip_geoip}}
 geoIpImpl={{geoip_geoIpImpl}}
-database_path={{geoip_database_path}}
 blocked_countries={{geoip_blocked_countries}}
+database_path={{geoip_database_path}}
+database_name={{geoip_database_name}}
+account_id={{geoip_account_id}}
+license_key={{geoip_licence_key}}
+use_database={{geoip_use_database}}
 
 [payment_balancing]
 strategy={{ payment_balancing }}
@@ -165,3 +188,6 @@ database_files_path={{ file_databasegeoip_path }}
 [featureflag_api]
 endpoint={{ featureflag_api_endpoint }}
 api_key={{ featureflag_api_apikey }}
+
+[payments_notifications]
+token={{ payments_notifications_token }}

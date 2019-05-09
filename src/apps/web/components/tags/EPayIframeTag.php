@@ -7,7 +7,9 @@ namespace EuroMillions\web\components\tags;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\interfaces\IPaymentResponseRedirect;
 use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\dto\payment_provider\PaymentProviderDTO;
 use EuroMillions\web\vo\EmPayCypher;
 use EuroMillions\web\vo\Order;
 use Money\Money;
@@ -80,22 +82,25 @@ class EPayIframeTag extends Tag implements ICardPaymentProvider
     }
 
     /**
-     * @param Money $amount
-     * @param CreditCard $card
-     * @return PaymentProviderResult
+     * @param PaymentProviderDTO $data
+     * @return void
      * @throws \Exception
      */
-    public function charge(Money $amount, CreditCard $card)
+    public function charge(PaymentProviderDTO $data)
+    {
+        throw new \Exception();
+    }
+
+    public function getName()
     {
         throw new \Exception();
     }
 
     /**
-     * @param User $user
-     * @return mixed
+     * @return IPaymentResponseRedirect
      */
-    public function user(User $user)
+    public function getResponseRedirect()
     {
-        // TODO: Implement user() method.
+        // TODO: Implement getResponseRedirect() method.
     }
 }

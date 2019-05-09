@@ -26,6 +26,27 @@ class MegaSenaPurchaseSubscriptionConfirmationEmailTemplate extends PowerBallPur
             $subject = 'Congratulations';
         }
 
+        $arr= $this->getLine();
+
+        foreach($arr as &$item)
+        {
+            usort($item['regular_numbers'], function ($a, $b)
+            {
+                return $a['number'] - $b['number'];
+            });
+
+            if($item['regular_numbers'][4]['number']>$item['lucky_numbers'][0]['number'])
+            {
+                $aux=$item['lucky_numbers'][0]['number'];
+                $item['lucky_numbers'][0]['number']=$item['regular_numbers'][4]['number'];
+                $item['regular_numbers'][4]['number']= $aux;
+            }
+            usort($item['regular_numbers'], function ($a, $b)
+            {
+                return $a['number'] - $b['number'];
+            });
+        }
+
         $vars = [
             'template' => $template_id,
             'subject' => $subject,
@@ -33,7 +54,7 @@ class MegaSenaPurchaseSubscriptionConfirmationEmailTemplate extends PowerBallPur
                 [
                     [
                         'name' => 'line',
-                        'content' => $this->getLine(),
+                        'content' => $arr,
                     ],
                     [
                         'name' => 'user_name',

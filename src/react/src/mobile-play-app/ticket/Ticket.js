@@ -18,6 +18,7 @@ import {
   GAME_MODE_MEGAMILLIONS,
   GAME_MODE_EUROJACKPOT,
   GAME_MODE_MEGASENA,
+  GAME_MODE_SUPERENALOTTO,
 } from '../constants'
 
 /**
@@ -53,7 +54,7 @@ export default class Ticket extends Component {
      */
     nextDrawFormat : PropTypes.string,
 
-    gameMode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS, GAME_MODE_MEGAMILLIONS, GAME_MODE_EUROJACKPOT, GAME_MODE_MEGASENA]),
+    gameMode : PropTypes.oneOf([GAME_MODE_POWERBALL, GAME_MODE_EUROMILLIONS, GAME_MODE_MEGAMILLIONS, GAME_MODE_EUROJACKPOT, GAME_MODE_MEGASENA, GAME_MODE_SUPERENALOTTO]),
   }
 
   constructor (props) {

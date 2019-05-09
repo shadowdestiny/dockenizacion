@@ -31,31 +31,71 @@ localStorage.removeItem('bet_line');
 {%endif%}
 {% if (lottery_name == 'MegaSena') %}
     localStorage.removeItem('ms_bet_line');
+    // I'm not proud of this script but it resolves, I would have preferred to modify the core to avoid these tricks, just as I was doing in the revision: c42364e701cecbaed91c998f31aa8d8b3bfeaed9 and f8899d71fcd2a47f43b95afe5f74345460d1da46
+    var megasena_elements = $("ul.numbers");
+    megasena_elements.each(function(i,elem){
+        var li_order = [];
+        $(this).find(".circle_megasena").each(function(i){
+            li_order.push(parseInt($(this).text()));
+        });
+        var li = '';
+        li_order = li_order.sort(function(a,b){
+            return a - b;
+        });
+        $.each(li_order,function(i,val){
+            li+= '<li class="circle_megasena">'+(( parseInt(val.toString()) < 10) ? ("0" + val): val)+'</li>'
+        });
+        $(this).html(li);
+    });
 {%endif%}
 
+{% if (lottery_name == 'SuperEnalotto') %}
+    localStorage.removeItem('se_bet_line');
+
+    var superenalotto_elements = $("ul.numbers");
+    superenalotto_elements.each(function(i,elem){
+        var li_order = [];
+        $(this).find(".circle_superenalotto").each(function(i){
+            li_order.push(parseInt($(this).text()));
+        });
+        var li = '';
+        li_order = li_order.sort(function(a,b){
+            return a - b;
+        });
+        $.each(li_order,function(i,val){
+            li+= '<li class="circle_superenalotto">'+(( parseInt(val.toString()) < 10) ? ("0" + val): val)+'</li>'
+        });
+
+        li += '<li class="circle_superenalotto_jolly">'+$(this).find("li.circle_superenalotto_jolly").text()+'</li>';
+        $(this).html(li);
+    });
+
+{% endif %}
 
 </script>
 {% endblock %}
 {% block template_scripts_code %}
     $(function(){
-    var html_formatted_offset = [];
-    $('.countdown-black .dots').eq(2).hide();
-    $('.countdown-black .seconds').hide();
-    var element = $('.countdown-black');
-    var html_formatted = element.html();
-    $('.countdown-black .dots').eq(2).show();
-    $('.countdown-black .seconds').show();
-    $('.countdown-black .day').remove();
-    $('.countdown-black .dots').eq(0).remove();
-    html_formatted_offset[0] = $('.countdown-black').html();
-    $('.countdown-black .hour').remove();
-    $('.countdown-black .dots').eq(0).remove();
-    html_formatted_offset[1] = $('.countdown-black').html();
-    $('.countdown-black .minute').remove();
-    $('.countdown-black .dots').eq(0).remove();
-    html_formatted_offset[2] = $('.countdown-black').html();
-    var finish_action = function(){
-    $('.box-next-draw .btn.red').remove();
+        var html_formatted_offset = [];
+        $('.countdown-black .dots').eq(2).hide();
+        $('.countdown-black .seconds').hide();
+        var element = $('.countdown-black');
+        var html_formatted = element.html();
+        $('.countdown-black .dots').eq(2).show();
+        $('.countdown-black .seconds').show();
+        $('.countdown-black .day').remove();
+        $('.countdown-black .dots').eq(0).remove();
+        html_formatted_offset[0] = $('.countdown-black').html();
+        $('.countdown-black .hour').remove();
+        $('.countdown-black .dots').eq(0).remove();
+        html_formatted_offset[1] = $('.countdown-black').html();
+        $('.countdown-black .minute').remove();
+        $('.countdown-black .dots').eq(0).remove();
+        html_formatted_offset[2] = $('.countdown-black').html();
+        var finish_action = function(){
+        $('.box-next-draw .btn.red').remove();
+
+
     }
     var date = '{{ date_draw }}'; {# To test "2015/11/17 10:49:00"  #}
     var finish_text = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
@@ -162,7 +202,13 @@ function numCharLine($line){
 
                         <ul class="no-li inline numbers small">
                             {% for regular_number in regular_arr %}
-                                <li><?php echo sprintf("%02s", $regular_number);?></li>
+                                 {% if (lottery_name == 'MegaSena') %}
+                                    <li class="circle_megasena"><?php echo sprintf("%02s", $regular_number);?></li>
+                                 {% elseif (lottery_name == 'SuperEnalotto') %}
+                                    <li class="circle_superenalotto"><?php echo sprintf("%02s", $regular_number);?></li>
+                                 {% else %}
+                                    <li><?php echo sprintf("%02s", $regular_number);?></li>
+                                 {% endif %}
                             {% endfor %}
                             {% if (lottery_name == 'PowerBall') %}
                                 <li class="star_red"><?php echo sprintf("%02s", $lucky_arr[1]);?></li>
@@ -177,9 +223,16 @@ function numCharLine($line){
                                     </li>
                                 {% endfor %}
                             {% elseif (lottery_name == 'MegaSena') %}
-                               <li>
+                               <li class="circle_megasena">
                                    <?php echo sprintf("%02s", $lucky_arr[1]);?>
                                </li>
+                            {% elseif (lottery_name == 'SuperEnalotto') %}
+                                <li class="circle_superenalotto">
+                                    <?php echo sprintf("%02s", $lucky_arr[1]);?>
+                                </li>
+                                <li class="circle_superenalotto_jolly">
+                                    <?php echo sprintf("%02s", $lucky_arr[0]);?>
+                                </li>
                             {% else %}
                                 {% for lucky_number in lucky_arr %}
                                     <li class="star">

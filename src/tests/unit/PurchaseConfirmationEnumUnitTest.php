@@ -53,7 +53,7 @@ class PurchaseConfirmationEnumUnitTest extends UnitTestBase
         return [
             ['EuroJackpot','EuroMillions\eurojackpot\emailTemplates\EuroJackpotPurchaseConfirmationEmailTemplate'],
             ['MegaMillions','EuroMillions\megamillions\emailTemplates\MegaMillionsPurchaseConfirmationEmailTemplate'],
-            ['EuroMillions','EuroMillions\web\emailTemplates\EuroMillionsPurchaseConfirmationEmailTemplate']
+            ['EuroMillions','EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate']
         ];
     }
 

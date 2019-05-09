@@ -96,7 +96,7 @@ class ViewHelper
                     'trillions' => true,
                     'milliards' => false
             ];
-        } elseif (self::isLessThanMill($letters, $jackpotValue)) {
+        } elseif (self::isLessThanTwoMill($letters, $jackpotValue)) {
             return ['jackpot_value' => self::formatJackpotOneCent($jackpotValue),
                 'milliards' => false,
                 'trillions' => false
@@ -109,10 +109,10 @@ class ViewHelper
         }
     }
 
-    public static function isLessThanMill($letters, $jackpotValue)
+    public static function isLessThanTwoMill($letters, $jackpotValue)
     {
         $jackpotValue = str_replace($letters, '', $jackpotValue);
-        return strpos($jackpotValue, ".") && explode('.', $jackpotValue)[0] == '0';
+        return strpos($jackpotValue, ".") && (explode('.', $jackpotValue)[0] == '0' || explode('.', $jackpotValue)[0] == '1');
     }
 
     public static function formatJackpotOneCent($jackpotValue)
