@@ -68,6 +68,8 @@ class LotteryResultsListWidget extends \Phalcon\Mvc\User\Component
                 return 'lottery-result--eurojackpot';
             case 'MegaSena'   :
                 return 'lottery-result--megasena';
+            case 'SuperEnalotto'   :
+                return 'lottery-result--superenalotto';
             default:
                 return 'lottery-result--euromillions';
 
