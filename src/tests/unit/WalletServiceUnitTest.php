@@ -1,10 +1,16 @@
 <?php
 namespace EuroMillions\tests\unit;
 
+use EuroMillions\shared\components\PaymentsCollection;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\tests\helpers\mothers\OrderMother;
 use EuroMillions\tests\helpers\mothers\PlayConfigMother;
+use EuroMillions\web\services\card_payment_providers\FakeCardPaymentStrategy;
+use EuroMillions\web\services\card_payment_providers\royalpay\RoyalPayConfig;
+use EuroMillions\web\services\card_payment_providers\RoyalPayPaymentProvider;
+use EuroMillions\web\services\card_payment_providers\RoyalPayPaymentStrategy;
+use EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy;
 use EuroMillions\web\services\WalletService;
 use EuroMillions\web\vo\dto\WalletDTO;
 use EuroMillions\web\vo\enum\TransactionType;
@@ -167,29 +173,6 @@ class WalletServiceUnitTest extends UnitTestBase
 
 
     /**
-     * method purchaseTransactionGrouped
-     * when called
-     * should callStoreTransactionMethodAndCreateIT
-     */
-    public function test_purchaseTransactionGrouped_called_callStoreTransactionMethodAndCreateIT()
-    {
-
-    }
-
-
-    /**
-     *
-     */
-    public function test_pay_calledWithCreditCardOnly_shouldBeAddedToUserWallet()
-    {
-
-        $order = OrderMother::aJustOrder();
-
-
-
-    }
-
-    /**
      * method withDraw
      * when called
      * should substractFromWinningsAndStoreTransaction
@@ -288,6 +271,57 @@ class WalletServiceUnitTest extends UnitTestBase
 
 
     /**
+     * method pay
+     * when calledWithSeveralPaymentsProviders
+     * should returnTheSecondPaymentProviderInCollection
+     */
+    public function test_pay_calledWithSeveralPaymentsProviders_returnTheSecondPaymentProviderInCollection()
+    {
+        $expected = new RoyalPayPaymentProvider(new RoyalPayConfig('',''));
+        list($paymentsCollection, $wirecardStrategy, $wirecardProvider, $royalPayStrategy, $royalPayProvider, $user, $order, $credit_card) = $this->preparePaymentsCollection();
+        $wirecardStrategy->get()->willReturn($wirecardProvider);
+        $wirecardProvider->getName()->willReturn('wirecard');
+        $wirecardProvider->charge(Argument::any())->willReturn(new PaymentProviderResult(false));
+        $royalPayStrategy->get()->willReturn($royalPayProvider);
+        $royalPayProvider->getName()->willReturn('royalpay');
+        $royalPayProvider->charge(Argument::any())->willReturn(new PaymentProviderResult(true, $expected));
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
+        $actual = $sut->payFromProviderCollections($paymentsCollection,$user,$order,$credit_card);
+        $this->assertInstanceOf('EuroMillions\web\services\card_payment_providers\RoyalPayPaymentProvider',$actual->returnValues());
+    }
+
+
+    /**
+     * method pay
+     * when calledWithSeveralPaymentsProviders
+     * should returnPaymentProviderResultFalse
+     */
+    public function test_pay_calledWithSeveralPaymentsProviders_returnPaymentProviderResultFalse()
+    {
+        $expected = new RoyalPayPaymentProvider(new RoyalPayConfig('',''));
+        $paymentsCollection = new PaymentsCollection();
+        $wirecardStrategy = $this->prophesize('EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy');
+        $wirecardProvider = $this->prophesize('EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider');
+        $royalPayStrategy = $this->prophesize('EuroMillions\web\services\card_payment_providers\RoyalPayPaymentStrategy');
+        $royalPayProvider = $this->prophesize('EuroMillions\web\services\card_payment_providers\RoyalPayPaymentProvider');
+        $paymentsCollection->addItem('WideCardPaymentStrategy', $wirecardStrategy->reveal());
+        $paymentsCollection->addItem('RoyalPayPaymentStrategy', $royalPayStrategy->reveal());
+        $user = UserMother::aUserWith50Eur()->build();
+        $order = OrderMother::aJustOrder()->buildANewWay();
+        $credit_card = CreditCardMother::aValidCreditCard();
+        $wirecardStrategy->get()->willReturn($wirecardProvider);
+        $wirecardProvider->getName()->willReturn('wirecard');
+        $wirecardProvider->charge(Argument::any())->willReturn(new PaymentProviderResult(false));
+        $royalPayStrategy->get()->willReturn($royalPayProvider);
+        $royalPayProvider->getName()->willReturn('royalpay');
+        $royalPayProvider->charge(Argument::any())->willReturn(new PaymentProviderResult(false));
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
+        $actual = $sut->payFromProviderCollections($paymentsCollection,$user,$order,$credit_card);
+        $this->assertEquals(false,$actual->success());
+    }
+
+
+    /**
      * @param $expected_wallet_amount
      * @param $payment_provider_result
      * @param $amount
@@ -326,6 +360,34 @@ class WalletServiceUnitTest extends UnitTestBase
         $this->currencyConversionService_double->toString($uploaded, $user->getLocale())->willReturn($uploaded_string);
         $this->currencyConversionService_double->convert(Argument::any(), Argument::any())->willReturn($uploaded);
         $this->currencyConversionService_double->toString($uploaded, $user->getLocale())->willReturn($uploaded_string);
+    }
+
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    protected function preparePaymentsCollection()
+    {
+        $paymentsCollection = new PaymentsCollection();
+        $wirecardStrategy = $this->prophesize('EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy');
+        $wirecardProvider = $this->prophesize('EuroMillions\web\services\card_payment_providers\WideCardPaymentProvider');
+        $royalPayStrategy = $this->prophesize('EuroMillions\web\services\card_payment_providers\RoyalPayPaymentStrategy');
+        $royalPayProvider = $this->prophesize('EuroMillions\web\services\card_payment_providers\RoyalPayPaymentProvider');
+        $paymentsCollection->addItem('WideCardPaymentStrategy', $wirecardStrategy->reveal());
+        $paymentsCollection->addItem('RoyalPayPaymentStrategy', $royalPayStrategy->reveal());
+        $user = UserMother::aUserWith50Eur()->build();
+        $order = OrderMother::aJustOrder()->buildANewWay();
+        $credit_card = CreditCardMother::aValidCreditCard();
+        return array(
+            $paymentsCollection,
+            $wirecardStrategy,
+            $wirecardProvider,
+            $royalPayStrategy,
+            $royalPayProvider,
+            $user,
+            $order,
+            $credit_card
+        );
     }
 
 }

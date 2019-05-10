@@ -4,12 +4,15 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\components\builder\PaymentProviderDTOBuilder;
+use EuroMillions\shared\components\PaymentsCollection;
 use EuroMillions\shared\enums\PaymentProviderEnum;
 use EuroMillions\shared\interfaces\IResult;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\services\card_payment_providers\ICreditCardStrategy;
 use EuroMillions\web\services\notification_mediator\Colleague;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
@@ -123,11 +126,11 @@ class WalletService extends Colleague
 
 
     public function onlyPay(ICardPaymentProvider $provider,
-                            CreditCard $card,
-                            User $user,
-                            $uniqueID = null,
-                            Order $order,
-                            $isWallet = null)
+        CreditCard $card,
+        User $user,
+        $uniqueID = null,
+        Order $order,
+        $isWallet = null)
     {
         //$creditCardCharge = $order->getCreditCardCharge();
         //$payment_result = $this->pay($provider, $card, $creditCardCharge);
@@ -248,21 +251,60 @@ class WalletService extends Colleague
         return $payment_result;
     }
 
+    public function payFromProviderCollections(
+        PaymentsCollection $providers,
+        User $user,
+        Order $order,
+        CreditCard $card
+    ) {
+        try {
+            $amount = $order->getCreditCardCharge()->getFinalAmount();
+            static $lastPaymentProvider = null;
+            foreach ($providers->getIterator() as $provider) {
+                if (count($providers->getIterator()) == 0) {
+                    return new PaymentProviderResult(false, $lastPaymentProvider);
+                }
+                $paymentProviderDTO = (new PaymentProviderDTOBuilder())
+                    ->setProvider($provider->get())
+                    ->setUser(new UserDTO($user))
+                    ->setOrder($order)
+                    ->setAmount($amount)
+                    ->setCard($card)
+                    ->build();
+                $result = $provider->get()->charge($paymentProviderDTO);
+                if ($result->success()) {
+                    return $result;
+                }
+                //EMTD: for testing purpose
+                $strategyName = function ($provider) {
+                    $name = substr(get_class($provider), strrpos(get_class($provider), '\\') + 1);
+                    if (preg_match('~[0-9]~', $name)) {
+                        return explode('\\', get_class($provider))[5];
+                    }
+                    return $name;
+                };
+                $lastPaymentProvider = $provider;
+                $providers->deleteItem($strategyName($provider));
+                $this->payFromProviderCollections($providers, $user, $order, $card);
+            }
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+
 
     public function pay(ICardPaymentProvider $provider, User $user, Order $order, CreditCard $card)
     {
         try {
             $amount = $order->getCreditCardCharge()->getFinalAmount();
-
             $paymentProviderDTO = (new PaymentProviderDTOBuilder())
                 ->setProvider($provider)
                 ->setUser(new UserDTO($user))
                 ->setOrder($order)
                 ->setAmount($amount)
                 ->setCard($card)
-                ->build()
-            ;
-
+                ->build();
             return $provider->charge($paymentProviderDTO);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
