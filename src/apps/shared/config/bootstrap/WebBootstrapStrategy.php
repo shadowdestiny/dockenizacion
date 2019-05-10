@@ -1685,6 +1685,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function configSession()
     {
+        ini_set('session.gc_maxlifetime', 1800);
+        session_set_cookie_params(1800);
         $session = new PhalconSessionWrapper();
         $session->start();
         return $session;
