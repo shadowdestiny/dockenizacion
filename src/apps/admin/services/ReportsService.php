@@ -343,6 +343,18 @@ class ReportsService
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
     }
 
+    public function getMegaSenaDrawsActualAfterDatesById($id)
+    {
+        /** @var EuroMillionsDraw $actualDraw */
+        $actualDraw = $this->lotteryDrawRepository->find($id);
+        $nextDrawDate = clone $actualDraw->getDrawDate()->setTime(03, 00, 00);
+        $nextDrawDate = $nextDrawDate->modify('+1 day');
+        $actualDrawDate = $this->getNextDateDrawByLottery('MegaSena', $actualDraw->getDrawDate()->modify('-5 days'))->setTime(03, 00, 00);
+        $actualDrawDate = $actualDrawDate->modify('+1 day');
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
     /**
      * @param $id
      *
@@ -412,6 +424,20 @@ class ReportsService
         $actualDraw = new \DateTime($date);
         $nextDrawDate = clone $actualDraw->setTime(19, 30, 00);
         $actualDrawDate = $this->getNextDateDrawByLottery('EuroJackpot', $actualDraw->modify('-8 days'))->setTime(19, 30, 00);
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
+    /**
+     * @param $date
+     *
+     * @return array
+     */
+    public function getMegaSenaDrawsActualAfterDatesByDrawDate($date)
+    {
+        $actualDraw = new \DateTime($date);
+        $nextDrawDate = clone $actualDraw->setTime(19, 30, 00);
+        $actualDrawDate = $this->getNextDateDrawByLottery('MegaSena', $actualDraw->modify('-5 days'))->setTime(19, 30, 00);
 
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
     }
@@ -568,6 +594,43 @@ class ReportsService
      *
      * @return array
      */
+    public function getMegaSenaDrawDetailsByIdAndDates($id, $drawDates)
+    {
+        $drawDetails = $this->generateMovement($this->reportsRepository->getMegaSenaDrawDetailsByIdAndDates($id, $drawDates));
+        foreach ($drawDetails as $drawKey => $drawValue) {
+            if ($drawValue['entity_type'] == 'ticket_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[5])) {
+                    $betIds = explode(',', $drawData[5]);
+                    $cont = 0;
+                    foreach ($betIds as $betId) {
+                        $drawDetails[$drawKey]['betIds']['id'][$cont] = $betId;
+                        $numbers = $this->reportsRepository->getNumbersPlayedByBetId($betId);
+                        unset($numbers['line_lucky_number_one']);
+                        $drawDetails[$drawKey]['betIds']['numbers'][$cont] = implode(", ", $numbers);
+                        $cont++;
+                    }
+                }
+            } elseif ($drawValue['entity_type'] == 'automatic_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[2])) {
+                    $drawDetails[$drawKey]['betIds']['id'][0] = $drawData[2];
+                    $numbers = $this->reportsRepository->getNumbersPlayedByBetId($drawData[2]);
+                    unset($numbers['line_lucky_number_one']);
+                    $drawDetails[$drawKey]['betIds']['numbers'][0] = implode(", ", $numbers);
+                }
+            }
+        }
+
+        return $drawDetails;
+    }
+
+    /**
+     * @param $id
+     * @param $drawDates
+     *
+     * @return array
+     */
     public function getChristmasDrawDetailsByIdAndDates($id, $drawDates)
     {
         $drawDetails = $this->generateMovement($this->reportsRepository->getChristmasDrawDetailsByIdAndDates($id, $drawDates));
@@ -674,6 +737,22 @@ class ReportsService
         foreach ($salesDraw as $keyDraw => $valueDraw) {
             $drawDates = $this->getEuroJackpotDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
             $drawData = $this->reportsRepository->getEuroJackpotDrawDetailsBetweenDrawDates($drawDates);
+            $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
+            $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
+            $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];
+        }
+        return $salesDraw;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function fetchSalesDrawMegaSena()
+    {
+        $salesDraw = $this->reportsRepository->getSalesDrawMegaSena();
+        foreach ($salesDraw as $keyDraw => $valueDraw) {
+            $drawDates = $this->getMegaSenaDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
+            $drawData = $this->reportsRepository->getMegaSenaDrawDetailsBetweenDrawDates($drawDates);
             $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
             $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
             $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];
