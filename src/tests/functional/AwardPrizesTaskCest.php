@@ -150,6 +150,43 @@ class AwardprizesTaskCest
     }
 
     /**
+     * @group tasks
+     * @param FunctionalTester $I
+     */
+    public function superEnalottoWinnersAreAwarded(FunctionalTester $I)
+    {
+        $superEnalottoLottery = LotteryMother::aSuperEnalotto();
+        /** @var \EuroMillions\web\entities\User $user */
+        $user = UserMother::aUserWith50Eur()
+            ->withValidated(true)
+            ->withAffiliate(true)
+            ->build();
+        $line = EuroMillionsLineMother::aSuperEnalottoLine();
+        $anotherLine = EuroMillionsLineMother::anotherSuperEnalottoLine();
+        $date = new DateTime('2020-01-01');
+        $playConfig = PlayConfigMother::aPlayConfigSetForUser($user)
+            ->withId(1600)
+            ->withLine($anotherLine)
+            ->withLottery($superEnalottoLottery)
+            ->withStartDrawDate($date)
+            ->withLastDrawDate($date)
+            ->build();
+        $draw = EuroMillionsDrawMother::aSuperEnalottoDrawWithJackpotAndBreakDown($date)
+            ->withId(1500)
+            ->withResult($line)->build();
+        $bet = BetMother::aSingleBet($playConfig, $draw);
+        $bet->setPrize(new \Money\Money(20000, new \Money\Currency('EUR')));
+        $I->haveInDatabase('users', $user->toArray());
+        $I->haveInDatabase('euromillions_draws', $draw->toArray());
+        $I->haveInDatabase('play_configs', $playConfig->toArray());
+        $I->haveInDatabase('bets', $bet->toArray());
+        $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes listen');
+        $I->runShellCommand('php '.__DIR__.'/../../apps/shared/shared-cli-test.php prizes award');
+        $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php result start SuperEnalotto 2020-01-01');
+        $I->canSeeInDatabase('transactions',['entity_type' => 'winnings_received']);
+    }
+
+    /**
      * @param FunctionalTester $I
      * @group active
      */

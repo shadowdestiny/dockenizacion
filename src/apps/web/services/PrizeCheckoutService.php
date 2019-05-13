@@ -309,7 +309,7 @@ class PrizeCheckoutService
     {
         $balls = explode(',', $numbers);
 
-        if ($lottery->isEuroJackpot() || $lottery->isSuperEnalotto()) {
+        if ($lottery->isEuroJackpot()) {
             return ' ( ' . $balls[0] . ', ' .$balls[1] . ' )';
         };
 
@@ -317,7 +317,7 @@ class PrizeCheckoutService
             return '( ' . $numbers . ' )';
         }
 
-        if ($lottery->isMegaSena()) {
+        if ($lottery->isMegaSena() || $lottery->isSuperEnalotto()) {
             return ','. $balls[1];
         }
 
@@ -352,6 +352,10 @@ class PrizeCheckoutService
 
         if ($lottery->isMegaSena()) {
             return $this->betRepository->getMatchesPlayConfigAndUserFromMegaSenaByDrawDate($date, $lottery->getId());
+        }
+
+        if ($lottery->isSuperEnalotto()) {
+            return $this->betRepository->getMatchesPlayConfigAndUserFromSuperEnalottoByDrawDate($date, $lottery->getId());
         }
 
         return $this->betRepository->getMatchesPlayConfigAndUserFromLotteryByDrawDate($date, $lottery->getId());

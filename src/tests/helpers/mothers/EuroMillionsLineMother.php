@@ -108,4 +108,38 @@ class EuroMillionsLineMother
             ]
         );
     }
+
+    public static function aSuperEnalottoLine()
+    {
+        return new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(20),
+                new EuroMillionsRegularNumber(30),
+                new EuroMillionsRegularNumber(40),
+                new EuroMillionsRegularNumber(50),
+            ],
+            [
+                new EuroMillionsLuckyNumber(70),
+                new EuroMillionsLuckyNumber(60),
+            ]
+        );
+    }
+
+    public static function anotherSuperEnalottoLine()
+    {
+        return new EuroMillionsLine(
+            [
+                new EuroMillionsRegularNumber(10),
+                new EuroMillionsRegularNumber(20),
+                new EuroMillionsRegularNumber(30),
+                new EuroMillionsRegularNumber(35),
+                new EuroMillionsRegularNumber(55),
+            ],
+            [
+                new EuroMillionsLuckyNumber(0),
+                new EuroMillionsLuckyNumber(65),
+            ]
+        );
+    }
 }

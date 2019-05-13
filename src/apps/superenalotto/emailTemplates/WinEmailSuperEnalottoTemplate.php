@@ -23,11 +23,11 @@ class WinEmailSuperEnalottoTemplate extends WinEmailPowerBallTemplate
 
         if ($language == "ru") {
             // Welcome Email Russian Version Template ID= 3997341
-            $template_id = "10396090";
+            $template_id = "11467447";
             $subject = 'Поздравляем, Вы выиграли';
         } else {
             // Welcome Email English Version Template ID= 4021147
-            $template_id = "10395072"; //testing
+            $template_id = "11467427"; //testing
             $subject = 'Congratulations you have won!';
         }
         $vars = [
@@ -93,7 +93,7 @@ class WinEmailSuperEnalottoTemplate extends WinEmailPowerBallTemplate
      */
     public function getStarBalls()
     {
-        return null;
+        return $this->nummBalls == 5 && $this->starBalls == 1 ? 'Holly' : null;
     }
 
     /**
@@ -101,6 +101,6 @@ class WinEmailSuperEnalottoTemplate extends WinEmailPowerBallTemplate
      */
     public function getNummBalls()
     {
-        return $this->nummBalls + $this->starBalls;
+        return $this->nummBalls;
     }
 }

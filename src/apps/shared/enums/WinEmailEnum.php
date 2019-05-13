@@ -15,13 +15,15 @@ class WinEmailEnum extends \SplEnum
 
     const MegaSena = 'megasena';
 
+    const SuperEnalotto = 'superenalotto';
+
     public function findTemplatePathByLotteryName($lotteryName, $isBig = false)
     {
         $declaredElems = $this->getConstList();
         $above = $isBig ? 'Above' : '';
 
         if (array_key_exists($lotteryName, $declaredElems)) {
-            if(strtolower($lotteryName) == self::EuroJackpot || strtolower($lotteryName) == self::MegaMillions  || strtolower($lotteryName) == self::MegaSena) {
+            if(strtolower($lotteryName) == self::EuroJackpot || strtolower($lotteryName) == self::MegaMillions  || strtolower($lotteryName) == self::MegaSena  || strtolower($lotteryName) == self::SuperEnalotto) {
                 return 'EuroMillions\\'.strtolower($lotteryName).'\emailTemplates\WinEmail'.$lotteryName.$above.'Template';
             }
             return $lotteryName == 'PowerBall' ?
