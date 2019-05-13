@@ -182,7 +182,7 @@ final class SuperEnalottoNumbersController extends PublicSiteControllerBase
         $SuperEnalottoDraw = $draw_result->getValues();
         $regularNumbers = $SuperEnalottoDraw->getResult()->getRegularNumbersArray();
         $regularNumbers[] = $SuperEnalottoDraw->getResult()->getLuckyNumbersArray()[1];
-        
+        $jolly_numbers[] = $SuperEnalottoDraw->getResult()->getLuckyNumbersArray()[0];
         $breakDownDTO = new SuperEnalottoDrawBreakDownDTO($SuperEnalottoDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
         $break_down_list['category_one']['name'] = 'match-6';
@@ -207,6 +207,7 @@ final class SuperEnalottoNumbersController extends PublicSiteControllerBase
             'draw_day' => $SuperEnalottoDraw->getDrawDate()->format('l'),
             'next_draw_date_format' => $draw->format($this->languageService->translate('dateformat')),
             'past_draw_date_format' => $SuperEnalottoDraw->getDrawDate()->format('d.m.Y'),
+            'jolly_numbers' => $jolly_numbers,
         ]);
 
     }
