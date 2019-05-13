@@ -25,11 +25,11 @@ class LatestResultsSuperEnalottoEmailTemplate extends LatestResultsPowerBallEmai
 
         if ($language == "ru") {
             // Welcome Email Russian Version Template ID= 3997341
-            $template_id = "10394790";
+            $template_id = "11466565";
             $subject = 'Результаты розыгрышей последней лотереи';
         } else {
             // Welcome Email English Version Template ID= 4021147
-            $template_id = "10394789";
+            $template_id = "11466019";
             $subject = 'Latest results';
         }
 

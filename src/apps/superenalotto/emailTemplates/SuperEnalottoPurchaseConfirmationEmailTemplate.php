@@ -19,10 +19,10 @@ class SuperEnalottoPurchaseConfirmationEmailTemplate extends PowerBallPurchaseCo
         $language = $this->user->getDefaultLanguage();
 
         if ($language == "ru") {
-            $template_id = "10394012";
+            $template_id = "11467323";
             $subject = 'Поздравляем';
         } else {
-            $template_id = "10394410";
+            $template_id = "11467322";
             $subject = 'Congratulations';
         }
 
