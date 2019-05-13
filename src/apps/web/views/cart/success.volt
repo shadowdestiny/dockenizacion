@@ -66,7 +66,7 @@ localStorage.removeItem('bet_line');
             li+= '<li class="circle_superenalotto">'+(( parseInt(val.toString()) < 10) ? ("0" + val): val)+'</li>'
         });
 
-        li += '<li class="circle_superenalotto_jolly">'+$(this).find("li.circle_superenalotto_jolly").text()+'</li>';
+        // li += '<li class="circle_superenalotto_jolly">'+$(this).find("li.circle_superenalotto_jolly").text()+'</li>';
         $(this).html(li);
     });
 
@@ -230,9 +230,9 @@ function numCharLine($line){
                                 <li class="circle_superenalotto">
                                     <?php echo sprintf("%02s", $lucky_arr[1]);?>
                                 </li>
-                                <li class="circle_superenalotto_jolly">
+                                {#<li class="circle_superenalotto_jolly">
                                     <?php echo sprintf("%02s", $lucky_arr[0]);?>
-                                </li>
+                                </li>#}
                             {% else %}
                                 {% for lucky_number in lucky_arr %}
                                     <li class="star">

@@ -51,7 +51,7 @@ var EmLineOrder = new React.createClass({
                     return <li key={i} className={_class}>{(( parseInt(number.toString()) < 10) ? ("0" + number): number)}</li>
                 });
 
-            list_ball.push(<li key={count + 1} className={'circle_superenalotto_jolly'}>{ stars[0] }</li>);
+            // list_ball.push(<li key={count + 1} className={'circle_superenalotto_jolly'}>{ stars[0] }</li>);
         } else {
             list_ball = list_number_ball.map(function(number,i) {
                 return <li key={i} className={_class}>{number}</li>
