@@ -1,7 +1,7 @@
 var React = require('react');
 var EmAddFund = require('./EmAddFund.jsx');
-
-var EmLineFeeCart = new React.createClass({
+var createReactClass = require('create-react-class');
+var EmLineFeeCart = createReactClass({
 
     displayName: 'EmLineFeeCart',
 
@@ -60,4 +60,4 @@ var EmLineFeeCart = new React.createClass({
     }
 });
 
-module.exports = EmLineFeeCart;
+export default  EmLineFeeCart;

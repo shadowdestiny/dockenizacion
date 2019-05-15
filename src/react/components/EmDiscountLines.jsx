@@ -1,7 +1,7 @@
 var React = require('react');
-var EmDiscountLine = require('./EmDiscountLine.jsx');
-
-var EuroMillionsDiscountLines = new React.createClass({
+import EmDiscountLine from './EmDiscountLine.jsx';
+var createReactClass = require('create-react-class');
+var EuroMillionsDiscountLines = createReactClass({
 
 
     getInitialState: function() {
@@ -33,4 +33,5 @@ var EuroMillionsDiscountLines = new React.createClass({
 
 });
 
-module.exports = EuroMillionsDiscountLines;
+// module.exports = EuroMillionsDiscountLines;
+export default EuroMillionsDiscountLines;

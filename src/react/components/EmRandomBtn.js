@@ -1,10 +1,11 @@
 var React = require('react');
-
-var EuroMillionsRandomBtn = React.createClass({
+var  PropTypes = require ('prop-types');
+var createReactClass = require('create-react-class');
+var EuroMillionsRandomBtn = createReactClass({
 
     propTypes: {
-        line: React.PropTypes.number.isRequired,
-        onBtnRandomClick: React.PropTypes.func.isRequired
+        line: PropTypes.number.isRequired,
+        onBtnRandomClick: PropTypes.func.isRequired
     },
 
     render : function() {
@@ -19,4 +20,4 @@ var EuroMillionsRandomBtn = React.createClass({
 
 });
 
-module.exports = EuroMillionsRandomBtn;
+export default  EuroMillionsRandomBtn;

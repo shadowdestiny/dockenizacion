@@ -1,6 +1,8 @@
-var React = require('react');
+import EuroMillionsAddLinesBtn from "./EmAddLinesBtn";
 
-var EuroMillionsAdvancedPlayBtn = new React.createClass({
+var React = require('react');
+var createReactClass = require('create-react-class');
+var EuroMillionsAdvancedPlayBtn = createReactClass({
 
     getInitialState : function () {
         return ({
@@ -33,4 +35,5 @@ var EuroMillionsAdvancedPlayBtn = new React.createClass({
     }
 });
 
-module.exports = EuroMillionsAdvancedPlayBtn;
+//module.exports = EuroMillionsAdvancedPlayBtn;
+export default EuroMillionsAdvancedPlayBtn;

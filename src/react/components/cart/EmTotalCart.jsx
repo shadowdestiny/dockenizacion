@@ -1,8 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-
-var EmTotalCart = new React.createClass({
+var createReactClass = require('create-react-class');
+var EmTotalCart = createReactClass({
 
     displayName: 'EmTotalCart',
 
@@ -28,4 +28,4 @@ var EmTotalCart = new React.createClass({
 });
 
 
-module.exports = EmTotalCart;
+export default  EmTotalCart;

@@ -1,6 +1,6 @@
 var React = require('react');
-
-var EuroMillionsDiscountLine = React.createClass({
+var createReactClass = require('create-react-class');
+var EuroMillionsDiscountLine = createReactClass({
 
     render: function () {
         var price = this.props.price / 100;
@@ -19,4 +19,5 @@ var EuroMillionsDiscountLine = React.createClass({
     }
 });
 
-module.exports = EuroMillionsDiscountLine;
+//module.exports = EuroMillionsDiscountLine;
+export default EuroMillionsDiscountLine;

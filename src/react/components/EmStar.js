@@ -1,6 +1,7 @@
 var React = require('react');
-
-var EuroMillionsStar = React.createClass({
+var  PropTypes = require ('prop-types');
+var createReactClass = require('create-react-class');
+var EuroMillionsStar = createReactClass({
     time_delay_to_appear_selected:[],
     time_delay_to_disappear:[],
     getDefaultProps: function()
@@ -66,9 +67,9 @@ var EuroMillionsStar = React.createClass({
     },
 
     propTypes: {
-        number: React.PropTypes.number.isRequired,
-        selected: React.PropTypes.bool,
-        onStarClick: React.PropTypes.func.isRequired
+        number: PropTypes.number.isRequired,
+        selected: PropTypes.bool,
+        onStarClick: PropTypes.func.isRequired
     },
 
     render: function () {
@@ -97,4 +98,4 @@ var EuroMillionsStar = React.createClass({
     }
 });
 
-module.exports = EuroMillionsStar;
+export default  EuroMillionsStar;

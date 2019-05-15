@@ -1,9 +1,10 @@
 var React = require('react');
-
-var EmNumbersRows = new React.createClass({
+var  PropTypes = require ('prop-types');
+var createReactClass = require('create-react-class');
+var EmNumbersRows = createReactClass({
 
     propTypes: {
-        length: React.PropTypes.number,
+        length: PropTypes.number,
     },
 
     render : function () {
@@ -19,4 +20,4 @@ var EmNumbersRows = new React.createClass({
 
 });
 
-module.exports = EmNumbersRows;
+export default  EmNumbersRows;

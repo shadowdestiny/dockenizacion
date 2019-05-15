@@ -1,10 +1,10 @@
 var React = require('react');
 
-var EmSelectDraw = require('./EmSelectDraw.jsx');
-var EmSelectDrawDate = require('./EmSelectDrawDate.jsx');
-var EmSelectDrawDuration = require('./EmSelectDrawDuration.jsx');
-
-var EuroMillionsDrawConfig = new React.createClass({
+import EmSelectDraw from './EmSelectDraw.jsx';
+import EmSelectDrawDate from './EmSelectDrawDate.jsx';
+import EmSelectDrawDuration from './EmSelectDrawDuration.jsx';
+var createReactClass = require('create-react-class');
+var EuroMillionsDrawConfig = createReactClass({
 
     getInitialState: function () {
         return ({
@@ -89,4 +89,5 @@ var EuroMillionsDrawConfig = new React.createClass({
     }
 });
 
-module.exports = EuroMillionsDrawConfig;
+// module.exports = EuroMillionsDrawConfig;
+export default EuroMillionsDrawConfig;

@@ -1,7 +1,7 @@
 var React = require('react');
-var EuroMillionsNumber = require('./EmNumber.js');
-
-var EuroMillionsLineRow = React.createClass({
+import EuroMillionsNumber from './EmNumber.js';
+var createReactClass = require('create-react-class');
+var EuroMillionsLineRow = createReactClass({
 
     random : function () {
 
@@ -25,4 +25,4 @@ var EuroMillionsLineRow = React.createClass({
     }
 });
 
-module.exports = EuroMillionsLineRow;
+export default  EuroMillionsLineRow;

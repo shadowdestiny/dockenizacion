@@ -1,6 +1,6 @@
 var React = require('react');
-
-var EmLineOrder = new React.createClass({
+var createReactClass = require('create-react-class');
+var EmLineOrder = createReactClass({
 
     displayName: 'EmLineOrder',
 
@@ -86,4 +86,4 @@ var EmLineOrder = new React.createClass({
     }
 });
 
-module.exports = EmLineOrder;
+export default  EmLineOrder;

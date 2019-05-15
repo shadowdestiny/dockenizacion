@@ -1,10 +1,11 @@
 import PowerPlayCheckbox from './PowerPlayCheckbox'
-var React = require('react');
-var EuroMillionsAddLinesBtn = require('./EmAddLinesBtn.jsx');
-var EuroMillionsRandomAllBtn = require('./EmRandomAllBtn.jsx');
-var EuroMillionsClearAllBtn = require('./EmClearAllBtn.jsx');
-
-var EuroMilliosnBoxActionPlay = React.createClass({
+import EuroMillionsAdvancedPlayBtn from "./EmAdvancedPlayBtn";
+import React from 'react';
+import EuroMillionsAddLinesBtn from './EmAddLinesBtn.jsx';
+import EuroMillionsRandomAllBtn from './EmRandomAllBtn.jsx';
+import EuroMillionsClearAllBtn from './EmClearAllBtn.jsx';
+var createReactClass = require('create-react-class');
+var EuroMilliosnBoxActionPlay = createReactClass({
 
     displayName : 'EuroMilliosnBoxActionPlay',
 
@@ -55,4 +56,5 @@ var EuroMilliosnBoxActionPlay = React.createClass({
     }
 })
 
-module.exports = EuroMilliosnBoxActionPlay;
+//module.exports = EuroMilliosnBoxActionPlay;
+export default EuroMilliosnBoxActionPlay;

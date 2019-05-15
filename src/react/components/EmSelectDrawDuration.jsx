@@ -1,9 +1,9 @@
 var React = require('react');
 
-var ReactTooltip = require("react-tooltip");
-var EmSelect = require('./EmSelect.jsx');
-
-var EmSelectDrawDuration = React.createClass({
+import ReactTooltip from "react-tooltip";
+import EmSelect from './EmSelect.jsx';
+var createReactClass = require('create-react-class');
+var EmSelectDrawDuration = createReactClass({
 
 
     handleChange: function (event) {
@@ -38,4 +38,5 @@ var EmSelectDrawDuration = React.createClass({
     }
 });
 
-module.exports = EmSelectDrawDuration;
+// module.exports = EmSelectDrawDuration;
+export default EmSelectDrawDuration;

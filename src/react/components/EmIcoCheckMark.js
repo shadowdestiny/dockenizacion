@@ -1,6 +1,6 @@
 var React = require('react');
-
-var EuroMillionsCheckMark = React.createClass({
+var createReactClass = require('create-react-class');
+var EuroMillionsCheckMark = createReactClass({
 
     getDefaultProps: function() {
         return {
@@ -26,4 +26,4 @@ var EuroMillionsCheckMark = React.createClass({
 
 });
 
-module.exports = EuroMillionsCheckMark;
+export default  EuroMillionsCheckMark;

@@ -1,9 +1,9 @@
 var React = require('react');
-var EuroMillionsLineRow = require('./EmLineRow.js');
-var EuroMillionsLineStarsRow = require('./EmLineStarsRow.js');
-var EuroMillionsClearLine = require('./EmClearLine.js');
-var EuroMillionsCheckMark = require('./EmIcoCheckMark.js');
-var EuroMillionsRandomBtn = require('./EmRandomBtn.js');
+import EuroMillionsLineRow from './EmLineRow.js';
+import EuroMillionsLineStarsRow from './EmLineStarsRow.js';
+import EuroMillionsClearLine from './EmClearLine.js';
+import EuroMillionsCheckMark from './EmIcoCheckMark.js';
+import EuroMillionsRandomBtn  from'./EmRandomBtn.js';
 
 import {
     GAME_MODE_POWERBALL,
@@ -13,8 +13,8 @@ import {
     GAME_MODE_MEGASENA,
     numberSets,
 } from '../config/constants';
-
-var EuroMillionsLine = React.createClass({
+var createReactClass = require('create-react-class');
+var EuroMillionsLine = createReactClass({
 
     getInitialState: function ()
     {
@@ -342,4 +342,4 @@ var EuroMillionsLine = React.createClass({
 
 });
 
-module.exports = EuroMillionsLine;
+export default  EuroMillionsLine;

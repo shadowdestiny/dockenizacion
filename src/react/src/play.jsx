@@ -1,10 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var EuroMillionsBoxAction = require('../components/EmBoxActionPlay.jsx');
-var EuroMillionsMultipleEmLines = require('../components/EmMultipleEmLines.jsx');
-var EuroMillionsBoxBottomAction = require('../components/EmBoxBottomAction.jsx');
-var EmConfigPlayBlock = require('../components/EmConfigPlayBlock.jsx');
-var EmDiscountLines = require('../components/EmDiscountLines.jsx');
+import EuroMillionsBoxAction from '../components/EmBoxActionPlay.jsx';
+import EuroMillionsMultipleEmLines from '../components/EmMultipleEmLines.jsx';
+import EuroMillionsBoxBottomAction from  '../components/EmBoxBottomAction.jsx';
+import EmConfigPlayBlock from '../components/EmConfigPlayBlock.jsx';
+import EmDiscountLines from '../components/EmDiscountLines.jsx';
 
 import { MobilePlayApp } from './mobile-play-app'
 
@@ -22,8 +22,8 @@ import {
     GAME_MODE_MEGASENA,
     numberSets
 } from '../config/constants'
-
-var PlayPage = React.createClass({
+var createReactClass = require('create-react-class');
+var PlayPage = createReactClass({
 
     getInitialState : function ()
     {
@@ -556,7 +556,7 @@ var PlayPage = React.createClass({
     }
 });
 
-module.exports = PlayPage;
+export default  PlayPage;
 
 var options_draw_duration = [
     {text : '1 week (Draw: 1)' , value : 1},
@@ -566,7 +566,9 @@ var options_draw_duration = [
     {text : '52 weeks (Draws: 52)' , value : 52}
 ];
 
-ReactDOM.render(<PlayPage
+import PlayPages from './play.jsx';
+
+ReactDOM.render(<PlayPages
   draw_day={draw_day}
   next_draw_date_format={next_draw_date_format}
   discount={discount}

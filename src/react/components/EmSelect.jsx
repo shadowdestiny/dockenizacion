@@ -1,12 +1,13 @@
 var React = require('react');
-
-var EmSelect = React.createClass({
+var  PropTypes = require ('prop-types');
+var createReactClass = require('create-react-class');
+var EmSelect = createReactClass({
     propTypes: {
-        options: React.PropTypes.array.isRequired,
-        defaultValue: React.PropTypes.string,
-        defaultText: React.PropTypes.string,
-        classDiv: React.PropTypes.string,
-        classSelect: React.PropTypes.string
+        options: PropTypes.array.isRequired,
+        defaultValue: PropTypes.string,
+        defaultText: PropTypes.string,
+        classDiv: PropTypes.string,
+        classSelect: PropTypes.string
     },
     getDefaultProps: function () {
         return {
@@ -62,4 +63,4 @@ var EmSelect = React.createClass({
         );
     }
 });
-module.exports = EmSelect;
+export default  EmSelect;

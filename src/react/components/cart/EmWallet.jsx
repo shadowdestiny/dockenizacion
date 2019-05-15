@@ -1,6 +1,6 @@
 var React = require('react');
-
-var EmWallet = new React.createClass({
+var createReactClass = require('create-react-class');
+var EmWallet = createReactClass({
 
     displayName: 'Wallet',
 
@@ -72,4 +72,4 @@ var EmWallet = new React.createClass({
     }
 });
 
-module.exports = EmWallet;
+export default  EmWallet;
