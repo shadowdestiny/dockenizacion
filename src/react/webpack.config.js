@@ -70,54 +70,48 @@ let react_module = {
                     loader: 'babel-loader',
                 }
             },
-            /*{
-                test: /\.(scss|sass|css)$/,
-                loader:'style-loader!css-loader!sass-loader',
-            },*/
-            /* exported style */
-            {
-                test: /\.(scss|sass|css)$/,
-                exclude: /node_modules/,
-                loaders: [
+            {oneOf: [
                     {
-                        loader: 'style-loader',
-                        options: {
-                            sourceMap: isDevelop
-                        }
-                    },
-                    /*export css */
-                    //MiniCssExtractPlugin.loader,
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            sourceMap: isDevelop,
-                            importLoaders: 1,
-                            localIdentName: '[local]___[hash:base64:5]',
-                            //url:false
-                        }
+                        test: /\.(scss|sass|css)$/,
+                        resourceQuery: /^\?raw$/,
+                        loader:'style-loader!css-loader!sass-loader',
                     },
                     {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: isDevelop
-                        }
-                    },
+                        test: /\.(scss|sass|css)$/,
+                        loaders: [
+                            {
+                                loader: 'style-loader',
+                                options: {
+                                    sourceMap: isDevelop
+                                }
+                            },
+                            {
+                                loader: 'css-loader',
+                                options: {
+                                    modules: true,
+                                    sourceMap: isDevelop,
+                                    importLoaders: 1,
+                                    localIdentName: '[local]___[hash:base64:5]',
+                                }
+                            },
+                            {
+                                loader: 'sass-loader',
+                                options: {
+                                    sourceMap: isDevelop
+                                }
+                            },
 
+                        ]
+                    }
                 ]
-            }
+            },
+
         ]
     },
     resolve: {
         extensions: ['*', '.js', '.jsx']
     },
-    /* exported style */
-    /*plugins: [
-        new MiniCssExtractPlugin({
-            filename: isDevelop ? '[name].css' : '[name].[hash].css',
-            chunkFilename: isDevelop ? '[id].css' : '[id].[hash].css',
-        }),
-    ]*/
+
 };
 
 let sass_module = {
