@@ -11,6 +11,8 @@ use EuroMillions\web\services\external_apis\CurrencyConversion\RedisCurrencyApiC
 use EuroMillions\web\services\GeoService;
 use Phalcon\DiInterface;
 use Phalcon\Http\Client\Provider\Curl;
+use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\services\external_apis\LotteryApisFactory;
 
 class DomainAdminServiceFactory
 {
@@ -95,5 +97,10 @@ class DomainAdminServiceFactory
                 new RedisCurrencyApiCache($redis_cache)
             )
         );
+    }
+
+    public function getLotteriesDataService()
+    {
+        return new LotteriesDataService($this->entityManager, new LotteryApisFactory());
     }
 }

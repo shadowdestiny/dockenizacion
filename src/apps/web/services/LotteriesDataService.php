@@ -28,6 +28,8 @@ use EuroMillions\megamillions\vo\MegaMillionsDrawBreakDown;
 use EuroMillions\web\vo\Raffle;
 use Money\Currency;
 use Money\Money;
+use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\admin\vo\dto\DrawDTO;
 
 class LotteriesDataService
 {
@@ -405,4 +407,81 @@ class LotteriesDataService
         }
         return $draw;
     }
+
+    /**
+     * @param $lotteryName
+     * @param \DateTime|null $date
+     * @return EuroMillionsDraw
+     * @throws \Exception
+     */
+    public function getResults($lotteryName)
+    {
+        try {
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+            $results = $this->lotteryDrawRepository->findBy(['lottery' => $lottery]);
+            $data = [];
+            foreach ($results as $result) {
+                $data[] = $this->handleDraw($result);
+            }
+            return new ActionResult(true, $data);
+        } catch (\Exception $e) {
+            return new ActionResult(false, 'Error fetching: '.$e->getMessage());
+        }
+    }
+
+    /**
+     * @param $lotteryName
+     * @param \DateTime|null $date
+     * @return EuroMillionsDraw
+     * @throws \Exception
+     */
+    public function getResultsByDate($lotteryName, \DateTime $date)
+    {
+        try {
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+            $result = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $date]);
+            return $result ?
+                new ActionResult(true, $this->handleDraw($result)) :
+                new ActionResult(false, 'Error fetching: no results for this date');
+        } catch (\Exception $e) {
+            return new ActionResult(false, 'Error fetching: '.$e->getMessage());
+        }
+    }
+
+    /**
+     * @param $lotteryName
+     * @param \DateTime|null $date
+     * @return EuroMillionsDraw
+     * @throws \Exception
+     */
+    public function updateResults($lotteryName, \DateTime $date, $numbers)
+    {
+        try {
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $date]);
+            if (is_null($draw)) {
+                return new ActionResult(false, 'Error fetching: no results for this date');
+            } 
+            $draw->createResult($numbers['main'], $numbers['lucky']);
+            $this->entityManager->persist($draw);
+            $this->entityManager->flush();
+            return new ActionResult(true, $this->handleDraw($draw));
+        } catch (\Exception $e) {
+            return new ActionResult(false, 'Error fetching: '.$e->getMessage());
+        }
+    }
+
+    protected function handleDraw($draw)
+    {
+        return [
+            'id' => $draw->getId(),
+            'lottery' => $draw->getLottery()->getName(),
+            'date' => $draw->getDrawDate(),
+            'results' => $draw->getResult()->toArray()
+        ];
+    }
+
 }

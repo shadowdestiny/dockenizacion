@@ -49,6 +49,7 @@ class AdminControllerBase extends Controller
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
         $auth_user_service = $this->domainAdminServiceFactory->getAuthUserService();
+        exit;
         if($dispatcher->getControllerName() !== 'login' && !$auth_user_service->check_session()->success()) {
             return $this->response->redirect('/admin/login/index');
         } else {
