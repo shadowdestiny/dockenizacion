@@ -465,6 +465,7 @@ class LotteriesDataService
             if (is_null($draw)) {
                 return new ActionResult(false, 'Error fetching: no results for this date');
             }
+            $draw->createResult($numbers['main'], $numbers['lucky']);
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
             return new ActionResult(true, $this->handleDraw($draw));

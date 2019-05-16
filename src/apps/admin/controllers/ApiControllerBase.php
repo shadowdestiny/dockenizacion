@@ -27,4 +27,9 @@ class ApiControllerBase extends AdminControllerBase
             'error' => $error
         ]);
     }
+
+    public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+    {
+        exit;
+    }
 }
