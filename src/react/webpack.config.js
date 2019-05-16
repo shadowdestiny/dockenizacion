@@ -24,11 +24,11 @@ if (!isDevelop){
         },
         sourceMap: true
     }));
-    /*minimize.push(new OptimizeCSSAssetsPlugin({
+    minimize.push(new OptimizeCSSAssetsPlugin({
         cssProcessorPluginOptions: {
             preset: ['default', { discardComments: { removeAll: true } }],
         }
-    }));*/
+    }));
 } else {
     mode = 'development';
     minimize.push(new UglifyJsPlugin({
@@ -53,6 +53,8 @@ let react_module = {
         play : './src/play.jsx',
         cart : './src/cart.jsx',
         tooltip : './src/tooltip.jsx',
+        // admin
+        adminDraws : './src/admin/draws.jsx',
     },
     output: {
         path: path.resolve(__dirname, '../public/w/js/react'),
@@ -66,24 +68,74 @@ let react_module = {
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
-                    options: {
+                    /*options: {
                         presets: [
                             '@babel/preset-env',
                             '@babel/preset-react',
                             {
                                 plugins: [
-                                    '@babel/plugin-proposal-class-properties',
+                                    "@babel/plugin-proposal-class-properties",
+                                    ["react-css-modules", {
+                                        "filetypes": {
+                                            ".scss": {
+                                                "syntax": "postcss-scss"
+                                            }
+                                        }
+                                    }]
                                 ]
                             }
                         ]
-                    }
+                    }*/
                 }
+            },
+            /*{
+                test: /\.(scss|sass|css)$/,
+                loader:'style-loader!css-loader!sass-loader',
+            },*/
+            /* exported style */
+            {
+                test: /\.(scss|sass|css)$/,
+                exclude: /node_modules/,
+                loaders: [
+                    {
+                        loader: 'style-loader',
+                        options: {
+                            sourceMap: isDevelop
+                        }
+                    },
+                    /*export css */
+                    //MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            sourceMap: isDevelop,
+                            importLoaders: 1,
+                            localIdentName: '[local]___[hash:base64:5]',
+                            //url:false
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: isDevelop
+                        }
+                    },
+
+                ]
             }
         ]
     },
     resolve: {
         extensions: ['*', '.js', '.jsx']
-    }
+    },
+    /* exported style */
+    /*plugins: [
+        new MiniCssExtractPlugin({
+            filename: isDevelop ? '[name].css' : '[name].[hash].css',
+            chunkFilename: isDevelop ? '[id].css' : '[id].[hash].css',
+        }),
+    ]*/
 };
 
 let sass_module = {
@@ -133,5 +185,5 @@ let sass_module = {
 
 module.exports = [
     react_module,
-    //sass_module
+    sass_module
 ];

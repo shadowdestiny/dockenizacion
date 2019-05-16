@@ -30,6 +30,6 @@
         {% block header %}{% endblock %}
         {% block body %}{% endblock %}
         {% block footer %}{% endblock %}
-
+        {% block template_scripts_after %}{% endblock %}
     </body>
 </html>

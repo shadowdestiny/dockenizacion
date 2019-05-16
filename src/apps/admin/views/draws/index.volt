@@ -16,15 +16,20 @@
 {% set activeNav='{"myClass": ""}'|json_decode %} {# It need to be empty #}
 {% include "_elements/header.volt" %}
 {% endblock %}
-
-{% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
+{% block template_scripts_after %}
+    <script src="/w/js/react/adminDraws.js"></script>
+{% endblock %}
+{% block footer %}
+    {% include "_elements/footer.volt" %}
+{% endblock %}
 
 {% block body %}
  <div class="wrapper">
     <div class="container">
         <div class="module">
             <div class="module-body">
-                <h1 class="h1 purple">Jackpot</h1>
+                <h1 class="h1 purple">Jackpot</h1>hola
+                <div id="admin-draws"></div>
                 <div class="alert alert-success hidden-element">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>Changes Saved</strong>
