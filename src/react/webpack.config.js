@@ -68,24 +68,6 @@ let react_module = {
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
-                    /*options: {
-                        presets: [
-                            '@babel/preset-env',
-                            '@babel/preset-react',
-                            {
-                                plugins: [
-                                    "@babel/plugin-proposal-class-properties",
-                                    ["react-css-modules", {
-                                        "filetypes": {
-                                            ".scss": {
-                                                "syntax": "postcss-scss"
-                                            }
-                                        }
-                                    }]
-                                ]
-                            }
-                        ]
-                    }*/
                 }
             },
             /*{
