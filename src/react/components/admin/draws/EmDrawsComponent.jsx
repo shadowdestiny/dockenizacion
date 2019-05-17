@@ -2,18 +2,15 @@ import React, { Component } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import * as Comparator from "react-bootstrap-table2-filter/lib/src/comparison";
 import cellEditFactory from 'react-bootstrap-table2-editor';
-import filterFactory, {dateFilter, textFilter} from 'react-bootstrap-table2-filter';
+import filterFactory, {dateFilter} from 'react-bootstrap-table2-filter';
 /**/
 
 import Modal from 'react-bootstrap-modal';
 import bootstrap from '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
-//import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css?raw';
 import '../../../src/styles/shared/components/datatable.scss?raw'
 import '../../../src/styles/shared/components/modal.scss?raw'
 import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
-import style from './EmDrawsComponent.css';
-import cn from "classnames";
-
+import style from './EmDrawsComponent.scss';
 
 /*
     https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/basic-celledit.html
@@ -101,7 +98,7 @@ class EmDrawsComponent extends Component {
                         text: 'Prize',
                         headerStyle:{width:"33%"},
                         editorRenderer:(editorProps, value, row, column, rowIndex, columnIndex)=>{
-                            return <span className={`value ${style.value}`}> € <input type={"text"} ref={ value } defaultValue={ value } onKeyPress={(e)=>(this.editRow(e,value,editorProps))} onChange={(e)=>{}}/></span>;
+                            return <span className={`value ${style.value}`}> € <input type={"text"} ref={ value } defaultValue={ value } onKeyPress={(e)=>(this.editRow(e,value,editorProps))} onChange={()=>{}}/></span>;
                         },
                         formatter: (cell) => {
                             return <div><span className={`value ${style.value}`}>€</span><span>{ cell }</span></div>
@@ -303,10 +300,10 @@ class EmDrawsComponent extends Component {
             <div>
                 <div className={bootstrap.row}>
                     <div className={bootstrap["col-md-6"]}>
-                        <a className={"btn btn-primary search right add defaultColor "+style.left} onClick={(e)=>(this.setState({isSearch:!this.state.isSearch}))}>Search</a>
+                        <a className={"btn btn-primary search right add defaultColor "+style.left} onClick={()=>(this.setState({isSearch:!this.state.isSearch}))}>Search</a>
                     </div>
                     <div className={bootstrap["col-md-6"]}>
-                        <a className="btn btn-primary right add defaultColor" onClick={(e)=>(this.setState({open:true}))}>Add New</a>
+                        <a className="btn btn-primary right add defaultColor" onClick={()=>(this.setState({open:true}))}>Add New</a>
                     </div>
                 </div>
 
