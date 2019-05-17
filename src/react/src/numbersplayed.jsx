@@ -1,12 +1,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var EmNumbersTicket = require('./myTickets/EmNumbersTicket.jsx');
-
-var NumbersPlayed = new React.createClass({
+import EmNumbersTicket from './myTickets/EmNumbersTicket.jsx';
+var  PropTypes = require ('prop-types');
+var createReactClass = require('create-react-class');
+var NumbersPlayed = createReactClass({
 
     propTypes: {
-        numbers: React.PropTypes.string,
-        stars: React.PropTypes.string,
+        numbers: PropTypes.string,
+        stars: PropTypes.string,
     },
 
     getDefaultProps : function ()
@@ -41,7 +42,7 @@ var NumbersPlayed = new React.createClass({
 
 });
 
-module.exports = NumbersPlayed;
+export default  NumbersPlayed;
 ReactDOM.render(<NumbersPlayed numbers="" stars=""/>);
 
 

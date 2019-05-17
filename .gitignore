@@ -63,4 +63,5 @@ src/compass_web/.sass-cache/
 src/public/w/css/v2/head.css
 src/public/w/css/v2/
 src/public/w/css/main_v2.css
+src/public/w/css/compiled/*
 node_modules/

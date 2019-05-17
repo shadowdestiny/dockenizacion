@@ -1,7 +1,9 @@
 var React = require('react');
-var ReactTooltip = require("react-tooltip")
+var ReactTooltip = require("react-tooltip");
+import PropTypes from 'prop-types';
+var createReactClass = require('create-react-class');
 
-var EuroMillionsAddLinesBtn = React.createClass({
+var EuroMillionsAddLinesBtn = createReactClass({
 
 
     getInitialState : function ()
@@ -20,7 +22,7 @@ var EuroMillionsAddLinesBtn = React.createClass({
     },
 
     propTypes: {
-        onBtnAddLinesClick : React.PropTypes.func.isRequired
+        onBtnAddLinesClick : PropTypes.element.isRequired
     },
 
     render: function() {
@@ -41,4 +43,5 @@ var EuroMillionsAddLinesBtn = React.createClass({
     }
 });
 
-module.exports = EuroMillionsAddLinesBtn;
+//module.exports = EuroMillionsAddLinesBtn;
+export default EuroMillionsAddLinesBtn;

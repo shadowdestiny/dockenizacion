@@ -1,8 +1,8 @@
 var React = require('react');
-var EmCustomizableSelect = require('../components/EmCustomizableSelect.jsx');
-var ReactTooltip = require("react-tooltip");
-
-var PlayPage = React.createClass({
+import EmCustomizableSelect from '../components/EmCustomizableSelect.jsx';
+import ReactTooltip from "react-tooltip";
+var createReactClass = require('create-react-class');
+var PlayPage = createReactClass({
 
     getInitialState: function(){
         return ({
@@ -50,4 +50,4 @@ var PlayPage = React.createClass({
 });
 
 
-module.exports = PlayPage;
+export default  PlayPage;

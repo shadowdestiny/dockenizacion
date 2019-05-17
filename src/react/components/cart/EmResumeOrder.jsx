@@ -1,8 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var EmBtnPayment = require('./EmBtnPayment.jsx');
-
-var EmResumeOrder = new React.createClass({
+import EmBtnPayment from './EmBtnPayment.jsx';
+var createReactClass = require('create-react-class');
+var EmResumeOrder = createReactClass({
 
     displayName: 'EmResumeOrder',
 
@@ -79,4 +79,4 @@ var EmResumeOrder = new React.createClass({
 });
 
 
-module.exports = EmResumeOrder;
+export default  EmResumeOrder;

@@ -36,12 +36,12 @@ export default class PowerPlayCheckbox extends Component {
 
     return (
       <div className={"power-play-check" + (checked ? ' checked' : '')} onClick={this.onClickHandler}>
-        {translations.powerPlayCheck}
+        <span>{translations.powerPlayCheck}</span>
         <div
           className="info-icon"
           data-tip={translations.powerPlayInfo}
           data-for="info-icon"
-          >!
+          ><span>!</span>
           <ReactTooltip type="light" id='info-icon'/>
         </div>
       </div>

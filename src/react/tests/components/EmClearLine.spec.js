@@ -1,9 +1,9 @@
 var React = require('react'),
-    ReactDOM = require('react-dom'),
-    EmClearLine = require('../../components/EmClearLine.js'),
-    EuroMillionsLineRow = require('../../components/EmLineRow.js'),
-    TestUtils = require('react-addons-test-utils'),
-    expect = require('chai').expect;
+    ReactDOM = require('react-dom');
+import EmClearLine from '../../components/EmClearLine.js';
+import EuroMillionsLineRow from '../../components/EmLineRow.js';
+var TestUtils = require('react-addons-test-utils');
+var expect = require('chai').expect;
 
 describe('EmClearLine', function() {
 

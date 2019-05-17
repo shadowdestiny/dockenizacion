@@ -1,12 +1,12 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var EmLineOrderCart = require('../components/cart/EmLineOrderCart.jsx');
-var EmLineOrderConfig = require('../components/cart/EmLineOrderConfig.jsx');
-var EmResumeOrder = require('../components/cart/EmResumeOrder.jsx');
-var EmTotalCart = require('../components/cart/EmTotalCart.jsx');
-var EmLineFeeCart = require('../components/cart/EmLineFeeCart.jsx');
-var EmWallet = require('../components/cart/EmWallet.jsx');
-var EmBtnPayment = require('../components/cart/EmBtnPayment.jsx');
+import EmLineOrderCart from '../components/cart/EmLineOrderCart.jsx';
+import EmLineOrderConfig from '../components/cart/EmLineOrderConfig.jsx';
+import EmResumeOrder from '../components/cart/EmResumeOrder.jsx';
+import EmTotalCart from '../components/cart/EmTotalCart.jsx';
+import EmLineFeeCart from '../components/cart/EmLineFeeCart.jsx';
+import EmWallet from '../components/cart/EmWallet.jsx';
+import EmBtnPayment from '../components/cart/EmBtnPayment.jsx';
 
 var _eurojackpot;
 try{
@@ -20,8 +20,8 @@ try{
 } catch (e) {
     _megasena = false;
 }
-
-var CartPage = new React.createClass({
+var createReactClass = require('create-react-class');
+var CartPage = createReactClass({
 
     displayName: 'CartPage',
 
@@ -404,7 +404,8 @@ var CartPage = new React.createClass({
     }
 });
 
-module.exports = CartPage;
+// module.exports = CartPage;
+export default CartPage;
 var show_fee_line = false;
 
 

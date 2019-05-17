@@ -1,60 +1,166 @@
-var webpack = require('webpack');
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var env = process.env.WEBPACK_ENV;
+const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
-var path = require('path');
+const outputFile = '.js';
+const env = process.env.WEBPACK_ENV;
 
-var plugins = [], outputFile, bailMode;
+let isDevelop = (env === 'development');
+let mode;
 
-if (env == 'build') {
-    plugins.push(new UglifyJsPlugin({minimize: true}));
-    outputFile = '.js';
-    bailMode = true;
+let minimize = [];
+
+if (!isDevelop){
+    mode = 'production';
+    minimize.push(new UglifyJsPlugin({
+        cache: true,
+        parallel: false,
+        uglifyOptions: {
+            compress: false,
+            //ecma: 6,
+            mangle: true
+        },
+        sourceMap: true
+    }));
+    minimize.push(new OptimizeCSSAssetsPlugin({
+        cssProcessorPluginOptions: {
+            preset: ['default', { discardComments: { removeAll: true } }],
+        }
+    }));
 } else {
-    outputFile = '.js';
+    mode = 'development';
+    minimize.push(new UglifyJsPlugin({
+        cache: true,
+        parallel: false,
+        uglifyOptions: {
+            compress: true,
+            // ecma: 6,
+            mangle: true
+        },
+        sourceMap: true
+    }));
 }
 
-var config = {
-    entry: {
-       play : './src/play.jsx',
-       cart : './src/cart.jsx',
-       tooltip : './src/tooltip.jsx',
+let react_module = {
+    mode: mode,
+    watch:isDevelop,
+    optimization: {
+        minimizer: minimize
     },
-    devtool: 'source-map',
+    entry: {
+        play : './src/play.jsx',
+        cart : './src/cart.jsx',
+        tooltip : './src/tooltip.jsx',
+        // admin
+        adminDraws : './src/admin/draws.jsx',
+    },
     output: {
-        path: '../public/w/js/react',
+        path: path.resolve(__dirname, '../public/w/js/react'),
         filename: '[name]'+outputFile,
         publicPath: '/w/js/react'
     },
     module: {
-        loaders: [
+        rules: [
             {
-                test: /(\.jsx|\.js)$/,
-                loader: 'babel',
+                test: /(\.jsx|\.js|sass|css)$/,
                 exclude: /(node_modules|bower_components)/,
-                query: {
-                    presets: ['react','es2015', 'babel-preset-stage-0']
+                use: {
+                    loader: 'babel-loader',
                 }
             },
-            //{
-            //    test: /(\.jsx|\.js)$/,
-            //    loader: "eslint-loader",
-            //    exclude: /node_modules/
-            //}
-        ],
-        noParse: [
-            /node_modules\/sinon/,
+            {
+                oneOf: [
+                    {
+                        test: /\.(scss|sass|css)$/,
+                        resourceQuery: /^\?raw$/,
+                        loader:'style-loader!css-loader!sass-loader',
+                    },
+                    {
+                        test: /\.(scss|sass|css)$/,
+                        loaders: [
+                            {
+                                loader: 'style-loader',
+                                options: {
+                                    sourceMap: isDevelop
+                                }
+                            },
+                            {
+                                loader: 'css-loader',
+                                options: {
+                                    modules: true,
+                                    sourceMap: isDevelop,
+                                    importLoaders: 1,
+                                    localIdentName: '[local]___[hash:base64:5]',
+                                }
+                            },
+                            {
+                                loader: 'sass-loader',
+                                options: {
+                                    sourceMap: isDevelop
+                                }
+                            },
+
+                        ]
+                    }
+                ]
+            },
+
         ]
     },
-    plugins: plugins,
     resolve: {
-        root: path.resolve('./src'),
-        extensions: ['', '.js', '.jsx']
+        extensions: ['*', '.js', '.jsx']
     },
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: 1000
-    },
-    bail: bailMode
+
 };
-module.exports = config;
+
+let sass_module = {
+    mode: mode,
+    watch:isDevelop,
+    stats: {
+        warnings: false
+    },
+    optimization: {
+        minimizer: minimize
+    },
+    entry: {
+        "main_v2": path.resolve(__dirname, '../compass_web/sass') + "/main_v2.scss"
+    },
+    output: {
+        path: path.resolve(__dirname, '../public/w/css'),
+        filename: './compiled/[name].compiled',
+        publicPath:  path.resolve(__dirname, '/public/w/css'),
+    },
+    module: {
+        rules: [{
+            test: /\.scss$/,
+            use: [
+                {
+                    loader: "style-loader",
+                },
+                {
+                    loader: MiniCssExtractPlugin.loader
+                },
+                {
+                    loader: "css-loader?-url",
+                },
+                {
+                    loader: "sass-loader",
+                }
+            ]
+        }]
+    },
+    plugins: [
+        new FixStyleOnlyEntriesPlugin(),
+        new MiniCssExtractPlugin({
+            //filename: "[name].[chunkhash:8].css",
+            filename: "[name].css",
+        }),
+    ],
+};
+
+module.exports = [
+    react_module,
+    sass_module
+];

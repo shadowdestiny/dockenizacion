@@ -1,6 +1,6 @@
 var React = require('react');
-
-var EmBtnPayment = new React.createClass({
+var createReactClass = require('create-react-class');
+var EmBtnPayment = createReactClass({
 
     displayName: 'EmBtnPayment',
 
@@ -40,4 +40,4 @@ var EmBtnPayment = new React.createClass({
         }
     }
 });
-module.exports = EmBtnPayment;
+export default  EmBtnPayment;

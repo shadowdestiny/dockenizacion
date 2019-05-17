@@ -1,6 +1,7 @@
 var React = require('react');
-
-var EuroMillionsNumber = React.createClass({
+var  PropTypes = require ('prop-types');
+var createReactClass = require('create-react-class');
+var EuroMillionsNumber = createReactClass({
     time_delay_to_appear_selected:[],
     time_delay_to_disappear:[],
     getDefaultProps: function()
@@ -67,9 +68,9 @@ var EuroMillionsNumber = React.createClass({
     },
 
     propTypes: {
-        number: React.PropTypes.number.isRequired,
-        selected: React.PropTypes.bool,
-        onNumberClick: React.PropTypes.func.isRequired
+        number: PropTypes.number.isRequired,
+        selected: PropTypes.bool,
+        onNumberClick: PropTypes.func.isRequired
     },
     render: function () {
         var class_name = (this.state.active) ? "btn gwp n" + this.props.number + " active" : "btn gwp n" + this.props.number;
@@ -83,4 +84,4 @@ var EuroMillionsNumber = React.createClass({
     }
 });
 
-module.exports = EuroMillionsNumber;
+export default  EuroMillionsNumber;

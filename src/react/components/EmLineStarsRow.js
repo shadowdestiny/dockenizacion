@@ -1,7 +1,7 @@
 var React = require('react');
-var EuroMillionsStar = require('./EmStar.js');
-
-var EuroMillionsLineStarsRow = React.createClass({
+import EuroMillionsStar from './EmStar.js';
+var createReactClass = require('create-react-class');
+var EuroMillionsLineStarsRow = createReactClass({
     render: function () {
         var numbers = [];
         var selected = false;
@@ -24,4 +24,4 @@ var EuroMillionsLineStarsRow = React.createClass({
     }
 });
 
-module.exports = EuroMillionsLineStarsRow;
+export default  EuroMillionsLineStarsRow;

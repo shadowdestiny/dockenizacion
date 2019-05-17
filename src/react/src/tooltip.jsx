@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var ReactTooltip = require("react-tooltip");
+import ReactTooltip from "react-tooltip";
 
-
-var Tooltip = new React.createClass({
+var createReactClass = require('create-react-class');
+var Tooltip = createReactClass({
 
 
     getDefaultProps : function () {
@@ -28,7 +28,8 @@ var Tooltip = new React.createClass({
 
 });
 
-module.exports = Tooltip;
+// module.exports = Tooltip;
+export default Tooltip;
 
 var element = document.getElementsByClassName('tooltip');
 for(var i=0; i < element.length ; i++ ) {

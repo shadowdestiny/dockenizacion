@@ -1,49 +1,71 @@
 {
   "name": "euromillions",
+  "version": "1.2.0",
   "description": "Euromillions.com site",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/PanamediaSLU/euromillions"
+  "directories": {
+    "test": "tests"
   },
-  "license": "All rights reserved",
   "dependencies": {
-    "lodash": "^4.17.4",
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3",
-    "react-tooltip": "^1.0.3"
-  },
-  "scripts": {
-    "watch": "./node_modules/.bin/webpack --watch --inline",
-    "build": "WEBPACK_ENV=build ./node_modules/.bin/webpack",
-    "test": "karma start"
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-react-css-modules": "^5.2.6",
+    "bootstrap": "4.3.1",
+    "create-react-class": "^15.6.3",
+    "react": "^16.8.6",
+    "react-bootstrap-modal": "^4.2.0",
+    "react-bootstrap-table": "^4.3.1",
+    "react-bootstrap-table-next": "^3.1.2",
+    "react-css-modules": "^4.7.11",
+    "react-dom": "^16.8.6",
+    "react-tooltip": "^3.10.0"
   },
   "devDependencies": {
-    "babel-core": "^6.2.1",
-    "babel-eslint": "^4.1.6",
-    "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.1.18",
-    "babel-preset-react": "^6.1.18",
-    "babel-preset-stage-0": "^6.24.1",
-    "core-js": "^1.2.6",
-    "eslint": "^1.10.2",
-    "eslint-loader": "^1.1.1",
-    "eslint-plugin-react": "^3.11.2",
-    "karma": "^0.13.15",
-    "karma-chai": "^0.1.0",
-    "karma-chai-plugins": "^0.6.1",
-    "karma-chai-sinon": "^0.1.5",
-    "karma-mocha": "^0.2.1",
-    "karma-mocha-reporter": "^1.1.3",
-    "karma-phantomjs-launcher": "^0.2.1",
-    "karma-sinon": "^1.0.4",
-    "karma-sinon-chai": "^1.1.0",
-    "karma-sourcemap-loader": "^0.3.6",
-    "karma-webpack": "^1.7.0",
-    "mocha": "^2.3.4",
-    "phantomjs": "^1.9.19",
-    "prop-types": "^15.6.0",
-    "react-addons-test-utils": "^0.14.3",
-    "watch": "^0.16.0",
-    "webpack": "^1.12.9"
-  }
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-transform-flow-strip-types": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-stage-0": "^7.0.0",
+    "babel-plugin-dynamic-import-node": "^2.2.0",
+    "classnames": "2.2.5",
+    "clean-webpack-plugin": "^2.0.2",
+    "css-loader": "^2.1.1",
+    "eslint": "^5.16.0",
+    "html-webpack-plugin": "^3.2.0",
+    "install-wpgulp": "^2.3.0",
+    "jquery": "1.9.1",
+    "mini-css-extract-plugin": "^0.6.0",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "path": "^0.12.7",
+    "popper.js": "^1.14.7",
+    "postcss-nested": "^4.1.2",
+    "postcss-scss": "^2.0.0",
+    "prop-types": "^15.7.2",
+    "react-bootstrap-table2-editor": "^1.2.3",
+    "react-bootstrap-table2-filter": "^1.1.9",
+    "react-bootstrap-table2-overlay": "^1.0.0",
+    "react-bootstrap-table2-paginator": "^2.0.6",
+    "react-bootstrap-table2-toolkit": "^1.4.2",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-fix-style-only-entries": "^0.2.1"
+  },
+  "scripts": {
+    "watch": "WEBPACK_ENV=development ./node_modules/.bin/webpack --watch --inline",
+    "build": "WEBPACK_ENV=build ./node_modules/.bin/webpack",
+    "test": "echo implement"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PanamediaSLU/euromillions.git"
+  },
+  "author": "lmarin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PanamediaSLU/euromillions/issues"
+  },
+  "homepage": "https://github.com/PanamediaSLU/euromillions#readme"
 }

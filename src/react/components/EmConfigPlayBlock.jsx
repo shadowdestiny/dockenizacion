@@ -1,8 +1,8 @@
 var React = require('react');
-var ThresholdPlay = require('../components/EmThresholdPlay.jsx');
-var EmDrawConfig = require('../components/EmDrawConfig.jsx');
-
-var EmConfigPlayBlock = new React.createClass({
+import ThresholdPlay from '../components/EmThresholdPlay.jsx';
+import EmDrawConfig from '../components/EmDrawConfig.jsx';
+var createReactClass = require('create-react-class');
+var EmConfigPlayBlock = createReactClass({
 
     displayName : 'ConfigPlayBlock',
 
@@ -70,4 +70,5 @@ var EmConfigPlayBlock = new React.createClass({
     }
 });
 
-module.exports = EmConfigPlayBlock;
+// module.exports = EmConfigPlayBlock;
+export default EmConfigPlayBlock;
