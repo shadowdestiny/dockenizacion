@@ -3,12 +3,15 @@
 
 namespace EuroMillions\admin\vo\dto;
 
-
 use EuroMillions\admin\interfaces\IDto;
 use EuroMillions\admin\vo\dto\base\DTOBase;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\web\vo\dto\PowerBallDrawBreakDownDTO;
+use EuroMillions\megasena\vo\dto\MegaSenaDrawBreakDownDTO;
+use EuroMillions\megamillions\vo\dto\MegaMillionsDrawBreakDownDTO;
+use EuroMillions\eurojackpot\vo\dto\EuroJackpotDrawBreakDownDTO;
 
 class DrawDTO extends DTOBase implements IDto
 {
@@ -139,7 +142,29 @@ class DrawDTO extends DTOBase implements IDto
 
     private function setBreakDown()
     {
-        $this->break_down = new EuroMillionsDrawBreakDownDTO($this->draw->getBreakDown());
+        if ($this->draw->getLottery()->isMegaMillions()) {
+            $this->break_down = new MegaMillionsDrawBreakDownDTO($this->draw->getBreakDown());
+        }
+
+        if ($this->draw->getLottery()->isMegaSena()) {
+            $this->break_down = new MegaSenaDrawBreakDownDTO($this->draw->getBreakDown());
+        }
+
+        if ($this->draw->getLottery()->isEuroJackpot()) {
+            $this->break_down = new EuroJackpotDrawBreakDownDTO($this->draw->getBreakDown());
+        }
+        /*
+        if ($this->draw->getLottery()->isSuperEnalotto()) {
+            $this->break_down = new SuperEnalottoDrawBreakDownDTO($this->draw->getBreakDown());
+        }
+        */
+        if ($this->draw->getLottery()->isPowerBall()) {
+            $this->break_down = new PowerBallDrawBreakDownDTO($this->draw->getBreakDown());
+        }
+
+        if ($this->draw->getLottery()->isEuroMillions()) {
+            $this->break_down = new EuroMillionsDrawBreakDownDTO($this->draw->getBreakDown());
+        }
     }
 
     public function sanetizeWinnersBreakDown()
@@ -175,4 +200,33 @@ class DrawDTO extends DTOBase implements IDto
         }
     }
 
+    public function getResultsArray()
+    {
+        return [
+            'id' => $this->id,
+            'lottery' => $this->draw->getLottery()->getName(),
+            'date' => $this->draw_date_formatted,
+            'results' => $this->draw->getResult()->toArray()
+        ];
+    }
+
+    public function getPrizesArray()
+    {
+        return [
+            'id' => $this->id,
+            'lottery' => $this->draw->getLottery()->getName(),
+            'date' => $this->draw_date_formatted,
+            'prizes' => $this->break_down->toArray()
+        ];
+    }
+
+    public function getWinnersArray()
+    {
+        return [
+            'id' => $this->id,
+            'lottery' => $this->draw->getLottery()->getName(),
+            'date' => $this->draw_date_formatted,
+            'winners' => $this->break_down->toArray()
+        ];
+    }
 }

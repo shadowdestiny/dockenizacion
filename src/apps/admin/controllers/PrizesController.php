@@ -4,7 +4,7 @@ namespace EuroMillions\admin\controllers;
 
 use EuroMillions\admin\services\UserAdminService;
 
-class ResultsController extends ApiControllerBase
+class PrizesController extends ApiControllerBase
 {
 
     /** @var UserAdminService $lotteryDataService */
@@ -49,31 +49,31 @@ class ResultsController extends ApiControllerBase
     protected function handleLottery($lottery, $date)
     {
         if ($this->request->isGet()) {
-            return $this->getResults($lottery, $date);
+            return $this->getPrizes($lottery, $date);
         }
 
         if ($this->request->isPost()) {
-            return $this->createOrUpdateResults($lottery, $date);
+            return $this->createOrUpdatePrizes($lottery, $date);
         }
 
         if ($this->request->isDelete()) {
-            return $this->deleteResults($lottery, $date);
+            return $this->deletePrizes($lottery, $date);
         }
     }
 
-    protected function getResults($lottery, $date)
+    protected function getPrizes($lottery, $date)
     {
-        $result = $date ? $this->lotteryDataService->getResultsByDate($lottery, \DateTime::createFromFormat('Y-m-d', $date))
-            : $this->lotteryDataService->getResults($lottery);
+        $result = $date ? $this->lotteryDataService->getPrizesByDate($lottery, \DateTime::createFromFormat('Y-m-d', $date))
+            : $this->lotteryDataService->getPrizes($lottery);
 
-        if($result->success()) {
+        if ($result->success()) {
             return $this->sendJson($result->getValues());
         }
 
         return $this->sendError($result->errorMessage());
     }
 
-    protected function createOrUpdateResults($lottery, $date)
+    protected function createOrUpdatePrizes($lottery, $date)
     {
         $numbers = [
             'main' => [
@@ -104,7 +104,7 @@ class ResultsController extends ApiControllerBase
         return $this->sendError($result->errorMessage());
     }
 
-    protected function deleteResults($lottery, $date)
+    protected function deletePrizes($lottery, $date)
     {
         if (is_null($date)) {
             return $this->sendError('Invalid date');
