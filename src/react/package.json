@@ -25,6 +25,7 @@
     "@babel/plugin-transform-flow-strip-types": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-stage-0": "^7.0.0",
+    "axios": "^0.18.0",
     "babel-plugin-dynamic-import-node": "^2.2.0",
     "classnames": "2.2.5",
     "clean-webpack-plugin": "^2.0.2",

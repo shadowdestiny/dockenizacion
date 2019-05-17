@@ -3,6 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import * as Comparator from "react-bootstrap-table2-filter/lib/src/comparison";
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import filterFactory, {dateFilter} from 'react-bootstrap-table2-filter';
+import axios from "axios";
 /**/
 
 import Modal from 'react-bootstrap-modal';
@@ -76,6 +77,22 @@ class EmDrawsComponent extends Component {
         };
     }
 
+    mapperJackpot(){
+
+    }
+
+    componentWillMount() {
+
+        axios.get('/admin/prizes/eurojackpot').then((response)=>{
+            if(response.data.result === "Ok"){
+                alert("llego");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
     editRow(e,value,editorProps){
 
         if (e.which === 13)
@@ -98,7 +115,7 @@ class EmDrawsComponent extends Component {
                         text: 'Prize',
                         headerStyle:{width:"33%"},
                         editorRenderer:(editorProps, value, row, column, rowIndex, columnIndex)=>{
-                            return <span className={`value ${style.value}`}> € <input type={"text"} ref={ value } defaultValue={ value } onKeyPress={(e)=>(this.editRow(e,value,editorProps))} onChange={()=>{}}/></span>;
+                            return <span className={`value ${style.value}`}> € <input type={"text"} ref={ value } defaultValue={ value } onKeyPress={(e)=>this.editRow(e,value,editorProps)} onChange={()=>{}}/></span>;
                         },
                         formatter: (cell) => {
                             return <div><span className={`value ${style.value}`}>€</span><span>{ cell }</span></div>
@@ -141,15 +158,6 @@ class EmDrawsComponent extends Component {
                 filter: dateFilter(dateFilterConfig),
                 headerStyle:{width:"15%"},
                 formatter: (cell) => {
-                    /*console.log(cell);
-                    let dateObj = cell;
-                    if (typeof cell !== 'object') {
-                        dateObj = new Date(cell);
-                    }
-                    if (cell == null) {
-                        return
-                    }*/
-                    //return `${('0' + (dateObj.getMonth() + 1)).slice(-2)}/${('0' + dateObj.getDate()).slice(-2)}/${dateObj.getFullYear()}`;
                     return `${cell}`;
                 },
             },
@@ -157,7 +165,6 @@ class EmDrawsComponent extends Component {
                 dataField: 'jackpot',
                 text: 'Jackpot',
                 sort: true,
-                //filter: textFilter()
                 headerStyle:{width:"35%"},
                 formatter:(cell,row) => {
                     return `${row.typeMoney+' '+cell}`
@@ -194,7 +201,6 @@ class EmDrawsComponent extends Component {
     clickEdit = (row) => {
 
         let inputEdit = {id:row.id,numbers:row.numbers,lucky:row.lucky,date:row.date,jackpot:row.jackpot};
-
         let allNumbers  = row.numbers.split(" ");
 
         inputEdit.numbers   = allNumbers[0]+","+allNumbers[1]+","+allNumbers[2]+","+allNumbers[3]+","+allNumbers[4];
@@ -286,10 +292,6 @@ class EmDrawsComponent extends Component {
             </div>
         }
         return editSection;
-    }
-
-    componentWillMount() {
-
     }
 
     render() {
