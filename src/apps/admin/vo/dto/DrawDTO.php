@@ -206,7 +206,9 @@ class DrawDTO extends DTOBase implements IDto
             'id' => $this->id,
             'lottery' => $this->draw->getLottery()->getName(),
             'date' => $this->draw_date_formatted,
-            'results' => $this->draw->getResult()->toArray()
+            'jackpot' => $this->jackpot,
+            'results' => $this->draw->getResult()->toArray(),
+            'break_down' => $this->break_down->toArray()
         ];
     }
 
