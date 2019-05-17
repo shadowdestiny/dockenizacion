@@ -64,13 +64,14 @@ let react_module = {
     module: {
         rules: [
             {
-                test: /(\.jsx|\.js)$/,
+                test: /(\.jsx|\.js|sass|css)$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
                 }
             },
-            {oneOf: [
+            {
+                oneOf: [
                     {
                         test: /\.(scss|sass|css)$/,
                         resourceQuery: /^\?raw$/,

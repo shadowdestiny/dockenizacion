@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
 
-import styles from '../../src/styles/main.scss'
+import '../../src/styles/shared/main.scss?raw'
 /**/
 
 import EmDrawsComponent from '../../components/admin/draws/EmDrawsComponent'
@@ -24,10 +24,7 @@ class Draws extends Component {
 
         return (
             <Fragment>
-                <div className={styles.azul}>
-                    hola
                     <EmDrawsComponent></EmDrawsComponent>
-                </div>
             </Fragment>
 
         );

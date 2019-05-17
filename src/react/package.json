@@ -9,10 +9,12 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-react-css-modules": "^5.2.6",
-    "bootstrap": "4",
+    "bootstrap": "4.3.1",
     "create-react-class": "^15.6.3",
     "react": "^16.8.6",
+    "react-bootstrap-modal": "^4.2.0",
     "react-bootstrap-table": "^4.3.1",
+    "react-bootstrap-table-next": "^3.1.2",
     "react-css-modules": "^4.7.11",
     "react-dom": "^16.8.6",
     "react-tooltip": "^3.10.0"
@@ -20,8 +22,11 @@
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-transform-flow-strip-types": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-stage-0": "^7.0.0",
+    "babel-plugin-dynamic-import-node": "^2.2.0",
+    "classnames": "2.2.5",
     "clean-webpack-plugin": "^2.0.2",
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
@@ -33,8 +38,14 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "path": "^0.12.7",
     "popper.js": "^1.14.7",
+    "postcss-nested": "^4.1.2",
     "postcss-scss": "^2.0.0",
     "prop-types": "^15.7.2",
+    "react-bootstrap-table2-editor": "^1.2.3",
+    "react-bootstrap-table2-filter": "^1.1.9",
+    "react-bootstrap-table2-overlay": "^1.0.0",
+    "react-bootstrap-table2-paginator": "^2.0.6",
+    "react-bootstrap-table2-toolkit": "^1.4.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.1.2",
@@ -45,7 +56,7 @@
   "scripts": {
     "watch": "WEBPACK_ENV=development ./node_modules/.bin/webpack --watch --inline",
     "build": "WEBPACK_ENV=build ./node_modules/.bin/webpack",
-    "test": "mocha"
+    "test": "echo implement"
   },
   "repository": {
     "type": "git",
