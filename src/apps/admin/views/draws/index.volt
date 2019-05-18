@@ -25,11 +25,13 @@
 
 {% block body %}
  <div class="wrapper">
-    <div class="container">
+    <div class="container-fluid">
+        <div id="admin-draws"></div>
+
+        {# delete this sections #}
         <div class="module">
             <div class="module-body">
                 <h1 class="h1 purple">Jackpot</h1>hola
-                <div id="admin-draws"></div>
                 <div class="alert alert-success hidden-element">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>Changes Saved</strong>
