@@ -1,8 +1,8 @@
 var React = require('react');
-var EmSelect = require('./EmSelect');
-var ReactTooltip = require("react-tooltip");
-
-var EmSelectDrawDate = React.createClass({
+import EmSelect  from './EmSelect';
+import ReactTooltip  from "react-tooltip";
+var createReactClass = require('create-react-class');
+var EmSelectDrawDate = createReactClass({
 
 
     getInitialState: function () {
@@ -59,4 +59,5 @@ var EmSelectDrawDate = React.createClass({
 
 })
 
-module.exports = EmSelectDrawDate
+// module.exports = EmSelectDrawDate
+export default EmSelectDrawDate;

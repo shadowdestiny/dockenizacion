@@ -1,7 +1,9 @@
 var React = require('react');
-var EuroMillionsClearAllBtn = new React.createClass({
+import PropTypes from 'prop-types';
+var createReactClass = require('create-react-class');
+var EuroMillionsClearAllBtn = createReactClass({
     propTypes: {
-        onBtnClearAllClick : React.PropTypes.func.isRequired
+        onBtnClearAllClick : PropTypes.func.isRequired
     },
     render : function () {
         if(!this.props.show_btn_clear) {
@@ -15,4 +17,5 @@ var EuroMillionsClearAllBtn = new React.createClass({
 
 });
 
-module.exports = EuroMillionsClearAllBtn;
+//module.exports = EuroMillionsClearAllBtn;
+export default EuroMillionsClearAllBtn;

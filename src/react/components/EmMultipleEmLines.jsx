@@ -1,8 +1,8 @@
 var React = require('react');
-var EuroMillionsLine = require('./EmLine.js');
+import EuroMillionsLine from './EmLine.js';
 const GAME_MODE_EUROJACKPOT = 'eurojackpot'
-
-var EuroMillionsMultipleEmLines = React.createClass({
+var createReactClass = require('create-react-class');
+var EuroMillionsMultipleEmLines = createReactClass({
 
     getInitialState: function (){
         return {
@@ -43,4 +43,5 @@ var EuroMillionsMultipleEmLines = React.createClass({
     }
 })
 
-module.exports = EuroMillionsMultipleEmLines;
+// module.exports = EuroMillionsMultipleEmLines;
+export default EuroMillionsMultipleEmLines;

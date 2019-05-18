@@ -1,9 +1,10 @@
 var React = require('react');
-
-var EuroMillionsAddToCart = new React.createClass({
+import PropTypes from 'prop-types';
+var createReactClass = require('create-react-class');
+var EuroMillionsAddToCart = createReactClass({
 
     propTypes: {
-        onBtnAddToCartClick : React.PropTypes.func.isRequired
+        onBtnAddToCartClick : PropTypes.element.isRequired
     },
     render : function () {
 
@@ -19,10 +20,10 @@ var EuroMillionsAddToCart = new React.createClass({
 
         return (
             <a href="javascript:void(0);" onClick={this.props.onBtnAddToCartClick} className={class_name}><span className="value">{this.props.currency_symbol} {price}</span><span className="gap">
-                <span className="separator"></span></span>{this.props.txtNextButton}</a>
+                <span className="separator"></span></span><span>{this.props.txtNextButton}</span></a>
         )
     }
 
 });
 
-module.exports = EuroMillionsAddToCart;
+export default  EuroMillionsAddToCart;

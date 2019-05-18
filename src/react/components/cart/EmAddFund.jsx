@@ -1,5 +1,6 @@
 var React = require('react');
-var EmAddFund = new React.createClass({
+var createReactClass = require('create-react-class');
+var EmAddFund = createReactClass({
 
     displayName: 'AddFund',
 
@@ -102,4 +103,4 @@ var EmAddFund = new React.createClass({
     }
 });
 
-module.exports = EmAddFund;
+export default  EmAddFund;

@@ -1,8 +1,8 @@
 var React = require('react');
-var ReactTooltip = require("react-tooltip");
-var EmSelect = require('./EmSelect.jsx');
-
-var EmSelectDraw = React.createClass({
+import ReactTooltip from "react-tooltip";
+import EmSelect from './EmSelect.jsx';
+var createReactClass = require('create-react-class');
+var EmSelectDraw = createReactClass({
 
     handleChange: function (event) {
           this.props.play_days(event.target.value);
@@ -35,4 +35,4 @@ var EmSelectDraw = React.createClass({
 })
 
 
-module.exports = EmSelectDraw;
+export default  EmSelectDraw;

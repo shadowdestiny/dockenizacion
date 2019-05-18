@@ -1,9 +1,11 @@
+import EuroMilliosnBoxActionPlay from "./EmBoxActionPlay";
+
 var React = require('react');
 
-var EuroMillionsAdvancedPlayBtn = require('./EmAdvancedPlayBtn.jsx');
-var EuroMillionsAddToCart = require('./EmAddToCart.jsx');
-var EmSelectDrawDate = require('./EmSelectDrawDate.jsx');
-
+import EuroMillionsAdvancedPlayBtn from './EmAdvancedPlayBtn.jsx';
+import EuroMillionsAddToCart from './EmAddToCart.jsx';
+import EmSelectDrawDate from './EmSelectDrawDate.jsx';
+var createReactClass = require('create-react-class');
 import {
     GAME_MODE_POWERBALL,
     GAME_MODE_EUROMILLIONS,
@@ -13,7 +15,7 @@ import {
     numberSets
 } from '../config/constants';
 
-var EuroMillionsBoxBottomAction = React.createClass({
+var EuroMillionsBoxBottomAction = createReactClass({
 
     addToCart : function () {
         
@@ -88,4 +90,5 @@ var EuroMillionsBoxBottomAction = React.createClass({
 });
 
 
-module.exports = EuroMillionsBoxBottomAction;
+//module.exports = EuroMillionsBoxBottomAction;
+export default EuroMillionsBoxBottomAction;

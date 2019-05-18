@@ -188,7 +188,7 @@ $(function(){
             ajaxFunctions.search(params);
         }
     });
-    $(document).on('keypress','input',function(e){
+    $(document).on('keypress','input.hasDatepicker',function(e){
         var pattern = /^[0-9\\,]+$/;
         var code = e.which
         var chr = String.fromCharCode(code);

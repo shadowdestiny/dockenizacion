@@ -1,7 +1,7 @@
 var React = require('react');
-var EmSelectDrawDate = require('./EmSelectDrawDate');
-
-var EuroMillionsPlayNextDrawDate = React.createClass({
+import EmSelectDrawDate from './EmSelectDrawDate';
+var createReactClass = require('create-react-class');
+var EuroMillionsPlayNextDrawDate = createReactClass({
 
     displayName : 'EmPlayNextDrawDate',
 
@@ -28,4 +28,4 @@ var EuroMillionsPlayNextDrawDate = React.createClass({
     }
 })
 
-module.exports = EuroMillionsPlayNextDrawDate;
+export default  EuroMillionsPlayNextDrawDate;

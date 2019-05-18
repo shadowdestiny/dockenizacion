@@ -1,7 +1,7 @@
 var React = require('react');
-var EmSelect = require('./EmSelect.jsx');
-
-var EmCustomizableSelect = React.createClass({
+import EmSelect from './EmSelect.jsx';
+var createReactClass = require('create-react-class');
+var EmCustomizableSelect = createReactClass({
     getInitialState: function () {
         return {
             hideSelect: false,
@@ -71,4 +71,5 @@ var EmCustomizableSelect = React.createClass({
     }
 });
 
-module.exports = EmCustomizableSelect;
+// module.exports = EmCustomizableSelect;
+export default EmCustomizableSelect;

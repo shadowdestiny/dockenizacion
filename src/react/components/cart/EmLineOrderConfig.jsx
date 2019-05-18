@@ -1,8 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var EmSelectDrawDuration = require('./../EmSelectDrawDuration.jsx');
-
-var EmLineOrderConfig = new React.createClass({
+import EmSelectDrawDuration from './../EmSelectDrawDuration.jsx';
+var createReactClass = require('create-react-class');
+var EmLineOrderConfig = createReactClass({
 
     displayName: 'EmLineOrderConfig',
 
@@ -88,4 +88,4 @@ var EmLineOrderConfig = new React.createClass({
 
 });
 
-module.exports = EmLineOrderConfig;
+export default  EmLineOrderConfig;

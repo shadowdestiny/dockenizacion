@@ -1,7 +1,9 @@
 var React = require('react');
-var EuroMillionsRandomAllBtn = new React.createClass({
+var  PropTypes = require ('prop-types');
+var createReactClass = require('create-react-class');
+var EuroMillionsRandomAllBtn = createReactClass({
     propTypes: {
-        onBtnRandomAllClick : React.PropTypes.func.isRequired
+        onBtnRandomAllClick : PropTypes.element.isRequired
     },
     render : function(){
         return(
@@ -10,4 +12,4 @@ var EuroMillionsRandomAllBtn = new React.createClass({
     }
 });
 
-module.exports = EuroMillionsRandomAllBtn;
+export default  EuroMillionsRandomAllBtn;

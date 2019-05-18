@@ -1,6 +1,7 @@
 var React = require('react');
-
-var EmNumbersTicket = new React.createClass({
+var  PropTypes = require ('prop-types');
+var createReactClass = require('create-react-class');
+var EmNumbersTicket = createReactClass({
 
     propTypes: {
     },
@@ -19,4 +20,4 @@ var EmNumbersTicket = new React.createClass({
 
 });
 
-module.exports = EmNumbersTicket;
+export default  EmNumbersTicket;
