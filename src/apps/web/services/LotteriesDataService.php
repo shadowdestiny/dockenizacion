@@ -456,7 +456,7 @@ class LotteriesDataService
      * @return EuroMillionsDraw
      * @throws \Exception
      */
-    public function updateDrawResults($lotteryName, \DateTime $date, $numbers)
+    public function updateDrawResults($lotteryName, \DateTime $date, $data)
     {
         try {
             /** @var Lottery $lottery */
@@ -465,7 +465,10 @@ class LotteriesDataService
             if (is_null($draw)) {
                 return new ActionResult(false, 'Error updating: no results for this date');
             }
-            $draw->createResult($numbers['main'], $numbers['lucky']);
+            $amount = (int)$data['jackpot'] * 10;
+            $draw->setJackpot(new Money($amount, new Currency('EUR')));
+            $draw->createBreakDown($data['breakdown']);
+            $draw->createResult($data['numbers']['main'], $data['numbers']['lucky']);
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
             return new ActionResult(true, (new DrawDTO($draw))->getResultsArray());
