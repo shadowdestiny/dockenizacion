@@ -465,7 +465,7 @@ class LotteriesDataService
             if (is_null($draw)) {
                 return new ActionResult(false, 'Error updating: no results for this date');
             }
-            $amount = (int)$data['jackpot'] * 10;
+            $amount = (int)$data['jackpot'] * 100;
             $draw->setJackpot(new Money($amount, new Currency('EUR')));
             $draw->createBreakDown($data['breakdown']);
             $draw->createResult($data['numbers']['main'], $data['numbers']['lucky']);
@@ -483,19 +483,20 @@ class LotteriesDataService
      * @return EuroMillionsDraw
      * @throws \Exception
      */
-    public function createDrawResults($lotteryName, \DateTime $date, $numbers)
+    public function createDrawResults($lotteryName, \DateTime $date, $data)
     {
-        // TO DO
         try {
             /** @var Lottery $lottery */
             $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-            $jackpot = EuroMillionsJackpot::fromAmountIncludingDecimals(0);
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $date]);
             if (!is_null($draw)) {
                 return new ActionResult(false, 'Error creating: a draw for this date already exist');
             }
+            $amount = (int)$data['jackpot'] * 100;
+            $jackpot =  new Money($amount, new Currency('EUR'));
             $draw = $this->createDraw($date, $jackpot, $lottery);
-            $draw->createResult($numbers['main'], $numbers['lucky']);
+            $draw->createBreakDown($data['breakdown']);
+            $draw->createResult($data['numbers']['main'], $data['numbers']['lucky']);
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
             return new ActionResult(true, (new DrawDTO($draw))->getResultsArray());
