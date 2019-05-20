@@ -161,6 +161,6 @@ let sass_module = {
 };
 
 module.exports = [
+    //sass_module,
     react_module,
-    sass_module
 ];
