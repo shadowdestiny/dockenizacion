@@ -112,7 +112,7 @@ class EmDrawsComponent extends Component {
         let formatDate = (dateString) => {
             let date = new Date(dateString);
             let monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            return (date.getDate() + 1)+" "+monthName[date.getMonth()]+" "+date.getFullYear();
+            return (date.getUTCDate())+" "+monthName[date.getUTCMonth()]+" "+date.getUTCFullYear();
         };
 
         let formatNumber = (results) =>{
@@ -173,7 +173,7 @@ class EmDrawsComponent extends Component {
 
 
         let params = {
-            date : this.getDateFormatToString(input.date),
+            date : this.getDateFormatToString(new Date(input.date)),
             regular_number_one:numbers[0],
             regular_number_two:numbers[1],
             regular_number_three:numbers[2],
