@@ -9,15 +9,13 @@ import Modal from 'react-bootstrap-modal';
 import axios from "axios";
 import objectToFormData from 'object-to-formdata';
 
-// temporal comment
-/*import DayPickerInput from 'react-day-picker/DayPickerInput';
+
+import DayPickerInput from 'react-day-picker/DayPickerInput';
 import MomentLocaleUtils, {
     formatDate,
     parseDate,
 } from 'react-day-picker/moment';
-import 'moment/locale/en';*/
-/**/
-
+import 'moment/locale/it';
 
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css?raw';
 import '../../../src/styles/shared/components/pagination.scss?raw';
@@ -175,7 +173,7 @@ class EmDrawsComponent extends Component {
 
 
         let params = {
-
+            date : this.getDateFormatToString(input.date),
             regular_number_one:numbers[0],
             regular_number_two:numbers[1],
             regular_number_three:numbers[2],
@@ -270,7 +268,8 @@ class EmDrawsComponent extends Component {
             });
             setTimeout(()=>{
                 this.setState({
-                    isDoneAdd : false
+                    isDoneAdd   : false,
+                    open        : false
                 });
             },3000);
         }
@@ -619,10 +618,10 @@ class EmDrawsComponent extends Component {
             <form>
                 <div className={bootstrap["form-row"]}>
                     <input type="hidden" value={this.state.inputAdd.id} onChange={() => {}}/>
-                    {/*<div className={`${bootstrap["form-group"]} ${bootstrap["col-md-3"]}` }>
+                    <div className={`${bootstrap["form-group"]} ${bootstrap["col-md-3"]}` }>
                         <label htmlFor="inputDate">Date</label>
                         <div >
-                            https://react-day-picker.js.org/examples/input
+                            {/*https://react-day-picker.js.org/examples/input*/}
                             <DayPickerInput
                                 onDayChange={day => {this.setDate(day)}}
                                 id="inputDate"
@@ -637,8 +636,8 @@ class EmDrawsComponent extends Component {
                                 }}
                             />
                         </div>
-                    </div>*/}
-                    <div className={`${bootstrap["form-group"]} ${bootstrap["col-md-4"]}` }>
+                    </div>
+                    <div className={`${bootstrap["form-group"]} ${bootstrap["col-md-3"]}` }>
                         <label htmlFor="inputNumbers">Numbers</label>
                         <input type="text" className={bootstrap["form-control"]} id="inputNumbers" placeholder="Numbers" value={this.state.inputAdd.numbers} onChange={(e) => {this.setNumbers(e,"add")}}/>
                         {this.state.validators.numbers.show ?
@@ -647,7 +646,7 @@ class EmDrawsComponent extends Component {
                             </div> : ''
                         }
                     </div>
-                    <div className={`${bootstrap["form-group"]} ${bootstrap["col-md-4"]}` }>
+                    <div className={`${bootstrap["form-group"]} ${bootstrap["col-md-3"]}` }>
                         <label htmlFor="inputJackpot">Jackpot</label>
                         <input type="text" className={bootstrap["form-control"]} id="inputJackpot" placeholder="Jackpot" value={this.state.inputAdd.jackpot} onChange={(e) => {this.setJackpot(e,"add")}}/>
                         {this.state.validators.jackpot.show ?
@@ -656,7 +655,7 @@ class EmDrawsComponent extends Component {
                             </div> : ''
                         }
                     </div>
-                    <div className={`${bootstrap["form-group"]} ${bootstrap["col-md-4"]}` }>
+                    <div className={`${bootstrap["form-group"]} ${bootstrap["col-md-3"]}` }>
                         <label htmlFor="inputLucky">Lucky</label>
                         <input type="text" className={bootstrap["form-control"]} id="inputLucky" placeholder="Lucky" value={this.state.inputAdd.lucky} onChange={(e) => {this.setLucky(e,"add")}}/>
                         {this.state.validators.luckys.show ?
